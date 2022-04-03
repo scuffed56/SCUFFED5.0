@@ -1,0 +1,49 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			random_country = {
+				set_global_flag = scornful_insults_mod_enabled
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = insults_expanded_rule_effects_of_insults
+							option = INSULTS_AFFECT_NONE
+						}
+					}
+					set_global_flag = insults_expanded_disallow_stability_influencing
+					set_global_flag = insults_expanded_disallow_wt_influencing
+				}
+				else_if = {
+					limit = {
+						has_game_rule = {
+							rule = insults_expanded_rule_effects_of_insults
+							option = INSULTS_AFFECT_WORLD_TENSION
+						}
+					}
+					set_global_flag = insults_expanded_disallow_stability_influencing
+				}
+				else_if = {
+					limit = {
+						has_game_rule = {
+							rule = insults_expanded_rule_effects_of_insults
+							option = INSULTS_AFFECT_STABILITY
+						}
+					}
+					set_global_flag = insults_expanded_disallow_wt_influencing
+				}
+			}
+		}
+	}
+	
+	on_daily = {
+		effect = {
+			if = {
+				limit = {
+					has_variable = last_insult_sent_this_amount_of_days_ago
+					check_variable = { last_insult_sent_this_amount_of_days_ago > 0 }
+				}
+				subtract_from_variable = { last_insult_sent_this_amount_of_days_ago = 1 }
+			}
+		}
+	}
+}

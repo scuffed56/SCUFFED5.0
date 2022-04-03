@@ -1,0 +1,1760 @@
+focus_tree = {
+	id = cuban_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = CUB
+		}
+	}
+	default = no
+shared_focus = ABC_establish_a_general_staff	
+shared_focus = GEN_Aviation_Effort
+shared_focus = GEN_Naval_Effort
+shared_focus = GEN_Industrial_Start
+shared_focus = GEN_Industrial_Boom
+shared_focus = CARIB_caribbean_unification
+
+
+continuous_focus_position = { x = 0 y = 900 }
+
+
+	focus = {
+		id = CUB_results_of_the_presidential_election
+		icon = GFX_goal_cuba_presidential_election
+		cost = 1.3
+		x = 49
+		y = 0
+
+		bypass = {
+			has_country_flag = cuba_election_flag_1936
+		}
+
+		completion_reward = {
+			add_stability = 0.02
+			custom_effect_tooltip = CUB_results_of_the_presidential_election_tt
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+	}
+	focus = {
+		id = CUB_victory_for_garcia_menocal
+		icon = GFX_goal_cuba_victory_for_garcia_menocal
+		cost = 10
+		prerequisite = {
+			focus = CUB_results_of_the_presidential_election
+		}
+		mutually_exclusive = {
+			focus = CUB_victory_for_gomez
+		}
+		available = {
+			has_country_flag = garcia_menocal_inaugurated_flag
+		}
+		bypass = {
+			has_country_flag = garcia_menocal_inaugurated_flag
+		}
+		completion_reward = {
+			custom_effect_tooltip = CUB_president_inaugurated_tt
+		}
+		x = 2
+		y = 1
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_reverse_left_wing_reforms
+		icon = GFX_goal_cuba_repeal_left_wing_reforms
+		cost = 10
+		prerequisite = {
+			focus = CUB_victory_for_garcia_menocal
+		}
+		completion_reward = {
+			add_ideas = CUB_reverse_left_wing_reforms
+			custom_effect_tooltip = CUB_reverse_left_wing_reforms_tt
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = 1
+		y = 2
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_staff_the_cabinet_with_civilians
+		icon = GFX_goal_staff_the_cabinet_with_civilians
+		cost = 10
+		prerequisite = {
+			focus = CUB_victory_for_garcia_menocal
+		}
+		mutually_exclusive = { focus = CUB_invite_falangists }
+		completion_reward = {
+			add_political_power = 160
+			custom_effect_tooltip = CUB_staff_the_cabinet_with_civilians_tt
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		x = 3
+		y = 2
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_invite_falangists
+		icon = GFX_focus_spa_the_phalanx_ascendant
+		cost = 10
+		prerequisite = {
+			focus = CUB_victory_for_garcia_menocal
+		}
+		mutually_exclusive = { focus = CUB_staff_the_cabinet_with_civilians }
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		x = 2
+		y = 0
+		relative_position_id = CUB_staff_the_cabinet_with_civilians
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = {
+			    ideology = fascism
+			    popularity = 0.1
+			}
+		}
+	}	
+	focus = {
+		id = CUB_defeat_batista_influence
+		icon = GFX_goal_cuba_defeat_batista_influence
+		cost = 10
+		prerequisite = {
+			focus = CUB_reverse_left_wing_reforms
+		}
+		prerequisite = {
+			focus = CUB_staff_the_cabinet_with_civilians
+			focus = CUB_invite_falangists
+		}
+		completion_reward = {
+			country_event = cuba.4
+		}
+		x = 2
+		y = 3
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_trial_of_the_officers
+		icon = GFX_goal_cuba_trial_of_the_officers
+		cost = 10
+		prerequisite = {
+			focus = CUB_defeat_batista_influence
+		}
+		mutually_exclusive = {
+			focus = CUB_batista_coup
+			focus = CUB_nationalist_influence_over_the_military
+		}
+		available = {
+			has_country_flag = batista_defeated_flag
+		}
+		completion_reward = {
+			add_stability = 0.15
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+		x = 2
+		y = 4
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_nationalist_influence_over_the_military
+		icon = GFX_goal_extensive_conscription_fascism #GFX_goal_support_fascism
+		cost = 5
+		prerequisite = {
+			focus = CUB_defeat_batista_influence
+		}
+		mutually_exclusive = {
+			focus = CUB_batista_coup
+			focus = CUB_trial_of_the_officers
+		}
+		available = {
+			has_country_flag = batista_defeated_flag
+		}
+		x = 9
+		y = 1
+		relative_position_id = CUB_defeat_batista_influence
+		
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+
+		completion_reward = {
+			add_war_support = 0.1
+			add_popularity = {
+			    ideology = fascism
+			    popularity = 0.1
+			}	
+			add_timed_idea = { idea = nationalism days = 720 }		
+		}
+	}
+	focus = {
+		id = CUB_secure_power
+		icon = GFX_goal_support_fascism
+		cost = 5
+		prerequisite = {
+			focus = CUB_nationalist_influence_over_the_military
+		}
+
+		available = {
+			fascism > 0.4
+		}
+
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		x = 0
+		y = 1
+		relative_position_id = CUB_nationalist_influence_over_the_military
+		completion_reward = {
+			if = {
+				limit = {
+					fascism < 0.5
+				}
+				set_political_party = {
+					ideology = fascism
+					popularity = 50
+				}
+			}
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+			add_political_power = 50
+			add_stability = -0.05	
+		}
+	}
+	focus = {
+		id = CUB_state_intervention
+		icon = GFX_goal_generic_state_economy
+		prerequisite = { focus = CUB_secure_power }
+		x = 0
+		y = 1
+		relative_position_id = CUB_secure_power
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 40
+		}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}				
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = CUB_army_expansion
+		icon = GFX_goal_manpower
+		prerequisite = { focus = CUB_secure_power }
+		x = 2
+		y = 1
+		relative_position_id = CUB_secure_power
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 40
+		}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_ideas = militarism_focus
+			army_experience = 20
+			set_rule = { can_send_volunteers = yes }
+		}
+		search_filters = {  FOCUS_FILTER_MANPOWER }
+	}
+	focus = {
+		id = CUB_reinforce_the_security_apparatus
+		icon = GFX_goal_generic_secret_police_2
+		cost = 10.00
+		prerequisite = {
+			focus = CUB_army_expansion
+		}
+		relative_position_id = CUB_army_expansion
+		x = 0
+		y = 3
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+					NOT = {
+						has_intelligence_agency = yes
+					}
+				}
+				create_intelligence_agency = yes
+			}			
+			add_tech_bonus = {
+				name = mp_tech_bonus_name
+				bonus = 1
+				uses = 2
+				category = military_police_tech
+			}
+		}
+		search_filters = {  FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
+
+	}	
+	focus = {
+		id = CUB_youth_mobilization
+		icon = GFX_focus_generic_military_academy
+		prerequisite = { focus = CUB_army_expansion }
+		
+		x = 1
+		y = 1
+		relative_position_id = CUB_army_expansion
+		
+		cost = 10
+
+		available_if_capitulated = yes
+
+		available = {
+			OR = {
+				has_government = fascism
+				has_government = communism
+			}
+		}
+		
+		completion_reward = {
+			add_political_power = 25
+		
+			if = {
+				limit = {
+					has_government = fascism
+				}
+				ROOT = {
+					add_ideas = GEN_Organise_Youth_Fas_I
+				}
+			}
+			
+			if = {
+				limit = {
+					has_government = communism
+				}
+				ROOT = {
+					add_ideas = GEN_Organise_Youth_Com_I
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
+	}
+	focus = {
+
+		id = CUB_fanatical_commitment
+
+		icon = GFX_goal_generic_army_elite
+		prerequisite = { focus = CUB_youth_mobilization }
+		
+		x = 0
+		y = 1
+		relative_position_id = CUB_youth_mobilization
+		
+		cost = 10
+
+		available_if_capitulated = yes
+
+		available = {
+			OR = {
+				has_government = fascism
+				has_government = communism
+			}
+		}
+		
+		completion_reward = {
+			add_ideas = ideological_fanaticism_focus
+			hidden_effect = {
+				set_rule = { can_use_kamikaze_pilots = yes }
+			}
+			custom_effect_tooltip = kamikaze_focus_tooltip
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+	}		
+	focus = {
+		id = CUB_invade_hispaniola
+		icon = GFX_goal_cuba_attack_dominican_republic
+		x = -1
+		y = 1
+		prerequisite = { focus = CUB_army_expansion focus = CUB_state_intervention }
+		relative_position_id = CUB_army_expansion
+		cost = 10
+
+		ai_will_do = {
+			factor = 25
+		}
+
+		available = {
+			is_puppet = no
+			r56_script_i_am_sane = yes
+			OR = {
+				DOM = {
+					r56_script_target_is_sane = yes
+				}
+				HAI = {
+					r56_script_target_is_sane = yes
+				}				
+			}
+						
+		}
+		bypass = {
+			#AFG = {
+			#	r56_script_standard_bypass = yes
+			#}			
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = GER_landing_craft
+				bonus = 1
+				uses = 1
+				category = tp_tech
+			}			
+			if = {
+				limit = {
+					NOT = {
+						owns_state = 319
+					}
+				}			
+				319 = {
+					OWNER = {
+						ROOT = {
+							create_wargoal = {
+								target = PREV
+								expire = 0
+								type = take_state_focus
+								generator = { 319 }
+							}
+							add_ai_strategy = {
+								type = conquer
+								id = PREV
+								value = 200
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						owns_state = 318
+					}
+				}
+				318 = {
+					OWNER = {
+						ROOT = {
+							create_wargoal = {
+								target = PREV
+								expire = 0
+								type = take_state_focus
+								generator = { 318 }
+							}
+							add_ai_strategy = {
+								type = conquer
+								id = PREV
+								value = 200
+							}
+						}
+					}
+				}			
+			}			
+			
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+	focus = {
+		id = CUB_amphibious_equipment
+		icon = GFX_goal_generic_amphibious_assault
+		prerequisite = { focus = CUB_invade_hispaniola }
+		x = 0
+		y = 1
+		relative_position_id = CUB_invade_hispaniola
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+
+		}
+
+		completion_reward = {				
+			add_tech_bonus = {
+				name = JAP_expand_the_snlf
+				bonus = 1
+				uses = 1
+				category = marine_tech
+			}
+			add_tech_bonus = {
+				name = JAP_expand_the_snlf
+				bonus = 1.0
+				uses = 1
+				category = r56_special_forces_training_tech 
+			}			
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = JAP_expand_the_snlf
+					bonus = 1
+					uses = 1
+					category = amphibious_armor_tech
+				}				
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}	
+	focus = {
+		id = CUB_alliance_with_the_americans
+		icon = GFX_Goal_USA_befriend_america
+		relative_position_id = CUB_secure_power 
+		prerequisite = { focus = CUB_secure_power }
+		x = 4
+		y = 1
+		cost = 5
+		
+
+		available = {
+
+			is_in_faction = no
+
+			
+			is_puppet = no
+			any_other_country = {
+				original_tag = USA
+				has_government = fascism
+				
+				is_in_faction = no
+					
+				
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+
+			if = {
+				limit = {
+					is_faction_leader = no
+					any_country = {
+						original_tag = USA
+						has_government = fascism
+						is_faction_leader = yes													
+					}
+				}
+				random_country = {
+					limit = {
+						original_tag = USA
+						has_government = fascism
+						is_faction_leader = yes						
+					}
+					country_event = generic.5
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
+	}	
+	focus = {
+		id = CUB_alliance_with_the_central_american_state
+		icon = GFX_goal_MEX_march_southwards
+		relative_position_id = CUB_secure_power 
+		prerequisite = { focus = CUB_secure_power }
+		x = 5
+		y = 2
+		cost = 5
+		
+
+		available = {
+			OR = {
+				is_in_faction = no
+				is_faction_leader = yes
+			}
+			
+			is_puppet = no
+			any_other_country = {
+				has_government = fascism
+				OR = {
+					is_in_faction = no
+					is_faction_leader = yes
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+				custom_trigger_tooltip = {
+					tooltip = central_american_unifier_tt		
+				}	
+				OR = {
+					has_cosmetic_tag = USC_UNIFIED
+					has_cosmetic_tag = ANCAP
+					has_cosmetic_tag = UFC
+					has_cosmetic_tag = CRCA
+				}
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				random_country = {
+					limit = {
+						OR = {
+							has_cosmetic_tag = USC_UNIFIED
+							has_cosmetic_tag = ANCAP
+							has_cosmetic_tag = UFC
+							has_cosmetic_tag = CRCA
+						}						
+					}
+					country_event = generic.2
+				}
+			}
+			if = {
+				limit = {
+					is_faction_leader = no
+					any_country = {
+						OR = {
+							has_cosmetic_tag = USC_UNIFIED
+							has_cosmetic_tag = ANCAP
+							has_cosmetic_tag = UFC
+							has_cosmetic_tag = CRCA
+						}						
+					}
+				}
+				random_country = {
+					limit = {
+						OR = {
+							has_cosmetic_tag = USC_UNIFIED
+							has_cosmetic_tag = ANCAP
+							has_cosmetic_tag = UFC
+							has_cosmetic_tag = CRCA
+						}						
+					}
+					country_event = generic.5
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
+	}
+	focus = {
+		id = CUB_alliance_with_gran_colombia
+		icon = GFX_goal_COL_legitimize_gran_colombia
+		relative_position_id = CUB_secure_power 
+		prerequisite = { focus = CUB_secure_power }
+		x = 6
+		y = 1
+		cost = 5
+		
+
+		available = {
+			OR = {
+				is_in_faction = no
+				is_faction_leader = yes
+			}
+			
+			is_puppet = no
+			any_other_country = {
+				has_government = fascism
+				OR = {
+					is_in_faction = no
+					is_faction_leader = yes
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+				custom_trigger_tooltip = {
+					tooltip = gran_colombia_unifier_tt		
+				}	
+				has_cosmetic_tag = GCO_UNIFIED
+				
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					is_faction_leader = yes
+				}
+				random_country = {
+					limit = {
+						has_cosmetic_tag = GCO_UNIFIED						
+					}
+					country_event = generic.2
+				}
+			}
+			if = {
+				limit = {
+					is_faction_leader = no
+					any_country = {
+						has_cosmetic_tag = GCO_UNIFIED					
+					}
+				}
+				random_country = {
+					limit = {
+						has_cosmetic_tag = GCO_UNIFIED						
+					}
+					country_event = generic.5
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
+	}
+	focus = {
+		id = CUB_join_spain
+		icon = GFX_focus_generic_invite_nat_spain
+		relative_position_id = CUB_secure_power 
+		prerequisite = { focus = CUB_secure_power }
+		x = 7
+		y = 2
+		cost = 2
+		
+		ai_will_do = {
+			factor = 20
+			modifier = {
+				has_completed_focus = CUB_spanish_civil_war_involvement
+				factor = 50
+			}
+		}
+
+		available = {
+			is_in_faction = no
+			is_puppet = no
+			any_country = {
+				
+				original_tag = SPR
+				
+				has_government = fascism
+				is_faction_leader = yes
+				NOT = {
+					has_war_with = ROOT
+				}				
+			}
+		}
+		completion_reward = {
+			
+			random_other_country = {
+				limit = {
+					original_tag = SPR
+					has_government = fascism
+					is_faction_leader = yes
+					NOT = {
+						has_war_with = ROOT
+					}							
+				}
+				country_event = generic.2
+			}
+
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = CUB_join_mexico
+		icon = GFX_goal_mexico_mexico_first
+		relative_position_id = CUB_secure_power 
+		prerequisite = { focus = CUB_secure_power }
+		x = 8
+		y = 1
+		cost = 2
+		ai_will_do = {
+			factor = 10
+		}		
+
+		available = {
+			is_in_faction = no
+			is_puppet = no
+			any_country = {
+				
+				original_tag = MEX
+				
+				has_government = fascism
+				is_faction_leader = yes
+				NOT = {
+					has_war_with = ROOT
+				}				
+			}
+		}
+		completion_reward = {
+			
+			random_other_country = {
+				limit = {
+					original_tag = MEX
+					has_government = fascism
+					is_faction_leader = yes
+					NOT = {
+						has_war_with = ROOT
+					}							
+				}
+				country_event = generic.2
+			}
+
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = CUB_join_argentina
+		icon = GFX_goal_CHL_alliance_with_the_argentinians
+		relative_position_id = CUB_secure_power 
+		prerequisite = { focus = CUB_secure_power }
+		x = 9
+		y = 2
+		cost = 2
+		
+
+		available = {
+			is_in_faction = no
+			is_puppet = no
+			ARG = {
+				has_government = fascism
+				is_faction_leader = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			ARG = {
+				country_event = generic.2
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = CUB_join_the_reich
+		icon = GFX_focus_chi_mission_to_germany
+		relative_position_id = CUB_secure_power 
+		prerequisite = { focus = CUB_secure_power }
+		x = 10
+		y = 1
+		cost = 2
+		
+
+		available = {
+			is_in_faction = no
+			is_puppet = no
+			GER = {
+				has_government = fascism
+				is_faction_leader = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			GER = {
+				country_event = generic.2
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = CUB_alliance_with_italy
+		relative_position_id = CUB_secure_power 
+		prerequisite = { focus = CUB_secure_power }
+		x = 11
+		y = 2
+		icon = GFX_goal_italian_cooperation
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 10
+		}
+		
+		available = {
+			is_in_faction = no
+			is_puppet = no
+			ITA = {
+				has_government = fascism
+				is_faction_leader = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			ITA = {
+				country_event = generic.2
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
+		id = CUB_alliance_with_canada
+		relative_position_id = CUB_secure_power 
+		prerequisite = { focus = CUB_secure_power }
+		x = 12
+		y = 1
+		icon = GFX_goal_CAN_maple_leaf
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 10
+		}
+		
+		available = {
+			is_in_faction = no
+			is_puppet = no
+			CAN = {
+				has_government = fascism
+				is_faction_leader = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			CAN = {
+				country_event = generic.2
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}												
+	focus = {
+		id = CUB_stimulate_exportations
+		icon = GFX_goal_cuba_stimulate_exportations
+		cost = 10
+		prerequisite = {
+			focus = CUB_trial_of_the_officers
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = 1
+		y = 5
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_the_presidential_guard
+		icon = GFX_goal_cuba_presidential_guard
+		cost = 10
+		prerequisite = {
+			focus = CUB_trial_of_the_officers
+		}
+		completion_reward = {
+			add_ideas = CUB_the_presidential_guard
+		}
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		x = 3
+		y = 5
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_rewrite_the_constitution
+		icon = GFX_goal_cuba_rewrite_the_constitution
+		cost = 10
+		prerequisite = {
+			focus = CUB_stimulate_exportations
+		}
+		prerequisite = {
+			focus = CUB_the_presidential_guard
+		}
+		completion_reward = {
+			add_ideas = CUB_rewrite_the_constitution
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		x = 2
+		y = 6
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_batista_coup
+		icon = GFX_goal_cuba_batista_coup
+		cost = 5
+		prerequisite = {
+			focus = CUB_defeat_batista_influence
+		}
+		mutually_exclusive = {
+			focus = CUB_trial_of_the_officers
+			focus = CUB_nationalist_influence_over_the_military
+		}
+		available = {
+			has_country_flag = batista_coup_flag
+		}
+		completion_reward = {
+			add_political_power = 100
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		x = 6
+		y = 4
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_align_with_the_radicals
+		icon = GFX_goal_generic_communist_pride
+		cost = 10
+		prerequisite = {
+			focus = CUB_batista_coup
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = CUB_reverse_left_wing_reforms
+				add_idea = CUB_align_with_the_radicals
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = 5
+		y = 5
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_end_american_influence
+		icon = GFX_goal_cuba_end_american_influence
+		cost = 10
+		prerequisite = {
+			focus = CUB_batista_coup
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_popularity = {
+			    ideology = communism
+			    popularity = 0.1
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = 7
+		y = 5
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_abandon_capitalism
+		icon = GFX_focus_GRE_red_victory
+		cost = 10
+		prerequisite = {
+			focus = CUB_align_with_the_radicals
+		}
+		prerequisite = {
+			focus = CUB_end_american_influence
+		}
+		completion_reward = {
+			add_popularity = {
+			    ideology = communism
+			    popularity = 0.5
+			}
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		x = 6
+		y = 6
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_spanish_civil_war_involvement
+		icon = GFX_goal_generic_spanish_civil_war_soldier
+		relative_position_id = CUB_abandon_capitalism
+		prerequisite = { focus = CUB_abandon_capitalism focus = CUB_secure_power }
+		x = 3
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				is_historical_focus_on = no
+				has_global_flag = scw_is_ai_driven
+				ROOT = {
+					has_war = no
+					OR = {
+						has_government = fascism
+						has_government = communism
+					}
+				}
+				add = 8
+			}
+		}
+		bypass = {
+			has_global_flag = r56_scw_our_own_ending_check
+		}
+		available = {
+			has_global_flag = spanish_civil_war
+			has_war = no
+			NOT = {
+				has_global_flag = r56_scw_our_own_ending_check 
+			}
+		}
+
+		completion_reward = {
+			set_rule = { can_send_volunteers = yes }
+			add_timed_idea = {
+				idea = r56_CHL_spanish_civil_war_involvement
+				days = 1100
+			}
+			
+		}
+		search_filters = { FOCUS_FILTER_MILITARY_IMPROVEMENT FOCUS_FILTER_POLITICAL FOCUS_FILTER_SPA_CIVIL_WAR }
+	}
+	focus = {
+		id = CUB_intervene_ACW
+		icon = GFX_goal_CAN_scheme_no1
+		relative_position_id = CUB_spanish_civil_war_involvement
+		x = 0
+		y = 1
+		
+		search_filters = { FOCUS_FILTER_MILITARY_IMPROVEMENT FOCUS_FILTER_POLITICAL }
+
+		cost = 10
+		
+		ai_will_do = {
+			factor = 6
+		}
+
+		allow_branch = {
+			has_dlc = "Man the Guns"
+		}
+		
+		prerequisite = {
+			focus = CUB_spanish_civil_war_involvement
+
+		}
+		
+		mutually_exclusive = {
+
+		}
+		
+		available = {
+			OR = {
+				USA = {
+					has_completed_focus = USA_america_first
+					has_civil_war = yes
+				}
+				any_other_country = {
+					exists = yes
+					original_tag = USA
+					has_government = fascism
+					has_civil_war = yes
+				}								
+			}
+		}
+		
+		bypass = {
+			USA = { exists = no }
+			has_war_with = USA
+		}
+
+		completion_reward = {
+			random_country = {
+				limit = {
+					original_tag = USA
+					has_government = fascism
+					has_civil_war = yes					
+				}
+				add_opinion_modifier = { 
+					target = ROOT
+					modifier = R56_CAN_ACW_modifer
+				}
+			}
+			add_ideas = r56_CAN_intervene_ACW_idea
+		}
+	}	
+	focus = {
+		id = CUB_join_the_comintern
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+		cost = 10
+		prerequisite = {
+			focus = CUB_abandon_capitalism
+		}
+		available = {	
+			is_puppet = no
+			is_in_faction = no
+			any_other_country = {
+				is_major = yes
+				has_government = communism
+				is_faction_leader = yes
+				has_capitulated = no
+				NOT = { has_war_with = ROOT }
+				NOT = {
+					any_other_country = {
+						is_in_faction_with = PREV
+						has_war_with = ROOT
+					}
+				}						
+			}		
+		}
+		bypass = {
+		
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					SOV = {
+						has_government = communism
+						is_faction_leader = yes
+						has_capitulated = no
+						NOT = { has_war_with = ROOT }
+					}
+					NOT = {
+						any_other_country = {
+							is_in_faction_with = SOV
+							has_war_with = ROOT
+						}
+					}					
+				}
+				SOV = {
+					country_event = generic.2
+				}
+			}
+			else = {
+				get_best_alliance_match_communism_effect = yes
+				var:best_leader = {
+					country_event = generic.2
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
+		x = 5
+		y = 7
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_support_anti_imperialism_in_the_caribbean
+		icon = GFX_goal_cuba_carribean_anti_imperialism
+		cost = 10
+		prerequisite = {
+			focus = CUB_abandon_capitalism
+		}
+		completion_reward = {
+			add_ideas = CUB_support_anti_imperialism_in_the_caribbean
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		x = 7
+		y = 7
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_execute_operation_amanecer
+		icon = GFX_goal_cuba_attack_dominican_republic
+		cost = 10
+		available = {
+			DOM = {
+				NOT = {
+					has_war_with = CUB
+					is_in_faction_with = CUB
+					has_government = communism
+				}
+				is_puppet = no
+
+			}
+		}
+		prerequisite = {
+			focus = CUB_join_the_comintern
+		}
+		prerequisite = {
+			focus = CUB_support_anti_imperialism_in_the_caribbean
+		}
+		completion_reward = {
+			DOM = {
+				country_event = {
+				    id = cuba.8
+				    days = 2
+				}
+			}
+		}
+		x = 6
+		y = 8
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_victory_for_gomez
+		icon = GFX_goal_cuba_victory_for_gomez
+		cost = 10
+		prerequisite = {
+			focus = CUB_results_of_the_presidential_election
+		}
+		mutually_exclusive = {
+			focus = CUB_victory_for_garcia_menocal
+		}
+		available = {
+				has_country_flag = gomez_inaugurated_flag
+		}
+		bypass = {
+			has_country_flag = gomez_inaugurated_flag
+		}
+		completion_reward = {
+			custom_effect_tooltip = CUB_president_inaugurated_tt
+		}
+		x = -2
+		y = 1
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_the_nine_cent_law
+		icon = GFX_goal_cuba_nine_cents_law
+		cost = 10
+		prerequisite = {
+			focus = CUB_victory_for_gomez
+		}
+		completion_reward = {
+			add_ideas = CUB_the_nine_cent_law
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = -2
+		y = 2
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_issue_amnesties
+		icon = GFX_goal_cuba_issuing_amnesties
+		cost = 10
+		prerequisite = {
+			focus = CUB_the_nine_cent_law
+		}
+		completion_reward = {
+			add_stability = 0.1
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+		x = -3
+		y = 3
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_diminish_american_influence
+		icon = GFX_goal_cuba_diminish_american_influence
+		cost = 10
+		prerequisite = {
+			focus = CUB_issue_amnesties
+		}
+		completion_reward = {
+			add_political_power = 200
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		x = -3
+		y = 4
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_social_welfare_laws
+		icon = GFX_goal_cuba_support_the_confederation_of_cuban_workers
+		cost = 10
+		prerequisite = {
+			focus = CUB_the_nine_cent_law
+		}
+		completion_reward = {
+			add_ideas = CUB_social_welfare_laws
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = -1
+		y = 3
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_law_of_sugar_coordination
+		icon = GFX_goal_cuba_law_of_sugar_coordination
+		cost = 10
+		prerequisite = {
+			focus = CUB_social_welfare_laws
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = -1
+		y = 4
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_confederation_of_cuban_workers
+		icon = GFX_focus_eng_concessions_to_the_trade_unions
+		cost = 10
+		prerequisite = {
+			focus = CUB_diminish_american_influence
+		}
+		prerequisite = {
+			focus = CUB_law_of_sugar_coordination
+		}
+		completion_reward = {
+			add_ideas = CUB_confederation_of_cuban_workers
+			add_popularity = {
+			    ideology = communism
+			    popularity = 0.05
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		x = -2
+		y = 5
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_join_the_allies
+		icon = GFX_goal_cuba_join_the_allies
+		cost = 10
+		prerequisite = {
+			focus = CUB_rewrite_the_constitution
+			focus = CUB_confederation_of_cuban_workers
+		}
+		available = {
+			is_puppet = no
+			is_in_faction = no
+			any_other_country = {
+				is_major = yes
+				has_government = democratic
+				is_faction_leader = yes
+				has_capitulated = no
+				NOT = { has_war_with = ROOT }
+				NOT = {
+					any_other_country = {
+						is_in_faction_with = PREV
+						has_war_with = ROOT
+					}
+				}						
+			}	
+		}
+        completion_reward = {
+            if = {
+                limit = {
+                    USA = {
+                        has_government = democratic
+                    }
+                }
+                USA = {
+                     add_opinion_modifier = { target = VEN modifier = medium_increase }
+                }
+            }
+            if = {
+				limit = {
+					ENG = {
+						has_government = democratic
+						is_faction_leader = yes
+						NOT = {
+							has_completed_focus = ENG_a_change_in_course
+							has_completed_focus = ENG_visit_germany
+						}
+						has_capitulated = no
+						NOT = { has_war_with = ROOT }
+					}
+					NOT = {
+						any_other_country = {
+							is_in_faction_with = ENG
+							has_war_with = ROOT
+						}
+					}					
+				}
+				ENG = {
+					country_event = { id = generic.2 }
+                     add_opinion_modifier = { target = VEN modifier = medium_increase }
+				}
+			}
+			else = {
+				get_best_alliance_match_democratic_effect = yes
+				var:best_leader = {
+					country_event = generic.2
+				}
+			}		
+
+        }
+		search_filters = { FOCUS_FILTER_ALLIANCE }
+		x = -1
+		y = 7
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+	focus = {
+		id = CUB_san_antonio_air_base
+		icon = GFX_goal_generic_air_doctrine
+		x = -2
+		y = 8
+		relative_position_id = CUB_results_of_the_presidential_election
+		cost = 10
+		prerequisite = {
+			focus = CUB_join_the_allies
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				prioritize = {315}
+				add_building_construction = {
+					type = air_base
+					level = 4
+					instant_build = yes
+				}
+			}
+
+			add_equipment_to_stockpile = {
+			    type = fighter_equipment_0
+			    amount = 350
+			    producer = USA
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY_EQUIPMENT }
+	}
+	focus = {
+		id = CUB_winning_the_battle_of_the_caribbean
+		icon = GFX_goal_generic_occupy_states_coastal
+		cost = 10
+    x = 0
+		y = 8
+		relative_position_id = CUB_results_of_the_presidential_election
+		prerequisite = {
+			focus = CUB_join_the_allies
+		}
+		completion_reward = {
+			set_technology = {
+			    early_destroyer  = 1
+			    basic_destroyer = 1
+			}
+			add_ideas = CUB_winning_the_battle_of_the_caribbean
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = CUB_suggest_operation_hemingway
+		icon = GFX_goal_cuba_attack_nationalist_spain
+		cost = 10
+		prerequisite = {
+			focus = CUB_san_antonio_air_base
+		}
+		available = {
+			any_country = {
+				original_tag = SPR
+				has_government = fascism
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+			OR = {
+				AND = {
+					is_in_faction_with = ENG
+					ENG = {
+						OR = {
+							AND = {
+								has_war_with = GER
+								GER = {
+									has_government = fascism
+								}
+							}
+							AND = {
+								has_war_with = ITA
+								ITA = {
+									has_government = fascism
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					is_in_faction_with = USA
+					USA = {
+						OR = {
+							AND = {
+								has_war_with = GER
+								GER = {
+									has_government = fascism
+								}
+							}
+							AND = {
+								has_war_with = ITA
+								ITA = {
+									has_government = fascism
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					is_in_faction_with = FRA
+					FRA = {
+						OR = {
+							AND = {
+								has_war_with = GER
+								GER = {
+									has_government = fascism
+								}
+							}
+							AND = {
+								has_war_with = ITA
+								ITA = {
+									has_government = fascism
+								}
+							}
+						}
+					}
+				}
+			}
+
+		}
+		prerequisite = {
+			focus = CUB_winning_the_battle_of_the_caribbean
+		}
+		completion_reward = {
+			custom_effect_tooltip = CUB_suggest_operation_hemingway_tt
+			if = {
+				limit = {
+					is_in_faction_with = ENG
+					ENG = {
+						is_faction_leader = yes
+					}
+				}
+				ENG = {
+					country_event = cuba.6
+				}
+			}
+			if = {
+				limit = {
+					is_in_faction_with = USA
+					USA = {
+						is_faction_leader = yes
+					}
+				}
+				USA = {
+					country_event = cuba.6
+				}
+			}
+			if = {
+				limit = {
+					is_in_faction_with = FRA
+					FRA = {
+						is_faction_leader = yes
+					}
+				}
+				FRA = {
+					country_event = cuba.6
+				}
+			}
+
+		}
+		x = -1
+		y = 9
+		relative_position_id = CUB_results_of_the_presidential_election
+
+	}
+}
