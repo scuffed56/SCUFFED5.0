@@ -120,7 +120,7 @@ NMilitary = {
 NDefines.NAI.GARRISON_FRACTION = 0.01 					-- How large part of a front should always be holding the line rather than advancing at the enemy
 
 NDefines.NAI.DIPLOMATIC_ACTION_GOOD_BAD_RATIO_THRESHOLD = 1
-NDefines.NAI.BASE_RELUCTANCE = 5 						-- (Original value: 20) Base reluctance applied to all diplomatic offers
+NDefines.NAI.BASE_RELUCTANCE = 1 						-- (Original value: 20) Base reluctance applied to all diplomatic offers
 NDefines.NAI.DIPLOMATIC_ACTION_RANDOM_FACTOR = 0.5 		-- How much of the AI diplomatic action scoring is randomly determined (1.0 = half random, 2.0 = 2/3rd random, etc)
 NDefines.NAI.DIPLOMATIC_ACTION_PROPOSE_SCORE = 50 		-- AI must score a diplomatic action at least this highly to propose it themselves
 NDefines.NAI.DILPOMATIC_ACTION_DECLARE_WAR_WARGOAL_BASE = 50 -- Base diplomatic action score bonus to go to war per wargoal
@@ -338,6 +338,7 @@ NAI = {
 		LICENSE_ACCEPTANCE_TECH_DIFFERENCE = 2, 		-- Acceptance modifier for each year of technology difference.
 		LICENSE_ACCEPTANCE_TECH_DIFFERENCE_BASE = 20,    -- Acceptance base for tech difference
 		LICENSE_ACCEPTANCE_SAME_FACTION = 30,			-- Acceptance modifier for being in the same faction
+		MIN_OPINION_VALUE = 50
 	},
 	NCountry = {
 		FEMALE_UNIT_LEADER_BASE_CHANCE = { 
