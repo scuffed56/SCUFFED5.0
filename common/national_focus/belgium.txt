@@ -1462,8 +1462,11 @@ focus_tree = {
 			remove_ideas = tblra_extended_royal_powers
 			remove_ideas = tblra_monarchist_repression
 			if = {
-				limit = {has_idea = BEL_auguste_lippens}
-				swap_ideas = { remove_idea = BEL_auguste_lippens add_idea = BEL_achille_van_acker } 
+				limit = {
+					has_idea = BEL_auguste_lippens
+				}
+				remove_ideas = BEL_auguste_lippens 
+				add_ideas = BEL_achille_van_acker 
 			}
 			BEL = { set_politics = { ruling_party = democratic elections_allowed = yes } }
 			add_political_power = 50
@@ -2030,7 +2033,7 @@ focus_tree = {
 
     focus = {
         id = tblra_reactivate_caur_contacts
-        icon = GFX_goal_italian_cooperation
+        icon = GFX_goal_generic_befriend_italy
         prerequisite = { focus = tblra_belgian_militarism }
 		mutually_exclusive = { focus = tblra_germany_millitary_coop focus = tblra_belgium_first focus = tblra_an_ally_across_the_channel focus = BEL_spanish_ties }
 		relative_position_id = tblra_belgium_first
@@ -2173,7 +2176,7 @@ focus_tree = {
     }
 	focus = {
 		id = BEL_spanish_ties
-		icon = GFX_focus_generic_invite_nat_spain
+		icon = GFX_goal_generic_befriend_spain_nationalist
 		relative_position_id = tblra_belgium_first 
 		prerequisite = { focus = tblra_belgian_militarism }
 		mutually_exclusive = {focus = tblra_germany_millitary_coop focus = tblra_belgium_first focus = tblra_reactivate_caur_contacts focus = tblra_an_ally_across_the_channel }
@@ -4039,20 +4042,65 @@ focus_tree = {
 			}				
 		}		
         completion_reward = {
-            add_tech_bonus = {
-                name = armor_bonus
-                bonus = 1
-                uses = 1
-                technology = improved_light_tank
-				technology = advanced_light_tank
-            } 
-            add_tech_bonus = {
-                name = armor_bonus
-                bonus = 1
-                uses = 1
-                technology = improved_light_td
-				technology = advanced_light_td
-            } 		
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+					}
+				}
+				add_tech_bonus = {
+					name = armor_bonus
+					bonus = 1
+					uses = 1
+					technology = improved_light_tank
+					technology = advanced_light_tank
+				} 
+				add_tech_bonus = {
+					name = armor_bonus
+					bonus = 1
+					uses = 1
+					technology = improved_light_td
+					technology = advanced_light_td
+				} 						
+			}
+			else = {
+				add_tech_bonus = {
+					name = infantry_artillery_bonus
+					bonus = 1
+					uses = 1
+					category = cat_anti_tank
+				}
+				add_tech_bonus = {
+					name = armor_bonus
+					bonus = 1
+					uses = 1
+					technology = advanced_light_tank_chassis
+				}									
+				add_tech_bonus = {
+					name = infantry_artillery_bonus
+					bonus = 1
+					uses = 2
+					category = armor_variant_tech
+				}				
+				create_equipment_variant = {
+					name = "T-13 B3" #
+					type = light_tank_destroyer_chassis_2
+					parent_version = 0
+					modules = {
+						main_armament_slot = tank_high_velocity_cannon
+						turret_type_slot = tank_light_three_man_tank_turret
+						suspension_type_slot = tank_bogie_suspension
+						armor_type_slot = tank_riveted_armor
+						engine_type_slot = tank_gasoline_engine
+					}
+					upgrades = {
+						tank_nsb_engine_upgrade = 5
+						tank_nsb_armor_upgrade = 2
+					}
+					icon = "gfx/interface/technologies/tank/light_tank/r56_tech_BEL_light_tank_02_TD.dds"
+				}
+			}
+			
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = BEL_familleureux	
         }
@@ -4543,7 +4591,7 @@ focus_tree = {
                 name = antiair_tech_bonus_name
                 bonus = 1
                 uses = 1
-				category = anti_air_tech
+				category = cat_anti_air
 			}
 			 add_ideas = BEL_raoul_overstraeten2
 		}
@@ -4569,7 +4617,7 @@ focus_tree = {
                 name = antiair_tech_bonus_name
                 bonus = 1
                 uses = 1
-				category = anti_air_tech
+				category = cat_anti_air
 			}
             add_ideas = tblra_aa_expertise
 		}

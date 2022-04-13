@@ -1,4 +1,8 @@
 ﻿capital = 41
+capital = 41
+set_convoys = 150
+set_stability = 0.5
+set_research_slots = 4
 
 oob = "SPR_1936"
 if = {
@@ -8,11 +12,6 @@ if = {
 		set_naval_oob = "SPR_1936_naval_legacy"
 	}
 }
-
-
-set_convoys = 150
-set_stability = 0.5
-set_research_slots = 4
 
 if = {
 	limit = {
@@ -56,6 +55,24 @@ if = {
 	recruit_character = SPR_diego_martinez_barrio
 	recruit_character = SPR_augusto_barcia_trelles
 	recruit_character = SPR_francisco_largo_caballero
+	recruit_character = SPR_andres_saliquet 
+	recruit_character = SPR_luis_orgaz_yoldi
+	recruit_character = SPR_jose_moscardo_ituarte
+	recruit_character = SPR_fernando_barron_y_ortiz
+	recruit_character = SPR_rafael_estrada_arnaiz
+	recruit_character = SPR_segismundo_casado
+	recruit_character = SPR_sebtian_pozas
+	### Rt56 Ver Added
+	recruit_character = SPR_enrique_lister
+	recruit_character = SPR_juan_modesto
+	recruit_character = SPR_antonio_cordon_garcia
+	recruit_character = SPR_janos_galicz
+	recruit_character = SPR_mohamed_meziane
+	recruit_character = SPR_gonzalo_queipo_de_llano
+	recruit_character = SPR_jose_millan_astray
+	recruit_character = SPA_rafael_garcia_valino
+	recruit_character = SPA_miguel_ponte
+	recruit_character = SPR_valentin_gonzalez
 	
 	load_focus_tree = Spain_focus
 
@@ -607,18 +624,6 @@ if = {
 	}
 
 	create_country_leader = {
-		name = "José Díaz"
-		desc = "POLITICS_JOSE_DIAZ_DESC"
-		picture = "portrait_spr_jose_diaz.dds"
-		expire = "1965.1.1"
-		ideology = stalinism
-		traits = {
-			r56_trait_anti_fascist
-			veteran_communist
-		}
-	}
-
-	create_country_leader = {
 		name = "Francisco Franco"
 		desc = "POLITICS_FRANCISCO_FRANCO_DESC"
 		picture = "gfx/leaders/SPR/r56_portrait_SPR_Francisco_Franco.dds"
@@ -665,45 +670,6 @@ if = {
 	}
 }
 
-if = {
-	limit = {
-		has_dlc = "La Resistance"
-		NOT = { has_global_flag = SPR_R56_focus_tree }
-	}
-	
-	create_country_leader = {
-		name = "José Díaz"
-		desc = "POLITICS_JOSE_DIAZ_DESC"
-		picture = "portrait_spr_jose_diaz.dds"
-		expire = "1965.1.1"
-		ideology = stalinism
-		traits = {
-			veteran_communist
-			r56_trait_anti_fascist
-		}
-	}
-
-	create_country_leader = {
-		name = "José Antonio Primo de Rivera"
-		desc = "POLITICS_JOSE_ANTONIO_PRIMO_DE_RIVERA_DESC"
-		picture = "GFX_portrait_SPA_jose_antonio_primo_de_rivera"
-		expire = "1965.1.1"
-		ideology = falangism
-		traits = {
-			sins_of_the_father
-		}
-	}
-
-	create_country_leader = {
-		name = "Manuel Fal Conde"
-		desc = "POLITICS_MANUEL_FAL_CONDE_DESC"
-		picture = "GFX_portrait_SPA_manuel_fal_conde"
-		expire = "1965.1.1"
-		ideology = despotism
-		traits = {
-			jefe
-		}
-	}
 }
 
 
@@ -813,6 +779,7 @@ if = {
 			sub_torpedo_upgrade = 1
 		}
 	}
+	
 	create_equipment_variant = {
 		name = "Príncipe Alfonso Class"
 		type = light_cruiser_1
@@ -822,6 +789,20 @@ if = {
 			ship_gun_upgrade = 1
 			ship_anti_air_upgrade = 1
 		}
+	}
+	#########################################################################
+	## VBNM Variants
+	#########################################################################
+	create_equipment_variant = {
+		name = "República Class"
+		type = light_cruiser_1
+		upgrades = {
+			ship_reliability_upgrade = 0
+			ship_engine_upgrade = 0
+			ship_gun_upgrade = 0
+			ship_anti_air_upgrade = 0
+		}
+		obsolete = yes
 	}
 }
 if = {
@@ -846,7 +827,7 @@ if = {
 		parent_version = 0
 		modules = {
 			fixed_ship_torpedo_slot = ship_torpedo_sub_1
-			fixed_ship_engine_slot = sub_ship_engine_2
+			fixed_ship_engine_slot = sub_ship_engine_1
 			rear_1_custom_slot = empty
 		}
 	}
@@ -870,7 +851,7 @@ if = {
 	}
 	create_equipment_variant = {
 		name = "Churucca Class"	
-		type = ship_hull_light_2
+		type = ship_hull_light_1
 		name_group = SPR_DD_HISTORICAL
 		parent_version = 0
 		modules = {
@@ -938,7 +919,7 @@ if = {
 	}
 	create_equipment_variant = {
 		name = "Príncipe Alfonso Class"
-		type = ship_hull_cruiser_2
+		type = ship_hull_cruiser_1
 		name_group = SPR_CL_HISTORICAL
 		parent_version = 0
 		modules = {
@@ -954,6 +935,22 @@ if = {
 			rear_1_custom_slot = ship_light_medium_battery_1
 		}
 	}
+	create_equipment_variant = {
+		name = "Dédalo Class"
+		type = ship_hull_cruiser_1
+		name_group = SPR_CL_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_medium_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			mid_1_custom_slot = ship_airplane_launcher_1
+			mid_2_custom_slot = ship_airplane_launcher_1
+			rear_1_custom_slot = empty
+		}
+	}
 	# Heavy Cruisers #
 	create_equipment_variant = {
 		name = "Canarias Class"				
@@ -966,9 +963,10 @@ if = {
 			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
 			fixed_ship_radar_slot = empty
 			fixed_ship_engine_slot = cruiser_ship_engine_2
-			fixed_ship_armor_slot = empty
-			mid_1_custom_slot = ship_medium_battery_2
-			mid_2_custom_slot = empty
+			fixed_ship_armor_slot = ship_armor_cruiser_1
+			front_1_custom_slot = ship_medium_battery_2
+			mid_1_custom_slot = ship_torpedo_1
+			mid_2_custom_slot = ship_torpedo_1
 			rear_1_custom_slot = ship_depth_charge_1
 		}
 	}
