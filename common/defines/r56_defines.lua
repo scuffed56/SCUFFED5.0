@@ -23,6 +23,21 @@ NDefines.NCountry.SPECIAL_FORCES_CAP_MIN = 40
 NDefines.NCountry.BASE_RESEARCH_SLOTS = 3
 NDefines.NDiplomacy.MIN_WARGOAL_JUSTIFY_COST = 7
 
+-- Scuffed Multiplayer Addons 
+NDefines.NCountry.MAX_PROPAGANDA_STABILITY_IMPACT = 0
+NDefines.NProduction.ANNEX_FUEL_RATIO = 1.0
+NDefines.NAir.NAVAL_STRIKE_DAMAGE_TO_STR = 1.0 -- Halfed To Make Navy Slightly Better 
+NDefines.NCountry.ATTACHE_XP_SHARE = 0.2
+NDefines.NProduction.EQUIPMENT_MODULE_ADD_XP_COST = 0
+NDefines.NProduction.EQUIPMENT_MODULE_REPLACE_XP_COST = 0
+NDefines.NProduction.EQUIPMENT_MODULE_CONVERT_XP_COST = 0
+NDefines.NProduction.EQUIPMENT_MODULE_REMOVE_XP_COST = 0
+NDefines.NMilitary.LAND_EQUIPMENT_BASE_COST = 1				-- Cost in XP to upgrade a piece of equipment one level is base + ( total levels * ramp )
+NDefines.NMilitary.LAND_EQUIPMENT_RAMP_COST = 0					
+NDefines.NMilitary.NAVAL_EQUIPMENT_BASE_COST = 1
+NDefines.NMilitary.NAVAL_EQUIPMENT_RAMP_COST = 0
+
+
 -- Military
 NDefines.NMilitary.DEPLOY_TRAINING_MAX_LEVEL = 5
 NDefines.NMilitary.UNIT_EXP_LEVELS = {0.02, 0.04, 0.06,	0.08, 0.1, 0.14, 0.18, 0.22, 0.26, 0.3, 0.39, 0.48, 0.57, 0.66, 0.75, 0.78, 0.81, 0.84, 0.87, 0.9}
@@ -41,7 +56,7 @@ NDefines.NMilitary.BASE_DIVISION_SUPPORT_SLOT_COST = 0
 NDefines.NMilitary.BASE_LEADER_TRAIT_GAIN_XP = 0.7
 NDefines.NMilitary.UNIT_EXPERIENCE_PER_COMBAT_HOUR = 0.000175
 NDefines.NMilitary.FIELD_EXPERIENCE_MAX_PER_DAY = 12
-NDefines.NMilitary.ENCIRCLED_DISBAND_MANPOWER_FACTOR = 0.1
+NDefines.NMilitary.ENCIRCLED_DISBAND_MANPOWER_FACTOR = 0
 NDefines.NMilitary.PLAYER_ORDER_PLANNING_DECAY = 0.005
 NDefines.NMilitary.DISBAND_MANPOWER_LOSS = 0.0
 NDefines.NMilitary.PLAN_SPREAD_ATTACK_WEIGHT = 4.1 --AI should concentrate forces more, a bit experimental. Increased from 4.0 to combat issues with AI death stacks - SpicyAlfredo
