@@ -21,21 +21,9 @@ NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 14
 NDefines.NCountry.SPECIAL_FORCES_CAP_BASE = 0.1
 NDefines.NCountry.SPECIAL_FORCES_CAP_MIN = 40
 NDefines.NCountry.BASE_RESEARCH_SLOTS = 3
-NDefines.NDiplomacy.MIN_WARGOAL_JUSTIFY_COST = 7
 
--- Scuffed Multiplayer Addons 
-NDefines.NCountry.MAX_PROPAGANDA_STABILITY_IMPACT = 0
-NDefines.NProduction.ANNEX_FUEL_RATIO = 1.0
-NDefines.NAir.NAVAL_STRIKE_DAMAGE_TO_STR = 1.0 -- Halfed To Make Navy Slightly Better 
-NDefines.NCountry.ATTACHE_XP_SHARE = 0.2
-NDefines.NProduction.EQUIPMENT_MODULE_ADD_XP_COST = 0
-NDefines.NProduction.EQUIPMENT_MODULE_REPLACE_XP_COST = 0
-NDefines.NProduction.EQUIPMENT_MODULE_CONVERT_XP_COST = 0
-NDefines.NProduction.EQUIPMENT_MODULE_REMOVE_XP_COST = 0
-NDefines.NMilitary.LAND_EQUIPMENT_BASE_COST = 1				-- Cost in XP to upgrade a piece of equipment one level is base + ( total levels * ramp )
-NDefines.NMilitary.LAND_EQUIPMENT_RAMP_COST = 0					
-NDefines.NMilitary.NAVAL_EQUIPMENT_BASE_COST = 1
-NDefines.NMilitary.NAVAL_EQUIPMENT_RAMP_COST = 0
+
+
 
 
 -- Military
@@ -72,7 +60,7 @@ NDefines.NMilitary.NEW_COMMANDER_RANDOM_PERSONALITY_TRAIT_CHANCES = { -- Chances
 
 -- Technology
 NDefines.NTechnology.BASE_TECH_COST = 80
-NDefines.NTechnology.BASE_YEAR_AHEAD_PENALTY_FACTOR = 4.3 -- Base year ahead penalty
+NDefines.NTechnology.BASE_YEAR_AHEAD_PENALTY_FACTOR = 4.0 -- Base year ahead penalty
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 56.0 --#base game 30 changed to 50 and then why not 56?
 
 -- Air Combat
