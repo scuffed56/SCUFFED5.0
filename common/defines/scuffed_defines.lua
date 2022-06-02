@@ -18,3 +18,6 @@ NDefines.NDiplomacy.MIN_WARGOAL_JUSTIFY_COST = 7
 NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 1000
 NDefines.NGame.LAG_DAYS_FOR_PAUSE = 100
 NDefines.NGame.COMBAT_LOG_MAX_MONTHS = 24
+NDefines.NMilitary.BASE_DIVISION_BRIGADE_GROUP_COST = 0 -- Base cost to unlock a regiment slot,
+NDefines.NMilitary.BASE_DIVISION_BRIGADE_CHANGE_COST = 0 -- Base cost to change a regiment column.
+NDefines.NMilitary.BASE_DIVISION_SUPPORT_SLOT_COST = 0
