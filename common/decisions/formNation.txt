@@ -2318,50 +2318,53 @@ formable_nations_mod_category = {
 		}
 		icon = formable_nations_balkan
 		complete_effect = { capital_scope = { set_state_flag = formable_nations_old_capital }
-			set_cosmetic_tag = FORM_BAK
+			if = {
+				limit = {
+					has_government = communism
+				}
+
+				set_cosmetic_tag = UBF_united_balkan_federation_communism
+			}
+
+			else_if = {
+				limit = {
+					has_government = fascism
+				}
+
+				set_cosmetic_tag = UBF_united_balkan_federation_fascism
+			}
+
+			else_if = {
+				limit = {
+					has_government = democratic
+				}
+
+				set_cosmetic_tag = UBF_united_balkan_federation_democratic
+			}
+
+			else_if = {
+				limit = {
+					has_government = neutrality
+				}
+
+				set_cosmetic_tag = UBF_united_balkan_federation_neutrality
+			}
 			add_stability = 0.2
 			custom_effect_tooltip = core_land
 			hidden_effect = { sound_effect = complete_focus  set_country_flag = unform_available
-				45 = { add_core_of = ROOT }
-				102 = { add_core_of = ROOT }
-				103 = { add_core_of = ROOT }
-				104 = { add_core_of = ROOT }
-				804 = { add_core_of = ROOT }
-				105 = { add_core_of = ROOT }
-				106 = { add_core_of = ROOT }
-				107 = { add_core_of = ROOT }
-				108 = { add_core_of = ROOT }
-				802 = { add_core_of = ROOT }
-				803 = { add_core_of = ROOT }
-				766 = { add_core_of = ROOT }
-				109 = { add_core_of = ROOT }
-				46 = { add_core_of = ROOT }
-				76 = { add_core_of = ROOT }
-				77 = { add_core_of = ROOT }
-				78 = { add_core_of = ROOT }
-				79 = { add_core_of = ROOT }
-				80 = { add_core_of = ROOT }
-				81 = { add_core_of = ROOT }
-				82 = { add_core_of = ROOT }
-				83 = { add_core_of = ROOT }
-				84 = { add_core_of = ROOT }
-				47 = { add_core_of = ROOT }
-				182 = { add_core_of = ROOT }
-				184 = { add_core_of = ROOT }
-				185 = { add_core_of = ROOT }
-				186 = { add_core_of = ROOT }
-				187 = { add_core_of = ROOT }
-				731 = { add_core_of = ROOT }
-				48 = { add_core_of = ROOT }
-				211 = { add_core_of = ROOT }
-				212 = { add_core_of = ROOT }
-				801 = { add_core_of = ROOT }
-				736 = { add_core_of = ROOT }
-				163 = { add_core_of = ROOT }
-				164 = { add_core_of = ROOT }
-				44 = { add_core_of = ROOT }
-				805 = { add_core_of = ROOT }
-				764 = { add_core_of = ROOT }
+				every_state = {
+					limit = {
+							BUL_is_balkan_state = yes
+							NOT = { is_core_of = ROOT }
+					}
+					add_core_of = ROOT
+				}
+
+				set_province_name = { id = 9833 name = "Constantinople"}
+
+				set_capital = {
+					state = 797
+				}
 			}
 		}
 	}
@@ -8454,10 +8457,35 @@ formable_nations_mod_category = {
 		}
 		icon = formable_nations_roman_empire
 		complete_effect = { capital_scope = { set_state_flag = formable_nations_old_capital }
-			set_cosmetic_tag = FORM_ROE
+			set_cosmetic_tag = SPQR_UNIFIED
 			add_stability = 0.2
 			custom_effect_tooltip = core_land
 			hidden_effect = { sound_effect = complete_focus  set_country_flag = unform_available
+			if = {
+					limit = {
+						has_country_leader = { ruling_only = yes name = "Benito Mussolini" }
+					}
+					kill_country_leader = yes
+					create_country_leader = {
+						name = "Augustus Mussolini"
+						desc = " "
+						picture = "GFX_portrait_italy_emperor_mussolini"
+						expire = "1965.1.1"
+						ideology = fascism_ideology
+						traits = {
+							fondatore_dell_impero
+						}
+					}
+				}
+				else = {
+					add_country_leader_trait = fondatore_dell_impero
+				}
+				if = {
+					limit = {
+						has_idea = victor_emmanuel
+					}
+					remove_ideas = victor_emmanuel
+				}
 				#Greece
 				47 = { add_core_of = ROOT }
 				182 = { add_core_of = ROOT }
