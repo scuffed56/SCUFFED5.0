@@ -54,7 +54,7 @@ NDefines.NMilitary.NEW_COMMANDER_RANDOM_PERSONALITY_TRAIT_CHANCES = { -- Chances
 
 -- Technology
 NDefines.NTechnology.BASE_TECH_COST = 80
-NDefines.NTechnology.BASE_YEAR_AHEAD_PENALTY_FACTOR = 4.3 -- Base year ahead penalty
+NDefines.NTechnology.BASE_YEAR_AHEAD_PENALTY_FACTOR = 3 -- Base year ahead penalty
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 56.0 --#base game 30 changed to 50 and then why not 56?
 
 -- Air Combat
@@ -92,7 +92,7 @@ NDefines.NAir.MISSION_COMMAND_POWER_COSTS = { -- command power cost per plane to
 		0.0, -- PARADROP
 		0.0, -- NAVAL_KAMIKAZE
 		0.0, -- PORT_STRIKE
-		0.0, -- ATTACK_LOGISTICS
+		0.5, -- ATTACK_LOGISTICS
 		0.1, -- AIR_SUPPLY
 		0.0, -- TRAINING
 		0.0, -- NAVAL_MINES_PLANTING
