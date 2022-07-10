@@ -11,7 +11,7 @@
 # influence
 
 
-#Vanilla Overides. Only Productions Strats are adjusted don't change anything else! - Spciyalfredo
+#Vanilla Overides. Only Productions Strats are adjusted don't change anything else! - Spciyalfredo I can't read the sign so you cannot stop me - Abbus
 SOV_unit_production = {
 	allowed = {
 		original_tag = SOV
@@ -62,16 +62,10 @@ SOV_unit_production = {
 
 	ai_strategy = {
 		type = role_ratio
-		id = motorized
+		id = mobile
 		value = 1
 	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = mechanized
-		value = 0
-	}
-
+	
 	ai_strategy = {
 		type = role_ratio
 		id = armor
@@ -81,20 +75,20 @@ SOV_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 45 #because doctrine 70
+		value = 70
 	}
 
 	#Air unit factors
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 60 #the only thing that matters
+		value = 80 #the only thing that matters
 	}
 
 	ai_strategy = {
 		type = unit_ratio
 		id = cas
-		value = -20 #i don't need this in an ai playthough.
+		value = -30 #i don't need this in an ai playthough.
 	}
 
 	ai_strategy = {
@@ -150,6 +144,12 @@ SOV_unit_production = {
 		id = fighter
 		value = 35
 	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = cas
+		value = -25
+	}	
 
 	ai_strategy = {
 		type = equipment_production_factor
@@ -174,6 +174,24 @@ SOV_unit_production = {
 		id = artillery
 		value = 95
 	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = anti_tank
+		value = 50
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = anti_air
+		value = 50
+	}
+	
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 4
+	}
 
 	ai_strategy = {
 		type = equipment_production_min_factories
@@ -182,9 +200,9 @@ SOV_unit_production = {
 	}
 
 	ai_strategy = { #stock up from the start date since we switch pretty early 
-		type = equipment_production_min_factories
+		type = equipment_variant_production_factor
 		id = medium_tank_chassis
-		value = 2
+		value = 20
 	}
 
 	ai_strategy = {
@@ -218,7 +236,7 @@ SOV_anti_armor = {
 
 	ai_strategy = {
 		type = role_ratio
-		id = motorized
+		id = mobile
 		value = 5
 	}
 }
@@ -476,7 +494,7 @@ SOV_template_design_1 = {
 
 	ai_strategy = {
 		type = template_prio
-		id = motorized
+		id = mobile
 		value = 10
 	}
 
@@ -852,13 +870,30 @@ SOV_dont_send_lend_lease_that_early_to_china = {
 	allowed = {
 		original_tag = SOV
 	}
+	
 	enable = {
 		JAP = { has_war_with = CHI }
 		country_exists = CHI
 		CHI = {
-			surrender_progress < 0.4
+			OR = {
+				has_defensive_war_with = JAP
+				has_government = fascism
+			}
+		}
+		has_war = yes
+	}
+	
+	abort = {
+		AND = {
+			date > 1938.5.10
+			CHI = {
+				NOT = {
+					has_government = fascism
+				 }
+			}
 		}
 	}
+
 	ai_strategy = {
 		type = send_lend_lease_desire
 		id = CHI
@@ -880,7 +915,7 @@ SOV_have_some_train_production = {
 	ai_strategy = {
 		type = equipment_production_min_factories
 		id = train
-		value = 3
+		value = 2
 	}
 }
 

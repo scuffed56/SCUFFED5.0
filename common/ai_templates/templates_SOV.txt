@@ -108,7 +108,6 @@ armored_SOV = {
 			motorized
 			engineer
 			mot_recon
-			armored_car_recon
 			light_tank_recon
 			artillery
 		}
@@ -204,7 +203,6 @@ armored_SOV = {
 
 			engineer
 			mot_recon
-			armored_car_recon
 			light_tank_recon
 			signal_company
 			maintenance_company
@@ -314,7 +312,6 @@ armored_SOV = {
 			mot_anti_air_brigade
 			engineer
 			mot_recon
-			armored_car_recon
 			light_tank_recon
 			signal_company
 			maintenance_company
@@ -400,7 +397,7 @@ armored_SOV = {
 
 			support = {
 				engineer = 1
-				armored_car_recon = 1
+				mot_recon = 1
 				maintenance_company = 1
 				logistics_company = 1
 			}
@@ -425,7 +422,6 @@ armored_SOV = {
 			mot_anti_air_brigade
 			engineer
 			mot_recon
-			armored_car_recon
 			light_tank_recon
 			signal_company
 			maintenance_company
@@ -527,7 +523,6 @@ armored_SOV = {
 			medium_sp_artillery_brigade
 			engineer
 			mot_recon
-			armored_car_recon
 			light_tank_recon
 			signal_company
 			maintenance_company
@@ -561,7 +556,7 @@ infantry_SOV = {
 		}
 	}
 
-	match_to_count = 0.60
+	match_to_count = 0.9
  
 	infantry_default_SOV = { #Mass these guys for the large front lines. Also allows soviets to make alot of these early. 
 
@@ -580,6 +575,106 @@ infantry_SOV = {
 		}
 
 		target_width = 18.0
+		width_weight = 1.0
+		column_swap_factor = 1.0
+
+		stat_weights = {
+			0.00 #-- default_morale
+			0.00 #-- defense
+			1.00 #-- breakthrough
+			0.00 #-- hardness
+			4.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.00 #-- recon
+			1.00 #-- entrenchment
+			0.00 #-- initiative
+			0.00 #-- casualty_trickleback
+			0.00 #-- supply_consumption_factor
+			0.00 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.00 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.00 #-- air_attack
+			#-- Common Values
+			0.60 #-- max_organisation
+			0.40 #-- max_strength
+			0.00 #-- maximum_speed
+			0.00 #-- armor_value
+			0.20 #-- ap_attack
+			0.00 #-- reliability
+			0.00 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
+
+		target_template = {
+			weight = 0.9
+			match_value = 2000.0
+
+			support = {
+				artillery = 1
+			}
+
+			regiments = {
+				infantry = 9
+				#artillery_brigade = 2
+			}
+		}
+
+		allowed_types = {
+			infantry
+			engineer
+			recon
+			signal_company
+			field_hospital
+			logistics_company
+			anti_tank
+			military_police
+			artillery
+			anti_air
+			rocket_artillery
+			anti_tank_brigade
+	#		artillery_brigade
+			rocket_artillery_brigade
+	#		light_tank_destroyer_brigade
+	#		medium_tank_destroyer_brigade
+		}
+		replace_at_match = 0.9
+		replace_with = infantry_improved_SOV
+		target_min_match = 0.8
+	}
+
+	infantry_improved_SOV = {
+
+		upgrade_prio = {
+			factor = 2
+
+			modifier = {
+				factor = 0
+				date < 1940.1.1
+			}
+
+			modifier = {
+				factor = 20
+				has_war_with_major = yes
+				date > 1940.1.1
+			}
+		}
+
+		can_upgrade_in_field = {
+			has_equipment = {artillery_equipment > 2000}
+		}
+
+		target_width = 27.0
 		width_weight = 1.0
 		column_swap_factor = 0.5
 
@@ -623,19 +718,19 @@ infantry_SOV = {
 
 		target_template = {
 			weight = 0.9
-			match_value = 3000.0
+			match_value = 2000.0
 
 			support = {
-				#engineer = 1
-				artillery = 1
+				engineer = 1
 				#recon = 1
 				#field_hospital = 1
-				#anti_tank = 1
+				anti_tank = 1
+				anti_air = 1
 			}
 
 			regiments = {
 				infantry = 9
-				#artillery_brigade = 2
+				artillery_brigade = 3
 			}
 		}
 
@@ -649,7 +744,7 @@ infantry_SOV = {
 			anti_tank
 			military_police
 			artillery
-	#		anti_air
+			anti_air
 			rocket_artillery
 			anti_tank_brigade
 			artillery_brigade
@@ -657,30 +752,32 @@ infantry_SOV = {
 	#		light_tank_destroyer_brigade
 	#		medium_tank_destroyer_brigade
 		}
-		replace_at_match = 0.9
-		replace_with = infantry_improved_SOV
-		target_min_match = 0.8
 	}
+}
 
-	infantry_improved_SOV = {
+guards_infantry_SOV = {
+
+	guards_SOV = {
 
 		upgrade_prio = {
 			factor = 2
-
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					has_tech = shocktroops
+			}
+		}
 			modifier = {
 				factor = 0
 				date < 1940.1.1
 			}
 
 			modifier = {
-				factor = 20
+				factor = 30
 				has_war_with_major = yes
 				date > 1940.1.1
 			}
-		}
-
-		can_upgrade_in_field = {
-			has_equipment = {artillery_equipment > 1000}
 		}
 
 		target_width = 27.0
@@ -738,7 +835,7 @@ infantry_SOV = {
 			}
 
 			regiments = {
-				infantry = 9
+				shocktroop = 9
 				artillery_brigade = 3
 			}
 		}
@@ -747,11 +844,11 @@ infantry_SOV = {
 			infantry
 			engineer
 			recon
-			signal_company
+	#		signal_company
 			field_hospital
 			logistics_company
 			anti_tank
-			military_police
+	#		military_police
 			artillery
 			anti_air
 			rocket_artillery
@@ -761,8 +858,12 @@ infantry_SOV = {
 	#		light_tank_destroyer_brigade
 	#		medium_tank_destroyer_brigade
 		}
+		
+		replace_at_match = 0
 	}
 }
+
+
 
 mountaineers_SOV = {
 
@@ -1106,9 +1207,8 @@ garrison_SOV = {
 		}
 
 		reinforce_prio = 0
-		custom_icon = 7
 
-		target_width = 1.0
+		target_width = 12.0
 		width_weight = 1.0
 		column_swap_factor = 0.5
 
@@ -1159,13 +1259,13 @@ garrison_SOV = {
 			}
 
 			regiments = {
-				cavalry = 4
+				infantry = 6
 			}
 		}
 
 		allowed_types = {
+			infantry
 			military_police
-			cavalry
 		}
 	}
 }
@@ -1178,7 +1278,7 @@ anti_armor_SOV = {
 	}
 
 	roles = {
-		motorized
+		mobile
 	}
 
 	upgrade_prio = {
@@ -1499,7 +1599,6 @@ anti_armor_SOV = {
 			mot_artillery_brigade
 
 			engineer
-			armored_car_recon
 			signal_company
 			maintenance_company
 			logistics_company
