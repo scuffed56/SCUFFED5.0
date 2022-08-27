@@ -1,0 +1,426 @@
+on_actions = {
+
+	#What "DELTA" means?
+	# I dont know
+	on_startup = {
+	
+		effect = {
+			#setup simp level for hystorical game
+			#simp level affect only ai.
+			if = {
+				limit = {
+					is_historical_focus_on = yes
+				}
+				ENG = {
+					set_variable = { var = ROOT.simp_levelPOL value = 48 }
+				}
+				GER = {
+					set_variable = { var = ROOT.simp_levelAUS value = 48 }
+				}
+				ITA = {
+					set_variable = { var = ROOT.simp_levelALB value = 48 }
+				}
+			}
+			if = {
+				limit = {
+					is_historical_focus_on = no
+				}
+				ENG = {
+					set_variable = { var = ROOT.simp_levelPOL value = 12 }
+				}
+				GER = {
+					set_variable = { var = ROOT.simp_levelAUS value = 24 }
+				}
+				ITA = {
+					set_variable = { var = ROOT.simp_levelALB value = 36 }
+				}
+			}
+			
+			every_country = {
+				
+				#DELTA
+				#if = {
+				#	limit = {
+				#		is_ai = no
+				#	}
+				#	country_event = { id = soideltaevents.7 }
+				#}
+				
+				set_variable = { ROOT.influence_power = 0.00 }
+				set_variable = { ROOT.influence_power_daily_gain = 0.00 }
+			
+			}
+		
+		}
+
+	}
+	
+	on_daily = {
+	
+		effect = {
+			
+			#adding influence by interventions
+			#i am either really dumb, or i just need to sleep. (4.8.22 3:33pm)
+			#Yea, i am definetly dumb. I cant understand how to work with has_attache_from has_volunteers_amount_from is_lend_leasing
+			#second day im trying to write that thing holy crap (4.9.22 3:41pm)
+			#yep, i am dumb (4.12.22 11:57am)
+			
+			every_country = {
+				if = {
+					limit = {
+						THIS = {
+							has_attache_from = ROOT
+							has_country_flag = under_influence_of_@ROOT
+						}
+					}
+					add_to_variable = { ROOT.influence_level@THIS = 0.01 }
+				}
+				if = {
+					limit = {
+						THIS = {
+							has_volunteers_amount_from = { tag = ROOT count > 0 }
+							has_country_flag = under_influence_of_@ROOT
+						}
+					}
+					add_to_variable = { ROOT.influence_level@THIS = 0.01 }
+				}
+				if = {
+					limit = {
+						THIS = {
+							has_country_flag = under_influence_of_@ROOT
+						}
+						is_lend_leasing = THIS
+					}
+					add_to_variable = { ROOT.influence_level@THIS = 0.01 }
+				}
+			}
+			
+			#setup new vars & conditions (v1.2)
+			every_country = {
+				if = {
+					limit = {
+						check_variable = { var = ROOT.influence_level@THIS value = 0 compare = greater_than }
+					}
+					set_variable = { var = THIS.opinion_about_temp@ROOT value = THIS.opinion@ROOT }
+					
+					divide_variable = { var = THIS.opinion_about_temp@ROOT value = 2 }
+					
+					set_variable = { var = THIS.opinion_about@ROOT value = THIS.opinion_about_temp@ROOT }
+					
+					if = {
+						limit = {
+							check_variable = { var = THIS.opinion_about_temp@ROOT value = 1 compare = greater_than }
+						}
+						set_variable = { var = ROOT.influence_multiplier@THIS value = THIS.opinion_about_temp@ROOT }
+						
+						divide_variable = { var = ROOT.influence_multiplier@THIS value = 50 }
+					}
+					if = {
+						limit = {
+							check_variable = { var = THIS.opinion_about_temp@ROOT value = 1 compare = less_than_or_equals }
+						}
+						set_variable = { var = ROOT.influence_multiplier@THIS value = 1 }
+					}
+				}
+			}
+			
+			#i dont know how it will affect the game, but for now i will leave that huge code here.
+			#every_country = {
+			#	limit = {
+			#		has_country_flag = ROOT.has_influence_campaign_@THIS
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 0 compare = greater_than_or_equals }
+			#				check_variable = { var = ROOT.influence_level@THIS value = 3 compare = less_than }
+			#				ROOT = { has_government = democratic }
+			#			}
+			#		}
+			#		THIS = { democratic_acceptance = 10 }
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 0 compare = greater_than_or_equals }
+			#				check_variable = { var = ROOT.influence_level@THIS value = 3 compare = less_than }
+			#				ROOT = { has_government = communism }
+			#			}
+			#		}
+			#		THIS = { communism_acceptance = 10 }
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 0 compare = greater_than_or_equals }
+			#				check_variable = { var = ROOT.influence_level@THIS value = 3 compare = less_than }
+			#				ROOT = { has_government = fascism }
+			#			}
+			#		}
+			#		THIS = { fascism_acceptance = 10 }
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 0 compare = greater_than_or_equals }
+			#				check_variable = { var = ROOT.influence_level@THIS value = 3 compare = less_than }
+			#				ROOT = { has_government = neutrality }
+			#			}
+			#		}
+			#		THIS = { neutrality_acceptance = 10 }
+			#	}
+			#	
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 3 compare = greater_than_or_equals }
+			#				check_variable = { var = ROOT.influence_level@THIS value = 6 compare = less_than }
+			#				ROOT = { has_government = democratic }
+			#			}
+			#		}
+			#		THIS = { democratic_acceptance = 20 }
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 3 compare = greater_than_or_equals }
+			#				check_variable = { var = ROOT.influence_level@THIS value = 6 compare = less_than }
+			#				ROOT = { has_government = communism }
+			#			}
+			#		}
+			#		THIS = { communism_acceptance = 20 }
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 3 compare = greater_than_or_equals }
+			#				check_variable = { var = ROOT.influence_level@THIS value = 6 compare = less_than }
+			#				ROOT = { has_government = fascism }
+			#			}
+			#		}
+			#		THIS = { fascism_acceptance = 20 }
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 3 compare = greater_than_or_equals }
+			#				check_variable = { var = ROOT.influence_level@THIS value = 6 compare = less_than }
+			#				ROOT = { has_government = neutrality }
+			#			}
+			#		}
+			#		THIS = { neutrality_acceptance = 20 }
+			#	}
+			#	
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 9 compare = greater_than_or_equals }
+			#				ROOT = { has_government = democratic }
+			#			}
+			#		}
+			#		THIS = { democratic_acceptance = 30 }
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 9 compare = greater_than_or_equals }
+			#				ROOT = { has_government = communism }
+			#			}
+			#		}
+			#		THIS = { communism_acceptance = 30 }
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 9 compare = greater_than_or_equals }
+			#				ROOT = { has_government = fascism }
+			#			}
+			#		}
+			#		THIS = { fascism_acceptance = 30 }
+			#	}
+			#	if = {
+			#		limit = {
+			#			AND = {
+			#				check_variable = { var = ROOT.influence_level@THIS value = 9 compare = greater_than_or_equals }
+			#				ROOT = { has_government = neutrality }
+			#			}
+			#		}
+			#		THIS = { neutrality_acceptance = 30 }
+			#	}
+			#}
+			
+			######################################
+			
+			set_variable = { ROOT.influence_power_daily_gain = political_power_daily }
+			divide_variable = { ROOT.influence_power_daily_gain = 4 }
+			add_to_variable = { ROOT.influence_power = ROOT.influence_power_daily_gain  }
+			if = {
+				limit = {
+					check_variable = { ROOT.influence_power > 100.00 }
+				}
+				set_variable = { ROOT.influence_power = 100.00 }
+			}
+			
+			clear_array = ROOT.all_countries
+			every_country = {
+				limit = {
+					OR = {
+						check_variable = {
+							var = ROOT.influence_level@THIS
+							value = 0
+							compare = greater_than
+						}
+						check_variable = {
+							var = THIS.influence_level@ROOT
+							value = 0
+							compare = greater_than
+						}
+					}
+				}
+				add_to_array = { ROOT.all_countries = THIS.id }
+			}
+			clear_array = ROOT.all_puppets
+			every_country = {
+				limit = {
+					OR = {
+						check_variable = {
+							var = ROOT.dependence_level@THIS
+							value = 0
+							compare = greater_than
+						}
+						check_variable = {
+							var = THIS.dependence_level@ROOT
+							value = 0
+							compare = greater_than
+						}
+					}
+				}
+				add_to_array = { ROOT.all_puppets = THIS.id }
+			}
+			
+			if = {
+				limit = {
+					has_country_flag = ROOT.resist_outside_influence
+				}
+				every_country = {
+					add_to_variable = { THIS.influence_level@ROOT =  -0.02 }
+				}
+			}
+			
+		}
+	
+	}
+	
+	on_weekly = {
+	
+		effect = {
+			every_country = {
+			
+				if = {
+					limit = {
+						check_variable = { ROOT.influence_level@THIS > 0 }
+					}
+					add_to_variable = { ROOT.influence_level@THIS = -0.05 }
+				}
+				if = {
+					limit = {
+						check_variable = { ROOT.influence_level@THIS < 0 }
+					}
+					set_variable = { ROOT.influence_level@THIS = 0 }
+				}
+				if = {
+					limit = {
+						check_variable = { ROOT.influence_level@THIS > 10.2 }
+					}
+					set_variable = { ROOT.influence_level@THIS = 10.2 }
+				}
+			
+			}
+		
+		}
+	
+	}
+	
+	on_daily = {
+	
+		effect = {
+		
+			every_country = {
+				
+				if = {
+					limit = {
+						check_variable = { ROOT.influence_level@THIS < 0 }
+						NOT = {
+							THIS = {
+								gives_military_access_to = ROOT
+								has_country_flag = under_influence_of_@ROOT
+							}
+						}
+					}
+					set_variable = { ROOT.influence_level@THIS = 0 }
+				}
+				if = {
+					limit = {
+						check_variable = { ROOT.influence_level@THIS < 0.2 }
+						THIS = {
+							gives_military_access_to = ROOT
+							has_country_flag = under_influence_of_@ROOT
+						}
+					}
+					set_variable = { ROOT.influence_level@THIS = 0.2 }
+				}
+				if = {
+					limit = {
+						check_variable = { ROOT.influence_level@THIS > 10.19 }
+					}
+					set_variable = { ROOT.influence_level@THIS = 10.2 }
+				}
+			
+			}
+			every_country = {
+			
+				if = {
+					limit = {
+						check_variable = { ROOT.dependence_level@THIS < 0 }
+					}
+					set_variable = { ROOT.dependence_level@THIS = 0 }
+				}
+				if = {
+					limit = {
+						check_variable = { ROOT.dependence_level@THIS > 10 }
+					}
+					set_variable = { ROOT.dependence_level@THIS = 10 }
+				}
+			
+			}
+		
+		}
+	
+	}
+	
+	on_monthly = {
+	
+		effect = {
+		
+			every_country = {
+			
+				if = {
+					limit = {
+						check_variable = { var = ROOT.simp_level@THIS value = 0 compare = greater_than }
+					}
+					add_to_variable = { ROOT.simp_level@THIS = -1 }
+				}
+				if = {
+					limit = {
+						check_variable = { var = ROOT.simp_level@THIS value = 0 compare = less_than_or_equals }
+					}
+					clear_variable = ROOT.simp_level@THIS
+				}
+			
+			}
+		
+		}
+	
+	}
+	
+}

@@ -94,6 +94,9 @@ scripted_gui = {
 		triggers = {
 		
 			mark_all_states_click_enabled = {
+				ROOT = {
+					has_offensive_war = no
+				}
 				any_owned_state = {
 					NOT = { has_state_flag = marked_for_transfer }
 				}
@@ -130,6 +133,9 @@ scripted_gui = {
 			}
 		
 			mark_colonial_states_click_enabled = {
+				ROOT = {
+					has_offensive_war = no
+				}
 				any_owned_state = {
 					NOT = { is_in_home_area = yes }
 					NOT = { has_state_flag = marked_for_transfer }
@@ -172,7 +178,16 @@ scripted_gui = {
 			}
 		
 			award_states_click_enabled = {
-				check_variable = { ROOT.marked_states > 0 }
+				ROOT = {
+					has_offensive_war = no
+				}
+				PREV = {
+					has_offensive_war = no
+				}
+				AND = {
+					check_variable = { ROOT.marked_states > 0 }
+					check_variable = { ROOT.marked_states < 2 }
+				}
 				NOT = { 
 					ROOT = { 
 						all_owned_state = {

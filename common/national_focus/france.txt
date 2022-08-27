@@ -3741,14 +3741,60 @@ focus_tree = {
 			
 		}
 		ai_will_do = {
-			factor = 0
+			factor = 1
 		}
 		completion_reward = {
 			set_rule = {
 				can_create_factions = yes
 			}
-		
-			
+			if = {
+				limit = {
+					CZE = {
+						has_government = ROOT
+						is_faction_leader = yes
+					}
+				}
+				CZE = {
+					country_event = generic.2
+				}
+			}
+			else_if = {
+				limit = {
+					CZE = {
+						has_government = ROOT
+						OR = {
+							is_subject = no
+							is_subject_of = ROOT
+						}
+					}
+					is_faction_leader = yes
+				}
+				CZE = { country_event = france.17 }
+			}
+			else_if = {
+				limit = {
+					CZE = {
+						has_government = ROOT
+						is_in_faction = no
+						OR = {
+							is_subject = no
+							is_subject_of = ROOT
+						}
+					}
+					is_in_faction = no
+				}
+				create_faction = french_entente_alliance
+				CZE = { custom_effect_tooltip = invite_to_faction_tt }
+				hidden_effect = {
+					CZE = { country_event = france.17 }
+				}
+			}
+			hidden_effect = {
+				news_event = {
+					hours = 6
+					id = news.177
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}

@@ -1,0 +1,93 @@
+spheres_of_influence__colonies_management = {
+	higher_dependence_on_us = {
+		icon = decision_icon_higher_dependence_on_us
+		cost = 75
+		days_remove = 50
+		days_re_enable = 10
+		target_trigger = {
+			FROM = {
+				is_puppet_of = ROOT
+			}
+		}
+		available = {
+			FROM = {
+				is_puppet_of = ROOT
+			}
+			has_country_flag = has_integration_campaign_@FROM
+		}
+		visible = {
+			FROM = {
+				exists = yes
+			}
+		}
+		modifier = {
+			political_power_factor = -0.5
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			add_to_variable = { ROOT.dependence_level@FROM = 1.00 }
+		}
+	}
+	start_integration_campaign_in_delta = {
+		icon = decision_icon_start_integration_campaign_in_delta
+		cost = 50
+		days_remove = 35
+		days_re_enable = 180
+		target_trigger = {
+			FROM = {
+				is_puppet_of = ROOT
+			}
+		}
+		available = {
+			FROM = {
+				is_puppet_of = ROOT
+			}
+			has_country_flag = has_influence_campaign_@FROM
+			NOT = {
+				has_country_flag = has_integration_campaign_@FROM
+			}
+		}
+		visible = {
+			FROM = {
+				exists = yes
+			}
+		}
+		complete_effect = {
+			add_to_variable = { ROOT.dependence_level@FROM = 1.00 }
+		}
+		remove_effect = {
+			set_country_flag = has_integration_campaign_@FROM
+		}
+	}
+	integrate_delta_in_our_country = {
+		icon = decision_icon_integrate_delta_in_our_country
+		cost = 150
+		days_remove = 175
+		days_re_enable = 360
+		target_trigger = {
+			FROM = {
+				is_puppet_of = ROOT
+			}
+		}
+		available = {
+			FROM = {
+				is_puppet_of = ROOT
+			}
+			has_country_flag = has_integration_campaign_@FROM
+			check_variable = { ROOT.dependence_level@FROM > 24.99 }
+		}
+		visible = {
+			FROM = {
+				exists = yes
+			}
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			annex_country = { target = FROM transfer_troops = yes }
+		}
+	}
+}

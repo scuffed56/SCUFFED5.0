@@ -1,0 +1,104 @@
+scripted_diplomatic_actions = {
+	
+	demilitarize_subject_action = {
+
+		allowed = {
+			ROOT = { is_ai = no }
+		}
+
+		visible = {
+			PREV = {
+				AND = {
+					NOT = { has_idea = subject_military_restrictions }
+					exists = yes
+					is_subject_of = ROOT
+					is_ai=yes
+				}
+			}
+		}
+
+		selectable = {
+			custom_trigger_tooltip = {
+				tooltip = RESTRICTING_ALLOWED_TOOLTIP
+				always = yes
+			}	
+		}
+
+		cost = 50
+
+		command_power = 15
+
+		requires_acceptance = no
+
+		icon = 1
+
+		complete_effect = {
+			PREV = {
+				add_timed_idea = {
+					idea = recently_restricted
+					days = 20
+				}
+				add_ideas = subject_military_restrictions
+				add_ideas = cant_train_divisions
+				country_lock_all_division_template = yes
+				delete_unit = {
+					disband = yes
+				}
+			}
+		}
+	}
+
+	remilitarize_subject_action = {
+
+		allowed = {
+			ROOT = { is_ai = no }
+		}
+
+		visible = {
+			PREV = {
+				AND = {
+					has_idea = subject_military_restrictions
+					exists = yes
+					is_subject_of = ROOT
+					is_ai=yes
+				}
+			}
+		}
+
+		selectable = {
+			IF = {
+				limit = {
+					PREV = {
+						has_idea = recently_restricted
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = DERESTRICTING_DENIED_TOOLTIP
+					always = no
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = DERESTRICTING_ALLOWED_TOOLTIP
+					always = yes
+				}
+			}
+		}
+
+		cost = 25
+
+		command_power = 5
+
+		requires_acceptance = no
+
+		icon = 1
+
+		complete_effect = {
+			PREV = {
+				remove_ideas = subject_military_restrictions
+				remove_ideas = cant_train_divisions
+				country_lock_all_division_template = no
+			}
+		}
+	}
+}

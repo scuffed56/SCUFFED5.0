@@ -1,0 +1,39 @@
+on_actions = {
+	
+	#ROOT is subject FROM is previous overlord
+	on_subject_free = {
+		effect = {
+			if = {
+				limit = {
+				has_idea = subject_military_restrictions
+				}
+			remove_ideas = subject_military_restrictions
+			}
+			if = {
+				limit = {
+					#AND = {
+					has_idea = cant_train_divisions
+					#NOT = { has_idea = subject_military_restrictions }
+					#}
+				}
+				country_lock_all_division_template = no
+				remove_ideas = cant_train_divisions
+			}
+		}
+	}
+	
+	on_monthly = {
+		effect = {
+			if = {
+				limit = {
+					AND = {
+					has_idea = cant_train_divisions
+					NOT = { has_idea = subject_military_restrictions }
+					}
+				}
+			country_lock_all_division_template = no
+			remove_ideas = cant_train_divisions
+			}
+		}
+	}
+}

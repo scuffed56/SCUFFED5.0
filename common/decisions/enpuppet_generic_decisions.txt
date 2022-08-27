@@ -1,0 +1,224 @@
+puppet_restrictions = {	
+	#puppet_restrictions_military = {
+	#
+	#	icon = generic_industry
+	#	
+	#	available = {
+	#		FROM = {
+	#			AND = {
+	#			NOT = { has_idea = subject_military_restrictions }
+	#			exists = yes
+	#			is_subject_of = ROOT
+	#			}
+	#		}
+	#	}
+	#	
+	#	visible = {
+	#	num_subjects > 0
+	#		FROM = {
+	#		exists = yes
+	#		NOT = { has_idea = subject_military_restrictions }
+	#		is_subject_of = ROOT
+	#		}
+	#	}
+#
+	#	target_trigger = {
+	#		FROM = {
+	#			AND = {
+	#			is_subject_of = ROOT
+	#			NOT = { has_idea = subject_military_restrictions }
+	#			}
+	#		}
+	#	}
+	#	
+	#	cost = 50
+	#	
+	#	days_remove = 0
+		
+	#	
+	#	complete_effect = {
+	#		FROM = {
+	#		custom_effect_tooltip = restricted_subject
+	#		hidden_effect = {
+	#		add_timed_idea = {
+	#		idea = recently_restricted
+	#		days = 7
+	#		}
+	#		add_ideas = subject_military_restrictions
+	#		add_ideas = cant_train_divisions
+	#		country_lock_all_division_template = yes
+	#		delete_unit = {
+	#			disband = yes
+	#		}
+	#		}
+	#		}
+	#	}
+		
+	#	ai_will_do = {
+	#		factor = 0
+	#	}
+	#}
+	
+	#remove_puppet_restrictions_military = {
+	#
+	#	icon = generic_industry
+		
+	#	available = {
+	#	FROM = {
+	#		custom_trigger_tooltip = {
+	#		tooltip = remove_restrictions_limit
+	#		NOT = { has_idea = recently_restricted }
+	#		has_idea = subject_military_restrictions
+	#		exists = yes
+	#		}
+	#	}
+	#	}
+	#	
+	#	visible = {
+	#	num_subjects > 0
+	#		FROM = {
+	#		has_idea = subject_military_restrictions
+	#		exists = yes
+	#		}
+	#	}
+
+	#	target_trigger = {
+	#		FROM = {
+	#			AND = {
+	#			is_subject_of = ROOT
+	#			has_idea = subject_military_restrictions
+	#			}
+	#		}
+	#	}
+		
+	#	cost = 50
+		
+	#	days_remove = 0
+		
+		
+	#	complete_effect = {
+	#		FROM = {
+	#		custom_effect_tooltip = restricted_subject_removed
+	#		hidden_effect = {
+	#		remove_ideas = subject_military_restrictions
+	##		remove_ideas = cant_train_divisions
+	#		country_lock_all_division_template = no
+	#		}
+	#		}
+	#	}
+		
+	#	ai_will_do = {
+	#		factor = 0
+	#	}
+	#}
+
+	puppet_restrictions_transfer_navy = {
+
+		icon = generic_naval
+
+		available = {
+			FROM = {
+				has_navy_size = {
+				size > 9
+				}
+			is_subject_of = ROOT
+			has_idea = subject_military_restrictions
+			}
+		}
+
+		visible = {
+			FROM = {
+				has_navy_size = {
+				size > 9
+				}
+			is_subject_of = ROOT
+			has_idea = subject_military_restrictions
+			}
+		}
+
+		target_trigger = {
+			FROM = {
+			has_idea = subject_military_restrictions
+			}
+		}
+
+		cost = 200
+
+		days_remove = 0
+
+		days_re_enable = 7
+
+		complete_effect = {
+			FROM = {
+				transfer_navy = {
+				target = ROOT
+				}
+			}
+		}
+	}
+
+	puppet_restrictions_transfer_airforce = {
+
+		icon = generic_air
+
+		available = {
+			FROM = {
+				OR = {
+					has_deployed_air_force_size = {
+						size > 499
+						type = fighter
+					}
+					has_deployed_air_force_size = {
+						size > 499
+						type = cas
+					}
+				}
+			has_idea = subject_military_restrictions
+			}
+		}
+
+		visible = {
+			FROM = {
+				OR = {
+					has_deployed_air_force_size = {
+						size > 499
+						type = fighter
+					}
+					has_deployed_air_force_size = {
+						size > 499
+						type = cas
+					}
+				}
+			has_idea = subject_military_restrictions
+			}
+		}
+
+		target_trigger = {
+			FROM = {
+			has_idea = subject_military_restrictions
+			}
+		}
+
+		cost = 100
+
+		days_remove = 0
+
+		days_re_enable = 7
+
+		complete_effect = {
+
+			FROM = {
+			custom_effect_tooltip = subject_airforce_transfered
+			hidden_effect = {
+				transfer_units_fraction = {
+					target = ROOT
+					stockpile_ratio = 10
+					army_ratio = 0
+					navy_ratio = 0
+					air_ratio = 10
+				}
+			}
+			}
+		}
+	}
+}	

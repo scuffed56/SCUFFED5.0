@@ -18,9 +18,18 @@ NDefines.NGraphics.RAILWAY_MAP_ARROW_THICK_LEVEL_THRESHOLD = 9 -- Railway level 
 NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 14
 
 -- Country balance
+NDefines.NDiplomacy.MIN_WARGOAL_JUSTIFY_COST = 7
 NDefines.NCountry.SPECIAL_FORCES_CAP_BASE = 0.1
 NDefines.NCountry.SPECIAL_FORCES_CAP_MIN = 40
 NDefines.NCountry.BASE_RESEARCH_SLOTS = 3
+NDefines.NCountry.POPULATION_YEARLY_GROWTH_BASE = 0.0 --basic population growth per year, used for monthly manpower gain, set to 0 for optimization
+NDefines.NCountry.ARMY_SCORE_MULTIPLIER = 0 -- we don't want to calculate score 
+NDefines.NCountry.COUNTRY_SCORE_MULTIPLIER = 0
+NDefines.NCountry.NAVY_SCORE_MULTIPLIER = 0
+NDefines.NCountry.AIR_SCORE_MULTIPLIER = 0
+NDefines.NCountry.INDUSTRY_SCORE_MULTIPLIER = 0
+NDefines.NCountry.PROVINCE_SCORE_MULTIPLIER = 0
+NDefines.NResistance.GARRISON_LOG_MAX_MONTHS = 0
 
 -- Military
 NDefines.NMilitary.DEPLOY_TRAINING_MAX_LEVEL = 5
@@ -33,9 +42,16 @@ NDefines.NMilitary.MAX_AIR_EXPERIENCE = 999  -- Max air experience a country can
 NDefines.NMilitary.EXPERIENCE_COMBAT_FACTOR = 0.03
 NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 32
 NDefines.NMilitary.RECON_SKILL_IMPACT = 6
-NDefines.NMilitary.BASE_DIVISION_BRIGADE_GROUP_COST = 8 -- Base cost to unlock a regiment slot,
-NDefines.NMilitary.BASE_DIVISION_BRIGADE_CHANGE_COST = 4 -- Base cost to change a regiment column.
-NDefines.NMilitary.BASE_DIVISION_SUPPORT_SLOT_COST = 10
+NDefines.NMilitary.BASE_DIVISION_BRIGADE_GROUP_COST = 0 -- Base cost to unlock a regiment slot,
+NDefines.NMilitary.BASE_DIVISION_BRIGADE_CHANGE_COST = 0 -- Base cost to change a regiment column.
+NDefines.NMilitary.BASE_DIVISION_SUPPORT_SLOT_COST = 0
+
+NDefines.NMilitary.EQUIPMENT_MODULE_ADD_XP_COST = 0
+NDefines.NMilitary.EQUIPMENT_MODULE_REPLACE_XP_COST = 0
+NDefines.NMilitary.EQUIPMENT_MODULE_CONVERT_XP_COST = 0
+NDefines.NMilitary.EQUIPMENT_MODULE_REMOVE_XP_COST = 0
+
+
 
 NDefines.NMilitary.BASE_LEADER_TRAIT_GAIN_XP = 0.7
 NDefines.NMilitary.UNIT_EXPERIENCE_PER_COMBAT_HOUR = 0.000175
@@ -56,10 +72,6 @@ NDefines.NMilitary.NEW_COMMANDER_RANDOM_PERSONALITY_TRAIT_CHANCES = { -- Chances
 
 NDefines.NMilitary.PLANNING_DECAY = 0.04
 NDefines.NMilitary.PLANNING_GAIN = 0.08
-
--- NDefines.NMilitary.PLAN_SPREAD_ATTACK_WEIGHT = 6.0
-NDefines.NMilitary.BASE_DIVISION_BRIGADE_CHANGE_COST = 4	-- was 4 before... - Fantom
---This is a Trace to make sure mod is taken into account
 
 NDefines.NMilitary.PLAN_PROVINCE_BASE_IMPORTANCE = 2.0
 NDefines.NMilitary.PLAN_PROVINCE_LOW_VP_IMPORTANCE_AREA = 4.0
@@ -181,6 +193,7 @@ NMilitary = {
 
 
 -- AI
+
 NDefines.NAI.ENTRENCHMENT_WEIGHT = 50.0
 NDefines.NAI.AI_FRONT_MOVEMENT_FACTOR_FOR_READY = 0.50
 NDefines.NAI.MAIN_ENEMY_FRONT_IMPORTANCE = 50.0
@@ -212,10 +225,11 @@ NDefines.NAI.RESEARCH_BASE_DAYS = 60					-- AI adds a base number of days when w
 NDefines.NAI.GARRISON_FRACTION = 0.01 					-- How large part of a front should always be holding the line rather than advancing at the enemy
 
 NDefines.NAI.DIPLOMATIC_ACTION_GOOD_BAD_RATIO_THRESHOLD = 1
-NDefines.NAI.BASE_RELUCTANCE = 15 						-- (Original value: 20) Base reluctance applied to all diplomatic offers
+NDefines.NAI.BASE_RELUCTANCE = 1 						-- (Original value: 20) Base reluctance applied to all diplomatic offers
 NDefines.NAI.DIPLOMATIC_ACTION_RANDOM_FACTOR = 0.5 		-- How much of the AI diplomatic action scoring is randomly determined (1.0 = half random, 2.0 = 2/3rd random, etc)
 NDefines.NAI.DIPLOMATIC_ACTION_PROPOSE_SCORE = 50 		-- AI must score a diplomatic action at least this highly to propose it themselves
 NDefines.NAI.DILPOMATIC_ACTION_DECLARE_WAR_WARGOAL_BASE = 50 -- Base diplomatic action score bonus to go to war per wargoal
+NDefines.NDiplomacy.MIN_WARGOAL_JUSTIFY_COST = 7 
 NDefines.NAI.DIPLOMATIC_ACTION_BREAK_SCORE = -50 		-- (Original value: -10) AI must score a diplomatic action less than this to break it off	
 NDefines.NAI.DIPLOMACY_CREATE_FACTION_FACTOR = 0.75		-- Factor for AI desire to create a new faction. Val < 1.0 makes it less likely to create than to join.
 NDefines.NAI.DIPLOMACY_FACTION_WRONG_IDEOLOGY_PENALTY = 95 -- AI penalty for diplomatic faction acitons between nations of different ideologies
@@ -232,7 +246,7 @@ NDefines.NAI.DIPLOMACY_IMPROVE_RELATION_COST_FACTOR = 5.0-- Desire to boost rela
 NDefines.NAI.DIPLOMACY_IMPROVE_RELATION_PP_FACTOR = 0.1	-- Desire to boost relations adds total PP multiplied by this
 NDefines.NAI.DIPLOMACY_SEND_ATTACHE_COST_FACTOR = 5.0	-- Desire to send attache substracts the cost multiplied by this
 NDefines.NAI.DIPLOMACY_SEND_ATTACHE_PP_FACTOR = 0.1	-- Desire to send attache adds total PP multiplied by this
-NDefines.NAI.DIPLOMACY_REJECTED_WAIT_MONTHS_BASE = 4	-- AI will not repeat offers until at least this time has passed, and at most the double
+NDefines.NAI.DIPLOMACY_REJECTED_WAIT_MONTHS_BASE = 24	-- AI will not repeat offers until at least this time has passed, and at most the double
 NDefines.NAI.DIPLOMACY_CALL_ALLY_VALIDITY_DURATION = 1	-- Overwrite above value for CallAlly and JoinAlly diplo action. This is however fixed, and is not subject to randomness. Also, this is the time the AI will keep the action in its incoming queue without declining it.
 NDefines.NAI.DIPLOMACY_SEND_MAX_FACTION = 0.75			-- Country should not send away more units than this as expeditionaries
 NDefines.NAI.DIPLOMACY_ACCEPT_VOLUNTEERS_BASE = 50		-- Base value of volunteer acceptance (help is welcome)
@@ -273,7 +287,7 @@ NDefines.NAI.DESPERATE_AI_MIN_ORG_BEFORE_ATTACK = 0.85					-- ai will wait for t
 NDefines.NAI.DESPERATE_AI_MIN_ORG_BEFORE_MOVE = 0.25					-- ai will wait for this much org to move in desperate situations
 NDefines.NAI.DESPERATE_ATTACK_WITHOUT_ORG_WHEN_NO_ORG_GAIN = 175		-- if ai can't regain enough org to attack in this many hours, it will go truly desperate and attack anyway (still has to wait for move org)
 
-
+NDefines.NAI.WANTED_UNITS_MANPOWER_DIVISOR = 300000
 
 NDefines.NAI.DIVISION_DESIGN_WEIGHTS = {							-- Base values used by AI to evaluate value of a stat
 	--Army Values
