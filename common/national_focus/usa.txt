@@ -1867,7 +1867,7 @@ focus_tree = {
 		continue_if_invalid = yes
 		available = {
 			congress_high_support_trigger = yes 
-			has_government = democratic
+			democratic > 0.95
 			NOT = { has_idea_with_trait = fascist_demagogue }
 			NOT = { has_idea_with_trait = communist_revolutionary }
 		}
@@ -1924,7 +1924,8 @@ focus_tree = {
 		icon = GFX_goal_generic_democratic_army
 		prerequisite = { focus = USA_limited_intervention }
 		available = {
-			has_government = democratic
+			congress_high_support_trigger = yes 
+			democratic > 0.95
 		}
 
 		bypass = {
@@ -1954,7 +1955,7 @@ focus_tree = {
 				limit = {
 					has_war_support < 0.4
 				}
-				USA_congress_small_opposition = yes
+				USA_congress_medium_opposition = yes
 			}
 		}
 	}
@@ -2074,7 +2075,7 @@ focus_tree = {
 		y = 2
 		prerequisite = { focus = USA_defense_contractors }
 		relative_position_id = USA_defense_contractors
-		cost = 15
+		cost = 16
 
 		ai_will_do = {
 			factor = 50
@@ -2083,7 +2084,7 @@ focus_tree = {
 		available = {
 			OR = {
 				has_war = yes
-				has_war_support > 0.5
+				has_war_support > 0.6
 			}
 		}
 		
@@ -2117,22 +2118,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			random_owned_controlled_state = {
-				limit = {
-					is_in_home_area = yes
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
+			
 			random_owned_controlled_state = {
 				limit = {
 					is_in_home_area = yes
@@ -3113,7 +3099,7 @@ focus_tree = {
 		available = {
 			OR = {
 				has_war = yes
-				has_war_support > 0.29
+				has_war_support > 0.3
 			}
 			democratic > 0.95
 		}
@@ -3154,7 +3140,7 @@ focus_tree = {
 			}
 			add_timed_idea = {
 				idea = rt56_the_gaint_wakes_idea
-				days = 30
+				days = 60
 			}
 			random_owned_controlled_state = {
 				prioritize = { 360 }
@@ -10855,7 +10841,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = r56_USA_victory_program
+			add_timed_idea = {
+				idea = r56_USA_victory_program
+				days = 180
+			}
 			if = {
 				limit = {
 					has_war = no
