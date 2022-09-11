@@ -63,6 +63,21 @@ country_event = {
 					add_nationality = GER				
 				}				
 			}
+			if = {
+				limit = {
+					has_intelligence_agency = no
+				}
+				ROOT = {
+					create_operative_leader = {
+						name = "Albrecht von Auenrode"
+						gfx = GFX_portrait_europe_generic_operative_m_16
+						traits = { operative_infiltrator operative_master_interrogator }
+						bypass_recruitment = no
+						available_to_spy_master = yes
+						nationalities = { GER AUS }
+					}					
+				}
+			}
 		}
 		annex_country = { target = AUS transfer_troops = yes }
 		#Change ruling party to democracy to ease post war things as fascists and communists puppet anyway, also load generic FT for the same reason creating a post war Austria
@@ -2202,10 +2217,6 @@ country_event = {
 
 	option = { # Abandon the Czechs
 		name = germany.40.a
-		trigger = {
-			NOT = { has_war_with = GER }
-			is_puppet = no # can't do anything if puppet
-		}
 		ai_chance = {
 		 	factor = 90
 			modifier = {																									###### Change made for CZKE mod  line added
@@ -2242,6 +2253,10 @@ country_event = {
 					is_in_faction_with = CZE
 				}
 			}
+		}
+		trigger = {
+			NOT = { has_war_with = GER }
+			is_puppet = no # can't do anything if puppet
 		}
 		if = {
 			limit = {
@@ -2306,129 +2321,6 @@ country_event = {
 				is_faction_leader = yes
 			}
 			remove_from_faction = CZE
-		}
-	}
-	option = { # Support the Czechs
-		name = germany.40.b
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				is_in_faction_with = GER
-			}
-			modifier = {																								###### Change made for CZKE mod  line added
-				factor = 100																							###### Change made for CZKE mod  line added
-				CZE = {	has_completed_focus = CZKE_petition_league_of_nations } 										###### Change made for CZKE mod  line added
-			}																											###### Change made for CZKE mod  line added
-			modifier = {
-				factor = 0
-				ENG_is_on_historical_plan_trigger = yes
-				NOT = { 
-					is_in_faction_with = CZE
-					has_war_with = GER
-				}
-			}
-			modifier = {
-				factor = 3
-				has_government = communism
-				CZE = { has_government = communism }
-			}
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = ENG_ai_behavior 
-						option = NEUTRALITY
-					}
-					has_game_rule = {
-						rule = ENG_ai_behavior 
-						option = COMMUNIST
-					}
-				}
-				NOT = { 
-					is_in_faction_with = CZE
-					has_war_with = GER
-				}
-			}
-		}
-		if = {
-			limit = {
-				is_in_faction_with = GER
-				is_faction_leader = yes
-			}
-			remove_from_faction = GER
-		}
-		if = {
-			limit = {
-				is_in_faction_with = GER
-				is_faction_leader = no
-			}
-			GER = { remove_from_faction = ENG }
-		}
-		if = {
-			limit = {
-				NOT = { has_completed_focus = ENG_no_further_appeasement }
-			}
-			add_political_power = -200
-		}
-		add_opinion_modifier = { target = GER modifier = condemn_aggression }
-		effect_tooltip = {
-			GER = {
-				create_wargoal = {
-					type = take_state_focus
-					target = CZE
-					generator = { 69 }
-				}
-			}
-		}
-		if = {
-			limit = { 
-				is_in_faction = yes
-				CZE = { is_in_faction = no }	   
-			}
-			random_country = {
-				limit = {
-					is_faction_leader = yes
-					is_in_faction_with = ROOT #this may in fact be ROOT, since countries are in a faction with themselves!
-				}
-				add_to_faction = CZE
-			}							   
-		}
-		if = {
-			limit = {
-				tag = HOL
-			}
-			CZE = {
-				add_ai_strategy = {
-					type = alliance
-					id = "HOL"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = {
-				tag = HOL
-			}
-			CZE = {
-				add_ai_strategy = {
-					type = alliance
-					id = "ENG"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = { tag = HOL }
-				FRA = {
-					NOT = { has_war_with = CZE }
-				}
-			}
-			FRA = { country_event = germany.42 }
-		}
-		CZE = {
-			add_opinion_modifier = { target = ROOT modifier = offered_support }
 		}
 	}
 }
@@ -2534,153 +2426,6 @@ country_event = {
 			YUG = {
 				add_opinion_modifier = { target = FRA modifier = western_betrayal }
 			}
-		}
-	}
-	option = { # Support the Czechs alone
-		name = germany.41.b 
-		trigger = { is_puppet = no }
-		ai_chance = {
-			factor = 5
-			modifier = {
-				factor = 0
-				is_in_faction_with = GER
-			}
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-				NOT = {
-					is_in_faction_with = CZE
-				}
-			}
-			modifier = {
-				factor = 0
-				has_global_flag = FRA_GER_sphere_of_influence_agreement
-			}			
-			modifier = {
-				factor = 6
-				has_government = communism
-				CZE = { has_government = communism }
-			}
-		}
-		if = {
-			limit = {
-				is_in_faction_with = CZE
-				has_completed_focus = FRA_little_entente
-			}
-			add_political_power = -100
-		}
-		if = {
-			limit = {
-				OR = {
-					NOT = { has_completed_focus = FRA_little_entente }
-					NOT = { is_in_faction_with = CZE } 
-				}
-			}
-			add_political_power = -200
-		}
-		add_opinion_modifier = { target = GER modifier = condemn_aggression }
-		CZE = { 
-			country_event = germany.45
-			add_opinion_modifier = { target = FRA modifier = offered_support }
-		}
-		GER = {
-			country_event = germany.48
-			effect_tooltip = {
-				create_wargoal = {
-					type = take_state_focus
-					target = CZE
-					generator = { 69 }
-				}
-			}
-		}
-		if = {
-			limit = { is_in_faction_with = ENG }
-			ENG = { 
-				country_event = germany.43 
-				if = {
-					limit = {
-						is_faction_leader = yes
-					}
-					remove_from_faction = FRA
-					else = {
-						FRA = { remove_from_faction = ENG }
-					}
-				}
-			}
-		}
-		if = {
-			limit = { is_in_faction_with = GER }
-			if = {
-				limit = { GER = { is_faction_leader = yes } }
-				GER = { 
-					remove_from_faction = FRA
-				}
-				else = {
-					remove_from_faction = GER
-				}
-			}
-		}
-		if = {
-			limit = {
-				is_in_faction = yes
-				is_faction_leader = yes
-				NOT = { is_in_faction_with = ENG }
-				NOT = { is_in_faction_with = GER }
-				NOT = { is_in_faction_with = CZE }
-				CZE = { is_in_faction = no }
-			}
-			add_to_faction = CZE
-			CZE = {
-				add_ai_strategy = {
-					type = alliance
-					id = "FRA"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = {
-				OR = {
-					is_in_faction = no
-					AND = {
-						is_faction_leader = no
-						is_in_faction_with = ENG
-					}
-					is_in_faction_with = GER
-				}
-				CZE = { is_in_faction = no }
-			}
-			create_faction = "french_alliance"
-			set_rule = { can_create_factions = yes }
-			add_to_faction = CZE
-			CZE = {
-				add_ai_strategy = {
-					type = alliance
-					id = "FRA"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = {
-				is_in_faction = no
-				CZE = { 
-					is_faction_leader = yes 
-					has_completed_focus = CZKE_revive_little_entente
-				}
-			}
-			CZE = { add_to_faction = FRA }
-			FRA = {
-				add_ai_strategy = {
-					type = alliance
-					id = "CZE"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = { NOT = { has_completed_focus = FRA_little_entente } }
-			add_stability = 0.05
 		}
 	}
 }
@@ -3094,6 +2839,7 @@ country_event = {
 		GER = { transfer_state = 69 }
 		74 = { add_core_of = GER }
 		GER = { transfer_state = 74 }
+		set_country_flag = sudetenland_acquired
 		add_war_support = 0.1
 		add_stability = 0.05
 		play_peace_in_our_time_effect = yes
@@ -3106,15 +2852,8 @@ country_event = {
 				country_event = { hours = 6 id = germany.52 }
 			}
 		}
-		set_country_flag = sudetenland_acquired
 		hidden_effect = {
 			news_event = { hours = 6 id = news.56 }
-			CZE = { #benes goes to exile after Germany annexed Sudetenland
-				country_event = { 
-					id = czke.8
-					days = 3
-				}
-			}
 			if = {
 				limit = {
 					has_dlc = "Death or Dishonor"
@@ -3926,67 +3665,6 @@ country_event = {
 	picture = GFX_report_event_german_troops
 
 	is_triggered_only = yes
-
-	option = { # This means war!
-		name = germany.60.a
-		ai_chance = {
-			factor = 1
-			modifier = {
-				factor = 20
-				strength_ratio = {
-					tag = GER
-					ratio > 0.7
-				}
-				NOT = { has_idea = FRA_disjointed_government }
-			}
-
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
-		add_political_power = -150
-		add_stability = -0.1
-		if = {
-			limit = {
-				ENG = {
-					is_puppet = no
-					NOT = { has_war_with = FRA }
-				}
-			}
-			ENG = {
-				country_event = germany.61
-				custom_effect_tooltip = needs_approval
-				effect_tooltip = { add_to_faction = FRA }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = FRA_disjointed_government
-				NOT = { has_government = communism }
-			}
-			custom_effect_tooltip = germany.60.a.tt
-			effect_tooltip = {
-				start_civil_war = {
-					ideology = communism
-					size = 0.2
-				}
-			}
-		}
-		if = { #you're not getting around that, comrade
-			limit = {
-				has_idea = FRA_disjointed_government
-				has_government = communism
-			}
-			custom_effect_tooltip = germany.60.a.tt
-			effect_tooltip = {
-				start_civil_war = {
-					ideology = democratic
-					size = 0.3
-				}
-			}
-		}
-	}
 
 	option = { # Diplomatic response
 		name = germany.60.b
@@ -10809,7 +10487,7 @@ country_event = { #Resolves Europe Post Yalta
 						SWE = {
 							is_subject_of = SOV
 							NOT = {
-								has_completed_focus = SWE_sven_olov_addresses_aland_convention #Willing went evil. You don't get to opt out now
+								has_completed_focus = SWE_claim_aland #Willing went evil. You don't get to opt out now
 							}
 						}
 					}
@@ -13006,499 +12684,6 @@ country_event = { #Germany civil war
 						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
 						owner = PREV
 						allow_spawning_on_enemy_provs = no
-					}
-				}
-			}
-			###heres your starting designs now stop annoying me about debug mode not saying your tag is GER
-			every_country = {
-				limit = {
-					OR = {
-						tag = event_target:communist_germany
-						tag = event_target:conservative_germany
-					}
-				}
-				if = {
-					limit = {
-						not = { has_dlc = "Man the Guns" }
-					}
-					create_equipment_variant = {
-						name = "Scharnhorst Class"
-						type = battle_cruiser_2
-						parent_version = 0
-						upgrades = {
-							ship_reliability_upgrade = 3
-							ship_engine_upgrade = 1
-							ship_armor_upgrade = 4
-							ship_gun_upgrade = 0
-						}
-					}
-					create_equipment_variant = {
-						name = "Deutschland Class"
-						type = battleship_1
-						parent_version = 0
-						upgrades = {
-							ship_reliability_upgrade = 0
-							ship_engine_upgrade = 0
-							ship_armor_upgrade = 0
-							ship_gun_upgrade = 0
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Deutschland Class"
-						type = heavy_cruiser_2
-						parent_version = 0
-						upgrades = {
-							ship_reliability_upgrade = 1
-							ship_engine_upgrade = 0
-							ship_armor_upgrade = 0
-							ship_gun_upgrade = 4
-						}
-						obsolete=yes
-					}
-					create_equipment_variant = {
-						name = "Leipzig Class"
-						type = light_cruiser_1
-						parent_version = 0
-						upgrades = {
-							ship_reliability_upgrade = 2
-							ship_engine_upgrade = 2
-							ship_gun_upgrade = 3
-							ship_anti_air_upgrade = 3
-						}
-						obsolete = yes
-					}
-					# Light Cruisers #
-					create_equipment_variant = {
-						name = "Königsberg Class"
-						type = light_cruiser_1
-						parent_version = 0
-						upgrades = {
-							ship_reliability_upgrade = 2
-							ship_engine_upgrade = 2
-							ship_gun_upgrade = 3
-							ship_anti_air_upgrade = 2
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "1924 Type"
-						type = destroyer_1
-						parent_version = 0
-						upgrades = {
-							ship_torpedo_upgrade = 1
-							destroyer_engine_upgrade = 1
-							ship_ASW_upgrade = 0
-							ship_anti_air_upgrade = 1
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Zerstörer 1934A"
-						type = destroyer_2
-						parent_version = 0
-						upgrades = {
-							ship_torpedo_upgrade = 1
-							destroyer_engine_upgrade = 1
-							ship_ASW_upgrade = 1
-							ship_anti_air_upgrade = 1
-						}
-					}
-					create_equipment_variant = {
-						name = "Type IIB"
-						type = submarine_2
-						parent_version = 0
-						upgrades = {
-							ship_reliability_upgrade = 1
-							sub_engine_upgrade = 0
-							sub_stealth_upgrade = 1
-							sub_torpedo_upgrade = 0
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Type VIIA"
-						type = submarine_2
-						parent_version = 0
-						upgrades = {
-							ship_reliability_upgrade = 4
-							sub_engine_upgrade = 3
-							sub_stealth_upgrade = 2
-							sub_torpedo_upgrade = 1
-						}
-					}
-					create_equipment_variant = {
-						name = "Type IA"
-						type = submarine_1
-						parent_version = 0
-						upgrades = {
-							ship_reliability_upgrade = 1
-							sub_engine_upgrade = 2
-							sub_stealth_upgrade = 2
-							sub_torpedo_upgrade = 2
-						}
-						obsolete = yes
-					}
-				}
-				if = {
-					limit = { has_dlc = "Man the Guns" }
-					create_equipment_variant = { #Are we making a CV or a Monster Cruiser? Make up your mind
-						name = "Graf Zeppelin Class"
-						type = ship_hull_carrier_conversion_ca
-						name_group = GER_CV_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_deck_slot_1 = ship_deck_space
-							fixed_ship_deck_slot_2 = ship_deck_space
-							fixed_ship_anti_air_slot = ship_anti_air_2
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = cruiser_ship_engine_2
-							fixed_ship_secondaries_slot = ship_secondaries_2 
-						}
-					}
-					create_equipment_variant = {
-						name = "Deutschland Class"
-						type = ship_hull_cruiser_panzerschiff
-						name_group = GER_CA_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_battery_slot = ship_heavy_battery_2
-							fixed_ship_secondaries_slot = ship_secondaries_1
-							fixed_ship_armor_slot = ship_armor_cruiser_2
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_engine_slot = cruiser_ship_engine_2
-							front_1_custom_slot = ship_anti_air_1
-							mid_1_custom_slot = ship_airplane_launcher_1
-							mid_2_custom_slot = ship_secondaries_1
-							rear_1_custom_slot = ship_torpedo_1
-						}
-					}
-					create_equipment_variant = {
-						name = "Type 24 Class"
-						type = ship_hull_light_1
-						name_group = GER_TB_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_light_battery_1
-							fixed_ship_anti_air_slot = empty
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = light_ship_engine_1
-							fixed_ship_torpedo_slot = ship_torpedo_1
-							rear_1_custom_slot = ship_mine_layer_1
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Zerstörer 1934 Class"
-						type = ship_hull_light_2
-						name_group = GER_DD_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_light_battery_2
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = light_ship_engine_2
-							fixed_ship_torpedo_slot = ship_torpedo_1
-							mid_1_custom_slot = ship_torpedo_1
-							rear_1_custom_slot = ship_mine_layer_1
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Zerstörer 1934A Class"
-						type = ship_hull_light_2
-						name_group = GER_DD_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_light_battery_2
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = light_ship_engine_2
-							fixed_ship_torpedo_slot = ship_torpedo_1
-							mid_1_custom_slot = ship_torpedo_1
-							rear_1_custom_slot = ship_depth_charge_1
-						}
-					}
-					create_equipment_variant = {
-						name = "Type I Class"
-						type = ship_hull_submarine_2
-						name_group = GER_SS_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_torpedo_slot = ship_torpedo_sub_1
-							fixed_ship_engine_slot = sub_ship_engine_1
-							rear_1_custom_slot = empty
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Type II Class"
-						type = ship_hull_submarine_1
-						name_group = GER_SS_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_torpedo_slot = ship_torpedo_sub_1
-							fixed_ship_engine_slot = sub_ship_engine_1
-							rear_1_custom_slot = empty
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Type IX Class"
-						type = ship_hull_submarine_2
-						name_group = GER_SS_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_torpedo_slot = ship_torpedo_sub_2
-							fixed_ship_engine_slot = sub_ship_engine_2
-							rear_1_custom_slot = empty
-						}
-					}
-					create_equipment_variant = {
-						name = "Type VII Class"
-						type = ship_hull_submarine_2
-						name_group = GER_SS_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_torpedo_slot = ship_torpedo_sub_2
-							fixed_ship_engine_slot = sub_ship_engine_1
-							rear_1_custom_slot = empty
-						}
-					}
-					create_equipment_variant = {
-						name = "Königsberg Class"
-						type = ship_hull_cruiser_2
-						name_group = GER_CL_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_light_medium_battery_1
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = cruiser_ship_engine_1
-							fixed_ship_armor_slot = ship_armor_cruiser_1
-							mid_1_custom_slot = ship_torpedo_1
-							mid_2_custom_slot = ship_light_medium_battery_1
-							rear_1_custom_slot = ship_mine_layer_1
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Emden Class"
-						type = ship_hull_cruiser_1
-						name_group = GER_CL_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_light_medium_battery_1
-							fixed_ship_anti_air_slot = empty
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = cruiser_ship_engine_1
-							fixed_ship_armor_slot = ship_armor_cruiser_1
-							mid_1_custom_slot = ship_light_medium_battery_1
-							mid_2_custom_slot = ship_torpedo_1
-							rear_1_custom_slot = empty
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Bremse Class"
-						type = ship_hull_cruiser_1
-						name_group = GER_CL_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_light_battery_1
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = cruiser_ship_engine_1
-							mid_1_custom_slot = ship_anti_air_1
-							mid_2_custom_slot = ship_mine_layer_1
-							rear_1_custom_slot = ship_mine_layer_1
-						}
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Leipzig Class"
-						type = ship_hull_cruiser_2
-						name_group = GER_CL_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_light_medium_battery_1
-							fixed_ship_anti_air_slot = ship_anti_air_2
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = cruiser_ship_engine_1
-							fixed_ship_armor_slot = ship_armor_cruiser_1
-							front_1_custom_slot = ship_light_medium_battery_1
-							mid_1_custom_slot = ship_torpedo_1
-							mid_2_custom_slot = ship_mine_layer_1
-							rear_1_custom_slot = ship_airplane_launcher_1
-						}
-					}
-					create_equipment_variant = {
-						name = "Admiral Hipper Class"
-						type = ship_hull_cruiser_2
-						name_group = GER_CA_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_medium_battery_2
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = cruiser_ship_engine_1
-							fixed_ship_armor_slot = ship_armor_cruiser_2
-							front_1_custom_slot = ship_anti_air_1
-							mid_1_custom_slot = ship_torpedo_1
-							mid_2_custom_slot = ship_airplane_launcher_1
-							rear_1_custom_slot = ship_medium_battery_2
-						}
-					}
-					create_equipment_variant = {
-						name = "Scharnhorst Class"
-						type = ship_hull_heavy_2
-						name_group = GER_BB_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_heavy_battery_2
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = heavy_ship_engine_2
-							fixed_ship_secondaries_slot = ship_secondaries_1
-							fixed_ship_armor_slot = ship_armor_bb_1
-							front_1_custom_slot = ship_anti_air_1
-							mid_1_custom_slot = empty
-							mid_2_custom_slot = ship_secondaries_1
-							rear_1_custom_slot = ship_heavy_battery_2
-						}
-					}
-					create_equipment_variant = {
-						name = "Deutschland Class"
-						type = ship_hull_pre_dreadnought
-						name_group = GER_BB_HISTORICAL
-						parent_version = 0
-						modules = {
-							fixed_ship_battery_slot = ship_heavy_battery_1
-							fixed_ship_anti_air_slot = ship_anti_air_1
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = heavy_ship_engine_1
-							fixed_ship_secondaries_slot = ship_secondaries_1
-							fixed_ship_armor_slot = ship_armor_bb_1
-							front_1_custom_slot = ship_anti_air_1
-							mid_1_custom_slot = ship_secondaries_1
-							rear_1_custom_slot = ship_torpedo_1
-						}
-						obsolete = yes
-					}
-				}
-				create_equipment_variant = {
-					name = "Ju 86"
-					type = tac_bomber_equipment_0
-					upgrades = {
-						plane_tac_bomb_upgrade = 5
-						plane_range_upgrade = 5
-						plane_engine_upgrade = 5
-						plane_reliability_upgrade = 10
-					}
-					obsolete = yes
-				}
-				create_equipment_variant = {
-					name = "Do 17"
-					type = tac_bomber_equipment_0
-					upgrades = {
-						plane_tac_bomb_upgrade = 5
-						plane_range_upgrade = 1
-						plane_engine_upgrade = 1
-						plane_reliability_upgrade = 5
-					}
-					obsolete = yes
-				}
-				if = {
-					limit = {
-						has_dlc = "No Step Back"
-					}
-					create_equipment_variant = {
-						name = "Leichttraktor"
-						type = light_tank_chassis_0
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_small_cannon
-							turret_type_slot = tank_light_two_man_tank_turret
-							suspension_type_slot = tank_christie_suspension
-							armor_type_slot = tank_riveted_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = tank_radio_1
-						}
-						upgrades = {
-							tank_nsb_engine_upgrade = 2
-							tank_nsb_armor_upgrade = 2
-						}
-						obsolete = yes
-						icon = "gfx/interface/technologies/gwtank.dds"
-					}
-					create_equipment_variant = {
-						name = "Panzer I Ausf. A"
-						type = light_tank_chassis_1
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_heavy_machine_gun
-							turret_type_slot = tank_light_one_man_tank_turret
-							suspension_type_slot = tank_christie_suspension
-							armor_type_slot = tank_riveted_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = tank_radio_1
-						}
-						upgrades = {
-							tank_nsb_engine_upgrade = 5
-							tank_nsb_armor_upgrade = 1
-						}
-						icon = "gfx/interface/technologies/ger_basic_light_tank.dds"
-						obsolete = yes
-					}
-					create_equipment_variant = {
-						name = "Neubaufahrzeug"
-						type = heavy_tank_chassis_1
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_close_support_gun
-							turret_type_slot = tank_heavy_three_man_tank_turret
-							suspension_type_slot = tank_bogie_suspension
-							armor_type_slot = tank_riveted_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = tank_radio_1
-							special_type_slot_2 = secondary_turret_hmg
-							special_type_slot_3 = secondary_turret_hmg
-							special_type_slot_4 = secondary_turret_hmg
-						}
-						upgrades = {
-							tank_nsb_engine_upgrade = 6
-							tank_nsb_armor_upgrade = 2
-						}
-						icon = "gfx/interface/technologies/ger_basic_heavy_tank.dds"
-					}
-					create_equipment_variant = {
-						name = "Panzer II Ausf. a"
-						type = light_tank_chassis_2
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_auto_cannon
-							turret_type_slot = tank_light_two_man_tank_turret
-							suspension_type_slot = tank_christie_suspension
-							armor_type_slot = tank_riveted_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = tank_radio_1
-						}
-						upgrades = {
-							tank_nsb_engine_upgrade = 3
-							tank_nsb_armor_upgrade = 2
-						}
-						icon = "gfx/interface/technologies/ger_imp_light_tank.dds"
 					}
 				}
 			}
