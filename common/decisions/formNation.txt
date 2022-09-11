@@ -543,6 +543,9 @@ formable_nations_mod_category = {
 				original_tag = CHI
 				original_tag = SIK
 				original_tag = PRC
+				original_tag = JAP
+				original_tag = MON
+				original_tag = TNG 
 				AND = {
 					original_tag = MAN
 				}
@@ -1086,6 +1089,7 @@ formable_nations_mod_category = {
 				original_tag = GLC
 				original_tag = NAV
 				original_tag = CAT
+				original_tag = ADR
 			}
 		}
 		available = {
@@ -1281,6 +1285,7 @@ formable_nations_mod_category = {
 				original_tag = UAE
 				original_tag = QAT
 				original_tag = KUR
+				original_tag = PER
 			}
 		}
 		available = {
@@ -1515,6 +1520,7 @@ formable_nations_mod_category = {
 				original_tag = HOL
 				original_tag = BEL
 				original_tag = LUX
+				original_tag = FRA
 			}
 		}
 		available = {
@@ -1700,6 +1706,9 @@ formable_nations_mod_category = {
 			OR = {
 				has_global_flag = no_limit
 				original_tag = HUN
+				original_tag = CZE
+				original_tag = AUS 
+				original_tag = AST 
 			}
 		}
 		available = {
@@ -2256,6 +2265,9 @@ formable_nations_mod_category = {
 				original_tag = MAC
 				original_tag = SLV
 				original_tag = BOS
+				original_tag = ROM
+				original_tag = ITA
+				original_tag = HUN 
 			}
 		}
 		available = {
@@ -2306,50 +2318,53 @@ formable_nations_mod_category = {
 		}
 		icon = formable_nations_balkan
 		complete_effect = { capital_scope = { set_state_flag = formable_nations_old_capital }
-			set_cosmetic_tag = FORM_BAK
+			if = {
+				limit = {
+					has_government = communism
+				}
+
+				set_cosmetic_tag = UBF_united_balkan_federation_communism
+			}
+
+			else_if = {
+				limit = {
+					has_government = fascism
+				}
+
+				set_cosmetic_tag = UBF_united_balkan_federation_fascism
+			}
+
+			else_if = {
+				limit = {
+					has_government = democratic
+				}
+
+				set_cosmetic_tag = UBF_united_balkan_federation_democratic
+			}
+
+			else_if = {
+				limit = {
+					has_government = neutrality
+				}
+
+				set_cosmetic_tag = UBF_united_balkan_federation_neutrality
+			}
 			add_stability = 0.2
 			custom_effect_tooltip = core_land
 			hidden_effect = { sound_effect = complete_focus  set_country_flag = unform_available
-				45 = { add_core_of = ROOT }
-				102 = { add_core_of = ROOT }
-				103 = { add_core_of = ROOT }
-				104 = { add_core_of = ROOT }
-				804 = { add_core_of = ROOT }
-				105 = { add_core_of = ROOT }
-				106 = { add_core_of = ROOT }
-				107 = { add_core_of = ROOT }
-				108 = { add_core_of = ROOT }
-				802 = { add_core_of = ROOT }
-				803 = { add_core_of = ROOT }
-				766 = { add_core_of = ROOT }
-				109 = { add_core_of = ROOT }
-				46 = { add_core_of = ROOT }
-				76 = { add_core_of = ROOT }
-				77 = { add_core_of = ROOT }
-				78 = { add_core_of = ROOT }
-				79 = { add_core_of = ROOT }
-				80 = { add_core_of = ROOT }
-				81 = { add_core_of = ROOT }
-				82 = { add_core_of = ROOT }
-				83 = { add_core_of = ROOT }
-				84 = { add_core_of = ROOT }
-				47 = { add_core_of = ROOT }
-				182 = { add_core_of = ROOT }
-				184 = { add_core_of = ROOT }
-				185 = { add_core_of = ROOT }
-				186 = { add_core_of = ROOT }
-				187 = { add_core_of = ROOT }
-				731 = { add_core_of = ROOT }
-				48 = { add_core_of = ROOT }
-				211 = { add_core_of = ROOT }
-				212 = { add_core_of = ROOT }
-				801 = { add_core_of = ROOT }
-				736 = { add_core_of = ROOT }
-				163 = { add_core_of = ROOT }
-				164 = { add_core_of = ROOT }
-				44 = { add_core_of = ROOT }
-				805 = { add_core_of = ROOT }
-				764 = { add_core_of = ROOT }
+				every_state = {
+					limit = {
+							BUL_is_balkan_state = yes
+							NOT = { is_core_of = ROOT }
+					}
+					add_core_of = ROOT
+				}
+
+				set_province_name = { id = 9833 name = "Constantinople"}
+
+				set_capital = {
+					state = 797
+				}
 			}
 		}
 	}
@@ -2638,6 +2653,8 @@ formable_nations_mod_category = {
 				has_global_flag = no_limit
 				original_tag = GRE
 				original_tag = MAC
+				original_tag = TUR 
+				original_tag = YUG
 			}
 			NOT = { has_global_flag = modern_country }
 		}
@@ -2842,6 +2859,9 @@ formable_nations_mod_category = {
 			OR = {
 				has_global_flag = no_limit
 				capital_scope = { is_on_continent = south_america }
+				original_tag = POR
+				original_tag = SPR
+				
 			}
 		}
 		available = {
@@ -3225,215 +3245,28 @@ formable_nations_mod_category = {
 				has_global_flag = no_limit
 				original_tag = MON
 				original_tag = TAN
+				original_tag = MEN
 			}
 			NOT = { has_global_flag = modern_country }
 		}
 		available = {
-			OR = {
-				AND = {
-					OR = { is_subject = no has_global_flag = puppets_allowed }
+			611 = { is_controlled_by = ROOT }
+			612 = { is_controlled_by = ROOT }
+			329 = { is_controlled_by = ROOT }
+			621 = { is_controlled_by = ROOT }
+			custom_trigger_tooltip = { 
+			tooltip = MON_mongolia_tt
+			819 = { is_controlled_by = ROOT }
+			817 = { is_controlled_by = ROOT }
+			818 = { is_controlled_by = ROOT }
+			820 = { is_controlled_by = ROOT }
+			}
 					
-					custom_trigger_tooltip = {
-						tooltip = formable_nations_china_tt
-						count_triggers = {
-							amount = 44
-							615 = { is_controlled_by = ROOT }
-							621 = { is_controlled_by = ROOT }
-							622 = { is_controlled_by = ROOT }
-							283 = { is_controlled_by = ROOT }
-							604 = { is_controlled_by = ROOT }
-							616 = { is_controlled_by = ROOT }
-							287 = { is_controlled_by = ROOT }
-							617 = { is_controlled_by = ROOT }
-							618 = { is_controlled_by = ROOT }
-							619 = { is_controlled_by = ROOT }
-							322 = { is_controlled_by = ROOT }
-							330 = { is_controlled_by = ROOT }
-							325 = { is_controlled_by = ROOT }
-							591 = { is_controlled_by = ROOT }
-							592 = { is_controlled_by = ROOT }
-							593 = { is_controlled_by = ROOT }
-							594 = { is_controlled_by = ROOT }
-							598 = { is_controlled_by = ROOT }
-							599 = { is_controlled_by = ROOT }
-							611 = { is_controlled_by = ROOT }
-							612 = { is_controlled_by = ROOT }
-							328 = { is_controlled_by = ROOT }
-							610 = { is_controlled_by = ROOT }
-							714 = { is_controlled_by = ROOT }
-							715 = { is_controlled_by = ROOT }
-							716 = { is_controlled_by = ROOT }
-							717 = { is_controlled_by = ROOT }
-							609 = { is_controlled_by = ROOT }
-							657 = { is_controlled_by = ROOT }
-							560 = { is_controlled_by = ROOT }
-							561 = { is_controlled_by = ROOT }
-							655 = { is_controlled_by = ROOT }
-							408 = { is_controlled_by = ROOT }
-							409 = { is_controlled_by = ROOT }
-							602 = { is_controlled_by = ROOT }
-							603 = { is_controlled_by = ROOT }
-							605 = { is_controlled_by = ROOT }
-							601 = { is_controlled_by = ROOT }
-							620 = { is_controlled_by = ROOT }
-							600 = { is_controlled_by = ROOT }
-							595 = { is_controlled_by = ROOT }
-							620 = { is_controlled_by = ROOT }
-							596 = { is_controlled_by = ROOT }
-							606 = { is_controlled_by = ROOT }
-							613 = { is_controlled_by = ROOT }
-							607 = { is_controlled_by = ROOT }
-							597 = { is_controlled_by = ROOT }
-							614 = { is_controlled_by = ROOT }
-							608 = { is_controlled_by = ROOT }
-						}
-					}
-					count_triggers = {
-						amount = 20
-						329 = { is_controlled_by = ROOT }
-						589 = { is_controlled_by = ROOT }
-						266 = { is_controlled_by = ROOT }
-						410 = { is_controlled_by = ROOT }
-						411 = { is_controlled_by = ROOT }
-						412 = { is_controlled_by = ROOT }
-						413 = { is_controlled_by = ROOT }
-						414 = { is_controlled_by = ROOT }
-						416 = { is_controlled_by = ROOT }
-						417 = { is_controlled_by = ROOT }
-						418 = { is_controlled_by = ROOT }
-						419 = { is_controlled_by = ROOT }
-						420 = { is_controlled_by = ROOT }
-						421 = { is_controlled_by = ROOT }
-						291 = { is_controlled_by = ROOT }
-						676 = { is_controlled_by = ROOT }
-						676 = { is_controlled_by = ROOT }
-						229 = { is_controlled_by = ROOT }
-						230 = { is_controlled_by = ROOT }
-						231 = { is_controlled_by = ROOT }
-						525 = { is_controlled_by = ROOT }
-						527 = { is_controlled_by = ROOT }
-					}
-					custom_trigger_tooltip = {
-						tooltip = formable_nations_siberia_tt
-						count_triggers = {
-							amount = 97
-							40 = { is_controlled_by = ROOT }
-							137 = { is_controlled_by = ROOT }
-							192 = { is_controlled_by = ROOT }
-							193 = { is_controlled_by = ROOT }
-							194 = { is_controlled_by = ROOT }
-							195 = { is_controlled_by = ROOT }
-							196 = { is_controlled_by = ROOT }
-							197	= { is_controlled_by = ROOT }
-							198 = { is_controlled_by = ROOT }
-							199 = { is_controlled_by = ROOT }
-							200 = { is_controlled_by = ROOT }
-							201 = { is_controlled_by = ROOT }
-							202 = { is_controlled_by = ROOT }
-							203 = { is_controlled_by = ROOT }
-							204 = { is_controlled_by = ROOT }
-							205 = { is_controlled_by = ROOT }
-							206 = { is_controlled_by = ROOT }
-							207 = { is_controlled_by = ROOT }
-							208 = { is_controlled_by = ROOT }
-							209 = { is_controlled_by = ROOT }
-							210 = { is_controlled_by = ROOT }
-							217 = { is_controlled_by = ROOT }
-							218 = { is_controlled_by = ROOT }
-							219 = { is_controlled_by = ROOT }
-							220 = { is_controlled_by = ROOT }
-							221 = { is_controlled_by = ROOT }
-							222 = { is_controlled_by = ROOT }
-							223 = { is_controlled_by = ROOT }
-							224 = { is_controlled_by = ROOT }
-							225 = { is_controlled_by = ROOT }
-							226 = { is_controlled_by = ROOT }
-							227 = { is_controlled_by = ROOT }
-							228 = { is_controlled_by = ROOT }
-							232 = { is_controlled_by = ROOT }
-							233 = { is_controlled_by = ROOT }
-							234 = { is_controlled_by = ROOT }
-							235 = { is_controlled_by = ROOT }
-							236 = { is_controlled_by = ROOT }
-							237 = { is_controlled_by = ROOT }
-							238 = { is_controlled_by = ROOT }
-							239 = { is_controlled_by = ROOT }
-							240 = { is_controlled_by = ROOT }
-							241 = { is_controlled_by = ROOT }
-							242 = { is_controlled_by = ROOT }
-							243 = { is_controlled_by = ROOT }
-							244 = { is_controlled_by = ROOT }
-							245 = { is_controlled_by = ROOT }
-							246 = { is_controlled_by = ROOT }
-							247 = { is_controlled_by = ROOT }
-							248 = { is_controlled_by = ROOT }
-							249 = { is_controlled_by = ROOT }
-							250 = { is_controlled_by = ROOT }
-							251 = { is_controlled_by = ROOT }
-							252 = { is_controlled_by = ROOT }
-							253 = { is_controlled_by = ROOT }
-							254 = { is_controlled_by = ROOT }
-							255 = { is_controlled_by = ROOT }
-							256 = { is_controlled_by = ROOT }
-							257 = { is_controlled_by = ROOT }
-							258 = { is_controlled_by = ROOT }
-							259 = { is_controlled_by = ROOT }
-							260 = { is_controlled_by = ROOT }
-							263 = { is_controlled_by = ROOT }
-							264 = { is_controlled_by = ROOT }
-							265 = { is_controlled_by = ROOT }
-							351 = { is_controlled_by = ROOT }
-							398 = { is_controlled_by = ROOT }
-							399 = { is_controlled_by = ROOT }
-							400 = { is_controlled_by = ROOT }
-							401 = { is_controlled_by = ROOT }
-							402 = { is_controlled_by = ROOT }
-							403 = { is_controlled_by = ROOT }
-							404 = { is_controlled_by = ROOT }
-							405 = { is_controlled_by = ROOT }
-							406 = { is_controlled_by = ROOT }
-							407 = { is_controlled_by = ROOT }
-							408 = { is_controlled_by = ROOT }
-							409 = { is_controlled_by = ROOT }
-							560 = { is_controlled_by = ROOT }
-							561 = { is_controlled_by = ROOT }
-							563 = { is_controlled_by = ROOT }
-							564 = { is_controlled_by = ROOT }
-							565 = { is_controlled_by = ROOT }
-							566 = { is_controlled_by = ROOT }
-							567 = { is_controlled_by = ROOT }
-							568 = { is_controlled_by = ROOT }
-							569 = { is_controlled_by = ROOT }
-							570 = { is_controlled_by = ROOT }
-							571 = { is_controlled_by = ROOT }
-							572 = { is_controlled_by = ROOT }
-							573 = { is_controlled_by = ROOT }
-							578 = { is_controlled_by = ROOT }
-							582 = { is_controlled_by = ROOT }
-							583 = { is_controlled_by = ROOT }
-							584 = { is_controlled_by = ROOT }
-							585 = { is_controlled_by = ROOT }
-							586 = { is_controlled_by = ROOT }
-							587 = { is_controlled_by = ROOT }
-							588 = { is_controlled_by = ROOT }
-							589 = { is_controlled_by = ROOT }
-							590 = { is_controlled_by = ROOT }
-							651 = { is_controlled_by = ROOT }
-							652 = { is_controlled_by = ROOT }
-							653 = { is_controlled_by = ROOT }
-							654 = { is_controlled_by = ROOT }
-							655 = { is_controlled_by = ROOT }
-							657 = { is_controlled_by = ROOT }
-							732 = { is_controlled_by = ROOT }
-							742 = { is_controlled_by = ROOT }
-						}
-					}
-				}
 				AND = {
 					is_ai = no
-					has_global_flag = debug_mode
+					
 				}
-			}
+			
 			custom_trigger_tooltip = { tooltip = not_already_existing_tt NOT = { any_country = { has_cosmetic_tag = FORM_MOE } } }
 		}
 		icon = formable_nations_mongol_empire
@@ -3622,6 +3455,49 @@ formable_nations_mod_category = {
 				525 = { add_core_of = ROOT }
 				527 = { add_core_of = ROOT }
 				598 = { add_core_of = ROOT }
+				834 = { add_core_of = ROOT }
+				829 = { add_core_of = ROOT }
+				833 = { add_core_of = ROOT }
+				826 = { add_core_of = ROOT }
+				827 = { add_core_of = ROOT }
+				828 = { add_core_of = ROOT }
+				821 = { add_core_of = ROOT }
+				823 = { add_core_of = ROOT }
+				831 = { add_core_of = ROOT }
+				832 = { add_core_of = ROOT }
+				830 = { add_core_of = ROOT }
+				761 = { add_core_of = ROOT }
+				872 = { add_core_of = ROOT }
+				871 = { add_core_of = ROOT }
+				870 = { add_core_of = ROOT }
+				868 = { add_core_of = ROOT }
+				869 = { add_core_of = ROOT }
+				873 = { add_core_of = ROOT }
+				874 = { add_core_of = ROOT }
+				845 = { add_core_of = ROOT }
+				844 = { add_core_of = ROOT }
+				846 = { add_core_of = ROOT }
+				847 = { add_core_of = ROOT }
+				745 = { add_core_of = ROOT }
+				743 = { add_core_of = ROOT }
+				760 = { add_core_of = ROOT }
+				756 = { add_core_of = ROOT }
+				755 = { add_core_of = ROOT }
+				759 = { add_core_of = ROOT }
+				758 = { add_core_of = ROOT }
+				757 = { add_core_of = ROOT }
+				754 = { add_core_of = ROOT }
+				746 = { add_core_of = ROOT }
+				753 = { add_core_of = ROOT }
+				752 = { add_core_of = ROOT }
+				751 = { add_core_of = ROOT }
+				747 = { add_core_of = ROOT }
+				744 = { add_core_of = ROOT }
+				750 = { add_core_of = ROOT }
+				748 = { add_core_of = ROOT }
+				749 = { add_core_of = ROOT }
+				
+				
 			}
 		}
 	}
@@ -3904,16 +3780,16 @@ formable_nations_mod_category = {
 				has_global_flag = no_limit
 				original_tag = AFG
 				original_tag = PAK
+				original_tag = RAJ
+				original_tag = PER
+				original_tag = BHU 
 			}
 			NOT = { has_global_flag = modern_country }
 		}
 		available = {
-			OR = {
-				AND = {
-					OR = { is_subject = no has_global_flag = puppets_allowed }
 					
-					count_triggers = {
-						amount = 21
+						
+						
 						267 = { is_controlled_by = ROOT }
 						415 = { is_controlled_by = ROOT }
 						424 = { is_controlled_by = ROOT }
@@ -3937,14 +3813,17 @@ formable_nations_mod_category = {
 						443 = { is_controlled_by = ROOT }
 						444 = { is_controlled_by = ROOT }
 						445 = { is_controlled_by = ROOT }
-					}
-				}
-				AND = {
-					is_ai = no
-					has_global_flag = debug_mode
-				}
-			}
-			custom_trigger_tooltip = { tooltip = not_already_existing_tt NOT = { any_country = { has_cosmetic_tag = FORM_MUG } } }
+						is_ai = no
+					
+						
+					
+					
+						
+					
+			
+				
+			
+				custom_trigger_tooltip = { tooltip = not_already_existing_tt NOT = { any_country = { has_cosmetic_tag = FORM_MUG } } }
 		}
 		icon = formable_nations_mughals
 		complete_effect = { capital_scope = { set_state_flag = formable_nations_old_capital }
@@ -5161,10 +5040,6 @@ formable_nations_mod_category = {
 			}
 		}
 		available = {
-			OR = {
-				AND = {
-					OR = { is_subject = no has_global_flag = puppets_allowed }
-					
 					count_triggers = {
 						amount = 12
 						285 = { is_controlled_by = ROOT }
@@ -5181,12 +5056,12 @@ formable_nations_mod_category = {
 						284 = { is_controlled_by = ROOT }
 						723 = { is_controlled_by = ROOT }
 					}
-				}
+				
 				AND = {
 					is_ai = no
-					has_global_flag = debug_mode
+				
 				}
-			}
+			
 			custom_trigger_tooltip = { tooltip = not_already_existing_tt NOT = { any_country = { has_cosmetic_tag = FORM_AAS } } }
 		}
 		icon = formable_nations_australasia
@@ -5236,6 +5111,11 @@ formable_nations_mod_category = {
 				limit = { has_dlc = "Man the Guns" }
 				OR = {
 					original_tag = CSA
+					original_tag = USA
+					original_tag = MEX
+					original_tag = HON
+					original_tag = VEN
+					original_tag = CUB
 					has_global_flag = no_limit
 				}
 			}
@@ -5318,6 +5198,7 @@ formable_nations_mod_category = {
 		icon = formable_nations_golden_circle
 		complete_effect = { capital_scope = { set_state_flag = formable_nations_old_capital }
 			set_cosmetic_tag = FORM_GOL
+			set_capital = { state = 366 }
 			add_stability = 0.2
 			set_capital = 315
 			custom_effect_tooltip = core_land
@@ -6368,168 +6249,84 @@ formable_nations_mod_category = {
 			}
 		}
 		available = {
-			OR = {
-				AND = {
-					OR = { is_subject = no has_global_flag = puppets_allowed }
-					
+			
 					custom_trigger_tooltip = {
-						tooltip = formable_nations_siberia_tt
-						count_triggers = {
-							amount = 98
-							40 = { is_controlled_by = ROOT }
-							137 = { is_controlled_by = ROOT }
-							192 = { is_controlled_by = ROOT }
-							193 = { is_controlled_by = ROOT }
-							194 = { is_controlled_by = ROOT }
-							195 = { is_controlled_by = ROOT }
-							196 = { is_controlled_by = ROOT }
-							197	= { is_controlled_by = ROOT }
-							198 = { is_controlled_by = ROOT }
-							199 = { is_controlled_by = ROOT }
-							200 = { is_controlled_by = ROOT }
-							201 = { is_controlled_by = ROOT }
-							202 = { is_controlled_by = ROOT }
-							203 = { is_controlled_by = ROOT }
-							204 = { is_controlled_by = ROOT }
-							205 = { is_controlled_by = ROOT }
-							206 = { is_controlled_by = ROOT }
-							207 = { is_controlled_by = ROOT }
-							208 = { is_controlled_by = ROOT }
-							209 = { is_controlled_by = ROOT }
-							210 = { is_controlled_by = ROOT }
-							217 = { is_controlled_by = ROOT }
-							218 = { is_controlled_by = ROOT }
-							219 = { is_controlled_by = ROOT }
-							220 = { is_controlled_by = ROOT }
-							221 = { is_controlled_by = ROOT }
-							222 = { is_controlled_by = ROOT }
-							223 = { is_controlled_by = ROOT }
-							224 = { is_controlled_by = ROOT }
-							225 = { is_controlled_by = ROOT }
-							226 = { is_controlled_by = ROOT }
-							227 = { is_controlled_by = ROOT }
-							228 = { is_controlled_by = ROOT }
-							232 = { is_controlled_by = ROOT }
-							233 = { is_controlled_by = ROOT }
-							234 = { is_controlled_by = ROOT }
-							235 = { is_controlled_by = ROOT }
-							236 = { is_controlled_by = ROOT }
-							237 = { is_controlled_by = ROOT }
-							238 = { is_controlled_by = ROOT }
-							239 = { is_controlled_by = ROOT }
-							240 = { is_controlled_by = ROOT }
-							241 = { is_controlled_by = ROOT }
-							242 = { is_controlled_by = ROOT }
-							243 = { is_controlled_by = ROOT }
-							244 = { is_controlled_by = ROOT }
-							245 = { is_controlled_by = ROOT }
-							246 = { is_controlled_by = ROOT }
-							247 = { is_controlled_by = ROOT }
-							248 = { is_controlled_by = ROOT }
-							249 = { is_controlled_by = ROOT }
-							250 = { is_controlled_by = ROOT }
-							251 = { is_controlled_by = ROOT }
-							252 = { is_controlled_by = ROOT }
-							253 = { is_controlled_by = ROOT }
-							254 = { is_controlled_by = ROOT }
-							255 = { is_controlled_by = ROOT }
-							256 = { is_controlled_by = ROOT }
-							257 = { is_controlled_by = ROOT }
-							258 = { is_controlled_by = ROOT }
-							259 = { is_controlled_by = ROOT }
-							260 = { is_controlled_by = ROOT }
-							263 = { is_controlled_by = ROOT }
-							264 = { is_controlled_by = ROOT }
-							265 = { is_controlled_by = ROOT }
-							351 = { is_controlled_by = ROOT }
-							398 = { is_controlled_by = ROOT }
-							399 = { is_controlled_by = ROOT }
-							400 = { is_controlled_by = ROOT }
-							401 = { is_controlled_by = ROOT }
-							402 = { is_controlled_by = ROOT }
-							403 = { is_controlled_by = ROOT }
-							404 = { is_controlled_by = ROOT }
-							405 = { is_controlled_by = ROOT }
-							406 = { is_controlled_by = ROOT }
-							407 = { is_controlled_by = ROOT }
-							408 = { is_controlled_by = ROOT }
-							409 = { is_controlled_by = ROOT }
-							560 = { is_controlled_by = ROOT }
-							561 = { is_controlled_by = ROOT }
-							563 = { is_controlled_by = ROOT }
-							564 = { is_controlled_by = ROOT }
-							565 = { is_controlled_by = ROOT }
-							566 = { is_controlled_by = ROOT }
-							567 = { is_controlled_by = ROOT }
-							568 = { is_controlled_by = ROOT }
-							569 = { is_controlled_by = ROOT }
-							570 = { is_controlled_by = ROOT }
-							571 = { is_controlled_by = ROOT }
-							572 = { is_controlled_by = ROOT }
-							573 = { is_controlled_by = ROOT }
-							578 = { is_controlled_by = ROOT }
-							582 = { is_controlled_by = ROOT }
-							583 = { is_controlled_by = ROOT }
-							584 = { is_controlled_by = ROOT }
-							585 = { is_controlled_by = ROOT }
-							586 = { is_controlled_by = ROOT }
-							587 = { is_controlled_by = ROOT }
-							588 = { is_controlled_by = ROOT }
-							589 = { is_controlled_by = ROOT }
-							590 = { is_controlled_by = ROOT }
-							651 = { is_controlled_by = ROOT }
-							652 = { is_controlled_by = ROOT }
-							653 = { is_controlled_by = ROOT }
-							654 = { is_controlled_by = ROOT }
-							655 = { is_controlled_by = ROOT }
-							657 = { is_controlled_by = ROOT }
-							732 = { is_controlled_by = ROOT }
-							742 = { is_controlled_by = ROOT }
-						}
+						tooltip = formable_russian_empire_finland_tt
+						146 = {is_controlled_by = ROOT}
+						111 = {is_controlled_by = ROOT}
+						150 = {is_controlled_by = ROOT}
+						149 = {is_controlled_by = ROOT}
+						722 = {is_controlled_by = ROOT}
+						147 = {is_controlled_by = ROOT}
+						148 = {is_controlled_by = ROOT}
 					}
-					count_triggers = {
-						amount = 29
-						11 = { is_controlled_by = ROOT }
-						189 = { is_controlled_by = ROOT }
-						12 = { is_controlled_by = ROOT }
-						190 = { is_controlled_by = ROOT }
-						13 = { is_controlled_by = ROOT }
-						191 = { is_controlled_by = ROOT }
-						784 = { is_controlled_by = ROOT }
-						329 = { is_controlled_by = ROOT }
-						111 = { is_controlled_by = ROOT }
-						145 = { is_controlled_by = ROOT }
-						146 = { is_controlled_by = ROOT }
-						147 = { is_controlled_by = ROOT }
-						148 = { is_controlled_by = ROOT }
-						149 = { is_controlled_by = ROOT }
-						150 = { is_controlled_by = ROOT }
-						722 = { is_controlled_by = ROOT }
-						93 = { is_controlled_by = ROOT }
-						94 = { is_controlled_by = ROOT }
-						95 = { is_controlled_by = ROOT }
-						96 = { is_controlled_by = ROOT }
-						97 = { is_controlled_by = ROOT }
-						98 = { is_controlled_by = ROOT }
-						87 = { is_controlled_by = ROOT }
-						90 = { is_controlled_by = ROOT }
-						92 = { is_controlled_by = ROOT }
-						10 = { is_controlled_by = ROOT }
-						88 = { is_controlled_by = ROOT }
-						89 = { is_controlled_by = ROOT }
-						91 = { is_controlled_by = ROOT }
-						78 = { is_controlled_by = ROOT }
-						766 = { is_controlled_by = ROOT }
-						80 = { is_controlled_by = ROOT }
+
+					custom_trigger_tooltip = {
+						tooltip = formable_russian_empire_estonia_tt
+						191 = {is_controlled_by = ROOT}
+						813 = {is_controlled_by = ROOT}
+						812 = {is_controlled_by = ROOT}
+						13 = {is_controlled_by = ROOT}
+						811 = {is_controlled_by = ROOT}
+						
 					}
-				}
+
+					custom_trigger_tooltip = {
+						tooltip = formable_russian_empire_latvia_tt
+						810 = {is_controlled_by = ROOT}
+						12 = {is_controlled_by = ROOT}
+						808 = {is_controlled_by = ROOT}
+						809 = {is_controlled_by = ROOT}
+						190 = {is_controlled_by = ROOT}
+						
+					}
+
+
+					custom_trigger_tooltip = {
+						tooltip = formable_russian_empire_lithuania_tt
+						815 = {is_controlled_by = ROOT}
+						189 = {is_controlled_by = ROOT}
+						11 = {is_controlled_by = ROOT}
+						814 = {is_controlled_by = ROOT}
+						
+						
+					}
+
+
+					custom_trigger_tooltip = {
+						tooltip = formable_russian_empire_poland_tt
+						784 = {is_controlled_by = ROOT}
+						96 = {is_controlled_by = ROOT}
+						863 = {is_controlled_by = ROOT}
+						862 = {is_controlled_by = ROOT}
+						95 = {is_controlled_by = ROOT}
+						94 = {is_controlled_by = ROOT}
+						93 = {is_controlled_by = ROOT}\
+						91 = {is_controlled_by = ROOT}
+						89 = {is_controlled_by = ROOT}
+						
+
+						
+						
+					}
+
+
+					custom_trigger_tooltip = {
+						tooltip = formable_russian_empire_besseraba_tt
+						80 = {is_controlled_by = ROOT}
+						78 = {is_controlled_by = ROOT}
+						766 = {is_controlled_by = ROOT}
+						
+						
+					}
+					329 = {is_controlled_by = ROOT}
 				AND = {
 					is_ai = no
-					has_global_flag = debug_mode
+					#has_global_flag = debug_mode
 				}
 			}
 			custom_trigger_tooltip = { tooltip = not_already_existing_tt NOT = { any_country = { has_cosmetic_tag = FORM_RUE } } }
-		}
+		
 		icon = formable_nations_greater_russia
 		complete_effect = { capital_scope = { set_state_flag = formable_nations_old_capital }
 			set_cosmetic_tag = FORM_RUE
@@ -6660,6 +6457,10 @@ formable_nations_mod_category = {
 				148 = { add_core_of = ROOT }
 				149 = { add_core_of = ROOT }
 				150 = { add_core_of = ROOT }
+				818 = { add_core_of = ROOT }
+				820 = { add_core_of = ROOT }
+				817 = { add_core_of = ROOT }
+				819 = { add_core_of = ROOT }
 				722 = { add_core_of = ROOT }
 				93 = { add_core_of = ROOT }
 				94 = { add_core_of = ROOT }
@@ -6677,7 +6478,7 @@ formable_nations_mod_category = {
 				78 = { add_core_of = ROOT }
 				80 = { add_core_of = ROOT }
 				784 = { add_core_of = ROOT }
-			}
+			
 			537 = { add_core_of = ROOT }
 			463 = { add_core_of = ROOT }
 			#341 = { add_claim_by = ROOT }
@@ -6699,8 +6500,44 @@ formable_nations_mod_category = {
 			611 = { add_claim_by = ROOT }
 			612 = { add_claim_by = ROOT }
 			745 = { add_claim_by = ROOT }
+			612 = { add_core_of = ROOT }
+			611 = { add_core_of = ROOT }
+			761 = { add_core_of = ROOT }
+			872 = { add_core_of = ROOT }
+			714 = { add_core_of = ROOT }
+			871 = { add_core_of = ROOT }
+			715 = { add_core_of = ROOT }
+			873 = { add_core_of = ROOT }
+			610 = { add_core_of = ROOT }
+			874 = { add_core_of = ROOT }
+			717 = { add_core_of = ROOT }
+			870 = { add_core_of = ROOT }
+			328 = { add_core_of = ROOT }
+			716 = { add_core_of = ROOT }
+			868 = { add_core_of = ROOT }
+			869 = { add_core_of = ROOT }
+			555 = { add_core_of = ROOT }
+			330 = { add_core_of = ROOT }
+			618 = { add_core_of = ROOT }
+			617 = { add_core_of = ROOT }
+			760 = { add_core_of = ROOT }
+			759 = { add_core_of = ROOT }
+			619 = { add_core_of = ROOT }
+			834 = { add_core_of = ROOT }
+			813 = { add_core_of = ROOT }
+			812 = { add_core_of = ROOT }
+			811 = { add_core_of = ROOT }
+			814 = { add_core_of = ROOT }
+			862 = { add_core_of = ROOT }
+			863 = { add_core_of = ROOT }
+			815 = { add_core_of = ROOT }
+			809 = { add_core_of = ROOT }
+			808 = { add_core_of = ROOT }
+			810 = { add_core_of = ROOT }
+
 		}
 	}
+}
 	formable_nations_carthage = {
 	
 		ai_will_do = {
@@ -7059,39 +6896,72 @@ formable_nations_mod_category = {
 			}
 		}
 		available = {
-			OR = {
-				AND = {
-					OR = { is_subject = no has_global_flag = puppets_allowed }
-					
-					count_triggers = {
-						amount = 5
-						525 = { is_controlled_by = ROOT }
-						527 = { is_controlled_by = ROOT }
-						328 = { is_controlled_by = ROOT }
-						716 = { is_controlled_by = ROOT }
-						717 = { is_controlled_by = ROOT }
-						745 = { is_controlled_by = ROOT }
-					}
-				}
+			custom_trigger_tooltip = {
+			tooltip = FORM_Greater_korea_kor_tt
+			845 = { is_controlled_by = ROOT }
+			527 = { is_controlled_by = ROOT }
+			844 = { is_controlled_by = ROOT }
+			525 = { is_controlled_by = ROOT }
+			846 = { is_controlled_by = ROOT }
+			847 = { is_controlled_by = ROOT }
+			
+
+			}
+
+			custom_trigger_tooltip = {
+			tooltip = FORM_Greater_korea_man_tt
+			868 = { is_controlled_by = ROOT }
+			716 = { is_controlled_by = ROOT }
+			328 = { is_controlled_by = ROOT }
+			869 = { is_controlled_by = ROOT }
+			870 = { is_controlled_by = ROOT }
+			717 = { is_controlled_by = ROOT }
+			871 = { is_controlled_by = ROOT }
+			872 = { is_controlled_by = ROOT }
+			714 = { is_controlled_by = ROOT }
+			761 = { is_controlled_by = ROOT }
+			715 = { is_controlled_by = ROOT }
+			873 = { is_controlled_by = ROOT }
+			874 = { is_controlled_by = ROOT }
+			610 = { is_controlled_by = ROOT }
+			
+
+			}
+			745 = { is_controlled_by = ROOT }
 				AND = {
 					is_ai = no
-					has_global_flag = debug_mode
+					
 				}
 			}
 			custom_trigger_tooltip = { tooltip = not_already_existing_tt NOT = { any_country = { has_cosmetic_tag = FORM_GKO } } }
-		}
+		
 		icon = formable_nations_greater_korea
 		complete_effect = { capital_scope = { set_state_flag = formable_nations_old_capital }
 			set_cosmetic_tag = FORM_GKO
 			add_stability = 0.2
 			custom_effect_tooltip = core_land
 			hidden_effect = { sound_effect = complete_focus  set_country_flag = unform_available
-				525 = { add_core_of = ROOT }
-				527 = { add_core_of = ROOT }
-				328 = { add_core_of = ROOT }
-				716 = { add_core_of = ROOT }
-				717 = { add_core_of = ROOT }
-				745 = { add_core_of = ROOT }
+			845 = { add_core_of = ROOT }
+			527 = { add_core_of = ROOT }
+			844 = { add_core_of = ROOT }
+			525 = { add_core_of = ROOT }
+			846 = { add_core_of = ROOT }
+			847 = { add_core_of = ROOT }	
+			868 = { add_core_of = ROOT }
+			716 = { add_core_of = ROOT }
+			328 = { add_core_of = ROOT }
+			869 = { add_core_of = ROOT }
+			870 = { add_core_of = ROOT }
+			717 = { add_core_of = ROOT }
+			871 = { add_core_of = ROOT }
+			872 = { add_core_of = ROOT }
+			714 = { add_core_of = ROOT }
+			761 = { add_core_of = ROOT }
+			715 = { add_core_of = ROOT }
+			873 = { add_core_of = ROOT }
+			874 = { add_core_of = ROOT }
+			610 = { add_core_of = ROOT }
+			745 = { add_core_of = ROOT }
 			}
 		}
 	}
@@ -7206,9 +7076,9 @@ formable_nations_mod_category = {
 							533 = { is_controlled_by = ROOT }
 							536 = { is_controlled_by = ROOT }
 						}
-					}
+					}`
 					count_triggers = {
-						amount = 19
+						amount = 10
 						555 = { is_controlled_by = ROOT }
 						537 = { is_controlled_by = ROOT }
 						655 = { is_controlled_by = ROOT }
@@ -7271,17 +7141,28 @@ formable_nations_mod_category = {
 				716 = { add_core_of = ROOT }
 				717 = { add_core_of = ROOT }
 				745 = { add_core_of = ROOT }
-				609 = { add_core_of = ROOT }
-				408 = { add_core_of = ROOT }
-				409 = { add_core_of = ROOT }
 				611 = { add_core_of = ROOT }
 				612 = { add_core_of = ROOT }
+				873 = { add_core_of = ROOT }
+				874 = { add_core_of = ROOT }
+				845 = { add_core_of = ROOT }
+				871 = { add_core_of = ROOT }
+				870 = { add_core_of = ROOT }
+				869 = { add_core_of = ROOT }
+				868 = { add_core_of = ROOT }
+				844 = { add_core_of = ROOT }
+				847 = { add_core_of = ROOT }
+				846 = { add_core_of = ROOT }
+				872 = { add_core_of = ROOT }
 			}
 			608 = { add_core_of = ROOT }
 			614 = { add_core_of = ROOT }
+			609 = { add_core_of = ROOT }
 			597 = { add_core_of = ROOT }
+			408 = { add_core_of = ROOT }
 			743 = { add_core_of = ROOT }
 			598 = { add_core_of = ROOT }
+			409 = { add_core_of = ROOT }
 			613 = { add_core_of = ROOT }
 		}
 	}
@@ -7936,6 +7817,7 @@ formable_nations_mod_category = {
 			NOT = { has_global_flag = hide_formable_nations }
 			OR = {
 				original_tag = GRE
+				original_tag = TUR
 				has_global_flag = no_limit
 			}
 			NOT = { has_global_flag = modern_country }
@@ -8586,10 +8468,35 @@ formable_nations_mod_category = {
 		}
 		icon = formable_nations_roman_empire
 		complete_effect = { capital_scope = { set_state_flag = formable_nations_old_capital }
-			set_cosmetic_tag = FORM_ROE
+			set_cosmetic_tag = SPQR_UNIFIED
 			add_stability = 0.2
 			custom_effect_tooltip = core_land
 			hidden_effect = { sound_effect = complete_focus  set_country_flag = unform_available
+			if = {
+					limit = {
+						has_country_leader = { ruling_only = yes name = "Benito Mussolini" }
+					}
+					kill_country_leader = yes
+					create_country_leader = {
+						name = "Augustus Mussolini"
+						desc = " "
+						picture = "GFX_portrait_italy_emperor_mussolini"
+						expire = "1965.1.1"
+						ideology = fascism_ideology
+						traits = {
+							fondatore_dell_impero
+						}
+					}
+				}
+				else = {
+					add_country_leader_trait = fondatore_dell_impero
+				}
+				if = {
+					limit = {
+						has_idea = victor_emmanuel
+					}
+					remove_ideas = victor_emmanuel
+				}
 				#Greece
 				47 = { add_core_of = ROOT }
 				182 = { add_core_of = ROOT }
@@ -8783,4 +8690,1208 @@ formable_nations_mod_category = {
 			}
 		}
 	}
+
+
+	formable_nations_franco_British = {
+	
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_global_flag = ai_disabled 
+			}
+		}
+		
+		cost = 0  days_re_enable = 0
+		icon = formable_nations_angevin_empire
+		visible = {
+			NOT = { has_country_flag = unform_available }
+			NOT = { has_global_flag = hide_formable_nations }
+			OR = {
+				has_global_flag = no_limit
+				original_tag = FRA
+				original_tag = ENG
+		
+		}}
+		available = {
+			
+		custom_trigger_tooltip = {
+				tooltip = Franco_British_England_Tooltip_tt
+				119 = { is_controlled_by = ROOT }
+				120 = { is_controlled_by = ROOT }	
+				136 = { is_controlled_by = ROOT }
+				121 = { is_controlled_by = ROOT }
+				133 = { is_controlled_by = ROOT }
+				131 = { is_controlled_by = ROOT }
+				130 = { is_controlled_by = ROOT }
+				132 = { is_controlled_by = ROOT }
+				122 = { is_controlled_by = ROOT }
+				128 = { is_controlled_by = ROOT }
+				129 = { is_controlled_by = ROOT }
+				338 = { is_controlled_by = ROOT }
+				123 = { is_controlled_by = ROOT }
+				127 = { is_controlled_by = ROOT }
+				126 = { is_controlled_by = ROOT }
+				125 = { is_controlled_by = ROOT }
+					}
+
+
+
+			custom_trigger_tooltip = {
+				tooltip = Franco_British_France_Tooltip_tt
+						14 = { is_controlled_by = ROOT }
+						15 = { is_controlled_by = ROOT }	
+						29 = { is_controlled_by = ROOT }
+						785 = { is_controlled_by = ROOT }
+						18 = { is_controlled_by = ROOT }
+						16 = { is_controlled_by = ROOT }
+						30 = { is_controlled_by = ROOT }
+						24 = { is_controlled_by = ROOT }
+						27 = { is_controlled_by = ROOT }
+						17 = { is_controlled_by = ROOT }
+						28 = { is_controlled_by = ROOT }
+						23 = { is_controlled_by = ROOT }
+						33 = { is_controlled_by = ROOT }
+						19 = { is_controlled_by = ROOT }
+						25 = { is_controlled_by = ROOT }
+						26 = { is_controlled_by = ROOT }
+						20 = { is_controlled_by = ROOT }
+						32 = { is_controlled_by = ROOT }
+						735 = { is_controlled_by = ROOT }
+						21 = { is_controlled_by = ROOT }
+						22 = { is_controlled_by = ROOT }
+						31 = { is_controlled_by = ROOT }
+						806 = { is_controlled_by = ROOT }
+							}
+		}
+		complete_effect = {add_stability = 0.2
+		set_cosmetic_tag = FRA_UK
+		hidden_effect = {
+			sound_effect = complete_focus  set_country_flag = unform_available
+			#england
+			119 = { add_core_of = ROOT }
+			120 = { add_core_of = ROOT }	
+			136 = { add_core_of = ROOT }
+			121 = { add_core_of = ROOT }
+			133 = { add_core_of = ROOT }
+			131 = { add_core_of = ROOT }
+			130 = { add_core_of = ROOT }
+			132 = { add_core_of = ROOT }
+			122 = { add_core_of = ROOT }
+			128 = { add_core_of = ROOT }
+			129 = { add_core_of = ROOT }
+			338 = { add_core_of = ROOT }
+			123 = { add_core_of = ROOT }
+			127 = { add_core_of = ROOT }
+			126 = { add_core_of = ROOT }
+			125 = { add_core_of = ROOT }
+			#france 
+			14 = { add_core_of = ROOT }
+			15 = { add_core_of = ROOT }	
+			29 = { add_core_of = ROOT }
+			785 = { add_core_of = ROOT }
+			18 = { add_core_of = ROOT }
+			16 = { add_core_of = ROOT }
+			30 = { add_core_of = ROOT }
+			24 = { add_core_of = ROOT }
+			27 = { add_core_of = ROOT }
+			17 = { add_core_of = ROOT }
+			28 = { add_core_of = ROOT }
+			23 = { add_core_of = ROOT }
+			33 = { add_core_of = ROOT }
+			19 = { add_core_of = ROOT }
+			25 = { add_core_of = ROOT }
+			126 = { add_core_of = ROOT }
+			20 = { add_core_of = ROOT }
+			32 = { add_core_of = ROOT }
+			735 = { add_core_of = ROOT }
+			21 = { add_core_of = ROOT }
+			22 = { add_core_of = ROOT }
+			31 = { add_core_of = ROOT }
+			806 = { add_core_of = ROOT }
+			26 = { add_core_of = ROOT }
+		} }
+	}
+
+
+	formable_nations_maphilindo = {
+	
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_global_flag = ai_disabled 
+			}
+		}
+		
+		cost = 0  days_re_enable = 0
+		visible = {
+			NOT = { has_country_flag = unform_available }
+			NOT = { has_global_flag = hide_formable_nations }
+			OR = {
+				has_global_flag = no_limit
+				original_tag = PHI
+				original_tag = MAL
+				original_tag = INS
+		
+		}}
+		available = {
+			
+		custom_trigger_tooltip = {
+			tooltip = form_nation_maphilindo_phi_tt
+			623 = { is_controlled_by = ROOT }
+			327 = { is_controlled_by = ROOT }
+			624 = { is_controlled_by = ROOT }
+			628 = { is_controlled_by = ROOT }
+			625 = { is_controlled_by = ROOT }
+			627 = { is_controlled_by = ROOT }
+			626 = { is_controlled_by = ROOT }
+		}
+
+		custom_trigger_tooltip = {
+		tooltip = form_nation_maphilindo_ins_tt
+		334 = { is_controlled_by = ROOT }
+		672 = { is_controlled_by = ROOT }
+		335 = { is_controlled_by = ROOT }
+		667 = { is_controlled_by = ROOT }
+		673 = { is_controlled_by = ROOT }
+		668 = { is_controlled_by = ROOT }
+		669 = { is_controlled_by = ROOT }
+		738 = { is_controlled_by = ROOT }
+		835 = { is_controlled_by = ROOT }
+		}
+
+		custom_trigger_tooltip = {
+		tooltip = form_nation_maphilindo_mal_tt
+		333 = { is_controlled_by = ROOT }
+		843 = { is_controlled_by = ROOT }
+		336 = { is_controlled_by = ROOT }
+		879 = { is_controlled_by = ROOT }
+		842 = { is_controlled_by = ROOT }
+		888 = { is_controlled_by = ROOT }
+		841 = { is_controlled_by = ROOT }
+		}}
+
+
+		complete_effect = { add_stability = 0.2
+		set_cosmetic_tag = FORM_map
+		set_capital = { state = 335 }
+		hidden_effect = {
+			sound_effect = complete_focus  set_country_flag = unform_available
+		#PHI 
+		623 = { add_core_of = ROOT }
+		327 = { add_core_of = ROOT }
+		624 = { add_core_of = ROOT }
+		626 = { add_core_of = ROOT }
+		628 = { add_core_of = ROOT }
+		625 = { add_core_of = ROOT }
+		627 = { add_core_of = ROOT }
+		#INS 
+		669 = { add_core_of = ROOT }
+		738 = { add_core_of = ROOT }
+		668 = { add_core_of = ROOT }
+		673 = { add_core_of = ROOT }
+		667 = { add_core_of = ROOT }
+		335 = { add_core_of = ROOT }
+		672 = { add_core_of = ROOT }
+		835 = { add_core_of = ROOT }
+		334 = { add_core_of = ROOT }
+	    #MAL 
+		333 = { add_core_of = ROOT }
+		843 = { add_core_of = ROOT }
+		841 = { add_core_of = ROOT }
+		888 = { add_core_of = ROOT }
+		842 = { add_core_of = ROOT }
+		879 = { add_core_of = ROOT }
+		336 = { add_core_of = ROOT }
+		}
+	}
 }
+
+
+
+
+formable_nations_asean = {
+	
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_global_flag = ai_disabled 
+			}
+		}
+		
+		cost = 0  days_re_enable = 0
+		visible = {
+			NOT = { has_country_flag = unform_available }
+			NOT = { has_global_flag = hide_formable_nations }
+			OR = {
+				has_global_flag = no_limit
+				original_tag = PHI
+				original_tag = MAL
+				original_tag = INS
+				original_tag = VIN
+				original_tag = FRI
+				original_tag = SIA
+				original_tag = BRM
+				original_tag = RAJ 
+				original_tag = AST
+				original_tag = NZL
+		
+		}}
+		available = {
+			
+		custom_trigger_tooltip = {
+			tooltip = form_nation_asean_phi_tt
+			623 = { is_controlled_by = ROOT }
+			327 = { is_controlled_by = ROOT }
+			624 = { is_controlled_by = ROOT }
+			628 = { is_controlled_by = ROOT }
+			625 = { is_controlled_by = ROOT }
+			627 = { is_controlled_by = ROOT }
+			626 = { is_controlled_by = ROOT }
+		}
+
+		custom_trigger_tooltip = {
+		tooltip = form_nation_asean_ins_tt
+		334 = { is_controlled_by = ROOT }
+		672 = { is_controlled_by = ROOT }
+		335 = { is_controlled_by = ROOT }
+		667 = { is_controlled_by = ROOT }
+		673 = { is_controlled_by = ROOT }
+		668 = { is_controlled_by = ROOT }
+		669 = { is_controlled_by = ROOT }
+		738 = { is_controlled_by = ROOT }
+		835 = { is_controlled_by = ROOT }
+		}
+
+		custom_trigger_tooltip = {
+		tooltip = form_nation_asean_mal_tt
+		333 = { is_controlled_by = ROOT }
+		843 = { is_controlled_by = ROOT }
+		336 = { is_controlled_by = ROOT }
+		879 = { is_controlled_by = ROOT }
+		842 = { is_controlled_by = ROOT }
+		888 = { is_controlled_by = ROOT }
+		841 = { is_controlled_by = ROOT }
+		}
+		
+		custom_trigger_tooltip = {
+		tooltip = form_nation_asean_fri_tt
+		286 = { is_controlled_by = ROOT }
+		854 = { is_controlled_by = ROOT }
+		741 = { is_controlled_by = ROOT }
+		852 = { is_controlled_by = ROOT }
+		851 = { is_controlled_by = ROOT }
+		853 = { is_controlled_by = ROOT }
+		855 = { is_controlled_by = ROOT }
+		671 = { is_controlled_by = ROOT }
+		
+		}
+		custom_trigger_tooltip = {
+		tooltip = form_nation_asean_sia_tt
+		289 = { is_controlled_by = ROOT }
+		724 = { is_controlled_by = ROOT }
+		288 = { is_controlled_by = ROOT }
+		640 = { is_controlled_by = ROOT }
+		
+
+		}
+		}
+		
+		complete_effect = { add_stability = 0.2
+		set_cosmetic_tag = FORM_ASEAN
+		set_capital = { state = 335 }
+		hidden_effect = {
+			sound_effect = complete_focus  set_country_flag = unform_available
+		#PHI 
+		623 = { add_core_of = ROOT }
+		327 = { add_core_of = ROOT }
+		624 = { add_core_of = ROOT }
+		626 = { add_core_of = ROOT }
+		628 = { add_core_of = ROOT }
+		625 = { add_core_of = ROOT }
+		627 = { add_core_of = ROOT }
+		#INS 
+		669 = { add_core_of = ROOT }
+		738 = { add_core_of = ROOT }
+		668 = { add_core_of = ROOT }
+		673 = { add_core_of = ROOT }
+		667 = { add_core_of = ROOT }
+		335 = { add_core_of = ROOT }
+		672 = { add_core_of = ROOT }
+		835 = { add_core_of = ROOT }
+		334 = { add_core_of = ROOT }
+	    #MAL 
+		333 = { add_core_of = ROOT }
+		843 = { add_core_of = ROOT }
+		841 = { add_core_of = ROOT }
+		888 = { add_core_of = ROOT }
+		842 = { add_core_of = ROOT }
+		879 = { add_core_of = ROOT }
+		336 = { add_core_of = ROOT }
+		#FRI
+		286 = { add_core_of = ROOT }
+		741 = { add_core_of = ROOT }
+		852 = { add_core_of = ROOT }
+		854 = { add_core_of = ROOT }
+		851 = { add_core_of = ROOT }
+		670 = { add_core_of = ROOT }
+		853 = { add_core_of = ROOT }
+		855 = { add_core_of = ROOT }
+		671 = { add_core_of = ROOT }
+		#SIA 
+		289 = { add_core_of = ROOT }
+		724 = { add_core_of = ROOT }
+		#BRM
+		640 = { add_core_of = ROOT }
+		288 = { add_core_of = ROOT }
+		#AST
+		523 = { add_core_of = ROOT }
+		737 = { add_core_of = ROOT }
+		634 = { add_core_of = ROOT }
+		521 = { add_core_of = ROOT }
+		285 = { add_core_of = ROOT }
+		517 = { add_core_of = ROOT }
+		518 = { add_core_of = ROOT }
+		519 = { add_core_of = ROOT }
+		674 = { add_core_of = ROOT }
+		522 = { add_core_of = ROOT }
+		876 = { add_core_of = ROOT }
+		520 = { add_core_of = ROOT }
+		#NZL
+		635 = { add_core_of = ROOT }
+		284 = { add_core_of = ROOT }
+		723 = { add_core_of = ROOT }
+		}}}
+
+
+
+		formable_nations_british_commonwealth = {
+	
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_global_flag = ai_disabled 
+			}
+		}
+		
+		cost = 0  days_re_enable = 0
+		icon = formable_nations_world
+		visible = {
+			NOT = { has_country_flag = unform_available }
+			NOT = { has_global_flag = hide_formable_nations }
+			OR = {
+				has_global_flag = no_limit
+				
+				original_tag = AST
+				original_tag = NZL
+				original_tag = SAF
+				original_tag = CAN
+				
+				
+		
+		}}
+		available = {
+			custom_trigger_tooltip = {
+			tooltip = Form_Nation_Commonwealth_Aus_tt
+			521 = { is_controlled_by = ROOT }
+			285 = { is_controlled_by = ROOT }
+			517 = { is_controlled_by = ROOT }
+			518 = { is_controlled_by = ROOT }
+			519 = { is_controlled_by = ROOT }
+			674 = { is_controlled_by = ROOT }
+			522 = { is_controlled_by = ROOT }
+			876 = { is_controlled_by = ROOT }
+			520 = { is_controlled_by = ROOT }
+			523 = { is_controlled_by = ROOT }
+			737 = { is_controlled_by = ROOT }
+			634 = { is_controlled_by = ROOT }
+			
+			}
+			custom_trigger_tooltip = {
+			tooltip = Form_Nation_Commonwealth_nzl_tt
+			284 = { is_controlled_by = ROOT }
+			723 = { is_controlled_by = ROOT }
+			}
+			custom_trigger_tooltip = {
+			tooltip = Form_Nation_Commonwealth_saf_tt
+			541 = { is_controlled_by = ROOT }
+			681 = { is_controlled_by = ROOT }
+			867 = { is_controlled_by = ROOT }
+			275 = { is_controlled_by = ROOT }
+			719 = { is_controlled_by = ROOT }
+			865 = { is_controlled_by = ROOT }
+			866 = { is_controlled_by = ROOT }
+		}
+		custom_trigger_tooltip = {
+			tooltip = Form_Nation_Commonwealth_can_tt
+			464 = { is_controlled_by = ROOT }
+			465 = { is_controlled_by = ROOT }
+			468 = { is_controlled_by = ROOT }
+			466 = { is_controlled_by = ROOT }
+			276 = { is_controlled_by = ROOT }
+			682 = { is_controlled_by = ROOT }
+			683 = { is_controlled_by = ROOT }
+			467 = { is_controlled_by = ROOT }
+			469 = { is_controlled_by = ROOT }
+			472 = { is_controlled_by = ROOT }
+			471 = { is_controlled_by = ROOT }
+			470 = { is_controlled_by = ROOT }
+			473 = { is_controlled_by = ROOT }
+			740 = { is_controlled_by = ROOT }
+		}
+		}
+		complete_effect = {
+		set_cosmetic_tag = ENG_imperial_federation_unified
+		hidden_effect = {
+			sound_effect = complete_focus  set_country_flag = unform_available
+		
+		521 = { add_core_of = ROOT }
+		285 = { add_core_of = ROOT }
+		517 = { add_core_of = ROOT }
+		518 = { add_core_of = ROOT }
+		519 = { add_core_of = ROOT }
+		674 = { add_core_of = ROOT }
+		522 = { add_core_of = ROOT }
+		876 = { add_core_of = ROOT }
+		520 = { add_core_of = ROOT }
+		523 = { add_core_of = ROOT }
+		737 = { add_core_of = ROOT }
+		634 = { add_core_of = ROOT }
+		284 = { add_core_of = ROOT }
+		723 = { add_core_of = ROOT }
+		541 = { add_core_of = ROOT }
+		681 = { add_core_of = ROOT }
+		867 = { add_core_of = ROOT }
+		275 = { add_core_of = ROOT }
+		719 = { add_core_of = ROOT }
+		865 = { add_core_of = ROOT }
+		866 = { add_core_of = ROOT }
+		464 = { add_core_of = ROOT }
+		465 = { add_core_of = ROOT }
+		468 = { add_core_of = ROOT }
+		466 = { add_core_of = ROOT }
+		276 = { add_core_of = ROOT }
+		682 = { add_core_of = ROOT }
+		683 = { add_core_of = ROOT }
+		467 = { add_core_of = ROOT }
+		469 = { add_core_of = ROOT }
+		472 = { add_core_of = ROOT }
+		471 = { add_core_of = ROOT }
+		470 = { add_core_of = ROOT }
+		473 = { add_core_of = ROOT }
+		740 = { add_core_of = ROOT }
+		}
+		}}
+
+
+
+		formable_nations_porto_brazil = {
+		icon = formable_nations_iberia
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_global_flag = ai_disabled 
+			}
+		}
+		
+		cost = 0  days_re_enable = 0
+		visible = {
+			NOT = { has_country_flag = unform_available }
+			NOT = { has_global_flag = hide_formable_nations }
+			OR = {
+				has_global_flag = no_limit
+				
+				original_tag = BRA
+				original_tag = POR
+				
+				
+		
+		}}
+		available = {
+		custom_trigger_tooltip = {
+		tooltip = Form_Nation_Porto_Brazil_por
+		180 = { is_controlled_by = ROOT }
+		181 = { is_controlled_by = ROOT }
+		112 = { is_controlled_by = ROOT }
+		795 = { is_controlled_by = ROOT }
+		179 = { is_controlled_by = ROOT }
+		}
+		
+		custom_trigger_tooltip = {
+		tooltip = Form_Nation_Porto_Brazil_bra
+		495 = { is_controlled_by = ROOT }
+		497 = { is_controlled_by = ROOT }
+		280 = { is_controlled_by = ROOT }
+		505 = { is_controlled_by = ROOT }
+		504 = { is_controlled_by = ROOT }
+		502 = { is_controlled_by = ROOT }
+		503 = { is_controlled_by = ROOT }
+		501 = { is_controlled_by = ROOT }
+		496 = { is_controlled_by = ROOT }
+		499 = { is_controlled_by = ROOT }
+		498 = { is_controlled_by = ROOT }
+		500 = { is_controlled_by = ROOT }
+		}
+		}
+		complete_effect = {
+		set_cosmetic_tag = KPB_kingdom_portugal_and_brazil
+		hidden_effect = {
+			sound_effect = complete_focus  set_country_flag = unform_available
+		495 = { add_core_of = ROOT }
+		497 = { add_core_of = ROOT }
+		280 = { add_core_of = ROOT }
+		505 = { add_core_of = ROOT }
+		504 = { add_core_of = ROOT }
+		502 = { add_core_of = ROOT }
+		503 = { add_core_of = ROOT }
+		501 = { add_core_of = ROOT }
+		496 = { add_core_of = ROOT }
+		499 = { add_core_of = ROOT }
+		498 = { add_core_of = ROOT }
+		500 = { add_core_of = ROOT }
+		180 = { add_core_of = ROOT }
+		181 = { add_core_of = ROOT }
+		112 = { add_core_of = ROOT }
+		795 = { add_core_of = ROOT }
+		179 = { add_core_of = ROOT }
+		540 = { add_core_of = ROOT }
+		544 = { add_core_of = ROOT }
+		321 = { add_core_of = ROOT }
+		729 = { add_core_of = ROOT }
+		}
+		}
+		}
+
+
+
+		
+		formable_nations_americas = {
+	
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_global_flag = ai_disabled 
+			}
+		}
+		
+		cost = 0  days_re_enable = 0
+		visible = {
+			NOT = { has_country_flag = unform_available }
+			NOT = { has_global_flag = hide_formable_nations }
+			OR = {
+				has_global_flag = no_limit
+				
+				capital_scope = { is_on_continent = south_america }
+				capital_scope = { is_on_continent = north_america }
+				
+		
+		}}
+		available = {
+		custom_trigger_tooltip = {
+		tooltip = Form_Nation_Americas_South_America_tt
+		495 = { is_controlled_by = ROOT }
+		497 = { is_controlled_by = ROOT }
+		505 = { is_controlled_by = ROOT }
+		504 = { is_controlled_by = ROOT }
+		501 = { is_controlled_by = ROOT }
+		502 = { is_controlled_by = ROOT }
+		498 = { is_controlled_by = ROOT }
+		280 = { is_controlled_by = ROOT }
+		499 = { is_controlled_by = ROOT }
+		504 = { is_controlled_by = ROOT }
+		300 = { is_controlled_by = ROOT }
+		301 = { is_controlled_by = ROOT }
+		688 = { is_controlled_by = ROOT }
+		510 = { is_controlled_by = ROOT }
+		509 = { is_controlled_by = ROOT }
+		508 = { is_controlled_by = ROOT }
+		511 = { is_controlled_by = ROOT }
+		512 = { is_controlled_by = ROOT }
+		507 = { is_controlled_by = ROOT }
+		279 = { is_controlled_by = ROOT }
+		882 = { is_controlled_by = ROOT }
+		506 = { is_controlled_by = ROOT }
+		302 = { is_controlled_by = ROOT }
+		487 = { is_controlled_by = ROOT }
+		492 = { is_controlled_by = ROOT }
+		494 = { is_controlled_by = ROOT }
+		303 = { is_controlled_by = ROOT }
+		491 = { is_controlled_by = ROOT }
+		305 = { is_controlled_by = ROOT }
+		490 = { is_controlled_by = ROOT }
+		486 = { is_controlled_by = ROOT }
+		306 = { is_controlled_by = ROOT }
+		493 = { is_controlled_by = ROOT }
+		488 = { is_controlled_by = ROOT }
+		307 = { is_controlled_by = ROOT }
+		875 = { is_controlled_by = ROOT }
+		489 = { is_controlled_by = ROOT }
+		}
+		custom_trigger_tooltip = {
+		tooltip = Form_Nation_Americas_Central_America_tt
+		304 = { is_controlled_by = ROOT }
+		864 = { is_controlled_by = ROOT }
+		316 = { is_controlled_by = ROOT }
+		317 = { is_controlled_by = ROOT }
+		312 = { is_controlled_by = ROOT }
+		314 = { is_controlled_by = ROOT }
+		313 = { is_controlled_by = ROOT }
+		}
+		custom_trigger_tooltip = {
+		tooltip = Form_Nation_Americas_Caribbean_tt
+		315 = { is_controlled_by = ROOT }
+		318 = { is_controlled_by = ROOT }
+		319 = { is_controlled_by = ROOT }
+		}
+		custom_trigger_tooltip = {
+		tooltip = Form_Nation_Americas_North_America_tt
+		474 = { is_controlled_by = ROOT }
+		475 = { is_controlled_by = ROOT }
+		477 = { is_controlled_by = ROOT }
+		859 = { is_controlled_by = ROOT }
+		476 = { is_controlled_by = ROOT }
+		485 = { is_controlled_by = ROOT }
+		277 = { is_controlled_by = ROOT }
+		478 = { is_controlled_by = ROOT }
+		858 = { is_controlled_by = ROOT }
+		857 = { is_controlled_by = ROOT }
+		479 = { is_controlled_by = ROOT }
+		480 = { is_controlled_by = ROOT }
+		856 = { is_controlled_by = ROOT }
+		481 = { is_controlled_by = ROOT }
+		483 = { is_controlled_by = ROOT }
+		482 = { is_controlled_by = ROOT }
+		484 = { is_controlled_by = ROOT }
+		#USA
+		366 = { is_controlled_by = ROOT }
+		365 = { is_controlled_by = ROOT }
+		364 = { is_controlled_by = ROOT }
+		363 = { is_controlled_by = ROOT }
+		362 = { is_controlled_by = ROOT }
+		816 = { is_controlled_by = ROOT }
+		361 = { is_controlled_by = ROOT }
+		360 = { is_controlled_by = ROOT }
+		359 = { is_controlled_by = ROOT }
+		358 = { is_controlled_by = ROOT }
+		357 = { is_controlled_by = ROOT }
+		261 = { is_controlled_by = ROOT }
+		393 = { is_controlled_by = ROOT }
+		396 = { is_controlled_by = ROOT }
+		369 = { is_controlled_by = ROOT }
+		368 = { is_controlled_by = ROOT }
+		367 = { is_controlled_by = ROOT }
+		370 = { is_controlled_by = ROOT }
+		395 = { is_controlled_by = ROOT }
+		394 = { is_controlled_by = ROOT }
+		371 = { is_controlled_by = ROOT }
+		375 = { is_controlled_by = ROOT }
+		372 = { is_controlled_by = ROOT }
+		374 = { is_controlled_by = ROOT }
+		373 = { is_controlled_by = ROOT }
+		383 = { is_controlled_by = ROOT }
+		392 = { is_controlled_by = ROOT }
+		384 = { is_controlled_by = ROOT }
+		391 = { is_controlled_by = ROOT }
+		390 = { is_controlled_by = ROOT }
+		389 = { is_controlled_by = ROOT }
+		376 = { is_controlled_by = ROOT }
+		377 = { is_controlled_by = ROOT }
+		380 = { is_controlled_by = ROOT }
+		382 = { is_controlled_by = ROOT }
+		381 = { is_controlled_by = ROOT }
+		388 = { is_controlled_by = ROOT }
+		387 = { is_controlled_by = ROOT }
+		386 = { is_controlled_by = ROOT }
+		385 = { is_controlled_by = ROOT }
+		379 = { is_controlled_by = ROOT }
+		378 = { is_controlled_by = ROOT }
+		463 = { is_controlled_by = ROOT }
+		#CAN 
+		464 = { is_controlled_by = ROOT }
+		465 = { is_controlled_by = ROOT }
+		468 = { is_controlled_by = ROOT }
+		466 = { is_controlled_by = ROOT }
+		276 = { is_controlled_by = ROOT }
+		682 = { is_controlled_by = ROOT }
+		683 = { is_controlled_by = ROOT }
+		467 = { is_controlled_by = ROOT }
+		469 = { is_controlled_by = ROOT }
+		472 = { is_controlled_by = ROOT }
+		471 = { is_controlled_by = ROOT }
+		470 = { is_controlled_by = ROOT }
+		473 = { is_controlled_by = ROOT }
+		740 = { is_controlled_by = ROOT }
+		}
+		custom_trigger_tooltip = {
+		tooltip = Form_Nation_Americas_Colonys_tt
+		332 = { is_controlled_by = ROOT }
+		331 = { is_controlled_by = ROOT }
+		311 = { is_controlled_by = ROOT }
+		689 = { is_controlled_by = ROOT }
+		690 = { is_controlled_by = ROOT }
+		693 = { is_controlled_by = ROOT }
+		695 = { is_controlled_by = ROOT }
+		694 = { is_controlled_by = ROOT }
+		308 = { is_controlled_by = ROOT }
+		692 = { is_controlled_by = ROOT }
+		691 = { is_controlled_by = ROOT }
+		687 = { is_controlled_by = ROOT }
+		309 = { is_controlled_by = ROOT }
+		310 = { is_controlled_by = ROOT }
+		}
+		}
+		complete_effect = {
+		set_cosmetic_tag = FORM_Americas
+		hidden_effect = {
+			sound_effect = complete_focus  set_country_flag = unform_available
+			every_state = {
+					limit = {
+						is_on_continent = north_america
+						
+					}
+					add_core_of = ROOT
+		}
+		every_state = {
+					limit = {
+						is_on_continent = south_america
+						
+					}
+					add_core_of = ROOT
+		}
+		}
+}
+		}
+		formable_nations_anglosphere = {
+	
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_global_flag = ai_disabled 
+			}
+		}
+		
+		cost = 0  days_re_enable = 0
+		visible = {
+			NOT = { has_country_flag = unform_available }
+			NOT = { has_global_flag = hide_formable_nations }
+			OR = {
+				has_global_flag = no_limit
+				original_tag = USA
+				original_tag = ENG
+				original_tag = CAN
+				original_tag = SAF
+				original_tag = AST
+				original_tag = NZL 
+				original_tag = IRE
+				
+		
+		}}
+		available = {
+		custom_trigger_tooltip = {
+			tooltip = Form_Nation_Commonwealth_Aus_tt
+			521 = { is_controlled_by = ROOT }
+			285 = { is_controlled_by = ROOT }
+			517 = { is_controlled_by = ROOT }
+			518 = { is_controlled_by = ROOT }
+			519 = { is_controlled_by = ROOT }
+			674 = { is_controlled_by = ROOT }
+			522 = { is_controlled_by = ROOT }
+			876 = { is_controlled_by = ROOT }
+			520 = { is_controlled_by = ROOT }
+			523 = { is_controlled_by = ROOT }
+			737 = { is_controlled_by = ROOT }
+			634 = { is_controlled_by = ROOT }
+			
+			}
+			custom_trigger_tooltip = {
+			tooltip = Form_Nation_Commonwealth_nzl_tt
+			284 = { is_controlled_by = ROOT }
+			723 = { is_controlled_by = ROOT }
+			}
+			custom_trigger_tooltip = {
+			tooltip = Form_Nation_Commonwealth_saf_tt
+			541 = { is_controlled_by = ROOT }
+			681 = { is_controlled_by = ROOT }
+			867 = { is_controlled_by = ROOT }
+			275 = { is_controlled_by = ROOT }
+			719 = { is_controlled_by = ROOT }
+			865 = { is_controlled_by = ROOT }
+			866 = { is_controlled_by = ROOT }
+		}
+		custom_trigger_tooltip = {
+			tooltip = Form_Nation_Commonwealth_can_tt
+			464 = { is_controlled_by = ROOT }
+			465 = { is_controlled_by = ROOT }
+			468 = { is_controlled_by = ROOT }
+			466 = { is_controlled_by = ROOT }
+			276 = { is_controlled_by = ROOT }
+			682 = { is_controlled_by = ROOT }
+			683 = { is_controlled_by = ROOT }
+			467 = { is_controlled_by = ROOT }
+			469 = { is_controlled_by = ROOT }
+			472 = { is_controlled_by = ROOT }
+			471 = { is_controlled_by = ROOT }
+			470 = { is_controlled_by = ROOT }
+			473 = { is_controlled_by = ROOT }
+			740 = { is_controlled_by = ROOT }
+		}
+		custom_trigger_tooltip = {
+			tooltip = Form_Nation_Anglosphere_Usa_tt
+			366 = { is_controlled_by = ROOT }
+			365 = { is_controlled_by = ROOT }
+			364 = { is_controlled_by = ROOT }
+			363 = { is_controlled_by = ROOT }
+			362 = { is_controlled_by = ROOT }
+			816 = { is_controlled_by = ROOT }
+			361 = { is_controlled_by = ROOT }
+			360 = { is_controlled_by = ROOT }
+			359 = { is_controlled_by = ROOT }
+			358 = { is_controlled_by = ROOT }
+			357 = { is_controlled_by = ROOT }
+			261 = { is_controlled_by = ROOT }
+			393 = { is_controlled_by = ROOT }
+			396 = { is_controlled_by = ROOT }
+			369 = { is_controlled_by = ROOT }
+			368 = { is_controlled_by = ROOT }
+			367 = { is_controlled_by = ROOT }
+			370 = { is_controlled_by = ROOT }
+			395 = { is_controlled_by = ROOT }
+			394 = { is_controlled_by = ROOT }
+			371 = { is_controlled_by = ROOT }
+			375 = { is_controlled_by = ROOT }
+			372 = { is_controlled_by = ROOT }
+			374 = { is_controlled_by = ROOT }
+			373 = { is_controlled_by = ROOT }
+			383 = { is_controlled_by = ROOT }
+			392 = { is_controlled_by = ROOT }
+			384 = { is_controlled_by = ROOT }
+			391 = { is_controlled_by = ROOT }
+			390 = { is_controlled_by = ROOT }
+			389 = { is_controlled_by = ROOT }
+			376 = { is_controlled_by = ROOT }
+			377 = { is_controlled_by = ROOT }
+			380 = { is_controlled_by = ROOT }
+			382 = { is_controlled_by = ROOT }
+			381 = { is_controlled_by = ROOT }
+			388 = { is_controlled_by = ROOT }
+			387 = { is_controlled_by = ROOT }
+			386 = { is_controlled_by = ROOT }
+			385 = { is_controlled_by = ROOT }
+			379 = { is_controlled_by = ROOT }
+			378 = { is_controlled_by = ROOT }
+			463 = { is_controlled_by = ROOT }	
+		}
+		custom_trigger_tooltip = {
+			tooltip = Form_Nation_Anglosphere_Eng_tt 
+			119 = { is_controlled_by = ROOT }
+			120 = { is_controlled_by = ROOT }	
+			136 = { is_controlled_by = ROOT }
+			121 = { is_controlled_by = ROOT }
+			133 = { is_controlled_by = ROOT }
+			131 = { is_controlled_by = ROOT }
+			130 = { is_controlled_by = ROOT }
+			132 = { is_controlled_by = ROOT }
+			122 = { is_controlled_by = ROOT }
+			128 = { is_controlled_by = ROOT }
+			129 = { is_controlled_by = ROOT }
+			338 = { is_controlled_by = ROOT }
+			123 = { is_controlled_by = ROOT }
+			127 = { is_controlled_by = ROOT }
+			126 = { is_controlled_by = ROOT }
+			125 = { is_controlled_by = ROOT }
+		}
+
+		custom_trigger_tooltip = {
+		   tooltip = Form_Nation_Angloshpere_IRE_tt
+		   113 = { is_controlled_by = ROOT }
+		   135 = { is_controlled_by = ROOT }
+		   134 = { is_controlled_by = ROOT }
+		  
+		}
+
+
+
+	}
+	complete_effect = {
+		set_cosmetic_tag = FORM_Anglosphere 
+		hidden_effect = {
+		sound_effect = complete_focus  set_country_flag = unform_available
+		521 = { add_core_of = ROOT }
+		285 = { add_core_of = ROOT }
+		517 = { add_core_of = ROOT }
+		518 = { add_core_of = ROOT }
+		519 = { add_core_of = ROOT }
+		674 = { add_core_of = ROOT }
+		522 = { add_core_of = ROOT }
+		876 = { add_core_of = ROOT }
+		520 = { add_core_of = ROOT }
+		523 = { add_core_of = ROOT }
+		737 = { add_core_of = ROOT }
+		634 = { add_core_of = ROOT }
+		284 = { add_core_of = ROOT }
+		723 = { add_core_of = ROOT }
+		541 = { add_core_of = ROOT }
+		681 = { add_core_of = ROOT }
+		867 = { add_core_of = ROOT }
+		275 = { add_core_of = ROOT }
+		719 = { add_core_of = ROOT }
+		865 = { add_core_of = ROOT }
+		866 = { add_core_of = ROOT }
+		464 = { add_core_of = ROOT }
+		465 = { add_core_of = ROOT }
+		468 = { add_core_of = ROOT }
+		466 = { add_core_of = ROOT }
+		276 = { add_core_of = ROOT }
+		682 = { add_core_of = ROOT }
+		683 = { add_core_of = ROOT }
+		467 = { add_core_of = ROOT }
+		469 = { add_core_of = ROOT }
+		472 = { add_core_of = ROOT }
+		471 = { add_core_of = ROOT }
+		470 = { add_core_of = ROOT }
+		473 = { add_core_of = ROOT }
+		740 = { add_core_of = ROOT }
+		119 = { add_core_of = ROOT }
+		120 = { add_core_of = ROOT }	
+		136 = { add_core_of = ROOT }
+		121 = { add_core_of = ROOT }
+		133 = { add_core_of = ROOT }
+		131 = { add_core_of = ROOT }
+		130 = { add_core_of = ROOT }
+		132 = { add_core_of = ROOT }
+		122 = { add_core_of = ROOT }
+		128 = { add_core_of = ROOT }
+		129 = { add_core_of = ROOT }
+		338 = { add_core_of = ROOT }
+		123 = { add_core_of = ROOT }
+		127 = { add_core_of = ROOT }
+		126 = { add_core_of = ROOT }
+		125 = { add_core_of = ROOT }
+		134 = { add_core_of = ROOT }
+		113 = { add_core_of = ROOT }
+		135 = { add_core_of = ROOT }
+		366 = { add_core_of = ROOT }
+		365 = { add_core_of = ROOT }
+		364 = { add_core_of = ROOT }
+		363 = { add_core_of = ROOT }
+		362 = { add_core_of = ROOT }
+		816 = { add_core_of = ROOT }
+		361 = { add_core_of = ROOT }
+		360 = { add_core_of = ROOT }
+		359 = { add_core_of = ROOT }
+		358 = { add_core_of = ROOT }
+		357 = { add_core_of = ROOT }
+		261 = { add_core_of = ROOT }
+		393 = { add_core_of = ROOT }
+		396 = { add_core_of = ROOT }
+		369 = { add_core_of = ROOT }
+		368 = { add_core_of = ROOT }
+		367 = { add_core_of = ROOT }
+		370 = { add_core_of = ROOT }
+		395 = { add_core_of = ROOT }
+		394 = { add_core_of = ROOT }
+		371 = { add_core_of = ROOT }
+		375 = { add_core_of = ROOT }
+		372 = { add_core_of = ROOT }
+		374 = { add_core_of = ROOT }
+		373 = { add_core_of = ROOT }
+		383 = { add_core_of = ROOT }
+		392 = { add_core_of = ROOT }
+		384 = { add_core_of = ROOT }
+		391 = { add_core_of = ROOT }
+		390 = { add_core_of = ROOT }
+		389 = { add_core_of = ROOT }
+		376 = { add_core_of = ROOT }
+		377 = { add_core_of = ROOT }
+		380 = { add_core_of = ROOT }
+		382 = { add_core_of = ROOT }
+		381 = { add_core_of = ROOT }
+		388 = { add_core_of = ROOT }
+		387 = { add_core_of = ROOT }
+		386 = { add_core_of = ROOT }
+		385 = { add_core_of = ROOT }
+		379 = { add_core_of = ROOT }
+		378 = { add_core_of = ROOT }
+		463 = { add_core_of = ROOT }
+		}
+}
+		}
+
+
+
+
+		formable_nations_anglosphere_centeralized = {
+		
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					has_global_flag = ai_disabled 
+				}
+			}
+			
+			cost = 0  days_re_enable = 0
+			visible = {
+				#NOT = { has_country_flag = unform_available }
+				NOT = { has_global_flag = hide_formable_nations }
+				OR = {
+					has_global_flag = no_limit
+					
+					has_cosmetic_tag = FORM_Anglosphere 
+					
+			
+			}}
+			available = {
+			has_government = democratic
+			361 = { is_controlled_by = ROOT }
+			original_tag = USA 
+	}
+			complete_effect = {
+			set_cosmetic_tag = FORM_Anglosphere_Central
+			set_capital = { state = 361 }
+			set_province_name = { id = 3957 name = "New Columbia"}
+			set_province_name = { id = 6103 name = "New London"}
+			set_victory_points = {
+					province = 3957
+					value = 100
+				}		
+			hidden_effect = {
+			sound_effect = complete_focus
+			}
+			}
+			}
+
+
+
+
+
+
+
+
+
+	formable_nations_dutch_empire = {
+		
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 0
+					has_global_flag = ai_disabled 
+				}
+			}
+			
+			cost = 0  days_re_enable = 0
+			visible = {
+				#NOT = { has_country_flag = unform_available }
+				NOT = { has_global_flag = hide_formable_nations }
+				OR = {
+					has_global_flag = no_limit
+					
+					original_tag = HOL
+					original_tag = SAF
+					original_tag = INS
+				}
+			}
+			available = {
+				custom_trigger_tooltip = {
+					tooltip = Form_Nation_Dutch_NL_tt
+					36 = { is_controlled_by = ROOT }
+					35 = { is_controlled_by = ROOT }
+				 	7 = { is_controlled_by = ROOT }
+				 	
+				}
+
+				custom_trigger_tooltip = {
+					tooltip = Form_Nation_Dutch_INS_tt
+						every_state = {
+							limit = {
+								is_core_of = INS 
+							}
+							is_controlled_by = ROOT 
+						}
+					
+				}
+
+				custom_trigger_tooltip = {
+					tooltip = Form_Nation_Dutch_SAF_tt
+					681 = { is_controlled_by = ROOT }
+					541 = { is_controlled_by = ROOT }
+					867 = { is_controlled_by = ROOT }
+					275 = { is_controlled_by = ROOT }
+					719 = { is_controlled_by = ROOT }
+				}
+
+				309 = { is_controlled_by = ROOT }
+				695 = { is_controlled_by = ROOT }
+				423 = { is_controlled_by = ROOT }
+				
+			}
+			complete_effect = {
+				set_cosmetic_tag = FORM_Dutch_Empire
+				every_state = {
+					limit = {
+						is_core_of = RAJ
+						
+					}
+					add_core_of = ROOT
+				}
+
+				every_state = {
+					limit = {
+						is_core_of = INS
+						
+					}
+					add_core_of = ROOT
+				}
+
+				every_state = {
+					limit = {
+						is_core_of = BRA
+						
+					}
+					add_core_of = ROOT
+				}
+
+				every_state = {
+					limit = {
+						is_core_of = SAF
+						
+					}
+					add_core_of = ROOT
+				}
+
+				every_state = {
+					limit = {
+						is_core_of = AST
+						
+					}
+					add_core_of = ROOT
+				}
+
+				every_state = {
+					limit = {
+						is_core_of = NZL
+						
+					}
+					add_core_of = ROOT
+				}
+				358 = {add_core_of = ROOT}
+				357 = {add_core_of = ROOT}
+				hidden_effect = {
+					sound_effect = complete_focus
+					set_country_flag = unform_available
+					add_stability = 0.2
+				}
+			}
+	}
+}
+		
+		
+
+
+
