@@ -1,1 +1,0 @@
-NDefines.NTrade.BASE_TRADE_FACTOR = 200
