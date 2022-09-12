@@ -2105,6 +2105,66 @@ ideas = {
 				}				
 			}
 		}
+
+		generic_staunch_monarchist = {
+
+			allowed = {
+				NOT = { OR = { tag = GER tag = NIC tag = GRE tag = ENG tag = SOV tag = FRA tag = ITA tag = BUL tag = JAP tag = USA tag = PRC tag = AST tag = CAN tag = SAF tag = WHY tag = MAN tag = BEL tag = TIB tag = BHU tag = CHL tag = VEN tag = KOR tag = NKR } }
+				NOT = {
+					has_available_idea_with_traits = { idea = staunch_monarchist limit = 1 }
+				}
+			}
+
+			available = {
+				if = {
+					limit = {
+						original_tag = NZL
+						has_dlc = "Together for Victory"
+					}
+					OR = {
+						has_completed_focus = NZL_strengthen_the_commonwealth
+						has_completed_focus = NZL_constitution_amendment_act
+					}
+				}
+				if = {
+					limit = { has_dlc = "Man the Guns" }	
+					NOT = { has_autonomy_state = autonomy_supervised_state }
+				}								
+			}
+
+			visible = {
+				if = {
+					limit = { has_focus_tree = turkish_focus }
+					NOT = { tag = TUR }
+				}
+				if = {
+					limit = { has_focus_tree = greek_focus }
+					NOT = { tag = GRE }
+				}					
+			}
+
+			traits = { staunch_monarchist }
+
+			ai_will_do = {
+				factor = 0
+				modifier = {
+					NOT = {
+						OR = {
+							AND = {
+								is_puppet = yes
+								NOT = {
+									has_government = neutrality
+								}
+							}
+							neutrality > 0.7
+							neutrality < 0.15
+						}							
+					}
+					add = 20		
+				}
+			}
+		}
+
 		generic_democratic_reformer = {
 
 			allowed = {
