@@ -41,3 +41,9 @@ NDefines.NProduction.EQUIPMENT_MODULE_ADD_XP_COST = 1				    -- XP cost for addi
 NDefines.NProduction.EQUIPMENT_MODULE_REPLACE_XP_COST = 1				-- XP cost for replacing one equipment module with an unrelated module when creating an equipment variant.
 NDefines.NProduction.EQUIPMENT_MODULE_CONVERT_XP_COST = 1				-- XP cost for converting one equipment module to a related module when creating an equipment variant.
 NDefines.NProduction.EQUIPMENT_MODULE_REMOVE_XP_COST = 1
+
+--More XP
+NDefines.NMilitary.TRAINING_MAX_DAILY_COUNTRY_EXP = 0.16			-- (Def: 0.08)*2 | Maximum army XP gained per day from training
+NDefines.NMilitary.UNIT_EXPERIENCE_PER_TRAINING_DAY = 0.00225       -- (Def: 0.0015 *1.5 | No official documentation)
+NDefines.NAir.AIR_WING_COUNTRY_XP_FROM_TRAINING_FACTOR = 0.0075 	-- (Def: 0.005)*1.5 | Factor on country Air XP gained from wing training
+NDefines.NNavy.TRAINING_DAILY_COUNTRY_EXP_FACTOR = 0.0015			-- (Def: 0.001)*1.5 |Factor used to scale the Daily Country Navy XP gain
