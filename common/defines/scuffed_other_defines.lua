@@ -14,7 +14,8 @@ NDefines.NCountry.VICTORY_POINTS_IMPORTANCE_FACTOR = 0           -- State victor
 NDefines.NCountry.BUILDING_IMPORTANCE_FACTOR = 0               -- State building importance factor for AI and calculations
 NDefines.NCountry.RESOURCE_IMPORTANCE_FACTOR = 0               -- State resource importance factor for AI and calculations
 NDefines.NCountry.FRONT_PROVINCE_SCORE = 0   					-- Max province score of a front. Used for the hostile troop alert
-
+NDefines.NDiplomacy.IDEOLOGY_JOIN_FACTION_MIN_LEVEL = 0
+NDefines.NDiplomacy.TENSION_FACTION_JOIN = 0
 NDefines.NTrade.BASE_TRADE_FACTOR = 50
 NDefines.NTrade.PARTY_SUPPORT_TRADE_FACTOR = 20
 
