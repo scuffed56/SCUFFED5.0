@@ -1,8 +1,8 @@
 NDefines.NMilitary.LAND_AIR_COMBAT_MAX_PLANES_PER_ENEMY_WIDTH = 0.75  -- WAS 3; 
 NDefines.COMBAT_MAX_WINGS_AT_GROUND_ATTACK = 10000 -- 10000
-NDefines.NAir.AIR_WING_MAX_SIZE = 800 
+NDefines.NAir.AIR_WING_MAX_SIZE = 500 
 
-NDefines.NBuildings.AIRBASE_CAPACITY_MULT = 100 -- may change
+NDefines.NBuildings.AIRBASE_CAPACITY_MULT = 200 -- may change
 NDefines.NAir.AIR_WING_FLIGHT_SPEED_MULT = 0.2 -- makes redeployement of fighters faster vanilla is 0.02
 NDefines.NAir.AIR_DEPLOYMENT_DAYS = 0
 
