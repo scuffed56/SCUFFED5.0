@@ -17,7 +17,7 @@ NDefines.NMilitary.UNIT_LEADER_MODIFIER_COOLDOWN_ON_GROUP_CHANGE = 3 -- WAS 15 |
 -- faster training
 NDefines.NMilitary.TRAINING_ATTRITION = 0.00
 NDefines.NMilitary.UNIT_EXPERIENCE_PER_TRAINING_DAY = 0
-NDefines.NMilitary.TRAINING_EXPERIENCE_SCALE = 62.0 -- 62.0
+NDefines.NMilitary.TRAINING_EXPERIENCE_SCALE = 62.0 -- 62 .0
 NDefines.NMilitary.DEPLOY_TRAINING_MAX_LEVEL = 5 -- WAS 1 aka TRAINED | Since the above was changed there is no point to not allowing divs to be trained to regular considering that its only 10% stats now. 
 NDefines.NProduction.MIN_POSSIBLE_TRAINING_MANPOWER = 15000000    -- Increased so most nations don't need to queue up multiple lines of infantry or spam 2w infantry and convert 
 
