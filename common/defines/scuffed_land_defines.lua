@@ -14,15 +14,15 @@ NDefines.NMilitary.COMBAT_MINIMUM_TIME = 2                    --VANILLA 4; Chang
 
 NDefines.NMilitary.UNIT_LEADER_MODIFIER_COOLDOWN_ON_GROUP_CHANGE = 3 -- WAS 15 | This prevents reassignment memes | This is the number of days it takes to REASSIGN a general. 
 
--- faster training
+--faster training
 NDefines.NMilitary.TRAINING_ATTRITION = 0.00
 NDefines.NMilitary.UNIT_EXPERIENCE_PER_TRAINING_DAY = 0
 NDefines.NMilitary.TRAINING_EXPERIENCE_SCALE = 62.0 -- 62 .0
---NDefines.NMilitary.DEPLOY_TRAINING_MAX_LEVEL = 5 -- WAS 1 aka TRAINED | Since the above was changed there is no point to not allowing divs to be trained to regular considering that its only 10% stats now. 
+NDefines.NMilitary.DEPLOY_TRAINING_MAX_LEVEL = 5 -- WAS 1 aka TRAINED | Since the above was changed there is no point to not allowing divs to be trained to regular considering that its only 10% stats now. 
 NDefines.NProduction.MIN_POSSIBLE_TRAINING_MANPOWER = 15000000    -- Increased so most nations don't need to queue up multiple lines of infantry or spam 2w infantry and convert 
 
-NDefines.NMilitary.CORPS_COMMANDER_DIVISIONS_CAP = 0
-NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 0
+NDefines.NMilitary.CORPS_COMMANDER_DIVISIONS_CAP = 50 -- making this 0 breaks AI since AI can't create armies 
+NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 50
 
 -- -- free templates
 NDefines.NMilitary.BASE_DIVISION_BRIGADE_GROUP_COST = 0 -- 0xp, was 25
