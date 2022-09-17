@@ -24,6 +24,10 @@ NDefines.NProduction.MIN_POSSIBLE_TRAINING_MANPOWER = 15000000    -- Increased s
 NDefines.NMilitary.CORPS_COMMANDER_DIVISIONS_CAP = 50 -- making this 0 breaks AI since AI can't create armies 
 NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 50
 
+
+-- -- Linear XP gain
+NDefines.NMilitary.UNIT_LEADER_USE_NONLINEAR_XP_GAIN = false
+
 -- -- free templates
 NDefines.NMilitary.BASE_DIVISION_BRIGADE_GROUP_COST = 0 -- 0xp, was 25
 NDefines.NMilitary.BASE_DIVISION_BRIGADE_CHANGE_COST = 0 -- 0xp, was 5
