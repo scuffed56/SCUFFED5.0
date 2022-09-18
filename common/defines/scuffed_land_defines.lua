@@ -25,8 +25,8 @@ NDefines.NMilitary.CORPS_COMMANDER_DIVISIONS_CAP = 50 -- making this 0 breaks AI
 NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 50
 
 
--- -- Linear XP gain
-NDefines.NMilitary.UNIT_LEADER_USE_NONLINEAR_XP_GAIN = false
+-- -- Linear XP gain -- for traits
+NDefines.NMilitary.UNIT_LEADER_USE_NONLINEAR_XP_GAIN = true
 
 -- -- free templates
 NDefines.NMilitary.BASE_DIVISION_BRIGADE_GROUP_COST = 0 -- 0xp, was 25
