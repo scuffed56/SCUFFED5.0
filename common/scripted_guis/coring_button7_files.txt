@@ -1,0 +1,92 @@
+scripted_gui = {
+	coring_button_powers7 = {
+	
+		context_type = selected_state_context
+		
+		window_name = "coring_button_powers7_container"
+		
+		visible = {
+			AND = {
+				is_fully_controlled_by = ROOT
+				NOT = { is_core_of = FROM }
+				state_population > 5000000
+				NOT = { state_population > 10000000 }
+			}
+		}
+		
+		effects = {
+			create_core1_click = {
+				if = {
+					limit = {FROM = {compliance > 99}}
+					ROOT = {
+						add_political_power = -100
+					}
+				}
+				else_if = {
+					limit = {FROM = {compliance > 74}}
+					ROOT = {
+						add_political_power = -125
+					}
+				}
+				else_if = {
+					limit = {FROM = {compliance > 49}}
+					ROOT = {
+						add_political_power = -150
+					}
+				}
+				else_if = {
+					limit = {FROM = {compliance > 24}}
+					ROOT = {
+						add_political_power = -175
+					}
+				}
+				else = {
+					ROOT = {
+						add_political_power = -200
+					}
+				}
+
+				add_core_of = FROM
+				}
+		}
+		triggers = {
+			create_core1_click_enabled = {
+				if = {
+					limit = {FROM = {compliance > 99}}
+					check_variable = { ROOT.political_power > 99.99 }
+				}
+				else_if = {
+					limit = {FROM = {compliance > 74}}
+					check_variable = { ROOT.political_power > 124.99 }
+				}
+				else_if = {
+					limit = {FROM = {compliance > 49}}
+					check_variable = { ROOT.political_power > 149.99 }
+				}
+				else_if = {
+					limit = {FROM = {compliance > 24}}
+					check_variable = { ROOT.political_power > 174.99 }
+				}
+				else = {
+					check_variable = { ROOT.political_power > 199.99 }
+				}
+				add_core_of = FROM
+			}
+			}
+		}
+		        
+		ai_check = {
+			check_variable = { ROOT.political_power > 149.99 }
+			check_variable = { ai_random > 0.65 }
+		}
+		
+		ai_weights = {
+			create_core7_click = {
+				ai_will_do = {
+					factor = 40
+				}
+			}
+		}
+	}
+}
+
