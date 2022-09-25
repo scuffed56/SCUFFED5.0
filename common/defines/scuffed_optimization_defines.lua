@@ -19,7 +19,7 @@ NDefines.NGame.MISSION_REMOVE_FROM_INTERFACE_DEFAULT = 3		-- Default days before
 NDefines.NGame.MAX_SCRIPTED_LOC_RECURSION = 20                  -- vanilla 30, lowering this but I have no idea if it will matter -Thrasymachus
 NDefines.NGame.MAX_EFFECT_ITERATION	= 100                    -- vanilla 1000, lowering this but I have no idea if it will matter -Thrasymachus
 
-NDefines.NCountry.EVENT_PROCESS_OFFSET = 40 -- WAS 20. The higher the number, the less responsive mean_time_to_happen events are, but the better the performance is.
+NDefines.NCountry.EVENT_PROCESS_OFFSET = 20 -- WAS 20. The higher the number, the less responsive mean_time_to_happen events are, but the better the performance is.
 
 -- score 
 NDefines.NCountry.COUNTRY_SCORE_MULTIPLIER = 0				-- Weight of the country score.

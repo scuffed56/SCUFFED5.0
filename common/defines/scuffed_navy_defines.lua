@@ -1,9 +1,9 @@
 -- Thanks thrasy :)
-NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 300 -- WAS 5 | changed to reduce the number of production lines on navy
-NDefines.NProduction.MAX_MIL_FACTORIES_PER_LINE = 300               -- WAS 150, changed so you can have 1 fewer line of tanks if you want 
-NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 300         -- WAS 15, Changed so you can have less lines of naval production
-NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 300		-- WAS 10, Changed so you can have less lines of naval production
-NDefines.NProduction.FLOATING_HARBOR_MAX_NAV_FACTORIES_PER_LINE = 300
+NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 50 -- WAS 5 | changed to reduce the number of production lines on navy
+NDefines.NProduction.MAX_MIL_FACTORIES_PER_LINE = 150               -- WAS 150, changed so you can have 1 fewer line of tanks if you want 
+NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 50         -- WAS 15, Changed so you can have less lines of naval production
+NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 50		-- WAS 10, Changed so you can have less lines of naval production
+NDefines.NProduction.FLOATING_HARBOR_MAX_NAV_FACTORIES_PER_LINE = 50
 
 NDefines.NNavy.TRAINING_ACCIDENT_CHANCES = 0						-- down from 0.02 | Chances one ship get damage each hour while on training 		
 NDefines.NNavy.INITIAL_ALLOWED_DOCKYARD_RATIO_FOR_REPAIRS = 1.0				-- initially countries will allocate this ratio of dockyards for repairs
