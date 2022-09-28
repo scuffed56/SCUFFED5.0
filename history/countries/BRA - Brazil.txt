@@ -1,30 +1,42 @@
-capital = 500
+﻿capital = 500
 
-set_research_slots = 4
 
 oob = "BRA_1936"
-
-set_stability = 0.40
-set_war_support = 0.30
-
+if = {
+	limit = { has_dlc = "By Blood Alone" }
+		set_air_oob = "BRA_1936_air_bba"
+	else = {
+		set_air_oob = "BRA_1936_air_legacy"
+		set_technology = {
+			early_fighter = 1
+			CAS1 = 1
+		}
+	}
+}
 # Starting tech
 set_technology = {
-
-	#Ext. tech
-	etax_doctrine = 1
-	camo = 1
-	transport_plane1 = 1
-	jngdst_clothes_gw = 1	
-	jungletroops = 1
-	
-	tech_engineers = 1
 	infantry_weapons = 1
+	tech_support = 1		
+	tech_engineers = 1
 	gw_artillery = 1
-	early_fighter = 1
-	early_bomber = 1
-	tech_support = 1
-	motorised_infantry = 1
-	basic_train = 1
+	interwar_antiair = 1
+	basic_train = 1	
+}
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	set_technology = {
+		gwtank_chassis = 1
+	}
+}
+if = {
+	limit = {
+		NOT = { has_dlc = "No Step Back" }
+	}
+	set_technology = {
+		gwtank = 1
+	}
 }
 if = {
 	limit = {
@@ -51,105 +63,141 @@ if = {
 		early_ship_hull_cruiser = 1
 		early_ship_hull_heavy = 1
 		basic_battery = 1
-		basic_secondary_battery = 1
 		basic_torpedo = 1
 		mtg_transport = 1
 	}
 	set_naval_oob = "BRA_1936_naval"	
 }
-if = {
-	limit = {
-		has_dlc = "La Resistance"
-	}
-	set_technology = {
-		armored_car1 = 1
-	}
-}
-if = {
-	limit = {
-		NOT = { has_dlc = "No Step Back" }
-	}
-	set_technology = {
-		gwtank = 1
-	}
-}
-if = {
-	limit = {
-		has_dlc = "No Step Back"
-	}
-	set_technology = {
-		gwtank_chassis = 1
-	}
-}
-
-
 set_country_flag = monroe_doctrine
 
-add_ideas = { 
-	bra_antropofagia
-	bra_bandeirantes
-	bra_1930 
-	bra_rural_elite
+recruit_character = BRA_getulio_vargas
+recruit_character = BRA_plinio_salgado
+recruit_character = BRA_luis_carlos_prestes
+recruit_character = BRA_armando_sales
+recruit_character = BRA_eurico_gaspar_dutra
+recruit_character = BRA_mascarenhas_de_morais
+recruit_character = BRA_augusto_rademaker
+recruit_character = BRA_agliberto_vieira
+recruit_character = BRA_eduardo_gomes
+recruit_character = BRA_salgado_filho
+recruit_character = BRA_floriano_peixoto
+recruit_character = BRA_aristides_guilhem
+recruit_character = BRA_joao_neves_da_fontoura
+recruit_character = BRA_epaminondas_dos_santos
+recruit_character = BRA_moreira_lima
+recruit_character = BRA_nero_fiuza_de_castro
+recruit_character = BRA_artur_da_costa_e_silva
+recruit_character = BRA_ismael_motta_paes
+recruit_character = BRA_jorge_martins
+recruit_character = BRA_newton_cavalcanti
+recruit_character = BRA_afranio_de_mello_franco
+recruit_character = BRA_washington_luis_pereira
+recruit_character = BRA_osvaldo_aranha
+recruit_character = BRA_arlindo_veiga_dos_santos
+
+
+1939.1.1 = {
+
+	add_political_power = 1198
+	add_command_power = 100
+	
+	#generic focuses
+	complete_national_focus = army_effort
+	complete_national_focus = equipment_effort
+	complete_national_focus = motorization_effort
+	complete_national_focus = aviation_effort
+	complete_national_focus = naval_effort
+	complete_national_focus = large_navy
+	complete_national_focus = industrial_effort
+	complete_national_focus = construction_effort
+	complete_national_focus = production_effort
+	
+	oob = "BRA_1939"
+	if = {
+		limit = { has_dlc = "By Blood Alone" }
+			set_air_oob = "BRA_1939_air_bba"
+		else = {
+			set_air_oob = "BRA_1939_air_legacy"
+		}
+	}
+	set_technology = {
+		interwar_artillery = 1
+		infantry_weapons1 = 1
+		infantry_weapons2 = 1
+		support_weapons = 1
+		
+
+		#doctrines
+		air_superiority = 1
+		grand_battle_plan = 1
+		trench_warfare = 1
+		fleet_in_being = 1
+		battlefleet_concentration = 1
+		convoy_sailing = 1
+
+
+		#electronics
+		electronic_mechanical_engineering = 1
+		radio = 1
+		radio_detection = 1
+		mechanical_computing = 1
+		computing_machine = 1
+
+		#industry
+		basic_machine_tools = 1
+		improved_machine_tools = 1
+		advanced_machine_tools = 1
+		synth_oil_experiments = 1
+		fuel_silos = 1
+		oil_processing = 1
+		improved_oil_processing = 1
+		construction1 = 1
+		construction2 = 1
+		dispersed_industry = 1
+		dispersed_industry2 = 1
+	}
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		set_technology = {
+			basic_submarine = 1
+			basic_destroyer = 1
+		}
+		set_naval_oob = "BRA_1939_naval_legacy"
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		set_technology = {
+			basic_ship_hull_light = 1
+		}
+		set_naval_oob = "BRA_1939_naval"
+	}
 }
 
-set_convoys = 100
 set_politics = {
 	ruling_party = neutrality
 	last_election = "1934.7.17"
 	election_frequency = 48
 	elections_allowed = no
 }
+
 set_popularities = {
-	fascism = 5
-	communism = 1
-	neutrality = 94
+	neutrality = 100
 }
 
 
-recruit_character = BRA_getulio_vargas			#adjusted
-recruit_character = BRA_plinio_salgado			#adjusted
-recruit_character = BRA_luis_carlos_prestes		#adjusted
-# recruit_character = BRA_armando_sales 		#doesnt exist in r56, presumed auto-generated/obsolete (leader)
-# recruit_character = BRA_eurico_gaspar_dutra 	#doesnt exist in r56, assumed intentionally removed (general)
-recruit_character = BRA_mascarenhas_de_morais	#adjusted
-recruit_character = BRA_augusto_rademaker		#adjusted
-recruit_character = BRA_agliberto_vieira		#unchanged, identical
-recruit_character = BRA_eduardo_gomes			#adjusted
-recruit_character = BRA_salgado_filho			#adjusted, trait increased 1 tier
-recruit_character = BRA_floriano_peixoto		#unchanged, identical
-recruit_character = BRA_aristides_guilhem		#unchanged, identical
-recruit_character = BRA_joao_neves_da_fontoura	#adjusted
-recruit_character = BRA_epaminondas_dos_santos	#adjusted
-recruit_character = BRA_moreira_lima			#unchanged, identical
-recruit_character = BRA_nero_fiuza_de_castro	#adjusted
-recruit_character = BRA_artur_da_costa_e_silva	#adjusted
-recruit_character = BRA_ismael_motta_paes		#unchanged, identical
-recruit_character = BRA_jorge_martins			#unchanged, identical
-recruit_character = BRA_newton_cavalcanti		#adjusted, commander role added
-recruit_character = BRA_afranio_de_mello_franco #adjusted
-recruit_character = BRA_washington_luis_pereira #adjusted
-recruit_character = BRA_osvaldo_aranha			#adjusted
-recruit_character = BRA_arlindo_veiga_dos_santos #unchanged, leader related to Portugal ft that didnt exist in r56
+set_convoys = 40
 
-#NEW CHARACTERS, copied over comments
-recruit_character = BRA_national_congress
-#ported generals
-recruit_character = BRA_euclides_zenobio_da_costa 	#degree as infantry and cavalry commander. infantry commander in Italy
-recruit_character = BRA_canrobert_pereira_da_costa  #not very important at the time but ok
-recruit_character = BRA_newton_estillac_leal 		#minor guy until late game, changed to level 1
-recruit_character = BRA_cyro_espirito_santo_cardoso #same as the previous guy, maybe remove
-recruit_character = BRA_odilio_denys 				#rose quickly through the ranks but he is also a bit "young" promoted colonel in 38, general in 42, pic show him much later
-recruit_character = BRA_joao_gomes_ribeiro 			#old but not retired, added old guard
-#navy leaders
-recruit_character = BRA_antonio_alves_camara		#minister of navy in 55...
-recruit_character = BRA_ernesto_de_araujo 			#captain commander during WWII
-recruit_character = BRA_alfredo_carlos_soares_dutra #most important naval commander of the Brazilian navy 
-recruit_character = BRA_renato_de_almeida_guillobel
-#political advisors
-recruit_character = BRA_franscisco_morato
-recruit_character = BRA_juscelino_kubitschek
-recruit_character = BRA_filinto_muller
-recruit_character = BRA_alfredo_de_almeida
+1939.1.1 = {
+	set_politics = {
+		ruling_party = neutrality
+		last_election = "1934.7.17"
+		election_frequency = 48
+		elections_allowed = no
+	}
+	set_popularities = {
+		neutrality = 100
+	}
+}
 
 if = {
 	limit = {
@@ -162,7 +210,7 @@ if = {
 		parent_version = 0
 		modules = {
 			fixed_ship_battery_slot = ship_heavy_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_anti_air_slot = empty
 			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
 			fixed_ship_radar_slot = empty
 			fixed_ship_engine_slot = heavy_ship_engine_1
@@ -180,16 +228,14 @@ if = {
 		name_group = BRA_CL_HISTORICAL
 		parent_version = 0
 		modules = {
-			fixed_ship_battery_slot = ship_light_medium_battery_1
+			fixed_ship_battery_slot = ship_light_battery_1
 			fixed_ship_anti_air_slot = ship_anti_air_1
 			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
 			fixed_ship_radar_slot = empty
 			fixed_ship_engine_slot = cruiser_ship_engine_1
-			fixed_ship_secondaries_slot = ship_secondaries_1
-			fixed_ship_armor_slot = ship_armor_cruiser_1
-			mid_1_custom_slot = ship_torpedo_1
-			mid_2_custom_slot = ship_torpedo_1
-			rear_1_custom_slot = ship_anti_air_1
+			mid_1_custom_slot = empty
+			mid_2_custom_slot = ship_light_battery_1
+			rear_1_custom_slot = empty
 		}
 	}
 	create_equipment_variant = {
@@ -199,7 +245,7 @@ if = {
 		parent_version = 0
 		modules = {
 			fixed_ship_battery_slot = ship_light_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_anti_air_slot = empty
 			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
 			fixed_ship_radar_slot = empty
 			fixed_ship_engine_slot = light_ship_engine_1
@@ -216,9 +262,28 @@ if = {
 		parent_version = 0
 		modules = {
 			fixed_ship_torpedo_slot = ship_torpedo_sub_1
-			fixed_ship_engine_slot = sub_ship_engine_1
+			fixed_ship_engine_slot = sub_ship_engine_2
 			rear_1_custom_slot = ship_mine_layer_sub
 		}
 	}
 }
 
+# 1939 Start #
+1939.1.1 = {
+	if = {
+		limit = {
+			has_dlc = "Man the Guns"
+		}
+		create_equipment_variant = {
+			name = "Tupi Class"
+			type = ship_hull_submarine_2
+			name_group = BRA_SS_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub_1
+				fixed_ship_engine_slot = sub_ship_engine_1
+				rear_1_custom_slot = empty
+			}
+		}
+	}
+}
