@@ -14,28 +14,19 @@ if = {
 	}
 	set_oob = "CZE_1936_nsb"
 }
-if = {
-	limit = { has_dlc = "By Blood Alone" }
-		set_air_oob = "CZE_1936_air_bba"
-		set_technology = {
-			aa_lmg = 1
-			engines_1 = 1
-			engines_2 = 1
-			iw_small_airframe = 1
-			iw_medium_airframe = 1
-			early_bombs = 1
-		}
-	else = {
-		set_air_oob = "CZE_1936_air_legacy"
-		set_technology = {
-			early_fighter = 1
-			early_bomber = 1
-			CAS1 = 1
-		}
-	}
-}
+
+set_research_slots = 4
+set_war_support = 0.5
+set_stability = 0.50
 
 set_technology = {
+
+	# Extended Technologies
+	etax_doctrine = 1
+	camo = 1
+	transport_plane1 = 1	
+	steel_production_1 = 1
+
 	infantry_weapons = 1
 	infantry_weapons1 = 1
 	tech_support = 1
@@ -43,38 +34,21 @@ set_technology = {
 	tech_mountaineers = 1
 	gw_artillery = 1
 	interwar_antiair = 1
+	early_fighter = 1
+	early_bomber = 1
+	CAS1 = 1
 	fuel_silos = 1
+	motorised_infantry = 1
 	basic_train = 1
 }
-recruit_character = CZE_karl_albrecht
-recruit_character = CZE_edvard_benesh
-recruit_character = CZE_jaroslav_krejchi
-recruit_character = CZE_klement_gottwald
-recruit_character = CZE_vojtyech_luzha
-recruit_character = CZE_josef_shnejdarek
-recruit_character = CZE_richard_tesarzhik
-recruit_character = CZE_sergej_vojcechovsky
-recruit_character = CZE_frantishek_havlik
-recruit_character = CZE_rudolf_viest
-recruit_character = CZE_alois_vicherek
-recruit_character = CZE_antonin_hasal
-recruit_character = CZE_jaroslav_fajfr
-recruit_character = CZE_jan_golian
-recruit_character = CZE_karel_janousek
-recruit_character = CZE_josef_frantisek
-recruit_character = CZE_ludvik_krejci
-recruit_character = CZE_karel_vaclav_petrik
-recruit_character = CZE_karel_kuttelwascher
-recruit_character = CZE_ludvik_svoboda
-recruit_character = CZE_frantisek_havel
-recruit_character = CZE_stefan_osusky
-recruit_character = CZE_ferdinand_catlos
-recruit_character = CZE_jozef_tiso
-recruit_character = CZE_vojtech_tuka
-recruit_character = CZE_konrad_henlein
-recruit_character = CZE_gustav_husak
-
-
+if = {
+	limit = {
+		has_dlc = "La Resistance"
+	}
+	set_technology = {
+		armored_car1 = 1
+	}
+}
 if = {
 	limit = {
 		NOT = { has_dlc = "No Step Back" }
@@ -82,6 +56,7 @@ if = {
 	set_technology = {
 		gwtank = 1
 		basic_light_tank = 1
+		basic_light_td = 1
 		improved_light_tank = 1
 	}
 }
@@ -96,8 +71,6 @@ if = {
 	}
 }
 
-set_research_slots = 3
-
 set_politics = {
 	ruling_party = democratic
 	last_election = "1935.5.19"
@@ -107,23 +80,65 @@ set_politics = {
 
 set_popularities = {
 	democratic = 65
-	neutrality = 20
-	fascism = 5
+	fascism = 25
 	communism = 10
 }
 
-if = {
-	limit = {
-		has_dlc = "Death or Dishonor"
-	}
-	add_ideas = {
-		CZE_skoda_works
-		CZE_divided_nation
-}
-	give_guarantee = YUG
-	give_guarantee = ROM
+add_ideas = {
+	limited_conscription
+	tgm
+	edvard_benes
 }
 
+give_guarantee = YUG
+give_guarantee = ROM
+
+recruit_character = CZKE_jan_antonin_bata
+recruit_character = CZKE_emil_kolben
+recruit_character = CZKE_karel_husarek
+recruit_character = CZKE_jan_netik
+recruit_character = CZKE_milan_hodza
+recruit_character = CZKE_radola_gajda
+recruit_character = CZKE_klement_gottwald
+recruit_character = CZKE_prokop_drtina
+recruit_character = CZKE_silvestr_blaha
+recruit_character = CZKE_louis_eugene_faucher
+recruit_character = CZKE_holek_brothers
+recruit_character = CZE_josef_adam
+recruit_character = CZKE_ludvik_krejci
+recruit_character = CZKE_vojtech_boris_luza
+recruit_character = CZKE_lev_prchala
+recruit_character = CZE_antonin_hasal
+recruit_character = CZE_zdenko_hudecek
+recruit_character = CZE_karel_janousek
+recruit_character = CZE_jaroslav_fajfr
+recruit_character = CZKE_jan_syrovy
+recruit_character = CZE_josef_snejdarek
+recruit_character = CZE_richard_tesarik
+recruit_character = CZE_sergey_vojcehovsky
+recruit_character = CZE_bedrich_neumann
+recruit_character = CZE_josef_zmek
+recruit_character = CZE_josef_vortuba
+
+if = {
+	limit = { has_dlc = "La Resistance" }
+	create_operative_leader = {
+		name = "Paul Thümmel"
+		gfx = GFX_portrait_europe_generic_operative_m_9
+		traits = { operative_double_agent operative_safe_cracker operative_infiltrator }
+		bypass_recruitment = no
+		available_to_spy_master = yes
+		nationalities = { GER CZE }
+	}
+	create_operative_leader = {
+		name = "Karel Sedlacek"
+		gfx = GFX_portrait_europe_generic_operative_m_8
+		traits = { operative_infiltrator }
+		bypass_recruitment = no
+		available_to_spy_master = yes
+		nationalities = { CZE }
+	}	
+}
 if = {
 	limit = {
 		has_dlc = "No Step Back"
@@ -180,48 +195,50 @@ if = {
 		}
 	}
 }
+	create_equipment_variant = {
+		name = "B.534/II"
+		type = fighter_equipment_0
+		parent_version = 0
+		upgrades = {
+			plane_gun_upgrade = 1
+			plane_range_upgrade = 0
+			plane_engine_upgrade = 1
+			plane_reliability_upgrade = 1
+		}
 
-if = {
-	limit = {
-		has_dlc = "By Blood Alone"
+
 	}
 	create_equipment_variant = {
-		name = "Avia B.534"
-		type = small_plane_airframe_0
-		modules = {
-			fixed_main_weapon_slot = light_mg_4x
-			engine_type_slot = engine_2_1x
-			special_type_slot_1 = empty
-		}
-	}
-	create_equipment_variant = {
-		name = "Aero A.101"
-		type = small_plane_cas_airframe_0
-		modules = {
-			fixed_main_weapon_slot = bomb_locks
-			fixed_auxiliary_weapon_slot_1 = light_mg_2x
-			engine_type_slot = engine_2_1x
-			special_type_slot_1 = lmg_defense_turret
-		}
-	}
-	create_equipment_variant = {
-		name = "Letov S-16"
-		type = small_plane_cas_airframe_0
-		modules = {
-			fixed_main_weapon_slot = bomb_locks
-			engine_type_slot = engine_1_1x
-			special_type_slot_1 = lmg_defense_turret
+		name = "B.534/III"
+		type = fighter_equipment_0
+		parent_version = 0
+		upgrades = {
+			plane_gun_upgrade = 1
+			plane_range_upgrade = 1
+			plane_engine_upgrade = 2
+			plane_reliability_upgrade = 2
 		}
 	}
 
-}
-
-if = {
-	limit = {
-		NOT = { has_dlc = "Death or Dishonor" }
+	create_equipment_variant = {
+		name = "Š.328/II"
+		type = CAS_equipment_1
+		parent_version = 0
+		upgrades = {
+			plane_cas_upgrade = 0
+			plane_range_upgrade = 1
+			plane_engine_upgrade = 0
+			plane_reliability_upgrade = 0
+		}
 	}
-	add_ideas = {
-		CZE_fortification_focus
+	create_equipment_variant = {
+		name = "Š.328/III"
+		type = CAS_equipment_1
+		parent_version = 0
+		upgrades = {
+			plane_cas_upgrade = 0
+			plane_range_upgrade = 1
+			plane_engine_upgrade = 0
+			plane_reliability_upgrade = 1
+		}
 	}
-}
-
