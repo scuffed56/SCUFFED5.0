@@ -225,6 +225,23 @@ on_actions = {
 					right_side = ITA_king_side
 					set_default = yes
 				}
+
+				#Drop cosmetic tag so that Regno del Sud becomes Italy again
+				if = {
+					limit = {
+						has_cosmetic_tag = ITA_rds
+					}
+					drop_cosmetic_tag = yes
+					#Move capital back to Rome if necessary
+					if = {
+						limit = {
+							capital_scope = {
+								NOT = { state = 2 } #ROME
+							}
+						}
+						set_capital = { state = 2 }
+					}
+				}
 			}
 		}
 
@@ -318,6 +335,13 @@ on_actions = {
 					}
 				}
 				ITA_end_the_italo_ethiopian_war = yes 
+			}
+			IF = {
+				limit = {
+					tag = ETH 
+					NOT = { has_global_flag = ethiopia_recognized_flag }
+				}
+				set_global_flag = ethiopia_recognized_flag
 			}
 			# Ethiopia switch law 
 			IF = {
@@ -480,6 +504,7 @@ on_actions = {
 		}
 	}
 	# ROOT is capitulated country, FROM is winner
+	# ROOT is capitulated country, FROM is winner
 	on_capitulation = {
 		effect = {
 			# The 2nd Italo Ethiopian war is also considered over if one side capitulates
@@ -561,6 +586,19 @@ on_actions = {
 					}
 				}				
 			}
+			#Clear ITA_ultimatum_sent_flag for YUG after first war with ITA
+			if = {	
+				limit = {
+					ROOT = {
+						original_tag = YUG
+						has_war_with = ITA
+						has_country_flag = ITA_ultimatum_sent_flag
+					}
+				}
+				ROOT = {
+					clr_country_flag = ITA_ultimatum_sent_flag
+				}
+			}
 		}
 		effect = {
 			if = {
@@ -578,6 +616,38 @@ on_actions = {
 			}
 		}
 	}
+
+	#ROOT is capitulated country
+	on_capitulation_immediate = {
+		#If Italy is a German puppet (due to CW) and Germany capitulates, then make Italy free so that they can take over the Axis, tack.
+		effect = {
+			if = {
+				limit = {
+					original_tag = GER
+					any_other_country = {
+						original_tag = ITA
+						is_subject_of = ROOT
+					}
+				}
+				random_other_country = {
+					limit = {
+						original_tag = ITA
+						is_subject_of = ROOT
+					}
+					ROOT = {
+						set_autonomy = {
+							target = PREV
+							autonomy_state = autonomy_free
+							end_wars = no
+							end_civil_wars = no
+						}
+					}
+				}
+			}
+		}
+	}
+
+
 	#ROOT is subject FROM is previous overlord
 	on_subject_free = {
 		effect = {
@@ -893,6 +963,13 @@ on_actions = {
 					NOT = {
 						has_country_flag = swi_lost_state_achievement
 					}
+				}
+				log = "LOG"
+				if = {
+					limit = {
+						has_defensive_war = yes
+					}
+					log = "ACHIEVEMENT MÁQUINA"
 				}
 				set_country_flag = swi_you_shall_not_pass_achievement
 			}

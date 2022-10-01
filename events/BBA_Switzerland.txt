@@ -620,7 +620,7 @@ country_event = {  #Frankfurter Trial
 				}
 				if = {
 					limit = {
-						has_country_flag = SWI_considering_harsh_treatment
+						SWI = { has_country_flag = SWI_considering_harsh_treatment }
 					}
 					add_opinion_modifier = {
 						modifier = SWI_they_lied_to_us
@@ -677,7 +677,7 @@ country_event = {  #Frankfurter Trial
 				}
 				if = {
 					limit = {
-						has_country_flag = SWI_considering_harsh_treatment
+						SWI = { has_country_flag = SWI_considering_harsh_treatment }
 					}
 					add_opinion_modifier = {
 						modifier = SWI_they_lied_to_us
@@ -769,7 +769,7 @@ country_event = {  #Germany Angry
 			}
 			if = {
 				limit = { #In case they said they would consider harsh treatment
-					has_country_flag = SWI_considering_harsh_treatment
+					SWI = { has_country_flag = SWI_considering_harsh_treatment } 
 				}
 				add_opinion_modifier = {
 					modifier = SWI_they_lied_to_us
@@ -800,7 +800,7 @@ country_event = {  #Germany Angry
 			}
 			if = {
 				limit = { #In case they said they would consider harsh treatment 
-					has_country_flag = SWI_considering_harsh_treatment
+					SWI = { has_country_flag = SWI_considering_harsh_treatment }
 				}
 				add_opinion_modifier = {
 					modifier = SWI_they_lied_to_us
@@ -842,13 +842,13 @@ country_event = {  #Result of the trial
 	desc = {
 		text = BBA_switzerland.11.desc_GER #Description for Germany
 		trigger = {
-			original_tag = GER 
+			ROOT = { original_tag = GER } 
 		}
 	}
 	desc = {
 		text = BBA_switzerland.11.desc_SWI #Description for Switzerland 
 		trigger = {
-			original_tag = SWI 
+			ROOT = { original_tag = SWI }  
 		}
 	}
 	picture = GFX_report_event_journalists_speech
@@ -866,7 +866,7 @@ country_event = {  #Result of the trial
 			base = 10
 		}
 		trigger = {
-			ROOT = { tag = SWI }
+			ROOT = { original_tag = SWI } 
 		}
 	}
 
@@ -876,7 +876,20 @@ country_event = {  #Result of the trial
 			base = 10
 		}
 		trigger = {
-			ROOT = { tag = GER }	
+			ROOT = { original_tag = GER } 
+		}
+		add_opinion_modifier = {
+			modifier = SWI_light_sentence_for_frankfurter
+			target = SWI 
+		}
+		if = {
+			limit = {
+				SWI = { has_country_flag = SWI_considering_harsh_treatment }
+			}
+			add_opinion_modifier = {
+				modifier = SWI_they_lied_to_us
+				target = SWI 
+			}
 		}
 	}
 }
@@ -1398,6 +1411,8 @@ country_event = { #Switzerland inviting to the Neutral Entente
 
 	immediate = {
 		hidden_effect = {
+			FROM = { save_event_target_as = alliance_inviter }
+			save_event_target_as = alliance_applicant
 		}
 	}
 
@@ -1416,8 +1431,6 @@ country_event = { #Switzerland inviting to the Neutral Entente
 		trigger = {
 		}
 		hidden_effect = {
-			set_country_flag = alliance_applicant@ROOT
-			FROM = { set_country_flag = alliance_inviter@ROOT }
 			news_event = { id = news.289 hours = 12 }
 		}
 		FROM = {
@@ -2632,7 +2645,8 @@ country_event = { #SWI offers gold trade to country
 				OR = {
 					original_tag = GER 
 					original_tag = FRA
-					original_tag = USA 
+					original_tag = USA
+					original_tag = ENG 
 				}
 				is_historical_focus_on = yes 
 			}
@@ -3393,10 +3407,6 @@ country_event = { #Switzerland pushes for Referendum in state.
 				remove_claim_by = FROM 
 				add_core_of = FROM
 				set_state_flag = SWI_claiming_failed
-				#force_enable_resistance = { #BBA_TODO Make this have resistance  
-				#	occupier = ROOT
-				#	occupied = SWI
-				#} 
 			}
 			FROM = {
 				create_wargoal = {
@@ -3414,7 +3424,7 @@ country_event = { #Switzerland pushes for Referendum in state.
 		ai_chance = {
 			base = 5
 			modifier = {
-				add = 5 
+				add = 3.5 
 				FROM = { is_ai = no }	
 			}
 			modifier = {
@@ -3434,6 +3444,10 @@ country_event = { #Switzerland pushes for Referendum in state.
 			modifier = {
 				add = 10 
 				is_historical_focus_on = no  
+			}
+			modifier = {
+				add = 15 
+				SWI_country_opinion_is_good = yes 
 			}
 		}
 		trigger = {
@@ -3561,6 +3575,10 @@ country_event = { #Sending request for Vorarlberg
 				factor = 2 
 				is_historical_focus_on = no  
 			}
+			modifier = {
+				add = 15 
+				SWI_country_opinion_is_good = yes 
+			}
 		}
 		trigger = {
 			NOT = {
@@ -3639,7 +3657,7 @@ country_event = { #Sending request for Vorarlberg
 	option = { #Switzerland can have a small canton, as a treat.
 		name = BBA_swiss_expansion.6.d
 		ai_chance = {
-			base = 10
+			base = 5
 			modifier = {
 				factor = 1.5 
 				FROM = { is_ai = no }	
@@ -3667,6 +3685,10 @@ country_event = { #Sending request for Vorarlberg
 				FROM = {
 					fascism > 0.2
 				}
+			}
+			modifier = {
+				add = 25 
+				SWI_country_opinion_is_good = yes 
 			}
 		}
 		trigger = {
@@ -3783,6 +3805,10 @@ country_event = { #Sending request for The Rest of Austria
 					tag = FROM 
 					ratio < 0.3  
 				}
+			}
+			modifier = {
+				add = 15 
+				SWI_country_opinion_is_good = yes 
 			}
 			modifier = {
 				factor = 2 
@@ -3928,7 +3954,7 @@ country_event = { #Sending request Alps territory
 		ai_chance = {
 			base = 5
 			modifier = {
-				factor = 2 
+				factor = 2.5 
 				FROM = { is_ai = no }	
 			}
 			modifier = {
@@ -3944,6 +3970,10 @@ country_event = { #Sending request Alps territory
 					tag = FROM 
 					ratio < 0.3  
 				}
+			}
+			modifier = {
+				add = 10 
+				SWI_country_opinion_is_good = yes 
 			}
 			modifier = {
 				factor = 2 
@@ -4121,7 +4151,7 @@ country_event = { #Switzerland asking for independence plus their alpine territo
 				}
 			}
 			modifier = {
-				add = 5 
+				add = 10 
 				SWI_country_opinion_is_good = yes 
 			}
 			modifier = {

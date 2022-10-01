@@ -1,5 +1,5 @@
 #	Example:
-# 
+#
 #	example_trigger = {
 #		tag = GER
 #		is_ai = no
@@ -12,6 +12,7 @@
 #		exampel_trigger = yes
 #	}
 #
+
 can_ROOT_get_wargoal_on_THIS = {
 	exists = yes
 	NOT = { is_in_faction_with = ROOT }
@@ -34,7 +35,7 @@ is_border_conflict_defender_vs_FROM = {
 has_not_initiated_border_incident_with_FROM = {
 	custom_trigger_tooltip = {
 		tooltip = not_initiated_border_incident_with_FROM
-		NOT = {		
+		NOT = {
 			any_state = {
 				check_variable = { FROM.defender_state_vs_@PREV = id }
 			}
@@ -62,37 +63,40 @@ has_ROOT_at_least_1_div_in_current_state_scope = {
 }
 
 check_has_focus_tree_to_switch_to_fascism = {
-
-	#NOT = { tag = JAP }
-	#NOT = { tag = GER }
-	#NOT = { tag = MAN }
-	#NOT = { tag = ITA }
-	NOT = { tag = RAJ }
-	NOT = {
-		OR = {
+	NOT = { tag = JAP }
+	NOT = { tag = GER }
+	NOT = { tag = MAN }
+	NOT = { tag = ITA }
+	OR = {
+		NOT = {
 			AND = {
 				tag = SAF
-				OR = {	
-					is_puppet = yes
-					has_country_flag = britain_enforced_our_loyalty
-					NOT = {
-						has_completed_focus = SAF_south_africa_first
-					}			
-				}
+				has_dlc = "Together for Victory"
 			}
-			AND = {
-				tag = MEX
-				has_global_flag = mex_mtg_focus_tree
-			}
-			AND = {
-				tag = USA
-				has_dlc = "Man the Guns"
-			}
-			AND = {
-				tag = ENG
-				has_dlc = "Man the Guns"
-			}						
-		}		
+		}
+		AND = {
+			tag = SAF
+			has_dlc = "Together for Victory"
+			has_completed_focus = SAF_south_africa_first
+		}
+	}
+	NOT = {
+		AND = {
+			tag = RAJ
+			has_dlc = "Together for Victory"
+		}
+	}
+	NOT = {
+		AND = {
+			tag = USA
+			has_dlc = "Man the Guns"
+		}
+	}
+	NOT = {
+		AND = {
+			tag = ENG
+			has_dlc = "Man the Guns"
+		}
 	}
 	NOT = {
 		AND = {
@@ -113,51 +117,16 @@ check_has_focus_tree_to_switch_to_fascism = {
 	}
 }
 
-
 check_has_focus_tree_to_switch_to_democratic = {
-
-	#NOT = { tag = MAN }
+	NOT = { tag = MAN }
 	NOT = { tag = FRA }
 	NOT = { tag = USA }
 	NOT = { tag = ENG }
+	NOT = { tag = CAN }
+	NOT = { tag = SAF }
+	NOT = { tag = AST }
+	NOT = { tag = NZL }
 	NOT = { tag = RAJ }
-	NOT = { tag = VEN }
-	NOT = {
-		tag = CAN 
-		OR = {
-			is_puppet = yes
-			has_country_flag = britain_enforced_our_loyalty
-		}		
-	}
-	NOT = { 
-		tag = SAF 
-		OR = {
-			is_puppet = yes
-			has_country_flag = britain_enforced_our_loyalty
-		}	
-	}
-	NOT = {
-		tag = AST 
-		OR = {
-			is_puppet = yes
-			has_country_flag = britain_enforced_our_loyalty
-		}		
-	}
-	NOT = { 
-		tag = NZL 
-		OR = {
-			is_puppet = yes
-			has_country_flag = britain_enforced_our_loyalty
-		}		
-	}
-	NOT = { 
-		tag = RAJ 
-		OR = {
-			is_puppet = yes
-			has_country_flag = britain_enforced_our_loyalty
-		}
-		
-	}
 	NOT = { tag = CZE }
 	NOT = {
 		AND = {
@@ -169,96 +138,36 @@ check_has_focus_tree_to_switch_to_democratic = {
 		AND = {
 			tag = JAP
 			has_dlc = "Waking the Tiger"
-			NOT = {
-				has_completed_focus = JAP_pre_emptive_coup
-			}
-		}
-	}
-	#NOT = {
-	#	AND = {
-	#		tag = GER
-	#		has_dlc = "Waking the Tiger"
-	#	}
-	#}
-	NOT = {
-		AND = {
-			tag = YUN
-			has_dlc = "Waking the Tiger"
-			NOT = { has_focus_tree = china_nationalist_focus }
 		}
 	}
 	NOT = {
 		AND = {
-			tag = GXC
+			tag = GER
 			has_dlc = "Waking the Tiger"
-			NOT = { has_focus_tree = china_nationalist_focus }
-		}
-	}
-	NOT = {
-		AND = {
-			tag = XSM
-			has_dlc = "Waking the Tiger"
-			NOT = { has_focus_tree = china_nationalist_focus }
-		}
-	}
-	NOT = {
-		AND = {
-			tag = SHX
-			has_dlc = "Waking the Tiger"
-			NOT = { has_focus_tree = china_nationalist_focus }
-		}
-	}
-	NOT = {
-		AND = {
-			tag = SIK
-			has_dlc = "Waking the Tiger"
-			NOT = { has_focus_tree = china_nationalist_focus }
 		}
 	}
 }
 
 check_has_focus_tree_to_switch_to_communism = {
-
 	NOT = { tag = PRC }
 	NOT = { tag = SIK }
-	#NOT = { tag = MAN }
+	NOT = { tag = MAN }
 	NOT = { tag = SOV }
-	NOT = { tag = RAJ }
-	NOT = { tag = VEN }
-
+	NOT = {
+		AND = {
+			tag = RAJ
+			has_dlc = "Together for Victory"
+		}
+	}
 	NOT = {
 		AND = {
 			tag = JAP
 			has_dlc = "Waking the Tiger"
-			NOT = {
-				OR = {
-					has_completed_focus = JAP_cast_the_die
-					has_civil_war = yes						
-				}
-			}
 		}
 	}
 	NOT = {
 		AND = {
 			tag = YUN
-			has_dlc = "Waking the Tiger"
-		}
-	}
-	NOT = {
-		AND = {
-			tag = GXC
-			has_dlc = "Waking the Tiger"
-		}
-	}
-	NOT = {
-		AND = {
-			tag = XSM
-			has_dlc = "Waking the Tiger"
-		}
-	}
-	NOT = {
-		AND = {
-			tag = SHX
 			has_dlc = "Waking the Tiger"
 		}
 	}
@@ -272,15 +181,19 @@ check_has_focus_tree_to_switch_to_communism = {
 		AND = {
 			tag = ENG
 			has_dlc = "Man the Guns"
-			OR = {
-				has_completed_focus = ENG_the_fate_of_the_royal_family
-				has_completed_focus = ENG_eliminate_the_upper_class
-			}
-			
 		}
 	}
 	NOT = {
-		original_tag = TUR
+		AND = {
+			tag = FRA
+			has_dlc = "La Resistance"
+		}
+	}
+	NOT = {
+		AND = {
+			original_tag = SPR
+			has_dlc = "La Resistance"
+		}
 	}
 }
 
@@ -387,39 +300,39 @@ ai_land_doctrine_tier_2_trigger = {
 	}
 }
 
-#CHI_is_on_historical_plan_trigger = {
-#	has_dlc = "Waking the Tiger"
-#	OR = {
-#		AND = {
-#			is_historical_focus_on = yes
-#			has_game_rule = {
-#				rule = CHI_ai_behavior
-#				option = DEFAULT
-#			}	
-#		}
-#		has_country_flag = CHI_AI_RANDOM_HISTORICAL
-#		has_game_rule = {
-#			rule = CHI_ai_behavior
-#			option = HISTORICAL
-#		}
-#	}
-#}
-#SOV_is_on_historical_plan_trigger = {
-#	OR = {
-#		AND = {
-#			is_historical_focus_on = yes
-#			has_game_rule = {
-#				rule = SOV_ai_behavior
-#				option = DEFAULT
-#			}
-#		}
-#		has_country_flag = SOV_AI_RANDOM_COMMUNIST_HISTORICAL
-#		has_game_rule = {
-#			rule = SOV_ai_behavior
-#			option = HISTORICAL
-#		}
-#	}
-#}
+CHI_is_on_historical_plan_trigger = {
+	has_dlc = "Waking the Tiger"
+	OR = {
+		AND = {
+			is_historical_focus_on = yes
+			has_game_rule = {
+				rule = CHI_ai_behavior
+				option = DEFAULT
+			}
+		}
+		has_country_flag = CHI_AI_RANDOM_HISTORICAL
+		has_game_rule = {
+			rule = CHI_ai_behavior
+			option = HISTORICAL
+		}
+	}
+}
+SOV_is_on_historical_plan_trigger = {
+	OR = {
+		AND = {
+			is_historical_focus_on = yes
+			has_game_rule = {
+				rule = SOV_ai_behavior
+				option = DEFAULT
+			}
+		}
+		has_country_flag = SOV_AI_RANDOM_COMMUNIST_HISTORICAL
+		has_game_rule = {
+			rule = SOV_ai_behavior
+			option = HISTORICAL
+		}
+	}
+}
 USA_is_on_historical_plan_trigger = {
 	OR = {
 		AND = {
@@ -490,7 +403,7 @@ ENG_is_on_historical_plan_trigger = {
 SOV_save_pp_for_manpower_trouble = {
 	has_manpower < 1000000
 	has_political_power < 200
-	surrender_progress > 0	
+	surrender_progress > 0
 }
 
 anti_submarine_strategy_required_trigger = {
@@ -560,7 +473,7 @@ should_USA_invade_europe_or_africa = {
 			OR = {
 				AND = {
 					has_government = democratic
-					ENG = { has_government = democratic } 
+					ENG = { has_government = democratic }
 					OR = {
 						GER = { has_government = fascism }
 						ITA = { has_government = fascism }
@@ -579,80 +492,80 @@ enemy_has_equal_or_better_radar_tech_trigger = {
 		tooltip = enemy_has_equal_or_better_radar_tech_trigger_tt
 		if = {
 			limit = {
-				ROOT = { 
-					has_tech = radio_detection 
+				ROOT = {
+					has_tech = radio_detection
 					NOT = {
 						has_tech = decimetric_radar
 					}
-				} 
+				}
 			}
-			FROM = { 
+			FROM = {
 				OR = {
-					has_tech = radio_detection 
+					has_tech = radio_detection
 					has_tech = decimetric_radar
 				}
 			}
 		}
 		else_if = {
 			limit = {
-				ROOT = { 
-					has_tech = decimetric_radar 
+				ROOT = {
+					has_tech = decimetric_radar
 					NOT = {
 						has_tech = improved_decimetric_radar
 					}
-				} 
+				}
 			}
-			FROM = { 
+			FROM = {
 				OR = {
-					has_tech = decimetric_radar 
+					has_tech = decimetric_radar
 					has_tech = improved_decimetric_radar
 				}
 			}
 		}
 		else_if = {
 			limit = {
-				ROOT = { 
-					has_tech = improved_decimetric_radar 
+				ROOT = {
+					has_tech = improved_decimetric_radar
 					NOT = {
 						has_tech = centimetric_radar
 					}
-				} 
+				}
 			}
-			FROM = { 
+			FROM = {
 				OR = {
-					has_tech = improved_decimetric_radar 
+					has_tech = improved_decimetric_radar
 					has_tech = centimetric_radar
 				}
 			}
 		}
 		else_if = {
 			limit = {
-				ROOT = { 
-					has_tech = centimetric_radar 
+				ROOT = {
+					has_tech = centimetric_radar
 					NOT = {
 						has_tech = improved_centimetric_radar
 					}
-				} 
+				}
 			}
-			FROM = { 
+			FROM = {
 				OR = {
-					has_tech = centimetric_radar 
+					has_tech = centimetric_radar
 					has_tech = improved_centimetric_radar
 				}
 			}
 		}
 		else_if = {
 			limit = {
-				ROOT = { 
-					has_tech = improved_centimetric_radar 
+				ROOT = {
+					has_tech = improved_centimetric_radar
 					NOT = {
 						has_tech = advanced_centimetric_radar
 					}
-				} 
+				}
 			}
-			FROM = { 
+			FROM = {
 				OR = {
-					has_tech = improved_centimetric_radar 
+					has_tech = improved_centimetric_radar
 					has_tech = advanced_centimetric_radar
 				}
 			}
@@ -667,6 +580,10 @@ is_available_to_collaboration_government = { # occupied_countries.1 should be up
 			FROM = { original_tag = YUG }
 			original_tag = ITA
 		}
+		AND = {
+			FROM = { original_tag = DNZ }
+			original_tag = POL
+		}
 		TUR_cannot_form_kurdish_collaboration_government = yes
 		any_country_with_original_tag = {
 			original_tag_to_check = FROM
@@ -679,7 +596,7 @@ is_available_to_collaboration_government = { # occupied_countries.1 should be up
 has_large_ally_not_pick_closed_economy = {
 	any_of_scopes = {
 		array = faction_members
-		
+
 		NOT = { tag = PREV }
 		num_of_military_factories > 30
 	}
@@ -718,25 +635,6 @@ is_core_or_compliance_60 = {
 			}
 			compliance > 60
 		}
-	}
-}
-
-is_core_or_compliance_30 = {
-	custom_trigger_tooltip = {
-		tooltip = is_core_or_compliance_30_tt
-		OR = {
-			controller = {
-				PREV = { is_core_of = PREV }
-			}
-			compliance > 30
-		}
-	}
-}
-
-state_has_compliance_30 = {
-	custom_trigger_tooltip = {
-		tooltip = state_has_compliance_30_tt
-		compliance > 30
 	}
 }
 
@@ -796,5 +694,295 @@ is_latin_american_country = {
 		original_tag = MEX
 		original_tag = HAI
 		original_tag = DOM
+	}
+}
+
+has_specialist_level_trigger = {
+	skill > 5
+	skill < 6
+}
+
+has_expert_level_trigger = {
+	skill > 6
+	skill < 7
+}
+
+has_genius_level_trigger = {
+	skill > 7
+}
+
+is_league_of_nations_member = {
+	custom_trigger_tooltip = {
+		tooltip = is_league_of_nations_member_tt
+		has_idea = league_of_nations_member_idea
+	}
+}
+
+state_is_in_the_mediterranean_sea = {
+	custom_trigger_tooltip = {
+		tooltip = state_is_in_the_mediterranean_sea_tt
+		OR = {
+			state = 118 #GIBRALTAR
+			state = 173
+			state = 168
+			state = 167
+			state = 165
+			state = 177
+			state = 31
+			state = 22
+			state = 21
+			state = 851
+			state = 911
+			state = 735
+			state = 771
+			state = 162
+			state = 2
+			state = 117
+			state = 156
+			state = 115
+			state = 1
+			state = 114
+			state = 116
+			state = 849
+			state = 157
+			state = 161
+			state = 160
+			state = 736
+			state = 852
+			state = 103
+			state = 163
+			state = 105
+			state = 44
+			state = 805
+			state = 185
+			state = 186
+			state = 47
+			state = 731
+			state = 184
+			state = 187
+			state = 182
+			state = 164
+			state = 341
+			state = 797
+			state = 340
+			state = 339
+			state = 342
+			state = 345
+			state = 344
+			state = 799
+			state = 677
+			state = 553
+			state = 183
+			state = 454
+			state = 453
+			state = 446
+			state = 907
+			state = 447
+			state = 452
+			state = 451
+			state = 450
+			state = 449
+			state = 448
+			state = 665
+			state = 458
+			state = 460
+			state = 459
+			state = 461
+			state = 290
+		}
+	}
+}
+
+is_major_not_original_tag_root = {
+	is_major = yes
+	hidden_trigger = {
+		NOT = { original_tag = ROOT }
+	}
+}
+
+is_initial_ethiopian_state = {
+	OR = {
+		state = 271
+		state = 835
+		state = 836
+		state = 837
+		state = 838
+		state = 839
+		state = 840
+		state = 841
+		state = 842
+		state = 843
+	}
+}
+
+has_subject_autonomy_feature = {
+	has_dlc = "Together for Victory"
+	#TODO_Manu: More DLCs?
+}
+
+is_organization_of_african_unity_member = {
+	custom_trigger_tooltip = {
+		tooltip = is_league_of_nations_member_tt
+		has_idea = organization_of_african_unity_member_idea
+	}
+}
+
+has_tech_sharing_feature = {
+	OR = {
+		has_dlc = "Together for Victory"
+		has_dlc = "Death or Dishonor"
+		has_dlc = "Waking the Tiger"
+		has_dlc = "La Resistance"
+	}
+}
+
+has_war_with_non_exiled_country = {
+	custom_trigger_tooltip = {
+		tooltip = has_war_with_non_exiled_country_tt
+		has_war = yes
+		any_enemy_country = {
+			is_government_in_exile = no
+		}
+	}
+
+}
+
+is_at_peace_exiled_countries_excluded = {
+	custom_trigger_tooltip = {
+		tooltip = is_at_peace_exiled_countries_excluded_tt
+		NOT = {
+			any_enemy_country = {
+				is_government_in_exile = no
+			}
+		}
+	}
+}
+
+#State scope
+state_is_fully_controlled_by_ROOT_or_subject = {
+	custom_trigger_tooltip = {
+		tooltip = state_is_fully_controlled_by_ROOT_or_subject_tt
+		OR = {
+			is_fully_controlled_by = ROOT
+			controller = {
+				is_subject_of = ROOT
+				has_full_control_of_state = PREV
+			}
+		}
+	}
+}
+
+is_alpine_state = {
+	custom_trigger_tooltip = {
+		tooltip = is_alpine_TT
+	}
+	hidden_trigger = {
+		OR = {
+			state = 21 #Bouche-du-Rhone - FRA
+			state = 851 #Var - FRA 
+			state = 735 #Savoy - FRA 
+			state = 32 #Alpes - FRA 
+			state = 158 #Piemonte - ITA
+			state = 159 #Lombardia - ITA 
+			state = 850 #Trentino - ITA 
+			state = 39 #Alto Adige - ITA
+			state = 847 #Western Swiss Alps - SWi
+			state = 151 #Eastern Swiss Alps - SWI 
+			state = 846 #Ticino - SWI
+			state = 848 #Vorarlberg - AUS
+			state = 153 #Tyrol - AUS 
+			state = 152 #Upper Austria - AUS 
+			state = 4 #Lower Austria 
+		}
+	}
+}
+
+state_has_any_resource = {
+	OR = {
+		has_resources_amount = {
+			resource = oil
+			amount > 0
+		}
+		has_resources_amount = {
+			resource = aluminium
+			amount > 0
+		}
+		has_resources_amount = {
+			resource = rubber
+			amount > 0
+		}
+		has_resources_amount = {
+			resource = tungsten
+			amount > 0
+		}
+		has_resources_amount = {
+			resource = steel
+			amount > 0
+		}
+		has_resources_amount = {
+			resource = chromium
+			amount > 0
+		}
+	}
+}
+
+country_can_be_reasonable_target_of_wargoal = { #Expected scopes: Target country is THIS, country getting wargoal is PREV
+	NOT = {
+		has_war_with = ROOT
+		is_in_faction_with = PREV
+		has_guaranteed = PREV
+		is_guaranteed_by = PREV
+		has_non_aggression_pact_with = PREV
+		is_subject_of = PREV
+	}
+}
+
+is_unlikely_country_tag = {
+	OR = {
+	    tag = BRI
+	    tag = CAT
+	    tag = NAV
+	    tag = GLC
+	    tag = ADU
+	    tag = BRI
+	    tag = OCC
+	    tag = COR
+	    tag = DNZ
+	    tag = KSH
+	    tag = CKK
+	    tag = FER
+	    tag = YAK
+	    tag = VLA
+	    tag = KKP
+	    tag = YAM
+	    tag = TAY
+	    tag = OVO
+	    tag = NEN
+	    tag = KOM
+	    tag = CHU
+	    tag = MEL
+	    tag = RIF
+	    tag = HAR
+	    tag = TIG
+	    tag = AFA
+	    tag = BEG
+	    tag = GBA
+	    tag = SID
+	    tag = ORO
+	    tag = QEM
+	    tag = LBV
+	    tag = PAP
+	    tag = TOS
+	    tag = SPM
+	    tag = TTS
+		tag = BSK
+		tag = TAT
+		tag = UDM
+		tag = KHA
+		tag = VGE
+		tag = KAL
+		tag = KAR
+		tag = SIL
+		tag = KSH
 	}
 }
