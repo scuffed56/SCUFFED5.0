@@ -201,6 +201,7 @@ SWI_mr_lowest_increase = { #5 MR
 	add_to_variable = {
 		var = SWI_military_readiness
 		value = SWI_mr_lowest_amount
+		tooltip = SWI_decision_add_var_MR
 	}
 	SWI_clamp_mr = yes
 }
@@ -1766,6 +1767,34 @@ SWI_adjust_gold_market_after_seizing_gold = {
 	clear_variable = SWI_gold_trade_factory_max_efficiency_factor
 }
 
+SWI_angry_country_cleanup = { #MEant to clean up any leftover variables or flags after the angry country is no longer angry 
+	every_other_country = {
+		limit = {
+			has_country_flag = SWI_already_asked_for_guarantees
+		}
+		clr_country_flag = SWI_already_asked_for_guarantees
+	}
+	if = {
+		limit = {
+			has_country_flag = SWI_has_done_backchannel_negotiations_once
+		}
+		clr_country_flag =  SWI_has_done_backchannel_negotiations_once
+	}
+	if = {
+		limit = {
+			has_country_flag = SWI_in_breach_of_neutrality
+		}
+		clr_country_flag = SWI_in_breach_of_neutrality
+	}
+	clr_country_flag = SWI_country_angry_warning_triggered
+	if = {
+		limit = {
+			has_variable = SWI_angriest_country
+		}
+		clear_variable = SWI_angriest_country
+	}
+}
+
 ########################################################################################
 #############                    FEDERAL COUNCIL                        ################
 ########################################################################################
@@ -1949,6 +1978,7 @@ SWI_president_initiative_remove_effect = {
 SWI_add_random_councillor = {
 	if = {
 		limit = {
+			is_ai = no
 			SWI_empty_councilor_seat = {
 				is_character_slot = political_advisor
 			}
