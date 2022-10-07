@@ -3733,7 +3733,6 @@ focus_tree = {
 		
 		
 		available = {
-			HOL = { has_tech = early_fighter }
 			HOL = { exists = yes }
 		}
 
@@ -3742,53 +3741,12 @@ focus_tree = {
 		}
 		
 		completion_reward ={
-			
-			custom_effect_tooltip = HOL_fokkers
-
-			if = {
-	            limit = {
-	                HOL = { has_tech = fighter1 }
-	            }
-	            add_equipment_to_stockpile = {
-	                type = fighter_equipment_1
-	                amount = 41
-	                producer = HOL
-	            }
-	            else = {
-	                add_equipment_to_stockpile = {
-	                    type = fighter_equipment_0
-	                    amount = 41
-	                    producer = HOL
-					}   
-				}
+			add_tech_bonus = {
+				name = fighter_bonus
+				bonus = 1
+				uses = 1
+				category = light_fighter
 			}
-			HOL = {					
-				if = {
-					limit = {
-						has_tech = fighter1
-						NOT = { has_tech = fighter2 }
-					}
-					create_production_license = {
-						target = FIN 
-						equipment = {
-							type = fighter_equipment_1
-						}
-						cost_factor = 0
-					}
-				}
-				else_if = {
-					limit = {
-						has_tech = fighter2
-					}
-					create_production_license = {
-						target = FIN 
-						equipment = {
-							type = fighter_equipment_2
-						}
-						cost_factor = 0
-					}
-				}
-			}				
 		}
 	}	
 	
@@ -3826,15 +3784,12 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 			completion_reward = {
-			add_tech_bonus = {
-				name = fighter_bonus
-				bonus = 1
-				uses = 1
-				technology = fighter1
-				technology = fighter2
-				technology = fighter3
+				add_tech_bonus = {
+					name = fighter_bonus
+					bonus = 1
+					uses = 1
+					category = light_fighter
 				}
-		
 			}
 			search_filters = { FOCUS_FILTER_RESEARCH }
 
@@ -4001,7 +3956,7 @@ focus_tree = {
 				name =  bomber_bonus
 				bonus = 1
 				uses = 1
-				category = medium_plane_airframe
+				category = tactical_bomber
 			}
 		
 		}
@@ -4025,34 +3980,17 @@ focus_tree = {
 		available = {
 			ENG = {
 				exists = yes
-				has_tech = heavy_fighter1
 			}
 			NOT = { has_war_with = ENG }
 		}
 		
 		completion_reward ={
-			custom_effect_tooltip = FIN_bristol_research
-			add_equipment_to_stockpile = {
-            	type = heavy_fighter_equipment_1 #type of equipment, from file
-            	amount = 75 #amount
-            	producer = ENG #Name of country that "built" the equipment
-        	}
 			add_tech_bonus = {	
 				name =  fighter_bonus
 				bonus = 1
 				uses = 1
-				technology = heavy_fighter1
-				technology = heavy_fighter2
-			}
-			ENG = {
-				create_production_license = {
-					target = FIN 
-					equipment = {
-						type = heavy_fighter_equipment_1
-					}
-					cost_factor = 0
-				}
-			}							
+				technology = cat_heavy_fighter
+			}			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -4078,30 +4016,13 @@ focus_tree = {
 		}
 		
 		completion_reward ={
-			add_equipment_to_stockpile = {
-            	type = strat_bomber_equipment_1 #type of equipment, from file
-            	amount = 35 #amount
-            	producer = GER #Name of country that "built" the equipment
-        	}
 		
 			add_tech_bonus = {	
 				name =  bomber_bonus
 				bonus = 1
 				uses = 1
-				technology = large_plane_airframe
-				technology = large_plane_airframe
-				technology = large_plane_airframe
-				category = medium_plane_airframe
+				technology = cas_bomber
 			}
-			GER = {
-				create_production_license = {
-				target = FIN 
-				equipment = {
-					type = strat_bomber_equipment_1
-					}
-					cost_factor = 0
-				}
-			}	
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
