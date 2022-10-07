@@ -265,10 +265,10 @@ NAI = {
 			0.95, -- QuietIntelNetwork
 			1.0, -- CounterIntelligence
 			0.0, -- RootOutResistance
-			2.0, -- BoostIdeology
+			100.0, -- BoostIdeology
 			0.1, -- ControlTrade
 			0.1, -- DiplomaticPressure
-			2.0, -- Propaganda
+			100.0, -- Propaganda
 		},
 
 		BOOST_IDEOLOGY_NATIONAL_COVERAGE_FACTOR = 1.0,				-- used to compute the drift factor as follow: BASE * SUB_NETWORK_NC * BOOST_IDEOLOGY_DEFENSE_FACTOR
