@@ -1,0 +1,38 @@
+on_actions = {
+	# ROOT is capitulated country, FROM is winner
+	on_capitulation = {
+		effect = {
+			if = {
+				limit = {
+					and = {
+						#capped country is not in a faction
+						NOT = {ROOT = {is_in_faction = yes}}
+
+						#capped country is an ai
+						ROOT = {is_ai = yes}
+
+						#capped country is not in a civil war
+						ROOT = {has_civil_war = no}
+
+						#one agressive country
+						ROOT = {has_war_with_amount = 1}
+
+						#agressor is only at war with one nation
+						FROM = {has_war_with_amount = 1}
+					}
+				}
+
+				ROOT = {
+					transfer_navy = { target = FROM }
+				}
+
+				FROM = {
+					annex_country = {
+						target = ROOT
+						transfer_troops = no
+					}
+				}
+			}
+		}
+	}
+}
