@@ -5,20 +5,35 @@ on_actions = {
 			if = {
 				limit = {
 					and = {
-						#capped country is not in a faction
-						NOT = {ROOT = {is_in_faction = yes}}
+						#capped country faction is not in the war
+						ROOT = { 
+							any_allied_country = {
+								NOT = { has_war_with = FROM }
+							}
+						 }
 
 						#capped country is an ai
-						ROOT = {is_ai = yes}
+						ROOT = { is_ai = yes }
+
+						# all of capped countries enemies are puppets of aggressor or in faction with aggressor
+						ROOT = {
+							all_enemy_country = {
+								or = {
+									tag = FROM
+									is_in_faction_with = FROM
+									is_puppet_of = FROM
+								}
+							}
+						}
 
 						#capped country is not in a civil war
-						ROOT = {has_civil_war = no}
+						ROOT = { has_civil_war = no }
 
-						#one agressive country
-						ROOT = {has_war_with_amount = 1}
+						#capped country is not a puppet
+						ROOT = { is_puppet = no }
 
-						#agressor is only at war with one nation
-						FROM = {has_war_with_amount = 1}
+						#capped country is not a overlord
+						ROOT = { num_subjects < 1 }
 					}
 				}
 
