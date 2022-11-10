@@ -16,7 +16,7 @@ focus_tree = {
 	focus = {
 		id = GER_begin_depression_recovery
 		icon = GFX_focus_GRE_Combat_depression
-		cost = 5.00
+		cost = 3
 		x = 4
 		y = 0
 			ai_will_do = {
@@ -151,6 +151,33 @@ focus_tree = {
 		}
 	}
 	
+	focus = {
+		id = GER_air_rearmament
+		icon = GFX_goal_generic_air_fighter
+		x = 20
+		y = 0
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+
+		available_if_capitulated = yes
+
+		bypass = {
+		}
+
+		filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
+		completion_reward = {
+			air_experience = 25
+			add_tech_bonus = {
+				name = ITA_citta_dell_aria
+				bonus = 0.75
+				uses = 2
+				category = air_equipment
+			}
+		}
+	}
+
 	focus = {
 		id = GER_naval_effort_r56
 		icon = GFX_goal_generic_navy_doctrines_tactics
@@ -808,14 +835,14 @@ focus_tree = {
 	focus = {
 		id = GER_political_sphere
 		icon = GFX_goal_GER_open_the_german_political_sphere
-		cost = 1.00
+		cost = 2
 		x = 68
 		y = 0
 			ai_will_do = {
 					factor = 75
 				}
 			completion_reward = {
-					add_political_power = 25
+					add_political_power = 100
 				}
 				search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -1356,10 +1383,10 @@ focus_tree = {
 				}
 				random_owned_controlled_state = {
 					prioritize = { 60 }
-					add_extra_state_shared_building_slots = 1
+					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
-						type = fuel_silo
-						level = 1
+						type = rubber_refinery
+						level = 3
 						instant_build = yes
 					}
 				}	
@@ -1369,7 +1396,11 @@ focus_tree = {
 					uses = 1
 					category = synth_resources
 				}
-
+				modify_building_resources = {
+					building = rubber_refinery
+					resource = rubber
+					amount = 2
+				 }
 			}
 				search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_OIL FOCUS_FILTER_RUBBER}
 
@@ -1477,6 +1508,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_rhineland
 		}
+		prerequisite = { focus = GER_air_rearmament }
 		prerequisite = {
 			focus = GER_naval_rearmament_r56
 		}
@@ -1710,6 +1742,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_rhineland
 		}
+		prerequisite = { focus = GER_air_rearmament }
 		x = 23
 		y = 1
 		available = {
@@ -1741,7 +1774,7 @@ focus_tree = {
 					42 = {
 							add_building_construction = {
 									type = infrastructure
-									level = 10
+									level = 5
 									instant_build = yes
 								}
 							add_building_construction = {
@@ -1753,7 +1786,7 @@ focus_tree = {
 					51 = {
 							add_building_construction = {
 									type = infrastructure
-									level = 10
+									level = 5
 									instant_build = yes
 								}
 							add_building_construction = {
@@ -1764,6 +1797,49 @@ focus_tree = {
 						}
 				}
 				search_filters = { FOCUS_FILTER_INDUSTRY }
+
+	}
+	focus = {
+		id = GER_invest_in_airforce
+		icon = GFX_goal_GER_nationalize_aviation_industry
+		cost = 5.00
+		prerequisite = {
+			focus = GER_prepare_france_invasion
+		}
+		x = 25
+		y = 2
+		available = {
+			has_army_manpower = {
+							size > 800000
+						}
+					NOT = {
+							has_idea = rhineland_challenge_met
+						}
+			has_completed_focus = GER_anschluss
+		}
+			ai_will_do = {
+					factor = 10
+					modifier = {
+						factor = 4
+						date < 1939.01.01 #need to build up
+					}
+				}
+			bypass = {
+					FRA = {
+							r56_script_statusquo_bypass = yes
+						}
+				}
+			completion_reward = {
+					add_timed_idea = {
+						idea = GER_invest_in_airforce_idea
+						days = 365
+					}
+					add_timed_idea = {
+						idea = GER_airforce_payments_idea
+						days = 120
+					}
+				}
+				search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
 
 	}
 	focus = {
@@ -1877,9 +1953,39 @@ focus_tree = {
 					uses = 3
 					category = land_doctrine
 				}
+				add_tech_bonus = {
+					name = GER_build_panzer_army
+					bonus = 1.0
+					uses = 1
+					category = cat_anti_tank
+				}
 			}
 			search_filters = { FOCUS_FILTER_RESEARCH }
 
+	}
+	focus = {
+		id = GER_prevent_aerial_hegemony
+		icon = GFX_goal_airplane_hunt
+		prerequisite = { focus = GER_air_rearmament }
+		relative_position_id = GER_air_rearmament
+		x = 0
+		y = 1
+		cost = 5
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_timed_idea = {
+				idea = GER_flak_towers
+				days = 360
+			}
+			add_tech_bonus = {
+                name = antiair_tech_bonus_name
+                bonus = 1
+                uses = 2
+				category = cat_anti_air
+			}
+		}
 	}
 	focus = {
 		id = GER_core_lorraine
@@ -1904,14 +2010,12 @@ focus_tree = {
 					OR = {
 						controls_state = 28
 						controls_state = 8
-						controls_state = 893
 					}
 				}
 			}
 		}
 		completion_reward = {
 				add_state_core = 28
-				add_state_core = 893
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
@@ -1937,7 +2041,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = GER_build_panzer_army
 				bonus = 1.0
-				ahead_reduction = 1
+				ahead_reduction = 2
 				uses = 1
 				category = armor
 			}			
@@ -1961,6 +2065,7 @@ focus_tree = {
 			FRA = {
 				r56_script_target_is_sane = yes
 			}
+			date > 1940.1.1
 		}
 		bypass = {
 			OR = {
@@ -1990,6 +2095,10 @@ focus_tree = {
 				target = FRA
 				expire = 0
 				generator = { 28 }
+			}
+			add_timed_idea = {
+				idea = GER_Arden_Offensive
+				days = 90
 			}
 			hidden_effect = {
 							if = {
