@@ -1,10 +1,15 @@
+########## Auto Peace Deal: Made by Fullchord ##########
+
 on_actions = {
-	# ROOT is capitulated country, FROM is winner
+	# ROOT is capitulated country, FROM is winner (Country with the most war score)
 	on_capitulation = {
 		effect = {
 			if = {
 				limit = {
 					and = {
+						# capped country is not in a faction
+						ROOT = { is_in_faction = no }
+
 						#capped country faction is not in the war
 						ROOT = { 
 							NOT = {
@@ -20,7 +25,7 @@ on_actions = {
 						# all of capped countries enemies are puppets of aggressor or in faction with aggressor
 						ROOT = {
 							all_enemy_country = {
-								or = {
+								or = { 
 									tag = FROM
 									is_in_faction_with = FROM
 									is_puppet_of = FROM
