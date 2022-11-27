@@ -1647,39 +1647,43 @@ focus_tree = {
 	}	
 
 	focus = {
-        id = r56_CAN_cmp_truck
-        icon = GFX_goal_CAN_truck
-        x = -1
-        y = 1
-        relative_position_id = r56_CAN_army_modernisation
-        search_filters = { FOCUS_FILTER_RESEARCH }
+		id = r56_CAN_cmp_truck
+		icon = GFX_goal_CAN_truck
+		x = -1
+		y = 1
+		relative_position_id = r56_CAN_army_modernisation
+		search_filters = { FOCUS_FILTER_RESEARCH }
 
-        cost = 10
-        
-        prerequisite = {
-            focus = r56_CAN_army_modernisation
-        }
+		cost = 10
+		
+		prerequisite = {
+			focus = r56_CAN_army_modernisation
+		}
 
-        ai_will_do = {
-            factor = 6
-        }
-        
+		ai_will_do = {
+			factor = 6
+		}
+		
+		
+		bypass = {
+			has_tech = motorised_infantry
+		}
 
-        available_if_capitulated = yes
+		available_if_capitulated = yes
 
 
-        completion_reward = {
-            custom_effect_tooltip = available_designer
-            show_ideas_tooltip = r56_CAN_ford
-            show_ideas_tooltip = r56_CAN_gm_of_canada
-            add_tech_bonus = {
-                name = mechanized_infantry
-                bonus = 2.0
-                uses = 1
-                category = cat_mechanized_equipment
-            }
-        }
-    }
+		completion_reward = {
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = r56_CAN_ford
+			show_ideas_tooltip = r56_CAN_gm_of_canada
+			add_tech_bonus = {
+				name = r56_CAN_motorized
+				bonus = 1.5
+				uses = 1
+				technology = motorised_infantry
+			}
+		}
+	}
 
 	focus = {
 		id = r56_CAN_valentine_tank
@@ -2667,10 +2671,10 @@ focus_tree = {
 				}
 			}
 			add_tech_bonus = {
-				name = large_plane_airframe
+				name = strategic_bomber
 				bonus = 1.0
 				uses = 1
-				category = cat_large_plane_airframe
+				category = cat_strategic_bomber
 			}
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = CAN_victory_aircraft
@@ -3428,6 +3432,7 @@ focus_tree = {
 		}
 		
 		available = {
+			is_in_faction_with = ENG
 			ENG = { has_government = ROOT }
 		}
 		
@@ -3858,6 +3863,11 @@ focus_tree = {
 			add_state_claim = 386
 			add_state_claim = 385
 			add_state_claim = 357
+			add_state_claim = 989
+			add_state_claim = 990
+			add_state_claim	= 991
+			add_state_claim	= 992
+			add_state_claim = 993
 			custom_effect_tooltip = r56_CAN_claims_on_america_tt
 		}
 	}	
@@ -4216,6 +4226,7 @@ focus_tree = {
 					}
 				}
 			}
+			unlock_decision_tooltip = { decision = cite_a_marine_unit show_effect_tooltip = yes } 
 		}
 	}
 		
@@ -4721,6 +4732,7 @@ focus_tree = {
 		}
 		
 		available = {
+			is_in_faction_with = ENG
 			NOT = { has_country_flag = britain_enforced_our_loyalty }
 		}
 		
@@ -5014,14 +5026,15 @@ focus_tree = {
 					limit = {
 						OR = {
 							state = 466
+							state = 861
+							state = 860
+							state = 863
+							state = 862
 							state = 468
 						}
 					}
-					remove_province_modifier = {
-						static_modifiers = { quebec_conscription_crisis }
-						province = {
-							all_provinces = yes
-						}
+					remove_dynamic_modifier = {
+						modifier = quebec_conscription_crisis
 					}
 				}
 			}

@@ -32,38 +32,6 @@ add_namespace = BBA_SWI_annual_election
 add_namespace = BBA_switzerland_trade
 add_namespace = BBA_switzerland_fascist
 add_namespace = BBA_swiss_expansion
-#country_event = {
-#	id = BBA_switzerland.1
-#	title = BBA_switzerland.1.t
-#	desc = BBA_switzerland.1.desc
-#	picture = 
-#
-#	is_triggered_only = yes
-#
-#	immediate = {
-#		hidden_effect = {
-#		}
-#	}
-#
-#	option = {
-#		name = BBA_switzerland.1.a
-#		ai_chance = {
-#			base = 10
-#		}
-#		trigger = {
-#		}
-#	}
-#	option = {
-#		name = BBA_switzerland.1.b
-#		ai_chance = {
-#			base = 10
-#		}
-#		trigger = {
-#		}
-#     }
-#}
-
-
 
 ##########################################################################
 ###############  Historical Switzerland Focus Tree Events ################
@@ -87,8 +55,6 @@ country_event = {
 		    	SWI_is_historical_ai = yes
 		    }
 	    }
-	    trigger = {
-	    }
 		add_power_balance_modifier = {
 			id = SWI_centralization_bop
 			modifier = SWI_guiding_principles_cantons
@@ -107,8 +73,6 @@ country_event = {
 		    	}
 		    }
 	    }
-	    trigger = {
-	    }
 	    add_power_balance_modifier = {
 			id = SWI_centralization_bop
 			modifier = SWI_guiding_principles_council
@@ -125,8 +89,6 @@ country_event = {
 		    		SWI_AI_is_imperial = yes
 		    	}
 		    }
-	    }
-	    trigger = {
 	    }
 	    add_power_balance_modifier = {
 			id = SWI_centralization_bop
@@ -151,11 +113,6 @@ country_event = { #Frankfurter Kills Gusloff
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #He should have a fair trial 
 		name = BBA_switzerland.2.a
 		ai_chance = {
@@ -164,8 +121,6 @@ country_event = { #Frankfurter Kills Gusloff
 		    	factor = 10 
 		    	SWI_is_historical_ai = yes
 		    }
-		}
-		trigger = {
 		}
 		custom_effect_tooltip = SWI_frankfurter_trial_will_continue_TT 
 		hidden_effect = { set_country_flag = SWI_prepare_for_trial }
@@ -218,8 +173,6 @@ country_event = { #Frankfurter Kills Gusloff
 		    	SWI_AI_is_fascist = yes
 		    }
 		}
-		trigger = {
-		}
 		custom_effect_tooltip = SWI_frankfurter_immediate_harsh_sentence_TT
 		Hidden_effect = {
 			set_country_flag = SWI_frankfurter_immediate_harsh_sentence
@@ -241,7 +194,8 @@ country_event = { #Frankfurter Kills Gusloff
 				modifier = SWI_too_harsh_on_frankfurter
 			}
 		}
-SWI_update_neighbor_opinion_balance = yes    }
+		SWI_update_neighbor_opinion_balance = yes
+	}
 }
 
 country_event = {  #Frankfurter trial approaches  
@@ -259,6 +213,9 @@ country_event = {  #Frankfurter trial approaches
 			}
 			has_country_flag = SWI_prepare_for_trial
 		}
+		NOT = {	#shall never trigger in r56 tree
+			has_global_flag = SWI_R56_focus_tree
+		}
 	}
 
 	mean_time_to_happen = {
@@ -266,11 +223,6 @@ country_event = {  #Frankfurter trial approaches
 	}
 
 	fire_only_once = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #Historical: Continue with the Trial 
 		name = BBA_switzerland.3.a
@@ -282,8 +234,6 @@ country_event = {  #Frankfurter trial approaches
 					SWI_country_about_to_be_angry = yes 	
 				}
 			}
-		}
-		trigger = {
 		}
 		effect_tooltip = {
 			country_event = {
@@ -350,8 +300,6 @@ country_event = {  #Frankfurter trial approaches
 				SWI_AI_is_fascist = yes 
 			}
 		}
-		trigger = {
-		}
 		custom_effect_tooltip = SWI_frankfurter_immediate_harsh_sentence_TT
 		Hidden_effect = {
 			set_country_flag = SWI_frankfurter_immediate_harsh_sentence
@@ -391,22 +339,18 @@ country_event = {  #Germany thanks Switzerland for harsh sentence for Frankfurte
 				has_completed_focus = SWI_fortify_border_with_germany	
 			}
 			has_country_flag = SWI_frankfurter_immediate_harsh_sentence
-		}		
+		}	
+		NOT = {	#shall never trigger in r56 tree
+			has_global_flag = SWI_R56_focus_tree
+		}	
 	} 
 
 	fire_only_once = yes 
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #Are we the baddies? - On the road to fascism 
 		name = BBA_switzerland.4.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		add_popularity = {
 			ideology = fascism 
@@ -434,11 +378,6 @@ country_event = {  #For Germany: Do you want to Press the Swiss?
 	 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Leave it be 
 		name = BBA_switzerland.5.a
 		ai_chance = {
@@ -451,8 +390,6 @@ country_event = {  #For Germany: Do you want to Press the Swiss?
 				}
 
 			}
-		}
-		trigger = {
 		}
 
 		hidden_effect = {
@@ -478,8 +415,6 @@ country_event = {  #For Germany: Do you want to Press the Swiss?
 				NOT = { has_government = fascism }
 			}
 		}
-		trigger = {
-		}
 		SWI = {
 			country_event = {
 				id = BBA_switzerland.8
@@ -496,11 +431,6 @@ country_event = {  #Germany Presses for harsher trial
 	picture = GFX_report_event_canada_patriation 
 	 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #Refuse 
 		name = BBA_switzerland.6.a
@@ -521,8 +451,6 @@ country_event = {  #Germany Presses for harsher trial
 				SWI_AI_is_fascist = yes 
 			}
 		}
-		trigger = {
-		}
 		country_event = {
 			id = BBA_switzerland.8
 			days = 20
@@ -541,8 +469,6 @@ country_event = {  #Germany Presses for harsher trial
 		name = BBA_switzerland.6.b
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		hidden_effect = {
 			set_country_flag = SWI_considering_harsh_treatment
@@ -564,17 +490,10 @@ country_event = {  #Frankfurter "dies" under mysterious circumstances
 	 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #ok
 		name = BBA_switzerland.7.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 	}
 }
@@ -587,11 +506,6 @@ country_event = {  #Frankfurter Trial
 	 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Historical: Sentenced to 18 Years in Jail 
 		name = BBA_switzerland.8.a
 		ai_chance = {
@@ -602,8 +516,6 @@ country_event = {  #Frankfurter Trial
 			}
 		}
 		
-		trigger = {
-		}
 		
 		hidden_effect = { set_country_flag = SWI_frankfurter_trial_result_fair }
 
@@ -659,8 +571,6 @@ country_event = {  #Frankfurter Trial
 					SWI_AI_is_dem_exp = yes 
 				} 
 			}
-		}
-		trigger = {
 		}
 
 		hidden_effect = { set_country_flag = SWI_pardoned_frankfurter_at_trial }
@@ -746,17 +656,10 @@ country_event = {  #Germany Angry
 	 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #OK 
 		name = BBA_switzerland.9.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 
 		if = {  #SWI had a normal trial
@@ -821,17 +724,10 @@ country_event = {  #Germany Happy
 	 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #OK 
 		name = BBA_switzerland.10.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 	}
 }
@@ -854,11 +750,6 @@ country_event = {  #Result of the trial
 	picture = GFX_report_event_journalists_speech
 	 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { # SWI: OK
 		name = BBA_switzerland.11.a
@@ -910,14 +801,12 @@ country_event = {  #After the war ends
 			has_war = yes 
 			NOT = { has_government = fascism } 
 		}
+		NOT = {	#shall never trigger in r56 Swiss tree
+			has_global_flag = SWI_R56_focus_tree
+		}
 	}
 
 	fire_only_once = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { # Pardon him
 		name = BBA_switzerland.12.a
@@ -927,8 +816,6 @@ country_event = {  #After the war ends
 				factor = 10 
 				SWI_is_historical_ai = yes 
 			}
-		}
-		trigger = {
 		}
 		every_other_country = {
 			limit = {
@@ -959,8 +846,6 @@ country_event = {  #After the war ends
 				factor = 10 
 				SWI_AI_is_fascist = yes 
 			}
-		}
-		trigger = {
 		}
 		every_other_country = {
 			limit = {
@@ -993,17 +878,10 @@ country_event = {  #To GER: Switzerland accepts our demands
 	 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Nice
 		name = BBA_switzerland.13.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		SWI = { country_event = { id = BBA_switzerland.10 hours = 6 } }
 	}
@@ -1019,11 +897,6 @@ country_event = { #Petition of the 200
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Historical - Spend PP to calm them 
 		name = BBA_switzerland.14.a
 		ai_chance = {
@@ -1035,8 +908,6 @@ country_event = { #Petition of the 200
 					SWI_AI_is_dem_allied = yes 
 				}
 			}
-		}
-		trigger = {
 		}
 		add_political_power = -100 
 		
@@ -1077,8 +948,6 @@ country_event = { #Petition of the 200
 				factor = 10 
 				SWI_AI_is_fascist = yes 
 			}
-		}
-		trigger = {
 		}
 		if = {
 			limit = {
@@ -1129,8 +998,6 @@ country_event = { #Petition of the 200
 				SWI_AI_is_imperial = yes
 			}
 		}
-		trigger = {
-		}
 		add_political_power = -150
 
 		add_popularity = {
@@ -1178,11 +1045,6 @@ country_event = { #Event to ask a country if they would like a Swiss Double Agen
 	picture = GFX_report_event_SWI_soldier_gathering
 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 	option = { #German Agent
 		name = BBA_switzerland.15.a
 		ai_chance = {
@@ -1305,17 +1167,10 @@ country_event = { #Switzerland asking to Secretely form an pact with the Allies
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Accepts secret pact
 		name = BBA_switzerland.16.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			country_event = { id = BBA_switzerland.17 hours = 8 }
@@ -1337,8 +1192,6 @@ country_event = { #Switzerland asking to Secretely form an pact with the Allies
 				FROM = { is_ai = no  }
 			}
 		}
-		trigger = {
-		}
 		FROM = {
 			set_country_flag = SWI_allies_rejected_secret_pact
 			country_event = { id = BBA_switzerland.18 hours = 8 }
@@ -1355,17 +1208,10 @@ country_event = { #Allies Accepted Secret Pact
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Good news! 
 		name = BBA_switzerland.17.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		set_country_flag = SWI_in_secret_pact_with_allies
 		set_variable = { SWI_secret_ally = FROM }
@@ -1385,17 +1231,10 @@ country_event = { #Allies Rejected Secret Pact
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = {
 		name = BBA_switzerland.18.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 	}
 }
@@ -1428,8 +1267,6 @@ country_event = { #Switzerland inviting to the Neutral Entente
 				}
 			}
 		}
-		trigger = {
-		}
 		hidden_effect = {
 			news_event = { id = news.289 hours = 12 }
 		}
@@ -1458,8 +1295,6 @@ country_event = { #Switzerland inviting to the Neutral Entente
 				}
 			}
 		}
-		trigger = {
-		}
 		give_guarantee = FROM 
 		FROM = { give_guarantee = PREV }
     }
@@ -1475,8 +1310,6 @@ country_event = { #Switzerland inviting to the Neutral Entente
 				}
 			}
 		}
-		trigger = {
-		}
 		set_country_flag = SWI_rejected_neutral_entente
 		FROM = { country_event = { id = generic.7 hours = 3 } }
      }
@@ -1490,17 +1323,10 @@ country_event = { #Notifying of guarantees instead of alliance
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = {
 		name = BBA_switzerland.20.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		effect_tooltip = {
 			give_guarantee = FROM 
@@ -1516,11 +1342,6 @@ country_event = { #Switzerland DESPERATELY asks for guarantees
 	picture = GFX_report_event_SWI_guisan_soldiers
 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #Accepts giving them guarantees
 		name = BBA_switzerland.21.a
@@ -1549,8 +1370,6 @@ country_event = { #Switzerland DESPERATELY asks for guarantees
 				FROM = { has_government = democratic }
 			}
 		}
-		trigger = {
-		}
 		give_guarantee = FROM 
 		FROM = {
 			country_event = { id = BBA_switzerland.22 hours = 2 }
@@ -1561,8 +1380,6 @@ country_event = { #Switzerland DESPERATELY asks for guarantees
 		name = BBA_switzerland.21.b
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = { country_event = { id = BBA_switzerland.23 hours = 2 } }
      }
@@ -1576,17 +1393,10 @@ country_event = { #Switzerland informed of Guarantees
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Accepts giving them guarantees
 		name = BBA_switzerland.22.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		var:SWI.SWI_angriest_country = {
 			add_opinion_modifier = {
@@ -1608,17 +1418,10 @@ country_event = { #Switzerland informed of REJECTION of Guarantees
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Accepts giving them guarantees
 		name = BBA_switzerland.23.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 	}
 }
@@ -1631,17 +1434,10 @@ country_event = { #Switzerland informed of angry country
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { # I have a bad feeling about this 
 		name = BBA_switzerland.24.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 	}
 }
@@ -1654,17 +1450,10 @@ country_event = { #Switzerland informed they're in big trouble
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { # Oh crap
 		name = BBA_switzerland.25.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 	}
 }
@@ -1732,17 +1521,10 @@ country_event = {
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = {
 		name = BBA_switzerland.97.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		hidden_effect = { set_country_flag = SWI_von_trapp_hired }
 		effect_tooltip = {
@@ -1787,8 +1569,6 @@ country_event = {
 		name = BBA_switzerland.97.b
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
      }
 }
@@ -2210,17 +1990,10 @@ country_event = { #SWI is neutral, and seeks trade agreement with neighbor.
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Build weapon parts
 		name = BBA_switzerland_trade.1.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			add_ideas = {
@@ -2240,8 +2013,6 @@ country_event = { #SWI is neutral, and seeks trade agreement with neighbor.
 		name = BBA_switzerland_trade.1.b
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			add_ideas = {
@@ -2297,11 +2068,6 @@ country_event = { #SWI is cancelling the trade agreement
     picture = GFX_report_event_generic_parliament
 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #No worries then 
 		name = BBA_switzerland_trade.2.a
@@ -2406,11 +2172,6 @@ country_event = { #A year has passed, does Switzerland want to renew the trade a
 		has_idea = SWI_active_trade_agreement	
 	}
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Sure why not
 		name = BBA_switzerland_trade.3.a
 		ai_chance = {
@@ -2451,11 +2212,6 @@ country_event = { #SWI wants to renew trade agreement
     picture = GFX_report_event_generic_parliament
 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #Yes, let's renew the trade agreement with Switzerland 
 		name = BBA_switzerland_trade.4.a
@@ -2537,11 +2293,6 @@ country_event = { #SWI lets the trade agreement lapse
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Angy
 		name = BBA_switzerland_trade.5.a
 		ai_chance = {
@@ -2568,11 +2319,6 @@ country_event = { #Other country decided to accept trade agreement
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Yay
 		name = BBA_switzerland_trade.5.a
 		ai_chance = {
@@ -2588,11 +2334,6 @@ country_event = { #Other country REJECTED trade agreement
     picture = GFX_report_event_SWI_parliament_members
 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #Oh well 
 		name = BBA_switzerland_trade.7.a
@@ -2698,11 +2439,6 @@ country_event = { #For SWI - Gold Trade accepted
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Good news!  
 		name = BBA_switzerland_trade.9.a
 		ai_chance = {
@@ -2723,11 +2459,6 @@ country_event = { #For SWI - Gold Trade REJECTED
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Ohwell!  
 		name = BBA_switzerland_trade.10.a
 		ai_chance = {
@@ -2745,11 +2476,6 @@ country_event = { #SWI offers gold trade to country again
     picture = GFX_report_event_generic_conference
 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #Sounds like a good idea
 		name = BBA_switzerland_trade.11.a
@@ -2808,11 +2534,6 @@ country_event = { #Switzerland has seized your gold!!
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Ohwell!  
 		name = BBA_switzerland_trade.12.a
 		ai_chance = {
@@ -2832,11 +2553,6 @@ country_event = { #SWI Asks the USA to invest
     picture = GFX_report_event_SWI_cantons_flags_soldiers
 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #Sounds like a good idea
 		name = BBA_switzerland_trade.13.a
@@ -2900,11 +2616,6 @@ country_event = { #USA has accepted investing in the country.
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Good News everyone!   
 		name = BBA_switzerland_trade.14.a
 		ai_chance = {
@@ -2938,11 +2649,6 @@ country_event = { #USA has rejected investing in the country.
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Good News everyone!   
 		name = BBA_switzerland_trade.15.a
 		ai_chance = {
@@ -2967,11 +2673,6 @@ country_event = { #Event sent from Switzerland to Submit to Fascist Country
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Welcome to team fash 
 		name = BBA_switzerland_fascist.1.a
 		ai_chance = {
@@ -2985,16 +2686,12 @@ country_event = { #Event sent from Switzerland to Submit to Fascist Country
 				SWI_country_opinion_is_good = yes 
 			}
 		}
-		trigger = {
-		}
 		FROM = { country_event = { id = BBA_switzerland_fascist.7 hours = 4 } }
 	}
 	option = { #We don't need you. 
 		name = BBA_switzerland_fascist.1.b
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 
 		FROM = {
@@ -3012,17 +2709,10 @@ country_event = { #Event sent from biggest fascist to SWI to let them know they'
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { 
 		name = BBA_switzerland_fascist.2.a
 		ai_chance = {
 			base = 10 
-		}
-		trigger = {
 		}
 	}
 }
@@ -3034,11 +2724,6 @@ country_event = { #Event sent from Switzerland to ask for Vorarlberg
 	picture = GFX_report_event_generic_conference
 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #It's theirs 
 		name = BBA_switzerland_fascist.3.a
@@ -3067,8 +2752,6 @@ country_event = { #Event sent from Switzerland to ask for Vorarlberg
 				SWI_country_opinion_is_good = yes 
 			}
 		}
-		trigger = {
-		}
 		FROM = {
 			country_event = { id = BBA_switzerland_fascist.5 hours = 4}
 		}
@@ -3078,8 +2761,6 @@ country_event = { #Event sent from Switzerland to ask for Vorarlberg
 		name = BBA_switzerland_fascist.3.b
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			country_event = { id = BBA_switzerland_fascist.4 hours = 4}
@@ -3099,17 +2780,10 @@ country_event = { #Event to notify SWI that they're not getting the territory
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #OK 
 		name = BBA_switzerland_fascist.4.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}	
 		clear_variable = SWI_requested_territory
 	}
@@ -3122,11 +2796,6 @@ country_event = { #Event to notify SWI that they won the state lottery and they'
 	picture = GFX_report_event_generic_peaceful_annexation
 
 	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-		}
-	}
 
 	option = { #Nice - Vorarlberg
 		name = BBA_switzerland_fascist.5.a
@@ -3225,11 +2894,6 @@ country_event = { #Event sent from Switzerland to ask for an occupied country
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Sure why not 
 		name = BBA_switzerland_fascist.6.a
 		ai_chance = {
@@ -3257,8 +2921,6 @@ country_event = { #Event sent from Switzerland to ask for an occupied country
 				SWI_country_opinion_is_good = yes 
 			}
 		}
-		trigger = {
-		}
 		FROM = { 
 			country_event = { id = BBA_switzerland_fascist.5 hours = 4 } 
 		}
@@ -3268,8 +2930,6 @@ country_event = { #Event sent from Switzerland to ask for an occupied country
 		name = BBA_switzerland_fascist.6.b
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			country_event = { id = BBA_switzerland_fascist.4 hours = 4}
@@ -3285,17 +2945,10 @@ country_event = { #Event sent from Germany to tell Switzerland that they can be 
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-		}
-	}
-
 	option = { #Success?  
 		name = BBA_switzerland_fascist.7.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		set_variable = { SWI.SWI_temp_dem_pop = SWI.party_popularity_100@democratic }
 		set_variable = { SWI.SWI_temp_neut_pop = SWI.party_popularity_100@neutrality }
@@ -3338,16 +2991,10 @@ country_event = { #Influencing the state failed
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #ok
 		name = BBA_swiss_expansion.1.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		var:SWI_influence_target_state = {
 			set_state_flag = SWI_influence_failed
@@ -3365,7 +3012,7 @@ country_event = { #Influencing the state succeeded
 	is_triggered_only = yes
 
 	immediate = {
-
+		add_state_claim = var:SWI.SWI_influence_target_state
 	}
 
 	option = { #good!!
@@ -3373,12 +3020,12 @@ country_event = { #Influencing the state succeeded
 		ai_chance = {
 			base = 10
 		}
-		trigger = {
-		}
 		var:SWI.SWI_influence_target_state = {
 			set_state_flag = SWI_influence_succeeded
 		}
-		add_state_claim = var:SWI.SWI_influence_target_state
+		effect_tooltip = {
+			add_state_claim = var:SWI.SWI_influence_target_state
+		}
 		clear_variable = SWI_influence_target_state
 	}
 }
@@ -3391,16 +3038,10 @@ country_event = { #Switzerland pushes for Referendum in state.
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #No way!
 		name = BBA_swiss_expansion.3.a
 		ai_chance = { 
 			base = 10
-		}
-		trigger = {
 		}
 		effect_tooltip = {
 			var:SWI.SWI_state_being_claimed = {
@@ -3450,8 +3091,6 @@ country_event = { #Switzerland pushes for Referendum in state.
 				SWI_country_opinion_is_good = yes 
 			}
 		}
-		trigger = {
-		}
 		effect_tooltip = {
 			var:SWI.SWI_state_being_claimed = {
 				remove_claim_by = FROM 
@@ -3474,16 +3113,10 @@ country_event = { #Country Accepted
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #Great!
 		name = BBA_swiss_expansion.4.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 	
 		var:SWI.SWI_state_being_claimed = {
@@ -3507,16 +3140,10 @@ country_event = { #Country Rejected the ultimatum
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #Damnation!
 		name = BBA_swiss_expansion.5.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		
 		create_wargoal = {
@@ -3544,10 +3171,6 @@ country_event = { #Sending request for Vorarlberg
 	picture = GFX_report_event_SWI_president_talking_flag
 
 	is_triggered_only = yes
-
-	immediate = {
-
-	}
 
 	option = { #You can have it  
 		name = BBA_swiss_expansion.6.a
@@ -3717,16 +3340,10 @@ country_event = { #Vorarlberg request rejected
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #They will see!!
 		name = BBA_swiss_expansion.7.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		create_wargoal = {
 			type = take_state_focus
@@ -3745,16 +3362,10 @@ country_event = { #Vorarlberg will join Switzerland
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #This bad boy can fit so many cantons
 		name = BBA_swiss_expansion.8.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		transfer_state = 848
 		848 = {
@@ -3772,10 +3383,6 @@ country_event = { #Sending request for The Rest of Austria
 	picture = GFX_report_event_SWI_cantons_flags_soldiers
 
 	is_triggered_only = yes
-
-	immediate = {
-
-	}
 
 	option = { #Sure why not 
 		name = BBA_swiss_expansion.9.a
@@ -3815,8 +3422,6 @@ country_event = { #Sending request for The Rest of Austria
 				is_historical_focus_on = no  
 			}
 		}
-		trigger = {
-		}
 		FROM = {
 			country_event = { id = BBA_swiss_expansion.10 hours = 5 }
 		}
@@ -3837,8 +3442,6 @@ country_event = { #Sending request for The Rest of Austria
 		name = BBA_swiss_expansion.9.b
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			country_event = { id = BBA_swiss_expansion.11 hours = 5 }
@@ -3869,17 +3472,10 @@ country_event = { #Austria Accepts!
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #YES! It's all coming together now. 
 		name = BBA_swiss_expansion.10.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
-
 		}
 		annex_country = {
 			target = FROM 
@@ -3901,16 +3497,10 @@ country_event = { #Austria Rejects!
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #NO! It's not coming together. 
 		name = BBA_swiss_expansion.11.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		create_wargoal = {
 			type = annex_everything
@@ -3944,10 +3534,6 @@ country_event = { #Sending request Alps territory
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #Sure why not 
 		name = BBA_swiss_expansion.12.a
 		
@@ -3980,8 +3566,6 @@ country_event = { #Sending request Alps territory
 				is_historical_focus_on = no  
 			}
 		}
-		trigger = {
-		}
 		FROM = {
 			country_event = { id = BBA_swiss_expansion.13 hours = 5 }
 		}
@@ -3999,8 +3583,6 @@ country_event = { #Sending request Alps territory
 		name = BBA_swiss_expansion.12.b
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			country_event = { id = BBA_swiss_expansion.14 hours = 5 }
@@ -4024,16 +3606,10 @@ country_event = { #Country Accepts Alpine Claims!!!
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #It's Free Real Estate 
 		name = BBA_swiss_expansion.13.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			every_owned_state = {
@@ -4054,16 +3630,10 @@ country_event = { #Country Rejects Alpine Claims
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { # You don't deserve this big Toblerone!!
 		name = BBA_swiss_expansion.14.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		create_wargoal = {
 			type = annex_everything
@@ -4080,16 +3650,10 @@ country_event = { # Switzerland notifying Germany that they have dibs on Austria
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #NEEEEEEEEEEIINNNN  
 		name = BBA_swiss_expansion.15.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		add_opinion_modifier = {
 			target = FROM 
@@ -4107,16 +3671,10 @@ country_event = { #Switzerland asking for independence plus their alpine territo
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #They can have their independence but no more
 		name = BBA_swiss_expansion.16.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = { 
 			country_event = { id = BBA_swiss_expansion.17 hours = 3 }
@@ -4190,8 +3748,6 @@ country_event = { #Switzerland asking for independence plus their alpine territo
 				} 
 			}
 		}
-		trigger = {
-		}
 		FROM = { 
 			country_event = { id = BBA_swiss_expansion.19 hours = 1 }
 			leave_faction = yes 
@@ -4238,16 +3794,10 @@ country_event = { # Switzerland Notified they're getting independence but no sta
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { #It's something but we want more
 		name = BBA_swiss_expansion.17.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			set_autonomy = { 
@@ -4275,16 +3825,10 @@ country_event = { # Switzerland notified they got the alps too
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { # We're getting the Alps back together!  
 		name = BBA_swiss_expansion.18.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		FROM = {
 			set_autonomy = { 
@@ -4309,16 +3853,10 @@ country_event = { # Switzerland they're not getting their independence or anythi
 
 	is_triggered_only = yes
 
-	immediate = {
-
-	}
-
 	option = { # Time for some independence warring    
 		name = BBA_swiss_expansion.19.a
 		ai_chance = {
 			base = 10
-		}
-		trigger = {
 		}
 		effect_tooltip = {
 			ROOT = { leave_faction = yes}

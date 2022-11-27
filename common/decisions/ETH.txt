@@ -776,6 +776,7 @@ ETH_second_italo_ethiopian_war_category = {
 			has_completed_focus = ETH_rally_around_the_emperor 
 			NOT = { has_country_flag = ETH_host_confirmed_flag }
 			NOT = { has_completed_focus = ETH_the_emperor_stays }
+			NOT = { has_country_flag = ETH_refused_forced_peace_flag } #ETH shouldn't be allowed back to ENG after refusing their demands for peace
 		}
 
 		fire_only_once = no
@@ -1641,6 +1642,12 @@ ETH_anti_colonialism_category = {
 					modifier = ETH_state_supporting_resistance_modifier
 					scope = THIS.owner 
 					days = 365
+				}
+				if = {
+					limit = {
+						is_owned_by = EGY
+					}
+					set_state_flag = EGY_ETH_threatened_sudanese_state
 				}
 			}
 		}
@@ -2617,6 +2624,86 @@ ETH_centralization_balance_of_power_category = {
 			# Don't do this, too risky
 		}
 	}
+	ETH_bop_increase_anarchist_influence = {
+		icon = GFX_decision_SOV_the_workers_dictatorship  #TODO_TA set correct icon
+		allowed = { original_tag = ETH }
+		available = {
+			NOT = { has_country_flag = ETH_bop_anarchist_privileges_changed }
+		}
+		visible = {
+			has_government = communism
+		}	
+		days_remove = 90
+		# days_re_enable = 120
+		fire_only_once = no
+		cost = 25
+		modifier = {
+			stability_weekly = -0.01
+			political_power_factor = -0.1
+		}
+		complete_effect = {
+			add_power_balance_modifier = {
+				id = ETH_centralization_balance
+				modifier = ETH_increase_anarchist_power_balance
+			}
+			set_country_flag = {
+				flag = ETH_bop_anarchist_privileges_changed
+				days = 365
+				value = 1
+			}
+		}
+		remove_effect = {
+			remove_power_balance_modifier = {
+				id = ETH_centralization_balance
+				modifier = ETH_increase_anarchist_power_balance
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+			# Don't do this, too risky
+		}
+	}
+	ETH_bop_increase_communist_influence = {
+		icon = GFX_decision_SOV_secure_the_administration  #TODO_TA set correct icon
+		allowed = { original_tag = ETH }
+		available = {
+			NOT = { has_country_flag = ETH_bop_anarchist_communist_changed }
+		}
+		visible = {
+			has_government = communism
+		}	
+		days_remove = 90
+		# days_re_enable = 120
+		fire_only_once = no
+		cost = 25
+		modifier = {
+			stability_weekly = -0.01
+			political_power_factor = -0.1
+		}
+		complete_effect = {
+			add_power_balance_modifier = {
+				id = ETH_centralization_balance
+				modifier = ETH_increase_communist_power_balance
+			}
+			set_country_flag = {
+				flag = ETH_bop_anarchist_communist_changed
+				days = 365
+				value = 1
+			}
+		}
+		remove_effect = {
+			remove_power_balance_modifier = {
+				id = ETH_centralization_balance
+				modifier = ETH_increase_communist_power_balance  
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+			# Don't do this, too risky
+		}
+	}
 	ETH_bop_increase_the_power_of_the_mekwanint = {
 		icon = GFX_decision_gre_investment_decisions  #TODO_TA set correct icon
 		allowed = { original_tag = ETH }
@@ -2737,6 +2824,7 @@ ETH_centralization_balance_of_power_category = {
 		}
 		fire_only_once = yes
 		complete_effect = {
+			ETH_BOP_decentralization_small_effect = yes
 			country_event = {
 				id = BBA_ethiopia_balance_of_power_events.24
 				hours = 1
@@ -2785,6 +2873,7 @@ ETH_centralization_balance_of_power_category = {
 		}
 		fire_only_once = yes
 		complete_effect = {
+			ETH_BOP_centralization_small_effect = yes
 			country_event = {
 				id = BBA_ethiopia_balance_of_power_events.23
 				hours = 1
@@ -2839,6 +2928,7 @@ ETH_centralization_balance_of_power_category = {
 		}
 		fire_only_once = yes
 		complete_effect = {
+			ETH_BOP_decentralization_small_effect = yes
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT
@@ -2899,6 +2989,7 @@ ETH_centralization_balance_of_power_category = {
 		}
 		fire_only_once = yes
 		complete_effect = {
+			ETH_BOP_centralization_small_effect = yes
 			every_owned_state = {
 				limit = {is_capital = yes}
 				add_building_construction = {
@@ -2933,6 +3024,7 @@ ETH_centralization_balance_of_power_category = {
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
+			ETH_BOP_centralization_small_effect = yes
 			country_event = {
 				id = BBA_ethiopia_balance_of_power_events.25
 				days = 0
@@ -2988,6 +3080,7 @@ ETH_centralization_balance_of_power_category = {
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
+			ETH_BOP_decentralization_small_effect = yes
 			country_event = {
 				id = BBA_ethiopia_balance_of_power_events.26
 				days = 0
@@ -3025,6 +3118,7 @@ ETH_centralization_balance_of_power_category = {
 			delete_unit_template_and_units = {
 				division_template = "Red Guards"
 			}
+			ETH_BOP_decentralization_small_effect = yes
 		}
 		ai_will_do = {
 			base = 100
@@ -3056,6 +3150,7 @@ ETH_centralization_balance_of_power_category = {
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
+			ETH_BOP_centralization_small_effect = yes
 			custom_effect_tooltip = ETH_BoP_expand_red_guards_tt
 			IF = {
 				limit = {NOT = {has_template = "Red Guards"}}
@@ -3118,6 +3213,7 @@ ETH_centralization_balance_of_power_category = {
 		cost = 25
 		fire_only_once = yes
 		complete_effect = {
+			ETH_BOP_decentralization_small_effect = yes
 			custom_effect_tooltip = ETH_BoP_expand_black_lions_tt
 			IF = {
 				limit = {NOT = {has_template = "Black Lions"}}
@@ -3180,6 +3276,7 @@ ETH_centralization_balance_of_power_category = {
 				id = BBA_ethiopia_communist_events.06
 				hours = 1
 			}
+			ETH_BOP_centralization_small_effect = yes
 		}
 		ai_will_do = {
 			base = 100

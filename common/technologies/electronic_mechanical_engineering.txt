@@ -200,8 +200,6 @@ technologies = {
 		coordination_bonus = 0.01
 		enable_equipment_modules = { 
 			ship_radar_2
-			air_ground_radar_1
-			air_air_radar_1
 		}
 
 		path = {
@@ -249,6 +247,7 @@ technologies = {
 		enable_equipment_modules = { 
 			ship_radar_3
 			tank_radio_3
+			air_air_radar_1
 		}
 
 		static_anti_air_hit_chance_factor = 0.2
@@ -295,7 +294,9 @@ technologies = {
 			level = 5
 		}
 		coordination_bonus = 0.01
-		
+		enable_equipment_modules = {
+			air_ground_radar_1
+		}
 
 		static_anti_air_hit_chance_factor = 0.2
 		
@@ -350,6 +351,8 @@ technologies = {
 		
 		enable_equipment_modules = { 
 			ship_radar_4
+			air_ground_radar_2
+			air_air_radar_2
 		}
 		
 		static_anti_air_hit_chance_factor = 0.2
@@ -394,6 +397,7 @@ technologies = {
 			leads_to_tech = basic_fire_control_system
 			research_cost_coeff = 1
 		}
+
 		enable_equipment_modules = {
 			bomb_sights_1
 		}
@@ -480,6 +484,7 @@ technologies = {
 
 		enable_equipment_modules = {
 			stabilizer
+			bomb_sights_2
 		}
 		
 		path = {
@@ -497,9 +502,6 @@ technologies = {
 		path = {
 			leads_to_tech = advanced_fire_control_system
 			research_cost_coeff = 1
-		}
-		enable_equipment_modules = {
-			bomb_sights_2
 		}
 		
 		research_cost = 2.5
@@ -987,17 +989,8 @@ technologies = {
 
 		# can build v1s/rocket planes
 		enable_equipments = {
-			limit = {
-				NOT = { has_dlc = "By Blood Alone" }
-			}
 			rocket_interceptor_equipment_1
-		}
-		enable_equipments = {
 			guided_missile_equipment_1
-		}
-
-		enable_equipment_modules = {
-			rocket_engine_1
 		}
 		
 		rocket_artillery = {
@@ -1048,17 +1041,8 @@ technologies = {
 		# can build v2s
 		
 		enable_equipments = {
-			limit = {
-				NOT = { has_dlc = "By Blood Alone" }
-			}
 			rocket_interceptor_equipment_2
-		}
-		enable_equipments = {
 			guided_missile_equipment_2
-		}
-
-		enable_equipment_modules = {
-			rocket_engine_2
 		}
 		
 		rocket_artillery = {
@@ -1106,17 +1090,8 @@ technologies = {
 		# can build ICBMs?
 		
 		enable_equipments = {
-			limit = {
-				NOT = { has_dlc = "By Blood Alone" }
-			}
 			rocket_interceptor_equipment_3
-		}
-		enable_equipments = {
 			guided_missile_equipment_3
-		}
-
-		enable_equipment_modules = {
-			rocket_engine_3
 		}
 		
 		rocket_artillery = {
@@ -1240,45 +1215,7 @@ technologies = {
 			nuclear
 		}
 		
-		on_research_complete = {
-			hidden_effect = {
-				if = {
-					limit = {
-						has_dlc = "By Blood Alone"
-					}
-					if = {
-						limit = {
-							check_variable = { global.atomic_research_race < 3 }
-						}
-						add_to_variable = { global.atomic_research_race = 1 }
-						if = {
-							limit = {
-								original_tag = ITA
-								NOT = { has_country_flag = ITA_pioneer_in_atomic_research_flag }
-							}
-							set_country_flag = ITA_pioneer_in_atomic_research_flag
-						}
-						else_if = {
-							limit = {
-								check_variable = { global.atomic_research_race = 3 }
-								NOT = {
-									any_country = {
-										original_tag = ITA
-										has_country_flag = ITA_pioneer_in_atomic_research_flag
-									}
-								}
-							}
-							random_country = {
-								limit = {
-									original_tag = ITA
-								}
-								set_country_flag = ITA_late_to_the_atomic_party_flag
-							}
-						}
-					}
-				}
-			}
-		}
+
 	}
 	
 	nuclear_reactor = {

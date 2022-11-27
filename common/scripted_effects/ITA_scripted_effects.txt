@@ -1545,28 +1545,28 @@ ITA_start_civil_war_effect = { #The one triggered via BoP
 	ITA_bop_remove_bop_effect = yes
 
 	# Launch The Civil War
-	# start_civil_war = {
-	# 	ideology = neutrality #SPLITTING TAG
-	# 	ruling_party = fascism #ORIGINAL TAG
-	# 	capital = var:ROOT.ITA_cw_rds_capital
-	# 	states = all
-	# 	states_filter = {
-	# 		has_state_flag = ITA_cw_state_split
-	# 	}
+	start_civil_war = {
+		ideology = neutrality #SPLITTING TAG
+		ruling_party = fascism #ORIGINAL TAG
+		capital = var:ROOT.ITA_cw_rds_capital
+		states = all
+		states_filter = {
+			has_state_flag = ITA_cw_state_split
+		}
 
-	# 	keep_all_characters = yes
+		keep_all_characters = yes
 
-	# 	size = 0.35
-	# 	#army_ratio = var:ITA_cw_army_size
-	# 	#navy_ratio = var:ITA_cw_navyy_size
-	# 	#air_ratio = var:ITA_cw_air_size
+		size = 0.35
+		#army_ratio = var:ITA_cw_army_size
+		#navy_ratio = var:ITA_cw_navyy_size
+		#air_ratio = var:ITA_cw_air_size
 
-	# 	#keep_political_leader = no # When YES -> all characters with country leader role will remain in original tag // ABSURD
-	# 	#keep_political_party_members = no # When YES -> all characters with country leader role will remain in original tag // ABSURD
-	# 	#keep_unit_leaders_trigger = {
-	# 	#	has_unit_leader_flag = ITA_cw_unit_leader_fascist_side_flag
-	# 	#}
-	# }
+		#keep_political_leader = no # When YES -> all characters with country leader role will remain in original tag // ABSURD
+		#keep_political_party_members = no # When YES -> all characters with country leader role will remain in original tag // ABSURD
+		#keep_unit_leaders_trigger = {
+		#	has_unit_leader_flag = ITA_cw_unit_leader_fascist_side_flag
+		#}
+	}
 
 	set_country_flag = ITA_rsi_cw_flag #SET AS RSI ALIAS
 	set_cosmetic_tag = ITA_rsi
@@ -3611,6 +3611,7 @@ ITA_remove_king_vittorio_emanuele_as_idea = {
 		}
 		remove_ideas = vittorio_emanuele_albania_ethiopia
 	}
+	set_country_flag = ITA_deposed_the_king
 }
 
 ITA_add_king_vittorio_emanuele_back_as_idea = { #After having removed him
@@ -3636,6 +3637,12 @@ ITA_add_king_vittorio_emanuele_back_as_idea = { #After having removed him
 	}
 	else = {
 		add_ideas = vittorio_emanuele
+	}
+	if = {
+		limit = {
+			has_country_flag = ITA_deposed_the_king
+		}
+		clr_country_flag = ITA_deposed_the_king
 	}
 }
 
@@ -5292,20 +5299,20 @@ ITA_add_supremacy_in_the_skies_templates = {
 			}
 		icon = "GFX_ITA_tactical_bomber2_medium"
 	}
-
-	create_equipment_variant = {
-		name = "Campini N.1"
-		type = small_plane_airframe_4
-		parent_version = 0
-		modules = {
-				fixed_main_weapon_slot = aircraft_cannon_2_2x
-				fixed_auxiliary_weapon_slot_1 = aircraft_cannon_2_2x
-				engine_type_slot = jet_engine_1x
-				special_type_slot_1 = armor_plate_small
-				special_type_slot_2 = self_sealing_fuel_tanks_small
-			}
-		icon = "GFX_ITA_jet_plane_1_medium"
-	}
+# OP deactivated, could be locked behind date
+#	create_equipment_variant = {
+#		name = "Campini N.1"
+#		type = small_plane_airframe_4
+#		parent_version = 0
+#		modules = {
+#				fixed_main_weapon_slot = aircraft_cannon_2_2x
+#				fixed_auxiliary_weapon_slot_1 = aircraft_cannon_2_2x
+#				engine_type_slot = jet_engine_1x
+#				special_type_slot_1 = armor_plate_small
+#				special_type_slot_2 = self_sealing_fuel_tanks_small
+#			}
+#		icon = "GFX_ITA_jet_plane_1_medium"
+#	}
 
 }
 
@@ -6679,6 +6686,147 @@ ITA_replace_stuff_based_on_ideology_effect = {
 				}
 				remove_dynamic_modifier = { modifier = ITA_regia_marina_3_alt_dynamic_modifier }
 				add_dynamic_modifier = { modifier = ITA_regia_marina_3_dynamic_modifier }
+			}
+		}
+	}
+}
+ITA_forced_italo_ethiopian_peace_deal = {
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					ETH = {
+						any_core_state = {
+							is_controlled_by = ITA
+						}
+					}
+					ITA = {
+						any_owned_state = {
+							is_controlled_by = ETH
+						}
+					}
+				}
+				AND = {
+					ITA = { surrender_progress < 0.01 }
+					ETH = { surrender_progress < 0.01 }
+				}
+			}
+		}
+		ETH = {
+			white_peace = ITA
+		}
+	}
+	else_if = {
+		limit = {
+			ETH = {
+				all_core_state = {
+					is_controlled_by = ITA
+				}
+			}
+		}
+		ITA = {
+			start_peace_conference = {
+				tag = ETH
+				score_factor = 0.25
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			ETH = { surrender_progress > 0.74 }
+		}
+		ITA = {
+			start_peace_conference = {
+				tag = ETH
+				score_factor = 0.20
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			ETH = { surrender_progress > 0.49 }
+		}
+		ITA = {
+			start_peace_conference = {
+				tag = ETH
+				score_factor = 0.15
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			ETH = { surrender_progress > 0.19 }
+		}
+		ITA = {
+			start_peace_conference = {
+				tag = ETH
+				score_factor = 0.1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			ETH = { surrender_progress > 0 }
+		}
+		ITA = {
+			start_peace_conference = {
+				tag = ETH
+				score_factor = 0.05
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			ITA = { surrender_progress > 0.74 }
+		}
+		ETH = {
+			start_peace_conference = {
+				tag = ITA
+				score_factor = 0.125
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			ITA = { surrender_progress > 0.49 }
+		}
+		ETH = {
+			start_peace_conference = {
+				tag = ITA
+				score_factor = 0.1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			ITA = { surrender_progress > 0.19 }
+		}
+		ETH = {
+			start_peace_conference = {
+				tag = ITA
+				score_factor = 0.075
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			ITA = { surrender_progress > 0 }
+		}
+		ETH = {
+			start_peace_conference = {
+				tag = ITA
+				score_factor = 0.05
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			ITA = { surrender_progress < 0.01 }
+		}
+		ETH = {
+			start_peace_conference = {
+				tag = ITA
+				score_factor = 0.025
 			}
 		}
 	}

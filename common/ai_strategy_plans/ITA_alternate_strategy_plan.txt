@@ -1,3 +1,4 @@
+#####-----> Italian Alternate AI Strategy Plan <><> <><> <><> <><> <><>
 ITA_alt_fascist_balbo = {
 	name = "Alternative Fascist - Italo Balbo"
 	desc = "The Italian AI will attempt to oust Mussolini from power, and install Italo Balbo instead to seek an independent path forward."
@@ -15,7 +16,17 @@ ITA_alt_fascist_balbo = {
 		}
 	}
 
-	abort = {
+	abort = {	#copied from old R56 equivalent
+		OR = {
+			AUS = {
+				has_completed_focus = AUS_no_more_tyrants
+				has_completed_focus = AUS_organise_local_raterepubliks
+			}
+			HUN = {
+				has_completed_focus = HUN_elect_a_democratic_king
+				has_completed_focus = HUN_council_of_peoples_commissars
+			}
+		}
 	}
 
 	ai_national_focuses = {
@@ -36,16 +47,16 @@ ITA_alt_fascist_balbo = {
 		ITA_corpo_di_truppe_volontarie 		#35	DIP
 		ITA_topple_amhara_rulers 			#35	COL
 		ITA_railway_innovations				#70	CIV
-		ITA_air_innovations_bba 			#35 AIR
+		ITA_regia_aeronautica_focus 		#35 AIR, R56 replacement
 		ITA_ministry_of_italian_africa 		#35	COL
 		ITA_balkan_ambition					#35	DIP/WAR
 		
 
 		#1938
 		ITA_albanian_occupation 			#35	WAR/DIP
-		ITA_italy_first						#70	DIP/WAR
+		ITA_militarize_the_rome_protocols						#70	DIP/WAR
 		ITA_army_primacy_bba 				#35	ARM
-		ITA_industria_della_gomma_sintetica #35	IND
+		ITA_finance_anic 					#35	IND, R56 replacement
 		ITA_strengthen_northern_industry	#70	CIV/MIL
 		ITA_fiocchi_munizioni 				#35	MIL
 		ITA_citta_dell_aria					#70	AIR/MIL
@@ -93,7 +104,7 @@ ITA_alt_fascist_balbo = {
 		ITA_security_militias				#35	ARM
 
 		#1944
-		ITA_long_range_aircraft				#70	AIR
+		ITA_cant_z_1011						#70	AIR, R56 replacement
 		ITA_supremacy_in_the_skies			#70	AIR
 		ITA_end_fiat_ansaldo_duopoly		#70	ARM
 		ITA_ferrea_mole_ferreo_cuore 		#70	ARM
@@ -104,6 +115,7 @@ ITA_alt_fascist_balbo = {
 
 	#Focuses never to take
 	focus_factors = {
+		ITA_appoint_campioni = 0	#r56, forces focus on destroyers not capital ships, better if likely to fight against bigger navies
 		ITA_culto_del_duce = 0
 		ITA_defy_the_duce = 0
 		ITA_dino_grandi_focus = 0
@@ -146,12 +158,14 @@ ITA_alt_fascist_grandi = {
 		}
 	}
 
-	abort = {
-		ENG = {
-			has_government = communism
-		}
-		FRA = {
-			has_government = communism
+	abort = {	#copied from old R56 equivalent, more accurate than vanilla purely ideology checks
+		OR = {
+			ENG = {
+				has_completed_focus = ENG_concessions_to_the_trade_unions
+			}
+			FRA = {
+				has_completed_focus = FRA_radicalize_front
+			}
 		}
 	}
 
@@ -170,7 +184,8 @@ ITA_alt_fascist_grandi = {
 		#1937	
 		ITA_foreign_affairs 						#35	
 		ITA_corpo_di_truppe_volontarie 				#35 
-		ITA_potential_allies_in_the_balkans			#35	
+		ITA_ally_yugoslavia							#14, R56 edited
+		ITA_potential_allies_in_the_balkans			#21, R56 edited
 		ITA_fiocchi_munizioni 						#35	
 		ITA_ministry_of_italian_africa 				#35
 		ITA_guarantee_austrian_independence			#35
@@ -183,9 +198,9 @@ ITA_alt_fascist_grandi = {
 		ITA_negotiate_italian_claims					
 		ITA_railway_innovations					
 		ITA_ratify_the_stresa_front					
-		ITA_industria_della_gomma_sintetica 		#35	
+		ITA_finance_anic 							#35, R56 replacement
 		ITA_army_primacy_bba						#35	
-		ITA_air_innovations_bba						#35	
+		ITA_regia_aeronautica_focus #r56 replacement,35	
 				
 		#1939	
 		ITA_seek_british_military_cooperation			
@@ -302,7 +317,7 @@ ITA_monarchist_plan = {
 		ITA_fiocchi_munizioni 						#35
 		ITA_topple_amhara_rulers 					#35
 		ITA_naval_power_projection					#35
-		ITA_prospect_for_oil					#35
+		ITA_libyan_refineries						#35, R56 replacement
 			
 		#1938	
 		ITA_steel_industry_in_terni
@@ -317,8 +332,8 @@ ITA_monarchist_plan = {
 		ITA_develop_eritrea							#35
 		ITA_regional_development
 		ITA_support_albanian_irredentism			#35
-		ITA_industria_della_gomma_sintetica 		#35
-		ITA_air_innovations_bba						#35
+		ITA_finance_anic 							#35, R56 replacement
+		ITA_regia_aeronautica_focus #r56 replacement,35
 		ITA_preserve_army_traditions
 		ITA_italian_tankettes						#35			
 			
@@ -364,7 +379,7 @@ ITA_monarchist_plan = {
 		ITA_dino_grandi_focus = 0
 		ITA_guarantee_austrian_independence = 0
 		ITA_pact_of_steel = 0
-		ITA_italy_first = 0
+		ITA_militarize_the_rome_protocols = 0
 		ITA_revoke_the_acerbo_law = 0
 		ITA_towards_a_greater_italy = 0
 		ITA_seek_papal_support = 0 #No pope popping up
@@ -437,14 +452,15 @@ ITA_christian_democracy_plan = {
 		ITA_disband_the_blackshirts					#35
 		ITA_expand_intelligence_services			#35
 		ITA_steel_industry_in_terni
-		ITA_potential_allies_in_the_balkans			#35
+		ITA_ally_yugoslavia							#14, R56 edited
+		ITA_potential_allies_in_the_balkans			#21, R56 edited
 		ITA_albanian_occupation						#35
 		ITA_railway_innovations
 		ITA_investments_in_edison
 				
 		#1939
 		ITA_crush_opposition						#35
-		ITA_italy_first
+		ITA_militarize_the_rome_protocols
 		ITA_develop_libya							#35
 		ITA_italian_irredentism
 		ITA_war_with_france
@@ -461,7 +477,7 @@ ITA_christian_democracy_plan = {
 		#1941	
 		ITA_prepare_for_the_coming_wars
 		ITA_superesercito							#35
-		ITA_air_innovations_bba						#35
+		ITA_regia_aeronautica_focus #r56 replacement,35
 		ITA_increase_artillery_production
 		ITA_comandante_diavolo
 		ITA_self_propelled_guns
@@ -491,7 +507,7 @@ ITA_christian_democracy_plan = {
 		ITA_dino_grandi_focus = 0
 		ITA_guarantee_austrian_independence = 0
 		ITA_pact_of_steel = 0
-		ITA_italy_first = 0
+		ITA_militarize_the_rome_protocols = 0
 		ITA_power_to_the_king = 0
 		ITA_democratic_king = 0
 		ITA_towards_a_greater_italy = 0
@@ -575,7 +591,7 @@ ITA_communist_plan = {
 		ITA_develop_ethiopia						#35
 		ITA_develop_somaliland						#35
 		ITA_regional_development
-		ITA_litoranea_balbo							#35
+		ITA_finish_the_litoranea_libica				#35, R56 replacement
 		ITA_new_ricostruzione_industriale
 		ITA_enlist_the_bashkimi_kombetar			#35
 		ITA_fiocchi_munizioni 						#35
@@ -605,7 +621,7 @@ ITA_communist_plan = {
 		ITA_self_propelled_guns
 		ITA_end_fiat_ansaldo_duopoly				#35
 		ITA_ferrea_mole_ferreo_cuore				#35
-		ITA_air_innovations_bba						#35
+		ITA_regia_aeronautica_focus #r56 replacement,35
 		ITA_citta_dell_aria
 		
 		#1943
@@ -615,6 +631,7 @@ ITA_communist_plan = {
 
 	#Focuses never to take
 	focus_factors = {
+		ITA_appoint_campioni = 0	#r56, forces focus on destroyers not capital ships, better if likely to fight against bigger navies
 		ITA_culto_del_duce = 0
 		ITA_monarchia_d_italia = 0
 		ITA_italian_socialism = 0
@@ -707,7 +724,7 @@ ITA_democratic_plan = {
 		ITA_bring_back_exiled_intellectuals
 		ITA_social_stability						#35
 		ITA_italia_libera							#35
-		ITA_industria_della_gomma_sintetica			#35
+		ITA_finance_anic							#35, R56 replacement
 
 		#1941
 		ITA_the_fight_overseas
@@ -721,11 +738,11 @@ ITA_democratic_plan = {
 		ITA_superesercito							#35
 		ITA_supermarina								#35
 		ITA_self_propelled_guns
-		ITA_incrociatori_leggeri					#35
+		ITA_cavagnari_plan							#35, R56 replacement
 		ITA_midget_submarines						#35
 		ITA_end_fiat_ansaldo_duopoly				#35
 		ITA_ferrea_mole_ferreo_cuore				#35
-		ITA_air_innovations_bba						#35
+		ITA_regia_aeronautica_focus #r56 replacement,35
 		ITA_citta_dell_aria
 	}	
 
@@ -735,18 +752,10 @@ ITA_democratic_plan = {
 		ITA_monarchia_d_italia = 0
 		ITA_the_popular_front = 0
 		ITA_abolish_the_colonies = 0
-	}		
-
-	research = {
-
 	}
 
-	ideas = {
-
-	}
-
-	# Keep small, as it is used as a factor for some things (such as research needs)
-	# Recommended around 1.0. Useful for relation between plans
+	#Keep small, as it is used as a factor for some things, such as research needs.
+	#Recommended around 1.0. Useful for relation between plans.
 	weight = {
 		factor = 1.0
 		modifier = {
@@ -754,3 +763,5 @@ ITA_democratic_plan = {
 		}
 	}
 }
+
+#####-----> End of File <><> <><> <><> <><> <><>
