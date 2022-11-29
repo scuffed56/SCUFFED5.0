@@ -7,8 +7,8 @@ NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 2000             -- WAS 500
 NDefines.NMilitary.MAX_AIR_EXPERIENCE = 2000			   -- WAS 500
 NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 2000		   -- WAS 500
 
-NDefines.NMilitary.LAND_EQUIPMENT_BASE_COST = 3					-- VANILLA 10 Cost in XP to upgrade a piece of equipment one level is base + ( total levels * ramp )
-NDefines.NMilitary.LAND_EQUIPMENT_RAMP_COST = 0		 				-- VANILLA 5
+NDefines.NMilitary.LAND_EQUIPMENT_BASE_COST = 5				-- VANILLA 10 Cost in XP to upgrade a piece of equipment one level is base + ( total levels * ramp )
+NDefines.NMilitary.LAND_EQUIPMENT_RAMP_COST = 5		 				-- VANILLA 5
 
 NDefines.NMilitary.COMBAT_MINIMUM_TIME = 2                    --VANILLA 4; Changed so micro feels more fluid when cancelling
 
