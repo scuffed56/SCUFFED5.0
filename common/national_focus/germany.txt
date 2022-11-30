@@ -8488,7 +8488,7 @@ focus_tree = {
 			focus = GER_rally_the_monarchists
 		}
 		#relative_position_id = GER_political_sphere
-		x = 88
+		x = 90
 		y = 0
 		offset = {
 			x = -51
@@ -8527,7 +8527,7 @@ focus_tree = {
 	focus = {
 		id = GER_political_turmoil
 		icon = GFX_goal_GER_take_advantage_of_political_turmoil
-		cost = 10.00
+		cost = 0.2
 		prerequisite = {
 			focus = GER_kill_hitler
 		}
@@ -8541,162 +8541,11 @@ focus_tree = {
 		ai_will_do = {
 			factor = 50
 		}
-		completion_reward = {
-			custom_effect_tooltip = GER_civil_war_tt
-			hidden_effect = {
-				every_owned_state = { #get out of warzones
-					limit = {
-						OR = {
-							state = 60
-							state = 65
-							state = 989 #East Rhineland
-							state = 50 
-							state = 51 #Rhineland
-							state = 52 #Bavaria
-							state = 53 #Bavaria
-							state = 54 #Bavaria
-							state = 59 #Hannover, heavily contested
-							state = 42 #Mosselland
-							state = 922
-							state = 923 #Baden
-							state = 67 #Oppeln
-						}
-					}
-					teleport_armies = {
-						limit = {
-							tag = GER
-						}
-						to_state = 56 #tried array, didnt work right, this is a strategic place
-					}
-				}
-				if = {
-					limit = {
-						is_faction_leader = yes
-						NOT = {
-							any_other_country = {
-								is_in_faction_with = GER
-							}
-						}
-					}
-					dismantle_faction = yes
-				}
-				add_popularity = {
-					ideology = fascism
-					popularity = 0.3 #these are splitting off
-				}
-				create_dynamic_country = { #commies
-					original_tag = GER
-					set_country_flag = is_commie_ger_cw
-					transfer_state = 60
-					transfer_state = 65
-					set_province_controller = 9560
-					set_province_controller = 9375
-					set_province_controller = 6218
-					set_province_controller = 6377
-					set_province_controller = 6487
-					set_province_controller = 11468
-					set_province_controller = 11402
-					set_province_controller = 11493
-					set_province_controller = 6513
-					set_province_controller = 526
-					set_province_controller = 3522
-					set_province_controller = 3526
-					set_province_controller = 6298
-					set_politics = {
-						ruling_party = communism
-					}
-					add_popularity = {
-						ideology = communism
-						popularity = 0.75
-					}
-					declare_war_on = {
-						target = GER
-						type = civil_war
-					}
-					add_civil_war_target = ROOT #does not seem to work like wiki lists
-					set_capital = {state = 65} #largest communist share
-					load_focus_tree = german_focus #seems I cant keep progress since they are a different tag, force path
-					unlock_national_focus = GER_kill_hitler
-					unlock_national_focus = GER_political_turmoil
-					complete_national_focus = GER_repeal_reichstag_fire_decree
-					#do not split units yet, because player could sabotage the nazis before picking in event
-					add_ideas = {
-						extensive_conscription
-						war_economy
-					}
-					set_rule = {
-						can_send_volunteers = yes
-					}
-				}
-				create_dynamic_country = { #democrats
-					original_tag = GER
-					set_country_flag = is_democratic_ger_cw
-					transfer_state = 989 #East Rhineland
-					transfer_state = 50 
-					transfer_state = 51 #Rhineland
-					transfer_state = 52 #Bavaria
-					transfer_state = 53 #Bavaria
-					transfer_state = 54 #Bavaria
-					transfer_state = 42 #Mosselland
-					transfer_state = 922
-					transfer_state = 923 #Baden
-					transfer_state = 67 #Oppeln
-					set_politics = {
-						ruling_party = democratic
-					}
-					set_popularities = {
-						democratic = 45
-						neutrality = 25
-						fascism = 10
-						communism = 20
-					}
-					declare_war_on = {
-						target = GER
-						type = civil_war
-					}
-					add_civil_war_target = ROOT #does not seem to work like wiki lists
-					every_country = { #declare war on commie side
-						limit = {
-							original_tag = GER
-							not = {
-								tag = GER
-							}
-						}
-						declare_war_on = {
-							target = PREV
-							type = civil_war
-						}
-						add_civil_war_target = PREV #does not seem to work like wiki lists
-					}
-					load_focus_tree = german_focus #seems I cant keep progress since they are a different tag, force path
-					unlock_national_focus = GER_kill_hitler
-					unlock_national_focus = GER_political_turmoil
-					complete_national_focus = GER_restore_weimar  #no switching ideology afterwards :P
-					#do not split units yet, because player could sabotage the nazis before picking in event
-					add_ideas = {
-						limited_conscription
-						partial_economic_mobilisation
-					}
-					set_rule = {
-						can_send_volunteers = yes
-					}
-				}
-				uncomplete_national_focus = {
-					focus = GER_kill_hitler
-					uncomplete_children = yes
-					refund_political_power = no
-				}
-				complete_national_focus = GER_denounce_versailles
-				unlock_national_focus = GER_rhineland
-			}
-			country_event = r56.ger.25
-			set_global_flag = r56_german_cw_ongoing
-		}
 	}
 	focus = {
 		id = GER_repeal_reichstag_fire_decree
 		icon = GFX_goal_ger_kpd
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_political_turmoil
 		}
@@ -8723,14 +8572,12 @@ focus_tree = {
 	focus = {
 		id = GER_world_revolution
 		icon = GFX_goal_support_fourth_int
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_repeal_reichstag_fire_decree
 		}
-		mutually_exclusive = {
-			focus = GER_alliance_with_soviets
-		}
-		x = -1
+		x = 0
+
 		y = 1
 		relative_position_id = GER_repeal_reichstag_fire_decree
 		ai_will_do = {
@@ -8757,13 +8604,22 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_cosmetic_tag = GER_civil_war
+
+			
 			set_rule = {
 				can_create_factions = yes
 			}
-			# set_politics = { #unnecessary with cw
-			# 	ruling_party = communism
-			# 	elections_allowed = no
-			# }
+			 set_politics = {
+			 	ruling_party = communism
+
+			 	elections_allowed = no
+			 }
+			set_popularities = {
+				democratic = 10
+				neutrality = 10
+				fascism = 30
+				communism = 50
+			}
 			add_ideas = GER_world_revolution_idea
 			GER_ernst_thalmann = {
 				set_portraits = { #revert to fancy uniform which he doesnt use during the civil war
@@ -8783,83 +8639,11 @@ focus_tree = {
 
 	}
 	focus = {
-		id = GER_alliance_with_soviets
-		icon = GFX_focus_chi_mission_to_the_soviet_union
-		cost = 10.00
-		prerequisite = {
-			focus = GER_repeal_reichstag_fire_decree
-		}
-		mutually_exclusive = {
-			focus = GER_world_revolution
-		}
-		x = 1
-		y = 1
-		relative_position_id = GER_repeal_reichstag_fire_decree
-		ai_will_do = {
-			factor = 10
-		}
-		available = {
-			is_puppet = no
-			has_civil_war = no
-			SOV = {
-				NOT = {
-					has_war_with = GER
-				}
-				is_puppet = no
-			}
-		}
-		# bypass = { #free, locked units need to be removed and cant be done during cw
-		# 	has_civil_war = no
-		# 	SOV = {
-		# 		r56_script_standard_bypass = yes
-		# 	}
-		# }
-		completion_reward = {
-			set_cosmetic_tag = GER_civil_war
-			if = {
-				limit = {
-					is_faction_leader = yes
-				}
-				custom_effect_tooltip = ger_sov_buddies_tooltip_2
-			}
-			#custom_effect_tooltip = ger_sov_buddies_tooltip
-			add_ideas = soviet_german_friendship
-			SOV = {
-				add_opinion_modifier = {
-					target = GER
-					modifier = ger_sov_alliance_focus
-				}
-				add_ideas = soviet_german_friendship
-				country_event = germany.89
-			}
-			# set_politics = { #unnecessary with cw
-			# 	ruling_party = communism
-			# 	elections_allowed = no
-			# }
-			GER_ernst_thalmann = {
-				set_portraits = { #revert to fancy uniform which he doesnt use during the civil war
-					civilian = {
-						large="gfx/leaders/GER/r56_portrait_GER_ernst_thalmann.dds"
-					}
-				}
-			}
-			delete_unit_template_and_units = {
-				division_template = "Rotesregiment"
-				disband = yes
-			}
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-
-	}
-	focus = {
 		id = GER_rehabilitate_military
 		icon = GFX_goal_generic_small_arms
 		cost = 10.00
 		prerequisite = {
 			focus = GER_world_revolution
-			focus = GER_alliance_with_soviets
 		}
 		x = 0
 		y = 2
@@ -8930,14 +8714,14 @@ focus_tree = {
 	focus = {
 		id = GER_restore_weimar
 		icon = GFX_goal_GER_restore_weimar
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_political_turmoil
 		}
 		mutually_exclusive = {
 			focus = GER_repeal_reichstag_fire_decree
 		}
-		x = 3
+		x = 7
 		y = 1
 		relative_position_id = GER_political_turmoil
 		ai_will_do = {
@@ -8963,18 +8747,18 @@ focus_tree = {
 					planning_skill = 2
 					logistics_skill = 3
 				}
-				# create_field_marshal = {
-				# 	name = "Werner von Fritsch"
-				# 	picture = "r56_portrait_GER_Werner_von_Fritsch.dds"
-				# 	traits = {
-				# 		infantry_leader skilled_staffer expert_delegator
-				# 	}
-				# 	skill = 3
-				# 	attack_skill = 2
-				# 	defense_skill = 3
-				# 	planning_skill = 3
-				# 	logistics_skill = 2
-				# }
+				create_field_marshal = {
+					name = "Werner von Fritsch"
+					picture = "r56_portrait_GER_Werner_von_Fritsch.dds"
+					traits = {
+						infantry_leader skilled_staffer expert_delegator
+					}
+					skill = 3
+					attack_skill = 2
+					defense_skill = 3
+					planning_skill = 3
+					logistics_skill = 2
+				}
 			}
 		}
 
@@ -8982,7 +8766,7 @@ focus_tree = {
 	focus = {
 		id = GER_establish_bundesrepublik
 		icon = GFX_goal_GER_flag_germany_democratic
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_restore_weimar
 		}
@@ -8997,6 +8781,17 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_cosmetic_tag = GER_civil_war
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
+				election_frequency = 48
+			}
+			set_popularities = {
+				democratic = 50
+				neutrality = 15
+				fascism = 30
+				communism = 5
+			}
 			add_timed_idea = {
 				idea = GER_restore_weimar_idea
 				days = 730
@@ -9047,7 +8842,7 @@ focus_tree = {
 	focus = {
 		id = GER_post_fascism_recovery
 		icon = GFX_goal_generic_production
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_establish_bundesrepublik
 		}
@@ -9076,7 +8871,7 @@ focus_tree = {
 			focus = GER_post_fascism_recovery
 		}
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = GER_post_fascism_recovery
 		ai_will_do = {
 			factor = 10
@@ -9091,68 +8886,67 @@ focus_tree = {
 			FOCUS_FILTER_INDUSTRY
 		}
 	}
-	# focus = {
-	# 	id = GER_marshall_plan
-	# 	icon = GFX_focus_chi_mission_to_the_us
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_post_fascism_recovery
-	# 	}
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = GER_post_fascism_recovery
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_marshall_plan_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	 focus = {
+	 	id = GER_marshall_plan
+		icon = GFX_focus_chi_mission_to_the_us
+		cost = 5.00
+	 	prerequisite = {
+			focus = GER_post_fascism_recovery
+		}
+		x = -2
+		y = 1
+		relative_position_id = GER_post_fascism_recovery
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_marshall_plan_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	 }
+	focus = {
+		id = GER_post_war_economics
+		icon = GFX_goal_generic_consumer_goods
+		cost = 5.00
+		prerequisite = {
+			focus = GER_establish_bundesrepublik
+		}
+		relative_position_id = GER_establish_bundesrepublik
+		x = 3
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_post_war_economics_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT
+		}
+	}
+	focus = {
+		id = GER_civilian_infrastructure
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 5
+		prerequisite = {
+			focus = GER_post_war_economics
+		}
+		relative_position_id = GER_post_war_economics
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_civilian_infrastructure_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 
-	# }
-	# focus = {
-	# 	id = GER_post_war_economics
-	# 	icon = GFX_goal_generic_consumer_goods
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_establish_bundesrepublik
-	# 	}
-	# 	relative_position_id = GER_establish_bundesrepublik
-	# 	x = 1
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_post_war_economics_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT
-	# 	}
-	# }
-	# focus = {
-	# 	id = GER_civilian_infrastructure
-	# 	icon = GFX_goal_generic_construct_infrastructure
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_post_war_economics
-	# 	}
-	# 	relative_position_id = GER_post_war_economics
-	# 	x = 0
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_civilian_infrastructure_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
-
-	# }
+	}
 	focus = {
 		id = GER_establish_bundeswehr
 		icon = GFX_goal_generic_allies_build_infantry
@@ -9180,7 +8974,7 @@ focus_tree = {
 		}
 		relative_position_id = GER_establish_bundeswehr
 		x = 0
-		y = 1
+		y = 2
 		ai_will_do = {
 			factor = 10
 		}
@@ -9195,7 +8989,7 @@ focus_tree = {
 	focus = {
 		id = GER_combine_SS_gestapo
 		icon = GFX_goal_generic_secret_police_2
-		cost = 5
+		cost = 10
 		prerequisite = {
 			focus = GER_denounce_versailles
 		}
@@ -9206,7 +9000,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			#add_ideas = GER_combine_SS_gestapo_idea
+			add_ideas = GER_combine_SS_gestapo_idea
 			add_tech_bonus = {
 				name = mp_focus
 				bonus = 1
@@ -9297,6 +9091,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			#add_ideas = GER_military_industrial_complex_idea#
 			if = {
 				limit = {
 					NOT = {
@@ -9357,9 +9152,6 @@ focus_tree = {
 				set_state_flag = GER_german_war_economy
 			}
 		}
-		# completion_reward = {
-		# 	add_ideas = GER_military_industrial_complex_idea#
-		# }
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
@@ -9605,7 +9397,7 @@ focus_tree = {
 	focus = {
 		id = GER_a_new_reich
 		icon = GFX_focus_ger_oppose_hitler
-		cost = 15.00
+		cost = 5
 		prerequisite = {
 			focus = GER_rally_the_monarchists
 		}
@@ -9624,12 +9416,7 @@ focus_tree = {
 					neutrality<0.4
 				}
 				random_list = {
-					70 = {
-						country_event = {
-							id = erwache.5
-						}
-					}
-					30 = {
+					100 = {
 						country_event = {
 							id = erwache.4
 						}
@@ -9641,12 +9428,7 @@ focus_tree = {
 					neutrality < 0.6
 				}
 				random_list = {
-					55 = {
-						country_event = {
-							id = erwache.5
-						}
-					}
-					45 = {
+					100 = {
 						country_event = {
 							id = erwache.4
 						}
@@ -9655,12 +9437,7 @@ focus_tree = {
 			}
 			else = {
 				random_list = {
-					25 = {
-						country_event = {
-							id = erwache.5
-						}
-					}
-					75 = {
+					100 = {
 						country_event = {
 							id = erwache.4
 						}
@@ -9678,7 +9455,7 @@ focus_tree = {
 	focus = {
 		id = GER_consolidate_new_reich
 		icon = GFX_focus_ger_revive_kaiserreich
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_a_new_reich
 		}
@@ -9696,7 +9473,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			remove_ideas = GER_unstable_government
-			#add_ideas = GER_fourth_reich
+			add_ideas = GER_fourth_reich
 			if = {
 				limit = {
 					is_in_faction = no
@@ -9963,7 +9740,7 @@ focus_tree = {
 	# 		is_subject = no
 	# 	}
 	# 	relative_position_id = GER_consolidate_new_reich
-	# 	x = -13
+	# 	x = -2
 	# 	y = 1
 	# 	ai_will_do = {
 	# 		factor = 10
@@ -11186,13 +10963,12 @@ focus_tree = {
 	focus = {
 		id = GER_collectivize_industry
 		icon = GFX_goal_generic_commie_investments
-		cost = 10.00
+		cost = 10
 		prerequisite = {
-			focus = GER_alliance_with_soviets
 			focus = GER_world_revolution
 		}
-		relative_position_id = GER_alliance_with_soviets
-		x = 1
+		relative_position_id = GER_world_revolution
+		x = 2
 		y = 2
 		ai_will_do = {
 			factor = 10
@@ -12033,7 +11809,7 @@ focus_tree = {
 			focus = GER_expansionism_light
 		}
 		x = 1
-		y = 1
+		y = 4
 		relative_position_id = GER_replace_reichsmark
 		ai_will_do = {
 			factor = 10
@@ -12063,7 +11839,7 @@ focus_tree = {
 			is_subject = no
 		}
 		x = 15
-		y = 1
+		y = 4
 		relative_position_id = GER_replace_reichsmark
 		ai_will_do = {
 			factor = 10
