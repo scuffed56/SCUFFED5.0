@@ -2215,7 +2215,7 @@ country_event = {
 			is_puppet = no # can't do anything if puppet
 		}
 		ai_chance = {
-		 	factor = 90
+		 	factor = 1000
 			modifier = {																									###### Change made for CZKE mod  line added
 				add = 100																									###### Change made for CZKE mod  line added
 				CZE = {	NOT = { has_completed_focus = CZKE_petition_league_of_nations }										###### Change made for CZKE mod  line added
@@ -2316,129 +2316,129 @@ country_event = {
 			remove_from_faction = CZE
 		}
 	}
-	option = { # Support the Czechs
-		name = germany.40.b
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				is_in_faction_with = GER
-			}
-			modifier = {																								###### Change made for CZKE mod  line added
-				factor = 100																							###### Change made for CZKE mod  line added
-				CZE = {	has_completed_focus = CZKE_petition_league_of_nations } 										###### Change made for CZKE mod  line added
-			}																											###### Change made for CZKE mod  line added
-			modifier = {
-				factor = 0
-				ENG_is_on_historical_plan_trigger = yes
-				NOT = { 
-					is_in_faction_with = CZE
-					has_war_with = GER
-				}
-			}
-			modifier = {
-				factor = 3
-				has_government = communism
-				CZE = { has_government = communism }
-			}
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = ENG_ai_behavior 
-						option = NEUTRALITY
-					}
-					has_game_rule = {
-						rule = ENG_ai_behavior 
-						option = COMMUNIST
-					}
-				}
-				NOT = { 
-					is_in_faction_with = CZE
-					has_war_with = GER
-				}
-			}
-		}
-		if = {
-			limit = {
-				is_in_faction_with = GER
-				is_faction_leader = yes
-			}
-			remove_from_faction = GER
-		}
-		if = {
-			limit = {
-				is_in_faction_with = GER
-				is_faction_leader = no
-			}
-			GER = { remove_from_faction = ENG }
-		}
-		if = {
-			limit = {
-				NOT = { has_completed_focus = ENG_no_further_appeasement }
-			}
-			add_political_power = -200
-		}
-		add_opinion_modifier = { target = GER modifier = condemn_aggression }
-		effect_tooltip = {
-			GER = {
-				create_wargoal = {
-					type = take_state_focus
-					target = CZE
-					generator = { 69 }
-				}
-			}
-		}
-		if = {
-			limit = { 
-				is_in_faction = yes
-				CZE = { is_in_faction = no }	   
-			}
-			random_country = {
-				limit = {
-					is_faction_leader = yes
-					is_in_faction_with = ROOT #this may in fact be ROOT, since countries are in a faction with themselves!
-				}
-				add_to_faction = CZE
-			}							   
-		}
-		if = {
-			limit = {
-				tag = HOL
-			}
-			CZE = {
-				add_ai_strategy = {
-					type = alliance
-					id = "HOL"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = {
-				tag = HOL
-			}
-			CZE = {
-				add_ai_strategy = {
-					type = alliance
-					id = "ENG"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = { tag = HOL }
-				FRA = {
-					NOT = { has_war_with = CZE }
-				}
-			}
-			FRA = { country_event = germany.42 }
-		}
-		CZE = {
-			add_opinion_modifier = { target = ROOT modifier = offered_support }
-		}
-	}
+	# option = { # Support the Czechs
+	# 	name = germany.40.b
+	# 	ai_chance = {
+	# 		factor = 10
+	# 		modifier = {
+	# 			factor = 0
+	# 			is_in_faction_with = GER
+	# 		}
+	# 		modifier = {																								###### Change made for CZKE mod  line added
+	# 			factor = 100																							###### Change made for CZKE mod  line added
+	# 			CZE = {	has_completed_focus = CZKE_petition_league_of_nations } 										###### Change made for CZKE mod  line added
+	# 		}																											###### Change made for CZKE mod  line added
+	# 		modifier = {
+	# 			factor = 0
+	# 			ENG_is_on_historical_plan_trigger = yes
+	# 			NOT = { 
+	# 				is_in_faction_with = CZE
+	# 				has_war_with = GER
+	# 			}
+	# 		}
+	# 		modifier = {
+	# 			factor = 3
+	# 			has_government = communism
+	# 			CZE = { has_government = communism }
+	# 		}
+	# 		modifier = {
+	# 			factor = 0
+	# 			OR = {
+	# 				has_game_rule = {
+	# 					rule = ENG_ai_behavior 
+	# 					option = NEUTRALITY
+	# 				}
+	# 				has_game_rule = {
+	# 					rule = ENG_ai_behavior 
+	# 					option = COMMUNIST
+	# 				}
+	# 			}
+	# 			NOT = { 
+	# 				is_in_faction_with = CZE
+	# 				has_war_with = GER
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			is_in_faction_with = GER
+	# 			is_faction_leader = yes
+	# 		}
+	# 		remove_from_faction = GER
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			is_in_faction_with = GER
+	# 			is_faction_leader = no
+	# 		}
+	# 		GER = { remove_from_faction = ENG }
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			NOT = { has_completed_focus = ENG_no_further_appeasement }
+	# 		}
+	# 		add_political_power = -200
+	# 	}
+	# 	add_opinion_modifier = { target = GER modifier = condemn_aggression }
+	# 	effect_tooltip = {
+	# 		GER = {
+	# 			create_wargoal = {
+	# 				type = take_state_focus
+	# 				target = CZE
+	# 				generator = { 69 }
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = { 
+	# 			is_in_faction = yes
+	# 			CZE = { is_in_faction = no }	   
+	# 		}
+	# 		random_country = {
+	# 			limit = {
+	# 				is_faction_leader = yes
+	# 				is_in_faction_with = ROOT #this may in fact be ROOT, since countries are in a faction with themselves!
+	# 			}
+	# 			add_to_faction = CZE
+	# 		}							   
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			tag = HOL
+	# 		}
+	# 		CZE = {
+	# 			add_ai_strategy = {
+	# 				type = alliance
+	# 				id = "HOL"
+	# 				value = 200
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			tag = HOL
+	# 		}
+	# 		CZE = {
+	# 			add_ai_strategy = {
+	# 				type = alliance
+	# 				id = "ENG"
+	# 				value = 200
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			NOT = { tag = HOL }
+	# 			FRA = {
+	# 				NOT = { has_war_with = CZE }
+	# 			}
+	# 		}
+	# 		FRA = { country_event = germany.42 }
+	# 	}
+	# 	CZE = {
+	# 		add_opinion_modifier = { target = ROOT modifier = offered_support }
+	# 	}
+	# }
 }
 
 # France (Britain Backs Down)
@@ -2544,153 +2544,153 @@ country_event = {
 			}
 		}
 	}
-	option = { # Support the Czechs alone
-		name = germany.41.b 
-		trigger = { is_puppet = no }
-		ai_chance = {
-			factor = 5
-			modifier = {
-				factor = 0
-				is_in_faction_with = GER
-			}
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-				NOT = {
-					is_in_faction_with = CZE
-				}
-			}
-			modifier = {
-				factor = 0
-				has_global_flag = FRA_GER_sphere_of_influence_agreement
-			}			
-			modifier = {
-				factor = 6
-				has_government = communism
-				CZE = { has_government = communism }
-			}
-		}
-		if = {
-			limit = {
-				is_in_faction_with = CZE
-				has_completed_focus = FRA_little_entente
-			}
-			add_political_power = -100
-		}
-		if = {
-			limit = {
-				OR = {
-					NOT = { has_completed_focus = FRA_little_entente }
-					NOT = { is_in_faction_with = CZE } 
-				}
-			}
-			add_political_power = -200
-		}
-		add_opinion_modifier = { target = GER modifier = condemn_aggression }
-		CZE = { 
-			country_event = germany.45
-			add_opinion_modifier = { target = FRA modifier = offered_support }
-		}
-		GER = {
-			country_event = germany.48
-			effect_tooltip = {
-				create_wargoal = {
-					type = take_state_focus
-					target = CZE
-					generator = { 69 }
-				}
-			}
-		}
-		if = {
-			limit = { is_in_faction_with = ENG }
-			ENG = { 
-				country_event = germany.43 
-				if = {
-					limit = {
-						is_faction_leader = yes
-					}
-					remove_from_faction = FRA
-					else = {
-						FRA = { remove_from_faction = ENG }
-					}
-				}
-			}
-		}
-		if = {
-			limit = { is_in_faction_with = GER }
-			if = {
-				limit = { GER = { is_faction_leader = yes } }
-				GER = { 
-					remove_from_faction = FRA
-				}
-				else = {
-					remove_from_faction = GER
-				}
-			}
-		}
-		if = {
-			limit = {
-				is_in_faction = yes
-				is_faction_leader = yes
-				NOT = { is_in_faction_with = ENG }
-				NOT = { is_in_faction_with = GER }
-				NOT = { is_in_faction_with = CZE }
-				CZE = { is_in_faction = no }
-			}
-			add_to_faction = CZE
-			CZE = {
-				add_ai_strategy = {
-					type = alliance
-					id = "FRA"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = {
-				OR = {
-					is_in_faction = no
-					AND = {
-						is_faction_leader = no
-						is_in_faction_with = ENG
-					}
-					is_in_faction_with = GER
-				}
-				CZE = { is_in_faction = no }
-			}
-			create_faction = "french_alliance"
-			set_rule = { can_create_factions = yes }
-			add_to_faction = CZE
-			CZE = {
-				add_ai_strategy = {
-					type = alliance
-					id = "FRA"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = {
-				is_in_faction = no
-				CZE = { 
-					is_faction_leader = yes 
-					has_completed_focus = CZKE_revive_little_entente
-				}
-			}
-			CZE = { add_to_faction = FRA }
-			FRA = {
-				add_ai_strategy = {
-					type = alliance
-					id = "CZE"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = { NOT = { has_completed_focus = FRA_little_entente } }
-			add_stability = 0.05
-		}
-	}
+	# option = { # Support the Czechs alone
+	# 	name = germany.41.b 
+	# 	trigger = { is_puppet = no }
+	# 	ai_chance = {
+	# 		factor = 5
+	# 		modifier = {
+	# 			factor = 0
+	# 			is_in_faction_with = GER
+	# 		}
+	# 		modifier = {
+	# 			factor = 0
+	# 			is_historical_focus_on = yes
+	# 			NOT = {
+	# 				is_in_faction_with = CZE
+	# 			}
+	# 		}
+	# 		modifier = {
+	# 			factor = 0
+	# 			has_global_flag = FRA_GER_sphere_of_influence_agreement
+	# 		}			
+	# 		modifier = {
+	# 			factor = 6
+	# 			has_government = communism
+	# 			CZE = { has_government = communism }
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			is_in_faction_with = CZE
+	# 			has_completed_focus = FRA_little_entente
+	# 		}
+	# 		add_political_power = -100
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			OR = {
+	# 				NOT = { has_completed_focus = FRA_little_entente }
+	# 				NOT = { is_in_faction_with = CZE } 
+	# 			}
+	# 		}
+	# 		add_political_power = -200
+	# 	}
+	# 	add_opinion_modifier = { target = GER modifier = condemn_aggression }
+	# 	CZE = { 
+	# 		country_event = germany.45
+	# 		add_opinion_modifier = { target = FRA modifier = offered_support }
+	# 	}
+	# 	GER = {
+	# 		country_event = germany.48
+	# 		effect_tooltip = {
+	# 			create_wargoal = {
+	# 				type = take_state_focus
+	# 				target = CZE
+	# 				generator = { 69 }
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = { is_in_faction_with = ENG }
+	# 		ENG = { 
+	# 			country_event = germany.43 
+	# 			if = {
+	# 				limit = {
+	# 					is_faction_leader = yes
+	# 				}
+	# 				remove_from_faction = FRA
+	# 				else = {
+	# 					FRA = { remove_from_faction = ENG }
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = { is_in_faction_with = GER }
+	# 		if = {
+	# 			limit = { GER = { is_faction_leader = yes } }
+	# 			GER = { 
+	# 				remove_from_faction = FRA
+	# 			}
+	# 			else = {
+	# 				remove_from_faction = GER
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			is_in_faction = yes
+	# 			is_faction_leader = yes
+	# 			NOT = { is_in_faction_with = ENG }
+	# 			NOT = { is_in_faction_with = GER }
+	# 			NOT = { is_in_faction_with = CZE }
+	# 			CZE = { is_in_faction = no }
+	# 		}
+	# 		add_to_faction = CZE
+	# 		CZE = {
+	# 			add_ai_strategy = {
+	# 				type = alliance
+	# 				id = "FRA"
+	# 				value = 200
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			OR = {
+	# 				is_in_faction = no
+	# 				AND = {
+	# 					is_faction_leader = no
+	# 					is_in_faction_with = ENG
+	# 				}
+	# 				is_in_faction_with = GER
+	# 			}
+	# 			CZE = { is_in_faction = no }
+	# 		}
+	# 		create_faction = "french_alliance"
+	# 		set_rule = { can_create_factions = yes }
+	# 		add_to_faction = CZE
+	# 		CZE = {
+	# 			add_ai_strategy = {
+	# 				type = alliance
+	# 				id = "FRA"
+	# 				value = 200
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			is_in_faction = no
+	# 			CZE = { 
+	# 				is_faction_leader = yes 
+	# 				has_completed_focus = CZKE_revive_little_entente
+	# 			}
+	# 		}
+	# 		CZE = { add_to_faction = FRA }
+	# 		FRA = {
+	# 			add_ai_strategy = {
+	# 				type = alliance
+	# 				id = "CZE"
+	# 				value = 200
+	# 			}
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = { NOT = { has_completed_focus = FRA_little_entente } }
+	# 		add_stability = 0.05
+	# 	}
+	# }
 }
 
 # France (Britain Supports the Czechs)
@@ -3941,66 +3941,66 @@ country_event = {
 
 	is_triggered_only = yes
 
-	option = { # This means war!
-		name = germany.60.a
-		ai_chance = {
-			factor = 1
-			modifier = {
-				factor = 20
-				strength_ratio = {
-					tag = GER
-					ratio > 0.7
-				}
-				NOT = { has_idea = FRA_disjointed_government }
-			}
+	# option = { # This means war!
+	# 	name = germany.60.a
+	# 	ai_chance = {
+	# 		factor = 1
+	# 		modifier = {
+	# 			factor = 20
+	# 			strength_ratio = {
+	# 				tag = GER
+	# 				ratio > 0.7
+	# 			}
+	# 			NOT = { has_idea = FRA_disjointed_government }
+	# 		}
 
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
-		add_political_power = -150
-		add_stability = -0.1
-		if = {
-			limit = {
-				ENG = {
-					is_puppet = no
-					NOT = { has_war_with = FRA }
-				}
-			}
-			ENG = {
-				country_event = germany.61
-				custom_effect_tooltip = needs_approval
-				effect_tooltip = { add_to_faction = FRA }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = FRA_disjointed_government
-				NOT = { has_government = communism }
-			}
-			custom_effect_tooltip = germany.60.a.tt
-			effect_tooltip = {
-				start_civil_war = {
-					ideology = communism
-					size = 0.2
-				}
-			}
-		}
-		if = { #you're not getting around that, comrade
-			limit = {
-				has_idea = FRA_disjointed_government
-				has_government = communism
-			}
-			custom_effect_tooltip = germany.60.a.tt
-			effect_tooltip = {
-				start_civil_war = {
-					ideology = democratic
-					size = 0.3
-				}
-			}
-		}
-	}
+	# 		modifier = {
+	# 			factor = 0
+	# 			is_historical_focus_on = yes
+	# 		}
+	# 	}
+	# 	add_political_power = -150
+	# 	add_stability = -0.1
+	# 	if = {
+	# 		limit = {
+	# 			ENG = {
+	# 				is_puppet = no
+	# 				NOT = { has_war_with = FRA }
+	# 			}
+	# 		}
+	# 		ENG = {
+	# 			country_event = germany.61
+	# 			custom_effect_tooltip = needs_approval
+	# 			effect_tooltip = { add_to_faction = FRA }
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			has_idea = FRA_disjointed_government
+	# 			NOT = { has_government = communism }
+	# 		}
+	# 		custom_effect_tooltip = germany.60.a.tt
+	# 		effect_tooltip = {
+	# 			start_civil_war = {
+	# 				ideology = communism
+	# 				size = 0.2
+	# 			}
+	# 		}
+	# 	}
+	# 	if = { #you're not getting around that, comrade
+	# 		limit = {
+	# 			has_idea = FRA_disjointed_government
+	# 			has_government = communism
+	# 		}
+	# 		custom_effect_tooltip = germany.60.a.tt
+	# 		effect_tooltip = {
+	# 			start_civil_war = {
+	# 				ideology = democratic
+	# 				size = 0.3
+	# 			}
+	# 		}
+	# 	}
+	# }
 
 	option = { # Diplomatic response
 		name = germany.60.b
@@ -4017,101 +4017,101 @@ country_event = {
 }
 
 # British Response (French Press for War)
-country_event = {
-	id = germany.61
-	title = germany.60.t
-	desc = germany.61.d
-	picture = GFX_report_event_german_troops
+# country_event = {
+# 	id = germany.61
+# 	title = germany.60.t
+# 	desc = germany.61.d
+# 	picture = GFX_report_event_german_troops
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	option = { # War out of the question
-		name = germany.61.a
-		ai_chance = {
-			factor = 90
-			modifier = {
-				has_global_flag = GER_has_started_war
-				factor = 0
-			}
-			modifier = {
-				factor = 0
-				OR = {
-					has_game_rule = {
-						rule = ENG_ai_behavior
-						option = DEMOCRATIC_ALTERNATE
-					}
-					has_game_rule = {
-						rule = ENG_ai_behavior
-						option = FASCIST
-					}
-				}
-			}
-		}
-		FRA = {
-			country_event = { hours = 6 id = germany.63 }
-		}
-	}
-	option = { # Support France
-		name = germany.61.b
-		trigger = {
-			NOT = {
-				has_completed_focus = ENG_a_change_in_course
-				has_completed_focus = ENG_visit_germany
-			}
-		}
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 10
-				strength_ratio = {
-					tag = GER
-					ratio > 0.7
-				}
-			}
-			modifier = {
-				factor = 0
-				has_game_rule = {
-					rule = ENG_ai_behavior
-					option = NEUTRALITY
-				}
-			}
-		}
-		add_political_power = -150
-		add_stability = -0.2
-		add_popularity = {
-			ideology = communism
-			popularity = 0.25
-		}
-		if = {
-			limit = {
-				FRA = { is_faction_leader = yes }
-			}
-			every_other_country = {
-				limit = { is_in_faction_with = FRA NOT = { has_war_with = ENG } }
-				ENG = { add_to_faction = PREV }
-				add_ai_strategy = {
-					type = alliance
-					id = "ENG"
-					value = 200
-				}
-			}
-		}
-		if = {
-			limit = { FRA = { is_in_faction = no } }
-			add_to_faction = FRA
-			FRA = {
-				add_ai_strategy = {
-					type = alliance
-					id = "ENG"
-					value = 200
-				}
-			}
-		}
-		FRA = {
-			country_event = { hours = 6 id = germany.64 }
-		}
-	}
-}
+# 	option = { # War out of the question
+# 		name = germany.61.a
+# 		ai_chance = {
+# 			factor = 90
+# 			modifier = {
+# 				has_global_flag = GER_has_started_war
+# 				factor = 0
+# 			}
+# 			modifier = {
+# 				factor = 0
+# 				OR = {
+# 					has_game_rule = {
+# 						rule = ENG_ai_behavior
+# 						option = DEMOCRATIC_ALTERNATE
+# 					}
+# 					has_game_rule = {
+# 						rule = ENG_ai_behavior
+# 						option = FASCIST
+# 					}
+# 				}
+# 			}
+# 		}
+# 		FRA = {
+# 			country_event = { hours = 6 id = germany.63 }
+# 		}
+# 	}
+# 	option = { # Support France
+# 		name = germany.61.b
+# 		trigger = {
+# 			NOT = {
+# 				has_completed_focus = ENG_a_change_in_course
+# 				has_completed_focus = ENG_visit_germany
+# 			}
+# 		}
+# 		ai_chance = {
+# 			factor = 10
+# 			modifier = {
+# 				factor = 10
+# 				strength_ratio = {
+# 					tag = GER
+# 					ratio > 0.7
+# 				}
+# 			}
+# 			modifier = {
+# 				factor = 0
+# 				has_game_rule = {
+# 					rule = ENG_ai_behavior
+# 					option = NEUTRALITY
+# 				}
+# 			}
+# 		}
+# 		add_political_power = -150
+# 		add_stability = -0.2
+# 		add_popularity = {
+# 			ideology = communism
+# 			popularity = 0.25
+# 		}
+# 		if = {
+# 			limit = {
+# 				FRA = { is_faction_leader = yes }
+# 			}
+# 			every_other_country = {
+# 				limit = { is_in_faction_with = FRA NOT = { has_war_with = ENG } }
+# 				ENG = { add_to_faction = PREV }
+# 				add_ai_strategy = {
+# 					type = alliance
+# 					id = "ENG"
+# 					value = 200
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = { FRA = { is_in_faction = no } }
+# 			add_to_faction = FRA
+# 			FRA = {
+# 				add_ai_strategy = {
+# 					type = alliance
+# 					id = "ENG"
+# 					value = 200
+# 				}
+# 			}
+# 		}
+# 		FRA = {
+# 			country_event = { hours = 6 id = germany.64 }
+# 		}
+# 	}
+# }
 
 # British Response (French Want Peace)
 country_event = {
@@ -4155,272 +4155,272 @@ country_event = {
 }
 
 # France (Britain Refuses Support)
-country_event = {
-	id = germany.63
-	title = germany.63.t
-	desc = germany.63.d
-	picture = GFX_report_event_chamberlain_announce
+# country_event = {
+# 	id = germany.63
+# 	title = germany.63.t
+# 	desc = germany.63.d
+# 	picture = GFX_report_event_chamberlain_announce
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	option = { # Push Ahead
-		name = germany.63.a
-		ai_chance = {
-			factor = 60
-			modifier = {
-				factor = 3
-				strength_ratio = {
-					tag = GER
-					ratio > 1.0
-				}
-				NOT = { has_idea = FRA_disjointed_government }
-			}
-			modifier = {
-				factor = 0
-				has_idea = FRA_disjointed_government
-			}
-		}
-		GER = { country_event = germany.66 }
-		if = {
-			limit = {
-				has_idea = FRA_disjointed_government
-				NOT = { has_government = communism }
-				}
-			custom_effect_tooltip = germany.60.a.tt
-			effect_tooltip = {
-				start_civil_war = {
-					ideology = communism
-					size = 0.2
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_idea = FRA_disjointed_government
-				has_government = communism
-				}
-			custom_effect_tooltip = germany.60.a.tt
-			effect_tooltip = {
-				start_civil_war = {
-					ideology = democratic
-					size = 0.3
-				}
-			}
-		}
-	}
-	option = { # Back Down
-		name = germany.63.b
-		ai_chance = { factor = 40 }
-		ENG = { country_event = germany.67 }
-		add_opinion_modifier = { target = GER modifier = protest_action }
-	}
-}
+# 	option = { # Push Ahead
+# 		name = germany.63.a
+# 		ai_chance = {
+# 			factor = 60
+# 			modifier = {
+# 				factor = 3
+# 				strength_ratio = {
+# 					tag = GER
+# 					ratio > 1.0
+# 				}
+# 				NOT = { has_idea = FRA_disjointed_government }
+# 			}
+# 			modifier = {
+# 				factor = 0
+# 				has_idea = FRA_disjointed_government
+# 			}
+# 		}
+# 		GER = { country_event = germany.66 }
+# 		if = {
+# 			limit = {
+# 				has_idea = FRA_disjointed_government
+# 				NOT = { has_government = communism }
+# 				}
+# 			custom_effect_tooltip = germany.60.a.tt
+# 			effect_tooltip = {
+# 				start_civil_war = {
+# 					ideology = communism
+# 					size = 0.2
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				has_idea = FRA_disjointed_government
+# 				has_government = communism
+# 				}
+# 			custom_effect_tooltip = germany.60.a.tt
+# 			effect_tooltip = {
+# 				start_civil_war = {
+# 					ideology = democratic
+# 					size = 0.3
+# 				}
+# 			}
+# 		}
+# 	}
+# 	option = { # Back Down
+# 		name = germany.63.b
+# 		ai_chance = { factor = 40 }
+# 		ENG = { country_event = germany.67 }
+# 		add_opinion_modifier = { target = GER modifier = protest_action }
+# 	}
+# }
 
 # France (Britain Gives Support)
-country_event = {
-	id = germany.64
-	title = germany.64.t
-	desc = germany.64.d
-	picture = GFX_report_event_british_inspect_troops
+# country_event = {
+# 	id = germany.64
+# 	title = germany.64.t
+# 	desc = germany.64.d
+# 	picture = GFX_report_event_british_inspect_troops
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	option = {
-		name = germany.64.a
-		GER = { country_event = germany.65 }
-		if = {
-			limit = {
-				has_idea = FRA_disjointed_government
-				NOT = { has_government = communism }
-			}
-			custom_effect_tooltip = germany.60.a.tt
-			effect_tooltip = {
-				start_civil_war = {
-					ideology = communism
-					size = 0.2
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_idea = FRA_disjointed_government
-				has_government = communism
-			}
-			custom_effect_tooltip = germany.60.a.tt
-			effect_tooltip = {
-				start_civil_war = {
-					ideology = democratic
-					size = 0.3
-				}
-			}
-		}
-	}
-}
+# 	option = {
+# 		name = germany.64.a
+# 		GER = { country_event = germany.65 }
+# 		if = {
+# 			limit = {
+# 				has_idea = FRA_disjointed_government
+# 				NOT = { has_government = communism }
+# 			}
+# 			custom_effect_tooltip = germany.60.a.tt
+# 			effect_tooltip = {
+# 				start_civil_war = {
+# 					ideology = communism
+# 					size = 0.2
+# 				}
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				has_idea = FRA_disjointed_government
+# 				has_government = communism
+# 			}
+# 			custom_effect_tooltip = germany.60.a.tt
+# 			effect_tooltip = {
+# 				start_civil_war = {
+# 					ideology = democratic
+# 					size = 0.3
+# 				}
+# 			}
+# 		}
+# 	}
+# }
 
 # Germany (France and Britain go to war)
-country_event = {
-	id = germany.65
-	title = germany.65.t
-	desc = germany.65.d
-	picture = GFX_report_event_british_artillery
+# country_event = {
+# 	id = germany.65
+# 	title = germany.65.t
+# 	desc = germany.65.d
+# 	picture = GFX_report_event_british_artillery
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	option = {
-		ai_chance = {
-			factor = 1
-			modifier = {
-				factor = 0
-				strength_ratio = {
-					tag = FRA
-					ratio < 1
-				}
-				strength_ratio = {
-					tag = ENG
-					ratio < 1
-				}
-			}
-		}
-		name = germany.65.a
-		FRA = {
-			declare_war_on = {
-				target = GER
-				type = take_state_focus
-				generator = { 42 51 }
-			}
-			country_event = germany.92
-			if = {
-				limit = {
-					has_idea = FRA_disjointed_government
-					NOT = { has_government = communism }
-				}
-				start_civil_war = {
-					ideology = communism
-					size = 0.2
-				}
-			}
-			if = {
-				limit = {
-					has_idea = FRA_disjointed_government
-					has_government = communism
-				}
-				start_civil_war = {
-					ideology = democratic
-					size = 0.3
-				}
-			}
-		}
-		hidden_effect = {
-			news_event = { hours = 6 id = news.26 }
-		}
-	}
-	option = {
-		name = germany.65.b
-		ai_chance = {
-			factor = 1
-			modifier = {
-				factor = 0
-				strength_ratio = {
-					tag = FRA
-					ratio > 1
-				}
-				strength_ratio = {
-					tag = ENG
-					ratio > 1
-				}
-			}
-		}
-		hidden_effect = {
-			news_event = { hours = 6 id = news.151 }
-		}
-		set_country_flag = GER_rhineland_backed_down
-		42 = { set_demilitarized_zone = yes }
-		51 = { set_demilitarized_zone = yes }
-		989 = { set_demilitarized_zone = yes }
-		922 = { set_demilitarized_zone = yes }
-		923 = { set_demilitarized_zone = yes }
-		add_timed_idea = {
-			idea = rhineland_challenge_met
-			days = 183
-		}
-	}
-}
+# 	option = {
+# 		ai_chance = {
+# 			factor = 1
+# 			modifier = {
+# 				factor = 0
+# 				strength_ratio = {
+# 					tag = FRA
+# 					ratio < 1
+# 				}
+# 				strength_ratio = {
+# 					tag = ENG
+# 					ratio < 1
+# 				}
+# 			}
+# 		}
+# 		name = germany.65.a
+# 		FRA = {
+# 			declare_war_on = {
+# 				target = GER
+# 				type = take_state_focus
+# 				generator = { 42 51 }
+# 			}
+# 			country_event = germany.92
+# 			if = {
+# 				limit = {
+# 					has_idea = FRA_disjointed_government
+# 					NOT = { has_government = communism }
+# 				}
+# 				start_civil_war = {
+# 					ideology = communism
+# 					size = 0.2
+# 				}
+# 			}
+# 			if = {
+# 				limit = {
+# 					has_idea = FRA_disjointed_government
+# 					has_government = communism
+# 				}
+# 				start_civil_war = {
+# 					ideology = democratic
+# 					size = 0.3
+# 				}
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			news_event = { hours = 6 id = news.26 }
+# 		}
+# 	}
+# 	option = {
+# 		name = germany.65.b
+# 		ai_chance = {
+# 			factor = 1
+# 			modifier = {
+# 				factor = 0
+# 				strength_ratio = {
+# 					tag = FRA
+# 					ratio > 1
+# 				}
+# 				strength_ratio = {
+# 					tag = ENG
+# 					ratio > 1
+# 				}
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			news_event = { hours = 6 id = news.151 }
+# 		}
+# 		set_country_flag = GER_rhineland_backed_down
+# 		42 = { set_demilitarized_zone = yes }
+# 		51 = { set_demilitarized_zone = yes }
+# 		989 = { set_demilitarized_zone = yes }
+# 		922 = { set_demilitarized_zone = yes }
+# 		923 = { set_demilitarized_zone = yes }
+# 		add_timed_idea = {
+# 			idea = rhineland_challenge_met
+# 			days = 183
+# 		}
+# 	}
+# }
 
-# Germany (France goes to war)
-country_event = {
-	id = germany.66
-	title = germany.66.t
-	desc = germany.66.d
-	picture = GFX_report_event_degaulle_inspect_troops
+# # Germany (France goes to war)
+# country_event = {
+# 	id = germany.66
+# 	title = germany.66.t
+# 	desc = germany.66.d
+# 	picture = GFX_report_event_degaulle_inspect_troops
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	option = {
-		name = germany.65.a
-		add_war_support = 0.1 #original German clay
-		ENG = {
-			country_event = germany.68
-			if = {
-				limit = {
-					ENG = {
-						is_in_faction_with = FRA
-						is_faction_leader = yes
-					}
-				}
-				remove_from_faction = FRA
-			}
-		}
-		FRA = {
-			declare_war_on = {
-				target = GER
-				type = take_state_focus
-				generator = { 42 51 }
-			}
-			country_event = germany.92
-			if = {
-				limit = {
-					has_idea = FRA_disjointed_government
-					NOT = { has_government = communism }
-				}
-				start_civil_war = {
-					ideology = communism
-					size = 0.2
-				}
-			}
-			if = {
-				limit = {
-					has_idea = FRA_disjointed_government
-					has_government = communism
-				}
-				start_civil_war = {
-					ideology = democratic
-					size = 0.3
-				}
-			}
-		}
-		hidden_effect = {
-			news_event = { hours = 6 id = news.27 }
-		}
-	}
+# 	option = {
+# 		name = germany.65.a
+# 		add_war_support = 0.1 #original German clay
+# 		ENG = {
+# 			country_event = germany.68
+# 			if = {
+# 				limit = {
+# 					ENG = {
+# 						is_in_faction_with = FRA
+# 						is_faction_leader = yes
+# 					}
+# 				}
+# 				remove_from_faction = FRA
+# 			}
+# 		}
+# 		FRA = {
+# 			declare_war_on = {
+# 				target = GER
+# 				type = take_state_focus
+# 				generator = { 42 51 }
+# 			}
+# 			country_event = germany.92
+# 			if = {
+# 				limit = {
+# 					has_idea = FRA_disjointed_government
+# 					NOT = { has_government = communism }
+# 				}
+# 				start_civil_war = {
+# 					ideology = communism
+# 					size = 0.2
+# 				}
+# 			}
+# 			if = {
+# 				limit = {
+# 					has_idea = FRA_disjointed_government
+# 					has_government = communism
+# 				}
+# 				start_civil_war = {
+# 					ideology = democratic
+# 					size = 0.3
+# 				}
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			news_event = { hours = 6 id = news.27 }
+# 		}
+# 	}
 
-	option = {
-		name = germany.65.b
-		hidden_effect = {
-			news_event = { hours = 6 id = news.152 }
-		}
-		set_country_flag = GER_rhineland_backed_down
-		add_war_support = -0.2 #That was scary for a moment there!
-		42 = { set_demilitarized_zone = yes }
-		51 = { set_demilitarized_zone = yes }
-		989 = { set_demilitarized_zone = yes }
-		922 = { set_demilitarized_zone = yes }
-		923 = { set_demilitarized_zone = yes }
-		add_timed_idea = {
-			idea = rhineland_challenge_met
-			days = 183
-		}
-	}
-}
+# 	option = {
+# 		name = germany.65.b
+# 		hidden_effect = {
+# 			news_event = { hours = 6 id = news.152 }
+# 		}
+# 		set_country_flag = GER_rhineland_backed_down
+# 		add_war_support = -0.2 #That was scary for a moment there!
+# 		42 = { set_demilitarized_zone = yes }
+# 		51 = { set_demilitarized_zone = yes }
+# 		989 = { set_demilitarized_zone = yes }
+# 		922 = { set_demilitarized_zone = yes }
+# 		923 = { set_demilitarized_zone = yes }
+# 		add_timed_idea = {
+# 			idea = rhineland_challenge_met
+# 			days = 183
+# 		}
+# 	}
+# }
 
 # Britain (France Backs Down)
 country_event = {
@@ -8713,61 +8713,61 @@ country_event = {
 
 	is_triggered_only = yes
 
-	option = {
-		name = germany.122.a
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 0.8
-				strength_ratio = { tag = GER ratio < 0.5 }
-			}
-			modifier = {
-				factor = 0.8
-				has_opinion = { target = GER value > 99 }
-			}
-			modifier = {
-				factor = 0.8
-				strength_ratio = { tag = GER ratio < 0.3 }
-			}
-			modifier = {
-				factor = 0.8
-				strength_ratio = { tag = GER ratio < 0.2 }
-			}
-			modifier = {
-				factor = 0.5
-				strength_ratio = { tag = GER ratio < 0.1 }
-			}
-		}
-		if = {
-			limit = {
-				is_in_faction_with = GER
-				is_subject = no
-			}
-			remove_from_faction = CZE #kicked from faction
-		}
+	# option = {
+	# 	name = germany.122.a
+	# 	ai_chance = {
+	# 		factor = 0
+	# 		modifier = {
+	# 			factor = 0.8
+	# 			strength_ratio = { tag = GER ratio < 0.5 }
+	# 		}
+	# 		modifier = {
+	# 			factor = 0.8
+	# 			has_opinion = { target = GER value > 99 }
+	# 		}
+	# 		modifier = {
+	# 			factor = 0.8
+	# 			strength_ratio = { tag = GER ratio < 0.3 }
+	# 		}
+	# 		modifier = {
+	# 			factor = 0.8
+	# 			strength_ratio = { tag = GER ratio < 0.2 }
+	# 		}
+	# 		modifier = {
+	# 			factor = 0.5
+	# 			strength_ratio = { tag = GER ratio < 0.1 }
+	# 		}
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			is_in_faction_with = GER
+	# 			is_subject = no
+	# 		}
+	# 		remove_from_faction = CZE #kicked from faction
+	# 	}
 
-		effect_tooltip = {
-			GER = {
-				add_state_claim = 69
-				add_state_claim = 74
-				create_wargoal = {
-					type = take_state_focus
-					target = CZE
-					generator = { 69 74 }
-				}
-			}
-		}
-		hidden_effect = {
-			GER = {
-				country_event = { id = germany.123 days = 1 }
-			}
-		}
-	}
+	# 	effect_tooltip = {
+	# 		GER = {
+	# 			add_state_claim = 69
+	# 			add_state_claim = 74
+	# 			create_wargoal = {
+	# 				type = take_state_focus
+	# 				target = CZE
+	# 				generator = { 69 74 }
+	# 			}
+	# 		}
+	# 	}
+	# 	hidden_effect = {
+	# 		GER = {
+	# 			country_event = { id = germany.123 days = 1 }
+	# 		}
+	# 	}
+	# }
 
 	option = {
 		name = germany.122.b
 		ai_chance = {
-			factor = 50
+			factor = 1000
 			modifier = {
 				factor = 0
 				FRA = { has_completed_focus = FRA_little_entente }
