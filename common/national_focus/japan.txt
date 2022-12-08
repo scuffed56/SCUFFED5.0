@@ -25,7 +25,7 @@
 		x = 4
 		y = 0
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 0.75 #it's now more unthinkable
@@ -1561,7 +1561,7 @@
 			}
 		}
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 4
@@ -1776,7 +1776,7 @@
 		y = 1
 		relative_position_id = JAP_intervene_in_china
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 3
@@ -1787,10 +1787,19 @@
 		}
 
 		available = {
-			CHI = {
-				surrender_progress > 0.25 #lowered bc of the vps added if china completes the big rear
+			# CHI = {
+			# 	surrender_progress > 0.10 #lowered bc of the vps added if china completes the big rear
+			# }
+			has_war_with = CHI
+			NOT = {
+				OR = {
+					has_idea = JAP_intervene_in_china_1
+					has_idea = JAP_intervene_in_china_2
+					has_idea = JAP_intervene_in_china_3
+					has_idea = JAP_intervene_in_china_4
+					has_idea = JAP_intervene_in_china_5
+				}
 			}
-			has_war_with = USA
 		}
 
 		bypass = {
@@ -1799,9 +1808,7 @@
 
 
 		completion_reward = {
-			JAP_intervene_in_china_remove = yes
-			add_named_threat = { threat = 10 name = JAP_secure_china }
-			USA = { add_war_support = 0.05 }
+			add_named_threat = { threat = 5 name = JAP_secure_china }
 			unlock_decision_tooltip = JAP_ichi_go
 		}
 	}
@@ -1810,7 +1817,7 @@
 		id = JAP_develop_chinese_resources
 		icon = GFX_goal_generic_construct_civilian
 		prerequisite = { focus = JAP_secure_china }
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = JAP_secure_china
 
@@ -1841,7 +1848,7 @@
 			605 = {
 				add_resource = {
 					type = aluminium
-					amount = 8
+					amount = 12
 				}
 			}
 			325 = {
@@ -1872,6 +1879,79 @@
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM}
+	}
+
+	focus = {
+		id = JAP_exploit_chinese_heartland
+		icon = GFX_goal_generic_strenght_through_industry
+		prerequisite = { focus = JAP_secure_china }
+		x = 1
+		y = 1
+		relative_position_id = JAP_secure_china
+
+		cost = 10
+
+		available = {
+			CHI = { has_capitulated = yes }
+			OR = {
+				AND = {
+					has_full_control_of_state = 608
+					has_full_control_of_state = 613
+					has_full_control_of_state = 620
+					has_full_control_of_state = 605
+				}
+				AND = {
+					608 = {
+						owner = { is_in_faction_with = JAP }
+					}
+					613 = {
+						owner = { is_in_faction_with = JAP }
+					}
+					620 = {
+						owner = { is_in_faction_with = JAP }
+					}	
+					605 = {
+						owner = { is_in_faction_with = JAP }
+					}	
+				}
+			}
+		}
+
+		completion_reward = {
+			613 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			613 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			620 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			605 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+
 	}
 
 	focus = {
@@ -3320,11 +3400,11 @@
 				limit = {
 					is_in_home_area = yes
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = JAP_zaibatsus_factories
@@ -3341,10 +3421,10 @@
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -3360,10 +3440,10 @@
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}											
@@ -3777,12 +3857,12 @@
 			}
 			if = {
 				limit = {
-					has_idea = tot_economic_mobilisation
+					has_idea = japanese_war_economy
 				}
-				add_political_power = 150
+				add_political_power = 300
 			}
 			else = {
-				add_ideas = tot_economic_mobilisation
+				add_ideas = japanese_war_economy
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
@@ -3790,7 +3870,7 @@
 	focus = {
 		id = JAP_black_dragon_society
 		icon = GFX_goal_CAN_CAMP_X
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = JAP_support_the_kodoha_faction
 			focus = JAP_purge_the_kodoha_faction
@@ -3926,7 +4006,7 @@
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			add_stability = -0.10
 			country_event = { id = wtt_japan.108 }
 			set_party_name = {
 			    ideology = neutrality
@@ -4013,7 +4093,7 @@
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}			
@@ -5007,7 +5087,7 @@
 		y = 0
 		relative_position_id = JAP_support_the_kodoha_faction
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 2
@@ -6761,7 +6841,7 @@
 		x = 0
 		y = 1
 		relative_position_id = JAP_armored_divisions
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -7529,7 +7609,7 @@
 		y = 2
 		relative_position_id = JAP_army_expansion
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -7566,7 +7646,7 @@
 		y = 2
 		relative_position_id = JAP_army_expansion
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
