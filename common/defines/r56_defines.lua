@@ -311,10 +311,6 @@ NAI = {
 		LICENSE_ACCEPTANCE_TECH_DIFFERENCE = 2, 		-- Acceptance modifier for each year of technology difference.
 		LICENSE_ACCEPTANCE_TECH_DIFFERENCE_BASE = 20,    -- Acceptance base for tech difference
 		LICENSE_ACCEPTANCE_SAME_FACTION = 30,			-- Acceptance modifier for being in the same faction
-
-		EMBARGO_COST = 25,										-- One-time cost
-		REVOKE_EMBARGO_COST = 25,								-- Cost to remove an existing embargo
-		EMBARGO_THREAT_THRESHOLD = 0,						-- Target-generated threat threshold to allow embargo (affected by modifiers)
 	},
 	NCountry = {
 		FEMALE_UNIT_LEADER_BASE_CHANCE = { 
