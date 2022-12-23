@@ -128,7 +128,7 @@ focus_tree = {
 	focus = {
 		id = FRA_status_quo
 		icon = GFX_goal_FRA_status_quo
-		cost = 10
+		cost = 5
 		mutually_exclusive = {
 			focus = FRA_far_right_leagues
 			focus = FRA_radicalize_front
@@ -153,7 +153,7 @@ focus_tree = {
 	focus = {
 		id = FRA_radicalize_front
 		icon = GFX_goal_support_communism
-		cost = 10
+		cost = 5
 		mutually_exclusive = {
 			focus = FRA_status_quo
 			focus = FRA_far_right_leagues
@@ -194,7 +194,7 @@ focus_tree = {
 	focus = {
 		id = FRA_far_right_leagues
 		icon = GFX_goal_FRA_far_right_leagues
-		cost = 10
+		cost = 5
 		mutually_exclusive = {
 			focus = FRA_status_quo
 			focus = FRA_radicalize_front
@@ -221,7 +221,7 @@ focus_tree = {
 	focus = {
 		id = FRA_action_francaise
 		icon = GFX_goal_FRA_action_francaise
-		cost = 10
+		cost = 5
 		mutually_exclusive = {
 			focus = FRA_status_quo
 			focus = FRA_radicalize_front
@@ -3724,19 +3724,10 @@ focus_tree = {
 			is_in_faction = no
 		}
 		bypass = {
-			is_in_faction_with = CZE
-			OR = {
+			AND = {
+				is_in_faction = yes
 				is_faction_leader = yes
-				AND = {
-					is_in_faction = yes
-					ENG = {
-						NOT = {
-							has_government = democratic
-						}
-					}
-				}
 			}
-			
 		}
 		ai_will_do = {
 			factor = 1
@@ -3744,54 +3735,6 @@ focus_tree = {
 		completion_reward = {
 			set_rule = {
 				can_create_factions = yes
-			}
-			if = {
-				limit = {
-					CZE = {
-						has_government = ROOT
-						is_faction_leader = yes
-					}
-				}
-				CZE = {
-					country_event = generic.2
-				}
-			}
-			else_if = {
-				limit = {
-					CZE = {
-						has_government = ROOT
-						OR = {
-							is_subject = no
-							is_subject_of = ROOT
-						}
-					}
-					is_faction_leader = yes
-				}
-				CZE = { country_event = france.17 }
-			}
-			else_if = {
-				limit = {
-					CZE = {
-						has_government = ROOT
-						is_in_faction = no
-						OR = {
-							is_subject = no
-							is_subject_of = ROOT
-						}
-					}
-					is_in_faction = no
-				}
-				create_faction = french_entente_alliance
-				CZE = { custom_effect_tooltip = invite_to_faction_tt }
-				hidden_effect = {
-					CZE = { country_event = france.17 }
-				}
-			}
-			hidden_effect = {
-				news_event = {
-					hours = 6
-					id = news.177
-				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
@@ -9958,7 +9901,7 @@ focus_tree = {
 	focus = {
 		id = FRA_infantry_tanks
 		icon = GFX_focus_generic_combined_arms
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = FRA_fortification_focus
 			focus = FRA_motorized_focus
