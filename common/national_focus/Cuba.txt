@@ -11,12 +11,763 @@ focus_tree = {
 shared_focus = ABC_establish_a_general_staff	
 shared_focus = GEN_Aviation_Effort
 shared_focus = GEN_Naval_Effort
-shared_focus = GEN_Industrial_Start
+#shared_focus = GEN_Industrial_Start
 shared_focus = GEN_Industrial_Boom
 shared_focus = CARIB_caribbean_unification
 
 
 continuous_focus_position = { x = 0 y = 900 }
+
+
+#New Industry Tree
+
+	focus = {
+	id = CUB_Industrial_Buildup
+	icon = GFX_focus_generic_industry_2
+	cost = 5
+	x = 37
+	y = 0
+
+	completion_reward = {
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 0.75
+			uses = 2
+			category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = Improve_The_Island's_Foundation
+		icon = GFX_goal_generic_production2
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CUB_Industrial_Buildup
+		prerequisite = { focus = CUB_Industrial_Buildup }
+	
+	completion_reward = {
+		random_core_state = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+			type = industrial_complex
+			level = 2
+			instant_build = yes
+				}
+			}
+		}
+		
+	}
+
+	focus = {
+		id = Promote_Arms_Production
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CUB_Industrial_Buildup
+		prerequisite = { focus = CUB_Industrial_Buildup }
+	completion_reward = {
+		random_core_state = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+			type = arms_factory
+			level = 2
+			instant_build = yes
+				}
+			}		
+		}			
+	}	
+	
+	focus = {
+		id = Military_Expansion_Program
+		icon = GFX_goal_generic_occupy_states_coastal
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = Promote_Arms_Production
+		prerequisite = { focus = Promote_Arms_Production }
+	completion_reward = {
+		random_core_state = {
+			add_extra_state_shared_building_slots = 2	
+			add_building_construction = {
+			type = dockyard
+			level = 2
+			instant_build = yes
+				}
+				add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+						}
+			}	
+		}
+	}	
+				focus = {
+					id = Increase_Mining_Protocols
+					icon = GFX_goal_generic_mining_iron	
+					cost = 10
+					x = 1
+					y = 1
+					relative_position_id = Military_Expansion_Program
+					prerequisite = {
+						focus = Military_Expansion_Program
+					}
+					
+				
+					completion_reward = {
+				
+						random_core_state = {
+							add_extra_state_shared_building_slots = 2
+							add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+							}
+						}					
+						add_resource = {
+							type = chromium
+							amount = 8
+							state = 315
+						}
+						add_resource = {
+							type = tungsten
+							amount = 8
+							state = 994
+						}
+								
+						
+					}
+					
+					}
+
+
+							
+
+					focus = {
+						id = Enhance_Industrial_Capabilities
+						icon = GFX_goal_CAN_railways
+						cost = 5
+						x = -1
+						y = 1
+						relative_position_id = Military_Expansion_Program
+						prerequisite = {
+							focus = Military_Expansion_Program
+						}
+						
+						completion_reward = {
+							random_core_state = { add_extra_state_shared_building_slots = 2 }
+							994 = {
+								add_building_construction = {
+									type = infrastructure
+									level = 1
+									instant_build = yes
+								}
+								
+							}
+							315 = {
+								add_building_construction = {
+									type = infrastructure
+									level = 1
+									instant_build = yes
+								}
+								
+							}	
+							
+						}
+					
+						
+						}					
+
+						focus = {
+							id = Encourage_Rubber_Growth
+							icon = GFX_focus_generic_rubber
+							cost = 10
+							x = 0
+							y = 1
+							relative_position_id = Enhance_Industrial_Capabilities
+							prerequisite = {
+								focus = Enhance_Industrial_Capabilities
+							}
+							
+						
+							completion_reward = {
+				
+								random_core_state = {
+									add_extra_state_shared_building_slots = 2
+									
+								}					
+								add_resource = {
+									type = rubber
+									amount = 6
+									state = 315
+								}
+								
+										
+								
+							}
+							
+							}		
+
+
+							focus = {
+								id = Expand_Funding_Around_The_Americas
+								icon = GFX_goal_generic_bills
+								cost = 5
+								x = 0
+								y = 1
+								relative_position_id = Encourage_Rubber_Growth
+								prerequisite = {
+									focus = Encourage_Rubber_Growth
+								}
+								
+							
+								completion_reward = {
+									
+									unlock_decision_category_tooltip = Researchers_Around_The_Americas
+										
+									
+								}
+								
+								}			
+
+
+								focus = {
+									id = Motivate_the_Arms_Industry
+									icon = GFX_goal_polish_wartime_industry
+									cost = 10
+									x = 0
+									y = 1
+									relative_position_id = Expand_Funding_Around_The_Americas
+									prerequisite = {
+										focus = Expand_Funding_Around_The_Americas
+									}
+									
+								
+									completion_reward = {
+										
+										add_ideas = Motivate_the_Arms_Industry
+										
+									}
+									
+									}	
+									
+											
+
+										focus = {
+											id = Support_Wartime_Industry
+											icon = GFX_goal_generic_military_sphere
+											cost = 10
+											x = 0
+											y = 1
+											relative_position_id = Motivate_the_Arms_Industry
+											prerequisite = {
+												focus = Motivate_the_Arms_Industry
+											}
+											available = { has_war_support > 0.40 }
+										
+											completion_reward = {
+												
+												add_war_support = 0.05
+												if = {
+													limit = {
+														NOT = { has_idea = partial_economic_mobilisation }
+														NOT = { has_idea = war_economy }
+														NOT = { has_idea = tot_economic_mobilisation }
+													}
+													add_ideas = war_economy       
+												}
+												else_if = {
+													limit = {
+														
+														NOT = { has_idea = tot_economic_mobilisation }
+													}
+													add_ideas = war_economy        
+												}
+												else = {
+													add_political_power = 150
+												}            
+											}
+											
+											}		
+
+											focus = {
+												id = Enforce_Steel_Production_In_Havana
+												icon = GFX_goal_excavation
+												cost = 10
+												x = 0
+												y = 1
+												relative_position_id = Increase_Mining_Protocols
+												prerequisite = { focus = Increase_Mining_Protocols }
+												prerequisite = { focus = Request_Caribbean_Investments }
+											
+												completion_reward = {
+				
+													random_core_state = {
+														add_extra_state_shared_building_slots = 1
+														add_building_construction = {
+														type = steel_mill
+														level = 1
+														instant_build = yes
+														}
+													}					
+													add_resource = {
+														type = steel
+														amount = 12
+														state = 315
+													}
+													
+															
+													
+												}
+												
+												}		
+
+													
+
+												focus = {
+													id = Promote_Cuban_Industrial_Financing
+													icon = GFX_focus_generic_the_giant_wakes
+													cost = 5
+													x = 2
+													y = 1
+													relative_position_id = Increase_Mining_Protocols
+													prerequisite = {
+														focus = Increase_Mining_Protocols
+													}
+													
+													prerequisite = {
+														focus = Request_Caribbean_Investments
+													}
+												
+													completion_reward = {
+														
+														unlock_decision_category_tooltip = Cuban_Research_Decisions
+															
+														
+													}
+													
+													}	
+
+													focus = {
+														id = Investigate_The_Havana_Syndrome
+														icon = GFX_goal_tfv_generic_tech_sharing
+														cost = 10
+														x = 0
+														y = 1
+														relative_position_id = Improve_The_Island's_Foundation
+														prerequisite = {
+															focus = Improve_The_Island's_Foundation
+														}
+														
+													
+														completion_reward = {
+															add_research_slot = 1
+															add_ideas = Investigate_Havana_Syndrome
+															
+														}
+														
+														}		
+
+
+														focus = {
+															id = Request_Caribbean_Investments
+															icon = GFX_goal_generic_election
+															prerequisite = { focus = Investigate_The_Havana_Syndrome }
+															x = 0
+															y = 1
+															relative_position_id = Investigate_The_Havana_Syndrome
+															cost = 10
+															ai_will_do = {
+																base = 1
+															}
+													
+															
+															completion_reward = {
+																add_political_power = 100
+																custom_effect_tooltip = Request_Caribbean_Investments
+																hidden_effect = {
+																		
+																		
+																		
+																	if = { 	
+																		limit = { 
+																			country_exists = HAI
+																			HAI = { has_opinion = { target = CUB value > 50 } } 
+																		}
+																		add_offsite_building = { type = dockyard level = 1 }
+																		add_offsite_building = { type = industrial_complex level = 1 }
+																		add_offsite_building = { type = arms_factory level = 1  }
+																	}
+																	if = { 	
+																		limit = { 
+																			country_exists = DOM
+																			DOM = { has_opinion = { target = CUB value > 50 } } 
+																		}
+																		add_offsite_building = { type = dockyard level = 1 }
+																		add_offsite_building = { type = industrial_complex level = 1 }
+																		add_offsite_building = { type = arms_factory level = 1  }
+																	}
+																	
+																	
+																}
+															}
+														}	
+
+															
+
+															focus = {
+																id = Inspire_the_Cuban_Renaissance
+																icon = GFX_goal_generic_consumer_goods
+																cost = 10
+																x = 2
+																y = 1
+																relative_position_id = Improve_The_Island's_Foundation
+																prerequisite = {
+																	focus = Improve_The_Island's_Foundation
+																}
+																
+															
+																completion_reward = {
+
+																	
+																		add_ideas = Cuban_Renaissance
+																	
+
+																	add_tech_bonus = {
+																		name = elect
+																		bonus = 1
+																		uses = 2
+																		category = industry
+																	}
+
+																	
+																	
+																	
+																}
+																
+																}		
+
+
+																focus = {
+																	id = Expand_Island_Production
+																	icon = GFX_goal_generic_construction_tools
+																	cost = 5
+																	x = 0
+																	y = 1
+																	relative_position_id = Inspire_the_Cuban_Renaissance
+																	prerequisite = {
+																		focus = Inspire_the_Cuban_Renaissance
+																	}
+																	
+																
+																	completion_reward = {
+				
+																		random_core_state = {
+																			add_extra_state_shared_building_slots = 1
+																			add_building_construction = {
+																			type = industrial_complex
+																			level = 1
+																			instant_build = yes
+																			}
+																		}
+																		
+																		
+																	}
+																	
+																	}			
+
+																	focus = {
+																		id = Accept_American_Oil_Contracts
+																		icon = GFX_goal_refining
+																		cost = 10
+																		x = 0
+																		y = 1
+																		relative_position_id = Expand_Island_Production
+																		prerequisite = {
+																			focus = Expand_Island_Production
+																		}
+																		
+																	
+																		completion_reward = {
+				
+																			random_core_state = {
+																				add_extra_state_shared_building_slots = 2
+																				add_building_construction = {
+																				type = fuel_silo
+																				level = 2
+																				instant_build = yes
+																				}
+																			}					
+																			
+																			add_tech_bonus = {
+																				name = industrial_bonus
+																				bonus = 1.00
+																				uses = 1
+																				category = industry
+																			}
+																			
+																					
+																			
+																		}
+																		
+																		}			
+
+
+																		focus = {
+																			id = Choose_Your_Friends
+																			icon = GFX_focus_SWI_helvetic_junta
+																			cost = 5
+																			x = 0
+																			y = 1
+																			relative_position_id = Accept_American_Oil_Contracts
+																			prerequisite = {
+																				focus = Accept_American_Oil_Contracts
+																			}
+																			
+																		
+																			completion_reward = {
+																				add_ideas = Pick_A_Side
+																				
+																			}
+																			
+																			}		
+
+
+																			focus = {
+																				id = Align_With_The_Fascists
+																				icon = GFX_focus_GRE_reviving_the_double_headed_eagle
+																				cost = 10
+																				x = 0
+																				y = 1
+																				relative_position_id = Choose_Your_Friends
+																				prerequisite = {
+																					focus = Choose_Your_Friends
+																				}
+																				
+																				mutually_exclusive = {
+																					focus = Align_With_America
+																					focus = Align_With_The_Communists
+																					}
+
+																					available = {
+																						date > 1939.01.01
+																						is_subject = no
+																						is_in_faction = no
+																						has_government = fascism
+																					}
+																			
+																				completion_reward = {
+																					add_stability = 0.05
+																					swap_ideas = {
+																						remove_idea = Pick_A_Side
+																						add_idea = The_Cigar_Pact
+																					}
+																					
+																					ITA = {
+
+																					add_ideas = The_Cigar_Pact
+
+																					}	
+
+
+
+																				}
+																				
+																				}		
+
+																				focus = { 
+																					id = Align_With_The_Communists
+																					icon = GFX_focus_generic_join_comintern
+																					prerequisite = { focus = Choose_Your_Friends }
+																	
+																					
+																					mutually_exclusive = {
+																						focus = Align_With_America
+																						focus = Align_With_The_Fascists
+																						
+																						}
+																					relative_position_id = Choose_Your_Friends
+																					x = 2
+																					y = 1
+																					cost = 10
+
+																			
+
+																					available = {
+																						date > 1939.01.01
+																						is_subject = no
+																						is_in_faction = no
+																						has_government = communism
+																					}
+
+																					completion_reward = {
+																						add_stability = 0.05
+
+																						swap_ideas = {
+																							remove_idea = Pick_A_Side
+																							add_idea = The_Cigar_Pact
+																						}
+																					
+																					SOV = {
+
+																					add_ideas = The_Cigar_Pact
+
+																					}	
+
+
+
+
+																						
+																						
+																					}
+																				}		
+
+
+																				focus = { 
+																					id = Align_With_America
+																					icon = GFX_Goal_USA_desegregation
+																					prerequisite = { focus = Choose_Your_Friends }
+																	
+																					
+																					mutually_exclusive = {
+																						focus = Align_With_The_Communists
+																						focus = Align_With_The_Fascists
+																						
+																						}
+																					relative_position_id = Choose_Your_Friends
+																					x = -2
+																					y = 1
+																					cost = 10
+
+
+																					available = {
+																						date > 1939.01.01
+																						is_subject = no
+																						is_in_faction = no
+																						has_government = democratic
+																					}
+																			
+																					completion_reward = {
+																					add_stability = 0.05
+																					swap_ideas = {
+																						remove_idea = Pick_A_Side
+																						add_idea = The_Cigar_Pact
+																					}
+																					
+																					USA = {
+
+																					add_ideas = The_Cigar_Pact
+
+																					}	
+
+
+																					}
+																				}		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	focus = {
@@ -31,7 +782,7 @@ continuous_focus_position = { x = 0 y = 900 }
 		}
 
 		completion_reward = {
-			add_stability = 0.02
+			add_stability = 0.10
 			custom_effect_tooltip = CUB_results_of_the_presidential_election_tt
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
@@ -54,6 +805,7 @@ continuous_focus_position = { x = 0 y = 900 }
 		}
 		completion_reward = {
 			custom_effect_tooltip = CUB_president_inaugurated_tt
+			add_political_power = 150
 		}
 		x = 2
 		y = 1
@@ -119,7 +871,7 @@ continuous_focus_position = { x = 0 y = 900 }
 	focus = {
 		id = CUB_defeat_batista_influence
 		icon = GFX_goal_cuba_defeat_batista_influence
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = CUB_reverse_left_wing_reforms
 		}
@@ -138,9 +890,12 @@ continuous_focus_position = { x = 0 y = 900 }
 	focus = {
 		id = CUB_trial_of_the_officers
 		icon = GFX_goal_cuba_trial_of_the_officers
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = CUB_defeat_batista_influence
+		}
+		ai_will_do = {
+			factor = 1
 		}
 		mutually_exclusive = {
 			focus = CUB_batista_coup
@@ -164,6 +919,13 @@ continuous_focus_position = { x = 0 y = 900 }
 		cost = 5
 		prerequisite = {
 			focus = CUB_defeat_batista_influence
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
 		}
 		mutually_exclusive = {
 			focus = CUB_batista_coup
@@ -736,7 +1498,7 @@ continuous_focus_position = { x = 0 y = 900 }
 	}
 	focus = {
 		id = CUB_join_spain
-		icon = GFX_focus_generic_invite_nat_spain
+		icon = GFX_goal_generic_befriend_spain_nationalist
 		relative_position_id = CUB_secure_power 
 		prerequisite = { focus = CUB_secure_power }
 		x = 7
@@ -827,7 +1589,7 @@ continuous_focus_position = { x = 0 y = 900 }
 	}
 	focus = {
 		id = CUB_join_argentina
-		icon = GFX_goal_CHL_alliance_with_the_argentinians
+		icon = GFX_goal_generic_befriend_argentina
 		relative_position_id = CUB_secure_power 
 		prerequisite = { focus = CUB_secure_power }
 		x = 9
@@ -887,7 +1649,7 @@ continuous_focus_position = { x = 0 y = 900 }
 		prerequisite = { focus = CUB_secure_power }
 		x = 11
 		y = 2
-		icon = GFX_goal_italian_cooperation
+		icon = GFX_goal_generic_befriend_italy
 
 		cost = 10
 
@@ -1032,6 +1794,13 @@ continuous_focus_position = { x = 0 y = 900 }
 		prerequisite = {
 			focus = CUB_defeat_batista_influence
 		}
+		ai_will_do = {
+			factor = 0.2
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
 		mutually_exclusive = {
 			focus = CUB_trial_of_the_officers
 			focus = CUB_nationalist_influence_over_the_military
@@ -1118,7 +1887,7 @@ continuous_focus_position = { x = 0 y = 900 }
 	}
 	focus = {
 		id = CUB_abandon_capitalism
-		icon = GFX_focus_GRE_red_victory
+		icon = GFX_goal_sov_communist_cuba
 		cost = 10
 		prerequisite = {
 			focus = CUB_align_with_the_radicals
@@ -1377,6 +2146,7 @@ continuous_focus_position = { x = 0 y = 900 }
 		}
 		completion_reward = {
 			custom_effect_tooltip = CUB_president_inaugurated_tt
+			add_political_power = 150
 		}
 		x = -2
 		y = 1
@@ -1386,7 +2156,7 @@ continuous_focus_position = { x = 0 y = 900 }
 	focus = {
 		id = CUB_the_nine_cent_law
 		icon = GFX_goal_cuba_nine_cents_law
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = CUB_victory_for_gomez
 		}
@@ -1402,12 +2172,13 @@ continuous_focus_position = { x = 0 y = 900 }
 	focus = {
 		id = CUB_issue_amnesties
 		icon = GFX_goal_cuba_issuing_amnesties
-		cost = 10
+		cost = 7
 		prerequisite = {
 			focus = CUB_the_nine_cent_law
 		}
 		completion_reward = {
 			add_stability = 0.1
+			add_war_support = 0.15
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 		x = -3
@@ -1418,7 +2189,7 @@ continuous_focus_position = { x = 0 y = 900 }
 	focus = {
 		id = CUB_diminish_american_influence
 		icon = GFX_goal_cuba_diminish_american_influence
-		cost = 10
+		cost = 7
 		prerequisite = {
 			focus = CUB_issue_amnesties
 		}
@@ -1434,7 +2205,7 @@ continuous_focus_position = { x = 0 y = 900 }
 	focus = {
 		id = CUB_social_welfare_laws
 		icon = GFX_goal_cuba_support_the_confederation_of_cuban_workers
-		cost = 10
+		cost = 7
 		prerequisite = {
 			focus = CUB_the_nine_cent_law
 		}
@@ -1450,7 +2221,7 @@ continuous_focus_position = { x = 0 y = 900 }
 	focus = {
 		id = CUB_law_of_sugar_coordination
 		icon = GFX_goal_cuba_law_of_sugar_coordination
-		cost = 10
+		cost = 7
 		prerequisite = {
 			focus = CUB_social_welfare_laws
 		}
@@ -1518,7 +2289,7 @@ continuous_focus_position = { x = 0 y = 900 }
 	focus = {
 		id = CUB_join_the_allies
 		icon = GFX_goal_cuba_join_the_allies
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = CUB_rewrite_the_constitution
 			focus = CUB_confederation_of_cuban_workers
@@ -1610,8 +2381,8 @@ continuous_focus_position = { x = 0 y = 900 }
 			}
 
 			add_equipment_to_stockpile = {
-			    type = fighter_equipment_0
-			    amount = 350
+			    type = small_plane_airframe_1
+			    amount = 250
 			    producer = USA
 			}
 		}
@@ -1629,8 +2400,11 @@ continuous_focus_position = { x = 0 y = 900 }
 		}
 		completion_reward = {
 			set_technology = {
-			    early_destroyer  = 1
-			    basic_destroyer = 1
+				
+			    early_ship_hull_light = 1
+			    basic_ship_hull_light = 1
+				improved_ship_hull_light = 1
+				
 			}
 			add_ideas = CUB_winning_the_battle_of_the_caribbean
 		}
@@ -1755,6 +2529,12 @@ continuous_focus_position = { x = 0 y = 900 }
 		x = -1
 		y = 9
 		relative_position_id = CUB_results_of_the_presidential_election
-
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
 	}
 }

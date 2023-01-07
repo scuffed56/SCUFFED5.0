@@ -1,6 +1,17 @@
 scripted_diplomatic_actions = {
- pay_civ_factory= {
-visible = {  THIS = {NOT= {has_war_with = ROOT}}}
+pay_civ_factory= {
+visible = {
+	THIS = {
+		NOT= {
+			has_war_with = ROOT
+		}
+	}
+	ROOT = {
+		NOT = {
+			has_war = yes
+		}
+	}
+}
 selectable = { 
  ROOT = {
  any_owned_state = { is_controlled_by = PREV industrial_complex > 0}
@@ -9,7 +20,7 @@ selectable = {
 
 requires_acceptance = no
 cost = 0 
- command_power = 0
+command_power = 0
 
 show_acceptance_on_action_button = no
 
@@ -19,7 +30,36 @@ on_sent_effect = {}
 
 complete_effect = {
 ROOT={random_owned_controlled_state = {limit={industrial_complex > 0} remove_building = {type=industrial_complex level = 1}}}
-add_offsite_building = { type = industrial_complex level = 1 }
+
+set_temp_variable = {
+	var = sent_civ
+	value = 0
+}
+
+random_core_state = {
+	limit = {
+		free_building_slots = {
+			building = industrial_complex
+			size > 0
+			include_locked = no
+		}
+	}
+	add_building_construction = {
+		type = industrial_complex
+		level = 1
+		instant_build = yes
+	}
+	
+	set_temp_variable = { sent_civ = 1 }
+}	
+
+IF = {
+		limit = {
+		check_variable = { sent_civ = 0 }
+	}
+	add_offsite_building = { type = industrial_complex level = 1 }
+}
+
 }
 
 reject_effect = {

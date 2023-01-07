@@ -249,59 +249,6 @@ economy_decisions = {
 			consumer_goods_factor = 0.05
 		}
 	}
-	RAJ_Investments = {
-		icon = generic_industry
-		cost = 120
-		target_trigger = {
-			FROM = {
-				OR = {
-					is_major = yes
-					is_faction_leader = yes
-				}
-				has_government = democratic
-				NOT = {
-					has_war_with = RAJ
-				}
-			}
-	   	}
-		fire_only_once = yes
-		allowed = {
-			tag = RAJ
-		}
-		ai_will_do = {
-			factor = 10
-		}
-		cancel_if_not_visible = yes
-		visible = {
-			has_country_flag = raj_investments_unlocked
-		}
-		available = {
-			has_country_flag = raj_investments_unlocked
-			FROM = {
-				num_of_civilian_factories > 20
-				OR = {
-					has_government = democratic
-					AND = {
-						has_government = neutrality
-						has_offensive_war = no
-					}
-				}
-			}
-			NOT = { has_country_flag = raj_lin_investment_running }
-		}
-		complete_effect = {
-			set_country_flag = raj_lin_investment_running
-			log = "[GetDateText]: [Root.GetName]: Decision RAJ_ENG_Investments"
-		}
-		remove_effect = {
-			clr_country_flag = raj_lin_investment_running
-			add_offsite_building = {
-				type = industrial_complex
-				level = 1
-			}
-		}
-		days_remove = 120
-	}
 }
 political_actions = {
 	raj_reintegrate_the_western_frontier = {
@@ -1194,7 +1141,6 @@ azad_hind = {
 				division_template = {
 					name = "Indian National Army"
 					is_locked = no
-					template_counter = 6
 					division_names_group = RAJ_INF_02
 					regiments = {
 						infantry = { x = 0 y = 0 }
@@ -1542,7 +1488,7 @@ indian_provincial_election = {
 		icon = generic_political_rally
 		on_map_mode = map_only
 		state_target = yes
-		cost = 40
+		cost = 25
 		available = {
 			NOT = { RAJ = { has_country_flag = running_influence } }
 			has_completed_focus = RAJ_Provincial_Elections
@@ -2261,7 +2207,7 @@ operations = {
 		}
 		cost = 50
 		days_remove = 90
-		war_with_on_remove = var:goacontroller
+		#war_with_on_remove = var:goacontroller	#specified later, doesn't seem to work?
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision RAJ_port_of_goa"
 			set_country_flag = raj_port_operation
@@ -2324,9 +2270,6 @@ operations = {
 
 		ai_will_do = {
 			base = 0
-			modifier = {
-				
-			}
 		}
 
 		days_mission_timeout = 90
@@ -3645,9 +3588,6 @@ raj_military_research = {
 
 		icon = generic_research
 
-		allowed = {
-			
-		}
 		fire_only_once = no
 		available = {	
 			NOT = { has_country_flag = army_research_running }
@@ -3698,9 +3638,6 @@ raj_military_research = {
 				artillery_count < 3
 			}
 		}
-		allowed = {
-			
-		}
 		fire_only_once = no
 		available = {	
 			NOT = { has_country_flag = army_research_running }
@@ -3720,6 +3657,7 @@ raj_military_research = {
 		
 		remove_effect = {
 			add_tech_bonus = {
+				name = army_research_artillery
 				bonus = 1
 				uses = 1
 				category = artillery
@@ -3742,9 +3680,6 @@ raj_military_research = {
 
 		icon = generic_research
 
-		allowed = {
-			
-		}
 		fire_only_once = no
 		available = {	
 			NOT = { has_country_flag = army_research_running }
@@ -3769,6 +3704,7 @@ raj_military_research = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision army_research_armour"
 			add_tech_bonus = {
+				name= army_research_armour
 				bonus = 1
 				uses = 1
 				category = armor
@@ -3790,9 +3726,6 @@ raj_military_research = {
 
 		icon = generic_research
 
-		allowed = {
-			
-		}
 		fire_only_once = no
 		available = {	
 			NOT = { has_country_flag = army_research_running }
@@ -3816,6 +3749,7 @@ raj_military_research = {
 		
 		remove_effect = {
 			add_tech_bonus = {
+				name= army_research_airplane
 				bonus = 1
 				uses = 1
 				category = air_equipment
@@ -3842,9 +3776,6 @@ raj_military_research = {
 				navy_count < 3
 			}	
 		}
-		allowed = {
-			
-		}
 		fire_only_once = no
 		available = {	
 			NOT = { has_country_flag = army_research_running }
@@ -3865,6 +3796,7 @@ raj_military_research = {
 		remove_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision army_research_navy"
 			add_tech_bonus = {
+				name= army_research_navy
 				bonus = 1
 				uses = 1
 				category = naval_equipment
@@ -3964,7 +3896,7 @@ post_election_struggle = {
 				ind_influence_daily = 0.15
 			}
 			add_to_variable = {
-				pak_influence_daily = 0.15
+				pak_influence_daily = 0.05
 			}
 			custom_effect_tooltip = ind_pak_15
 		}
@@ -3976,11 +3908,11 @@ post_election_struggle = {
 			factor = 250
 		}
 		fire_only_once = yes
-		cost = 200
+		cost = 75
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision hinder_pak_influence"
 			add_to_variable = {
-				pak_influence = -10
+				pak_influence = -15
 			}
 			custom_effect_tooltip = pak10flat
 		}	
@@ -4060,7 +3992,7 @@ post_election_struggle = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision organize_large_scale_strikes"
 			add_to_variable = {
-				ind_influence_daily = 0.05
+				ind_influence_daily = 0.06
 			}
 			custom_effect_tooltip = ind05
 			add_timed_idea = {
@@ -4138,11 +4070,11 @@ post_election_struggle = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision instigate_communal_violence"
 			add_to_variable = {
-				ind_influence = 2
+				ind_influence = 3
 			}
 			custom_effect_tooltip = ind02flat
 			add_to_variable = {
-				pak_influence = -1
+				pak_influence = -2
 			}
 			custom_effect_tooltip = pak01flat
 			add_stability = -0.03
@@ -4154,7 +4086,7 @@ post_election_struggle = {
 	promote_ethnic_harmony = {
 		icon = hol_exchange_intelligence_data
 		fire_only_once = no
-		cost = 100
+		cost = 50
 		ai_will_do = {
 			factor = 0
 			modifier = {
@@ -4171,11 +4103,11 @@ post_election_struggle = {
 		complete_effect = {
 			log = "[GetDateText]: [Root.GetName]: Decision promote_ethnic_harmony"
 			add_to_variable = {
-				ind_influence = 2
+				ind_influence = 5
 			}
 			custom_effect_tooltip = ind02flat
 			add_to_variable = {
-				pak_influence = -1
+				pak_influence = -2
 			}
 			custom_effect_tooltip = pak01flat
 			set_country_flag = promoted_harmony
@@ -4191,6 +4123,29 @@ post_election_struggle = {
 				}
 			}
 			has_capitulated = no
+			is_subject = yes
+			#if = {		#maybe need some non-DLC-related check for that?
+			#	limit = {
+			#		has_dlc = "Together for Victory"
+			#	}
+			#	OR = {
+			#		AND = {		#we are almost independent anyway
+			#			has_autonomy_state = autonomy_dominion
+			#			compare_autonomy_progress_ratio > 0.49
+			#		}
+			#		AND = {		#we are almost independent anyway
+			#			has_autonomy_state = autonomy_satellite
+			#			compare_autonomy_progress_ratio > 0.49
+			#		}
+			#		AND = {		#we are almost independent anyway
+			#			has_autonomy_state = autonomy_wtt_imperial_associate
+			#			compare_autonomy_progress_ratio > 0.49
+			#		}
+			#		OVERLORD = {	#they are loosing, best time to leave this sinking boat
+			#			surrender_progress > 0.2
+			#		}
+			#	}
+			#}
 		}
 		cost = 0
 		ai_will_do = {
@@ -4214,7 +4169,7 @@ post_election_struggle = {
 				}
 				if = {
 					limit = {
-						surrender_progress < 0.25
+						surrender_progress < 0.05	#0.25 is too much
 					}
 					every_other_country = {
 						limit = {
@@ -4296,7 +4251,7 @@ post_election_struggle = {
 								transfer_state = PREV 
 							}
 						}
-						remove_core_of = RAJ
+						#remove_core_of = RAJ
 
 						if = {
 							limit = {
@@ -4547,7 +4502,7 @@ post_election_struggle = {
 									expire = "1960.1.1"
 									ideology = conservatism
 									traits = {
-								
+										humble	#according to history, was pretty humble in his younger years
 									}
 								}
 								retire_ideology_leader = neutrality	#To prevent Jinnah-Jinnah Civil Wars

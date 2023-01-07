@@ -1,5 +1,4 @@
 ideas = {
-
 	country = {
 		sisu = {
 			
@@ -108,7 +107,7 @@ ideas = {
 				
 			}
 		
-			removal_cost = -1
+		removal_cost = -1
 
 			picture = generic_pp_unity_bonus
 
@@ -133,11 +132,12 @@ ideas = {
 	
 			modifier = {
 				conscription = 0.05
+				mobilization_speed = 0.05
 			}
 		}
 	
 		
-				democratic_fin = {
+		democratic_fin = {
 			
 			
 			allowed = {
@@ -168,7 +168,7 @@ ideas = {
 			}
 		}
 		
-			FIN_communism_banned = {
+		FIN_communism_banned = {
 			picture = anti_soviet_pact
 			allowed = {
 				always = no
@@ -185,6 +185,7 @@ ideas = {
 			}
 
 			modifier = {
+				communism_acceptance = -50
 				communism_drift = -0.05
 			}
 		}
@@ -245,10 +246,17 @@ ideas = {
 			
 			picture = FRA_scw_intervention_republicans_focus
 			modifier = {
-					communism_acceptance = -30
-					conscription = 0.015
-					army_core_attack_factor = 0.1
+				conscription = 0.02
+				hidden_modifier = {
+					ai_focus_aggressive_factor = 1
+				}
 			}
+			targeted_modifier = {
+				tag = SOV
+				attack_bonus_against = 0.10
+				defense_bonus_against = 0.10
+			}
+			
 		}
 		
 	fin_artyexperts = {
@@ -382,10 +390,12 @@ ideas = {
 			
 			picture = generic_air_bonus
 			equipment_bonus = {
-			fighter_equipment = {
+			small_plane_airframe = {
 					build_cost_ic = -0.1 instant = yes
 				}
-
+			small_plane_cas_airframe = {
+					build_cost_ic = -0.1 instant = yes
+				}
 		}
 	}
 	
@@ -448,7 +458,7 @@ ideas = {
 			}
 		}
 		
-			FIN_sweadvisors = {
+		FIN_sweadvisors = {
 		
 			allowed = {
 				original_tag = FIN
@@ -463,8 +473,8 @@ ideas = {
 			
 			removal_cost = -1
 
-			research_bonus = {
-				land_doctrine = 0.1
+			modifier = {
+				land_doctrine_cost_factor = -0.1
 			}
 		}
 		
@@ -483,8 +493,8 @@ ideas = {
 			
 			removal_cost = -1
 
-			research_bonus = {
-				land_doctrine = 0.1
+			modifier = {
+				land_doctrine_cost_factor = -0.1
 			}
 		}
 		
@@ -609,6 +619,14 @@ ideas = {
 	
 	FIN_stopai = {
 		removal_cost = -1
+
+		available = {
+			ROOT = {
+				NOT = {
+					has_war_with = GER
+				}
+			}
+		}
 		
 		allowed = {
 			always = yes # Added via focus
@@ -617,15 +635,23 @@ ideas = {
 		allowed_civil_war = {
 			always = yes
 		}
+
+		targeted_modifier = {
+			tag = GER	
+			trade_cost_for_target_factor = -1
+		}
 		
 		picture = generic_disjointed_gov
-		modifier = {
-			ai_get_ally_desire_factor = -1000
-			ai_call_ally_desire_factor = -1000
-			ai_join_ally_desire_factor = -1000
 
+		modifier = {
+			hidden_modifier = {
+				ai_get_ally_desire_factor = -1000
+				ai_call_ally_desire_factor = -1000
+				ai_join_ally_desire_factor = -1000
+			}
 		}
 	}
+
 	
 	fin_indocfocus = {
 			

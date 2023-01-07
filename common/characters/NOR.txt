@@ -13,8 +13,9 @@ characters={
 				liberal_grandee
 				naw_welfare_proponent ### The Nygaardsvold Government sought to alleviate the effects of the Great Depression through welfare programs, and it did indeed help.
 			}
-			expire = "1965.1.1.1"
+			expire = "1965.1.1"
 			id = -1
+			desc = NOR_johan_nygaardsvold_desc
 		}
 	}
 	
@@ -33,8 +34,9 @@ characters={
 			traits = {
 				naw_militia_proponent ### Admired the effective militias of the Soviet Union. Had a lot of military experience.
 			}
-			expire = "1965.1.1.1"
+			expire = "1965.1.1"
 			id = -1
+			desc = NOR_vidkun_quisling_desc
 		}
 	}
 	
@@ -50,8 +52,9 @@ characters={
 			traits = {
 				captain_of_industry naw_business_owner ### Ran his own shipping company from he bought his first boat in 1898, and onwards. Joint stock company from 1912.
 			}
-			expire = "1965.1.1.1"
+			expire = "1965.1.1"
 			id = -1
+			desc = NOR_johan_ludwig_mowinckel_desc
 		}
 	}
 	
@@ -67,8 +70,9 @@ characters={
 			traits = {
 				naw_propagandist ### Smuggled and spread revolutionary literature in his younger years. Also ran a postal office.
 			}
-			expire="1965.1.1.1"
+			expire="1965.1.1"
 			id = -1
+			desc = NOR_adam_egede-nissen_desc
 		}
 	}
 	
@@ -83,8 +87,9 @@ characters={
 		#country_leader = {
 		#	ideology = conservatism
 		#	traits = { silent_workhorse naw_agrarian }
-		#	expire = "1965.1.1.1"
+		#	expire = "1965.1.1"
 		#	id = -1
+		#	desc = NOR_nils_traedal_desc
 		#}
 	}
 	
@@ -98,8 +103,9 @@ characters={
 		#country_leader = {
 		#	ideology = conservatism
 		#	traits = { armaments_organizer naw_business_owner }
-		#	expire = "1965.1.1.1"
+		#	expire = "1965.1.1"
 		#	id = -1
+		#	desc = NOR_ivar_lykke_desc
 		#}
 	}
 	
@@ -113,8 +119,9 @@ characters={
 		#country_leader = {
 		#	ideology = conservatism
 		#	traits = { armaments_organizer staunch_constitutionalist dealbroker }
-		#	expire = "1965.1.1.1"
+		#	expire = "1965.1.1"
 		#	id = -1
+		#	desc = NOR_carl_joachim_hambro_desc
 		#}
 	}
 	
@@ -123,14 +130,15 @@ characters={
 		portraits = {
 			civilian = {
 				large = "gfx/leaders/NOR/r56_Portrait_NOR_Haakon_VII.dds"
+				small = "GFX_idea_NOR_haakon_vii_political_advisor"
 			}
 			army = {
 				large = "gfx/leaders/NOR/Portrait_Norway_Haakon_VII_military.dds"
-				small = "GFX_idea_NOR_haakon_advisor"
+				small = "GFX_idea_NOR_haakon_vii_military_advisor"
 			}
 			navy = {
 				large = "gfx/leaders/NOR/r56_Portrait_NOR_Haakon_VII.dds"
-				small = "GFX_idea_NOR_haakon_advisor"
+				small = "GFX_idea_NOR_haakon_vii_military_advisor"
 			}
 		}
 		allowed_civil_war = {
@@ -165,8 +173,9 @@ characters={
 		#country_leader = {
 		#	ideology = centrism
 		#	traits = { naw_naval_officer compassionate_gentleman }
-		#	expire = "1965.1.1.1"
+		#	expire = "1965.1.1"
 		#	id = -1
+		#	desc = NOR_haakon_vii_desc
 		#}
 		#field_marshal = {
 		#	traits = { infantry_officer media_personality inspirational_leader }
@@ -204,8 +213,9 @@ characters={
 		#country_leader = {
 		#	ideology = centrism
 		#	traits = { naw_driven_monarchists socialite_connections dysfunctional_assembly }
-		#	expire = "1965.1.1.1"
+		#	expire = "1965.1.1"
 		#	id = -1
+		#	desc = NOR_monarchist_coalition_desc
 		#}
 	}
 	
@@ -532,7 +542,7 @@ characters={
 		portraits={
 			army={
 				large="gfx/leaders/NOR/r56_Portrait_NOR_Carl_Johan_Erichsen.dds"
-				small="gfx/interface/ideas/idea_europe_generic_land_4.dds" ### TODO: Add small picture!
+				small = "GFX_idea_NOR_carl_johan_erichsen"
 			}
 		}
 		corps_commander = {
@@ -1343,27 +1353,23 @@ characters={
 			cost = 150
 			traits = { fascist_demagogue }
 			ai_will_do = {
-				factor = 1
+				factor = 0
 				modifier = {
-					factor = 2
+					add = 20
 					is_subject = no
-					has_completed_focus = NOR_support_radical_nationalism
-					NOT = { has_completed_focus = NOR_support_radical_socialism }
+					OR = {
+						has_country_flag = NOR_AI_RANDOM_FASCIST
+						has_game_rule = {
+							rule = NOR_ai_behavior 
+							option = FASCIST
+						}
+					}
 				}
 				modifier = {
 					factor = 0.1
 					OR = {
 						is_subject = yes
 						has_civil_war = yes
-					}
-				}
-				modifier = {
-					factor = 0
-					OR = {
-						has_completed_focus = NOR_affirm_constitutional_monarchy
-						has_completed_focus = NOR_traditions_and_monarchy
-						NOT = { has_completed_focus = NOR_support_radical_nationalism }
-						has_completed_focus = NOR_support_radical_socialism
 					}
 				}
 			}
@@ -1396,27 +1402,23 @@ characters={
 			cost = 150
 			traits = { communist_revolutionary }
 			ai_will_do = {
-				factor = 1
+				factor = 0
 				modifier = {
-					factor = 2
+					add = 20
 					is_subject = no
-					NOT = { has_completed_focus = NOR_support_radical_nationalism }
-					has_completed_focus = NOR_support_radical_socialism
+					OR = {
+						has_country_flag = NOR_AI_RANDOM_COMMUNIST
+						has_game_rule = {
+							rule = NOR_ai_behavior 
+							option = COMMUNIST
+						}
+					}
 				}
 				modifier = {
 					factor = 0.1
 					OR = {
 						is_subject = yes
 						has_civil_war = yes
-					}
-				}
-				modifier = {
-					factor = 0
-					OR = {
-						has_completed_focus = NOR_affirm_constitutional_monarchy
-						has_completed_focus = NOR_traditions_and_monarchy
-						has_completed_focus = NOR_support_radical_nationalism
-						NOT = { has_completed_focus = NOR_support_radical_socialism }
 					}
 				}
 			}

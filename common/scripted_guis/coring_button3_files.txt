@@ -16,16 +16,59 @@ scripted_gui = {
 		
 		effects = {
 			create_core3_click = {
-				ROOT = { 
-					add_political_power = -25 
+				if = {
+					limit = {FROM = {compliance > 99}}
+					ROOT = {
+						add_political_power = -25
+					}
 				}
-				
+				else_if = {
+					limit = {FROM = {compliance > 74}}
+					ROOT = {
+						add_political_power = -31.25
+					}
+				}
+				else_if = {
+					limit = {FROM = {compliance > 49}}
+					ROOT = {
+						add_political_power = -37.5
+					}
+				}
+				else_if = {
+					limit = {FROM = {compliance > 24}}
+					ROOT = {
+						add_political_power = -43.75
+					}
+				}
+				else = {
+					ROOT = {
+						add_political_power = -50
+					}
+				}
 				add_core_of = FROM
 				}
 		}
 		triggers = {
 			create_core3_click_enabled = {
-				check_variable = { ROOT.political_power > 24.99 }
+				if = {
+					limit = {FROM = {compliance > 99}}
+					check_variable = { ROOT.political_power > 24.99 }
+				}
+				else_if = {
+					limit = {FROM = {compliance > 74}}
+					check_variable = { ROOT.political_power > 31.24 }
+				}
+				else_if = {
+					limit = {FROM = {compliance > 49}}
+					check_variable = { ROOT.political_power > 37.49 }
+				}
+				else_if = {
+					limit = {FROM = {compliance > 24}}
+					check_variable = { ROOT.political_power > 43.74 }
+				}
+				else = {
+					check_variable = { ROOT.political_power > 49.99 }
+				}
 			}
 		}
 		        

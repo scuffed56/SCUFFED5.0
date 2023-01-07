@@ -111,17 +111,16 @@ focus_tree = {
 				is_subject = yes
 				SHX = { exists = no }
 				has_war_with = SHX
-				SHX = { is_subject_of = JAP }
-				SHX = { is_subject_of = PRC }
+				SHX = { is_subject = yes }
 			}
 		}
 		bypass = {
-			original_tag = SHX
 			OR = {
-				is_subject = yes
+				original_tag = SHX
 				SHX = { exists = no }
-				SHX = { is_subject_of = JAP }
-				SHX = { is_subject_of = PRC }
+				SHX = { 
+					is_subject = yes
+				}
 			}
 		}
 		
@@ -148,6 +147,23 @@ focus_tree = {
 		y = 1
 		cost = 7.16
 		completion_reward = {
+			if = {
+				limit = {
+					has_full_control_of_state = 615
+					has_full_control_of_state = 621
+				}
+				621 = {
+					add_building_construction = { 
+						type = supply_node
+						level = 1
+						province = 2087
+						instant_build = yes
+					}
+				}
+				build_railway = { 
+					path = { 1519 4174 12300 10507 7631 4525 2087  }				
+				}
+			}
 			custom_effect_tooltip = KMT_prep_tt
 			hidden_effect = {
 				every_controlled_state = {
@@ -225,9 +241,7 @@ focus_tree = {
 						expire = 0
 					}
 				}
-				PREV = {
-					add_opinion_modifier = { target = ROOT modifier = no_collaboration_with_CHI_COM }
-				}
+				add_opinion_modifier = { target = ROOT modifier = no_collaboration_with_CHI_COM }
 			}
 			army_experience = 5
 			add_doctrine_cost_reduction = {
@@ -388,7 +402,7 @@ focus_tree = {
 		
 		x = 4
 		y = 1
-		cost = 10
+		cost = 5
 		
 		completion_reward = {
 			army_experience = 10
@@ -571,7 +585,7 @@ focus_tree = {
 		
 		x = 6
 		y = 1
-		cost = 10
+		cost = 5
 		
 		completion_reward = {
 			army_experience = 10
@@ -975,7 +989,7 @@ focus_tree = {
 		icon = GFX_focus_generic_industry_1
 		x = 17
 		y = 0
-		cost = 10
+		cost = 5
 
 		completion_reward = {
 			random_owned_controlled_state = {
@@ -1012,7 +1026,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_infrastructure
 		x = 15
 		y = 1
-		cost = 15
+		cost = 14.3
 		prerequisite = { focus = KMT_industrial_effort }
 		available = {
 			OR = {
@@ -1624,7 +1638,7 @@ focus_tree = {
 		icon = GFX_focus_generic_industry_2
 		x = 17
 		y = 1
-		cost = 15
+		cost = 14.4
 		prerequisite = { focus = KMT_industrial_effort }
 		available = {
 			OR = {
@@ -1722,7 +1736,7 @@ focus_tree = {
 			if = {
 				limit = {
 					594 = {
-						full_control_by_root = yes
+						is_owned_and_controlled_by = ROOT
 					}
 				}
 				add_resource = {
@@ -1734,7 +1748,7 @@ focus_tree = {
 			if = {
 				limit = {
 					592 = {
-						full_control_by_root = yes
+						is_owned_and_controlled_by = ROOT
 					}
 				}
 				add_resource = {
@@ -1746,7 +1760,7 @@ focus_tree = {
 			if = {
 				limit = {
 					591 = {
-						full_control_by_root = yes
+						is_owned_and_controlled_by = ROOT
 					}
 				}
 				add_resource = {
@@ -1758,7 +1772,7 @@ focus_tree = {
 			if = {
 				limit = {
 					593 = {
-						full_control_by_root = yes
+						is_owned_and_controlled_by = ROOT
 					}
 				}
 				add_resource = {
@@ -1773,7 +1787,7 @@ focus_tree = {
 	
 	focus = {
 		id = CHI_industrial_evacuations
-		icon = GFX_goal_generic_construct_infrastructure
+		icon = GFX_goal_generic_industrial_planning
 		prerequisite = { focus = KMT_national_defense_council }
 		prerequisite = { focus = KMT_industrial_effort }
 
@@ -1786,9 +1800,13 @@ focus_tree = {
 			factor = 1
 		}
 
+		allow_branch = { #dont tease the DLC-less
+			has_dlc = "Waking the Tiger"
+		}
+
 		available = {
 			has_war = yes
-			has_dlc = "Waking the Tiger"
+			#has_dlc = "Waking the Tiger"
 		}
 
 		completion_reward = {
@@ -2316,15 +2334,42 @@ focus_tree = {
 					}
 					is_controlled_by = ROOT
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = KMT_arms_purchases_in_the_us
+		text = FRA_arms_purchases_in_the_us
+		icon = GFX_Goal_USA_arsenal_of_democracy
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = KMT_armament_effort
+		}
+		relative_position_id = KMT_armament_effort
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			country_exists = USA
+			USA_can_sell_weapons_trigger = yes
+		}
+		
+		completion_reward = {
+			USA = { country_event = lar_arms_purchases.1 }
+			unlock_decision_category_tooltip = CHI_weapons_purchases_category
+		}
 	}
 	
 	focus = {
@@ -2425,7 +2470,7 @@ focus_tree = {
 				category = armor
 			}
 			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = KMT_hanyang_arsenal_tank
+			show_ideas_tooltip = CHI_hanyang_arsenal_tank
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -2436,7 +2481,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_revive_hanyang_armory }
 		x = 11
 		y = 4
-		cost = 10
+		cost = 5
 		
 		completion_reward = {
 			if = {
@@ -2458,9 +2503,10 @@ focus_tree = {
 				uses = 1
 				category = air_doctrine
 			}
-			
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = KMT_chennault_air_chief
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = CHI_claire_lee_chennault_theorist
+			custom_effect_tooltip = available_chief_of_airforce
+			show_ideas_tooltip = CHI_claire_lee_chennault_air_chief
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -2482,7 +2528,7 @@ focus_tree = {
 		}
 		x = 10
 		y = 5
-		cost = 10
+		cost = 5
 		
 		completion_reward = {
 			air_experience = 30
@@ -2510,7 +2556,7 @@ focus_tree = {
 				}
 				swap_ideas = {
 					remove_idea = KMT_chennault
-					add_idea = KMT_tft
+					add_idea = KMT_the_flying_tigers_idea
 				}
 			}
 		}
@@ -2530,8 +2576,14 @@ focus_tree = {
 			add_tech_bonus = {
 				name = dd_bonus
 				bonus = 1
-				uses = 2
+				uses = 1
 				category = dd_tech
+			}
+			add_tech_bonus = {
+				name = dd_bonus
+				bonus = 1
+				uses = 1
+				category = ss_tech
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2884,16 +2936,15 @@ focus_tree = {
 	focus = {
 		id = KMT_north_plan
 		icon = GFX_goal_CHI_retake_manchuria
-		prerequisite = { focus = KMT_fortify_land }
+		prerequisite = { focus = KMT_fortify_land focus = KMT_SHX_offer }
 		available = {
 			is_puppet = no
-			has_army_manpower = { size > 999999 }
 			any_state = {
 				custom_trigger_tooltip = {
 					tooltip = state_is_manchuria_plus_mengukou_tt
 					OR = {
 						region = 155
-						state = 874
+						state = 947
 						state = 610
 						state = 609
 						state = 745
@@ -2905,6 +2956,44 @@ focus_tree = {
 					tooltip = ROOT_is_not_controlled_by_root_or_ally_tt
 					NOT = {
 						is_controlled_by_ROOT_or_ally = yes
+					}
+				}
+			}
+			OR = {
+				AND = {
+					has_completed_focus = KMT_fortify_land
+					has_army_manpower = { size > 1699999 }
+				}
+				AND = {
+					has_completed_focus = KMT_SHX_offer
+					OR = {
+						has_army_manpower = { size > 1299999 }
+						AND = {
+							GXC = {
+								OR = {
+									exists = no
+									is_subject_of = ROOT
+								}
+							}
+							XSM = {
+								OR = {
+									exists = no
+									is_subject_of = ROOT
+								}
+							}
+							YUN = {
+								OR = {
+									exists = no
+									is_subject_of = ROOT
+								}
+							}
+							SIK = {
+								OR = {
+									exists = no
+									is_subject_of = ROOT
+								}
+							}
+						}
 					}
 				}
 			}
@@ -2920,7 +3009,7 @@ focus_tree = {
 							tooltip = state_is_manchuria_plus_mengukou_tt
 							OR = {
 								region = 155
-								state = 874
+								state = 947
 								state = 610
 								state = 609
 								state = 745
@@ -2943,7 +3032,7 @@ focus_tree = {
 					any_owned_state = {
 						OR = {
 							region = 155
-							state = 874
+							state = 947
 							state = 610
 							state = 609
 							state = 745
@@ -2980,7 +3069,7 @@ focus_tree = {
 					tooltip = state_is_in_manchuria_tt
 					OR = {
 						region = 155
-						state = 874
+						state = 947
 						state = 610
 					}
 				}
@@ -2989,14 +3078,14 @@ focus_tree = {
 		}
 		x = 19
 		y = 1
-		cost = 15
+		cost = 14.4
 		
 		completion_reward = {
 			every_controlled_state = {
 				limit = {
 					OR = {
 						region = 155
-						state = 874
+						state = 947
 						state = 610
 					}
 					free_building_slots = {
@@ -3108,7 +3197,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_modernize_army }
 		x = 17
 		y = 6
-		cost = 10
+		cost = 5
 
 		completion_reward = {
 			add_doctrine_cost_reduction = {
@@ -3153,7 +3242,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_industrial_effort }
 		x = 21
 		y = 3
-		cost = 10
+		cost = 5
 		
 		completion_reward = {
 			add_tech_bonus = {
@@ -3196,7 +3285,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_electronics_research }
 		x = 21
 		y = 6
-		cost = 10
+		cost = 5
 		
 		completion_reward = {
 			add_tech_bonus = {
@@ -3460,7 +3549,14 @@ focus_tree = {
 			}
 			else = {
 				add_ideas = KMT_cbis
-			}			
+			}
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				custom_effect_tooltip = available_political_advisor
+				show_ideas_tooltip = CHI_dai_li_advisor_lar
+			}		
 		}
 		search_filters = { FOCUS_FILTER_ESPIONAGE }
 	}
@@ -3474,13 +3570,6 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			add_ideas = KMT_cement_control_on_the_economy
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = CHI_dai_li_advisor_lar
-			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -3540,15 +3629,19 @@ focus_tree = {
 					original_tag = CHI
 				}
 				hidden_effect = {
-					kill_country_leader = yes
-					create_country_leader = {
-						name = "Chiang Kai-Shek"
-						desc = "POLITICS_CHIANG_KAI-SHEK_DESC"
-						picture = "gfx/leaders/CHI/r56_portrait_CHI_Chiang_Kai_Shek.dds"
-						expire = "1965.1.1"
-						ideology = despotism
-						traits = {
-							army_connections
+					CHI_chiang_kai_shek = {
+						remove_country_leader_role = {
+							ideology = the_peoples_tutelage
+						}
+						add_country_leader_role = {
+							country_leader = {
+								expire = "1965.1.1"
+								ideology = despotism
+								traits = {
+									army_connections
+								}
+							}
+							promote_leader = yes
 						}
 					}
 				}				
@@ -3628,9 +3721,6 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = KMT_parliament
 			remove_ideas = CHI_communist_uprisings
-			hidden_effect = {
-				set_country_flag = kmt_land_problem_xed
-			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 	}
@@ -4138,7 +4228,10 @@ focus_tree = {
 			}
 			every_state = {		#Korea
 				limit = {
-					is_core_of = KOR
+					OR = {
+						is_core_of = KOR
+						is_core_of = NKR
+					}
 					NOT = { is_claimed_by = ROOT }
 					NOT = { is_core_of = ROOT }
 				}
@@ -4224,9 +4317,9 @@ focus_tree = {
 					tooltip = state_in_central_steppe_or_central_asia_tt
 					OR = {
 						state = 330
-						state = 848
-						state = 849
-						state = 850
+						state = 921
+						state = 922
+						state = 923
 						state = 617
 						state = 618
 						state = 287
@@ -4250,9 +4343,9 @@ focus_tree = {
 							tooltip = state_in_central_steppe_or_central_asia_tt
 							OR = {
 								state = 330
-								state = 848
-								state = 849
-								state = 850
+								state = 921
+								state = 922
+								state = 923
 								state = 617
 								state = 618
 								state = 287
@@ -4355,7 +4448,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_national_defense_council }
 		x = 10
 		y = 1
-		cost = 10
+		cost = 5
 		
 		available = {
 			ENG = {
@@ -4530,36 +4623,27 @@ focus_tree = {
 		y = 6
 		cost = 10
 		bypass = {
-			custom_trigger_tooltip = {
-				tooltip = kmt_neutral_tp_bp_gzw
-				728 = {
-					OR = {
-						is_owned_by = ROOT
-						owner = {
-							has_war_with = ROOT
-						}
+			728 = {
+				OR = {
+					is_owned_by = ROOT
+					owner = {
+						has_war_with = ROOT
 					}
 				}
 			}
-			custom_trigger_tooltip = {
-				tooltip = kmt_neutral_tp_bp_mc
-				729 = {
-					OR = {
-						is_owned_by = ROOT
-						owner = {
-							has_war_with = ROOT
-						}
+			729 = {
+				OR = {
+					is_owned_by = ROOT
+					owner = {
+						has_war_with = ROOT
 					}
 				}
 			}
-			custom_trigger_tooltip = {
-				tooltip = kmt_neutral_tp_bp_hk
-				326 = {
-					OR = {
-						is_owned_by = ROOT
-						owner = {
-							has_war_with = ROOT
-						}
+			326 = {
+				OR = {
+					is_owned_by = ROOT
+					owner = {
+						has_war_with = ROOT
 					}
 				}
 			}
@@ -4660,45 +4744,36 @@ focus_tree = {
 		y = 6
 		cost = 10
 		bypass = {
-			custom_trigger_tooltip = {
-				tooltip = kmt_demo_tp_bp_gzw
-				728 = {
-					OR = {
-						NOT = {
-							is_owned_by = FRA
-						}
-						is_owned_by = ROOT
-						owner = {
-							has_war_with = ROOT
-						}
+			728 = {
+				OR = {
+					NOT = {
+						is_owned_by = FRA
+					}
+					is_owned_by = ROOT
+					owner = {
+						has_war_with = ROOT
 					}
 				}
 			}
-			custom_trigger_tooltip = {
-				tooltip = kmt_demo_tp_bp_mc
-				729 = {
-					OR = {
-						NOT = {
-							is_owned_by = POR
-						}
-						is_owned_by = ROOT
-						owner = {
-							has_war_with = ROOT
-						}
+			729 = {
+				OR = {
+					NOT = {
+						is_owned_by = POR
+					}
+					is_owned_by = ROOT
+					owner = {
+						has_war_with = ROOT
 					}
 				}
 			}
-			custom_trigger_tooltip = {
-				tooltip = kmt_demo_tp_bp_hk
-				326 = {
-					OR = {
-						NOT = {
-							is_owned_by = ENG
-						}
-						is_owned_by = ROOT
-						owner = {
-							has_war_with = ROOT
-						}
+			326 = {
+				OR = {
+					NOT = {
+						is_owned_by = ENG
+					}
+					is_owned_by = ROOT
+					owner = {
+						has_war_with = ROOT
 					}
 				}
 			}
@@ -4763,39 +4838,16 @@ focus_tree = {
 		}
 		available = {
 			has_government = fascism
-			OR = {
-				custom_trigger_tooltip = {
-					tooltip = kmt_neutral_tp_gzw
-					728 = {
-						NOT = {
-							is_owned_by = ROOT
-							owner = {
-								has_war_with = ROOT
-							}
-						}
-					}
+			any_state = {
+				OR = {
+					state = 745
+					state = 743
+					state = 326
+					state = 729
+					state = 728
 				}
-				custom_trigger_tooltip = {
-					tooltip = kmt_neutral_tp_mc
-					729 = {
-						NOT = {
-							is_owned_by = ROOT
-							owner = {
-								has_war_with = ROOT
-							}
-						}
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = kmt_neutral_tp_hk
-					326 = {
-						NOT = {
-							is_owned_by = ROOT
-							owner = {
-								has_war_with = ROOT
-							}
-						}
-					}
+				NOT = {
+					is_controlled_by = ROOT
 				}
 			}
 		}
@@ -4803,72 +4855,25 @@ focus_tree = {
 		y = 8
 		cost = 10
 		bypass = {
-			custom_trigger_tooltip = {
-				tooltip = kmt_neutral_tp_bp_gzw
-				728 = {
-					OR = {
-						is_owned_by = ROOT
-						owner = {
-							has_war_with = ROOT
+			all_state = {
+				OR = {
+					NOT = { 
+						OR = {
+							state = 745
+							state = 743
+							state = 326
+							state = 729
+							state = 728
 						}
 					}
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = kmt_neutral_tp_bp_mc
-				729 = {
-					OR = {
-						is_owned_by = ROOT
-						owner = {
-							has_war_with = ROOT
-						}
-					}
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = kmt_neutral_tp_bp_hk
-				326 = {
-					OR = {
-						is_owned_by = ROOT
-						owner = {
-							has_war_with = ROOT
-						}
-					}
+					is_controlled_by = ROOT
 				}
 			}
 		}
 		
 		completion_reward = {
-			if = {
-				limit = {
-					728 = {
-						NOT = {
-							is_owned_by = ROOT
-						}
-					}
-				}
-				country_event = { id = kmt.118 }
-			}
-			if = {
-				limit = {
-					729 = {
-						NOT = {
-							is_owned_by = ROOT
-						}
-					}
-				}
-				country_event = { id = kmt.131 }
-			}
-			if = {
-				limit = {
-					326 = {
-						NOT = {
-							is_owned_by = ROOT
-						}
-					}
-				}
-				country_event = { id = kmt.144 }
-			}
+			add_political_power = 50
+			unlock_decision_category_tooltip = CHI_unequal_treaties
 		}
 	}
 	
@@ -4899,7 +4904,7 @@ focus_tree = {
 				has_war_with = RAJ
 			}
 		}
-		cost = 10
+		cost = 5
 		x = 10
 		y = 2
 		
@@ -4945,7 +4950,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_air_effort }
 		x = 11 
 		y = 6
-		cost = 10
+		cost = 5
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -5009,7 +5014,7 @@ focus_tree = {
 	
 	focus = {
 		id = KMT_national_resources_commission
-		icon = GFX_goal_generic_more_territorial_claims
+		icon = GFX_goal_italy_establish_the_sme
 		prerequisite = { focus = KMT_industrialization_NW focus = KMT_industrialization_S focus = KMT_pioneering_the_north_east }
 		available = {
 			num_of_factories > 100
@@ -5098,7 +5103,7 @@ focus_tree = {
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = CHI_zhang_qun
 			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = KMT_army_ordnance_department
+			show_ideas_tooltip = CHI_army_ordnance_department
 			show_ideas_tooltip = KMT_rheinmetall
 			show_ideas_tooltip = KMT_mauser
 		}
@@ -5110,7 +5115,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_national_defense_council }
 		available = { has_war = yes }
 		relative_position_id = KMT_national_defense_council
-		x = -2	
+		x = -2
 		y = 1
 		cost = 10
 		ai_will_do = {
@@ -5130,7 +5135,7 @@ focus_tree = {
 	focus = {
 		id = KMT_revive_jiangnan_shipyard
 		icon = GFX_goal_generic_expand_the_naval_industry
-		x = 10
+		x = 9
 		y = 3
 		cost = 10
 		prerequisite = { focus = KMT_armament_effort }
@@ -5204,6 +5209,48 @@ focus_tree = {
 			show_ideas_tooltip = jiangnan_shipyard_group
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = KMT_organize_the_partisans
+		icon = GFX_focus_focus_fra_maquis
+		relative_position_id = KMT_dare_to_die_corps
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = { focus = KMT_dare_to_die_corps }
+		allow_branch = {
+			always = no
+		}
+		available = {
+			surrender_progress > 0.05
+			any_owned_state = {
+				controller = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		cancel = {
+			has_war = no
+		}
+		
+		ai_will_do = {
+			factor = 20
+		}			
+		
+		completion_reward = {
+			division_template = {
+				name = "Dangpai"
+				is_locked = yes
+				division_names_group = CHI_INF_01
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+				}
+			}			  
+		}
 	}
 	
 	focus = {
@@ -5280,7 +5327,7 @@ focus_tree = {
 				}
 			}
 			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = Hanyang_armory
+			show_ideas_tooltip = CHI_hanyang_arsenal
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -5290,13 +5337,11 @@ focus_tree = {
 		icon = GFX_focus_mex_privatisation
 		available = {
 			has_war = no
-			has_idea = KMT_jinyuanquan_inflation
 		}
 		prerequisite = { focus = KMT_political_effort }
 		x = 42
 		y = 1
-		cost = 40
-		#cost = 50
+		cost = 20
 
 		cancel_if_invalid = no
 		continue_if_invalid = yes
@@ -5327,20 +5372,36 @@ focus_tree = {
 		icon = GFX_goal_generic_construction2
 		x = 46
 		y = 0
-		cost = 10
+		cost = 14.3
 		
 		available = {
-			has_war_with = JAP
+			surrender_progress > 0.1
+			any_other_country = {
+				is_major = yes
+				has_war_with = ROOT
+			}
 		}
 		cancel = {
 		}
 		
 		ai_will_do = {
-			factor = 20
+			factor = 100 #DO ASAP
 		}			
 		
 		completion_reward = {
-			army_experience = 10
+			#army_experience = 10
+			add_ideas = KMT_rear	 
+			effect_tooltip = {
+				custom_effect_tooltip = KMT_r56_big_rear_tt_1
+				add_dynamic_modifier = { modifier = r56_the_big_rear } 
+			}
+			effect_tooltip = {
+				custom_effect_tooltip = KMT_r56_the_rear_tt_2
+				add_dynamic_modifier = { modifier = r56_the_rear } 
+			}
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = CHI_taiyuan_arsenal		
+			show_ideas_tooltip = KMT_chongqing_steel
 			if = {
 				limit = {
 					608 = {
@@ -5592,40 +5653,517 @@ focus_tree = {
 					}
 				}
 			}
-			random_owned_controlled_state = {
-				prioritize = { 605 }
-				limit = {
-					free_building_slots = {
-						building = infrastructure
-						size > 0
+			hidden_effect = {
+				if = {
+					limit = {
+						605 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					605 = {
+						add_dynamic_modifier = { modifier = r56_the_big_rear } 
 					}
 				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				prioritize = { 603 }
-				limit = {
-					free_building_slots = {
-						building = infrastructure
-						size > 0
+				if = {
+					limit = {
+						752 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					752 = {
+						add_dynamic_modifier = { modifier = r56_the_big_rear } 
 					}
 				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
+				if = {
+					limit = {
+						750 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					750 = {
+						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+					}
+				}
+				if = {
+					limit = {
+						751 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					751 = {
+						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+					}
+				}
+				if = {
+					limit = {
+						748 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					748 = {
+						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+					}
+				
+				}
+				if = {
+					limit = {
+						603 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					603 = {
+						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+					}
+				}
+				if = {
+					limit = {
+						744 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					744 = {
+						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+					}
+				}
+				if = {
+					limit = {
+						620 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					620 = {
+						add_dynamic_modifier = { modifier = r56_the_rear } 
+					}
+				}
+				if = {
+					limit = {
+						602 = {
+							is_fully_controlled_by = ROOT
+						}
+					}
+					602 = {
+						add_dynamic_modifier = { modifier = r56_the_rear } 
+					}
 				}
 			}
-			add_ideas = KMT_rear
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = Taiyuan_armory		
-			show_ideas_tooltip = KMT_chongqing_steel			  
+			 
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = { #Sorry japan, should had ended the war by now
+		id = KMT_develop_the_rear
+		icon = GFX_goal_generic_fortify_city
+		prerequisite = { focus = KMT_the_big_rear_concept }
+		relative_position_id = KMT_the_big_rear_concept
+		x = 2
+		y = 1
+		available = {
+			has_war = yes
+			605 = { #atleast this needs to be controlled 
+				is_fully_controlled_by = ROOT
+			}
+			OR = {
+				surrender_progress > 0.15
+				AND = {
+					613 = {
+						controller = {
+							has_war_with = ROOT
+						}
+					}
+					608 = {
+						controller = {
+							has_war_with = ROOT
+						}
+					}
+					597 = {
+						controller = {
+							has_war_with = ROOT
+						}
+					}
+					743 = {
+						controller = {
+							has_war_with = ROOT
+						}
+					}
+				}
+			}
+		}
+
+		bypass = {
+		}
+
+		ai_will_do = {
+			factor = 100 #DO ASAP
+		}
+		continue_if_invalid = yes
+		available_if_capitulated = yes
+		cost = 10
+		
+		
+		completion_reward = {
+			if = {
+				limit = {
+					750 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				750 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { 
+						type = supply_node
+						level = 1
+						province = 6999
+						instant_build = yes
+					}
+					add_building_construction = { 
+						type = bunker
+						level = 1
+						province =  6999
+						instant_build = yes
+					}
+				}
+				add_victory_points = {
+					province = 7101
+					value = 5
+				}
+			}
+			if = {
+				limit = {
+					605 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				605 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { 
+						type = supply_node
+						level = 1
+						province = 7101
+						instant_build = yes
+					}
+					add_building_construction = { 
+						type = bunker
+						level = 1
+						province = 7101
+						instant_build = yes
+					}
+				}
+				add_victory_points = {
+					province = 6999
+					value = 5
+				}
+			}
+			if = {
+				limit = {
+					752 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				752 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { 
+						type = supply_node
+						level = 1
+						province = 4999
+						instant_build = yes
+					}
+					add_building_construction = { 
+						type = bunker
+						level = 1
+						province = 4999
+						instant_build = yes
+					}
+				}
+				add_victory_points = {
+					province = 4999
+					value = 2
+				}
+			}
+			if = {
+				limit = {
+					603 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				603 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { 
+						type = supply_node
+						level = 1
+						province = 4504
+						instant_build = yes
+					}
+					add_building_construction = { 
+						type = bunker
+						level = 1
+						province = 4504
+						instant_build = yes
+					}
+				}
+				add_victory_points = {
+					province = 4504
+					value = 2
+				}
+			}
+			if = {
+				limit = {
+					751 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				751 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { 
+						type = bunker
+						level = 1
+						province = 12141
+						instant_build = yes
+					}
+				}
+				add_victory_points = {
+					province = 12141
+					value = 2
+				}
+			}
+			if = {
+				limit = {
+					748 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				748 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { 
+						type = bunker
+						level = 1
+						province = 1010
+						instant_build = yes
+					}
+				}
+				add_victory_points = {
+					province = 1010
+					value = 2
+				}
+			}
+			if = {
+				limit = {
+					744 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				744 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { 
+						type = bunker
+						level = 1
+						province = 7418
+						instant_build = yes
+					}
+				}
+				add_victory_points = {
+					province = 7418
+					value = 2
+				}
+			}
+			if = {
+				limit = {
+					620 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				620 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { 
+						type = bunker
+						level = 1
+						province = 4619
+						instant_build = yes
+					}
+				}
+				add_victory_points = {
+					province = 4619
+					value = 5
+				}
+			}
+			if = {
+				limit = {
+					602 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				602 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = { 
+						type = bunker
+						level = 1
+						province = 7097
+						instant_build = yes
+					}
+				}
+				add_victory_points = {
+					province = 7097
+					value = 5
+				}
+			}
+			if = {
+				limit = {
+					605 = {
+						is_fully_controlled_by = ROOT
+					}
+					744 = {
+						is_controlled_by = ROOT
+					}
+				}
+				build_railway = { 
+					path = { 6999 1893 11865 10144 7418 }				
+				}
+			}
+			if = {
+				limit = {
+					605 = {
+						is_fully_controlled_by = ROOT
+					}
+					748 = {
+						is_fully_controlled_by = ROOT
+					}
+					750 = {
+						is_fully_controlled_by = ROOT
+					}
+				}
+				build_railway = { 
+					path = { 6999 4141 10304 10822 10006 7279 7101 }				
+				}
+			}
+		}
+			
+		search_filters = {  FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
 	}
 
 	focus = {
@@ -5650,6 +6188,11 @@ focus_tree = {
 							has_war_with = ROOT
 						}
 					}
+					597 = {
+						controller = {
+							has_war_with = ROOT
+						}
+					}
 				}
 			}
 		}
@@ -5662,7 +6205,7 @@ focus_tree = {
 		}
 
 		ai_will_do = {
-			factor = 10
+			factor = 101 #DO ASAP
 		}
 		continue_if_invalid = yes
 		available_if_capitulated = yes
@@ -5676,8 +6219,43 @@ focus_tree = {
 			custom_effect_tooltip = KMT_lure_them_in_effect_tt
 			effect_tooltip = {
 				add_ideas = KMT_lure_them_in_1
+				custom_effect_tooltip = KMT_r56_lure_them_in_tt_1
+				add_dynamic_modifier = { modifier = r56_lure_them_in } 
 			}
 			hidden_effect = {
+				614 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				607 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				597 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				743 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				598 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				596 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				595 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				749 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				600 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				606 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
+				613 = {
+					add_dynamic_modifier = { modifier = r56_lure_them_in } 
+				}
 				country_event = { id = lti.5 }
 			}
 		}
@@ -5705,153 +6283,12 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 250
 			add_manpower = 250000
-			if = {
-				limit = {
-					MEN = {
-						has_tech = infantry_weapons
-						NOT = {
-							has_tech = infantry_weapons1
-						}
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1500 producer = MEN }
-			}
-			if = {
-				limit = {
-					MAN = {
-						has_tech = infantry_weapons
-						NOT = {
-							has_tech = infantry_weapons1
-						}
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1500 producer = MAN }
-			}
-			if = {
-				limit = {
-					JAP = {
-						has_tech = infantry_weapons
-						NOT = {
-							has_tech = infantry_weapons1
-						}
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 5000 producer = JAP }
-			}
-			if = {
-				limit = {
-					MEN = {
-						has_tech = infantry_weapons1
-						NOT = {
-							has_tech = improved_infantry_weapons
-						}
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = MEN }
-			}
-			if = {
-				limit = {
-					MAN = {
-						has_tech = infantry_weapons1
-						NOT = {
-							has_tech = improved_infantry_weapons
-						}
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 producer = MAN }
-			}
-			if = {
-				limit = {
-					JAP = {
-						has_tech = infantry_weapons1
-						NOT = {
-							has_tech = improved_infantry_weapons
-						}
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 5000 producer = JAP }
-			}
-			if = {
-				limit = {
-					MEN = {
-						has_tech = improved_infantry_weapons
-						NOT = {
-							has_tech = advanced_infantry_weapons
-						}
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_2 amount = 1500 producer = MEN }
-			}
-			if = {
-				limit = {
-					MAN = {
-						has_tech = improved_infantry_weapons
-						NOT = {
-							has_tech = advanced_infantry_weapons
-						}
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_2 amount = 1500 producer = MAN }
-			}
-			if = {
-				limit = {
-					JAP = {
-						has_tech = improved_infantry_weapons
-						NOT = {
-							has_tech = advanced_infantry_weapons
-						}
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_2 amount = 5000 producer = JAP }
-			}
-			if = {
-				limit = {
-					MEN = {
-						has_tech = advanced_infantry_weapons
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_3 amount = 1500 producer = MEN }
-			}
-			if = {
-				limit = {
-					MAN = {
-						has_tech = advanced_infantry_weapons
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_3 amount = 1500 producer = MAN }
-			}
-			if = {
-				limit = {
-					JAP = {
-						has_tech = advanced_infantry_weapons
-					}
-				}
-				add_equipment_to_stockpile = { type = infantry_equipment_3 amount = 5000 producer = JAP }
-			}
-			if = {
-				limit = {
-					MEN = {
-						has_tech = tech_support
-					}
-				}
-				add_equipment_to_stockpile = { type = support_equipment_1 amount = 800 producer = MEN }
-			}
-			if = {
-				limit = {
-					MAN = {
-						has_tech = tech_support
-					}
-				}
-				add_equipment_to_stockpile = { type = support_equipment_1 amount = 800 producer = MAN }
-			}
-			if = {
-				limit = {
-					JAP = {
-						has_tech = tech_support
-					}
-				}
-				add_equipment_to_stockpile = { type = support_equipment_1 amount = 3000 producer = JAP }
-			}
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 200 producer = MEN }
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 producer = MAN }
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 5000 producer = JAP }
+			add_equipment_to_stockpile = { type = support_equipment amount = 150 producer = MEN }
+			add_equipment_to_stockpile = { type = support_equipment amount = 800 producer = MAN }
+			add_equipment_to_stockpile = { type = support_equipment amount = 2000 producer = JAP }
 			every_state = {
 				limit = {
 					is_owned_by = ROOT
@@ -5860,17 +6297,56 @@ focus_tree = {
 					NOT = {
 						state = 525
 						state = 527
-						state = 844
-						state = 845
-						state = 846
-						state = 847
+						state = 917
+						state = 918
+						state = 919
+						state = 920
 					}
 				}
 				add_manpower = -25000
 			}
+			division_template = {
+				name = "Luchün Shih"
+				priority = 1
+				is_locked = no
+				division_names_group = CHI_INF_01
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 2 y = 0 }
+					infantry = { x = 2 y = 1 }
+					infantry = { x = 3 y = 0 }
+					infantry = { x = 3 y = 1 }
+				}
+			}
 			custom_effect_tooltip = kmt_harsh_takover_oob_tt
 			hidden_effect = {
-				load_oob = "CHI_harsh_takeover_oob"
+				every_controlled_state = {
+					limit = {
+						OR = {
+							state = 613
+							state = 598
+							state = 607
+							state = 749
+							state = 596
+						}
+					}
+					create_unit = {
+						division = "name = \"Tsan Pien Tsung Tui\" division_template = \"Luchün Shih\" start_experience_factor = 0.3 start_equipment_factor = 1.0 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"Tsan Pien Tsung Tui\" division_template = \"Luchün Shih\" start_experience_factor = 0.3 start_equipment_factor = 1.0 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"Tsan Pien Tsung Tui\" division_template = \"Luchün Shih\" start_experience_factor = 0.3 start_equipment_factor = 1.0 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+						owner = ROOT
+					}
+				}
+
 			}
 			add_timed_idea = {
 				days = 365
@@ -5914,7 +6390,7 @@ focus_tree = {
 		icon = GFX_focus_chi_one_china_policy
 		prerequisite = { focus = KMT_harsh_takeover_focus focus = KMT_placate_former_puppet_government }
 		available = {
-			is_puppet = no
+			is_subject = no
 			OR = {
 				country_exists = SHX
 				country_exists = XSM
@@ -5924,13 +6400,6 @@ focus_tree = {
 			}
 			NOT = {
 				country_exists = PRC
-			}
-			custom_trigger_tooltip = {
-				tooltip = CHI_warred_with_JAP
-				has_global_flag = CHI_warred_with_JAP
-				NOT = {
-					has_war_with = JAP
-				}
 			}
 		}
 		bypass = {
@@ -6030,66 +6499,29 @@ focus_tree = {
 		id = KMT_north_west_insurgence
 		icon = GFX_goal_generic_dangerous_deal
 		available = {
+			is_subject = no
+			has_war_with = PRC
 			XSM = {
-				is_puppet = no
+				OR = {
+					exists = no
+					is_subject = no
+				}
 				NOT = {
 					has_government = communism
 				}
 			}
-			is_puppet = no
-			has_war_with = PRC
-			has_global_flag = PRC_civil_war_started
-			custom_trigger_tooltip = {
-				tooltip = kmt_nw_insurgence_tt
-				hidden_trigger = {
-					283 = {
+			all_state = {
+				OR = {
+					NOT = {
 						OR = {
-							AND = {
-								is_owned_by = PRC
-								is_controlled_by = PRC
-							}
-							AND = {
-								is_owned_by = ROOT
-								is_controlled_by = ROOT
-							}
-							AND = {
-								is_owned_by = XSM
-								is_controlled_by = XSM
-							}
+							state = 283
+							state = 754
+							state = 604
 						}
 					}
-					604 = {
-						OR = {
-							AND = {
-								is_owned_by = PRC
-								is_controlled_by = PRC
-							}
-							AND = {
-								is_owned_by = ROOT
-								is_controlled_by = ROOT
-							}
-							AND = {
-								is_owned_by = XSM
-								is_controlled_by = XSM
-							}
-						}
-					}
-					616 = {
-						OR = {
-							AND = {
-								is_owned_by = PRC
-								is_controlled_by = PRC
-							}
-							AND = {
-								is_owned_by = ROOT
-								is_controlled_by = ROOT
-							}
-							AND = {
-								is_owned_by = XSM
-								is_controlled_by = XSM
-							}
-						}
-					}
+					is_controlled_by = PRC
+					is_controlled_by = CHI
+					is_controlled_by = XSM
 				}
 			}
 		}
@@ -6130,304 +6562,91 @@ focus_tree = {
 				modifier = war_against_communist_china
 			}
 			XSM = {
-				set_country_flag = KMT_PRC_joined		 
-				if = {
+				set_country_flag = KMT_PRC_joined
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = war_against_communist_china
+				}
+				every_state = {
 					limit = {
-						283 = {
-							NOT = {
-								is_owned_by = XSM
-							}
+						OR = {
+							state = 283
+							state = 754
+							state = 604
+						}
+						OR = {
+							is_owned_by = PRC
+							is_owned_by = CHI
+						}
+						NOT = {
+							is_owned_by = XSM
 						}
 					}
-					transfer_state = 283
+					XSM = {
+						transfer_state = PREV
+					}
+				}
+				division_template = { #militia templates instead of multiple oob's
+					name = "Pao-an Tui"
+					priority = 1
+					is_locked = no
+					division_names_group = CHI_INF_01
+					regiments = {
+						militia = { x = 0 y = 0 }
+						militia = { x = 0 y = 1 }
+					}
+				}
+				every_state = {
+					limit = {
+						OR = {
+							state = 283
+							state = 754
+							state = 604
+						}
+					}
+					custom_effect_tooltip = kmt_xsm_militia_rising_up_tt
+					hidden_effect = {
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+					}
 				}
 				if = {
 					limit = {
-						604 = {
-							NOT = {
-								is_owned_by = XSM
-							}
-						}
-					}
-					transfer_state = 604
-				}
-				if = {
-					limit = {
-						616 = {
-							NOT = {
-								is_owned_by = XSM
-							}
-						}
-					}
-					transfer_state = 616
-				}
-				hidden_effect = {
-					if = {
-						limit = {
-							283 = {
-								is_owned_by = XSM
-							}
-						}
-						if = {
-							limit = {
-								ROOT = {
-									NOT = {
-										has_tech = infantry_weapons1
-									}
-								}
-							}
-							load_oob = "XSM_insurgence_283_ie0"
-						}
-						if = {
-							limit = {
-								ROOT = {
-									has_tech = infantry_weapons1
-									NOT = {
-										has_tech = improved_infantry_weapons
-									}
-								}
-							}
-							load_oob = "XSM_insurgence_283_ie1"
-						}
-						if = {
-							limit = {
-								ROOT = {
-									has_tech = improved_infantry_weapons
-									NOT = {
-										has_tech = advanced_infantry_weapons
-									}
-								}
-							}
-							load_oob = "XSM_insurgence_283_ie2"
-						}
-						if = {
-							limit = {
-								ROOT = {
-									has_tech = advanced_infantry_weapons
-								}
-							}
-							load_oob = "XSM_insurgence_283_ie3"
-						}
-					}
-					if = {
-						limit = {
-							604 = {
-								is_owned_by = XSM
-							}
-						}
-						if = {
-							limit = {
-								ROOT = {
-									NOT = {
-										has_tech = infantry_weapons1
-									}
-								}
-							}
-							load_oob = "XSM_insurgence_604_ie0"
-						}
-						if = {
-							limit = {
-								ROOT = {
-									has_tech = infantry_weapons1
-									NOT = {
-										has_tech = improved_infantry_weapons
-									}
-								}
-							}
-							load_oob = "XSM_insurgence_604_ie1"
-						}
-						if = {
-							limit = {
-								ROOT = {
-									has_tech = improved_infantry_weapons
-									NOT = {
-										has_tech = advanced_infantry_weapons
-									}
-								}
-							}
-							load_oob = "XSM_insurgence_604_ie2"
-						}
-						if = {
-							limit = {
-								ROOT = {
-									has_tech = advanced_infantry_weapons	
-								}
-							}
-							load_oob = "XSM_insurgence_604_ie3"
-						}
-					}
-					if = {
-						limit = {
-							616 = {
-								is_owned_by = XSM
-							}
-						}
-						if = {
-							limit = {
-								ROOT = {
-									NOT = {
-										has_tech = infantry_weapons1
-									}
-								}
-							}
-							load_oob = "XSM_insurgence_616_ie0"
-						}
-						if = {
-							limit = {
-								ROOT = {
-									has_tech = infantry_weapons1
-									NOT = {
-										has_tech = improved_infantry_weapons
-									}
-								}
-							}
-							load_oob = "XSM_insurgence_616_ie1"
-						}
-						if = {
-							limit = {
-								ROOT = {
-									has_tech = improved_infantry_weapons
-									NOT = {
-										has_tech = advanced_infantry_weapons
-									}
-								}
-							}
-							load_oob = "XSM_insurgence_616_ie2"
-						}
-						if = {
-							limit = {
-								ROOT = {
-									has_tech = advanced_infantry_weapons
-								}
-							}
-							load_oob = "XSM_insurgence_616_ie3"
-						}
-					}
-					if = {
-						limit = {
-							ROOT = {
-								is_faction_leader = yes
-							}
-						}
 						ROOT = {
-							add_to_faction = XSM
+							is_faction_leader = yes
 						}
+					}
+					ROOT = {
+						add_to_faction = XSM
 					}
 				}
 				add_to_war = {
 					targeted_alliance = ROOT
 					enemy = PRC
 				}
+				add_offsite_building = { type = arms_factory level = 6 }
+				add_offsite_building = { type = industrial_complex level = 2 }
 				hidden_effect = {
-					if = {
-						limit = {
-							ROOT = {
-								NOT = {
-									has_tech = infantry_weapons1
-								}
-							}
-						}
-						load_oob = "XSM_insurgence_factories_ie0"
-					}
-					if = {
-						limit = {
-							ROOT = {
-								has_tech = infantry_weapons1
-								NOT = {
-									has_tech = improved_infantry_weapons
-								}
-							}
-						}
-						load_oob = "XSM_insurgence_factories_ie1"
-					}
-					if = {
-						limit = {
-							ROOT = {
-								has_tech = improved_infantry_weapons
-								NOT = {
-									has_tech = advanced_infantry_weapons
-								}
-							}
-						}
-						load_oob = "XSM_insurgence_factories_ie2"
-					}
-					if = {
-						limit = {
-							ROOT = {
-								has_tech = advanced_infantry_weapons
-							}
-						}
-						load_oob = "XSM_insurgence_factories_ie3"
-					}
-					if = {
-						limit = {
-							ROOT = {
-								has_tech = infantry_weapons1
-							}
-						}
-						set_technology = { infantry_weapons1 = 1 }
-					}
-					if = {
-						limit = {
-							ROOT = {
-								has_tech = improved_infantry_weapons
-							}
-						}
-						set_technology = { improved_infantry_weapons = 1 }
-					}
-					if = {
-						limit = {
-							ROOT = {
-								has_tech = advanced_infantry_weapons
-							}
-						}
-						set_technology = { advanced_infantry_weapons = 1 }
-					}
-					604 = {
-						add_extra_state_shared_building_slots = 3
-						add_building_construction = {
-							type = arms_factory
-							level = 2
-							instant_build = yes
-						}	
-						add_building_construction = {
-							type = industrial_complex
-							level = 1
-							instant_build = yes
-						}	
-					}
-					283 = {
-						add_extra_state_shared_building_slots = 2
-						add_building_construction = {
-							type = arms_factory
-							level = 1
-							instant_build = yes
-						}	
-						add_building_construction = {
-							type = industrial_complex
-							level = 1
-							instant_build = yes
-						}	
-					}
-					616 = {
-						add_extra_state_shared_building_slots = 3
-						add_building_construction = {
-							type = arms_factory
-							level = 2
-							instant_build = yes
-						}	
-						add_building_construction = {
-							type = industrial_complex
-							level = 1
-							instant_build = yes
-						}	
-					}
 					add_ideas = war_economy
 					add_ideas = service_by_requirement
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = war_against_communist_china
-					}
 				}
 				add_ai_strategy = {
 					type = alliance
@@ -6468,7 +6687,7 @@ focus_tree = {
 		available = {
 			is_subject = no
 			524 = {
-				full_control_by_root = yes
+				is_owned_and_controlled_by = ROOT
 			}
 		}
 		prerequisite = { focus = KMT_preemptive_preparation }
@@ -6688,7 +6907,11 @@ focus_tree = {
 				}
 				custom_effect_tooltip = lar_decryption_bonus_tt
 				
-			}			
+			}	
+			hidden_effect = {
+				set_country_flag = cite_an_airborne_unit_flag
+			}
+			unlock_decision_tooltip = { decision = cite_an_airborne_unit show_effect_tooltip = yes }					
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}	
@@ -6818,13 +7041,14 @@ focus_tree = {
 		id = KMT_re_elaborate_hakko_ichiu
 		icon = GFX_focus_generic_japanese_imperial_glory
 		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = JAP
-			}
-			JAP = {
+			is_subject = no
+			any_other_country = {
+				original_tag = JAP
 				exists = yes 
 				has_government = fascism
+				NOT = {
+					has_war_with = ROOT
+				}
 			}
 		}
 		prerequisite = { focus = KMT_support_pro_japanese_faction }
@@ -6847,8 +7071,16 @@ focus_tree = {
 				ideology = fascism
 				popularity = 0.25
 			}
-			JAP = {
-				country_event = { id = kmt.221 }
+			every_other_country = {
+				limit = {
+					original_tag = JAP
+					exists = yes 
+					has_government = fascism
+					NOT = {
+						has_war_with = ROOT
+					}
+				}
+				country_event = { id = kmt.221 days = 1 }
 			}
 		}	
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
@@ -6895,12 +7127,6 @@ focus_tree = {
 						has_idea = incompetent_industry_real_navy
 					}
 					remove_ideas = incompetent_industry_real_navy
-				}
-				if = {
-					limit = {
-						has_idea = incompetent_industry_fake_navy
-					}
-					remove_ideas = incompetent_industry_fake_navy
 				}
 				if = {
 					limit = {
@@ -7289,12 +7515,6 @@ focus_tree = {
 				}
 				if = {
 					limit = {
-						has_idea = incompetent_industry_fake_navy
-					}
-					remove_ideas = incompetent_industry_fake_navy
-				}
-				if = {
-					limit = {
 						has_idea = incompetent_industry_real_2_navy
 					}
 					remove_ideas = incompetent_industry_real_2_navy
@@ -7368,21 +7588,58 @@ focus_tree = {
 				size > 749999
 			}
 			is_puppet = no
-			NOT = {
-				has_war_with = SIK
+			OR = {
+				AND = {
+
+					SIK = {
+						exists = yes
+						is_puppet = no
+						NOT = {
+							is_in_Faction_with = ROOT
+						}
+						NOT = {
+							has_war_with = ROOT
+						}						
+					}
+					NOT = {
+						has_government = communism
+					}
+				}
+				AND = {
+					TNG = {
+						exists = yes
+						is_puppet = no
+						NOT = {
+							is_in_Faction_with = ROOT
+						}
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
+					NOT = {
+						has_government = communism
+					}
+				}				
 			}
-			SIK = {
-				exists = yes
-			}
-			NOT = {
-				has_government = fascism
-				has_government = communism
-			}
+
 		}
 		completion_reward = {
 			if = {
 				limit = {
-					has_government = neutrality
+					OR = {
+						has_government = neutrality
+						has_government = fascism
+					}
+					SIK = {
+						exists = yes
+						is_puppet = no
+						NOT = {
+							is_in_Faction_with = ROOT
+						}
+						NOT = {
+							has_war_with = ROOT
+						}						
+					}					
 				}
 				SIK = {
 					country_event = { id = kmt.96 hours = 8 }
@@ -7391,11 +7648,60 @@ focus_tree = {
 			if = {
 				limit = {
 					has_government = democratic
+					SIK = {
+						exists = yes
+						is_puppet = no
+						NOT = {
+							is_in_Faction_with = ROOT
+						}
+						NOT = {
+							has_war_with = ROOT
+						}						
+					}					
 				}
 				SIK = {
 					country_event = { id = kmt.93 }
 				}
 			}
+			if = {
+				limit = {
+					OR = {
+						has_government = neutrality
+						has_government = fascism
+					}
+					TNG = {
+						exists = yes
+						is_puppet = no
+						NOT = {
+							is_in_Faction_with = ROOT
+						}
+						NOT = {
+							has_war_with = ROOT
+						}						
+					}					
+				}
+				TNG = {
+					country_event = { id = kmt.96 hours = 8 }
+				}
+			}
+			if = {
+				limit = {
+					has_government = democratic
+					TNG = {
+						exists = yes
+						is_puppet = no
+						NOT = {
+							is_in_Faction_with = ROOT
+						}
+						NOT = {
+							has_war_with = ROOT
+						}						
+					}					
+				}
+				TNG = {
+					country_event = { id = kmt.93 }
+				}
+			}			
 		}
 	}
 	

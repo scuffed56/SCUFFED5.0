@@ -5,9 +5,10 @@ focus_tree = {
 		factor = 0
 		
 		modifier = {
-			add = 10
+			add = 9
 			tag = TUR
 			has_dlc = "Battle for the Bosporus"
+			has_global_flag = tur_bftb_focus_tree
 		}
 	}
 	
@@ -24,11 +25,11 @@ focus_tree = {
 		id = TUR_the_montreux_convention
 		icon = GFX_focus_TUR_the_montreux_convention
 		available = {
-			TUR = { is_puppet = no }
+			TUR = { is_subject = no }
 		}
 		x = 5
 		y = 0
-		cost = 5
+		cost = 2
 		ai_will_do = {
 			base = 10
 		}
@@ -63,7 +64,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = TUR_etatism
 			add_ideas = TUR_ismet_inonu
 			custom_effect_tooltip = TUR_sanayiciler_etatism_tt
 			hidden_effect = {
@@ -74,7 +74,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_fully_integrate_the_is_bank
-		icon = GFX_goal_generic_intelligence_exchange
+		icon = GFX_goal_generic_banking_legislation
 		mutually_exclusive = { focus = TUR_continue_the_policy_of_etatism }
 		prerequisite = { focus = TUR_the_montreux_convention }
 		available = {
@@ -92,6 +92,15 @@ focus_tree = {
 			add_political_power = 120
 			add_ideas = TUR_celal_bayar
 			add_ideas = free_trade
+			if = {
+				limit = {
+					has_idea = TUR_etatism_economy_law_idea
+				}
+				swap_ideas = {
+					remove_idea = TUR_etatism_economy_law_idea
+					add_idea = civilian_economy
+				}
+			}
 			custom_effect_tooltip = TUR_sanayiciler_liberals_tt
 		}
 	}
@@ -103,7 +112,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_the_montreux_convention
-		cost = 1
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -121,7 +130,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = TUR_fully_integrate_the_is_bank
-		cost = 5
+		cost = 2
 		ai_will_do = {
 			base = 10
 		}
@@ -130,7 +139,7 @@ focus_tree = {
 		completion_reward = {
 			add_popularity = { 
 				ideology = democratic
-				popularity = 0.07
+				popularity = 0.2
 			}
 			add_stability = 0.05
 			custom_effect_tooltip = TUR_privatize_the_anadolu_agency_tt
@@ -144,7 +153,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_privatize_the_anadolu_agency
-		cost = 5
+		cost = 2
 		ai_will_do = {
 			base = 10
 		}
@@ -153,7 +162,7 @@ focus_tree = {
 		completion_reward = {
 			add_popularity = { 
 				ideology = democratic
-				popularity = 0.1
+				popularity = 0.15
 			}
 			add_war_support = 0.05
 			hidden_effect = {
@@ -164,13 +173,13 @@ focus_tree = {
 
 	focus = {
 		id = TUR_holding_our_first_multi_party_election
-		icon = GFX_focus_generic_treaty
+		icon = GFX_goal_generic_multipartism
 		available = { has_country_flag = TUR_official_opposition_party_organised }
 		prerequisite = { focus = TUR_lift_the_ban_on_other_political_parties }
 		x = 0
 		y = 1
 		relative_position_id = TUR_lift_the_ban_on_other_political_parties
-		cost = 5
+		cost = 2
 		ai_will_do = {
 			base = 10
 		}
@@ -178,6 +187,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			country_event = { id = bftb_turkey.21 }
+			custom_effect_tooltip = ottoman_info
 		}
 	}
 
@@ -189,7 +199,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = TUR_holding_our_first_multi_party_election
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -199,7 +209,7 @@ focus_tree = {
 			if = {
 				limit = {
 					has_country_leader = {
-						character = TUR_celal_bayar
+						name = "Celâl Bayar"
 						ruling_only = yes
 					}
 				}
@@ -232,7 +242,7 @@ focus_tree = {
 					}
 				}
 			}
-			add_political_power = 250 
+			add_political_power = 100
 			add_popularity = { ideology = democratic popularity = 0.1 }
 			hidden_effect = {
 				clr_country_flag = TUR_held_democratic_election
@@ -247,21 +257,10 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_democratic_transition_focus
-		cost = 10
+		cost = 7
+
 		ai_will_do = {
 			base = 10
-		}
-
-		complete_tooltip = {
-			every_owned_state = {
-				limit = { has_state_flag = TUR_expanding_armaments_flag }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}			
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -274,10 +273,10 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 				set_state_flag = TUR_expanding_armaments_flag
@@ -290,29 +289,29 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
-					type = industrial_complex
-					level = 2
+					type = arms_factory
+					level = 1
 					instant_build = yes
 				}
 				set_state_flag = TUR_expanding_armaments_flag
 			}
 			add_timed_idea = {
 				idea = TUR_rearmament_scheme
-				days = 360
+				days = 180
 			}
 		}
 	}
 
 	focus = {
 		id = TUR_permit_regional_elections
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_goal_generic_election
 		prerequisite = { focus = TUR_democratic_transition_focus }
 		x = 1
 		y = 1
 		relative_position_id = TUR_democratic_transition_focus
-		cost = 10
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -376,18 +375,6 @@ focus_tree = {
 			base = 10
 		}
 
-		complete_tooltip = {
-			every_owned_state = {
-				limit = { has_state_flag = TUR_infrastructure_privatised }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}			
-		}
-
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
 			random_owned_controlled_state = {
@@ -397,10 +384,20 @@ focus_tree = {
 						size > 0
 						include_locked = yes
 					}
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
 				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
@@ -413,10 +410,20 @@ focus_tree = {
 						size > 0
 						include_locked = yes
 					}
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
 				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
@@ -429,10 +436,20 @@ focus_tree = {
 						size > 0
 						include_locked = yes
 					}
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
 				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
@@ -454,13 +471,14 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_privatize_our_infrastructure
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
+			add_political_power = 150
 			if = {
 				limit = {
 					has_country_leader = {
@@ -595,59 +613,57 @@ focus_tree = {
 		}
 
 		bypass = {
-			AND = {
-				AFG = { exists = no }
-				PER = { exists = no }
-				IRQ = { exists = no }
+			OR = {
+				has_global_flag = TUR_saadabad_pact
+				any_other_country = {
+					NOT = {
+						capital_scope = {
+							is_on_continent = middle_east
+						}
+					}
+				}
 			}
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			if = {
+			every_other_country = {
 				limit = {
-					AFG = { 
-						exists = yes
-						is_puppet = no 
+					OR = {
+						AND = {
+							capital_scope = {
+								is_on_continent = middle_east
+							}
+							exists = yes
+							is_subject = no
+							NOT = {
+								has_war_with = ROOT
+							}
+						}
+						AND = {
+							original_tag = AFG
+							NOT = {
+								has_war_with = ROOT
+							}
+						}
+					}
+					if = {
+						limit = {
+							OR = {
+								original_tag = SAU
+								original_tag = YEM
+								original_tag = OMA
+							}
+						}
+						ROOT = {
+							has_opinion = {
+								target = PREV
+								value > 49
+							}
+						}
 					}
 				}
-				AFG = { country_event = { id = bftb_turkey.23 } }
-			}
-			if = {
-				limit = {
-					EGY = { 
-						exists = yes
-						is_puppet = no 
-					}
-				}
-				EGY = { country_event = { id = bftb_turkey.23 } }
-			}
-			if = {
-				limit = {
-					PER = { 
-						exists = yes
-						is_puppet = no 
-					}
-				}
-				PER = { country_event = { id = bftb_turkey.23 } }
-			}
-			if = {
-				limit = {
-					IRQ = { 
-						exists = yes
-						is_puppet = no 
-					}
-				}
-				IRQ = { country_event = { id = bftb_turkey.23 } }
-			}
-			if = {
-				limit = {
-					SYR = { 
-						exists = yes
-						is_puppet = no 
-					}
-				}
-				SYR = { country_event = { id = bftb_turkey.23 } }
+				country_event = { id = bftb_turkey.23 }
 			}
 			add_war_support = 0.05
 		}
@@ -665,7 +681,7 @@ focus_tree = {
 				has_completed_focus = TUR_halk_ve_devlet
 				NOT = { 
 					has_country_leader = {
-						character = TUR_mustafa_kemal_ataturk
+						name = "Mustafa Kemal Atatürk"
 						ruling_only = yes
 					}
 				}
@@ -704,7 +720,7 @@ focus_tree = {
 			if = {
 				limit = {
 					has_completed_focus = TUR_fully_integrate_the_is_bank
-					NOT = { 
+					NOT = {
 						has_country_leader = {
 							character = TUR_adnan_menderes
 							ruling_only = yes
@@ -731,7 +747,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_the_hatay_issue
-		icon = GFX_goal_generic_demand_territory
+		icon = GFX_goal_TUR_hatay_deal
 		prerequisite = { focus = TUR_assess_our_future }
 		x = 0
 		y = 2
@@ -772,7 +788,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_the_hatay_issue
-		cost = 5
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -797,7 +813,7 @@ focus_tree = {
 			TUR = { 
 				OR = { 
 					has_country_leader = {
-						character = TUR_ismet_inonu
+						name = "İsmet İnönü"
 						ruling_only = yes
 					}
 					has_idea = TUR_ismet_inonu
@@ -830,7 +846,7 @@ focus_tree = {
 		available = {
 			OR = { 
 				has_country_leader = {
-					character = TUR_ismet_inonu
+					name = "İsmet İnönü"
 					ruling_only = yes
 				}
 				has_idea = TUR_ismet_inonu
@@ -864,7 +880,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_peace_at_home
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -875,10 +891,6 @@ focus_tree = {
 			every_owned_state = {
 				limit = { 
 					has_dynamic_modifier = { modifier = kemalist_loyalties }
-					free_building_slots = {
-						building = infrastructure
-						size > 0
-					}
 				}
 				add_building_construction = {
 					type = infrastructure
@@ -889,14 +901,10 @@ focus_tree = {
 			every_owned_state = {
 				limit = { 
 					is_core_of = KUR
-					free_building_slots = {
-						building = infrastructure
-						size > 0
-					}
 				}
 				add_building_construction = {
 					type = infrastructure
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -905,7 +913,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_reinvigorate_turkish_nationalism
-		icon = GFX_focus_generic_strike_at_democracy1
+		icon = GFX_goal_TUR_flag
 		mutually_exclusive = { focus = TUR_rehabilitate_the_kadro_movement }
 		prerequisite = { focus = TUR_revive_turkish_revolutionism }
 		x = -3
@@ -921,7 +929,7 @@ focus_tree = {
 			if = {
 				limit = {
 					has_idea = TUR_ismet_inonu
-					NOT = { has_idea = TUR_fevzi_cakmak_prime_minister }
+					NOT = { has_idea = TUR_fevzi_cakmak_command }
 				}
 				remove_ideas = TUR_ismet_inonu
 				add_ideas = TUR_fevzi_cakmak_prime_minister
@@ -938,7 +946,7 @@ focus_tree = {
 			else_if = {
 				limit = {
 					has_idea = TUR_celal_bayar
-					NOT = { has_idea = TUR_fevzi_cakmak_prime_minister }
+					NOT = { has_idea = TUR_fevzi_cakmak_command }
 				}
 				remove_ideas = TUR_celal_bayar
 				add_ideas = TUR_fevzi_cakmak_prime_minister
@@ -998,7 +1006,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = TUR_turkish_state_railways
-		cost = 10
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -1008,16 +1016,14 @@ focus_tree = {
 			if = {
 				limit = {
 					NOT = {
-						OR = {
-							has_idea = TUR_ismet_inonu
-							has_idea = TUR_fevzi_cakmak_prime_minister
-						}
+						has_idea = TUR_ismet_inonu
+						has_idea = TUR_fevzi_cakmak_prime_minister
 						has_country_leader = {
 							character = TUR_fevzi_cakmak
 							ruling_only = yes
 						}
 						has_country_leader = {
-							character = TUR_ismet_inonu
+							name = "İsmet İnönü"
 							ruling_only = yes
 						}
 					}
@@ -1042,7 +1048,7 @@ focus_tree = {
 			else_if = { 
 				limit = {
 					has_country_leader = {
-						character = TUR_ismet_inonu
+						name = "İsmet İnönü"
 						ruling_only = yes
 					}
 				}
@@ -1102,7 +1108,6 @@ focus_tree = {
 				set_state_flag = TUR_kemalist_state_to_target_2
 			}
 		}
-		
 
 		search_filters = { FOCUS_FILTER_TUR_KEMALISM FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
@@ -1114,7 +1119,6 @@ focus_tree = {
 					has_state_flag = TUR_kemalist_state_to_target_1
 				}
 				add_dynamic_modifier = { modifier = kemalist_loyalties }
-				
 				clr_state_flag = TUR_ideological_battleground_state
 			}
 			random_owned_state = {
@@ -1123,7 +1127,6 @@ focus_tree = {
 				}
 				add_dynamic_modifier = { modifier = kemalist_loyalties }
 				clr_state_flag = TUR_ideological_battleground_state
-				
 			}	
 			hidden_effect = { 
 				set_variable = { var = TUR_kemalist_officers_loyalty value = 3 }
@@ -1135,10 +1138,10 @@ focus_tree = {
 
 	focus = {
 		id = TUR_the_sun_language_theory
-		icon = GFX_focus_TUR_the_sun_language_theory
+		icon = GFX_goal_ARG_sun
 		prerequisite = { focus = TUR_reinvigorate_turkish_nationalism focus = TUR_the_second_five_year_plan }
 		available = {
-			OR = { 
+			OR = {
 				has_country_leader = {
 					character = TUR_fevzi_cakmak
 					ruling_only = yes
@@ -1179,19 +1182,17 @@ focus_tree = {
 			if = {
 				limit = { 
 					NOT = { 
-						OR = { 
-							has_country_leader = {
-								character = TUR_mustafa_kemal_ataturk
-								ruling_only = yes
-							}
-							has_country_leader = {
-								character = TUR_mehmet_recep_peker
-								ruling_only = yes
-							}
-							has_country_leader = {
-								character = TUR_sevket_sureyya_aydemir
-								ruling_only = yes
-							}
+						has_country_leader = {
+							name = "Mustafa Kemal Atatürk"
+							ruling_only = yes
+						}
+						has_country_leader = {
+							name = "Mehmet Recep Peker"
+							ruling_only = yes
+						}
+						has_country_leader = {
+							name = "Şevket Süreyya Aydemir"
+							ruling_only = yes
 						}
 					}
 				}
@@ -1215,7 +1216,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_the_guardians_of_kemalism
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -1244,7 +1245,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = TUR_reinvigorate_turkish_nationalism
-		cost = 10
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -1336,18 +1337,14 @@ focus_tree = {
 				}
 				random_owned_state = {
 					limit = {
-						AND = { 
-							has_state_flag = TUR_ideological_battleground_state
-							NOT = {
-								OR = { 
-									has_dynamic_modifier = { modifier = kemalist_loyalties }
-									has_dynamic_modifier = { modifier = kemalist_schemers }
-									has_dynamic_modifier = { modifier = islamist_opposition }
-									has_dynamic_modifier = { modifier = islamist_sedition }
-									has_dynamic_modifier = { modifier = islamist_insurgency }
-									has_dynamic_modifier = { modifier = islamists_placated }
-								}
-							}
+						has_state_flag = TUR_ideological_battleground_state
+						NOT = {
+							has_dynamic_modifier = { modifier = kemalist_loyalties }
+							has_dynamic_modifier = { modifier = kemalist_schemers }
+							has_dynamic_modifier = { modifier = islamist_opposition }
+							has_dynamic_modifier = { modifier = islamist_sedition }
+							has_dynamic_modifier = { modifier = islamist_insurgency }
+							has_dynamic_modifier = { modifier = islamists_placated }
 						}
 					}
 					save_event_target_as = TUR_kemalist_state_event_target
@@ -1448,7 +1445,8 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = TUR_recep_peker
 			set_party_name = { 
 				ideology = fascism
 				long_name = TUR_neutrality_party_long
@@ -1464,8 +1462,9 @@ focus_tree = {
 			else_if = {
 				limit = {
 					has_idea = TUR_fevzi_cakmak_prime_minister
+					has_idea = TUR_fevzi_cakmak_command
 				}
-				remove_ideas = TUR_fevzi_cakmak_prime_minister
+				remove_ideas = TUR_ismet_inonu
 				add_ideas = TUR_recep_peker
 			}
 			else_if = {
@@ -1476,8 +1475,7 @@ focus_tree = {
 				add_ideas = TUR_recep_peker
 			}
 			else = {
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = TUR_recep_peker
+				add_political_power = 120
 			}
 		}
 	}
@@ -1489,7 +1487,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_purify_the_diyanet
-		cost = 10
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -1758,7 +1756,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_the_pontic_redoubt
-		cost = 10
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -1786,7 +1784,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_form_the_redshirts
-		cost = 5
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -1823,7 +1821,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_intervene_in_the_spanish_civil_war
-		icon = GFX_focus_generic_manpower
+		icon = GFX_goal_generic_spanish_civil_war_soldier
 		prerequisite = { focus = TUR_kemalism_and_the_modern_movement focus = TUR_kemalist_socialist_theory }
 		x = 0
 		y = 2
@@ -1837,6 +1835,7 @@ focus_tree = {
 			set_rule = { can_send_volunteers = yes }
 			add_ideas = TUR_turkish_interventionism
 		}
+		search_filters = { FOCUS_FILTER_SPA_CIVIL_WAR }
 	}
 
 	focus = {
@@ -1846,7 +1845,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_intervene_in_the_spanish_civil_war
-		cost = 5
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -1860,12 +1859,12 @@ focus_tree = {
 
 	focus = {
 		id = TUR_hunt_down_fifth_columnist_islamists
-		icon = GFX_goal_generic_more_territorial_claims
+		icon = GFX_goal_CRO_muslims_excluded
 		prerequisite = { focus = TUR_a_common_destiny_for_all_of_turkey }
 		x = 0
 		y = 1
 		relative_position_id = TUR_a_common_destiny_for_all_of_turkey
-		cost = 5
+		cost = 2
 		ai_will_do = {
 			base = 10
 		}
@@ -1898,7 +1897,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_create_the_turkish_workers_militia
-		icon = GFX_goal_generic_war_with_comintern
+		icon = GFX_focus_YUG_pan_slavic_congress
 		prerequisite = { focus = TUR_patriotism_over_internationalism }
 		x = 0
 		y = 1
@@ -1956,22 +1955,6 @@ focus_tree = {
 
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
-		complete_tooltip = {
-			every_owned_state = {
-				limit = { has_state_flag = TUR_nationalised_industry_flag }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}			
-		}
 
 		completion_reward = {
 			random_owned_controlled_state = {
@@ -2092,7 +2075,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_hunt_down_fifth_columnist_islamists
-		cost = 5
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -2167,7 +2150,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_pivot_to_the_past
-		icon = GFX_focus_TUR_pivot_to_the_past
+		icon = GFX_goal_MAL_the_council
 		available = { 
 			AND = { 
 				has_country_flag = TUR_ottoman_officers_invited_back 
@@ -2179,9 +2162,19 @@ focus_tree = {
 		x = -12
 		y = 1
 		relative_position_id = TUR_democratic_capstone_focus
-		cost = 3
+		cost = 2
 		ai_will_do = {
 			base = 10
+			modifier = {
+				OR = {
+					has_country_flag = TUR_AI_RANDOM_OTTOMAN
+					has_game_rule = {
+						rule = TUR_ai_behavior
+						option = OTTOMAN
+					}					
+				}
+				factor = 100000
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
@@ -2192,6 +2185,24 @@ focus_tree = {
 				ideology = neutrality
 				popularity = 0.1
 			}
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+			}	
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = artillery
+			}	
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 4
+				category = industry
+			}					
 			hidden_effect = {
 				every_other_country = {
 					limit = {
@@ -2201,11 +2212,49 @@ focus_tree = {
 						target = TUR
 						modifier = BFTB_balkan_pact_ally
 					}
-					ROOT = {
-						remove_opinion_modifier = {
-							target = PREV
-							modifier = BFTB_balkan_pact_ally
+				}
+				if = {
+					limit = {
+						GRE = {
+							has_opinion_modifier = BFTB_balkan_pact_ally
 						}
+					}
+					remove_opinion_modifier = {
+						target = GRE
+						modifier = BFTB_balkan_pact_ally
+					}
+				}
+				if = {
+					limit = {
+						HUN = {
+							has_opinion_modifier = BFTB_balkan_pact_ally
+						}
+					}
+					remove_opinion_modifier = {
+						target = HUN
+						modifier = BFTB_balkan_pact_ally
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							has_opinion_modifier = BFTB_balkan_pact_ally
+						}
+					}
+					remove_opinion_modifier = {
+						target = ROM
+						modifier = BFTB_balkan_pact_ally
+					}
+				}
+				if = {
+					limit = {
+						YUG = {
+							has_opinion_modifier = BFTB_balkan_pact_ally
+						}
+					}
+					remove_opinion_modifier = {
+						target = YUG
+						modifier = BFTB_balkan_pact_ally
 					}
 				}
 			}
@@ -2219,7 +2268,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_pivot_to_the_past
-		cost = 5
+		cost = 2
 		ai_will_do = {
 			base = 10
 		}
@@ -2246,12 +2295,33 @@ focus_tree = {
 	}
 
 	focus = {
-		id = TUR_restore_the_divan
-		icon = GFX_focus_generic_self_management
+		id = TUR_rebuilding_our_nation
+		icon = GFX_goal_generic_consumer_goods
 		prerequisite = { focus = TUR_purge_the_kemalists }
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = TUR_purge_the_kemalists
+		cost = 5
+		ai_will_do = {
+			base = 10
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_timed_idea = {
+				idea = TUR_rebuilding_our_home
+				days = 180
+			}
+		}
+	}
+
+	focus = {
+		id = TUR_restore_the_divan
+		icon = GFX_focus_generic_improve_the_administration
+		prerequisite = { focus = TUR_rebuilding_our_nation }
+		x = 0
+		y = 1
+		relative_position_id = TUR_rebuilding_our_nation
 		cost = 5
 		ai_will_do = {
 			base = 10
@@ -2285,19 +2355,17 @@ focus_tree = {
 			else_if = {
 				limit = {
 					NOT = {
-						OR = {
-							has_idea = TUR_ismet_inonu
-							has_idea = TUR_fevzi_cakmak_prime_minister
-							has_idea = TUR_sukru_saracoglu_prime_minister
-							has_idea = TUR_celal_bayar
-							has_idea = TUR_sevket_sureyya_aydemir
-							has_idea = TUR_recep_peker
-							has_idea = TUR_adnan_menderes
-							has_idea = TUR_nuri_demirag_prime_minister
-							has_idea = TUR_sefik_husnu
-							has_idea = TUR_said_i_nursi
-							has_idea = TUR_nihal_atsiz
-						}
+						has_idea = TUR_ismet_inonu
+						has_idea = TUR_fevzi_cakmak_prime_minister
+						has_idea = TUR_sukru_saracoglu_prime_minister
+						has_idea = TUR_celal_bayar
+						has_idea = TUR_sevket_sureyya_aydemir
+						has_idea = TUR_recep_peker
+						has_idea = TUR_adnan_menderes
+						has_idea = TUR_nuri_demirag_prime_minister
+						has_idea = TUR_sefik_husnu
+						has_idea = TUR_said_i_nursi
+						has_idea = TUR_nihal_atsiz
 					}
 				}
 				add_ideas = TUR_said_i_nursi
@@ -2389,35 +2457,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = TUR_rebuilding_our_nation
-		icon = GFX_goal_generic_consumer_goods
-		prerequisite = { focus = TUR_purge_the_kemalists }
-		x = 1
-		y = 1
-		relative_position_id = TUR_purge_the_kemalists
-		cost = 5
-		ai_will_do = {
-			base = 10
-		}
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		completion_reward = {
-			add_timed_idea = {
-				idea = TUR_rebuilding_our_home
-				days = 360
-			}
-		}
-	}
-
-	focus = {
 		id = TUR_return_of_the_sultan
-		icon = GFX_focus_rom_royal_dictatorship
+		icon = GFX_focus_TUR_pivot_to_the_past
 		prerequisite = { focus = TUR_restore_the_divan }
-		prerequisite = { focus = TUR_rebuilding_our_nation }
 		x = 0
-		y = 2
+		y = 3
 		relative_position_id = TUR_purge_the_kemalists
-		cost = 5
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -2425,8 +2471,75 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			news_event = { id = bftb_news.205 }
+		
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = infrastructure
+					size > 0
+					include_locked = yes
+				}
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 3
+				instant_build = yes
+			}
+
 		}
+		add_ideas = TUR_janissary_army
 	}
+	}
+	focus = {
+		id = TUR_invest_steel
+		icon = GFX_focus_generic_steel
+		prerequisite = { focus = TUR_return_of_the_sultan }
+		x = 2
+		y = 1
+		relative_position_id = TUR_return_of_the_sultan
+		cost = 10
+		ai_will_do = {
+			base = 10
+		}
+
+		completion_reward = {
+
+				random_state = {
+
+					add_extra_state_shared_building_slots = 4
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = steel_mill
+						level = 2
+						instant_build = yes
+					}				
+					add_resource = {
+						type = steel
+						amount = 12
+					}			
+				}
+				add_timed_idea = {
+					idea = TUR_state_investments
+					days = 60
+				}
+			}
+	}
+
 
 	focus = {
 		id = TUR_reclaim_macedonia
@@ -2435,7 +2548,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_return_of_the_sultan
-		cost = 10
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -2444,7 +2557,7 @@ focus_tree = {
 			OR = {
 				GRE = { 
 					exists = no
-					is_puppet_of = ROOT
+					is_subject_of = ROOT
 					has_capitulated = yes
 				}
 			}
@@ -2461,89 +2574,25 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = TUR_join_the_central_powers
-		icon = GFX_focus_ger_revive_kaiserreich
-		available = {
-			OR = {
-				GER = { has_completed_focus = GER_the_central_powers }
-				HUN = { has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary }
-			}
-		}
-		mutually_exclusive = { focus = TUR_press_the_austro_hungarian_claim }
-		prerequisite = { focus = TUR_reclaim_macedonia }
-		x = -1
-		y = 1
-		relative_position_id = TUR_reclaim_macedonia
-		cost = 10
-		ai_will_do = {
-			base = 10
-		}
-
-		bypass = {
-			is_in_faction = yes
-		}
-
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			if = {
-				limit = {
-					GER = { 
-						has_government = neutrality
-						has_completed_focus = GER_the_central_powers
-					}
-				}
-				GER = {
-					country_event = { id = generic.2 }
-				}
-			}
-			else_if = {
-				limit = {
-					GER = { 
-						has_government = neutrality
-						NOT = { has_completed_focus = GER_the_central_powers }
-					}
-				}
-				GER = {
-					set_rule = { can_create_factions = yes }
-					create_faction = "GER_central_powers_faction"
-					country_event = { id = generic.2 }
-				}
-			}
-			else_if = {
-				limit = {
-					HUN = { has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary }
-				}
-				set_rule = { can_create_factions = yes }
-				create_faction = "GER_central_powers_faction"
-				HUN = {
-					if = {
-						limit = { ROOT = { is_in_faction = yes } }
-						country_event = generic.5 
-					}
-					else = { 
-						custom_effect_tooltip = invite_to_faction_tt
-					}
-				}
-			}
-			set_rule = { can_create_factions = yes }
-		}
-	}
 
 	focus = {
 		id = TUR_press_the_austro_hungarian_claim
 		icon = GFX_focus_proclaim_the_restauration_of_Austria_Hungary
 		available = {
 			NOT = {
-				HUN = { has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary }
+				any_other_country = {
+					has_cosmetic_tag = HUN_EMPIRE
+					custom_trigger_tooltip = {
+						tooltip = is_AH_tt	
+					}					
+				}
 			}
 		}
-		mutually_exclusive = { focus = TUR_join_the_central_powers }
 		prerequisite = { focus = TUR_reclaim_macedonia }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = TUR_reclaim_macedonia
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -2594,13 +2643,13 @@ focus_tree = {
 			set_rule = { can_create_factions = yes }
 		}
 	}
-
+	
 	focus = {
 		id = TUR_aligning_bulgaria
 		icon = GFX_focus_generic_befriend_bulgaria
-		prerequisite = { focus = TUR_join_the_central_powers focus = TUR_press_the_austro_hungarian_claim }
+		prerequisite = { focus = TUR_reclaim_macedonia }
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = TUR_reclaim_macedonia
 		cost = 5
 		ai_will_do = {
@@ -2611,10 +2660,13 @@ focus_tree = {
 			BUL = { 
 				OR = {
 					exists = no
-					has_capitulated = yes
+					AND = {
+						has_capitulated = yes
+						has_civil_war = no
+					}
 					has_war_with = ROOT
 					is_in_faction_with = ROOT
-					is_puppet_of = ROOT
+					is_subject_of = ROOT
 				}
 			}
 		}
@@ -2626,10 +2678,433 @@ focus_tree = {
 	}
 
 	focus = {
-		id = TUR_reclaiming_our_lost_empire
-		icon = GFX_focus_generic_strike_at_democracy1
+		id = TUR_invest_in_new_territory
+		icon = GFX_goal_AUS_demand_slovenia
 		prerequisite = { focus = TUR_aligning_bulgaria }
-		x = -2
+		mutually_exclusive = { focus = TUR_invest_in_turkey }
+		x = 4
+		y = 3
+		relative_position_id = TUR_return_of_the_sultan
+		cost = 5
+		ai_will_do = {
+			base = 10
+		}
+		completion_reward ={
+		if = {
+			limit = {
+				any_owned_state = {
+					is_core_of = ROOT
+					has_state_flag = TUR_ottoman_claim_flag
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					has_state_flag = TUR_ottoman_claim_flag
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				set_state_flag = TUR_industrial_flag
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					has_state_flag = TUR_ottoman_claim_flag
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				set_state_flag = TUR_industrial_flag
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					has_state_flag = TUR_ottoman_claim_flag
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				set_state_flag = TUR_industrial_flag
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					has_state_flag = TUR_ottoman_claim_flag
+					NOT = { has_state_flag = TUR_industrial_flag }
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				set_state_flag = TUR_industrial_flag
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					has_state_flag = TUR_ottoman_claim_flag
+					NOT = { has_state_flag = TUR_industrial_flag }
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			every_owned_state = {
+				limit = {
+					has_state_flag = TUR_industrial_flag
+				}
+				clr_state_flag = TUR_industrial_flag
+			}
+		}
+
+	}
+}
+	focus = {
+		id = TUR_invest_in_turkey
+		icon = GFX_goal_TUR_flag
+		prerequisite = { focus = TUR_aligning_bulgaria }
+		mutually_exclusive = { focus = TUR_invest_in_new_territory }
+		x = 2
+		y = 3
+		relative_position_id = TUR_return_of_the_sultan
+		cost = 5
+		ai_will_do = {
+			base = 10
+		}
+
+
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			add_ideas = TUR_construction
+			add_timed_idea = {
+				idea = TUR_state_investments
+				days = 90
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = TUR_invest_in_navy
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = TUR_invest_in_turkey focus = TUR_invest_in_new_territory}
+		x = 4
+		y = 4
+		relative_position_id = TUR_return_of_the_sultan
+		cost = 10
+		ai_will_do = {
+			base = 10
+		}
+
+
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						infrastructure < 5
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TUR_reaffirm_balkan_hegemony
+		icon = GFX_goal_ROM_balkans_domination
+		available = {
+
+		}
+		prerequisite = { focus = TUR_aligning_bulgaria }
+		x = 0
 		y = 1
 		relative_position_id = TUR_aligning_bulgaria
 		cost = 5
@@ -2637,7 +3112,53 @@ focus_tree = {
 			base = 10
 		}
 
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
+			add_state_claim = 106
+			add_state_claim = 105
+			add_state_claim = 108
+			add_state_claim = 107
+			add_state_claim = 963
+			add_state_claim = 802
+			add_state_claim = 953
+			add_state_claim = 803
+			add_state_claim = 950
+			add_state_core = 104
+			create_wargoal = {
+				type = take_state_focus
+				target = YUG
+			}
+			add_state_claim = 46
+			add_state_claim = 79
+			add_state_claim = 77
+			add_state_claim = 955
+			create_wargoal = {
+				type = take_state_focus
+				target = ROM
+			}
+			set_rule = { can_create_factions = yes }
+			add_war_support = 0.1
+
+			add_ideas = GEN_Conquer_I	
+		}
+	}
+
+	focus = {
+		id = TUR_reclaiming_our_lost_empire
+		icon = GFX_goal_TUR_flag
+		prerequisite = { focus = TUR_reaffirm_balkan_hegemony }
+		x = -2
+		y = 1
+		relative_position_id = TUR_reaffirm_balkan_hegemony
+		cost = 10
+		ai_will_do = {
+			base = 10
+		}
+
+		completion_reward = {
+
+			add_ideas = TUR_empire
+
 			if = {
 				limit = {
 					has_country_leader = {
@@ -2659,24 +3180,22 @@ focus_tree = {
 			else = { 
 				effect_tooltip = { add_country_leader_trait = caliph }
 			}
-			hidden_effect = {
-				set_country_flag = TUR_ott_unified_flag
-				TUR_set_appropriate_cosmetic_tag = yes
-			}
-			#Set appropriate cosmetic tag to work with dynamic 3D models
 
+			#Set appropriate cosmetic tag to work with dynamic 3D models
+			set_country_flag = TUR_ott_unified_flag
+			TUR_set_appropriate_cosmetic_tag = yes
 			unlock_decision_category_tooltip = form_ottoman_empire_category
 		}
 	}
 
 	focus = {
 		id = TUR_expanding_the_saadabad_pact
-		icon = GFX_goal_generic_improve_relations
-		prerequisite = { focus = TUR_aligning_bulgaria }
+		icon = GFX_focus_TUR_treaty_of_saadabad
+		prerequisite = { focus = TUR_reaffirm_balkan_hegemony }
 		x = 0
 		y = 1
-		relative_position_id = TUR_aligning_bulgaria
-		cost = 5
+		relative_position_id = TUR_reaffirm_balkan_hegemony
+		cost = 10
 		ai_will_do = {
 			base = 10
 		}
@@ -2758,10 +3277,10 @@ focus_tree = {
 	focus = {
 		id = TUR_the_damascus_diktat
 		icon = GFX_goal_generic_position_armies
-		prerequisite = { focus = TUR_aligning_bulgaria }
+		prerequisite = { focus = TUR_reaffirm_balkan_hegemony }
 		x = 2
 		y = 1
-		relative_position_id = TUR_aligning_bulgaria
+		relative_position_id = TUR_reaffirm_balkan_hegemony
 		cost = 5
 		ai_will_do = {
 			base = 10
@@ -2770,6 +3289,9 @@ focus_tree = {
 		bypass = {
 			ROOT = {
 				controls_state = 677
+				controls_state = 554
+				controls_state = 553
+				controls_state = 680
 			}
 		}
 
@@ -2777,7 +3299,14 @@ focus_tree = {
 		completion_reward = {
 			677 = {
 				controller = {
-					country_event = { id = bftb_turkey.102 }
+					if = {
+						limit = {
+							controls_state = 554
+							controls_state = 553
+							controls_state = 680
+						}
+						country_event = { id = bftb_turkey.102 }
+					}
 				}
 			}
 		}
@@ -2787,10 +3316,10 @@ focus_tree = {
 		id = TUR_supporting_the_east
 		icon = GFX_goal_generic_construct_civilian
 		prerequisite = { focus = TUR_reclaiming_our_lost_empire }
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = TUR_reclaiming_our_lost_empire
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -2798,6 +3327,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
 			354 = {
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -2805,6 +3335,7 @@ focus_tree = {
 				}
 			}
 			800 = {
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -2812,6 +3343,7 @@ focus_tree = {
 				}
 			}
 			352 = {
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -2819,6 +3351,7 @@ focus_tree = {
 				}
 			}
 			353 = {
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -2826,6 +3359,7 @@ focus_tree = {
 				}
 			}
 			350 = {
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -2833,6 +3367,7 @@ focus_tree = {
 				}
 			}
 			344 = {
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -2844,7 +3379,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_desert_camel_corps
-		icon = GFX_goal_generic_cavalry
+		icon = GFX_goal_camelry
 		prerequisite = { focus = TUR_supporting_the_east }
 		x = 0
 		y = 1
@@ -2857,12 +3392,18 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = TUR_unlock_camelry_effect_tt
 			hidden_effect = { set_technology = { camelry = 1 } } 
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1
+				uses = 1
+				category = summer_clothing_tech
+			}			
 		}
 	}
 
 	focus = {
 		id = TUR_the_pan_national_association_of_ulemas
-		icon = GFX_goal_anschluss
+		icon = GFX_goal_islam_and_state
 		prerequisite = { focus = TUR_expanding_the_saadabad_pact }
 		prerequisite = { focus = TUR_reclaiming_our_lost_empire focus = TUR_the_damascus_diktat }
 		x = 0
@@ -2874,23 +3415,24 @@ focus_tree = {
 		}
 
 		bypass = {
-			custom_trigger_tooltip = { 
-				tooltip = TUR_no_faction_alliance_members_tt
-				AND = {
-					AFG = {
-						NOT = { is_in_faction_with = TUR }
-					}
-					PER = {
-						NOT = { is_in_faction_with = TUR }
-					}
-					IRQ = {
-						NOT = { is_in_faction_with = TUR }
-					}
-					SYR = {
-						NOT = { is_in_faction_with = TUR }
-					}
-				}
-			}
+		# broken
+		#	custom_trigger_tooltip = { 
+		#		tooltip = TUR_no_faction_alliance_members_tt
+		#		AND = {
+		#			AFG = {
+		#				NOT = { is_in_faction_with = TUR }
+		#			}
+		#			PER = {
+		#				NOT = { is_in_faction_with = TUR }
+		#			}
+		#			IRQ = {
+		#				NOT = { is_in_faction_with = TUR }
+		#			}
+		#			SYR = {
+		#				NOT = { is_in_faction_with = TUR }
+		#			}
+		#		}
+		#	}
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -2909,10 +3451,8 @@ focus_tree = {
 				limit = {
 					has_completed_focus = TUR_treaty_of_saadabad
 					AFG = {
-						AND = {
-							NOT = { is_in_faction_with = TUR }
-							has_country_flag = TUR_saadabad_pact_member
-						}
+						NOT = { is_in_faction_with = TUR }
+						has_country_flag = TUR_saadabad_pact_member
 					}
 				}
 				effect_tooltip = { TUR = { puppet = AFG } }
@@ -2921,10 +3461,8 @@ focus_tree = {
 				limit = {
 					has_completed_focus = TUR_treaty_of_saadabad
 					PER = {
-						AND = {
-							NOT = { is_in_faction_with = TUR }
-							has_country_flag = TUR_saadabad_pact_member
-						}
+						NOT = { is_in_faction_with = TUR }
+						has_country_flag = TUR_saadabad_pact_member
 					}
 				}
 				effect_tooltip = { TUR = { puppet = PER } }
@@ -2933,10 +3471,8 @@ focus_tree = {
 				limit = {
 					has_completed_focus = TUR_treaty_of_saadabad
 					IRQ = {
-						AND = {
-							NOT = { is_in_faction_with = TUR }
-							has_country_flag = TUR_saadabad_pact_member
-						}
+						NOT = { is_in_faction_with = TUR }
+						has_country_flag = TUR_saadabad_pact_member
 					}
 				}
 				effect_tooltip = { TUR = { puppet = IRQ } }
@@ -2945,10 +3481,8 @@ focus_tree = {
 				limit = {
 					has_completed_focus = TUR_treaty_of_saadabad
 					SYR = {
-						AND = {
-							NOT = { is_in_faction_with = TUR }
-							has_country_flag = TUR_saadabad_pact_member
-						}
+						NOT = { is_in_faction_with = TUR }
+						has_country_flag = TUR_saadabad_pact_member
 					}
 				}
 				effect_tooltip = { TUR = { puppet = SYR } }
@@ -2957,10 +3491,8 @@ focus_tree = {
 				limit = {
 					has_completed_focus = TUR_treaty_of_saadabad
 					AFG = {
-						AND = {
-							is_in_faction_with = TUR
-							has_country_flag = TUR_saadabad_pact_member
-						}
+						is_in_faction_with = TUR
+						has_country_flag = TUR_saadabad_pact_member
 					}
 				}
 				TUR = { puppet = AFG }
@@ -2969,10 +3501,8 @@ focus_tree = {
 				limit = {
 					has_completed_focus = TUR_treaty_of_saadabad
 					PER = {
-						AND = {
-							is_in_faction_with = TUR
-							has_country_flag = TUR_saadabad_pact_member
-						}
+						is_in_faction_with = TUR
+						has_country_flag = TUR_saadabad_pact_member
 					}
 				}
 				TUR = { puppet = PER }
@@ -2981,10 +3511,8 @@ focus_tree = {
 				limit = {
 					has_completed_focus = TUR_treaty_of_saadabad
 					IRQ = {
-						AND = {
-							is_in_faction_with = TUR
-							has_country_flag = TUR_saadabad_pact_member
-						}
+						is_in_faction_with = TUR
+						has_country_flag = TUR_saadabad_pact_member
 					}
 				}
 				TUR = { puppet = IRQ }
@@ -2993,10 +3521,8 @@ focus_tree = {
 				limit = {
 					has_completed_focus = TUR_treaty_of_saadabad
 					SYR = {
-						AND = {
-							is_in_faction_with = TUR
-							has_country_flag = TUR_saadabad_pact_member
-						}
+						is_in_faction_with = TUR
+						has_country_flag = TUR_saadabad_pact_member
 					}
 				}
 				TUR = { puppet = SYR }
@@ -3007,17 +3533,20 @@ focus_tree = {
 	focus = {
 		id = TUR_reinstate_the_darulfununu_sahane
 		icon = GFX_goal_generic_scientific_exchange
-		prerequisite = { focus = TUR_the_pan_national_association_of_ulemas }
-		x = -1
-		y = 1
+		prerequisite = { focus = TUR_imperial_factories }
+		x = 1
+		y = 2
 		relative_position_id = TUR_the_pan_national_association_of_ulemas
 		cost = 10
 		ai_will_do = {
 			base = 10
 		}
+		
+		available = {
+		num_of_factories > 70
+		}
 
 		bypass = {
-			is_in_faction = no
 		}
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -3025,15 +3554,47 @@ focus_tree = {
 			add_research_slot = 1
 		}
 	}
+	focus = {
+		id = TUR_refining_our_strategies
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = TUR_the_damascus_diktat }
+		x = 0
+		y = 1
+		relative_position_id = TUR_the_damascus_diktat
+		cost = 10
+		ai_will_do = {
+			base = 10
+		}
 
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = TUR_refining_our_strategies
+				cost_reduction = 1.0
+				uses = 2
+				category = land_doctrine
+			}
+			add_doctrine_cost_reduction = {
+				name = TUR_refining_our_strategies
+				cost_reduction = 1.0
+				uses = 2
+				category = naval_doctrine
+			}
+			add_doctrine_cost_reduction = {
+				name = TUR_refining_our_strategies
+				cost_reduction = 1.0
+				uses = 2
+				category = air_doctrine
+			}
+		}
+	}
 	focus = {
 		id = TUR_imperial_factories
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = TUR_the_pan_national_association_of_ulemas }
-		x = 1
+		prerequisite = { focus = TUR_refining_our_strategies }
+		x = 0
 		y = 1
-		relative_position_id = TUR_the_pan_national_association_of_ulemas
-		cost = 5
+		relative_position_id = TUR_refining_our_strategies
+		cost = 10
 		ai_will_do = {
 			base = 10
 		}
@@ -3048,10 +3609,55 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 4
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 4
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -3065,59 +3671,28 @@ focus_tree = {
 	}
 
 	focus = {
-		id = TUR_refining_our_strategies
-		icon = GFX_goal_generic_occupy_states_ongoing_war
-		prerequisite = { focus = TUR_the_damascus_diktat }
-		x = 3
-		y = 1
-		relative_position_id = TUR_the_pan_national_association_of_ulemas
-		cost = 10
-		ai_will_do = {
-			base = 10
-		}
-
-		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = TUR_refining_our_strategies
-				cost_reduction = 0.5
-				uses = 2
-				category = land_doctrine
-			}
-			add_doctrine_cost_reduction = {
-				name = TUR_refining_our_strategies
-				cost_reduction = 0.5
-				uses = 2
-				category = naval_doctrine
-			}
-			add_doctrine_cost_reduction = {
-				name = TUR_refining_our_strategies
-				cost_reduction = 0.5
-				uses = 2
-				category = air_doctrine
-			}
-		}
-	}
-
-	focus = {
 		id = TUR_the_red_apples_of_sevres
 		icon = GFX_focus_focus_fra_ratify_stresa
 		prerequisite = { focus = TUR_desert_camel_corps }
 		prerequisite = { focus = TUR_imperial_factories }
-		prerequisite = { focus = TUR_reinstate_the_darulfununu_sahane }
-		prerequisite = { focus = TUR_refining_our_strategies }
-		x = 0
+		x = -1
 		y = 2
 		relative_position_id = TUR_the_pan_national_association_of_ulemas
 		cost = 10
 		ai_will_do = {
 			base = 10
+			modifier = {
+				has_war = yes
+				factor = 0
+			}
+						
 		}
 
 		bypass = {
 			ENG = {
 				OR = {
 					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_subject_of = TUR
 					exists = no
 					has_capitulated = yes
 				}
@@ -3125,7 +3700,7 @@ focus_tree = {
 			FRA = {
 				OR = {
 					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_subject_of = TUR
 					exists = no
 					has_capitulated = yes
 				}
@@ -3133,7 +3708,7 @@ focus_tree = {
 			ITA = {
 				OR = {
 					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_subject_of = TUR
 					exists = no
 					has_capitulated = yes
 				}
@@ -3162,34 +3737,37 @@ focus_tree = {
 		id = TUR_realize_the_nightmare_of_meiji
 		icon = GFX_focus_jap_pacific_guardian
 		prerequisite = { focus = TUR_the_red_apples_of_sevres }
-		x = 0
+		prerequisite = { focus = TUR_reinstate_the_darulfununu_sahane }
+		x = 1
 		y = 1
 		relative_position_id = TUR_the_red_apples_of_sevres
 		cost = 10
 		ai_will_do = {
-			base = 10
+			base = 1
+			modifier = {
+				has_war = yes
+				factor = 0
+			}			
 		}
 
 		bypass = {
 			JAP = {
 				OR = {
 					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_subject_of = TUR
 					exists = no
 					has_capitulated = yes
 				}
 			}
 		}
 
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			add_tech_bonus = {
 				name = TUR_realize_the_nightmare_of_meiji
 				bonus = 1.0
 				uses = 1
-				technology = marines
-				technology = marines2
-				technology = marines3
+				category = marine_tech
 			}
 			add_tech_bonus = {
 				name = TUR_realize_the_nightmare_of_meiji
@@ -3197,6 +3775,23 @@ focus_tree = {
 				uses = 1
 				category = tp_tech 
 			}
+			add_tech_bonus = {
+				name = TUR_realize_the_nightmare_of_meiji
+				bonus = 1.0
+				uses = 1
+				category = r56_special_forces_training_tech 
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = TUR_realize_the_nightmare_of_meiji
+					bonus = 1
+					uses = 1
+					category = amphibious_armor_tech
+				}				
+			}			
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = JAP
@@ -3206,7 +3801,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_continue_to_prioritise_balkan_integrity
-		icon = GFX_goal_generic_national_unity
+		icon = GFX_goal_GRE_balkan_pact
 		mutually_exclusive = { focus = TUR_reconfigure_our_foreign_policy focus = TUR_pivot_to_the_past }
 		available = {
 			NOT = {
@@ -3224,7 +3819,7 @@ focus_tree = {
 						YUG = { exists = no }
 					}
 					is_in_faction = yes
-					is_puppet = yes
+					is_subject = yes
 					has_country_flag = TUR_ottoman_officers_invited_back
 				}
 			}
@@ -3233,7 +3828,7 @@ focus_tree = {
 		x = 30
 		y = 1
 		relative_position_id = TUR_democratic_capstone_focus
-		cost = 10
+		cost = 2
 		ai_will_do = {
 			base = 10
 		}
@@ -3244,17 +3839,15 @@ focus_tree = {
 			add_stability = 0.05
 			every_country = {
 				limit = {
-					AND = {
-						OR = {
-							original_tag = GRE
-							original_tag = HUN
-							original_tag = ROM
-							original_tag = YUG
-						}
-						OR = {
-							has_opinion_modifier = BFTB_balkan_pact_ally
-							has_idea = HUN_his_majestys_government
-						}
+					OR = {
+						original_tag = GRE
+						original_tag = HUN
+						original_tag = ROM
+						original_tag = YUG
+					}
+					OR = {
+						has_opinion_modifier = BFTB_balkan_pact_ally
+						has_idea = HUN_his_majestys_government
 					}
 				}
 				add_opinion_modifier = {
@@ -3271,13 +3864,11 @@ focus_tree = {
 			}
 			every_country = {
 				limit = {
-					AND = {
-						OR = {
-							original_tag = BUL
-							original_tag = HUN
-						}
-						has_opinion_modifier = BFTB_incongruous_neighbors
+					OR = {
+						original_tag = BUL
+						original_tag = HUN
 					}
+					has_opinion_modifier = BFTB_incongruous_neighbors
 				}
 				add_opinion_modifier = {
 					target = TUR
@@ -3309,7 +3900,7 @@ focus_tree = {
 						YUG = { exists = no }
 					}
 					is_in_faction = yes
-					is_puppet = yes
+					is_subject = yes
 				}
 			}
 		}
@@ -3317,7 +3908,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_continue_to_prioritise_balkan_integrity
-		cost = 10
+		cost = 2
 		ai_will_do = {
 			base = 10
 		}
@@ -3325,21 +3916,442 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			create_faction = TUR_balkan_pact
-			every_country = {
+			if = {
 				limit = {
-					AND = {
+					ROM = {
+						is_faction_leader = yes
 						OR = {
-							original_tag = GRE
-							original_tag = HUN
-							original_tag = ROM
-							original_tag = YUG
+							has_government = neutrality 
+							has_government = democratic
 						}
-						has_opinion_modifier = TUR_assertive_regional_defender
+						NOT = {
+							has_war_with = ROOT
+						}						
 					}
 				}
-				country_event = { id = bftb_turkey.41 }
+				ROM = {
+					country_event = { id = generic.2 hours = 3 }
+					add_ai_strategy = {
+						type = alliance
+						id = "TUR"
+						value = 200
+					}					
+				}
+				
+				set_global_flag = TUR_balkan_entente_found_ally
+				
+				if = {
+					limit = {
+						YUG = {
+							is_subject = no
+							is_in_faction = no
+							has_opinion_modifier = TUR_assertive_regional_defender	
+							NOT = {
+								has_war_with = ROOT
+							}
+						}
+					}
+					YUG = {
+						add_ai_strategy = {
+							type = alliance
+							id = "ROM"
+							value = 200
+						}	
+					}
+					ROM = {
+						YUG = { 
+							country_event = { id = generic.5 days = 7 }
+							add_ai_strategy = {
+								type = alliance
+								id = "ROM"
+								value = 200
+							}
+						}
+					}										
+				}				
+				if = {
+					limit = {
+						GRE = {
+							is_subject = no
+							is_in_faction = no		
+							has_opinion_modifier = TUR_assertive_regional_defender					
+							NOT = {
+								has_war_with = ROOT
+							}
+						}
+					
+					}
+					GRE = {
+						add_ai_strategy = {
+							type = alliance
+							id = "ROM"
+							value = 200
+						}	
+					}
+					ROM = {
+						GRE = { 
+							country_event = { id = generic.5 days = 7 }
+							add_ai_strategy = {
+								type = alliance
+								id = "ROM"
+								value = 200
+							}
+						}
+					}										
+				}
+				if = {
+					limit = {
+						HUN = {
+							is_subject = no
+							is_in_faction = no
+							has_opinion_modifier = TUR_assertive_regional_defender
+							NOT = {
+								has_war_with = ROOT
+							}								
+						}
+					}
+					HUN = {
+						add_ai_strategy = {
+							type = alliance
+							id = "ROM"
+							value = 200
+						}	
+					}
+					ROM = {
+						HUN = { 
+							country_event = { id = generic.5 days = 7 }
+							add_ai_strategy = {
+								type = alliance
+								id = "ROM"
+								value = 200
+							}
+						}
+					}										
+				}							
 			}
+			if = {
+				limit = {
+					GRE = {
+						is_faction_leader = yes
+						OR = {
+							has_government = neutrality 
+							has_government = democratic
+						}
+						NOT = {
+							has_war_with = ROOT
+						}						
+					}
+				}
+				
+				set_global_flag = TUR_balkan_entente_found_ally
+				
+				GRE = {
+					country_event = { id = generic.2 hours = 3 }
+					add_ai_strategy = {
+						type = alliance
+						id = "TUR"
+						value = 200
+					}					
+				}
+				if = {
+					limit = {
+						ROM = {
+							is_subject = no
+							NOT = {
+								is_in_faction = yes
+							}
+							has_opinion_modifier = TUR_assertive_regional_defender
+							NOT = {
+								has_war_with = ROOT
+							}							
+						}
+					}
+					ROM = {
+						add_ai_strategy = {
+							type = alliance
+							id = "GRE"
+							value = 200
+						}	
+					}
+					GRE = {
+						ROM = { 
+							country_event = { id = generic.5 days = 7 }
+							add_ai_strategy = {
+								type = alliance
+								id = "GRE"
+								value = 200
+							}
+						}
+					}										
+				}
+				if = {
+					limit = {
+						HUN = {
+							is_subject = no
+							NOT = {
+								is_in_faction = yes
+							}
+							has_opinion_modifier = TUR_assertive_regional_defender	
+							NOT = {
+								has_war_with = ROOT
+							}						
+						}
+					}
+					HUN = {
+						add_ai_strategy = {
+							type = alliance
+							id = "GRE"
+							value = 200
+						}	
+					}
+					GRE = {
+						HUN = { 
+							country_event = { id = generic.5 days = 7 }
+							add_ai_strategy = {
+								type = alliance
+								id = "GRE"
+								value = 200
+							}
+						}
+					}										
+				}
+				if = {
+					limit = {
+						original_tag = YUG
+					
+						is_subject = no
+						is_in_faction = no
+						
+						has_opinion_modifier = TUR_assertive_regional_defender	
+						NOT = {
+							has_war_with = ROOT
+						}									
+					}
+					YUG = {
+						add_ai_strategy = {
+							type = alliance
+							id = "GRE"
+							value = 200
+						}	
+					}
+					GRE = {
+						YUG = { 
+							country_event = { id = generic.5 days = 7 }
+							add_ai_strategy = {
+								type = alliance
+								id = "GRE"
+								value = 200
+							}
+						}
+					}										
+				}							
+			}
+			if = {
+				limit = {
+					TUR = {
+						is_subject = no
+						is_in_faction = no
+						has_opinion_modifier = TUR_assertive_regional_defender	
+						NOT = {
+							has_war_with = ROOT
+						}					
+					}
+				}
+				
+				set_global_flag = TUR_balkan_entente_found_ally
+				
+				YUG = {
+					country_event = { id = generic.2 hours = 3 }
+					add_ai_strategy = {
+						type = alliance
+						id = "TUR"
+						value = 200
+					}					
+				}
+				if = {
+					limit = {
+						ROM = {
+							is_subject = no
+							is_in_faction = no
+							
+							has_opinion_modifier = TUR_assertive_regional_defender	
+							NOT = {
+								has_war_with = ROOT
+							}
+						}
+					}
+					ROM = {
+						add_ai_strategy = {
+							type = alliance
+							id = "YUG"
+							value = 200
+						}	
+					}
+					YUG = {
+						ROM = { 
+							country_event = { id = generic.5 days = 7 }
+							add_ai_strategy = {
+								type = alliance
+								id = "YUG"
+								value = 200
+							}
+						}
+					}										
+				}
+				if = {
+					limit = {
+						HUN = {
+							is_subject = no
+							is_in_faction = no
+							has_opinion_modifier = TUR_assertive_regional_defender	
+							NOT = {
+								has_war_with = ROOT
+							}						
+						}
+					}
+					HUN = {
+						add_ai_strategy = {
+							type = alliance
+							id = "YUG"
+							value = 200
+						}	
+					}
+					YUG = {
+						HUN = { 
+							country_event = { id = generic.5 days = 7 }
+							add_ai_strategy = {
+								type = alliance
+								id = "YUG"
+								value = 200
+							}
+						}
+					}										
+				}
+				if = {
+					limit = {
+						GRE = {
+							is_subject = no
+							is_in_faction = no
+							
+							has_opinion_modifier = TUR_assertive_regional_defender	
+							NOT = {
+								has_war_with = ROOT
+							}							
+						}
+					}
+					GRE = {
+						add_ai_strategy = {
+							type = alliance
+							id = "YUG"
+							value = 200
+						}	
+					}
+					YUG = {
+						GRE = { 
+							country_event = { id = generic.5 days = 7 }
+							add_ai_strategy = {
+								type = alliance
+								id = "YUG"
+								value = 200
+							}
+						}
+					}										
+				}
+			}
+			if = {
+				limit = {
+					HUN = {
+						is_faction_leader = yes
+						OR = {
+							has_government = neutrality 
+							has_government = democratic
+						}
+						NOT = {
+							has_war_with = ROOT
+						}						
+					}
+				}
+				
+				set_global_flag = TUR_balkan_entente_found_ally
+				
+				HUN = {
+					country_event = { id = generic.2 hours = 3 }
+					add_ai_strategy = {
+						type = alliance
+						id = "TUR"
+						value = 200
+					}					
+				}
+				every_country = {
+					limit = {
+						OR = {
+							original_tag = ROM
+							original_tag = YUG
+							original_tag = GRE
+						}
+
+						is_in_faction = no
+
+						NOT = {
+							has_war_with = ROOT
+						}						
+						has_opinion_modifier = TUR_assertive_regional_defender							
+					}
+					HUN = {
+						country_event = { id = generic.2 hours = 72 }	
+					}					 
+					add_ai_strategy = {
+						type = alliance
+						id = "HUN"
+						value = 200
+					}
+				}
+			}																
+			else = {
+				if = {
+					limit = {
+						NOT = {
+							has_global_flag = TUR_balkan_entente_found_ally
+						}
+						NOT = {
+							any_country = {
+								OR = {
+									original_tag = ROM
+									original_tag = YUG
+									original_tag = GRE
+									original_tag = HUN
+								}
+								is_faction_leader = yes
+								OR = {
+									has_government = neutrality 
+									has_government = democratic
+								}
+								NOT = {
+									has_war_with = ROOT
+								}							
+							}
+						}
+
+					}
+					create_faction = TUR_balkan_pact
+					every_country = {
+						limit = {
+							OR = {
+								original_tag = GRE
+								original_tag = HUN
+								original_tag = ROM
+								original_tag = YUG
+							}
+							NOT = {
+								is_in_faction = yes
+							}
+							has_opinion_modifier = TUR_assertive_regional_defender
+						}
+						country_event = { id = bftb_turkey.41 }
+					}
+					
+				}
+			}	
 		}
 	}
 
@@ -3367,26 +4379,23 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_reaffirm_the_balkan_pact
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
 
 		completion_reward = {
 			add_ideas = TUR_balkan_defense_council_spirit
-			for_each_scope_loop = {
-				array = faction_members
-				if = {
-					limit = {
-						NOT = { tag = ROOT }
-						OR = {
-							original_tag = GRE
-							original_tag = YUG
-							original_tag = ROM
-						}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = GRE
+						original_tag = YUG
+						original_tag = ROM
 					}
-					add_ideas = TUR_balkan_defense_council_spirit
 				}
+				add_ideas = TUR_balkan_defense_council_spirit
 			}
 		}
 	}
@@ -3415,7 +4424,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = TUR_reaffirm_the_balkan_pact
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -3426,21 +4435,18 @@ focus_tree = {
 				idea = TUR_three_year_plan_balkans
 				days = 1095
 			}
-			for_each_scope_loop = {
-				array = faction_members
-				if = {
-					limit = {
-						NOT = { tag = ROOT }
-						OR = {
-							original_tag = GRE
-							original_tag = YUG
-							original_tag = ROM
-						}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = GRE
+						original_tag = YUG
+						original_tag = ROM
 					}
-					add_timed_idea = {
-						idea = TUR_three_year_plan_balkans
-						days = 1095
-					}
+				}
+				add_timed_idea = {
+					idea = TUR_three_year_plan_balkans
+					days = 1095
 				}
 			}
 		}
@@ -3448,7 +4454,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_united_against_imperialism
-		icon = GFX_goal_generic_demand_territory
+		icon = GFX_focus_BUL_free_balkan_states
 		prerequisite = { focus = TUR_balkan_defense_council }
 		available = {
 			OR = {
@@ -3470,7 +4476,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_balkan_defense_council
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -3498,36 +4504,33 @@ focus_tree = {
 					}
 				}
 			}
-			for_each_scope_loop = {
-				array = faction_members
-				if = {
-					limit = {
-						NOT = { tag = ROOT }
-						OR = {
-							original_tag = GRE
-							original_tag = YUG
-							original_tag = ROM
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = GRE
+						original_tag = YUG
+						original_tag = ROM
+					}
+				}
+				add_stability = 0.05
+				hidden_effect = {
+					if = {
+						limit = {
+							has_government = neutrality
+						}
+						add_popularity = {
+							ideology = neutrality 
+							popularity = 0.1
 						}
 					}
-					add_stability = 0.05
-					hidden_effect = {
-						if = {
-							limit = {
-								has_government = neutrality
-							}
-							add_popularity = {
-								ideology = neutrality 
-								popularity = 0.1
-							}
+					else_if = {
+						limit = {
+							has_government = democratic
 						}
-						else_if = {
-							limit = {
-								has_government = democratic
-							}
-							add_popularity = {
-								ideology = democratic 
-								popularity = 0.1
-							}
+						add_popularity = {
+							ideology = democratic 
+							popularity = 0.1
 						}
 					}
 				}
@@ -3538,7 +4541,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_create_the_balkan_central_bank
-		icon = GFX_goal_generic_consumer_goods
+		icon = GFX_goal_generic_banking
 		prerequisite = { focus = TUR_balkan_defense_council }
 		prerequisite = { focus = TUR_three_year_industrial_plan }
 		available = {
@@ -3561,7 +4564,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_reaffirm_the_balkan_pact
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -3576,36 +4579,30 @@ focus_tree = {
 					}
 				}
 				add_ideas = TUR_central_balkan_bank_wealthy_greece
-				for_each_scope_loop = {
-					array = faction_members
-					if = {
-						limit = {
-							NOT = { tag = ROOT }
-							OR = {
-								original_tag = GRE
-								original_tag = YUG
-								original_tag = ROM
-							}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = ROOT
+						OR = {
+							original_tag = GRE
+							original_tag = YUG
+							original_tag = ROM
 						}
-						add_ideas = TUR_central_balkan_bank_wealthy_greece
 					}
+					add_ideas = TUR_central_balkan_bank_wealthy_greece
 				}
 			}
 			else = {
 				add_ideas = TUR_central_balkan_bank
-				for_each_scope_loop = {
-					array = faction_members
-					if = {
-						limit = {
-							NOT = { tag = ROOT }
-							OR = {
-								original_tag = GRE
-								original_tag = YUG
-								original_tag = ROM
-							}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = ROOT
+						OR = {
+							original_tag = GRE
+							original_tag = YUG
+							original_tag = ROM
 						}
-						add_ideas = TUR_central_balkan_bank
 					}
+					add_ideas = TUR_central_balkan_bank
 				}
 			}
 		}
@@ -3635,7 +4632,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = TUR_three_year_industrial_plan
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -3682,20 +4679,17 @@ focus_tree = {
 				}
 			}
 			add_political_power = 120
-			for_each_scope_loop = {
-				array = faction_members
-				if = {
-					limit = {
-						NOT = { tag = ROOT }
-						OR = {
-							original_tag = GRE
-							original_tag = ROM
-							original_tag = YUG
-						}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = GRE
+						original_tag = YUG
+						original_tag = ROM
 					}
-					add_ideas = export_focus
-					add_political_power = 75
 				}
+				add_ideas = export_focus
+				add_political_power = 75
 			}
 		}
 	}
@@ -3725,7 +4719,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = TUR_united_against_imperialism
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -3733,19 +4727,17 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
 			add_ideas = TUR_joint_fortification_budget
-			for_each_scope_loop = {
-				array = faction_members
-				if = {
-					limit = {
-						NOT = { tag = ROOT }
-						OR = {
-							original_tag = GRE
-							original_tag = ROM
-							original_tag = YUG
-						}
+			add_political_power = 120
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = GRE
+						original_tag = YUG
+						original_tag = ROM
 					}
-					add_ideas = TUR_joint_fortification_budget
 				}
+				add_ideas = TUR_joint_fortification_budget
 			}
 		}
 	}
@@ -3775,7 +4767,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_the_treaty_for_prosperity_and_trade
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}	
@@ -3786,12 +4778,10 @@ focus_tree = {
 			if = {
 				limit = {
 					TUR = {
-						AND = {
-							controls_state = 49
-							controls_state = 347
-							controls_state = 797
-							controls_state = 341
-						}
+						controls_state = 49
+						controls_state = 347
+						controls_state = 797
+						controls_state = 341
 					}
 				}
 				49 = {
@@ -3828,11 +4818,9 @@ focus_tree = {
 				limit = {
 					GRE = {
 						is_in_faction_with = TUR
-						AND = {
-							controls_state = 47
-							controls_state = 731
-							controls_state = 184
-						}
+						controls_state = 47
+						controls_state = 731
+						controls_state = 184
 					}
 				}
 				47 = {
@@ -3862,11 +4850,9 @@ focus_tree = {
 				limit = {
 					YUG = {
 						is_in_faction_with = TUR
-						AND = {
-							controls_state = 106
-							controls_state = 108
-							controls_state = 107
-						}
+						controls_state = 106
+						controls_state = 108
+						controls_state = 107
 					}
 				}
 				106 = {
@@ -3896,11 +4882,9 @@ focus_tree = {
 				limit = {
 					ROM = {
 						is_in_faction_with = TUR
-						AND = {
-							controls_state = 82
-							controls_state = 81
-							controls_state = 46
-						}
+						controls_state = 82
+						controls_state = 81
+						controls_state = 46
 					}
 				}
 				82 = {
@@ -3934,11 +4918,9 @@ focus_tree = {
 							has_completed_focus = GRE_rejuvenating_athens
 							has_completed_focus = GRE_clear_the_slums
 						}
-						AND = {
-							controls_state = 47
-							controls_state = 731
-							controls_state = 184
-						}
+						controls_state = 47
+						controls_state = 731
+						controls_state = 184
 					}
 				}
 				custom_effect_tooltip = TUR_connect_capitals_greece_tt
@@ -3972,11 +4954,9 @@ focus_tree = {
 					ROM = {
 						is_in_faction_with = TUR
 						has_completed_focus = ROM_danubian_transport_network
-						AND = {
-							controls_state = 82
-							controls_state = 81
-							controls_state = 46
-						}
+						controls_state = 82
+						controls_state = 81
+						controls_state = 46
 					}
 				}
 				custom_effect_tooltip = TUR_connect_capitals_romania_tt
@@ -4013,11 +4993,9 @@ focus_tree = {
 							has_completed_focus = YUG_integrated_rail_network
 							has_completed_focus = YUG_improve_serbian_rail_network
 						}
-						AND = {
-							controls_state = 106
-							controls_state = 108
-							controls_state = 107
-						}
+						controls_state = 106
+						controls_state = 108
+						controls_state = 107
 					}
 				}
 				custom_effect_tooltip = TUR_connect_capitals_greece_tt
@@ -4098,7 +5076,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = TUR_joint_budgets_on_fortifications
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -4215,7 +5193,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_integrated_armed_forces
-		icon = GFX_goal_generic_military_sphere
+		icon = GFX_goal_generic_multinational_army
 		prerequisite = { focus = TUR_fortifying_contentious_areas }
 		available = {
 			OR = {
@@ -4237,7 +5215,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_fortifying_contentious_areas
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -4248,21 +5226,18 @@ focus_tree = {
 				remove_idea = TUR_balkan_defense_council_spirit
 				add_idea = TUR_united_balkan_security_forces
 			}
-			for_each_scope_loop = {
-				array = faction_members
-				if = {
-					limit = {
-						NOT = { tag = ROOT }
-						OR = {
-							original_tag = GRE
-							original_tag = ROM
-							original_tag = YUG
-						}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = GRE
+						original_tag = YUG
+						original_tag = ROM
 					}
-					swap_ideas = {
-						remove_idea = TUR_balkan_defense_council_spirit
-						add_idea = TUR_united_balkan_security_forces
-					}
+				}
+				swap_ideas = {
+					remove_idea = TUR_balkan_defense_council_spirit
+					add_idea = TUR_united_balkan_security_forces
 				}
 			}
 		}
@@ -4292,7 +5267,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = TUR_fortifying_contentious_areas
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -4307,36 +5282,30 @@ focus_tree = {
 					}
 				}
 				add_to_tech_sharing_group = TUR_athenian_balkan_academy
-				for_each_scope_loop = {
-					array = faction_members
-					if = {
-						limit = {
-							NOT = { tag = ROOT }
-							OR = {
-								original_tag = GRE
-								original_tag = ROM
-								original_tag = YUG
-							}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = ROOT
+						OR = {
+							original_tag = GRE
+							original_tag = YUG
+							original_tag = ROM
 						}
-						add_to_tech_sharing_group = TUR_athenian_balkan_academy 
 					}
+					add_to_tech_sharing_group = TUR_athenian_balkan_academy 
 				}
 			}
 			else = {
 				add_to_tech_sharing_group = TUR_balkan_academy_of_sciences
-				for_each_scope_loop = {
-					array = faction_members
-					if = {
-						limit = {
-							NOT = { tag = ROOT }
-							OR = {
-								original_tag = GRE
-								original_tag = ROM
-								original_tag = YUG
-							}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = ROOT
+						OR = {
+							original_tag = GRE
+							original_tag = YUG
+							original_tag = ROM
 						}
-						add_to_tech_sharing_group = TUR_balkan_academy_of_sciences 
 					}
+					add_to_tech_sharing_group = TUR_balkan_academy_of_sciences 
 				}
 			}
 		}
@@ -4360,7 +5329,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_integrated_armed_forces
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -4369,7 +5338,7 @@ focus_tree = {
 			BUL = {
 				OR = {
 					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_subject_of = TUR
 					has_war_with = TUR
 					exists = no
 					has_capitulated = yes
@@ -4409,16 +5378,20 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = TUR_integrated_armed_forces
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
+		}
+
+		available = {
+			is_subject = no
 		}
 
 		bypass = {
 			BUL = {
 				OR = {
 					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_subject_of = TUR
 					exists = no
 					has_capitulated = yes
 				}
@@ -4462,17 +5435,6 @@ focus_tree = {
 		ai_will_do = {
 			base = 30
 		}
-
-		complete_tooltip = {
-			every_state = {
-				limit = { has_state_flag = TUR_peninsular_network_of_factories_flag }
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}	
-			}
-		}		
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
@@ -4612,13 +5574,11 @@ focus_tree = {
 			if = {
 				limit = {
 					original_tag = TUR
-					AND = {
-						NOT = {
-							BUL = { is_in_faction_with = TUR }
-							GRE = { is_in_faction_with = TUR }
-							ROM = { is_in_faction_with = TUR }
-							YUG = { is_in_faction_with = TUR }
-						}
+					NOT = {
+						BUL = { is_in_faction_with = TUR }
+						GRE = { is_in_faction_with = TUR }
+						ROM = { is_in_faction_with = TUR }
+						YUG = { is_in_faction_with = TUR }
 					}
 				}
 				random_owned_controlled_state = {
@@ -4683,7 +5643,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_integrated_armed_forces
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -4693,22 +5653,18 @@ focus_tree = {
 				remove_idea = TUR_united_balkan_security_forces
 				add_idea = TUR_the_coordinated_armed_forces_of_the_balkan_pact
 			}
-			for_each_scope_loop = {
-				array = faction_members
-				if = {
-					limit = {
-						NOT = { tag = ROOT }
-						OR = {
-							original_tag = GRE
-							original_tag = YUG
-							original_tag = ROM
-							original_tag = BUL
-						}
+			every_other_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = GRE
+						original_tag = YUG
+						original_tag = ROM
 					}
-					swap_ideas = {
-						remove_idea = TUR_united_balkan_security_forces
-						add_idea = TUR_the_coordinated_armed_forces_of_the_balkan_pact
-					}
+				}
+				swap_ideas = {
+					remove_idea = TUR_united_balkan_security_forces
+					add_idea = TUR_the_coordinated_armed_forces_of_the_balkan_pact
 				}
 			}
 		}
@@ -4742,9 +5698,13 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_combined_operational_strategies
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
+		}
+
+		available = {
+			is_subject = no
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -4765,10 +5725,13 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = TUR_combined_operational_strategies
-		cost = 10
-		dynamic = yes 
+		cost = 5
 		ai_will_do = {
 			base = 10
+		}
+
+		available = {
+			is_subject = no
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -4811,33 +5774,52 @@ focus_tree = {
 					target = TUR
 					modifier = BFTB_balkan_pact_ally
 				}
-				hidden_effect = {
-					ROOT = {
-						remove_opinion_modifier = {
-							target = PREV
-							modifier = BFTB_balkan_pact_ally
-						}
-					}
-				}
 			}
 			hidden_effect = {
-				every_country = {
+				if = {
 					limit = {
-						capital_scope = { is_on_continent = europe }
-						is_major = yes
-						is_faction_leader = yes
+						GRE = {
+							has_opinion_modifier = BFTB_balkan_pact_ally
+						}
 					}
-					add_ai_strategy = {
-						type = befriend
-						id = TUR
-						value = 50
-					}
-					add_ai_strategy = {
-						type = alliance
-						id = TUR
-						value = 25
+					remove_opinion_modifier = {
+						target = GRE
+						modifier = BFTB_balkan_pact_ally
 					}
 				}
+				if = {
+					limit = {
+						HUN = {
+							has_opinion_modifier = BFTB_balkan_pact_ally
+						}
+					}
+					remove_opinion_modifier = {
+						target = HUN
+						modifier = BFTB_balkan_pact_ally
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							has_opinion_modifier = BFTB_balkan_pact_ally
+						}
+					}
+					remove_opinion_modifier = {
+						target = ROM
+						modifier = BFTB_balkan_pact_ally
+					}
+				}
+				if = {
+					limit = {
+						YUG = {
+							has_opinion_modifier = BFTB_balkan_pact_ally
+						}
+					}
+					remove_opinion_modifier = {
+						target = YUG
+						modifier = BFTB_balkan_pact_ally
+					}
+				} 
 			}
 		}
 	}
@@ -4857,12 +5839,17 @@ focus_tree = {
 			base = 10
 		}
 
-		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			ENG = {
 				add_opinion_modifier = {
 					target = TUR
 					modifier = TUR_regional_force_of_stability
+				}
+				if = {
+					limit = {
+						is_subject = no
+					}
+					country_event = { id = bftb_turkey.144 }
 				}
 			}
 			FRA = {
@@ -4871,13 +5858,19 @@ focus_tree = {
 					modifier = TUR_regional_force_of_stability
 				}
 			}
-			ENG = {
-				diplomatic_relation = {
-					country = TUR
-					relation = guarantee
-					active = yes
-				}
+
+			add_ai_strategy = {
+				type = befriend
+				id = ENG
+				value = 25
 			}
+
+			add_ai_strategy = {
+				type = befriend
+				id = FRA
+				value = 25
+			}
+
 			if = {
 				limit = {
 					NOT = {
@@ -4909,6 +5902,7 @@ focus_tree = {
 				add_equipment_to_stockpile = { type = medium_tank_chassis_1 amount = 25 }
 			}
 		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
 
 	focus = {
@@ -4918,10 +5912,10 @@ focus_tree = {
 		available = { 
 			NOT = { has_war_with = ENG }
 		}
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = TUR_the_anglo_turkish_agreement
-		cost = 10
+		cost = 2
 		ai_will_do = {
 			base = 10
 		}
@@ -4931,7 +5925,7 @@ focus_tree = {
 				OR = { 
 					exists = no
 					has_capitulated = yes
-					is_puppet = yes
+					is_subject = yes
 				}
 			}
 		}
@@ -4949,20 +5943,16 @@ focus_tree = {
 					target = TUR
 					modifier = TUR_imperialist_puppets
 				}
-				add_opinion_modifier = {
-					target = GER
-					modifier = embargo
-				}
+				send_embargo = GER
+				custom_effect_tooltip = embargo_relation_tt
 			}
 			GER = {
 				add_opinion_modifier = {
 					target = TUR
 					modifier = TUR_aiding_our_enemies
 				}
-				add_opinion_modifier = {
-					target = IRQ
-					modifier = embargo
-				}
+				send_embargo = IRQ
+				custom_effect_tooltip = embargo_relation_tt
 			}
 			hidden_effect = {
 				if = {
@@ -4972,10 +5962,8 @@ focus_tree = {
 						}
 					}
 					PER = {
-						add_opinion_modifier = {
-							target = GER
-							modifier = embargo
-						}
+						send_embargo = GER
+						custom_effect_tooltip = embargo_relation_tt
 					}
 				}
 			}
@@ -4985,11 +5973,19 @@ focus_tree = {
 	focus = {
 		id = TUR_host_exiled_scientists
 		icon = GFX_focus_research2
-		prerequisite = { focus = TUR_the_anglo_turkish_agreement }
-		x = 1
+		available = { NOT = { has_government = fascism } }
+		prerequisite = { focus = TUR_reconfigure_our_foreign_policy }
+		x = -5
 		y = 1
-		relative_position_id = TUR_the_anglo_turkish_agreement
-		cost = 10
+		relative_position_id = TUR_reconfigure_our_foreign_policy
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_dlc = "La Resistance"
+			}
+		}
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -5003,15 +5999,14 @@ focus_tree = {
 	focus = {
 		id = TUR_the_chester_concession
 		icon = GFX_focus_chi_mission_to_the_us
-		prerequisite = { focus = TUR_applying_british_oil_embargoes_on_iraq }
-		prerequisite = { focus = TUR_host_exiled_scientists }
+		prerequisite = { focus = TUR_reconfigure_our_foreign_policy }
 		available = { 
 			NOT = { has_war_with = USA }
 		}
-		x = 0
-		y = 2
+		x = 3
+		y = 0
 		relative_position_id = TUR_the_anglo_turkish_agreement
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -5033,12 +6028,11 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_the_chester_concession
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
 
-		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
 			add_tech_bonus = {
 				name = TUR_american_motor_factories
@@ -5061,6 +6055,7 @@ focus_tree = {
 			}
 			add_equipment_to_stockpile = { type = motorized_equipment amount = 275 }
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
 
 	focus = {
@@ -5101,22 +6096,33 @@ focus_tree = {
 		id = TUR_join_the_allies
 		icon = GFX_goal_support_democracy
 		mutually_exclusive = { focus = TUR_the_mediterranean_entente focus = TUR_join_the_axis focus = TUR_anti_bolshevik_mediterranean_bloc focus = TUR_readdress_the_montreux_convention }
-		prerequisite = { focus = TUR_american_motor_factories }
-		prerequisite = { focus = TUR_bomber_schematics }
+		prerequisite = { focus = TUR_american_motor_factories focus = TUR_applying_british_oil_embargoes_on_iraq }
 		available = {
-			ENG = {
-				NOT = {
-					OR = {
-						has_completed_focus = ENG_the_kings_party
-						has_completed_focus = ENG_concessions_to_the_trade_unions
+			is_subject = no
+			is_in_faction = no
+			any_country = {
+				has_government = democratic
+				is_faction_leader = yes
+				NOT = { has_war_with = TUR }
+				hidden_trigger = {
+					NOT = {
+						surrender_progress > 0.5
+						AND = {
+							surrender_progress > 0.3
+							OR = {
+								capital_scope = { is_on_continent = north_america }
+								capital_scope = { is_on_continent = south_america }
+								capital_scope = { is_on_continent = australia }
+							}
+						}
 					}
 				}
 			}
 		}
-		x = 0
-		y = 2
-		relative_position_id = TUR_the_chester_concession
-		cost = 10
+		x = 1
+		y = 3
+		relative_position_id = TUR_the_anglo_turkish_agreement
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -5130,8 +6136,31 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			ENG = {
-				country_event = { id = generic.2 }
+			if = {
+				limit = {
+					ENG = {
+						has_government = democratic
+						is_faction_leader = yes
+						NOT = { has_war_with = TUR }
+					}
+				}
+				ENG = { country_event = { id = generic.2 } }
+			}
+			else_if = {
+				limit = {
+					FRA = {
+						has_government = democratic
+						is_faction_leader = yes
+						NOT = { has_war_with = TUR }
+					}
+				}
+				FRA = { country_event = { id = generic.2 } }			
+			}
+			else = {
+				get_best_alliance_match_democratic_effect = yes
+				var:best_leader = {
+					country_event = generic.2
+				}				
 			}
 		}
 	}
@@ -5143,7 +6172,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_join_the_allies
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -5171,7 +6200,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = TUR_join_the_allies
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -5201,16 +6230,21 @@ focus_tree = {
 	focus = {
 		id = TUR_the_petra_proposal
 		icon = GFX_goal_generic_major_alliance
-		prerequisite = { focus = TUR_join_the_allies }
-		available = { is_in_faction_with = ENG }
-		x = 3
+		prerequisite = { focus = TUR_join_the_allies } 
+		prerequisite = { focus = TUR_applying_british_oil_embargoes_on_iraq }
+		x = -3
 		y = 1
 		relative_position_id = TUR_join_the_allies
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
-
+		available = {
+			NOT = { has_war_with = ENG }
+			has_capitulated = no
+			is_puppet = no
+			surrender_progress < 0.5
+		}
 		bypass = {
 			OR = {
 				ENG = { has_completed_focus = ENG_revisit_colonial_policy }
@@ -5234,13 +6268,13 @@ focus_tree = {
 
 	focus = {
 		id = TUR_expanded_credit_on_our_debts
-		icon = GFX_goal_generic_neutrality_focus
+		icon = GFX_goal_HOL_ditch_gold_standard
 		prerequisite = { focus = TUR_controlling_the_skies_of_europe }
 		prerequisite = { focus = TUR_expanding_our_navy }
 		x = 0
 		y = 2
 		relative_position_id = TUR_join_the_allies
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -5282,7 +6316,7 @@ focus_tree = {
 			BUL = {
 				OR = {
 					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_subject_of = TUR
 					has_war_with = TUR
 					exists = no
 					has_capitulated = yes
@@ -5313,7 +6347,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_seizing_the_romanian_oil_fields
-		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
+		icon = GFX_goal_strike_romania
 		available = {
 			ROM = {
 				OR = {
@@ -5332,18 +6366,17 @@ focus_tree = {
 			base = 10
 		}
 
+		search_filters = { FOCUS_FILTER_ANNEXATION  FOCUS_FILTER_OIL}
 		bypass = {
 			ROM = {
 				OR = {
 					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_subject_of = TUR
 					exists = no
 					has_capitulated = yes
 				}
 			}
 		}
-
-		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			create_wargoal = {
 				type = puppet_wargoal_focus
@@ -5354,7 +6387,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_securing_iran
-		icon = GFX_goal_generic_occupy_states_ongoing_war
+		icon = GFX_goal_generic_attack_persia
 		prerequisite = { focus = TUR_partnership_pact_with_bulgaria }
 		x = 0
 		y = 1
@@ -5364,19 +6397,20 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {	
+			r56_script_i_am_sane = yes
+			PER = {
+				r56_script_target_is_sane = yes
+			}
+		}
+			
 		bypass = {
 			PER = {
-				OR = {
-					is_in_faction_with = TUR
-					is_puppet_of = TUR
-					has_war_with = TUR
-					exists = no
-					has_capitulated = yes
-				}
+				r56_script_standard_bypass = yes
 			}
 		}
 
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_OIL}
 		completion_reward = {
 			create_wargoal = {
 				type = puppet_wargoal_focus
@@ -5401,25 +6435,26 @@ focus_tree = {
 		id = TUR_british_dockyards_in_turkey
 		icon = GFX_goal_generic_construct_naval_dockyard
 		prerequisite = { focus = TUR_the_petra_proposal }
-		available = { is_in_faction_with = ENG }
 		x = 0
 		y = 2
 		relative_position_id = TUR_the_petra_proposal
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
 
-		complete_tooltip = {
-			every_owned_state = {
-				limit = { has_state_flag = TUR_british_dockyards }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = dockyard
-					level = 1
-					instant_build = yes
+		available = {
+			NOT = { has_war_with = ENG }
+			has_capitulated = no
+			is_puppet = no
+			surrender_progress < 0.5
+			ENG = {
+				has_opinion = { #new major or France has good relations with Turkey
+					target = ROOT 
+					value > 0
 				}
 			}
+						
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -5484,7 +6519,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_british_dockyards_in_turkey
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -5493,7 +6528,7 @@ focus_tree = {
 			ENG = { has_completed_focus = ENG_revisit_colonial_policy }
 		}
 
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_OIL}
 		completion_reward = {
 			ENG = {
 				country_event = { id = bftb_turkey.47 }
@@ -5526,7 +6561,7 @@ focus_tree = {
 		available = { 
 			NOT = { has_war_with = GER }
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = TUR_reconfigure_our_foreign_policy
 		cost = 5
@@ -5541,21 +6576,232 @@ focus_tree = {
 					target = TUR
 					modifier = TUR_valued_strategic_partners
 				}
-				diplomatic_relation = {
-					country = TUR
-					relation = guarantee
-					active = yes
+				if = {
+					limit = {
+						is_subject = no
+					}
+					country_event = { id = bftb_turkey.144 }
 				}
 			}
+			add_ai_strategy = {
+				type = befriend
+				id = GER
+				value = 25
+			}
 			hidden_effect = {
-				GER = { set_country_flag = TUR_germany_gets_strait_access }
+				GER = { set_country_flag = TUR_gets_strait_access }
 			}
 		}
 	}
+	focus = {
+		id = TUR_the_italo_turkish_friendship_treaty
+		icon = GFX_goal_generic_befriend_italy
+		prerequisite = { focus = TUR_reconfigure_our_foreign_policy }
+		available = { 
+			NOT = { has_war_with = ITA }
+		}
+		x = -1
+		y = 1
+		relative_position_id = TUR_reconfigure_our_foreign_policy
+		cost = 3
+		ai_will_do = {
+			base = 10
+		}
 
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			ITA = {
+				add_opinion_modifier = {
+					target = TUR
+					modifier = TUR_valued_strategic_partners
+				}
+			}
+			add_ai_strategy = {
+				type = befriend
+				id = ITA
+				value = 25
+			}
+			hidden_effect = {
+				ITA = { set_country_flag = TUR_gets_strait_access }
+			}
+		}
+	}
+	focus = {
+		id = TUR_a_city_of_spies
+		available = {
+			owns_state = 797
+			has_war = no #vanilla was using has_war_with = ROOT checks below but this made that unnecessary already
+			has_intelligence_agency = yes
+			custom_trigger_tooltip = {
+				tooltip = spy_city_turkey_tt
+				OR = {
+					AND = {
+						has_completed_focus = TUR_the_german_turkish_friendship_treaty
+						GER = {
+							exists = yes
+							has_war = yes
+							any_enemy_country = {
+								OR = {
+									AND = {
+										is_major = yes
+										capital_scope = {
+											is_on_continent = europe
+										}
+										NOT = {
+											tag = SOV
+											tag = ITA
+											tag = ENG
+										}
+										has_opinion = { #new major or France has good relations with Turkey
+											target = TUR
+											value > 40
+										}
+									}
+									AND = {
+										tag = SOV
+										ROOT = {
+											has_completed_focus = TUR_renew_the_turkish_soviet_non_aggression_pact
+										}
+									}
+									AND = {
+										tag = ITA
+										ROOT = {
+											has_completed_focus = TUR_the_italo_turkish_friendship_treaty
+										}
+									}
+									AND = {
+										tag = ENG
+										ROOT = {
+											has_completed_focus = TUR_the_anglo_turkish_agreement
+										}
+									}
+								}
+							}
+						}
+					}
+					AND = {
+						has_completed_focus = TUR_the_italo_turkish_friendship_treaty
+						ITA = {
+							exists = yes
+							has_war = yes
+							any_enemy_country = {
+								OR = {
+									AND = {
+										is_major = yes
+										capital_scope = {
+											is_on_continent = europe
+										}
+										NOT = {
+											tag = GER
+											tag = SOV
+											tag = ENG
+										}
+										has_opinion = { #new major or France has good relations with Turkey
+											target = TUR
+											value > 40
+										}
+									}
+									AND = {
+										tag = SOV
+										ROOT = {
+											has_completed_focus = TUR_renew_the_turkish_soviet_non_aggression_pact
+										}
+									}
+									AND = {
+										tag = ENG
+										ROOT = {
+											has_completed_focus = TUR_the_anglo_turkish_agreement
+										}
+									}
+								}
+							}
+						}
+					}
+					AND = {
+						has_completed_focus = TUR_the_anglo_turkish_agreement
+						ENG = {
+							exists = yes
+							has_war = yes
+							any_enemy_country = {
+								OR = {
+									AND = {
+										is_major = yes
+										capital_scope = {
+											is_on_continent = europe
+										}
+										NOT = {
+											tag = GER
+											tag = ITA
+											tag = SOV
+										}
+										has_opinion = { #new major or France has good relations with Turkey
+											target = TUR
+											value > 40
+										}
+									}
+									AND = {
+										tag = SOV
+										ROOT = {
+											has_completed_focus = TUR_renew_the_turkish_soviet_non_aggression_pact
+										}
+									}
+								}
+							}
+						}
+					}
+					AND = {
+						has_completed_focus = TUR_renew_the_turkish_soviet_non_aggression_pact
+						SOV = {
+							exists = yes
+							has_war = yes
+							any_enemy_country = {
+								is_major = yes
+								capital_scope = {
+									is_on_continent = europe
+								}
+								NOT = {
+									tag = GER
+									tag = ITA
+									tag = ENG
+								}
+								has_opinion = { #new major or France has good relations with Turkey
+									target = TUR
+									value > 40
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 20
+		}		
+
+		allow_branch = {
+			has_dlc = "La Resistance"
+		}
+
+		bypass = {
+		}
+		prerequisite = { focus = TUR_reconfigure_our_foreign_policy }
+
+
+		icon = GFX_goal_generic_secret_documents
+		x = -4
+		y = 1
+
+		relative_position_id = TUR_reconfigure_our_foreign_policy
+		cost = 10
+		completion_reward = {
+			add_ideas = POR_the_capital_of_espionage
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
+	}
 	focus = {
 		id = TUR_the_clodius_agreement
-		icon = GFX_goal_generic_major_alliance
+		icon = GFX_goal_TUR_clodius_deal
 		prerequisite = { focus = TUR_the_german_turkish_friendship_treaty }
 		available = { 
 			NOT = { 
@@ -5565,7 +6811,7 @@ focus_tree = {
 				}
 			}
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = TUR_the_german_turkish_friendship_treaty
 		cost = 10
@@ -5573,7 +6819,7 @@ focus_tree = {
 			base = 10
 		}
 
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY FOCUS_FILTER_CHROMIUM}
 		completion_reward = {
 			GER = {
 				add_opinion_modifier = {
@@ -5615,14 +6861,14 @@ focus_tree = {
 	focus = {
 		id = TUR_purchase_italian_light_tanks
 		icon = GFX_focus_generic_license_production
-		prerequisite = { focus = TUR_the_clodius_agreement }
+		prerequisite = { focus = TUR_the_italo_turkish_friendship_treaty }
 		available = { 
 			NOT = { has_war_with = ITA }
 		}
-		x = -2
+		x = -1
 		y = 1
-		relative_position_id = TUR_the_clodius_agreement
-		cost = 10
+		relative_position_id = TUR_the_italo_turkish_friendship_treaty
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -5641,10 +6887,10 @@ focus_tree = {
 		available = { 
 			NOT = { has_war_with = GER }
 		}
-		x = 2
+		x = -1
 		y = 1
 		relative_position_id = TUR_the_clodius_agreement
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -5663,50 +6909,35 @@ focus_tree = {
 		available = { 
 			NOT = { has_war_with = ITA }
 		}
-		x = 0
-		y = 1
-		relative_position_id = TUR_purchase_italian_light_tanks
-		cost = 10
+		x = -1
+		y = 2
+		relative_position_id = TUR_the_italo_turkish_friendship_treaty
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
 
 		completion_reward = {
-			show_unit_leaders_tooltip = ITA_ferdinando_umberto_filippo_adalberto
-
 			add_ideas = TUR_the_antalya_naval_academy
 		}
 	}
 
 	focus = {
 		id = TUR_invite_german_officers_to_izmir
-		icon = GFX_focus_generic_military_mission
-		prerequisite = { focus = TUR_approve_the_funkplan }
+		icon = GFX_goal_ROM_invite_german_advisors
+		prerequisite = { focus = TUR_the_clodius_agreement }
 		available = { 
 			NOT = { has_war_with = GER }
 		}
-		x = 0
+		x = 1
 		y = 1
-		relative_position_id = TUR_approve_the_funkplan
-		cost = 10
+		relative_position_id = TUR_the_clodius_agreement
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
 
 		completion_reward = {
-			show_unit_leaders_tooltip = GER_hans_von_luck
-			
-			if = {
-				limit = {
-					OR = {
-						SPA = { 
-							exists = no
-							NOT = { has_completed_focus = SPA_the_condor_legion } 
-						}
-					}
-				}
-				show_unit_leaders_tooltip = GER_wilhelm_ritter_von_thoma
-			}
 			add_ideas = TUR_german_advisors
 		}
 	}
@@ -5717,12 +6948,21 @@ focus_tree = {
 		mutually_exclusive = { focus = TUR_join_the_axis focus = TUR_join_the_allies focus = TUR_anti_bolshevik_mediterranean_bloc focus = TUR_readdress_the_montreux_convention }
 		prerequisite = { focus = TUR_the_italo_turkish_naval_academy }
 		available = { 
-			NOT = { has_war_with = ITA }
+			is_subject = no
+			is_in_faction = no
+			ITA = {
+				OR = {
+					NOT = {
+						is_in_faction = yes
+					}
+					is_faction_leader = yes
+				}
+			}
 		}
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = TUR_the_italo_turkish_naval_academy
-		cost = 10
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -5735,8 +6975,25 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			create_faction = TUR_covenant_of_the_mediterranean
-			ITA = { country_event = { id = bftb_turkey.41 } }
+			
+			if = {
+				limit = {
+					ITA = {
+						is_in_faction = no
+					}
+				}
+				create_faction = TUR_covenant_of_the_mediterranean
+				ITA = { country_event = { id = bftb_turkey.41 } }
+			}
+			if = {
+				limit = {
+					ITA = {
+						is_faction_leader = yes		
+					}
+				}
+				ITA = { country_event = { id = generic.2 } }
+			}	
+			
 		}
 	}
 
@@ -5745,14 +7002,17 @@ focus_tree = {
 		icon = GFX_focus_ger_reichskommisariats
 		mutually_exclusive = { focus = TUR_the_mediterranean_entente focus = TUR_join_the_allies focus = TUR_anti_bolshevik_mediterranean_bloc focus = TUR_readdress_the_montreux_convention }
 		prerequisite = { focus = TUR_invite_german_officers_to_izmir }
-		prerequisite = { focus = TUR_the_italo_turkish_naval_academy }
+		prerequisite = { focus = TUR_approve_the_funkplan }
 		available = { 
+			is_subject = no
+			is_in_faction = no
 			NOT = { has_war_with = GER }
+			GER = { is_faction_leader = yes }
 		}
-		x = -1
+		x = 1
 		y = 1
-		relative_position_id = TUR_invite_german_officers_to_izmir
-		cost = 10
+		relative_position_id = TUR_approve_the_funkplan
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -5784,8 +7044,8 @@ focus_tree = {
 		bypass = {
 			BUL = {
 				OR = {
-					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_in_faction_with = ROOT
+					is_subject = yes
 					exists = no
 					has_capitulated = yes
 				}
@@ -5814,7 +7074,14 @@ focus_tree = {
 		}
 
 		bypass = {
-			is_in_faction_with = GRE
+			GRE = {
+				OR = {
+					is_in_faction_with = ROOT
+					is_subject = yes
+					exists = no
+					has_capitulated = yes
+				}
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -5844,15 +7111,16 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {	
+			r56_script_i_am_sane = yes
+			GRE = {
+				r56_script_target_is_sane = yes
+			}
+		}
+			
 		bypass = {
 			GRE = {
-				OR = {
-					exists = no
-					has_capitulated = yes
-					has_war_with = TUR
-					is_puppet_of = TUR
-					is_puppet_of = ITA
-				}
+				r56_script_standard_bypass = yes
 			}
 		}
 
@@ -5889,7 +7157,7 @@ focus_tree = {
 			POR = {
 				OR = {
 					is_in_faction_with = TUR
-					is_puppet_of = TUR
+					is_subject_of = TUR
 					exists = no
 					has_capitulated = yes
 				}
@@ -6017,6 +7285,33 @@ focus_tree = {
 					}
 				}
 			}
+			if = {
+				limit = {
+					is_in_faction_with = ITA
+					ITA = {
+						NOT = {
+							has_government = communism
+						}
+					}
+				}
+				create_navy_leader = {
+					name = "Ferdinando Umberto Filippo Adalberto"
+					gfx = "GFX_portrait_ITA_ferdinando_adalberto"
+					traits = { gentlemanly media_personality career_officer superior_tactician }
+					skill = 4 #13
+					id = 77
+					attack_skill = 3
+					defense_skill = 3
+					maneuvering_skill = 4
+					coordination_skill = 3
+				}
+				every_unit_leader = {
+					limit = {
+						has_id = 77
+					}
+					set_unit_leader_flag = ITA_military_mission_commander
+				}								
+			}
 		}
 	}
 
@@ -6055,7 +7350,7 @@ focus_tree = {
 						add_building_construction = {
 							type = bunker
 							level = 2
-							province = 849
+							province = 922
 							instant_build = yes
 						}
 						add_building_construction = {
@@ -6073,7 +7368,7 @@ focus_tree = {
 						add_building_construction = {
 							type = coastal_bunker
 							level = 2
-							province = 849
+							province = 922
 							instant_build = yes
 						}
 					}
@@ -6138,7 +7433,7 @@ focus_tree = {
 			SPA = { 
 				OR = {
 					exists = no 
-					is_puppet = yes
+					is_subject = yes
 					is_in_faction_with = ROOT
 					has_war_with = ROOT
 				}
@@ -6173,14 +7468,21 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {	
+			r56_script_i_am_sane = yes
+			SPR = {
+				r56_script_target_is_sane = yes
+			}
+		}
+			
 		bypass = {
-			SPR = { 
+			SPR = {
+				
 				OR = {
-					exists = no 
+					r56_script_standard_bypass = yes
 					has_government = fascism
 					has_government = neutrality
-					has_war_with = ROOT
-				}
+				}				
 			}
 		}
 
@@ -6218,7 +7520,7 @@ focus_tree = {
 				OR = { 
 					exists = no
 					has_capitulated = yes
-					is_puppet = yes
+					is_subject = yes
 					has_war_with = TUR
 				}
 			}
@@ -6251,7 +7553,7 @@ focus_tree = {
 				OR = { 
 					exists = no
 					has_capitulated = yes
-					is_puppet = yes
+					is_subject = yes
 					has_war_with = TUR
 				}
 			}
@@ -6278,22 +7580,22 @@ focus_tree = {
 			base = 10
 		}
 
-		bypass = {
+		available = {	
+			r56_script_i_am_sane = yes
 			SOV = {
-				OR = { 
-					exists = no
-					has_capitulated = yes
-					is_puppet = yes
-					has_war_with = TUR
-				}
+				r56_script_target_is_sane = yes
 			}
 		}
-
-		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			create_wargoal = {
 				type = topple_government
 				target = SOV
+			}
+		}
+			
+		bypass = {
+			SOV = {
+				r56_script_standard_bypass = yes
 			}
 		}
 	}
@@ -6343,6 +7645,51 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			create_corps_commander = {
+				name = "Hans von Luck"
+				gfx = "GFX_portrait_GER_hans_von_luck"
+				traits = { career_officer armor_officer brilliant_strategist trickster }
+				skill = 3 #10
+				id = 75
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			every_unit_leader = {
+				limit = {
+					has_id = 75
+				}
+				set_unit_leader_flag = GER_military_mission_commander
+			}			
+			set_global_flag = hans_von_luck_recruited
+			if = {
+				limit = {
+					OR = {
+						SPA = { 
+							exists = no
+							NOT = { has_completed_focus = SPA_the_condor_legion } 
+						}
+					}
+				}
+				create_corps_commander = {
+					name = "Wilhelm Ritter von Thoma"
+					gfx = "GFX_portrait_GER_wilhelm_ritter_von_thoma"
+					traits = { war_hero brilliant_strategist armor_officer hill_fighter }
+					skill = 4 #13
+					id = 76
+					attack_skill = 5
+					defense_skill = 2
+					planning_skill = 4
+					logistics_skill = 2
+				}
+				every_unit_leader = {
+					limit = {
+						has_id = 76
+					}
+					set_unit_leader_flag = GER_military_mission_commander
+				}	
+			}			
 			GER = { 
 				random_owned_controlled_state = {
 					limit = {
@@ -6370,7 +7717,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = TUR_collaborative_civil_works_programme
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -6383,7 +7730,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_the_tuz_golu_training_facility
-		icon = GFX_goal_generic_small_arms
+		icon = GFX_goal_camelry
 		mutually_exclusive = { focus = TUR_pack_for_a_long_winter }
 		prerequisite = { focus = TUR_join_the_axis }
 		x = 0
@@ -6403,10 +7750,10 @@ focus_tree = {
 
 	focus = {
 		id = TUR_pack_for_a_long_winter
-		icon = GFX_goal_generic_more_territorial_claims
+		icon = GFX_goal_generic_cold_war
 		mutually_exclusive = { focus = TUR_the_tuz_golu_training_facility }
 		prerequisite = { focus = TUR_increase_german_military_aid }
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = TUR_increase_german_military_aid
 		cost = 10
@@ -6415,7 +7762,16 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            every_army_leader = {
+                add_logistics = 1
+            }			
 			add_ideas = TUR_sub_zero_survival_training
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1
+				uses = 1
+				category = winter_clothing_tech
+			}			
 		}
 	}
 
@@ -6426,6 +7782,17 @@ focus_tree = {
 		available = {
 			OR = {
 				has_government = neutrality
+				has_government = fascism
+			}
+			is_puppet = no
+			NOT = {
+				is_in_faction_with = IRQ
+			}	
+			
+			
+		}
+		bypass = {
+			IRQ = {
 				has_government = fascism
 			}
 		}
@@ -6446,7 +7813,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_secure_the_iraqi_oil
-		icon = GFX_goal_generic_major_war
+		icon = GFX_goal_generic_attack_iraq
 		mutually_exclusive = { focus = TUR_support_the_golden_square }
 		prerequisite = { focus = TUR_the_tuz_golu_training_facility }
 		x = 1
@@ -6457,15 +7824,16 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {	
+			r56_script_i_am_sane = yes
+			IRQ = {
+				r56_script_target_is_sane = yes
+			}
+		}
+			
 		bypass = {
 			IRQ = {
-				OR = { 
-					exists = no
-					has_capitulated = yes
-					is_puppet = yes
-					is_in_faction_with = ROOT
-					has_war_with = ROOT
-				}
+				r56_script_standard_bypass = yes
 			}
 		}
 
@@ -6493,13 +7861,19 @@ focus_tree = {
 		bypass = {
 			GRE = {
 				OR = {
-					is_puppet = yes
+					is_subject = yes
 					exists = no
 					has_capitulated = yes
 					is_in_faction_with = ROOT
 				}
 			}
 		}
+		available = {	
+			r56_script_i_am_sane = yes
+			GRE = {
+				r56_script_target_is_sane = yes
+			}
+		}		
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
@@ -6728,6 +8102,28 @@ focus_tree = {
 				idea = TUR_turkic_volunteers_from_abroad
 				days = 90
 			}
+			if = {
+                limit = {
+					has_dlc = "La Resistance"
+					has_dlc = "Battle for the Bosporus"
+                    NOT = {
+                        any_country = {
+                            has_country_flag = recruited_ruzi_nazar
+                        }
+                    }
+                }
+                #all turkestan nationalities because of panturkism but UZB first
+                create_operative_leader = {
+                    name = "Ruzi Nazar"
+                    GFX = GFX_portrait_tur_ruzi_nazar
+                    traits = { operative_tough operative_commando }
+                    bypass_recruitment = no
+                    available_to_spy_master = yes
+                    female = no
+                    nationalities = { SOV UZB TMS TAJ KYR KAZ }
+                }
+                set_country_flag = recruited_ruzi_nazar
+            }			
 		}
 	}
 
@@ -6761,12 +8157,18 @@ focus_tree = {
 		id = TUR_restoring_our_nations_pride
 		icon = GFX_goal_generic_demand_territory
 		prerequisite = { focus = TUR_end_the_british_hegemony focus = TUR_punish_french_weakness focus = TUR_integrate_german_officers_into_the_army }
-		x = 0
+		x = 1
 		y = 4
 		relative_position_id = TUR_cooperative_research_centers
 		cost = 10
 		ai_will_do = {
 			base = 10
+		}
+
+		available = {
+			is_puppet = no
+			controls_state = 49
+			controls_state = 797
 		}
 
 		completion_reward = {
@@ -6777,7 +8179,10 @@ focus_tree = {
 	focus = {
 		id = TUR_renew_the_turkish_soviet_non_aggression_pact
 		icon = GFX_focus_chi_mission_to_the_soviet_union
-		available = { NOT = { has_country_flag = TUR_ottoman_officers_invited_back } }
+		available = { 
+			NOT = { has_war_with = SOV }
+			NOT = { has_country_flag = TUR_ottoman_officers_invited_back }
+		}
 		prerequisite = { focus = TUR_reconfigure_our_foreign_policy }
 		x = 14
 		y = 1
@@ -6786,17 +8191,13 @@ focus_tree = {
 		ai_will_do = {
 			base = 10
 		}
-		available = {
-			SOV = {
-				has_government = communism
-				has_civil_war = no
-			}
-		}
 
 		bypass = {
 			OR = {
 				has_non_aggression_pact_with = SOV
 				is_in_faction_with = SOV
+				has_war_with = SOV
+				SOV = { is_faction_leader = no }
 			}
 		}
 
@@ -6820,6 +8221,13 @@ focus_tree = {
 		ai_will_do = {
 			base = 10
 		}
+		
+		bypass = {
+			OR = {
+				has_war_with = SOV
+				SOV = { is_faction_leader = no }
+			}
+		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		completion_reward = {
@@ -6832,17 +8240,17 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 2
-					instant_build = yes
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
 				}
 			}
 			SOV = {
@@ -6855,18 +8263,24 @@ focus_tree = {
 								include_locked = yes
 							}
 						}
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 2
+							instant_build = yes
+						}
 					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
+				}
+			}
+			SOV = {
+				add_opinion_modifier = {
+					target = TUR
+					modifier = TUR_valued_strategic_partners
 				}
 			}
 		}
@@ -6875,10 +8289,11 @@ focus_tree = {
 	focus = {
 		id = TUR_provide_refuge_to_the_victims_of_fascism
 		icon = GFX_focus_prc_infiltration
-		prerequisite = { focus = TUR_the_batumi_accord }
-		x = -2
+		available = { NOT = { has_government = fascism } }
+		prerequisite = { focus = TUR_reconfigure_our_foreign_policy }
+		x = 7
 		y = 1
-		relative_position_id = TUR_the_batumi_accord
+		relative_position_id = TUR_reconfigure_our_foreign_policy
 		cost = 10
 		ai_will_do = {
 			base = 10
@@ -6897,18 +8312,31 @@ focus_tree = {
 		id = TUR_soviet_tank_factories
 		icon = GFX_goal_generic_soviet_construction
 		available = {
-			SOV = {
-				has_opinion = {
-					target = TUR
-					value > 74
+			OR = {
+				SOV = {
+					has_opinion = {
+						target = TUR
+						value > 69
+					}
+				}
+				AND = {
+					ROOT = {
+						has_government = communism
+					}
+					SOV = {
+						has_opinion = {
+							target = TUR
+							value > 44
+						}
+					}
 				}
 			}
 		}
 		prerequisite = { focus = TUR_the_batumi_accord }
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = TUR_the_batumi_accord
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -6951,11 +8379,11 @@ focus_tree = {
 	focus = {
 		id = TUR_dissolve_the_ODPA
 		icon = GFX_goal_generic_forceful_treaty
-		prerequisite = { focus = TUR_provide_refuge_to_the_victims_of_fascism }
-		x = -2
+		prerequisite = { focus = TUR_the_batumi_accord }
+		x = -4
 		y = 1
-		relative_position_id = TUR_provide_refuge_to_the_victims_of_fascism
-		cost = 10
+		relative_position_id = TUR_the_batumi_accord
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -7014,28 +8442,16 @@ focus_tree = {
 	focus = {
 		id = TUR_adana_to_baku_highway
 		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = TUR_provide_refuge_to_the_victims_of_fascism }
-		prerequisite = { focus = TUR_soviet_tank_factories }
+		prerequisite = { focus = TUR_the_batumi_accord }
 		available = {
 			NOT = { has_war_with = SOV }
 		}
-		x = 0
-		y = 2
+		x = -1
+		y = 1
 		relative_position_id = TUR_the_batumi_accord
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
-		}
-
-		complete_tooltip = {
-			every_state = {
-				limit = { has_state_flag = TUR_baku_adana_highway }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}	
-			}
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -7044,7 +8460,7 @@ focus_tree = {
 				229 = {
 					add_building_construction = {
 						type = infrastructure
-						level = 1
+						level = 2
 						instant_build = yes
 					}
 					set_state_flag = TUR_baku_adana_highway
@@ -7052,7 +8468,7 @@ focus_tree = {
 				230 = {
 					add_building_construction = {
 						type = infrastructure
-						level = 1
+						level = 2
 						instant_build = yes
 					}
 					set_state_flag = TUR_baku_adana_highway
@@ -7061,7 +8477,7 @@ focus_tree = {
 			800 = {
 				add_building_construction = {
 					type = infrastructure
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = TUR_baku_adana_highway
@@ -7069,7 +8485,7 @@ focus_tree = {
 			352 = {
 				add_building_construction = {
 					type = infrastructure
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = TUR_baku_adana_highway
@@ -7077,7 +8493,7 @@ focus_tree = {
 			353 = {
 				add_building_construction = {
 					type = infrastructure
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = TUR_baku_adana_highway
@@ -7085,7 +8501,7 @@ focus_tree = {
 			350 = {
 				add_building_construction = {
 					type = infrastructure
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = TUR_baku_adana_highway
@@ -7093,7 +8509,7 @@ focus_tree = {
 			344 = {
 				add_building_construction = {
 					type = infrastructure
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				set_state_flag = TUR_baku_adana_highway
@@ -7107,12 +8523,13 @@ focus_tree = {
 		mutually_exclusive = { focus = TUR_the_mediterranean_entente focus = TUR_join_the_axis focus = TUR_join_the_allies focus = TUR_readdress_the_montreux_convention }
 		prerequisite = { focus = TUR_dissolve_the_ODPA }
 		available = {
-			NOT = { is_in_faction_with = SOV }
+			is_subject = no
+			is_in_faction = no
 		}
 		x = 0
 		y = 1
 		relative_position_id = TUR_dissolve_the_ODPA
-		cost = 10
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
@@ -7128,11 +8545,9 @@ focus_tree = {
 			if = {
 				limit = {
 					SPR = { 
-						AND = {
-							exists = yes 
-							is_puppet = no
-							NOT = { is_in_faction_with = SOV }
-						}
+						exists = yes 
+						is_subject = no
+						NOT = { is_in_faction_with = SOV }
 					}
 				}
 				SPR = { country_event = { id = generic.5 } }
@@ -7147,14 +8562,20 @@ focus_tree = {
 		icon = GFX_focus_generic_black_sea_focus
 		mutually_exclusive = { focus = TUR_the_mediterranean_entente focus = TUR_join_the_axis focus = TUR_join_the_allies focus = TUR_anti_bolshevik_mediterranean_bloc }
 		prerequisite = { focus = TUR_adana_to_baku_highway }
-		x = 0
+		prerequisite = { focus = TUR_soviet_tank_factories }
+		x = 1
 		y = 1
 		relative_position_id = TUR_adana_to_baku_highway
-		cost = 10
+		cost = 3
 		ai_will_do = {
 			base = 10
 		}
-
+		available = { 
+			is_subject = no
+			is_in_faction = no
+			NOT = { has_war_with = SOV }
+			SOV = { is_faction_leader = yes }
+		}
 		bypass = {
 			is_in_faction_with = SOV
 		}
@@ -7174,7 +8595,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = TUR_anti_bolshevik_mediterranean_bloc
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -7226,15 +8647,16 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {	
+			r56_script_i_am_sane = yes
+			FRA = {
+				r56_script_target_is_sane = yes
+			}
+		}
+			
 		bypass = {
 			FRA = {
-				OR = {
-					is_in_faction_with = TUR
-					is_puppet_of = TUR
-					has_war_with = TUR
-					exists = no
-					has_capitulated = yes
-				}
+				r56_script_standard_bypass = yes
 			}
 		}
 
@@ -7260,17 +8682,18 @@ focus_tree = {
 			base = 10
 		}
 
-		bypass = {
+		available = {	
+			r56_script_i_am_sane = yes
 			ITA = {
-				OR = {
-					is_in_faction_with = TUR
-					is_puppet_of = TUR
-					has_war_with = TUR
-					exists = no
-					has_capitulated = yes
-				}
+				r56_script_target_is_sane = yes
 			}
 		}
+			
+		bypass = {
+			ITA = {
+				r56_script_standard_bypass = yes
+			}
+		}		
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
@@ -7321,17 +8744,18 @@ focus_tree = {
 			base = 10
 		}
 
-		bypass = {
+		available = {	
+			r56_script_i_am_sane = yes
 			SOV = {
-				OR = {
-					is_in_faction_with = TUR
-					is_puppet_of = TUR
-					has_war_with = TUR
-					exists = no
-					has_capitulated = yes
-				}
+				r56_script_target_is_sane = yes
 			}
 		}
+			
+		bypass = {
+			SOV = {
+				r56_script_standard_bypass = yes
+			}
+		}		
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
@@ -7354,17 +8778,19 @@ focus_tree = {
 			base = 10
 		}
 
-		bypass = {
+		available = {	
+			r56_script_i_am_sane = yes
 			ENG = {
-				OR = {
-					is_in_faction_with = TUR
-					is_puppet_of = TUR
-					has_war_with = TUR
-					exists = no
-					has_capitulated = yes
-				}
+				r56_script_target_is_sane = yes
 			}
 		}
+			
+		bypass = {
+			ENG = {
+				r56_script_standard_bypass = yes
+			}
+		}
+
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
@@ -7377,7 +8803,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_foreign_brigades_for_the_revolution
-		icon = GFX_goal_generic_political_pressure
+		icon = GFX_goal_extensive_conscription_communism
 		prerequisite = { focus = TUR_stop_the_stalinist_charade focus = TUR_strike_the_british_imperialists }
 		x = 0
 		y = 2
@@ -7426,7 +8852,7 @@ focus_tree = {
 		id = TUR_arctic_wolves_training_program
 		icon = GFX_goal_generic_wolf_pack
 		prerequisite = { focus = TUR_joint_caucasian_turkish_officer_school }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = TUR_joint_caucasian_turkish_officer_school
 		cost = 10
@@ -7436,6 +8862,12 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = TUR_arctic_wolves_training
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1
+				uses = 1
+				category = winter_clothing_tech
+			}			
 		}
 	}
 
@@ -7544,7 +8976,7 @@ focus_tree = {
 					add_building_construction = {
 						type = bunker
 						level = 3
-						province = 849
+						province = 922
 						instant_build = yes
 					}
 				}
@@ -7553,7 +8985,7 @@ focus_tree = {
 					add_building_construction = {
 						type = coastal_bunker
 						level = 3
-						province = 849
+						province = 922
 						instant_build = yes
 					}
 				}
@@ -7615,7 +9047,7 @@ focus_tree = {
 			if = {
 				limit = {
 					has_country_leader = {
-						character = TUR_sevket_sureyya_aydemir
+						name = "Şevket Süreyya Aydemir"
 						ruling_only = no
 					}
 				}
@@ -7624,7 +9056,7 @@ focus_tree = {
 			else_if = {
 				limit = {
 					has_country_leader = {
-						character = TUR_sefik_husnu
+						name = "Sefik Hüsnü"
 						ruling_only = yes
 					}
 				}
@@ -7643,7 +9075,7 @@ focus_tree = {
 		icon = GFX_focus_generic_tank_production
 		prerequisite = { focus = TUR_arctic_wolves_training_program }
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = TUR_arctic_wolves_training_program
 		cost = 10
 		ai_will_do = {
@@ -7661,13 +9093,19 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
 				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
+			}
+			add_tech_bonus = {
+				name = TUR_the_turkish_tank_project
+				bonus = 1.5
+				uses = 1
+				category = cat_heavy_armor
 			}
 			add_tech_bonus = {
 				name = TUR_the_turkish_tank_project
@@ -7682,7 +9120,7 @@ focus_tree = {
 		id = TUR_taking_responsibility_for_the_air_war
 		icon = GFX_goal_generic_air_naval_bomber
 		prerequisite = { focus = TUR_peninsular_network_of_factories focus = TUR_the_turkish_tank_project }
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = TUR_the_turkish_tank_project
 		cost = 10
@@ -7703,7 +9141,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_officers_of_the_revolution
-		icon = GFX_focus_generic_military_mission
+		icon = GFX_goal_generic_communist_loyalty
 		prerequisite = { focus = TUR_the_international_of_proletarian_freethinkers }
 		x = -1
 		y = 1
@@ -7723,7 +9161,7 @@ focus_tree = {
 		icon = GFX_goal_generic_forceful_treaty
 		prerequisite = { focus = TUR_officers_of_the_revolution }
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = TUR_officers_of_the_revolution
 		cost = 10
 		ai_will_do = {
@@ -7738,14 +9176,43 @@ focus_tree = {
 			}
 		}
 	}
-
+	focus = {
+		id = TUR_guard_the_revolution
+		icon = GFX_goal_HON_nkvd_assistance
+		cost = 10
+		text = JAP_guard_the_revolution
+		prerequisite = { focus = TUR_scrapping_our_debts }
+		prerequisite = { focus = TUR_reconciling_kemalism_with_bolshevism }
+		allow_branch = {
+			has_dlc = "La Resistance"
+		}		
+		relative_position_id = TUR_scrapping_our_debts
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			has_intelligence_agency = yes
+		}
+		completion_reward = {			
+			add_ideas = GER_abwehr_contacts
+			add_tech_bonus = {
+				name = mp_tech_bonus_name
+				bonus = 1
+				uses = 1
+				category = military_police_tech
+			}							
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ESPIONAGE }
+	}
 	focus = {
 		id = TUR_collectivising_our_agriculture
 		icon = GFX_focus_prc_agrarian_socialism
 		prerequisite = { focus = TUR_scrapping_our_debts }
 		prerequisite = { focus = TUR_reconciling_kemalism_with_bolshevism }
-		x = 1
-		y = 2
+		x = 2
+		y = 1
 		relative_position_id = TUR_scrapping_our_debts
 		cost = 10
 		ai_will_do = {
@@ -7766,12 +9233,25 @@ focus_tree = {
 		icon = GFX_focus_generic_attack_kurdistan
 		prerequisite = { focus = TUR_the_turkish_tank_project }
 		prerequisite = { focus = TUR_reconciling_kemalism_with_bolshevism }
-		x = -1
-		y = 2
+		x = -2
+		y = 1
 		relative_position_id = TUR_the_turkish_tank_project
 		cost = 10
 		ai_will_do = {
 			base = 10
+		}
+
+		available = {	
+			r56_script_i_am_sane = yes
+			PER = {
+				r56_script_target_is_sane = yes
+			}
+		}
+			
+		bypass = {
+			PER = {
+				r56_script_standard_bypass = yes
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -7780,10 +9260,15 @@ focus_tree = {
 			add_state_claim = 676
 			add_state_claim = 291
 			add_state_claim = 419
+			add_state_claim = 988
 			add_state_claim = 421
 			create_wargoal = {
 				type = take_claimed_state
 				target = PER
+			}
+			create_wargoal = {
+				type = take_claimed_state
+				target = IRQ
 			}
 		}
 	}
@@ -7800,15 +9285,16 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {	
+			r56_script_i_am_sane = yes
+			BUL = {
+				r56_script_target_is_sane = yes
+			}
+		}
+			
 		bypass = {
 			BUL = {
-				OR = {
-					is_in_faction_with = TUR
-					is_puppet_of = TUR
-					has_war_with = TUR
-					exists = no
-					has_capitulated = yes
-				}
+				r56_script_standard_bypass = yes
 			}
 		}
 
@@ -7821,12 +9307,17 @@ focus_tree = {
 	focus = {
 		id = TUR_misak_i_milli
 		icon = GFX_focus_TUR_misak_i_milli
-		x = 47
-		y = -11
+		prerequisite = { focus = TUR_we_must_not_fall focus = TUR_victory_or_death_against_communism focus = TUR_restoring_our_nations_pride focus = TUR_foreign_brigades_for_the_revolution focus = TUR_issue_an_ultimatium_to_the_bulgarians }
+		x = 1
+		y = 12
 		relative_position_id = TUR_reconfigure_our_foreign_policy
 		cost = 10
 		ai_will_do = {
 			base = 0
+		}
+
+		available = {
+			is_subject = no
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
@@ -7837,8 +9328,8 @@ focus_tree = {
 			if = {
 				limit = {
 					TUR = { 
-						is_in_faction = yes 
-						is_faction_leader = no
+						is_in_faction = yes
+						is_faction_leader = no 
 					}
 				}
 				var:faction_leader = {
@@ -7872,7 +9363,7 @@ focus_tree = {
 				limit = {
 					BUL = {
 						exists = yes
-						is_puppet = no
+						is_subject = no
 					}
 				}
 				create_wargoal = {
@@ -7887,7 +9378,7 @@ focus_tree = {
 						is_faction_leader = no
 					}
 					BUL = {
-						NOT = { is_puppet_of = TUR }
+						NOT = { is_subject_of = TUR }
 						is_in_faction_with = TUR
 						is_in_faction_with = SOV
 					}
@@ -7902,7 +9393,7 @@ focus_tree = {
 						is_faction_leader = no
 					}
 					BUL = {
-						NOT = { is_puppet_of = TUR }
+						NOT = { is_subject_of = TUR }
 						is_in_faction_with = TUR
 						is_in_faction_with = SOV
 					}
@@ -7917,7 +9408,7 @@ focus_tree = {
 						is_faction_leader = no
 					}
 					BUL = {
-						NOT = { is_puppet_of = TUR }
+						NOT = { is_subject_of = TUR }
 						is_in_faction_with = TUR
 					}
 					var:faction_leader = {
@@ -7938,7 +9429,7 @@ focus_tree = {
 						is_faction_leader = no
 					}
 					BUL = {
-						NOT = { is_puppet_of = TUR }
+						NOT = { is_subject_of = TUR }
 						is_in_faction_with = TUR
 					}
 					var:faction_leader = {
@@ -7954,7 +9445,7 @@ focus_tree = {
 			}
 			else_if = {
 				limit = {
-					BUL = { is_puppet_of = TUR }
+					BUL = { is_subject_of = TUR }
 				}
 				annex_country = {
 					target = BUL
@@ -8124,13 +9615,102 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			add_state_core = 184
+			add_state_claim = 182
+			add_state_claim = 187
 			add_state_claim = 731
-			create_wargoal = {
-				type = take_state_focus
-				target = GRE
+			if = {
+				limit = {
+					has_global_flag = TUR_soviets_keeping_eye_on_turkey
+					TUR = { 
+						is_in_faction_with = SOV
+						is_faction_leader = no
+					}
+					SOV = {
+						any_allied_country = {
+							NOT = { tag = TUR }
+							OR = {
+								controls_state = 184
+								controls_state = 182
+								controls_state = 187
+								controls_state = 731
+							}
+						}
+					}
+				}
+				SOV = { country_event = { id = bftb_turkey.138 } } #Turkey violates fellow faction member's sovereignty
+			}
+			else_if = {
+				limit = {
+					has_global_flag = TUR_soviets_faction_warning
+					TUR = { 
+						is_in_faction_with = SOV
+						is_faction_leader = no
+					}
+					SOV = {
+						any_allied_country = {
+							NOT = { tag = TUR }
+							OR = {
+								controls_state = 184
+								controls_state = 182
+								controls_state = 187
+								controls_state = 731
+							}
+						}
+					}
+				}
+				SOV = { country_event = { id = bftb_turkey.139 } } #Turkey violates fellow faction member's sovereignty again!
+			}
+			else_if = {
+				limit = {
+					has_global_flag = TUR_fascist_faction_leader_keeping_eye_on_turkey
+					var:faction_leader = {
+						has_government = fascism
+					}
+					TUR = { 
+						is_in_faction = yes
+						is_faction_leader = no
+						any_allied_country = {
+							NOT = { tag = TUR }
+							OR = {
+								controls_state = 184
+								controls_state = 182
+								controls_state = 187
+								controls_state = 731
+							}
+						}
+					}
+				}
+				var:faction_leader = {
+					country_event = { id = bftb_turkey.138 } #Turkey violates fellow faction member's sovereignty
+				}
+			}
+			else_if = {
+				limit = {
+					has_global_flag = TUR_fascist_faction_leader_warned_turkey
+					var:faction_leader = {
+						has_government = fascism
+					}
+					TUR = { 
+						is_in_faction = yes
+						is_faction_leader = no
+						any_allied_country = {
+							NOT = { tag = TUR }
+							OR = {
+								controls_state = 184
+								controls_state = 182
+								controls_state = 187
+								controls_state = 731
+							}
+						}
+					}
+				}
+				var:faction_leader = {
+					country_event = { id = bftb_turkey.139 } #Turkey violates fellow faction member's sovereignty again!
+				}
 			}
 		}
 	}
+
 	focus = {
 		id = TUR_rebuke_the_treaty_of_kars
 		icon = GFX_focus_attack_soviet
@@ -8408,14 +9988,103 @@ focus_tree = {
 	
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			add_state_core = 676
+			add_state_claim = 677
+			add_state_claim = 680
 			add_state_claim = 291
-			create_wargoal = {
-				type = take_state_focus
-				target = IRQ
+			add_state_core = 676
+			if = {
+				limit = {
+					has_global_flag = TUR_soviets_keeping_eye_on_turkey
+					TUR = { 
+						is_in_faction_with = SOV
+						is_faction_leader = no
+					}
+					SOV = {
+						any_allied_country = {
+							NOT = { tag = TUR }
+							OR = {
+								controls_state = 677
+								controls_state = 680
+								controls_state = 676
+								controls_state = 291
+							}
+						}
+					}
+				}
+				SOV = { country_event = { id = bftb_turkey.138 } } #Turkey violates fellow faction member's sovereignty
+			}
+			else_if = {
+				limit = {
+					has_global_flag = TUR_soviets_faction_warning
+					TUR = { 
+						is_in_faction_with = SOV
+						is_faction_leader = no
+					}
+					SOV = {
+						any_allied_country = {
+							NOT = { tag = TUR }
+							OR = {
+								controls_state = 677
+								controls_state = 680
+								controls_state = 676
+								controls_state = 291
+							}
+						}
+					}
+				}
+				SOV = { country_event = { id = bftb_turkey.139 } } #Turkey violates fellow faction member's sovereignty again!
+			}
+			else_if = {
+				limit = {
+					has_global_flag = TUR_fascist_faction_leader_keeping_eye_on_turkey
+					var:faction_leader = {
+						has_government = fascism
+					}
+					TUR = { 
+						is_in_faction = yes
+						is_faction_leader = no
+						any_allied_country = {
+							NOT = { tag = TUR }
+							OR = {
+								controls_state = 677
+								controls_state = 680
+								controls_state = 676
+								controls_state = 291
+							}
+						}
+					}
+				}
+				var:faction_leader = {
+					country_event = { id = bftb_turkey.138 } #Turkey violates fellow faction member's sovereignty
+				}
+			}
+			else_if = {
+				limit = {
+					has_global_flag = TUR_fascist_faction_leader_warned_turkey
+					var:faction_leader = {
+						has_government = fascism
+					}
+					TUR = { 
+						is_in_faction = yes
+						is_faction_leader = no
+						any_allied_country = {
+							NOT = { tag = TUR }
+							OR = {
+								controls_state = 677
+								controls_state = 680
+								controls_state = 676
+								controls_state = 291
+							}
+						}
+					}
+				}
+				var:faction_leader = {
+					country_event = { id = bftb_turkey.139 } #Turkey violates fellow faction member's sovereignty again!
+				}
 			}
 		}
 	}
+	
 	focus = {
 		id = TUR_liberate_the_kurdish_diaspora
 		icon = GFX_focus_generic_attack_kurdistan
@@ -8459,6 +10128,7 @@ focus_tree = {
 								controls_state = 680
 								controls_state = 676
 								controls_state = 421
+								controls_state = 988
 							}
 						}
 					}
@@ -8480,6 +10150,7 @@ focus_tree = {
 								controls_state = 680
 								controls_state = 676
 								controls_state = 421
+								controls_state = 988
 							}
 						}
 					}
@@ -8502,6 +10173,7 @@ focus_tree = {
 								controls_state = 680
 								controls_state = 676
 								controls_state = 421
+								controls_state = 988
 							}
 						}
 					}
@@ -8526,6 +10198,7 @@ focus_tree = {
 								controls_state = 680
 								controls_state = 676
 								controls_state = 421
+								controls_state = 988
 							}
 						}
 					}
@@ -8562,6 +10235,30 @@ focus_tree = {
 				TUR = { leave_faction = yes }
 			}
 			unlock_decision_category_tooltip = form_turan_category
+			if = {
+                limit = {
+                    AND = {
+                        has_dlc = "La Resistance"
+                        has_dlc = "Battle for the Bosporus"
+                    }
+                    NOT = {
+                        any_other_country = {
+                            has_country_flag = recruited_ruzi_nazar
+                        }
+                    }
+                }
+                #all turkestan nationalities because of panturkism but UZB first
+                create_operative_leader = {
+                    name = "Ruzi Nazar"
+                    GFX = "GFX_portrait_tur_ruzi_nazar"
+                    traits = { operative_tough operative_commando }
+                    bypass_recruitment = no
+                    available_to_spy_master = yes
+                    female = no
+                    nationalities = { SOV UZB TMS TAJ KYR KAZ }
+                }
+                set_country_flag = recruited_ruzi_nazar
+            }			
 		}
 	}
 
@@ -8594,16 +10291,18 @@ focus_tree = {
 				}
 			}
 			else = {
-				43 = { add_claim_by = TUR }
-				154 = { add_claim_by = TUR }
-				155 = { add_claim_by = TUR }
-				76 = { add_claim_by = TUR }
-				84 = { add_claim_by = TUR }
-				83 = { add_claim_by = TUR }
-				82 = { add_claim_by = TUR }
-				764 = { add_claim_by = TUR }
-				45 = { add_claim_by = TUR }
-				664 = { add_claim_by = TUR }
+				add_state_claim = 43
+				add_state_claim = 154
+				add_state_claim = 913
+				add_state_claim = 155
+				add_state_claim = 76
+				add_state_claim = 84
+				add_state_claim = 83
+				add_state_claim = 82
+				add_state_claim = 764
+				add_state_claim = 45
+				add_state_claim = 664
+				add_state_claim = 996
 			}
 			create_wargoal = {
 				type = annex_everything
@@ -8643,6 +10342,7 @@ focus_tree = {
 						is_core_of = MON
 						is_core_of = MEN
 						is_core_of = TAN
+						is_core_of = TNG
 					}
 				}
 				add_claim_by = TUR
@@ -8692,6 +10392,25 @@ focus_tree = {
 					target = TAN
 				}
 			}
+			if = { 
+				limit = {
+					TNG = { exists = yes }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = TNG
+				}
+			}
+			if = { 
+				limit = {
+					SHX = { controls_state = 621 }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					generator = { 621 }
+					target = SHX
+				}
+			}
 		}
 	}
 
@@ -8718,9 +10437,9 @@ focus_tree = {
 				}
 				add_claim_by = TUR
 			}
-			216 = { add_claim_by = TUR }
-			215 = { add_claim_by = TUR }
-			213 = { add_claim_by = TUR }
+			add_state_claim = 216
+			add_state_claim = 215
+			add_state_claim = 213
 			if = { 
 				limit = {
 					FIN = { exists = yes }
@@ -8754,7 +10473,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_learning_from_the_great_war
-		icon = GFX_goal_generic_attack_allies
+		icon = GFX_goal_TUR_turkish_legacy
 		x = 30
 		y = 0
 		cost = 5
@@ -8800,7 +10519,7 @@ focus_tree = {
 	focus = {
 		id = TUR_hava_okulu
 		icon = GFX_goal_generic_air_fighter
-		x = 45
+		x = 40
 		y = 0
 		cost = 5
 		ai_will_do = {
@@ -8809,7 +10528,7 @@ focus_tree = {
 
 		completion_reward = {
 			air_experience = 5
-			custom_effect_tooltip = available_military_high_command
+			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = TUR_sabiha_gokcen
 			if = {
 				limit = {
@@ -8842,11 +10561,11 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
 				}
 			}
 			49 = {
@@ -8858,11 +10577,11 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
 				}
 			}
 			344 = {
@@ -8874,11 +10593,11 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
 				}
 			}
 			49 = {
@@ -8890,11 +10609,11 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 3
-					instant_build = yes
+					add_building_construction = {
+						type = air_base
+						level = 3
+						instant_build = yes
+					}
 				}
 			}
 			unlock_decision_tooltip = TUR_teach_the_proper_use_of_modern_infrastructure
@@ -8907,7 +10626,7 @@ focus_tree = {
 		icon = GFX_goal_generic_build_tank
 		mutually_exclusive = { focus = TUR_embrace_military_tradition }
 		prerequisite = { focus = TUR_modernising_the_army }
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = TUR_modernising_the_army
 		cost = 5
@@ -8936,7 +10655,7 @@ focus_tree = {
 		icon = GFX_goal_generic_occupy_states_ongoing_war
 		mutually_exclusive = {  focus = TUR_mechanising_our_army }
 		prerequisite = { focus = TUR_modernising_the_army }
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = TUR_modernising_the_army
 		cost = 5
@@ -8967,7 +10686,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_mechanising_our_army
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -8983,12 +10702,12 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
 				}
 			}
 			add_tech_bonus = {
@@ -9029,7 +10748,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = TUR_embrace_military_tradition
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -9039,8 +10758,7 @@ focus_tree = {
 				name = TUR_utilising_our_terrain
 				bonus = 1.0
 				uses = 2
-				technology = tech_mountaineers
-				technology = tech_mountaineers2
+				category = mountaineers_tech
 			}
 			add_tech_bonus = {
 				name = TUR_utilising_our_terrain
@@ -9058,7 +10776,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_superiority_of_arms
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -9092,7 +10810,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_accelerate_native_fighter_designs
-		icon = GFX_goal_generic_air_fighter2
+		icon = GFX_focus_generic_copy_plane_designs
 		prerequisite = { focus = TUR_expand_the_air_bases }
 		x = 0
 		y = 1
@@ -9117,7 +10835,7 @@ focus_tree = {
 		icon = GFX_goal_generic_air_naval_bomber
 		mutually_exclusive = { focus = TUR_invoke_the_methods_of_mehmed_ii }
 		prerequisite = { focus = TUR_accelerate_native_fighter_designs }
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = TUR_accelerate_native_fighter_designs
 		cost = 5
@@ -9146,7 +10864,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army_artillery
 		mutually_exclusive = {  focus = TUR_patrol_the_seas }
 		prerequisite = { focus = TUR_accelerate_native_fighter_designs }
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = TUR_accelerate_native_fighter_designs
 		cost = 5
@@ -9177,7 +10895,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_accelerate_native_fighter_designs
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -9218,10 +10936,10 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_naval_dockyard
 		prerequisite = { focus = TUR_modernising_the_army }
 		prerequisite = { focus = TUR_expand_the_air_bases }
-		x = 7
+		x = 5
 		y = 1
 		relative_position_id = TUR_modernising_the_army
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -9262,7 +10980,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_expand_the_golcuk_naval_base
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
@@ -9310,7 +11028,7 @@ focus_tree = {
 		icon = GFX_focus_generic_navy_battleship2
 		mutually_exclusive = { focus = TUR_the_path_of_the_wolf }
 		prerequisite = { focus = TUR_relocate_from_yildiz_palace }
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = TUR_relocate_from_yildiz_palace
 		cost = 5
@@ -9339,7 +11057,7 @@ focus_tree = {
 		icon = GFX_goal_generic_wolf_pack
 		mutually_exclusive = {  focus = TUR_the_legacy_of_osmanli_donanmasi }
 		prerequisite = { focus = TUR_relocate_from_yildiz_palace }
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = TUR_relocate_from_yildiz_palace
 		cost = 5

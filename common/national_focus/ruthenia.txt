@@ -121,7 +121,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = cze_army_upgrades3
+				name = RUT_offensive_weapons_focus
 				bonus = 3
 				uses = 1
 				technology = infantry_weapons1
@@ -134,7 +134,7 @@ focus_tree = {
 				technology = advanced_infantry_weapons2				
 			}
 			add_tech_bonus = {
-				name = cze_army_upgrades3
+				name = RUT_offensive_weapons_focus
 				bonus = 0.15
 				uses = 1
 				technology = infantry_weapons1
@@ -186,22 +186,6 @@ focus_tree = {
 			factor = 40
 		}
 
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		
-		
-		
-
-		complete_tooltip = {
-
-		}
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = YUG_motorized_recon_companies
@@ -249,22 +233,6 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 60
-		}
-
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		
-		
-		
-
-		complete_tooltip = {
-
 		}
 
 		completion_reward = {
@@ -458,22 +426,6 @@ focus_tree = {
 			factor = 5
 		}
 
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		
-		
-		
-
-		complete_tooltip = {
-
-		}
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = YUG_anti_tank_defenses
@@ -513,7 +465,11 @@ focus_tree = {
                 bonus = 1.0
                 uses = 2
                 category = r56_special_forces_training_tech 
-            }				
+            }		
+			hidden_effect = {
+				set_country_flag = cite_an_airborne_unit_flag
+			}
+			unlock_decision_tooltip = { decision = cite_an_airborne_unit show_effect_tooltip = yes }					
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -568,6 +524,7 @@ focus_tree = {
 				technology = fighter3
 			}
 			random_owned_controlled_state = {
+				prioritize = { 996 }
 				limit = {
 					free_building_slots = {
 						building = air_base
@@ -908,10 +865,6 @@ focus_tree = {
 			factor = 2
 		}
 		available = {
-		}
-
-		bypass = {
-
 		}
 
 		
@@ -1626,10 +1579,8 @@ focus_tree = {
         y = 3
 		prerequisite = { focus = RUT_transcarpathian_infrastructure }
         available = {
-			RUT ={
-				controls_state = 73
-			}
-			73 = { is_owned_by = RUT }
+			controls_state  = 996
+			owns_state = 996
         }		
         cost = 10
 		ai_will_do = {
@@ -1637,8 +1588,7 @@ focus_tree = {
 			}		
 		available_if_capitulated = yes
         completion_reward = {
-            73 = {
-				
+            996 = {
                 add_extra_state_shared_building_slots = 2
                 add_building_construction = {
                     type = industrial_complex
@@ -1721,12 +1671,12 @@ focus_tree = {
 			}		
         available = {
 			RUT ={
-				controls_state = 73
+				controls_state = 996
 			}
         }		
         completion_reward = {
 
-            73 = {
+            996 = {
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = arms_factory
@@ -1882,7 +1832,7 @@ focus_tree = {
 	}
 	focus = {
 		id = RUT_join_intermarium
-		icon = GFX_goal_generic_major_alliance
+		icon = GFX_goal_generic_befriend_poland
 		prerequisite = { focus = RUT_approach_poland focus = RUT_approach_romania}
 		mutually_exclusive = { focus = RUT_join_cordon_sanitaire focus = RUT_join_little_entente}
 		relative_position_id = RUT_approach_poland
@@ -1918,13 +1868,13 @@ focus_tree = {
 
 		completion_reward = {
 			POL = {
-				add_to_faction = RUT
-			}		
+				country_event = generic.2
+			}	
 		}
 	}
 	focus = {
 		id = RUT_join_cordon_sanitaire
-		icon = GFX_goal_generic_major_alliance
+		icon = GFX_goal_generic_befriend_romania
 		prerequisite = { focus = RUT_approach_poland focus = RUT_approach_romania}
 		mutually_exclusive = { focus = RUT_join_intermarium focus = RUT_join_little_entente}
 		relative_position_id = RUT_approach_romania
@@ -1960,7 +1910,7 @@ focus_tree = {
 
 		completion_reward = {
 			ROM = {
-				add_to_faction = RUT
+				country_event = generic.2
 			}
 		}
 	}
@@ -2385,8 +2335,11 @@ focus_tree = {
 			factor = 5
 		}
 		completion_reward = {
+            996 = {
+                add_extra_state_shared_building_slots = 2
+            }
             73 = {
-                add_extra_state_shared_building_slots = 3
+                add_extra_state_shared_building_slots = 1
             }
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -2443,7 +2396,7 @@ focus_tree = {
 			has_war = yes
 			is_puppet = no
 		}
-
+		continue_if_invalid = yes #the idea is generic, so lets not be too annoying
 		completion_reward = {
 			add_ideas = ideological_fanaticism_focus
 		}
@@ -2609,6 +2562,14 @@ focus_tree = {
 					army_connections
 				}
 			}
+			73 = {
+				add_building_construction = {
+					type = supply_node
+					level = 1
+					province = 3548
+					instant_build = yes
+				}
+			}			
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
 	}	
@@ -2642,6 +2603,7 @@ focus_tree = {
 			RUT = { add_state_core = 89 }
 			RUT = { add_state_core = 91 }
 			RUT = { add_state_core = 93 }
+			set_cosmetic_tag = RUT_WEST_UKRAINE
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}	
@@ -2911,10 +2873,10 @@ focus_tree = {
 		available_if_capitulated = yes
         completion_reward = {
             91 = {
-                add_extra_state_shared_building_slots = 1
+                add_extra_state_shared_building_slots = 2
                 add_building_construction = {
                     type = industrial_complex
-                    level = 1
+                    level = 2
                     instant_build = yes
                 }
             }			
@@ -2962,6 +2924,11 @@ focus_tree = {
                     instant_build = yes
                 }
             }			
+			build_railway = {
+				#level = 1
+				start_province = 3548 
+				target_province = 11479
+			}			
         }
         search_filters = { FOCUS_FILTER_INDUSTRY }
     }	
@@ -3042,7 +3009,12 @@ focus_tree = {
                     level = 1
                     instant_build = yes
                 }
-            }			
+            }
+			build_railway = {
+				#level = 1
+				start_province = 476 
+				target_province = 11670
+			}								
         }
         search_filters = { FOCUS_FILTER_INDUSTRY }
     }	
@@ -3733,6 +3705,8 @@ focus_tree = {
 			}
 			SOV = { add_state_core = 73 }
 			UKR = { add_state_core = 73 }
+			SOV = { add_state_core = 996 }
+			UKR = { add_state_core = 996 }
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
@@ -3775,6 +3749,8 @@ focus_tree = {
 			}
 			SOV = { add_state_core = 73 }
 			UKR = { add_state_core = 73 }
+			SOV = { add_state_core = 996 }
+			UKR = { add_state_core = 996 }
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}	

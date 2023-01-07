@@ -12,6 +12,7 @@ technologies = {
 	@1944 = 11
 	@1945 = 12
 	@1946 = 20
+	@1950 = 14
 
 	### GERMAN TANK NAMES IN COMMENTS SO YOU CAN FIND STUFF MORE EASILY
 	gwtank_chassis = { #Leichttraktor
@@ -44,6 +45,8 @@ technologies = {
 			tank_light_two_man_tank_turret
 			tank_light_three_man_tank_turret
 			tank_light_fixed_superstructure_turret
+			tank_front_plate_fixed_superstructure_turret
+			tank_platform_mount_turret
 			tank_medium_one_man_tank_turret
 			tank_medium_two_man_tank_turret
 			tank_medium_three_man_tank_turret
@@ -58,6 +61,7 @@ technologies = {
 			extra_ammo_storage
 			wet_ammo_storage
 			smoke_launchers
+			expanded_fuel_tank
 		}
 		enable_subunits = {
 			light_armor
@@ -426,11 +430,6 @@ technologies = {
 			light_tank_aa_chassis_3
 		}
 
-		path = {
-			leads_to_tech = main_battle_tank_chassis
-			research_cost_coeff = 1
-		}
-
 		research_cost = 2
 		start_year = 1941
 
@@ -614,7 +613,7 @@ technologies = {
 			}
 
 			modifier = {
-				factor = 2
+				factor = 3
 				tag = SOV
 			}
 
@@ -699,6 +698,11 @@ technologies = {
 			modern_armor
 		}
 
+		path = {
+			leads_to_tech = advanced_main_battle_tank_chassis
+			research_cost_coeff = 1
+		}
+
 		research_cost = 2.5
 		start_year = 1945
 
@@ -723,6 +727,51 @@ technologies = {
 			modifier = {
 				factor = 2
 				date > "1948.1.1"
+			}
+		}
+
+		categories = {
+			armor
+			cat_medium_armor
+		}
+	}
+
+	advanced_main_battle_tank_chassis = { #E-60
+
+		enable_equipments = {
+			modern_tank_chassis_2
+			modern_tank_destroyer_chassis_1
+			modern_tank_artillery_chassis_1
+			modern_tank_aa_chassis_1
+		}
+		enable_subunits = {
+			modern_armor
+		}
+
+		research_cost = 2.5
+		start_year = 1950
+
+		folder = {
+			name = nsb_armour_folder
+			position = { x = 2 y = @1950 }
+		}
+
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				date > "1950.1.1"
+			}
+
+			modifier = {
+				factor = 2
+				date > "1951.1.1"
+			}
+
+			modifier = {
+				factor = 2
+				date > "1952.1.1"
 			}
 		}
 
@@ -1125,6 +1174,11 @@ technologies = {
 
 	armor_tech_4 = {
 
+		path = {
+			leads_to_tech = armor_tech_5
+			research_cost_coeff = 1
+		}
+
 		research_cost = 1
 		start_year = 1944
 		folder = {
@@ -1134,6 +1188,53 @@ technologies = {
 
 		on_research_complete = {
 			custom_effect_tooltip = armor_tech_4_tt
+		}
+		show_effect_as_desc = yes
+
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				has_war = yes
+				factor = 2
+			}
+
+			modifier = {
+				factor = 1.1
+				date > "1937.1.1"
+			}
+
+			modifier = {
+				factor = 1.1
+				date > "1938.1.1"
+			}
+
+			modifier = {
+				factor = 1.1
+				date > "1939.1.1"
+			}
+		}
+
+		categories = {
+			armor
+		}
+	}
+
+	armor_tech_5 = {
+
+		research_cost = 1
+		start_year = 1950
+		folder = {
+			name = nsb_armour_folder
+			position = { x = 3 y = @1950 }
+		}
+
+		on_research_complete = {
+			custom_effect_tooltip = armor_tech_5_tt
 		}
 		show_effect_as_desc = yes
 
@@ -1330,6 +1431,11 @@ technologies = {
 
 	engine_tech_4 = {
 
+
+		path = {
+			leads_to_tech = engine_tech_5
+			research_cost_coeff = 1
+		}
 		research_cost = 1
 		start_year = 1944
 		folder = {
@@ -1338,6 +1444,52 @@ technologies = {
 		}
 		on_research_complete = {
 			custom_effect_tooltip = engine_tech_4_tt
+		}
+		show_effect_as_desc = yes
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				has_war = yes
+				factor = 2
+			}
+
+			modifier = {
+				factor = 1.1
+				date > "1937.1.1"
+			}
+
+			modifier = {
+				factor = 1.1
+				date > "1938.1.1"
+			}
+
+			modifier = {
+				factor = 1.1
+				date > "1939.1.1"
+			}
+		}
+
+		categories = {
+			armor
+			armor_variant_tech
+		}
+	}
+
+	engine_tech_5 = {
+
+		research_cost = 1
+		start_year = 1950
+		folder = {
+			name = nsb_armour_folder
+			position = { x = 2 y = @1950 }
+		}
+		on_research_complete = {
+			custom_effect_tooltip = engine_tech_5_tt
 		}
 		show_effect_as_desc = yes
 		ai_will_do = {

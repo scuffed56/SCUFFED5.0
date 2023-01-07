@@ -15,18 +15,63 @@ scripted_gui = {
 		
 		effects = {
 			create_core8_click = {
-				ROOT = { 
-					add_political_power = -250 
+				if = {
+					limit = {FROM = {compliance > 99}}
+					ROOT = {
+						add_political_power = -150
+					}
 				}
-				
+				else_if = {
+					limit = {FROM = {compliance > 74}}
+					ROOT = {
+						add_political_power = -187.5
+					}
+				}
+				else_if = {
+					limit = {FROM = {compliance > 49}}
+					ROOT = {
+						add_political_power = -225
+					}
+				}
+				else_if = {
+					limit = {FROM = {compliance > 24}}
+					ROOT = {
+						add_political_power = -262.5
+					}
+				}
+				else = {
+					ROOT = {
+						add_political_power = -300
+					}
+				}
+
 				add_core_of = FROM
 				}
 		}
 		triggers = {
 			create_core8_click_enabled = {
-				check_variable = { ROOT.political_power > 249.99 }
+				if = {
+					limit = {FROM = {compliance > 99}}
+					check_variable = { ROOT.political_power > 149.99 }
+				}
+				else_if = {
+					limit = {FROM = {compliance > 74}}
+					check_variable = { ROOT.political_power > 187.49 }
+				}
+				else_if = {
+					limit = {FROM = {compliance > 49}}
+					check_variable = { ROOT.political_power > 224.99 }
+				}
+				else_if = {
+					limit = {FROM = {compliance > 24}}
+					check_variable = { ROOT.political_power > 262.49 }
+				}
+				else = {
+					check_variable = { ROOT.political_power > 299.99 }
+				}
 			}
 		}
+		
 		        
 		ai_check = {
 			check_variable = { ROOT.political_power > 249.99 }
