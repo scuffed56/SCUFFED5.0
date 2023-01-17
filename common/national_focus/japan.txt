@@ -6164,13 +6164,277 @@
 	}
 
 	focus = {
-		id = JAP_preemptive_strike_soviet
-		icon = GFX_focus_attack_soviet
-		prerequisite = { focus = JAP_liberate_manchuria }
-		prerequisite = { focus = JAP_anti_communist_volunteers }
-		x = -2
+		id = JAP_alliance_with_the_devil
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+		cost = 5
+		prerequisite = {
+			focus = JAP_the_fate_of_the_imperial_family
+		}		
+		relative_position_id = JAP_cast_the_die
+		x = 2
+		y = 2
+		completion_reward = {
+			#Join SOV faction. If SOV has no faction or is not faction leader, form own faction and cry a lot.
+			if = {
+				limit = {
+					SOV = {
+						is_faction_leader = yes
+						has_government = communism
+					}
+				}
+				SOV = { country_event = generic.2 }
+			}
+			else_if = {
+				limit = {
+					any_other_country = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						has_capitulated = no
+						num_of_factories > 70
+					}
+				}
+				random_other_country = {
+					limit = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						num_of_factories > 70
+					}
+					country_event = generic.2
+				}				
+			}
+			else_if = {
+				limit = {
+					any_other_country = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						has_capitulated = no
+						num_of_factories > 50
+					}
+				}
+				random_other_country = {
+					limit = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						num_of_factories > 50
+					}
+					country_event = generic.2
+				}				
+			}			
+			else_if = {
+				limit = {
+					any_other_country = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						has_capitulated = no
+					}
+				}
+				random_other_country = {
+					limit = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						has_capitulated = no
+					}
+					country_event = generic.2
+				}
+			}
+			else_if = {
+				limit = {
+					any_other_country = {
+						has_government = communism
+						is_faction_leader = yes
+
+						has_capitulated = no
+					}
+				}
+				random_other_country = {
+					limit = {
+						has_government = communism
+						is_faction_leader = yes
+						has_capitulated = no
+					}
+					country_event = generic.2
+				}
+			}
+			else = {
+				set_rule = { can_create_factions = yes }
+				create_faction = JAP_the_new_international
+				add_political_power = 100
+				if = {
+					limit = {
+						SOV = {
+							has_government = communism
+							is_puppet = no
+						}
+					}
+					SOV = { country_event = generic.5 }
+				}
+				
+			}
+		}
+
+	
+		}
+		focus = {
+			id = JAP_rebuild_our_navy
+			icon = GFX_goal_generic_occupy_states_coastal
+			cost = 5
+			prerequisite = {
+				focus = JAP_the_fate_of_the_imperial_family
+			}
+			mutually_exclusive = {
+				focus = JAP_close_the_island
+			}
+			relative_position_id = JAP_alliance_with_the_devil
+			x = 2
+			y = 0
+			completion_reward = {
+				add_timed_idea = {
+					idea = JAP_rebuild_navy
+					days = 365
+				}
+			}
+		}
+	
+	focus = {
+		id = JAP_retake_manchuria
+		icon = GFX_goal_JAP_fate_of_the_imperial_family
+		cost = 5
+		prerequisite = {
+			focus = JAP_alliance_with_the_devil
+		}
+		prerequisite = {
+			focus = JAP_rebuild_our_navy
+		}
+		relative_position_id = JAP_alliance_with_the_devil
+		x = 1
 		y = 1
-		relative_position_id = JAP_liberate_manchuria
+		available = {
+				country_exists = MAN
+				MAN = {
+					NOT = {
+						has_government = communism
+					}
+				}
+			}
+	
+			bypass = {
+				OR = {
+					has_wargoal_against = MAN
+					has_war_with = MAN
+					MAN = {
+						exists = no
+					}
+					MAN = {
+						has_government = communism
+					}
+				}
+			}
+	
+			will_lead_to_war_with = MAN
+
+		completion_reward = {
+				create_wargoal = {
+					target = MAN
+					expire = 0
+					type = puppet_wargoal_focus
+				}
+				if = {
+					limit = {
+						communism > 0.8
+					}
+					remove_ideas = sanzo_nosaka				
+				}			
+			
+		}
+		}
+	
+	focus = {
+		id = JAP_cede_eastern_manchuria_for_help
+		icon = GFX_focus_generic_provoke_border_clashes
+		cost = 10
+		prerequisite = {
+			focus = JAP_retake_manchuria
+		}		
+		relative_position_id = JAP_alliance_with_the_devil
+		x = 1
+		y = 2
+
+		available = {
+			has_government = communism
+			is_puppet = no
+			controls_state = 328
+			controls_state = 761
+		}
+		completion_reward = {
+			SOV = {
+				country_event = soviet.106
+			}	
+			every_controlled_state = {
+				limit = {
+					state_is_fully_controlled_by_ROOT_or_subject = yes
+					is_core_of = MAN
+					has_resistance = yes
+				}
+				add_compliance = 10
+			}
+
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = JAP_air_blueprints
+		icon = GFX_focus_generic_copy_plane_designs
+		cost = 10
+		prerequisite = {
+			focus = JAP_cede_eastern_manchuria_for_help
+		}
+		mutually_exclusive = {
+			focus = JAP_import_soviet_armor
+		}
+		relative_position_id = JAP_alliance_with_the_devil
+		x = 1
+		y = 3
+		completion_reward = {
+			set_technology = {etax_air_defense_2 = 1}
+			add_tech_bonus = {
+				bonus = 1
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+	focus = {
+		id = JAP_air_improvements
+		icon = GFX_goal_generic_air_fighter
+		cost = 10
+		prerequisite = {
+			focus = JAP_air_blueprints
+		}
+		relative_position_id = JAP_alliance_with_the_devil
+		x = 1
+		y = 4
+		completion_reward = {
+		
+			add_ideas = JAP_domestic_jet_engine_designs_1
+		}
+	}
+
+	focus = {
+		id = JAP_import_soviet_armor
+		icon = GFX_goal_generic_heavy_armour_russian
+		prerequisite = { focus = JAP_cede_eastern_manchuria_for_help }
+		mutually_exclusive = {
+			focus = JAP_air_blueprints
+		}
+		x = 2
+		y = 1
+		relative_position_id = JAP_cede_eastern_manchuria_for_help
 
 		cost = 10
 
