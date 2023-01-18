@@ -58,7 +58,7 @@
 		id = JAP_approach_the_young_officers
 		icon = GFX_focus_generic_military_mission
 		prerequisite = { focus = JAP_the_unthinkable_option }
-		x = -3
+		x = -1
 		y = 1
 		relative_position_id = JAP_the_unthinkable_option
 
@@ -466,10 +466,10 @@
 	focus = {
 		id = JAP_open_up_the_universities
 		icon = GFX_goal_research_silver
-		prerequisite = { focus = JAP_the_unthinkable_option }
-		x = -1
+		prerequisite = { focus = JAP_cast_the_die }
+		x = 4
 		y = 1
-		relative_position_id = JAP_the_unthinkable_option
+		relative_position_id = JAP_cast_the_die
 
 		cost = 10
 
@@ -3647,54 +3647,6 @@
 	}
 
 	focus = {
-		id = JAP_preemptive_war
-		icon = GFX_goal_attack_communists
-		prerequisite = { focus = JAP_seek_alliances }
-		x = 0
-		y = 1
-		relative_position_id = JAP_seek_alliances
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 3
-			modifier = {
-				surrender_progress > 0.1
-				factor = 0
-			}			
-		}
-		available = {
-			r56_script_i_am_sane = yes
-			SOV = {
-				r56_script_target_is_sane = yes
-			}
-		}
-
-		bypass = {
-			OR = {
-				has_war_with = SOV
-				has_wargoal_against = SOV
-				SOV = { exists = no }
-			}
-		}
-
-		completion_reward = {
-			create_wargoal = {
-				target = SOV
-				expire = 0
-				type = annex_everything
-			}
-			unlock_decision_tooltip = JAP_war_with_soviet_union
-			if = {
-				limit = {
-					has_country_leader = { ruling_only = yes name = "Hirohito" }
-				}
-				remove_country_leader_trait = imperial_sanction
-			}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
-	focus = {
 		id = JAP_preemptive_strike_soviet
 		icon = GFX_focus_attack_soviet
 		prerequisite = { focus = JAP_liberate_manchuria }
@@ -3732,30 +3684,6 @@
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 
-	focus = {
-		id = JAP_full_sovereignty_for_the_philippines
-		icon = GFX_goal_philippines_democracy
-		prerequisite = { focus = JAP_liberate_manchuria }
-		x = 0
-		y = 1
-		relative_position_id = JAP_liberate_manchuria
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		bypass = {
-			"PHI" = {
-				is_subject = no
-			}
-		}
-
-		completion_reward = {
-			"PHI" = { OVERLORD = { country_event = { id = wtt_japan.104 days = 1 } } }
-		}
-	}
 	focus = {
 		id = JAP_stimulate_mongol_traditions
 		icon = GFX_goal_generic_cavalry
@@ -4967,7 +4895,30 @@
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
+	focus = {
+		id = JAP_full_sovereignty_for_the_philippines
+		icon = GFX_goal_philippines_democracy
+		prerequisite = { focus = JAP_liberate_manchuria }
+		x = 0
+		y = 1
+		relative_position_id = JAP_liberate_manchuria
 
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		bypass = {
+			"PHI" = {
+				is_subject = no
+			}
+		}
+
+		completion_reward = {
+			"PHI" = { OVERLORD = { country_event = { id = wtt_japan.104 days = 1 } } }
+		}
+	}
 	focus = {
 		id = JAP_liberate_manchuria
 		icon = GFX_goal_JAP_attack_manchukuo
@@ -5357,6 +5308,7 @@
 		completion_reward = {
 			set_technology = {etax_air_defense_2 = 1}
 			add_tech_bonus = {
+				name = fighter
 				bonus = 1
 				uses = 1
 				category = light_fighter
@@ -5403,6 +5355,7 @@
 
 		completion_reward = {
 			add_tech_bonus = {
+				name = armor
 				uses = 1
 				ahead_reduction = 1
 				bonus = 1
@@ -5843,10 +5796,11 @@ focus = {
 			555 = {set_state_flag = japanese_core}
 
 			add_tech_bonus = {
+				name = industry
 				category = industry
 				bonus = 1
 				ahead_reduction = 2
-				uses = 2
+				uses = 1
 			}
 			add_political_power = 150
 			unlock_decision_tooltip = JAP_development_of_mainland_industries
@@ -6317,9 +6271,9 @@ focus = {
 			673 = { is_controlled_by = JAP }
 			975 = { is_controlled_by = JAP } #sulawesi
 		}
-		completion_reward = {
-			unlock_decision_tooltip = form_japanese_commune
-	}
+		#completion_reward = {
+			#unlock_decision_tooltip = form_japanese_commune
+	#}
 	}
 
 	focus = {
