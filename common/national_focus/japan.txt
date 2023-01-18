@@ -491,41 +491,12 @@
 	}
 
 	focus = {
-		id = JAP_rebuild_the_civil_service
-		icon = GFX_generic_goal_communist_reforms
-		prerequisite = { focus = JAP_the_fate_of_the_imperial_family }
-		x = -1
-		y = 1
-		relative_position_id = JAP_the_fate_of_the_imperial_family
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		completion_reward = {
-			add_timed_idea = {
-				idea = JAP_rebuild_the_civil_service
-				days = 730
-			}
-			if = {
-				limit = {
-					communism > 0.8
-				}
-				remove_ideas = sanzo_nosaka				
-			}			
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
 		id = JAP_open_up_the_universities
 		icon = GFX_goal_research_silver
-		prerequisite = { focus = JAP_the_fate_of_the_imperial_family }
-		x = 1
+		prerequisite = { focus = JAP_cast_the_die }
+		x = 4
 		y = 1
-		relative_position_id = JAP_the_fate_of_the_imperial_family
+		relative_position_id = JAP_cast_the_die
 
 		cost = 10
 
@@ -4596,263 +4567,43 @@
 	}
 
 	focus = {
-		id = JAP_obtain_polish_cryptological_data
-		available = {
-			POL = {
-				is_in_faction_with = ROOT 
-				is_puppet = no
-				if = {
-					limit = {
-						has_dlc = "La Resistance"
-						has_dlc = "Man the Guns"
-					}
-					has_completed_focus = POL_expand_polish_intelligence
-				}
-				else_if = {
-					limit = {
-						NOT = { has_dlc = "La Resistance" }
-						has_dlc = "Man the Guns"
-					}
-					has_completed_focus = POL_Polish_Cipher_Bureau_no_lar
-				}
-				else_if = {
-					limit = {
-						NOT = { has_dlc = "La Resistance" }
-						NOT = { has_dlc = "Man the Guns" }
-					}
-					has_completed_focus = POL_Polish_Cipher_Bureau_no_lar_no_mtg
-				}
-			}
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				has_intelligence_agency = yes
-			}
-		}
-		prerequisite = { focus = JAP_seek_alliances focus = JAP_west_pacific_treaty_organization focus = JAP_rekindle_the_old_alliance }
-		relative_position_id = JAP_seek_alliances
-		icon = GFX_focus_generic_cryptologic_bomb
-		x = 2
+		id = JAP_preemptive_strike_soviet
+		icon = GFX_focus_attack_soviet
+		prerequisite = { focus = JAP_liberate_manchuria }
+		prerequisite = { focus = JAP_anti_communist_volunteers }
+		x = -2
 		y = 1
-		cost = 10
-		ai_will_do = {
-			factor = 3
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			if = {
-				limit = {
-					NOT = { has_dlc = "La Resistance" }
-				}
-				add_tech_bonus = {
-					name = codebreaking_bonus
-					bonus = 1.0
-					uses = 2
-					category = decryption_tech
-					category = computing_tech
-				}
-				add_ideas = ENG_crypto_bomb_idea_lar
-			}
-			else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-				}			
-				add_ideas = POL_Polish_Cipher_Bureau_Focus2_lar	
-				hidden_effect = {
-					set_technology = { lar_decryption_bonus_tech = 1 }
-				}
-				custom_effect_tooltip = lar_decryption_bonus_tt
-			}
-            if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_form_department
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_form_department            
-            }
-            else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_decryption_boost
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_decryption_boost            
-            }    
-            else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_decryption_boost_2
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_decryption_boost_2            
-            }			
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
-	}	
-	focus = {
-		id = JAP_obtain_polish_cryptological_data2
-		text = JAP_obtain_polish_cryptological_data
-		available = {
-			POL = {
-				is_in_faction_with = ROOT 
-				is_puppet = no
-				if = {
-					limit = {
-						has_dlc = "La Resistance"
-						has_dlc = "Man the Guns"
-					}
-					has_completed_focus = POL_expand_polish_intelligence
-				}
-				else_if = {
-					limit = {
-						NOT = { has_dlc = "La Resistance" }
-						has_dlc = "Man the Guns"
-					}
-					has_completed_focus = POL_Polish_Cipher_Bureau_no_lar
-				}
-				else_if = {
-					limit = {
-						NOT = { has_dlc = "La Resistance" }
-						NOT = { has_dlc = "Man the Guns" }
-					}
-					has_completed_focus = POL_Polish_Cipher_Bureau_no_lar_no_mtg
-				}
-			}
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				has_intelligence_agency = yes
-			}
-		}
-		prerequisite = { focus = JAP_seek_alliances }
-		allow_branch = {
-			NOT = {
-				has_dlc = "Waking the Tiger"
-			}
-		}
-		relative_position_id = JAP_seek_alliances
-		icon = GFX_focus_generic_cryptologic_bomb
-		x = 2
-		y = 1
-		cost = 10
-		ai_will_do = {
-			factor = 3
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			if = {
-				limit = {
-					NOT = { has_dlc = "La Resistance" }
-				}
-				add_tech_bonus = {
-					name = codebreaking_bonus
-					bonus = 1.0
-					uses = 2
-					category = decryption_tech
-					category = computing_tech
-				}
-				add_ideas = ENG_crypto_bomb_idea_lar
-			}
-			else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-				}			
-				add_ideas = POL_Polish_Cipher_Bureau_Focus2_lar	
-				hidden_effect = {
-					set_technology = { lar_decryption_bonus_tech = 1 }
-				}
-				custom_effect_tooltip = lar_decryption_bonus_tt
-			}
-            if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_form_department
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_form_department            
-            }
-            else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_decryption_boost
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_decryption_boost            
-            }    
-            else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_decryption_boost_2
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_decryption_boost_2            
-            }			
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
-	}
-
-
-	focus = {
-		id = JAP_preemptive_war
-		icon = GFX_goal_attack_communists
-		prerequisite = { focus = JAP_seek_alliances }
-		x = 0
-		y = 1
-		relative_position_id = JAP_seek_alliances
+		relative_position_id = JAP_liberate_manchuria
 
 		cost = 10
 
 		ai_will_do = {
-			factor = 3
+			factor = 1
 			modifier = {
-				surrender_progress > 0.1
 				factor = 0
-			}			
-		}
-		available = {
-			r56_script_i_am_sane = yes
-			SOV = {
-				r56_script_target_is_sane = yes
+				has_war = yes
 			}
 		}
 
-		bypass = {
-			OR = {
-				has_war_with = SOV
-				has_wargoal_against = SOV
-				SOV = { exists = no }
+		available = {
+			SOV = {
+				NOT = {
+					has_government = democratic
+					is_in_faction_with = JAP
+				}
 			}
 		}
 
 		completion_reward = {
 			create_wargoal = {
+				type = puppet_wargoal_focus
 				target = SOV
 				expire = 0
-				type = annex_everything
-			}
-			unlock_decision_tooltip = JAP_war_with_soviet_union
-			if = {
-				limit = {
-					has_country_leader = { ruling_only = yes name = "Hirohito" }
-				}
-				remove_country_leader_trait = imperial_sanction
 			}
 		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
+
 	focus = {
 		id = JAP_stimulate_mongol_traditions
 		icon = GFX_goal_generic_cavalry
@@ -6013,7 +5764,30 @@
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
+	focus = {
+		id = JAP_full_sovereignty_for_the_philippines
+		icon = GFX_goal_philippines_democracy
+		prerequisite = { focus = JAP_liberate_manchuria }
+		x = 0
+		y = 1
+		relative_position_id = JAP_liberate_manchuria
 
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		bypass = {
+			"PHI" = {
+				is_subject = no
+			}
+		}
+
+		completion_reward = {
+			"PHI" = { OVERLORD = { country_event = { id = wtt_japan.104 days = 1 } } }
+		}
+	}
 	focus = {
 		id = JAP_liberate_manchuria
 		icon = GFX_goal_JAP_attack_manchukuo
@@ -6403,6 +6177,7 @@
 		completion_reward = {
 			set_technology = {etax_air_defense_2 = 1}
 			add_tech_bonus = {
+				name = fighter
 				bonus = 1
 				uses = 1
 				category = light_fighter
@@ -6440,6 +6215,79 @@
 
 		ai_will_do = {
 			factor = 1
+		}
+
+		available = {
+			has_government = communism
+			is_in_faction_with = SOV
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor
+				uses = 1
+				ahead_reduction = 1
+				bonus = 1
+				category = armor
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = JAP_improve_tank_tactics
+		icon = GFX_goal_SOV_tankograd
+		prerequisite = { focus = JAP_cede_eastern_manchuria_for_help }
+		x = 2
+		y = 2
+		relative_position_id = JAP_cede_eastern_manchuria_for_help
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			has_government = communism
+			is_in_faction_with = SOV
+		}
+
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			add_ideas = JAP_tank_tactics
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = JAP_reignite_the_chinese_civil_war
+		icon = GFX_focus_attack_china
+		prerequisite = { focus = JAP_retake_manchuria}
+		will_lead_to_war_with = CHI
+		x = 2
+		y = 1
+		relative_position_id = JAP_retake_manchuria
+
+		cost = 5
+
+		available = {
+			is_puppet = no
+			NOT = { has_war_with = CHI }
+			NOT = {
+				is_in_faction_with = CHI
+			}
+		}
+		bypass = {
+
+		}
+
+		will_lead_to_war_with = CHI
+
+		ai_will_do = {
+			factor = 10
 			modifier = {
 				factor = 0
 				has_war = yes
@@ -6615,10 +6463,11 @@ focus = {
 			555 = {set_state_flag = japanese_core}
 
 			add_tech_bonus = {
+				name = industry
 				category = industry
 				bonus = 1
 				ahead_reduction = 2
-				uses = 2
+				uses = 1
 			}
 			add_political_power = 150
 			unlock_decision_tooltip = JAP_development_of_mainland_industries
@@ -7045,16 +6894,9 @@ focus = {
 		ai_will_do = {
 			factor = 1
 		}
-
-		bypass = {
-			"PHI" = {
-				is_subject = no
-			}
-		}
-
-		completion_reward = {
-			"PHI" = { OVERLORD = { country_event = { id = wtt_japan.104 days = 1 } } }
-		}
+		#completion_reward = {
+			#unlock_decision_tooltip = form_japanese_commune
+	#}
 	}
 
 	focus = {
