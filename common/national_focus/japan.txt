@@ -385,7 +385,7 @@
 								division = "name = \"9. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
 								owner = PREV
 							}
-						}					
+						}						
 					}
 				}
 			}
@@ -597,7 +597,6 @@
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
-
 	focus = {
 		id = JAP_purge_the_kodoha_faction
 		icon = GFX_goal_JAP_tojo_purge
@@ -3645,176 +3644,28 @@
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_POLITICAL }
 	}
-
-	focus = {
-		id = JAP_preemptive_strike_soviet
-		icon = GFX_focus_attack_soviet
-		prerequisite = { focus = JAP_liberate_manchuria }
-		prerequisite = { focus = JAP_anti_communist_volunteers }
-		x = -2
-		y = 1
-		relative_position_id = JAP_liberate_manchuria
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				has_war = yes
-			}
-		}
-
-		available = {
-			SOV = {
-				NOT = {
-					has_government = democratic
-					is_in_faction_with = JAP
-				}
-			}
-		}
-
-		completion_reward = {
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = SOV
-				expire = 0
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
+	focus = { id = JAP_preemptive_war
+	icon = GFX_focus_JAP_lunge_mines
+	prerequisite = {
+		focus = JAP_seek_alliances
 	}
+	x = 0
+	y = 1
+	relative_position_id = JAP_seek_alliances
+	cost = 5
+	ai_will_do = {
+		factor = 3
+	}
+	completion_reward = {
 
-	focus = {
-		id = JAP_stimulate_mongol_traditions
-		icon = GFX_goal_generic_cavalry
-		x = 1
-		y = 2
-		prerequisite = {
-			focus = JAP_preemptive_war
-			focus = JAP_anti_communist_volunteers
-		}
-		relative_position_id = JAP_preemptive_war
-		cost = 10
-
-		ai_will_do = {
-			factor = 3
-		}
-
-		allow_branch = {
-			#has_dlc = "La Resistance"
-		}
-
-		available = {
-			is_subject = no
-			OR = {
-				TAN = {
-					is_subject_of = ROOT
-				}
-				any_state = {
-					is_core_of = TAN
-					is_controlled_by = ROOT
-				}
-			}			
-			OR = {
-				MON = {
-					is_subject_of = ROOT
-				}
-				any_state = {
-					is_core_of = MON
-					is_controlled_by = ROOT
-				}
-			}			
-			OR = {
-				MEN = {
-					is_subject_of = ROOT
-				}
-				any_state = {
-					is_core_of = MEN
-					is_controlled_by = ROOT
-				}
-			}
-			OR = {
-				BYA = {
-					is_subject_of = ROOT
-				}
-				any_state = {
-					is_core_of = BYA
-					is_controlled_by = ROOT
-				}
-			}
-		}
-		
-		bypass = {
-
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_relation_modifier = {
-				target = TAN
-				modifier = JAP_pro_mongol_propaganda
-			}
-			add_relation_modifier = {
-				target = MON
-				modifier = JAP_pro_mongol_propaganda
-			}
-			add_relation_modifier = {
-				target = MEN
-				modifier = JAP_pro_mongol_propaganda
-			}
-			add_relation_modifier = {
-				target = BYA
-				modifier = JAP_pro_mongol_propaganda
-			}
+		create_wargoal = {
+			target = SOV
+			expire = 0
+			type = annex_everything
 		}
 	}
-	focus = {
-		id = JAP_preemptive_war
-		icon = GFX_goal_attack_communists
-		prerequisite = { focus = JAP_seek_alliances }
-		x = 0
-		y = 1
-		relative_position_id = JAP_seek_alliances
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 3
-			modifier = {
-				surrender_progress > 0.1
-				factor = 0
-			}			
-		}
-		available = {
-			r56_script_i_am_sane = yes
-			SOV = {
-				r56_script_target_is_sane = yes
-			}
-		}
-
-		bypass = {
-			OR = {
-				has_war_with = SOV
-				has_wargoal_against = SOV
-				SOV = { exists = no }
-			}
-		}
-
-		completion_reward = {
-			create_wargoal = {
-				target = SOV
-				expire = 0
-				type = annex_everything
-			}
-			unlock_decision_tooltip = JAP_war_with_soviet_union
-			if = {
-				limit = {
-					has_country_leader = { ruling_only = yes name = "Hirohito" }
-				}
-				remove_country_leader_trait = imperial_sanction
-			}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
+
 	focus = {
 		id = JAP_establish_the_northern_resource_area
 		icon = GFX_goal_generic_construction2
@@ -4894,30 +4745,6 @@
 			}
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
-	focus = {
-		id = JAP_full_sovereignty_for_the_philippines
-		icon = GFX_goal_philippines_democracy
-		prerequisite = { focus = JAP_liberate_manchuria }
-		x = 0
-		y = 1
-		relative_position_id = JAP_liberate_manchuria
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		bypass = {
-			"PHI" = {
-				is_subject = no
-			}
-		}
-
-		completion_reward = {
-			"PHI" = { OVERLORD = { country_event = { id = wtt_japan.104 days = 1 } } }
-		}
 	}
 	focus = {
 		id = JAP_liberate_manchuria
@@ -6211,71 +6038,71 @@ focus = {
 				target = ENG
 				expire = 0
 				type = annex_everything
-				}
+			}
 			create_wargoal = {
-					target = USA
+				target = USA
+				expire = 0
+				type = annex_everything
+				}
+		create_wargoal = {
+					target = PHI
 					expire = 0
 					type = annex_everything
 					}
-			create_wargoal = {
-						target = PHI
+		create_wargoal = {
+						target = FRA
 						expire = 0
 						type = annex_everything
 						}
-			create_wargoal = {
-							target = FRA
+		create_wargoal = {
+							target = INS
 							expire = 0
 							type = annex_everything
 							}
-			create_wargoal = {
-								target = INS
-								expire = 0
-								type = annex_everything
-								}
-			}
-		
-
-
-		search_filters = { FOCUS_FILTER_ALLIANCE }
-	}
-	focus = {
-		id = JAP_declare_the_pacific_commune
-		icon = GFX_focus_jap_pacific_guardian
-		prerequisite = { focus = JAP_declare_on_the_colonizers }
-		x = -2
-		y = 5
-		relative_position_id = JAP_close_the_island
-
-		cost = 10
-		available = {
-			629 = { is_controlled_by = JAP } #Hawaii
-			647 = { is_controlled_by = JAP } 
-		    623 = { is_controlled_by = JAP }
-			327 = { is_controlled_by = JAP }
-			624 = { is_controlled_by = JAP }
-			625 = { is_controlled_by = JAP }
-			628 = { is_controlled_by = JAP }
-			627 = { is_controlled_by = JAP } 
-			626 = { is_controlled_by = JAP } #philliplines
-			916 = { is_controlled_by = JAP }
-			333 = { is_controlled_by = JAP }
-			334 = { is_controlled_by = JAP }
-			977 = { is_controlled_by = JAP } #kalimantan
-			951 = { is_controlled_by = JAP }
-			960 = { is_controlled_by = JAP }
-			914 = { is_controlled_by = JAP } #malaya
-			974 = { is_controlled_by = JAP }
-			335 = { is_controlled_by = JAP }
-			446 = { is_controlled_by = JAP }
-			976 = { is_controlled_by = JAP }
-			667 = { is_controlled_by = JAP } #sunda island
-			673 = { is_controlled_by = JAP }
-			975 = { is_controlled_by = JAP } #sulawesi
 		}
-		#completion_reward = {
-			#unlock_decision_tooltip = form_japanese_commune
-	#}
+	
+
+
+	search_filters = { FOCUS_FILTER_ALLIANCE }
+}
+focus = {
+	id = JAP_declare_the_pacific_commune
+	icon = GFX_focus_jap_pacific_guardian
+	prerequisite = { focus = JAP_declare_on_the_colonizers }
+	x = -2
+	y = 5
+	relative_position_id = JAP_close_the_island
+
+	cost = 10
+	available = {
+		629 = { is_controlled_by = JAP } #Hawaii
+		647 = { is_controlled_by = JAP } 
+		623 = { is_controlled_by = JAP }
+		327 = { is_controlled_by = JAP }
+		624 = { is_controlled_by = JAP }
+		625 = { is_controlled_by = JAP }
+		628 = { is_controlled_by = JAP }
+		627 = { is_controlled_by = JAP } 
+		626 = { is_controlled_by = JAP } #philliplines
+		916 = { is_controlled_by = JAP }
+		333 = { is_controlled_by = JAP }
+		334 = { is_controlled_by = JAP }
+		977 = { is_controlled_by = JAP } #kalimantan
+		951 = { is_controlled_by = JAP }
+		960 = { is_controlled_by = JAP }
+		914 = { is_controlled_by = JAP } #malaya
+		974 = { is_controlled_by = JAP }
+		335 = { is_controlled_by = JAP }
+		446 = { is_controlled_by = JAP }
+		976 = { is_controlled_by = JAP }
+		667 = { is_controlled_by = JAP } #sunda island
+		673 = { is_controlled_by = JAP }
+		975 = { is_controlled_by = JAP } #sulawesi
 	}
+	completion_reward = {
+		add_ideas = JAP_pacific_dominance
+	}
+}
 
 	focus = {
 		id = JAP_the_manchurian_project
