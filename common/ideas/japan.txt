@@ -1,6 +1,62 @@
 ideas = {
 
 	country = {
+		JAP_economic_devastation1 = {
+			picture = japanese_unstable_economy
+			allowed = {
+				always = yes
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = 0.15
+				production_speed_buildings_factor = -0.15
+			}
+		}
+		JAP_economic_devastation2 = {
+			picture = japanese_unstable_economy
+			allowed = {
+				always = yes
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = 0.10
+				production_speed_buildings_factor = -0.10
+			}
+		}
+		JAP_investment = {
+			picture = generic_production_bonus
+			allowed = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				political_power_factor = -0.15
+				consumer_goods_factor = 0.10
+			}
+		}
+		JAP_pacific_dominance = {
+			picture = generic_navy_bonus
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				naval_invasion_capacity = 10
+				naval_invasion_penalty = -0.1
+				amphibious_invasion = 0.10
+				navy_max_range_factor = 0.30
+				shore_bombardment_bonus = 0.20
+			}
+		}
 
 		JAP_rebuild_navy = {
 			picture = generic_navy_bonus
@@ -147,24 +203,38 @@ ideas = {
 					OR = {
 						date > 1939.06.01
 						not = {
-							JAP = {
-								any_controlled_state = {
-								  OR = {
-								is_core_of = KOR
-								is_core_of = CHI
-								is_core_of = SIA
-								is_core_of = PHI
-								is_core_of = FRI
-								is_core_of = MAL
-								is_core_of = INS
-								is_core_of = AST
-								is_core_of = NZL
-								is_core_of = RAJ
-								is_core_of = SOV
-								  }
+							ROOT = {
+								or = {
+									any_controlled_state = {
+										OR = {
+									  is_core_of = KOR
+									  is_core_of = CHI
+									  is_core_of = SIA
+									  is_core_of = PHI
+									  is_core_of = FRI
+									  is_core_of = MAL
+									  is_core_of = INS
+									  is_core_of = AST
+									  is_core_of = NZL
+									  is_core_of = RAJ
+									  is_core_of = SOV
+										}
+									  }
+									  any_country = {
+										OR = {
+											original_tag = MAN
+											original_tag = KOR
+											original_tag = NKR
+										}
+										is_subject_of = ROOT
+									}
 								}
+	
+								
 						}
 					}
+					
+				
 				}
 				}
 			allowed_civil_war = {
@@ -190,22 +260,32 @@ ideas = {
 				OR = {
 					date > 1939.06.01
 					not = {
-						JAP = {
-							any_controlled_state = {
-							  OR = {
-								is_core_of = KOR
-								is_core_of = CHI
-								is_core_of = SIA
-								is_core_of = PHI
-								is_core_of = FRI
-								is_core_of = MAL
-								is_core_of = INS
-								is_core_of = AST
-								is_core_of = NZL
-								is_core_of = RAJ
-								is_core_of = SOV
-							  }
-							}
+						ROOT = {
+							or = {
+								any_controlled_state = {
+									OR = {
+								  is_core_of = KOR
+								  is_core_of = CHI
+								  is_core_of = SIA
+								  is_core_of = PHI
+								  is_core_of = FRI
+								  is_core_of = MAL
+								  is_core_of = INS
+								  is_core_of = AST
+								  is_core_of = NZL
+								  is_core_of = RAJ
+								  is_core_of = SOV
+									}
+								  }
+								  any_country = {
+									OR = {
+										original_tag = MAN
+										original_tag = KOR
+										original_tag = NKR
+									}
+									is_subject_of = ROOT
+								}
+							}	
 					}
 				}
 			}
@@ -213,7 +293,7 @@ ideas = {
 
 			removal_cost = -1
 
-			picture = generic_navy_bonus
+			picture = JAP_red_fleet
 			modifier = {
 				industrial_capacity_dockyard = 0.10
 				convoy_escort_efficiency = 0.10
@@ -226,10 +306,8 @@ ideas = {
 				equipment_bonus = {
 					capital_ship = {
 						hg_attack = 0.10
+						armor_value = 0.10
 						instant = yes
-				}
-				carrier = {
-					carrier_size = 5
 				}
 
 		}
@@ -237,29 +315,45 @@ ideas = {
 		
 		JAP_naval_improvements = {
 			
-				available = {
-					OR = {
-						date > 1939.06.01
-						not = {
-							JAP = {
+			available = {
+				OR = {
+					date > 1939.06.01
+					not = {
+						ROOT = {
+							or = {
 								any_controlled_state = {
-								  OR = {
-								is_core_of = KOR
-								is_core_of = CHI
-								is_core_of = SIA
-								is_core_of = PHI
-								is_core_of = FRI
-								is_core_of = MAL
-								is_core_of = INS
-								is_core_of = AST
-								is_core_of = NZL
-								is_core_of = RAJ
+									OR = {
+								  is_core_of = KOR
+								  is_core_of = CHI
+								  is_core_of = SIA
+								  is_core_of = PHI
+								  is_core_of = FRI
+								  is_core_of = MAL
+								  is_core_of = INS
+								  is_core_of = AST
+								  is_core_of = NZL
+								  is_core_of = RAJ
+								  is_core_of = SOV
+									}
 								  }
+								  any_country = {
+									OR = {
+										original_tag = MAN
+										original_tag = KOR
+										original_tag = NKR
+									}
+									is_subject_of = ROOT
 								}
-						}
+							}
+
+							
 					}
 				}
-				}
+				
+			
+			}
+			}
+
 			allowed_civil_war = {
 				always = yes
 			}
@@ -984,6 +1078,10 @@ ideas = {
 			picture = jap_zaibatsu_control
 			
 			modifier = {
+				political_advisor_cost_factor = -0.1
+				war_support_factor = 0.1
+				global_building_slots_factor = 0.1
+				consumer_goods_factor = 0.05
 				production_speed_industrial_complex_factor = 0.05
 				production_speed_arms_factory_factor = 0.05
 				production_speed_dockyard_factor = 0.05
@@ -1288,6 +1386,60 @@ ideas = {
 				army_morale_factor = 0.05
 			}
 		}
+
+		JAP_new_red_army = {
+			picture = generic_morale_bonus
+			allowed = {
+				always = yes
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+	
+			modifier = {
+				political_power_gain = -0.15
+				army_leader_start_level = 2
+				army_org_factor = 0.10
+				max_planning = 0.05
+				army_leader_start_attack_level = 1
+				army_leader_start_planning_level = 1
+				army_leader_start_logistics_level = 1
+			}
+		}
+		JAP_army_restructure = {
+			picture = generic_army_war_college
+			allowed = {
+				always = yes
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.1
+				army_attack_factor = -0.15
+				army_defence_factor = -0.15
+				army_org_factor = -0.20
+			}
+		}
+		JAP_army_restructuring = {
+			picture = generic_army_war_college
+			allowed = {
+				always = yes
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.15
+				army_attack_factor = -0.15
+				army_defence_factor = -0.15
+				army_org_factor = -0.20
+			}
+		}
+		
 
 		JAP_communist_volunteers = {
 			
@@ -2563,7 +2715,36 @@ ideas = {
 				# amphibious_invasion_defence = 0.05
 				naval_invasion_capacity = 5
 			}
-		}			
+		}
+		JAP_commie_fleet = {
+
+			picture = generic_naval_bonus
+
+			cost = 100
+
+			allowed = {
+				original_tag = JAP
+			}
+			available = {
+				has_completed_focus = JAP_close_the_island
+			}
+			
+			research_bonus = {
+				naval_equipment = 0.10
+			}
+			
+			traits = { raiding_fleet_naval_manufacturer }
+
+			equipment_bonus = {
+				
+			}
+			
+			modifier = {
+				consumer_goods_factor = 0.05
+				refit_speed = 0.10
+				refit_ic_cost = -0.10
+			}			
+		}				
 	}
 	
 	aircraft_manufacturer = {
@@ -2761,21 +2942,27 @@ ideas = {
 		}		
 		JAP_japan_steel_works = {
 
-			picture = generic_industrial_concern_1
-			
+			picture = generic_agrarian_society
+			cost = 100
+
 			allowed = {
 				original_tag = JAP
 			}
+			available = {
+				has_government = communism
+			}
 			
 			research_bonus = {
-				industry = 0.10
-				naval_gunnery_tech = 0.15
+				industry = -0.10
 			}
 			
 			traits = { industrial_concern }
 			
 			modifier = {
-				production_speed_steel_mill_factor = 0.10 
+				local_resources_factor = 0.05
+				industrial_capacity_factory = 0.05
+				industrial_capacity_dockyard = 0.05
+				production_speed_buildings_factor = 0.05 
 			}
 			ai_will_do = {
 				factor = 0
