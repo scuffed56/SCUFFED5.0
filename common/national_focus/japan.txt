@@ -114,7 +114,7 @@
 		id = JAP_exchange_the_exiles
 		icon = GFX_goal_generic_forceful_treaty
 		prerequisite = { focus = JAP_the_unthinkable_option }
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = JAP_the_unthinkable_option
 
@@ -2921,91 +2921,91 @@
 			}			
 		}
 	}
-	# focus = {
-	# 	id = JAP_indian_liberation_army
-	# 	icon = GFX_goal_RAJ_indian_revolt
-	# 	x = 0
-	# 	y = 1
-	# 	prerequisite = {
-	# 		focus = JAP_support_the_indian_independence_league
-	# 	}
-	# 	relative_position_id = JAP_support_the_indian_independence_league
-	# 	cost = 10
+	focus = {
+		id = JAP_indian_liberation_army
+		icon = GFX_goal_RAJ_indian_revolt
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = JAP_support_the_indian_independence_league
+		}
+		relative_position_id = JAP_support_the_indian_independence_league
+		cost = 10
 
-	# 	ai_will_do = {
-	# 		factor = 3
-	# 	}
+		ai_will_do = {
+			factor = 3
+		}
 
-	# 	allow_branch = {
-	# 		#has_dlc = "La Resistance"
-	# 	}
+		allow_branch = {
+			#has_dlc = "La Resistance"
+		}
 
-	# 	available = {
-	# 		OR = {
-	# 			RAJ = {
-	# 				OVERLORD = {
-	# 					has_war_with = ROOT
-	# 				}
-	# 			}
-	# 			any_country = {
-	# 				original_tag = RAJ
-	# 				is_in_faction_with = ROOT
-	# 			}
-	# 		}
+		available = {
+			OR = {
+				RAJ = {
+					OVERLORD = {
+						has_war_with = ROOT
+					}
+				}
+				any_country = {
+					original_tag = RAJ
+					is_in_faction_with = ROOT
+				}
+			}
 			
-	# 	}
+		}
 		
-	# 	bypass = {
+		bypass = {
 
-	# 	}
-	# 	search_filters = { FOCUS_FILTER_POLITICAL }
-	# 	completion_reward = {
-	# 		# if = {
-	# 		# 	#limit = {
-	# 		# 		#OVERLORD = {
-	# 		# 		#	RAJ = {
-	# 		# 		#		has_war_with = ROOT
-	# 		# 		#	}
-	# 		# 		#}
-	# 		# 	#}
-	# 		# 	add_manpower = 50000
-	# 		# }
-	# 		# if = {
-	# 		# 	limit = {
-	# 		# 		any_country = {
-	# 		# 			original_tag = RAJ
-	# 		# 			is_in_faction_with = ROOT
-	# 		# 		}
-	# 		# 	}
-	# 		# 	add_doctrine_cost_reduction = {
-	# 		# 		name = JAP_build_up_the_manchurian_army
-	# 		# 		cost_reduction = 0.5
-	# 		# 		uses = 2				
-	# 		# 		category = land_doctrine
-	# 		# 	}
-	# 		# 	if = {
-	# 		# 		limit = { has_equipment = { support_equipment > 500 } }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			if = {
+				limit = {
+					OVERLORD = {
+						RAJ = {
+							has_war_with = ROOT
+						}
+					}
+				}
+				add_manpower = 50000
+			}
+			if = {
+				limit = {
+					any_country = {
+						original_tag = RAJ
+						is_in_faction_with = ROOT
+					}
+				}
+				add_doctrine_cost_reduction = {
+					name = JAP_build_up_the_manchurian_army
+					cost_reduction = 0.5
+					uses = 2				
+					category = land_doctrine
+				}
+				if = {
+					limit = { has_equipment = { support_equipment > 500 } }
 
-	# 		# 		send_equipment = {
-	# 		# 			target = PREV
-	# 		# 			equipment = support_equipment
-	# 		# 			amount = 500
-	# 		# 			old_prioritised = yes
-	# 		# 		}
-	# 		# 	}
+					send_equipment = {
+						target = PREV
+						equipment = support_equipment
+						amount = 500
+						old_prioritised = yes
+					}
+				}
 
-	# 		# 	if = {
-	# 		# 		limit = { has_equipment = { artillery_equipment > 250 } }
-	# 		# 		send_equipment = {
-	# 		# 			target = PREV
-	# 		# 			equipment = artillery_equipment
-	# 		# 			amount = 250
-	# 		# 			old_prioritised = yes
-	# 		# 		}
-	# 		# 	}				
-	# 		# }		
-	# 	}
-	# }	
+				if = {
+					limit = { has_equipment = { artillery_equipment > 250 } }
+					send_equipment = {
+						target = PREV
+						equipment = artillery_equipment
+						amount = 250
+						old_prioritised = yes
+					}
+				}				
+			}		
+		}
+	}	
 	focus = {
 		id = JAP_support_the_burmese_liberation_movement
 		icon = GFX_goal_generic_befriend_burma
@@ -3976,6 +3976,7 @@
 		}
 
 		completion_reward = {
+			add_stability = -0.10
 			country_event = { id = wtt_japan.108 }
 			set_party_name = {
 			    ideology = neutrality
@@ -5764,30 +5765,7 @@
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
-	focus = {
-		id = JAP_full_sovereignty_for_the_philippines
-		icon = GFX_goal_philippines_democracy
-		prerequisite = { focus = JAP_liberate_manchuria }
-		x = 0
-		y = 1
-		relative_position_id = JAP_liberate_manchuria
 
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		bypass = {
-			"PHI" = {
-				is_subject = no
-			}
-		}
-
-		completion_reward = {
-			"PHI" = { OVERLORD = { country_event = { id = wtt_japan.104 days = 1 } } }
-		}
-	}
 	focus = {
 		id = JAP_liberate_manchuria
 		icon = GFX_goal_JAP_attack_manchukuo
