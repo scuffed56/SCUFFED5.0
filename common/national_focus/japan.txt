@@ -54,11 +54,11 @@
 		id = JAP_approach_the_young_officers
 		icon = GFX_focus_generic_military_mission
 		prerequisite = { focus = JAP_the_unthinkable_option }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = JAP_the_unthinkable_option
 
-		cost = 5
+		cost = 3
 
 		ai_will_do = {
 			factor = 1
@@ -110,11 +110,11 @@
 		id = JAP_exchange_the_exiles
 		icon = GFX_goal_generic_forceful_treaty
 		prerequisite = { focus = JAP_the_unthinkable_option }
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = JAP_the_unthinkable_option
 
-		cost = 5
+		cost = 2
 
 		ai_will_do = {
 			factor = 1
@@ -152,12 +152,15 @@
 		id = JAP_cast_the_die
 		icon = GFX_focus_jap_cast_the_die
 		prerequisite = { focus = JAP_approach_the_young_officers }
-		prerequisite = { focus = JAP_exchange_the_exiles }
-		x = 1
-		y = 1
-		relative_position_id = JAP_approach_the_young_officers
+		prerequisite = { focus = JAP_nationalize_the_zaibatsus }
+		prerequisite = {
+			focus = JAP_exchange_the_exiles
+		}
+		x = 0
+		y = 2
+		relative_position_id = JAP_the_unthinkable_option
 
-		cost = 10
+		cost = 3
 
 		ai_will_do = {
 			factor = 2
@@ -209,9 +212,9 @@
 			start_civil_war = {
 				ruling_party = communism
 				ideology = ROOT
-				size = 0.45	#This was too much for AI
+				size = 0.60	#This was too much for AI
 				capital = 282
-				states = { 282 533 536 555 529 530 528 526 524 645 648 646 647 684 633 609 745 527 525 917 918 919 920 }
+				states = { 307 536 282 533 536 555 529 530 528 526 524 645 648 646 647 684 633 609 745 527 525 917 918 919 920 }
 				keep_unit_leaders = {
 					750 751 752
 				}
@@ -358,18 +361,6 @@
 								division = "name = \"2. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
 								owner = PREV
 							}
-							create_unit = {
-								division = "name = \"3. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
-								owner = PREV
-							}
-							create_unit = {
-								division = "name = \"4. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
-								owner = PREV
-							}
-							create_unit = {
-								division = "name = \"5. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
-								owner = PREV
-							}
 						}
 						530 = {
 							create_unit = {
@@ -390,28 +381,6 @@
 								division = "name = \"9. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
 								owner = PREV
 							}
-						}
-						282 = {
-							create_unit = {
-								division = "name = \"10. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
-								owner = PREV
-							}
-							create_unit = {
-								division = "name = \"11. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
-								owner = PREV
-							}
-							create_unit = {
-								division = "name = \"12. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
-								owner = PREV
-							}	
-							create_unit = {
-								division = "name = \"13. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
-								owner = PREV
-							}
-							create_unit = {
-								division = "name = \"14. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
-								owner = PREV
-							}																				
 						}						
 					}
 				}
@@ -459,7 +428,7 @@
 		id = JAP_the_fate_of_the_imperial_family
 		icon = GFX_goal_JAP_fate_of_the_imperial_family
 		prerequisite = { focus = JAP_cast_the_die }
-		x = -2
+		x = 0
 		y = 1
 		relative_position_id = JAP_cast_the_die
 
@@ -476,61 +445,33 @@
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			country_event = wtt_japan.31
-			add_ideas = JAP_revolutionary_fervour
-			if = {
-				limit = {
-					communism > 0.8
-				}
-				remove_ideas = sanzo_nosaka				
-			}			
-		}
-	}
-
-	focus = {
-		id = JAP_rebuild_the_civil_service
-		icon = GFX_generic_goal_communist_reforms
-		prerequisite = { focus = JAP_the_fate_of_the_imperial_family }
-		x = -1
-		y = 1
-		relative_position_id = JAP_the_fate_of_the_imperial_family
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		completion_reward = {
 			add_timed_idea = {
 				idea = JAP_rebuild_the_civil_service
 				days = 730
 			}
+			add_ideas = censored_press
 			if = {
 				limit = {
 					communism > 0.8
 				}
 				remove_ideas = sanzo_nosaka				
-			}			
+			}	
+			add_ideas = JAP_army_restructure		
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 
 	focus = {
 		id = JAP_open_up_the_universities
 		icon = GFX_goal_research_silver
-		prerequisite = { focus = JAP_the_fate_of_the_imperial_family }
-		x = 1
+		prerequisite = { focus = JAP_cast_the_die }
+		x = 4
 		y = 1
-		relative_position_id = JAP_the_fate_of_the_imperial_family
+		relative_position_id = JAP_cast_the_die
 
 		cost = 10
 
 		ai_will_do = {
 			factor = 2
-		}
-
-		available = {
-			has_stability < 0.5
 		}
 
 		completion_reward = {
@@ -540,345 +481,10 @@
 	}
 
 	focus = {
-		id = JAP_finish_the_fight
-		icon = GFX_goal_JAP_finish_the_fight
-		prerequisite = { focus = JAP_rebuild_the_civil_service }
-		prerequisite = { focus = JAP_open_up_the_universities }
-		x = 0
-		y = 2
-		relative_position_id = JAP_the_fate_of_the_imperial_family
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			country_exists = MAN
-			MAN = {
-				NOT = {
-					has_government = communism
-				}
-			}
-		}
-
-		bypass = {
-			OR = {
-				has_wargoal_against = MAN
-				has_war_with = MAN
-				MAN = {
-					exists = no
-				}
-				MAN = {
-					has_government = communism
-				}
-			}
-		}
-
-		will_lead_to_war_with = MAN
-		completion_reward = {
-			create_wargoal = {
-				target = MAN
-				expire = 0
-				type = puppet_wargoal_focus
-			}
-			if = {
-				limit = {
-					communism > 0.8
-				}
-				remove_ideas = sanzo_nosaka				
-			}			
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
-
-	focus = {
-		id = JAP_join_comintern
-		icon = GFX_focus_chi_mission_to_the_soviet_union
-		prerequisite = { focus = JAP_finish_the_fight }
-		prerequisite = { focus = JAP_red_pacific_fleet }
-		mutually_exclusive = { focus = JAP_asian_communist_solidarity }
-		x = 0
-		y = 3
-		relative_position_id = JAP_the_fate_of_the_imperial_family
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			has_government = communism
-			is_subject = no
-			if = {
-				limit = {
-					SOV = {
-						has_government = communism
-					}
-					NOT = { has_war_with = SOV }
-					NOT = { is_in_faction_with = SOV }					
-				}
-			}
-
-		}
-
-		completion_reward = {
-			#Join SOV faction. If SOV has no faction or is not faction leader, form own faction and cry a lot.
-			if = {
-				limit = {
-					SOV = {
-						is_faction_leader = yes
-						has_government = communism
-					}
-				}
-				SOV = { country_event = generic.2 }
-			}
-			else_if = {
-				limit = {
-					any_other_country = {
-						has_government = communism
-						is_faction_leader = yes
-						is_major = yes
-						has_capitulated = no
-						num_of_factories > 70
-					}
-				}
-				random_other_country = {
-					limit = {
-						has_government = communism
-						is_faction_leader = yes
-						is_major = yes
-						num_of_factories > 70
-					}
-					country_event = generic.2
-				}				
-			}
-			else_if = {
-				limit = {
-					any_other_country = {
-						has_government = communism
-						is_faction_leader = yes
-						is_major = yes
-						has_capitulated = no
-						num_of_factories > 50
-					}
-				}
-				random_other_country = {
-					limit = {
-						has_government = communism
-						is_faction_leader = yes
-						is_major = yes
-						num_of_factories > 50
-					}
-					country_event = generic.2
-				}				
-			}			
-			else_if = {
-				limit = {
-					any_other_country = {
-						has_government = communism
-						is_faction_leader = yes
-						is_major = yes
-						has_capitulated = no
-					}
-				}
-				random_other_country = {
-					limit = {
-						has_government = communism
-						is_faction_leader = yes
-						is_major = yes
-						has_capitulated = no
-					}
-					country_event = generic.2
-				}
-			}
-			else_if = {
-				limit = {
-					any_other_country = {
-						has_government = communism
-						is_faction_leader = yes
-
-						has_capitulated = no
-					}
-				}
-				random_other_country = {
-					limit = {
-						has_government = communism
-						is_faction_leader = yes
-						has_capitulated = no
-					}
-					country_event = generic.2
-				}
-			}
-			else = {
-				set_rule = { can_create_factions = yes }
-				create_faction = JAP_the_new_international
-				add_political_power = 100
-				if = {
-					limit = {
-						SOV = {
-							has_government = communism
-							is_puppet = no
-						}
-					}
-					SOV = { country_event = generic.5 }
-				}
-				
-			}
-		}
-		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = JAP_soviet_technology_sharing
-		icon = GFX_goal_tfv_generic_tech_sharing
-		prerequisite = { focus = JAP_join_comintern }
-		x = 0
-		y = 1
-		relative_position_id = JAP_join_comintern
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			has_government = communism
-			is_in_faction_with = SOV
-		}
-
-		completion_reward = {
-			add_tech_bonus = {
-				uses = 1
-				bonus = 0.5
-				category = infantry_weapons
-			}
-			add_tech_bonus = {
-				uses = 1
-				bonus = 0.5
-				category = support_tech
-			}
-			SOV = {
-				add_tech_bonus = {
-					uses = 1
-					bonus = 0.5
-					category = infantry_weapons
-				}
-				add_tech_bonus = {
-					uses = 1
-					bonus = 0.5
-					category = support_tech
-				}
-			}
-
-			
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = JAP_import_soviet_armor
-		icon = GFX_goal_generic_heavy_armour_russian
-		prerequisite = { focus = JAP_soviet_technology_sharing }
-		x = 0
-		y = 2
-		relative_position_id = JAP_join_comintern
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			has_government = communism
-			is_in_faction_with = SOV
-		}
-
-		completion_reward = {
-			add_tech_bonus = {
-				uses = 1
-				bonus = 1
-				ahead_reduction = 1
-				category = cat_medium_armor
-			}
-			
-
-			
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = JAP_strike_the_old_oppressors
-		icon = GFX_goal_generic_attack_united_states
-		prerequisite = { focus = JAP_import_soviet_armor focus = JAP_liberate_korea }
-		x = 2
-		y = 3
-		relative_position_id = JAP_join_comintern
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			is_subject = no
-			USA = {
-				NOT = {
-					has_government = ROOT
-				}
-			}
-		}
-
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			create_wargoal = {
-				target = USA
-				expire = 0
-				type = puppet_wargoal_focus
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = JAP_reddoborantias
-		icon = GFX_goal_communist_brigades
-		prerequisite = { 
-			focus = JAP_join_comintern
-			focus = JAP_asian_communist_solidarity
-		}
-		x = 2
-		y = 1
-		relative_position_id = JAP_join_comintern
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			has_government = communism
-		}
-
-		completion_reward = {
-			add_ideas = JAP_communist_volunteers
-		}
-	}
-
-	focus = {
 		id = JAP_red_brigades
 		icon = GFX_goal_generic_left_militia
-		prerequisite = { focus = JAP_cast_the_die }
-		x = 0
+		prerequisite = { focus = JAP_cast_the_die}
+		x = 2
 		y = 1
 		relative_position_id = JAP_cast_the_die
 
@@ -895,400 +501,26 @@
 
 		completion_reward = {
 			add_ideas = JAP_red_brigades
+			add_ideas = JAP_new_red_army
+			remove_ideas = JAP_army_restructure
+
+			add_timed_idea = {
+				idea = JAP_army_restructuring
+				days = 200
+			}
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
 	}
 
 	focus = {
-		id = JAP_red_pacific_fleet
-		icon = GFX_goal_generic_navy_doctrines_tactics
-		prerequisite = { focus = JAP_red_brigades }
-		x = 0
-		y = 2
-		relative_position_id = JAP_red_brigades
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				factor = 2
-				FRA = { has_war = yes }
-			}
-		}
-		
-
-		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = JAP_strike_south_doctrine
-				cost_reduction = 0.5
-				uses = 2
-				category = naval_doctrine
-			}
-			random_owned_controlled_state = {
-				prioritize = { 531 282 }
-				limit = {
-					ROOT = { has_full_control_of_state = PREV }
-					is_core_of = ROOT
-					free_building_slots = {
-						building = dockyard
-						size > 2
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-
-	focus = {
-		id = JAP_guard_the_revolution
-		icon = GFX_goal_HON_nkvd_assistance
-		cost = 10
-		prerequisite = {
-			focus = JAP_red_pacific_fleet
-		}
-		allow_branch = {
-			has_dlc = "La Resistance"
-			has_dlc = "Waking the Tiger"
-		}		
-		relative_position_id = JAP_red_pacific_fleet
-		x = 4
-		y = 1
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0.5
-			}
-		}
-		available = {
-			has_intelligence_agency = yes
-		}
-		completion_reward = {			
-			add_ideas = GER_abwehr_contacts
-			create_operative_leader = {
-				name = "Hotsumi Ozaki"
-				portrait_path = gfx/leaders/Asia/portrait_asia_generic_operative_male_6.dds 
-				traits = { operative_well_groomed operative_infiltrator operative_double_agent }
-				bypass_recruitment = no
-				available_to_spy_master = yes
-				nationalities = { SOV JAP }
-			}
-			add_tech_bonus = {
-				name = mp_tech_bonus_name
-				bonus = 1
-				uses = 1
-				category = military_police_tech
-			}							
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ESPIONAGE }
-	}
-
-	focus = {
-		id = JAP_asian_communist_solidarity
-		icon = GFX_focus_chi_cooperation_with_the_communists
-		prerequisite = { focus = JAP_finish_the_fight }
-		prerequisite = { focus = JAP_red_pacific_fleet }
-		mutually_exclusive = { focus = JAP_join_comintern }
-		x = 2
-		y = 3
-		relative_position_id = JAP_red_brigades
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				PRC = { surrender_progress > 0 }
-			}
-		}
-
-		available = {
-			has_government = communism
-			is_subject = no
-			NOT = { has_war_with = event_target:WTT_communist_china }
-			event_target:WTT_communist_china = {
-				has_government = communism
-				OR = {
-					is_in_faction = no
-					is_faction_leader = yes
-				}
-			}
-		}
-
-
-		completion_reward = {
-			if = {
-				limit = {
-					event_target:WTT_communist_china = { is_faction_leader = yes }
-				}
-				event_target:WTT_communist_china = { country_event = generic.2 }
-			}
-			else_if = {
-				limit = {
-					is_faction_leader = yes
-				}
-				event_target:WTT_communist_china = { country_event = generic.5 }
-			}
-			else = {
-				create_faction = JAP_asian_communist_solidarity
-				custom_effect_tooltip = JAP_asian_communist_solidarity_tt
-				hidden_effect = {
-					event_target:WTT_communist_china = { country_event = generic.5 }
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_POLITICAL }
-	}
-	focus = {
-		id = JAP_reignite_the_chinese_civil_war
-		icon = GFX_focus_attack_china
-		prerequisite = { focus = JAP_asian_communist_solidarity }
-		will_lead_to_war_with = CHI
-		x = 1
-		y = 1
-		relative_position_id = JAP_asian_communist_solidarity
-
-		cost = 10
-
-		available = {
-			is_puppet = no
-			NOT = { has_war_with = CHI }
-			NOT = {
-				is_in_faction_with = CHI
-			}
-			is_in_faction_with = PRC
-			PRC = {
-				has_government = communism
-			}
-			has_navy_size = {
-				size > 15
-			}
-			has_army_manpower = {
-				size > 200000
-			}	
-		}
-		bypass = {
-
-		}
-
-		will_lead_to_war_with = CHI
-
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0
-				has_war = yes
-				
-			}
-		}
-
-		completion_reward = {
-			if = {
-				limit = {
-					CHI = {
-						NOT = {
-							is_in_faction_with = ROOT
-							has_war_with = ROOT	
-						}
-					}
-				}
-				PRC = {
-					create_wargoal = {
-						target = CHI
-						expire = 0
-						type = annex_everything
-					}
-				}
-			}
-			if = {
-				limit = {
-					XSM = {
-						NOT = {
-							is_in_faction_with = ROOT
-							has_war_with = ROOT	
-						}
-					}
-				}
-				PRC = {
-					create_wargoal = {
-						target = XSM
-						expire = 0
-						type = annex_everything
-					}
-				}
-			}
-			if = {
-				limit = {
-					GXC = {
-						NOT = {
-							is_in_faction_with = ROOT
-							has_war_with = ROOT	
-						}
-					}
-				}
-				PRC = {
-					create_wargoal = {
-						target = GXC
-						expire = 0
-						type = annex_everything
-					}
-				}
-			}
-			if = {
-				limit = {
-					SIK = {
-						NOT = {
-							is_in_faction_with = ROOT
-							has_war_with = ROOT	
-						}
-					}
-				}
-				PRC = {
-					create_wargoal = {
-						target = SIK
-						expire = 0
-						type = annex_everything
-					}
-				}
-			}
-			if = {
-				limit = {
-					TNG = {
-						NOT = {
-							is_in_faction_with = ROOT
-							has_war_with = ROOT
-						}
-					}
-				}
-				PRC = {
-					create_wargoal = {
-						target = TNG
-						expire = 0
-						type = annex_everything
-					}
-				}
-			}				
-			if = {
-				limit = {
-					SHX = {
-						NOT = {
-							is_in_faction_with = ROOT
-							has_war_with = ROOT	
-						}
-					}
-				}
-				PRC = {
-					create_wargoal = {
-						target = SHX
-						expire = 0
-						type = annex_everything
-					}
-				}
-			}
-			if = {
-				limit = {
-					MEN = {
-						NOT = {
-							is_in_faction_with = ROOT
-							has_war_with = ROOT	
-						}
-					}
-				}
-				PRC = {
-					create_wargoal = {
-						target = MEN
-						expire = 0
-						type = annex_everything
-					}
-				}
-			}
-			if = {
-				limit = {
-					YUN = {
-						NOT = {
-							is_in_faction_with = ROOT
-							has_war_with = ROOT	
-						}
-					}
-				}
-				PRC = {
-					create_wargoal = {
-						target = YUN
-						expire = 0
-						type = annex_everything
-					}
-				}
-			}																	
-			add_named_threat = { threat = 1 name = JAP_intervene_in_china }
-		}
-	}
-
-	focus = {
-		id = JAP_liberate_korea
-		icon = GFX_goal_JAP_the_korean_question
-		prerequisite = { focus = JAP_asian_communist_solidarity }
-		x = 0
-		y = 2
-		relative_position_id = JAP_asian_communist_solidarity
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 2
-		}
-
-		available = {
-			NOT = {
-				is_in_faction_with = KOR
-				is_in_faction_with = NKR
-			}
-			KOR = { NOT = { has_government = communism } }
-			NKR = { NOT = { has_government = communism } }
-		}
-
-		bypass = {
-			OR = {
-				NOT = { country_exists = KOR }
-				NOT = { country_exists = NKR }
-				MAN = { has_government = communism }
-				is_in_faction_with = KOR
-				is_in_faction_with = NKR
-			}
-		}
-
-		completion_reward = {
-			create_wargoal = {
-				target = KOR
-				expire = 0
-				type = puppet_wargoal_focus
-			}
-			create_wargoal = {
-				target = NKR
-				expire = 0
-				type = puppet_wargoal_focus
-			}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
-
-	focus = {
 		id = JAP_nationalize_the_zaibatsus
 		icon = GFX_focus_jap_zaibatsu
-		prerequisite = { focus = JAP_cast_the_die }
+		prerequisite = { focus = JAP_the_unthinkable_option}
 		x = 2
 		y = 1
-		relative_position_id = JAP_cast_the_die
+		relative_position_id = JAP_the_unthinkable_option
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 3
@@ -1366,187 +598,15 @@
 				remove_idea = JAP_zaibatsus
 				add_idea = JAP_nationalize_the_zaibatsus
 			}
+			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
-
-	focus = {
-		id = JAP_people_owned_mines
-		icon = GFX_goal_generic_commie_investments
-		prerequisite = { focus = JAP_nationalize_the_zaibatsus }
-		x = -1
-		y = 1
-		relative_position_id = JAP_nationalize_the_zaibatsus
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = { 535 }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = steel_mill
-					level = 2
-					instant_build = yes
-				}
-			}
-			unlock_decision_tooltip = develop_north_sakhalin_oil_deposits
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL}
-	}
-
-	focus = {
-		id = JAP_public_works
-		icon = GFX_goal_communist_factory
-		prerequisite = { focus = JAP_nationalize_the_zaibatsus }
-		x = 1
-		y = 1
-		relative_position_id = JAP_nationalize_the_zaibatsus
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-			has_full_control_of_state = 535
-			has_full_control_of_state = 533
-			has_full_control_of_state = 528
-		}
-
-		completion_reward = {
-			535 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			533 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			528 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-			random_owned_controlled_state = {
-				limit = {
-					ROOT = { has_full_control_of_state = PREV }
-					is_core_of = ROOT
-					not = {
-						state = 646
-						state = 645
-						state = 555
-					}
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-				set_state_flag = JAP_nationalize_war_industry_AF
-			}
-			random_owned_controlled_state = {
-				limit = {
-					ROOT = { has_full_control_of_state = PREV }
-					is_core_of = ROOT
-					not = {
-						state = 646
-						state = 645
-						state = 555
-					}
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				set_state_flag = JAP_nationalize_war_industry_IC
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-
-	focus = {
-		id = JAP_tokyo_aluminum_plant
-		icon = GFX_focus_generic_aluminum
-		prerequisite = { focus = JAP_people_owned_mines }
-		prerequisite = { focus = JAP_public_works }
-		x = 0
-		y = 2
-		relative_position_id = JAP_nationalize_the_zaibatsus
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 2
-		}
-
-		available = {
-			has_full_control_of_state = 282
-		}
-
-		completion_reward = {
-		
-			random_owned_controlled_state = {
-				prioritize = { 282 }
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = aluminum_mill
-					level = 3
-					instant_build = yes
-				}				
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_tech = aluminum_production_1
-					}
-				}
-				set_technology = { aluminum_production_1 = 1 }
-				else = {
-					add_tech_bonus = {
-						name = construction_tech_bonus
-						bonus = 1
-						ahead_reduction = 2
-						uses = 1
-						category = aluminium_tech
-					}					
-				}
-			}			
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM}
-	}
-
 	focus = {
 		id = JAP_purge_the_kodoha_faction
 		icon = GFX_goal_JAP_tojo_purge
 		mutually_exclusive = { focus = JAP_the_unthinkable_option focus = JAP_support_the_kodoha_faction focus = JAP_strengthen_civilian_government }
-		x = 10
+		x = 12
 		y = 0
 		relative_position_id = JAP_the_unthinkable_option
 		offset = {
@@ -1821,7 +881,6 @@
 		ai_will_do = {
 			factor = 4
 		}
-
 		available = {
 			OR = {
 				AND = {
@@ -2945,91 +2004,91 @@
 			}			
 		}
 	}
-	focus = {
-		id = JAP_indian_liberation_army
-		icon = GFX_goal_RAJ_indian_revolt
-		x = 0
-		y = 1
-		prerequisite = {
-			focus = JAP_support_the_indian_independence_league
-		}
-		relative_position_id = JAP_support_the_indian_independence_league
-		cost = 10
+	# focus = {
+	# 	id = JAP_indian_liberation_army
+	# 	icon = GFX_goal_RAJ_indian_revolt
+	# 	x = 0
+	# 	y = 1
+	# 	prerequisite = {
+	# 		focus = JAP_support_the_indian_independence_league
+	# 	}
+	# 	relative_position_id = JAP_support_the_indian_independence_league
+	# 	cost = 10
 
-		ai_will_do = {
-			factor = 3
-		}
+	# 	ai_will_do = {
+	# 		factor = 3
+	# 	}
 
-		allow_branch = {
-			#has_dlc = "La Resistance"
-		}
+	# 	allow_branch = {
+	# 		#has_dlc = "La Resistance"
+	# 	}
 
-		available = {
-			OR = {
-				RAJ = {
-					OVERLORD = {
-						has_war_with = ROOT
-					}
-				}
-				any_country = {
-					original_tag = RAJ
-					is_in_faction_with = ROOT
-				}
-			}
+	# 	available = {
+	# 		OR = {
+	# 			RAJ = {
+	# 				OVERLORD = {
+	# 					has_war_with = ROOT
+	# 				}
+	# 			}
+	# 			any_country = {
+	# 				original_tag = RAJ
+	# 				is_in_faction_with = ROOT
+	# 			}
+	# 		}
 			
-		}
+	# 	}
 		
-		bypass = {
+	# 	bypass = {
 
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			if = {
-				limit = {
-					OVERLORD = {
-						RAJ = {
-							has_war_with = ROOT
-						}
-					}
-				}
-				add_manpower = 50000
-			}
-			if = {
-				limit = {
-					any_country = {
-						original_tag = RAJ
-						is_in_faction_with = ROOT
-					}
-				}
-				add_doctrine_cost_reduction = {
-					name = JAP_build_up_the_manchurian_army
-					cost_reduction = 0.5
-					uses = 2				
-					category = land_doctrine
-				}
-				if = {
-					limit = { has_equipment = { support_equipment > 500 } }
+	# 	}
+	# 	search_filters = { FOCUS_FILTER_POLITICAL }
+	# 	completion_reward = {
+	# 		# if = {
+	# 		# 	#limit = {
+	# 		# 		#OVERLORD = {
+	# 		# 		#	RAJ = {
+	# 		# 		#		has_war_with = ROOT
+	# 		# 		#	}
+	# 		# 		#}
+	# 		# 	#}
+	# 		# 	add_manpower = 50000
+	# 		# }
+	# 		# if = {
+	# 		# 	limit = {
+	# 		# 		any_country = {
+	# 		# 			original_tag = RAJ
+	# 		# 			is_in_faction_with = ROOT
+	# 		# 		}
+	# 		# 	}
+	# 		# 	add_doctrine_cost_reduction = {
+	# 		# 		name = JAP_build_up_the_manchurian_army
+	# 		# 		cost_reduction = 0.5
+	# 		# 		uses = 2				
+	# 		# 		category = land_doctrine
+	# 		# 	}
+	# 		# 	if = {
+	# 		# 		limit = { has_equipment = { support_equipment > 500 } }
 
-					send_equipment = {
-						target = PREV
-						equipment = support_equipment
-						amount = 500
-						old_prioritised = yes
-					}
-				}
+	# 		# 		send_equipment = {
+	# 		# 			target = PREV
+	# 		# 			equipment = support_equipment
+	# 		# 			amount = 500
+	# 		# 			old_prioritised = yes
+	# 		# 		}
+	# 		# 	}
 
-				if = {
-					limit = { has_equipment = { artillery_equipment > 250 } }
-					send_equipment = {
-						target = PREV
-						equipment = artillery_equipment
-						amount = 250
-						old_prioritised = yes
-					}
-				}				
-			}		
-		}
-	}	
+	# 		# 	if = {
+	# 		# 		limit = { has_equipment = { artillery_equipment > 250 } }
+	# 		# 		send_equipment = {
+	# 		# 			target = PREV
+	# 		# 			equipment = artillery_equipment
+	# 		# 			amount = 250
+	# 		# 			old_prioritised = yes
+	# 		# 		}
+	# 		# 	}				
+	# 		# }		
+	# 	}
+	# }	
 	focus = {
 		id = JAP_support_the_burmese_liberation_movement
 		icon = GFX_goal_generic_befriend_burma
@@ -3996,8 +3055,8 @@
 			factor = 3
 		}
 
+
 		completion_reward = {
-			add_stability = -0.10
 			country_event = { id = wtt_japan.108 }
 			set_party_name = {
 			    ideology = neutrality
@@ -4587,348 +3646,28 @@
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE FOCUS_FILTER_POLITICAL }
 	}
-
-	focus = {
-		id = JAP_obtain_polish_cryptological_data
-		available = {
-			POL = {
-				is_in_faction_with = ROOT 
-				is_puppet = no
-				if = {
-					limit = {
-						has_dlc = "La Resistance"
-						has_dlc = "Man the Guns"
-					}
-					has_completed_focus = POL_expand_polish_intelligence
-				}
-				else_if = {
-					limit = {
-						NOT = { has_dlc = "La Resistance" }
-						has_dlc = "Man the Guns"
-					}
-					has_completed_focus = POL_Polish_Cipher_Bureau_no_lar
-				}
-				else_if = {
-					limit = {
-						NOT = { has_dlc = "La Resistance" }
-						NOT = { has_dlc = "Man the Guns" }
-					}
-					has_completed_focus = POL_Polish_Cipher_Bureau_no_lar_no_mtg
-				}
-			}
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				has_intelligence_agency = yes
-			}
-		}
-		prerequisite = { focus = JAP_seek_alliances focus = JAP_west_pacific_treaty_organization focus = JAP_rekindle_the_old_alliance }
-		relative_position_id = JAP_seek_alliances
-		icon = GFX_focus_generic_cryptologic_bomb
-		x = 2
-		y = 1
-		cost = 10
-		ai_will_do = {
-			factor = 3
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			if = {
-				limit = {
-					NOT = { has_dlc = "La Resistance" }
-				}
-				add_tech_bonus = {
-					name = codebreaking_bonus
-					bonus = 1.0
-					uses = 2
-					category = decryption_tech
-					category = computing_tech
-				}
-				add_ideas = ENG_crypto_bomb_idea_lar
-			}
-			else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-				}			
-				add_ideas = POL_Polish_Cipher_Bureau_Focus2_lar	
-				hidden_effect = {
-					set_technology = { lar_decryption_bonus_tech = 1 }
-				}
-				custom_effect_tooltip = lar_decryption_bonus_tt
-			}
-            if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_form_department
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_form_department            
-            }
-            else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_decryption_boost
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_decryption_boost            
-            }    
-            else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_decryption_boost_2
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_decryption_boost_2            
-            }			
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
-	}	
-	focus = {
-		id = JAP_obtain_polish_cryptological_data2
-		text = JAP_obtain_polish_cryptological_data
-		available = {
-			POL = {
-				is_in_faction_with = ROOT 
-				is_puppet = no
-				if = {
-					limit = {
-						has_dlc = "La Resistance"
-						has_dlc = "Man the Guns"
-					}
-					has_completed_focus = POL_expand_polish_intelligence
-				}
-				else_if = {
-					limit = {
-						NOT = { has_dlc = "La Resistance" }
-						has_dlc = "Man the Guns"
-					}
-					has_completed_focus = POL_Polish_Cipher_Bureau_no_lar
-				}
-				else_if = {
-					limit = {
-						NOT = { has_dlc = "La Resistance" }
-						NOT = { has_dlc = "Man the Guns" }
-					}
-					has_completed_focus = POL_Polish_Cipher_Bureau_no_lar_no_mtg
-				}
-			}
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				has_intelligence_agency = yes
-			}
-		}
-		prerequisite = { focus = JAP_seek_alliances }
-		allow_branch = {
-			NOT = {
-				has_dlc = "Waking the Tiger"
-			}
-		}
-		relative_position_id = JAP_seek_alliances
-		icon = GFX_focus_generic_cryptologic_bomb
-		x = 2
-		y = 1
-		cost = 10
-		ai_will_do = {
-			factor = 3
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			if = {
-				limit = {
-					NOT = { has_dlc = "La Resistance" }
-				}
-				add_tech_bonus = {
-					name = codebreaking_bonus
-					bonus = 1.0
-					uses = 2
-					category = decryption_tech
-					category = computing_tech
-				}
-				add_ideas = ENG_crypto_bomb_idea_lar
-			}
-			else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-				}			
-				add_ideas = POL_Polish_Cipher_Bureau_Focus2_lar	
-				hidden_effect = {
-					set_technology = { lar_decryption_bonus_tech = 1 }
-				}
-				custom_effect_tooltip = lar_decryption_bonus_tt
-			}
-            if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_form_department
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_form_department            
-            }
-            else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_decryption_boost
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_decryption_boost            
-            }    
-            else_if = {
-                limit = {
-                    has_dlc = "La Resistance"
-                    NOT = {
-                        has_done_agency_upgrade = upgrade_decryption_boost_2
-                    }
-                }
-                upgrade_intelligence_agency = upgrade_decryption_boost_2            
-            }			
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ESPIONAGE }
+	focus = { id = JAP_preemptive_war
+	icon = GFX_focus_JAP_lunge_mines
+	prerequisite = {
+		focus = JAP_seek_alliances
 	}
-
-
-	focus = {
-		id = JAP_preemptive_war
-		icon = GFX_goal_attack_communists
-		prerequisite = { focus = JAP_seek_alliances }
-		x = 0
-		y = 1
-		relative_position_id = JAP_seek_alliances
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 3
-			modifier = {
-				surrender_progress > 0.1
-				factor = 0
-			}			
-		}
-		available = {
-			r56_script_i_am_sane = yes
-			SOV = {
-				r56_script_target_is_sane = yes
-			}
-		}
-
-		bypass = {
-			OR = {
-				has_war_with = SOV
-				has_wargoal_against = SOV
-				SOV = { exists = no }
-			}
-		}
-
-		completion_reward = {
-			create_wargoal = {
-				target = SOV
-				expire = 0
-				type = annex_everything
-			}
-			unlock_decision_tooltip = JAP_war_with_soviet_union
-			if = {
-				limit = {
-					has_country_leader = { ruling_only = yes name = "Hirohito" }
-				}
-				remove_country_leader_trait = imperial_sanction
-			}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+	x = 0
+	y = 1
+	relative_position_id = JAP_seek_alliances
+	cost = 5
+	ai_will_do = {
+		factor = 3
 	}
-	focus = {
-		id = JAP_stimulate_mongol_traditions
-		icon = GFX_goal_generic_cavalry
-		x = 1
-		y = 2
-		prerequisite = {
-			focus = JAP_preemptive_war
-			focus = JAP_anti_communist_volunteers
-		}
-		relative_position_id = JAP_preemptive_war
-		cost = 10
+	completion_reward = {
 
-		ai_will_do = {
-			factor = 3
-		}
-
-		allow_branch = {
-			#has_dlc = "La Resistance"
-		}
-
-		available = {
-			is_subject = no
-			OR = {
-				TAN = {
-					is_subject_of = ROOT
-				}
-				any_state = {
-					is_core_of = TAN
-					is_controlled_by = ROOT
-				}
-			}			
-			OR = {
-				MON = {
-					is_subject_of = ROOT
-				}
-				any_state = {
-					is_core_of = MON
-					is_controlled_by = ROOT
-				}
-			}			
-			OR = {
-				MEN = {
-					is_subject_of = ROOT
-				}
-				any_state = {
-					is_core_of = MEN
-					is_controlled_by = ROOT
-				}
-			}
-			OR = {
-				BYA = {
-					is_subject_of = ROOT
-				}
-				any_state = {
-					is_core_of = BYA
-					is_controlled_by = ROOT
-				}
-			}
-		}
-		
-		bypass = {
-
-		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			add_relation_modifier = {
-				target = TAN
-				modifier = JAP_pro_mongol_propaganda
-			}
-			add_relation_modifier = {
-				target = MON
-				modifier = JAP_pro_mongol_propaganda
-			}
-			add_relation_modifier = {
-				target = MEN
-				modifier = JAP_pro_mongol_propaganda
-			}
-			add_relation_modifier = {
-				target = BYA
-				modifier = JAP_pro_mongol_propaganda
-			}
+		create_wargoal = {
+			target = SOV
+			expire = 0
+			type = annex_everything
 		}
 	}
+	}
+
 	focus = {
 		id = JAP_establish_the_northern_resource_area
 		icon = GFX_goal_generic_construction2
@@ -5191,6 +3930,7 @@
 				add_idea = JAP_zaibatsus_empowered
 				remove_idea = JAP_zaibatsus
 			}
+#			add_ideas = JAP_zaibatsus_controlled
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 	}
@@ -5224,7 +3964,7 @@
 		y = 1
 		relative_position_id = JAP_ally_with_the_zaibatsus
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 2
@@ -5240,6 +3980,7 @@
 
 
 		completion_reward = {
+			add_political_power = 50
 			hidden_effect = {
 				if = {
 					limit = {
@@ -5314,7 +4055,7 @@
 		y = 1
 		relative_position_id = JAP_research_spending
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -5352,6 +4093,7 @@
 		completion_reward = {
 			add_popularity = { ideology = democratic popularity = 0.1 }
 			add_ideas = JAP_hirohito
+			add_ideas = productive_press
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
@@ -6002,7 +4744,6 @@
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
-
 	focus = {
 		id = JAP_liberate_manchuria
 		icon = GFX_goal_JAP_attack_manchukuo
@@ -6152,50 +4893,309 @@
 	}
 
 	focus = {
-		id = JAP_preemptive_strike_soviet
-		icon = GFX_focus_attack_soviet
-		prerequisite = { focus = JAP_liberate_manchuria }
-		prerequisite = { focus = JAP_anti_communist_volunteers }
-		x = -2
+		id = JAP_alliance_with_the_devil
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+		cost = 5
+		prerequisite = {
+			focus = JAP_the_fate_of_the_imperial_family
+		}
+		mutually_exclusive = {focus = JAP_close_the_island}
+		relative_position_id = JAP_cast_the_die
+		x = 2
+		y = 2
+		completion_reward = {
+			#Join SOV faction. If SOV has no faction or is not faction leader, form own faction and cry a lot.
+			if = {
+				limit = {
+					SOV = {
+						is_faction_leader = yes
+						has_government = communism
+					}
+				}
+				SOV = { country_event = generic.2 }
+			}
+			else_if = {
+				limit = {
+					any_other_country = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						has_capitulated = no
+						num_of_factories > 70
+					}
+				}
+				random_other_country = {
+					limit = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						num_of_factories > 70
+					}
+					country_event = generic.2
+				}				
+			}
+			else_if = {
+				limit = {
+					any_other_country = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						has_capitulated = no
+						num_of_factories > 50
+					}
+				}
+				random_other_country = {
+					limit = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						num_of_factories > 50
+					}
+					country_event = generic.2
+				}				
+			}			
+			else_if = {
+				limit = {
+					any_other_country = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						has_capitulated = no
+					}
+				}
+				random_other_country = {
+					limit = {
+						has_government = communism
+						is_faction_leader = yes
+						is_major = yes
+						has_capitulated = no
+					}
+					country_event = generic.2
+				}
+			}
+			else_if = {
+				limit = {
+					any_other_country = {
+						has_government = communism
+						is_faction_leader = yes
+
+						has_capitulated = no
+					}
+				}
+				random_other_country = {
+					limit = {
+						has_government = communism
+						is_faction_leader = yes
+						has_capitulated = no
+					}
+					country_event = generic.2
+				}
+			}
+			else = {
+				set_rule = { can_create_factions = yes }
+				create_faction = JAP_the_new_international
+				add_political_power = 100
+				if = {
+					limit = {
+						SOV = {
+							has_government = communism
+							is_puppet = no
+						}
+					}
+					SOV = { country_event = generic.5 }
+				}
+				
+			}
+		}
+
+	
+		}
+		focus = {
+			id = JAP_rebuild_our_navy
+			icon = GFX_goal_generic_occupy_states_coastal
+			cost = 5
+			prerequisite = {
+				focus = JAP_the_fate_of_the_imperial_family
+			}
+			mutually_exclusive = {
+				focus = JAP_close_the_island
+			}
+			relative_position_id = JAP_alliance_with_the_devil
+			x = 2
+			y = 0
+			completion_reward = {
+				add_timed_idea = {
+					idea = JAP_rebuild_navy
+					days = 365
+				}
+			}
+		}
+	
+	focus = {
+		id = JAP_retake_manchuria
+		icon = GFX_goal_JAP_fate_of_the_imperial_family
+		cost = 5
+		prerequisite = {
+			focus = JAP_alliance_with_the_devil
+		}
+		prerequisite = {
+			focus = JAP_rebuild_our_navy
+		}
+		relative_position_id = JAP_alliance_with_the_devil
+		x = 1
 		y = 1
-		relative_position_id = JAP_liberate_manchuria
+		available = {
+				country_exists = MAN
+				MAN = {
+					NOT = {
+						has_government = communism
+					}
+				}
+			}
+	
+			bypass = {
+				OR = {
+					has_wargoal_against = MAN
+					has_war_with = MAN
+					MAN = {
+						exists = no
+					}
+					MAN = {
+						has_government = communism
+					}
+				}
+			}
+	
+			will_lead_to_war_with = MAN
+
+		completion_reward = {
+				create_wargoal = {
+					target = MAN
+					expire = 0
+					type = puppet_wargoal_focus
+				}
+				if = {
+					limit = {
+						communism > 0.8
+					}
+					remove_ideas = sanzo_nosaka				
+				}			
+			
+		}
+		}
+	
+	focus = {
+		id = JAP_cede_eastern_manchuria_for_help
+		icon = GFX_focus_generic_provoke_border_clashes
+		cost = 10
+		prerequisite = {
+			focus = JAP_retake_manchuria
+		}		
+		relative_position_id = JAP_alliance_with_the_devil
+		x = 1
+		y = 2
+
+		available = {
+			has_government = communism
+			is_puppet = no
+			controls_state = 328
+			controls_state = 761
+		}
+		completion_reward = {
+			SOV = {
+				country_event = soviet.106
+			}	
+			every_controlled_state = {
+				limit = {
+					state_is_fully_controlled_by_ROOT_or_subject = yes
+					is_core_of = MAN
+					has_resistance = yes
+				}
+				add_compliance = 10
+			}
+
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = JAP_air_blueprints
+		icon = GFX_focus_generic_copy_plane_designs
+		cost = 10
+		prerequisite = {
+			focus = JAP_cede_eastern_manchuria_for_help
+		}
+		mutually_exclusive = {
+			focus = JAP_import_soviet_armor
+		}
+		relative_position_id = JAP_alliance_with_the_devil
+		x = 1
+		y = 3
+		completion_reward = {
+			set_technology = {etax_air_defense_2 = 1}
+			add_tech_bonus = {
+				name = JAP_air_blueprints
+				bonus = 1
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+	focus = {
+		id = JAP_air_improvements
+		icon = GFX_goal_generic_air_fighter
+		cost = 10
+		prerequisite = {
+			focus = JAP_air_blueprints
+		}
+		relative_position_id = JAP_alliance_with_the_devil
+		x = 1
+		y = 4
+		completion_reward = {
+		
+			add_ideas = JAP_domestic_jet_engine_designs_1
+		}
+	}
+
+	focus = {
+		id = JAP_import_soviet_armor
+		icon = GFX_goal_generic_heavy_armour_russian
+		prerequisite = { focus = JAP_cede_eastern_manchuria_for_help }
+		mutually_exclusive = {
+			focus = JAP_air_blueprints
+		}
+		x = 2
+		y = 1
+		relative_position_id = JAP_cede_eastern_manchuria_for_help
 
 		cost = 10
 
 		ai_will_do = {
 			factor = 1
-			modifier = {
-				factor = 0
-				has_war = yes
-			}
 		}
 
 		available = {
-			SOV = {
-				NOT = {
-					has_government = democratic
-					is_in_faction_with = JAP
-				}
-			}
+			has_government = communism
+			is_in_faction_with = SOV
 		}
 
 		completion_reward = {
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = SOV
-				expire = 0
+			add_tech_bonus = {
+				name = armor
+				uses = 1
+				ahead_reduction = 1
+				bonus = 1
+				category = armor
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-
 	focus = {
-		id = JAP_full_sovereignty_for_the_philippines
-		icon = GFX_goal_philippines_democracy
-		prerequisite = { focus = JAP_liberate_manchuria }
-		x = 0
-		y = 1
-		relative_position_id = JAP_liberate_manchuria
+		id = JAP_improve_tank_tactics
+		icon = GFX_goal_SOV_tankograd
+		prerequisite = { focus = JAP_cede_eastern_manchuria_for_help }
+		x = 2
+		y = 2
+		relative_position_id = JAP_cede_eastern_manchuria_for_help
 
 		cost = 10
 
@@ -6203,16 +5203,906 @@
 			factor = 1
 		}
 
+		available = {
+			has_government = communism
+			is_in_faction_with = SOV
+		}
+
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = JAP_improve_tank_tactics
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			add_ideas = JAP_tank_tactics
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = JAP_reignite_the_chinese_civil_war
+		icon = GFX_focus_attack_china
+		prerequisite = { focus = JAP_retake_manchuria}
+		will_lead_to_war_with = CHI
+		x = 2
+		y = 1
+		relative_position_id = JAP_retake_manchuria
+
+		cost = 5
+
+		available = {
+			is_puppet = no
+			NOT = { has_war_with = CHI }
+			NOT = {
+				is_in_faction_with = CHI
+			}
+		}
 		bypass = {
-			"PHI" = {
-				is_subject = no
+
+		}
+
+		will_lead_to_war_with = CHI
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				has_war = yes
+				
 			}
 		}
 
 		completion_reward = {
-			"PHI" = { OVERLORD = { country_event = { id = wtt_japan.104 days = 1 } } }
+			if = {
+				limit = {
+					CHI = {
+						NOT = {
+							is_in_faction_with = ROOT
+							has_war_with = ROOT	
+						}
+					}
+				}
+				JAP = {
+					create_wargoal = {
+						target = CHI
+						expire = 0
+						type = annex_everything
+					}
+				}
+			}
+			if = {
+				limit = {
+					XSM = {
+						NOT = {
+							is_in_faction_with = ROOT
+							has_war_with = ROOT	
+						}
+					}
+				}
+				JAP = {
+					create_wargoal = {
+						target = XSM
+						expire = 0
+						type = annex_everything
+					}
+				}
+			}
+			if = {
+				limit = {
+					GXC = {
+						NOT = {
+							is_in_faction_with = ROOT
+							has_war_with = ROOT	
+						}
+					}
+				}
+				JAP = {
+					create_wargoal = {
+						target = GXC
+						expire = 0
+						type = annex_everything
+					}
+				}
+			}
+			if = {
+				limit = {
+					SIK = {
+						NOT = {
+							is_in_faction_with = ROOT
+							has_war_with = ROOT	
+						}
+					}
+				}
+				JAP = {
+					create_wargoal = {
+						target = SIK
+						expire = 0
+						type = annex_everything
+					}
+				}
+			}
+			if = {
+				limit = {
+					TNG = {
+						NOT = {
+							is_in_faction_with = ROOT
+							has_war_with = ROOT
+						}
+					}
+				}
+				JAP = {
+					create_wargoal = {
+						target = TNG
+						expire = 0
+						type = annex_everything
+					}
+				}
+			}				
+			if = {
+				limit = {
+					SHX = {
+						NOT = {
+							is_in_faction_with = ROOT
+							has_war_with = ROOT	
+						}
+					}
+				}
+				JAP = {
+					create_wargoal = {
+						target = SHX
+						expire = 0
+						type = annex_everything
+					}
+				}
+			}
+			if = {
+				limit = {
+					MEN = {
+						NOT = {
+							is_in_faction_with = ROOT
+							has_war_with = ROOT	
+						}
+					}
+				}
+				JAP = {
+					create_wargoal = {
+						target = MEN
+						expire = 0
+						type = annex_everything
+					}
+				}
+			}
+			if = {
+				limit = {
+					YUN = {
+						NOT = {
+							is_in_faction_with = ROOT
+							has_war_with = ROOT	
+						}
+					}
+				}
+				JAP = {
+					create_wargoal = {
+						target = YUN
+						expire = 0
+						type = annex_everything
+					}
+				}
+			}																	
+			add_named_threat = { threat = 1 name = JAP_intervene_in_china }
 		}
 	}
+
+
+	focus = {
+		id = JAP_close_the_island
+		icon = GFX_goal_generic_industrial_unionism
+		cost = 10
+		prerequisite = {
+			focus = JAP_the_fate_of_the_imperial_family
+		}
+		mutually_exclusive = {
+			focus = JAP_alliance_with_the_devil
+		}
+		mutually_exclusive = {
+			focus = JAP_rebuild_our_navy
+		}
+		relative_position_id = JAP_cast_the_die
+		x = -2
+		y = 2
+			
+		completion_reward = {
+			set_country_flag = JAP_unstable_eco
+			every_other_country = {
+				send_embargo = JAP
+				
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = embargo
+				}
+			}
+			GER = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = hostile_status
+				}
+			}
+			CHI = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = hostile_status
+					}
+				}
+			USA = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = hostile_status
+					}
+				}
+			FRA = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = hostile_status
+					}
+				}
+			ENG = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = hostile_status
+					}
+				}
+			SOV = {
+					add_opinion_modifier = {
+							target = ROOT
+							modifier = hostile_status
+					}
+				}
+			add_opinion_modifier = {
+				target = GER
+				modifier = hostile_status
+			}
+			add_opinion_modifier = {
+				target = SOV
+				modifier = hostile_status
+			}
+			add_opinion_modifier = {
+				target = ENG
+				modifier = hostile_status
+			}
+			add_opinion_modifier = {
+				target = USA
+				modifier = hostile_status
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = hostile_status
+			}
+			add_opinion_modifier = {
+				target = FRA
+				modifier = hostile_status
+			}
+			add_opinion_modifier = {
+				target = KOR
+				modifier = hostile_status
+			}
+			add_opinion_modifier = {
+				target = MAN
+				modifier = hostile_status
+			}
+			add_opinion_modifier = {
+				target = CHI
+				modifier = hostile_status
+			}
+			set_rule = { can_join_factions = no }
+			add_ideas = japanese_closed_eco
+			custom_effect_tooltip = close_the_island_tt
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = JAP_colonizing_our_islands
+		icon = GFX_goal_generic_industrial_planning
+		cost = 4
+		prerequisite = {
+			focus = JAP_close_the_island
+		}		
+		relative_position_id = JAP_close_the_island
+		x = -1
+		y = 1
+		completion_reward = {
+			add_political_power = 50
+			unlock_decision_tooltip = JAP_regional_development_in_state
+			536 = {set_state_flag = JAP_northern_islands}
+			537 = {set_state_flag = JAP_northern_islands}
+			555 = {set_state_flag = JAP_northern_islands}
+			
+	}
+}
+focus = {
+	id = JAP_more_building_slots
+	icon = GFX_focus_generic_railroad
+	cost = 6
+	prerequisite = {
+		focus = JAP_colonizing_our_islands focus = JAP_investing_internal_industries
+	}		
+	relative_position_id = JAP_close_the_island
+	x = 0
+	y = 2
+	completion_reward = {
+		536 = {set_state_flag = japanese_core}
+			533 = {set_state_flag = japanese_core}
+			534 = {set_state_flag = japanese_core}
+			282 = {set_state_flag = japanese_core}
+			535 = {set_state_flag = japanese_core}
+			532 = {set_state_flag = japanese_core}
+			531 = {set_state_flag = japanese_core}
+			529 = {set_state_flag = japanese_core}
+			530 = {set_state_flag = japanese_core}
+			528 = {set_state_flag = japanese_core}
+			529 = {set_state_flag = japanese_core}
+			537 = {set_state_flag = japanese_core}
+			555 = {set_state_flag = japanese_core}
+			
+		unlock_decision_tooltip = JAP_increase_infrastructure
+		
+}
+}
+	focus = {
+		id = JAP_investing_internal_industries
+		icon = GFX_focus_eng_crush_the_dream
+		cost = 10
+		prerequisite = {
+			focus = JAP_close_the_island
+		}		
+		relative_position_id = JAP_close_the_island
+		x = 1
+		y = 1
+		completion_reward = {
+			add_tech_bonus = {
+				name = JAP_synth_oil_research
+				bonus = 1
+				uses = 1
+				category = synth_resources
+			}
+			random_owned_controlled_state = {
+				prioritize = { 282 }
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 529 }
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 529 }
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			unlock_decision_tooltip = JAP_develop_kanto_aluminium
+	}
+}
+	focus = {
+		id = JAP_seeking_investments
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 10
+		prerequisite = {
+			focus = JAP_alliance_with_the_devil
+		}		
+		relative_position_id = JAP_alliance_with_the_devil
+		x = -1
+		y = 1
+		completion_reward = {
+			536 = {set_state_flag = japanese_core}
+			533 = {set_state_flag = japanese_core}
+			534 = {set_state_flag = japanese_core}
+			282 = {set_state_flag = japanese_core}
+			535 = {set_state_flag = japanese_core}
+			532 = {set_state_flag = japanese_core}
+			531 = {set_state_flag = japanese_core}
+			529 = {set_state_flag = japanese_core}
+			530 = {set_state_flag = japanese_core}
+			528 = {set_state_flag = japanese_core}
+			529 = {set_state_flag = japanese_core}
+			537 = {set_state_flag = japanese_core}
+			555 = {set_state_flag = japanese_core}
+
+			add_tech_bonus = {
+				name = industry
+				category = industry
+				bonus = 1
+				ahead_reduction = 2
+				uses = 1
+			}
+			add_political_power = 150
+			unlock_decision_tooltip = JAP_development_of_mainland_industries
+			}
+			
+		
+		
+	}
+	focus = {
+		id = JAP_internal_infrastructure
+		icon = GFX_goal_agrarian_reform
+		cost = 10
+		prerequisite = { focus = JAP_investing_internal_industries focus = JAP_seeking_investments }
+		relative_position_id = JAP_close_the_island
+		x = 2
+		y = 2
+		completion_reward = {
+			random_owned_controlled_state = {
+				prioritize = { 533 }
+				add_extra_state_shared_building_slots = 6
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 534 }
+				add_extra_state_shared_building_slots = 6
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 535 }
+				add_extra_state_shared_building_slots = 6
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 536 }
+				add_extra_state_shared_building_slots = 6
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 530 }
+				add_extra_state_shared_building_slots = 6
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 537 }
+				add_extra_state_shared_building_slots = 6
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_timed_idea = {
+				days = 180
+				idea = JAP_force_into_factories
+			}
+			add_timed_idea = {
+				days = 90
+				idea = JAP_investment
+			}
+	}
+
+	}
+	focus = {
+		id = JAP_fund_the_military
+		icon = GFX_focus_generic_combined_arms
+		cost = 10
+		prerequisite = { focus = JAP_tokyo_rubber_industries focus = JAP_more_investments }
+		relative_position_id = JAP_close_the_island
+		x = 2
+		y = 5
+
+		completion_reward = {
+				if = {
+					limit = {
+						has_war_support < 0.5
+					}
+					add_war_support = 0.1
+				}
+				else_if = {
+					limit = {
+						OR = {
+						has_idea = tot_economic_mobilisation
+						has_idea = war_economy
+						}
+					}
+					add_political_power = 150
+				}
+				else = {
+					add_ideas = war_economy
+				}
+				random_owned_controlled_state = {
+					prioritize = { 531 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					prioritize = { 532 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					prioritize = { 582 }
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_timed_idea = {
+					idea = JAP_production
+					days = 180
+				}
+				add_timed_idea = {
+					idea = JAP_force_into_factories
+					days = 180
+				}
+	}
+}
+
+focus = {
+	id = JAP_more_investments
+	icon = GFX_goal_r56_CAN_industry
+	cost = 10
+	prerequisite = { focus = JAP_internal_infrastructure}
+	prerequisite = {
+		focus = JAP_seeking_investments
+	}
+
+	mutually_exclusive = {
+		focus = JAP_tokyo_rubber_industries
+	}
+	relative_position_id = JAP_close_the_island
+	x = 3
+	y = 3
+	completion_reward = {
+		random_owned_controlled_state = {
+			prioritize = { 529 }
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = industrial_complex
+				level = 3
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			prioritize = { 529 }
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = industrial_complex
+				level = 3
+				instant_build = yes
+			}
+		}
+	
+}
+}
+focus = {
+	id = JAP_synthetic_autarky
+	icon = GFX_goal_generic_all_resource
+	prerequisite = { focus = JAP_tokyo_rubber_industries }
+	x = 1
+	y = 4
+	relative_position_id = JAP_close_the_island
+
+	cost = 5
+
+	completion_reward = {
+		add_ideas = JAP_autarkic
+	}
+	search_filters = { FOCUS_FILTER_OIL FOCUS_FILTER_POLITICAL }
+}
+focus = {
+	id = JAP_people_owned_mines
+	icon = GFX_goal_generic_commie_investments
+	prerequisite = { focus = JAP_cast_the_die }
+	x = -2
+	y = 1
+	relative_position_id = JAP_cast_the_die
+
+	cost = 10
+
+	ai_will_do = {
+		factor = 1
+	}
+
+	completion_reward = {
+		modify_building_resources = {
+			building = steel_mill
+			resource = steel
+			amount = 2
+		 }
+		 modify_building_resources = {
+			building = aluminum_mill
+			resource = aluminium
+			amount = 2
+		 }
+		random_owned_controlled_state = {
+			prioritize = { 535 }
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = steel_mill
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+	search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL}
+}
+
+focus = {
+	id = JAP_secure_our_claims_with_the_soviets
+	icon = GFX_focus_generic_russian_deal_communist
+	prerequisite = { focus = JAP_more_investments }
+	x = 3
+	y = 4
+	relative_position_id = JAP_close_the_island
+
+	cost = 5
+
+	ai_will_do = {
+		factor = 2
+	}
+
+	bypass = {
+		OR = {
+			has_war_with = SOV
+		}
+	}
+
+	completion_reward = {
+		SOV = { country_event = { id = wtt_japan.11 } }
+		unlock_decision_tooltip = develop_north_sakhalin_oil_deposits
+	}
+	search_filters = { FOCUS_FILTER_OIL FOCUS_FILTER_POLITICAL }
+}
+
+	focus = {
+		id = JAP_tokyo_rubber_industries
+		icon = GFX_focus_generic_rubber
+		cost = 10
+		prerequisite = {
+			focus = JAP_internal_infrastructure
+		}
+		prerequisite = {
+			focus = JAP_investing_internal_industries
+		}
+		mutually_exclusive = {
+			focus = JAP_more_investments
+		}
+		relative_position_id = JAP_close_the_island
+		x = 1
+		y = 3
+
+		available = {
+			has_tech = rubber_plant_a
+		}
+		
+		completion_reward = {
+			random_owned_controlled_state = {
+				prioritize = { 531 }
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = rubber_refinery
+					level = 2
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 535 }
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = rubber_refinery
+					level = 2
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+			}
+		}
+			random_owned_controlled_state = {
+				prioritize = { 528 }
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = rubber_refinery
+					level = 2
+					instant_build = yes
+				}
+			
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes	
+		}
+	}
+}
+	}
+
+	
+	focus = {
+		id = JAP_naval_buildup
+		icon = GFX_goal_generic_occupy_states_coastal
+		cost = 5
+		prerequisite = {
+			focus = JAP_naval_investments focus = JAP_colonizing_our_islands
+		}	
+		relative_position_id = JAP_close_the_island
+		x = -2
+		y = 2
+		
+		completion_reward = {
+		add_ideas = JAP_naval_improvements
+		}
+		
+	}
+
+	focus = {
+		id = JAP_red_fleet
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = JAP_naval_buildup }
+		x = -2
+		y = 3
+		relative_position_id = JAP_close_the_island
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = JAP_naval_improvements
+				add_idea = JAP_imperial_navy
+			}
+		}
+
+
+		search_filters = { FOCUS_FILTER_ALLIANCE }
+	}
+
+	focus = {
+		id = JAP_declare_on_the_colonizers
+		icon = GFX_focus_jap_pacific_guardian
+		prerequisite = { focus = JAP_red_fleet}
+		x = -2
+		y = 4
+		relative_position_id = JAP_close_the_island
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		completion_reward = {
+			create_wargoal = {
+				target = ENG
+				expire = 0
+				type = annex_everything
+			}
+			create_wargoal = {
+				target = USA
+				expire = 0
+				type = annex_everything
+				}
+		create_wargoal = {
+					target = PHI
+					expire = 0
+					type = annex_everything
+					}
+		create_wargoal = {
+						target = FRA
+						expire = 0
+						type = annex_everything
+						}
+		create_wargoal = {
+							target = INS
+							expire = 0
+							type = annex_everything
+							}
+		}
+	
+
+
+	search_filters = { FOCUS_FILTER_ALLIANCE }
+}
+focus = {
+	id = JAP_declare_the_pacific_commune
+	icon = GFX_focus_jap_pacific_guardian
+	prerequisite = { focus = JAP_declare_on_the_colonizers }
+	x = -2
+	y = 5
+	relative_position_id = JAP_close_the_island
+
+	cost = 10
+	available = {
+		629 = { is_controlled_by = JAP } #Hawaii
+		647 = { is_controlled_by = JAP } 
+		623 = { is_controlled_by = JAP }
+		327 = { is_controlled_by = JAP }
+		624 = { is_controlled_by = JAP }
+		625 = { is_controlled_by = JAP }
+		628 = { is_controlled_by = JAP }
+		627 = { is_controlled_by = JAP } 
+		626 = { is_controlled_by = JAP } #philliplines
+		916 = { is_controlled_by = JAP }
+		333 = { is_controlled_by = JAP }
+		334 = { is_controlled_by = JAP }
+		977 = { is_controlled_by = JAP } #kalimantan
+		951 = { is_controlled_by = JAP }
+		960 = { is_controlled_by = JAP }
+		914 = { is_controlled_by = JAP } #malaya
+		974 = { is_controlled_by = JAP }
+		335 = { is_controlled_by = JAP }
+		446 = { is_controlled_by = JAP }
+		976 = { is_controlled_by = JAP }
+		667 = { is_controlled_by = JAP } #sunda island
+		673 = { is_controlled_by = JAP }
+		975 = { is_controlled_by = JAP } #sulawesi
+	}
+	completion_reward = {
+		add_ideas = JAP_pacific_dominance
+	}
+}
 
 	focus = {
 		id = JAP_the_manchurian_project
@@ -6228,7 +6118,7 @@
 			}
 		}
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -6393,7 +6283,7 @@
 		y = 1
 		relative_position_id = JAP_the_manchurian_project
 
-		cost = 10
+		cost = 3
 
 		ai_will_do = {
 			factor = 1
@@ -6446,7 +6336,7 @@
 		y = 1
 		relative_position_id = JAP_expand_manchurian_railways
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 2
@@ -6548,7 +6438,7 @@
 		y = 1
 		relative_position_id = JAP_expand_manchurian_railways
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 2
@@ -6584,7 +6474,7 @@
 		y = 2
 		relative_position_id = JAP_expand_manchurian_railways
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -8526,6 +8416,134 @@
 		relative_position_id = JAP_army_expansion_law
 
 		cost = 10
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				has_completed_focus = JAP_purge_the_kodoha_faction
+			}
+		}
+
+		complete_tooltip = {
+			random_state = {
+				limit = {
+					has_state_flag = JAP_new_naval_estimates_DY1
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_state = {
+				limit = {
+					has_state_flag = JAP_new_naval_estimates_DY2
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					not = { has_dlc = "Man the Guns" }
+				}
+				add_tech_bonus = {
+					name = JAP_supremacy_of_the_battlefleet
+					bonus = 1.0
+					uses = 1
+					category = shbb_tech
+				}
+			}
+			else = {
+				navy_experience = 50
+			}
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					is_core_of = ROOT
+					not = {
+						state = 646
+						state = 645
+						state = 555
+					}
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = JAP_new_naval_estimates_DY1
+			}
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					is_core_of = ROOT
+					not = {
+						state = 646
+						state = 645
+						state = 555
+					}
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = JAP_new_naval_estimates_DY2
+			}
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					is_core_of = ROOT
+					not = {
+						state = 646
+						state = 645
+						state = 555
+					}
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = JAP_new_naval_estimates_DY2
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+	focus = {
+		id = JAP_naval_investments
+		icon = GFX_goal_JAP_new_naval_estimates
+		prerequisite = { focus = JAP_close_the_island }
+		x = -3
+		y = 1
+		relative_position_id = JAP_close_the_island
+
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
