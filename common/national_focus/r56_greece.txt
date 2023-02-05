@@ -2142,7 +2142,7 @@ focus = {
 		text = GRE_national_union
 		prerequisite = { focus = GRE_divided_nation }
 		mutually_exclusive = { focus = GRE_democratic_approach focus = GRE_aftermath_of_the_victory_of_the_people focus = GRE_national_security_concerns focus = GRE_reinforce_royal_dictatorship  }
-		x = 26
+		x = 40
 		y = 1
 		cost = 10
 		relative_position_id = GRE_divided_nation
@@ -2568,7 +2568,7 @@ focus = {
 		icon = GFX_focus_GRE_metaxas
 		prerequisite = { focus = GRE_divided_nation }
 		mutually_exclusive = { focus = GRE_democratic_approach focus = GRE_aftermath_of_the_victory_of_the_people focus = GRE_reinforce_royal_dictatorship focus = GRE_national_union  }
-		x = 13
+		x = 23
 		y = 1
 		relative_position_id = GRE_divided_nation
 		cost = 5
@@ -2680,7 +2680,7 @@ focus = {
     	text = GRE_reinforce_4th_of_august_regime
 		prerequisite = { focus = GRE_crush_kke }
 		prerequisite = { focus = GRE_agrarian_protests}
-		x = 13
+		x = 23
 		y = 3
 		relative_position_id = GRE_divided_nation
 		cost = 7.15
@@ -4356,7 +4356,7 @@ focus = {
 		completion_reward = {
 			custom_effect_tooltip = GRE_restaff_the_army_command_tt
 			IF = {
-				limit = { has_country_flag = GRE_klaras_recruited }
+				
 				country_event = { id = greece.64 }
 				add_ideas = GRE_restaffed_army
 				custom_effect_tooltip = available_military_high_command
@@ -4411,7 +4411,7 @@ focus = {
 			}
 
 			IF = {
-			limit = { has_country_flag = GRE_klaras_dismissed }
+			
 				country_event = { id = greece.74 }
 				add_ideas = GRE_restaffed_army
 				custom_effect_tooltip = available_military_high_command
@@ -4467,15 +4467,27 @@ focus = {
 	}
 
 	focus = {
-		id = GRE_eco_one
-		icon = GFX_focus_GRE_aris_velouchiotis
-		prerequisite = { focus = GRE_found_opla }
+		id = GRE_Liberate_Fascist_Governments
+		icon = GFX_focus_generic_little_entente
+		prerequisite = { focus = GRE_Merge_All_Communist_Funding }
 		x = 0
 		y = 1
-		relative_position_id = GRE_found_opla
-		cost = 5
+		relative_position_id = GRE_Merge_All_Communist_Funding
+		cost = 10
 
 		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = ITA
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = ALB
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = BUL
+			}
 			
 		}
 	}
@@ -4499,17 +4511,22 @@ focus = {
 		}
 	}
 	focus = {
-		id = GRE_eco_three
-		icon = GFX_focus_GRE_aris_velouchiotis
-		prerequisite = { focus = GRE_deal_with_klaras }
+		id = GRE_Political_Finalization
+		icon = GFX_focus_SOV_patriarch_of_all_russia
+		prerequisite = { focus = GRE_Heading_Towards_A_Communist_Aegean }
+		prerequisite = { focus = GRE_Establish_A_Political_Foothold }
+		prerequisite = { focus = GRE_Merge_All_Communist_Funding }
 		x = 0
 		y = 1
-		relative_position_id = GRE_deal_with_klaras
-		cost = 5
+		relative_position_id = GRE_Heading_Towards_A_Communist_Aegean
+		cost = 10
 
 		completion_reward = {
+
+			add_political_power = 200
 			add_to_variable = {
 				GRE_The_State_of_The_Government_political_power_factor = 0.10 
+				
 				}
 			custom_effect_tooltip = GRE_The_State_of_The_Government_4_tt
 			
@@ -4517,8 +4534,8 @@ focus = {
 		}
 	}
 		focus = {
-			id = GRE_deal_with_klaras
-			icon = GFX_focus_GRE_aris_velouchiotis
+			id = GRE_Heading_Towards_A_Communist_Aegean
+			icon = GFX_focus_spr_torchbearers_of_tomorrow
 			prerequisite = { focus = GRE_Reinforce_the_hierarchy }
 			x = 0
 			y = 1
@@ -4531,6 +4548,15 @@ focus = {
 			
 
 			completion_reward = {
+
+			
+				
+				
+				add_popularity = {
+					ideology = communism
+					popularity = 0.10
+				}
+				add_timed_idea = { idea = internationalism days = 1100 }
 				
 			}
 		}
@@ -4561,8 +4587,8 @@ focus = {
 
 
 		focus = {
-			id = GRE_found_opla
-			icon = GFX_goal_generic_anti_communism
+			id = GRE_Merge_All_Communist_Funding
+			icon = GFX_focus_por_workers_of_iberia
 			prerequisite = { focus = GRE_Reinforce_the_hierarchy }
 			relative_position_id = GRE_Reinforce_the_hierarchy
 			x = 2
@@ -4575,6 +4601,8 @@ focus = {
 			
 
 			completion_reward = {
+
+				add_political_power = 50
 				add_to_variable = {
 					GRE_The_State_of_The_Government_political_power_factor = 0.10 
 					}
@@ -4637,8 +4665,8 @@ focus = {
 		focus = {
 			id = GRE_fate_of_the_royal_family
 			icon = GFX_goal_tfv_burn_the_royal_portraits
-			prerequisite = { focus = GRE_begin_internal_reforms }
-			relative_position_id = GRE_begin_internal_reforms
+			prerequisite = { focus = GRE_Back_the_EAM }
+			relative_position_id = GRE_Back_the_EAM
 			x = 6
 			y = 2
 			cost = 5
@@ -4649,6 +4677,7 @@ focus = {
 			
 
 			completion_reward = {
+				set_country_flag = has_country_flag = GRE_klaras_recruited
 				country_event = { id = greece.65 }
 			}
 		}
@@ -4751,7 +4780,11 @@ focus = {
 			
 
 			completion_reward = {
-				
+				add_stability = 0.05
+				custom_effect_tooltip =  GRE_The_State_of_The_Government_11_tt
+				add_to_variable = {
+					GRE_The_State_of_The_Government_consumer_goods_factor = -0.05
+					}
 			}
 			search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL }
 		}
@@ -4771,14 +4804,40 @@ focus = {
 			
 
 			completion_reward = {
-			
+				
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+						add_building_construction = {
+						  type = industrial_complex
+						  level = 1
+						  instant_build = yes
+					  }
+				  }
+				  random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+						add_building_construction = {
+						  type = industrial_complex
+						  level = 1
+						  instant_build = yes
+					  }
+				  }
 			}
 			search_filters = { FOCUS_FILTER_INDUSTRY }
 		}
 
 
 		focus = {
-			id = GRE_control_the_stocks
+			id = GRE_Merge_ELAS_Assets
 			icon = GFX_focus_GRE_red_economy
 			prerequisite = { focus = GRE_reform_agricultural_economy }
 			relative_position_id = GRE_reform_agricultural_economy
@@ -4792,15 +4851,19 @@ focus = {
 			
 
 			completion_reward = {
-			 
+				add_stability = 0.10
+				custom_effect_tooltip = GRE_The_State_of_The_Government_10_tt
+				add_to_variable = {
+					GRE_The_State_of_The_Government_production_speed_industrial_complex_factor = 0.15
+					}
 			}
 		}
 
 		focus = {
-			id = GRE_enforce_nationalization
-			icon = GFX_focus_eng_concessions_to_the_trade_unions
-			prerequisite = { focus = GRE_control_the_stocks}
-			relative_position_id = GRE_control_the_stocks
+			id = GRE_Industrialize_the_Nation's_Land
+			icon = GFX_forced_urbanization
+			prerequisite = { focus = GRE_Merge_ELAS_Assets}
+			relative_position_id = GRE_Merge_ELAS_Assets
 			x = 0
 			y = 1
 			cost = 10
@@ -4811,7 +4874,46 @@ focus = {
 			
 
 			completion_reward = {
-			
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+						  type = infrastructure
+						  level = 1
+						  instant_build = yes
+					  }
+				  }
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+						  type = infrastructure
+						  level = 1
+						  instant_build = yes
+					  }
+				  }
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+						  type = infrastructure
+						  level = 1
+						  instant_build = yes
+					  }
+				  }
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+						  type = infrastructure
+						  level = 1
+						  instant_build = yes
+					  }
+				  }
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+						  type = infrastructure
+						  level = 1
+						  instant_build = yes
+					  }
+				  }
 			}
 		}
 
@@ -4830,7 +4932,29 @@ focus = {
 			
 
 			completion_reward = {
-				
+
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+						  type = arms_factory
+						  level = 2
+						  instant_build = yes
+					  }
+				  }
+					random_owned_controlled_state = {
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = arms_factory
+							level = 2
+							instant_build = yes
+						}
+					}
+
+				custom_effect_tooltip = GRE_The_State_of_The_Government_5_tt
+				add_to_variable = {
+					GRE_The_State_of_The_Government_production_speed_arms_factory_factor = 0.05 
+					}
+
 			}
 		}
 
@@ -4874,7 +4998,22 @@ focus = {
 			
 
 			completion_reward = {
-				
+				add_war_support = 0.05
+				add_equipment_to_stockpile = { 
+					type = infantry_equipment_0  
+						amount = 1000 
+						producer = GRE
+			}
+				add_equipment_to_stockpile = { 
+					type = support_equipment 
+						amount = 500
+						producer = GRE
+			}
+			add_equipment_to_stockpile = { 
+				type = artillery_equipment 
+					amount = 200
+					producer = GRE
+		}
 			}
 		}
 		focus = {
@@ -4892,12 +5031,26 @@ focus = {
 			
 
 			completion_reward = {
-				
+
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 4
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+
+				custom_effect_tooltip = GRE_The_State_of_The_Government_6_tt
+				add_to_variable = {
+					GRE_The_State_of_The_Government_production_speed_arms_factory_factor = 0.10
+					}
+					
 			}
 		}
 		focus = {
 			id = GRE_All_Out_Integration
-			icon = GFX_focus_eng_concessions_to_the_trade_unions
+			icon = GFX_goal_generic_military_sphere
 			prerequisite = { focus = GRE_Rights_to_the_EAM_Industry}
 			relative_position_id = GRE_Rights_to_the_EAM_Industry
 			x = 0
@@ -4909,13 +5062,23 @@ focus = {
 
 			
 
-			completion_reward = {			
-			        
+			completion_reward = {		
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 1
+					
+				}
+				add_to_variable = {
+					GRE_The_State_of_The_Government_consumer_goods_factor = -0.10
+					}	
+				add_to_variable = {
+					GRE_The_State_of_The_Government_production_speed_arms_factory_factor = 0.10
+					}
+				custom_effect_tooltip = GRE_The_State_of_The_Government_7_tt
 			}
 		}
 		focus = {
 			id = GRE_Align_With_the_ELAS
-			icon = GFX_focus_eng_concessions_to_the_trade_unions
+			icon = GFX_focus_GRE_red_economy
 			mutually_exclusive = { focus = GRE_Back_the_EAM  }
 			prerequisite = { focus = GRE_begin_internal_reforms}
 			relative_position_id = GRE_begin_internal_reforms
@@ -4929,12 +5092,23 @@ focus = {
 			
 
 			completion_reward = {
-			
+				custom_effect_tooltip = GRE_The_State_of_The_Government_8_tt
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 4
+					add_building_construction = {
+						type = industrial_complex
+						level = 4
+						instant_build = yes
+					}
+				}
+				add_to_variable = {
+					GRE_The_State_of_The_Government_production_speed_industrial_complex_factor = 0.05
+					}	
 			}
 		}
 		focus = {
 			id = GRE_Request_Support_From_Major_Powers
-			icon = GFX_focus_eng_concessions_to_the_trade_unions
+			icon = GFX_focus_hol_the_fourth_ally
 			prerequisite = { focus = GRE_Align_With_the_ELAS}
 			relative_position_id = GRE_Align_With_the_ELAS
 			x = 0
@@ -4955,7 +5129,7 @@ focus = {
 			}
 			focus = {
 				id = GRE_Reach_Out_to_the_Commonwealth
-				icon = GFX_focus_eng_concessions_to_the_trade_unions
+				icon = GFX_focus_eng_bring_the_dominions_back_into_the_fold
 				prerequisite = { focus = GRE_Align_With_the_ELAS}
 				relative_position_id = GRE_Align_With_the_ELAS
 				x = -2
@@ -4966,12 +5140,18 @@ focus = {
 				}
 	
 				completion_reward = {
-				
+
+				AST = { country_event = usa.201 }
+				NZL = { country_event = usa.201 }
+				SAF = { country_event = usa.201 }
+				CAN = { country_event = usa.201 }
+				RAJ = { country_event = usa.201 }
+
 				}
 			}
 			focus = {
-				id = GRE_Seek_Ally_Support
-				icon = GFX_focus_eng_concessions_to_the_trade_unions
+				id = GRE_Become_More_Integrated_With_ELAS
+				icon = GFX_goal_generic_light_industry
 				prerequisite = { focus = GRE_Reach_Out_to_the_Commonwealth}
 				relative_position_id = GRE_Reach_Out_to_the_Commonwealth
 				x = 0
@@ -4982,17 +5162,28 @@ focus = {
 				}
 	
 				completion_reward = {
-				
+					random_owned_controlled_state = {
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = {
+							type = infrastructure
+							level = 2
+							instant_build = yes
+						}
+					}
+					custom_effect_tooltip = GRE_The_State_of_The_Government_9_tt
+					add_to_variable = {
+						GRE_The_State_of_The_Government_production_speed_industrial_complex_factor = 0.05
+						}	
 				}
 			}
 			focus = {
 				id = GRE_National_Bands_Agreement
 				icon = GFX_focus_eng_concessions_to_the_trade_unions
-				prerequisite = { focus = GRE_restaff_the_army_command}
-				prerequisite = { focus = GRE_city_defenses}
+				prerequisite = { focus = GRE_Political_Finalization focus = GRE_city_defenses} 
 				
-				relative_position_id = GRE_eco_three
-				x = 9
+				
+				relative_position_id = GRE_Liberate_Fascist_Governments
+				x = 8
 				y = 2
 				cost = 10
 				ai_will_do = {
@@ -5000,11 +5191,11 @@ focus = {
 				}
 	
 				completion_reward = {
-					
-				
+					ENG = {add_ideas = GRE_National_Bands_Agreement}
+					add_ideas = GRE_National_Bands_Agreement
 				}
 			}
-		}
+		
 
 		
 
@@ -5043,7 +5234,7 @@ focus = {
     	text = GRE_reinforce_royal_dictatorship
 		prerequisite = { focus = GRE_divided_nation }
 		mutually_exclusive = { focus = GRE_democratic_approach focus = GRE_aftermath_of_the_victory_of_the_people focus = GRE_national_security_concerns focus = GRE_national_union  }
-		x = 0
+		x = 9
 		y = 1
 		relative_position_id = GRE_divided_nation
 		cost = 5
