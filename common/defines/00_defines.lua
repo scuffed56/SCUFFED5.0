@@ -1297,6 +1297,8 @@ NAir = {
 	MIN_PLANE_COUNT_AIR_SUPPLY = 1,
 	BASE_UNIT_WEIGHT_IN_TRANSPORT_PLANES = 45.0,
 
+	MANPOWER_LOSS_RATIO_PLANE_SHOT = 0.10,
+
 	MISSION_COMMAND_POWER_COSTS = {  -- command power cost per plane to create a mission
 		0.0, -- AIR_SUPERIORITY
 		0.0, -- CAS
@@ -1369,9 +1371,9 @@ NNavy = {
 	NAVAL_INVASION_PRIORITY = 1,									-- Default convoy priority for naval invasions
 	NAVAL_TRANSFER_PRIORITY = 1,									-- Default convoy priority for naval transports
 	SUPPLY_PRIORITY = 2,											-- Default convoy priority for supplying units via sea
-	RESOURCE_LENDLEASE_PRIORITY = 3,								-- Default convoy priority for export lend lease
-	RESOURCE_EXPORT_PRIORITY = 3,									-- Default convoy priority for export trade
 	RESOURCE_ORIGIN_PRIORITY = 3,									-- Default convoy priority for resources shipped internally
+	RESOURCE_EXPORT_PRIORITY = 4,									-- Default convoy priority for export trade
+	RESOURCE_LENDLEASE_PRIORITY = 5,								-- Default convoy priority for export lend lease
 	-- Convoy Priorities END
 
 	ADMIRAL_TASKFORCE_CAP = 10,										-- admirals will start getting penalties after this amount of taskforces
@@ -2128,6 +2130,7 @@ NAI = {
 
 	UNLOCK_SPIRIT_AI_WILL_DO_FACTOR = 10,       -- Factor for scripted ai_will_do value
 	UNLOCK_SPIRIT_MODIFIER_FACTOR = 0.1,        -- Factor for AI's evaluated value of the modifiers connected to the spirit
+	UNLOCK_SPIRIT_USE_TRUNCATION_SELECT = false,
 	UNLOCK_SPIRIT_TRUNCATION_SELECT_THRESHOLD = 0.80,  -- Valid between [0.0, 1.0]. When unlocking spirits, select randomly from all spirits with AI score >= VALUE * HighestSpiritScore. To always select the best, set this value to 1.0. To select fully randomly, set this value to 0.0.
 
 	FOCUS_TREE_CONTINUE_FACTOR = 1.5,			-- Factor for score of how likely the AI is to keep going down a focus tree rather than starting a new path.
@@ -2485,6 +2488,8 @@ NAI = {
 	DIVISION_DESIGN_COMBAT_WIDTH_WEIGHT = -1.0,				-- This score is reduced the higher width is when comparing pure changes with no target
 	DIVISION_DESIGN_COMBAT_WIDTH_TARGET_WEIGHT = -200.0,	-- This score is reduced the farther the width is from the target width (if set)
 	DIVISION_DESIGN_MAX_FAILED_DAYS = 60,					-- max days we keep track of since failure of a template design update
+
+	DIVISION_MATCH_ROLE_BOOST_FACTOR = 1.2,
 
 	EQUIPMENT_DESIGN_MAX_FAILED_DAYS = 60,					-- max days we keep track of since failure of an equipment design update
 
