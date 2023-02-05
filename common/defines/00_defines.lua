@@ -845,7 +845,7 @@ NMilitary = {
 	SLOWEST_SPEED = 4,
 	REINFORCEMENT_REQUEST_MAX_WAITING_DAYS = 14,   -- Every X days the equipment will be sent, regardless if still didn't produced all that has been requested.
 	REINFORCEMENT_REQUEST_DAYS_FREQUENCY = 7,	   -- How many days must pass until we may give another reinforcement request
-	EXPERIENCE_COMBAT_FACTOR = 0.05,
+	EXPERIENCE_COMBAT_FACTOR = 0.25,
 	UNIT_DIGIN_CAP = 5,                           -- how "deep" you can dig you can dig in until hitting max bonus
 	UNIT_DIGIN_SPEED = 1,						   -- how "deep" you can dig a day.
 	PARACHUTE_FAILED_EQUIPMENT_DIV = 50.0,		   -- When the transport plane was shot down, we drop unit with almost NONE equipment
@@ -876,7 +876,7 @@ NMilitary = {
 	NON_CORE_SUPPLY_SPEED = -0.5,				   -- we are not running on our own VP supply so need to steal stuff along the way
 	NON_CORE_SUPPLY_AIR_SPEED = -0.25,			   -- we are not running on our own VP supply so need to steal stuff along the way, a bit less due to air supply
 	OUT_OF_SUPPLY_MORALE = -0.2,                   -- max org regain reduction from supply
-	TRAINING_ATTRITION = 0,		  			   -- amount of extra attrition from being in training
+	TRAINING_ATTRITION = 0.05,		  			   -- amount of extra attrition from being in training
 	TRAINING_MIN_STRENGTH = 0.1,					-- if strength is less than this, the unit will pause training until it's been reinforced
 	TRAINING_MAX_DAILY_COUNTRY_EXP = 0.16,			-- Maximum army XP gained per day from training
 	AIR_SUPPORT_BASE = 0.25,                        -- CAS bonus factor for air support moddifier for land unit in combat
@@ -887,7 +887,7 @@ NMilitary = {
 	SPEED_REINFORCEMENT_BONUS = 0.01,              -- chance to join combat bonus by each 100% larger than infantry base (up to 200%)
 	OVERSEAS_LOSE_EQUIPMENT_FACTOR = 0.75,		   -- percentage of equipment lost disbanded overseas
 	NAVAL_TRANSFER_DISBAND_MANPOWER_FACTOR = 0.5,  -- percentage of manpower returned when a naval transfering unit is disbanded
-	ENCIRCLED_DISBAND_MANPOWER_FACTOR = 0.1,       -- percentage of manpower returned when an encircled unit is disbanded
+	ENCIRCLED_DISBAND_MANPOWER_FACTOR = 0.01,       -- percentage of manpower returned when an encircled unit is disbanded
 	ORG_LOSS_FACTOR_ON_CONQUER = 0.2,              -- percentage of (max) org loss on takign enemy province
 	LOW_ORG_FOR_ATTACK = 0.3,                      -- at what org % we start affecting speed when doign hostile moves. scales down ZERO_ORG_MOVEMENT_MODIFIER
 
@@ -1021,7 +1021,7 @@ NMilitary = {
 	GARRISON_ORDER_ARMY_CAP_FACTOR = 3.0,			-- armies gets increased cap when they are garrisoned
 
 	COMMANDER_LEVEL_UP_STAT_COUNT = 3, 				-- num stats gained on level up
-	COMMANDER_LEVEL_UP_STAT_WEIGHTS = {7, 5, 3, 4}, -- level up stat random base weights attack, defense, planning, logistics
+	COMMANDER_LEVEL_UP_STAT_WEIGHTS = {5, 5, 5, 5}, -- level up stat random base weights attack, defense, planning, logistics
 
 	NAVY_LEADER_LEVEL_UP_STAT_WEIGHTS = {5, 5, 5, 5}, -- level up stat random base weights attack, defense, maneuvering, coordination
 
@@ -1044,10 +1044,10 @@ NMilitary = {
 	HOURS_REQ_REJOIN_BORDER_WAR_FOR_INJURED_UNITS = 336, -- minimum hours required for units to rejoin border wars
 
 	NEW_COMMANDER_RANDOM_PERSONALITY_TRAIT_CHANCES = {  -- chances to gain a personality trait for new generals
-		0.8, -- 50% for first trait
-		0.4,  -- 15% for second trait after that
-		0.05,
-		0.01,
+		1.0, -- 100% chance for 1st trait 
+		0.4,  -- 40% chance for 2nd trait 
+		0.05, -- 5% chance for 3rd trait 
+		0.01, -- 1% chance for 4th trait 
 	},
 
 	NEW_COMMANDER_RANDOM_BASIC_TRAIT_CHANCES = {  -- chances to gain a basic trait for new generals
@@ -1168,7 +1168,7 @@ NAir = {
 	NAVAL_STRIKE_TARGETTING_TO_AMOUNT = 0.3,			-- Balancing value to convert the naval_strike_targetting equipment stats to chances of how many airplanes managed to do successfull strike.
 	NAVAL_STRIKE_DAMAGE_TO_STR = 1.0,					-- Balancing value to convert damage ( naval_strike_attack * hits ) to Strength reduction.
 	NAVAL_STRIKE_DAMAGE_TO_ORG = 1.5,					-- Balancing value to convert damage ( naval_strike_attack * hits ) to Organisation reduction.
-	NAVAL_STRIKE_CARRIER_MULTIPLIER = 5.0,              -- damage bonus when planes are in naval combat where their carrier is present (and can thus sortie faster and more effectively)
+	NAVAL_STRIKE_CARRIER_MULTIPLIER = 10.0,              -- damage bonus when planes are in naval combat where their carrier is present (and can thus sortie faster and more effectively)
 	FIELD_EXPERIENCE_SCALE = 0.0004,
 	FIELD_EXPERIENCE_MAX_PER_DAY = 2,					-- Most xp you can gain per day
 	CLOSE_AIR_SUPPORT_EXPERIENCE_SCALE = 0.0005,		-- How much the experinence gained by CAS is scaled
@@ -1256,7 +1256,7 @@ NAir = {
 	AIR_WING_XP_LOSS_REDUCTION_OVER_FRIENDLY_TERRITORY_FACTOR = 0.1, 	--Reduction on XP loss over friendly territory
 
 	DISRUPTION_FACTOR = 4.0,									-- multiplier on disruption damage to scale its effects on planes
-	DISRUPTION_FACTOR_CARRIER = 8.0,							-- multiplier on disruption damage to scale its effects on carrier vs carrier planes
+	DISRUPTION_FACTOR_CARRIER = 6.0,							-- multiplier on disruption damage to scale its effects on carrier vs carrier planes
 	DISRUPTION_SPEED_FACTOR = 1.0,
 	DISRUPTION_AGILITY_FACTOR = 0.0,
 	DISRUPTION_ATTACK_FACTOR = 0.0,
@@ -1296,6 +1296,8 @@ NAir = {
 	MIN_PLANE_COUNT_PARADROP = 50,
 	MIN_PLANE_COUNT_AIR_SUPPLY = 1,
 	BASE_UNIT_WEIGHT_IN_TRANSPORT_PLANES = 45.0,
+
+	MANPOWER_LOSS_RATIO_PLANE_SHOT = 0.10,
 
 	MISSION_COMMAND_POWER_COSTS = {  -- command power cost per plane to create a mission
 		0.0, -- AIR_SUPERIORITY
@@ -1369,9 +1371,9 @@ NNavy = {
 	NAVAL_INVASION_PRIORITY = 1,									-- Default convoy priority for naval invasions
 	NAVAL_TRANSFER_PRIORITY = 1,									-- Default convoy priority for naval transports
 	SUPPLY_PRIORITY = 2,											-- Default convoy priority for supplying units via sea
-	RESOURCE_LENDLEASE_PRIORITY = 3,								-- Default convoy priority for export lend lease
-	RESOURCE_EXPORT_PRIORITY = 3,									-- Default convoy priority for export trade
 	RESOURCE_ORIGIN_PRIORITY = 3,									-- Default convoy priority for resources shipped internally
+	RESOURCE_EXPORT_PRIORITY = 4,									-- Default convoy priority for export trade
+	RESOURCE_LENDLEASE_PRIORITY = 5,								-- Default convoy priority for export lend lease
 	-- Convoy Priorities END
 
 	ADMIRAL_TASKFORCE_CAP = 10,										-- admirals will start getting penalties after this amount of taskforces
@@ -1475,7 +1477,7 @@ NNavy = {
 	MIN_MANPOWER_RATIO_TO_DROP = 0.1,								-- ships will not lose man power to below this ratio
 	DAILY_MANPOWER_GAIN_RATIO = 0.05,								-- the ships not in combat will be able to gain this ratio of their max manpower
 	PRIDE_OF_THE_FLEET_UNASSIGN_COST = 0,							-- cost to unassign/replace pride of the fleet
-	PRIDE_OF_THE_FLEET_LOST_TEMP_MODIFIER_DURATION = 50,			-- duration for temp modifiers that you get when you lose your pride of the fleet
+	PRIDE_OF_THE_FLEET_LOST_TEMP_MODIFIER_DURATION = 180,			-- duration for temp modifiers that you get when you lose your pride of the fleet
 	XP_GAIN_FACTOR = 1.0,	   			   							-- xp gain factor for navy
 
 	NAVAL_TRANSFER_DAMAGE_REDUCTION = 0.25,							-- its hard to specifically balance 1-tick naval strikes vs unit transports so here is a factor for it
@@ -1748,7 +1750,7 @@ NNavy = {
 	MIN_GUN_COOLDOWN = 0.1,											-- minimum cooldown for a gun
 	BASE_GUN_COOLDOWNS = { -- number of hours for a gun to be ready after shooting
 		1.0,	-- big guns
-		4.0,	-- torpedoes
+		1.0,	-- torpedoes
 		1.0,	-- small guns
 	},
 
@@ -2128,6 +2130,7 @@ NAI = {
 
 	UNLOCK_SPIRIT_AI_WILL_DO_FACTOR = 10,       -- Factor for scripted ai_will_do value
 	UNLOCK_SPIRIT_MODIFIER_FACTOR = 0.1,        -- Factor for AI's evaluated value of the modifiers connected to the spirit
+	UNLOCK_SPIRIT_USE_TRUNCATION_SELECT = false,
 	UNLOCK_SPIRIT_TRUNCATION_SELECT_THRESHOLD = 0.80,  -- Valid between [0.0, 1.0]. When unlocking spirits, select randomly from all spirits with AI score >= VALUE * HighestSpiritScore. To always select the best, set this value to 1.0. To select fully randomly, set this value to 0.0.
 
 	FOCUS_TREE_CONTINUE_FACTOR = 1.5,			-- Factor for score of how likely the AI is to keep going down a focus tree rather than starting a new path.
@@ -2485,6 +2488,8 @@ NAI = {
 	DIVISION_DESIGN_COMBAT_WIDTH_WEIGHT = -1.0,				-- This score is reduced the higher width is when comparing pure changes with no target
 	DIVISION_DESIGN_COMBAT_WIDTH_TARGET_WEIGHT = -200.0,	-- This score is reduced the farther the width is from the target width (if set)
 	DIVISION_DESIGN_MAX_FAILED_DAYS = 60,					-- max days we keep track of since failure of a template design update
+
+	DIVISION_MATCH_ROLE_BOOST_FACTOR = 1.2,
 
 	EQUIPMENT_DESIGN_MAX_FAILED_DAYS = 60,					-- max days we keep track of since failure of an equipment design update
 
@@ -3120,8 +3125,10 @@ NOperatives = {
 	AGENCY_CREATION_DAYS = 30,						-- Number of days needed to create an intelligence agency
 	AGENCY_UPGRADE_DAYS = 30,						-- Number of days needed to upgrade an intelligence agency
 	AGENCY_CREATION_FACTORIES = 5,					-- Number of factories used to create an intelligence agency
+	
 	AGENCY_AI_BASE_NUM_FACTORIES = 25.0,				-- Used by AI to pace the upgrades. Formula : if( AGENCY_AI_BASE_NUM_FACTORIES <= num_civ_factories - num_upgrades * AGENCY_AI_PER_UPGRADE_FACTORIES )
 	AGENCY_AI_PER_UPGRADE_FACTORIES = 6.0,			-- Used by AI to pace the upgrades. Formula : if( AGENCY_AI_BASE_NUM_FACTORIES <= num_civ_factories - num_upgrades * AGENCY_AI_PER_UPGRADE_FACTORIES )
+	
 	AGENCY_UPGRADE_PER_OPERATIVE_SLOT = 5,			-- Number of upgrade needed to unlock an additional operative slot
 	MAX_OPERATIVE_SLOT_FROM_AGENCY_UPGRADES = 1,	-- max operative slots gained from upgrades
 	AGENCY_OPERATIVE_RECRUITMENT_TIME = 30,			-- Number of days to wait to have operative to recruit when an operative slot first becomes available
