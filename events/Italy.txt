@@ -652,6 +652,10 @@ country_event = {
 	}
 }
 
+
+
+
+
 # Italy Germany accepts some of demands for Vichy territory
 country_event = {
 	id = italy.16
@@ -669,3 +673,47 @@ country_event = {
 	}
 }
 
+# Moving Towards A Red Aegean 
+
+country_event = {
+    id = greece.300
+    title = greece.300.t
+    desc = greece.300.d
+    picture = GFX_report_event_finnish_letter
+    
+    is_triggered_only = yes
+    #Accept
+	option = {
+        name = greece.300.a
+		add_manpower = 20000
+		add_poliitcal_power = 75
+
+        GRE = {
+            transfer_state = 164
+			add_state_core = 164
+        }
+        if = {
+            limit = {
+                164 = { is_core_of = ITA }
+            }
+            ITA = {
+                remove_state_core = 164
+            }
+        }
+    }
+	
+
+	#Refuse
+	option = {
+		name = greece.300.b
+		add_manpower = -50000
+
+		GRE ={
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_0
+				amount = 3000
+				producer = GRE
+			}
+		}
+	}
+}
