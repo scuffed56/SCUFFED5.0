@@ -2097,7 +2097,7 @@ focus = {
 		id = GRE_political_awakening
 		icon = GFX_focus_GRE_flag_2
 		text = GRE_political_awakening
-		x = 44
+		x = 50
 		y = 0
 		cost = 5
 		ai_will_do = {
@@ -3606,7 +3606,7 @@ focus = {
 		icon = GFX_GRE_focus_laikon_koma
     	text = GRE_democratic_approach
 		prerequisite = { focus = GRE_divided_nation }
-		x = -11
+		x = -5
 		y = 1
 		mutually_exclusive = { focus = GRE_national_security_concerns focus = GRE_aftermath_of_the_victory_of_the_people focus = GRE_reinforce_royal_dictatorship focus = GRE_national_union  }
 		relative_position_id = GRE_divided_nation
@@ -4343,10 +4343,10 @@ focus = {
 	focus = {
 		id = GRE_restaff_the_army_command
 		icon = GFX_goal_generic_communist_loyalty
-		prerequisite = { focus = GRE_begin_internal_reforms }
+		prerequisite = { focus = GRE_purge_remaining_fascist_remnants }
 		x = 0
-		y = 3
-		relative_position_id = GRE_aftermath_of_the_victory_of_the_people
+		y = 1
+		relative_position_id = GRE_purge_remaining_fascist_remnants
 		cost = 5
 
 		ai_will_do = {
@@ -4466,13 +4466,54 @@ focus = {
 		}
 	}
 
+	focus = {
+		id = GRE_eco_one
+		icon = GFX_focus_GRE_aris_velouchiotis
+		prerequisite = { focus = GRE_found_opla }
+		x = 0
+		y = 1
+		relative_position_id = GRE_found_opla
+		cost = 5
+
+		completion_reward = {
+			
+		}
+	}
+	focus = {
+		id = GRE_eco_two
+		icon = GFX_focus_GRE_aris_velouchiotis
+		prerequisite = { focus = GRE_Reinforce_the_hierarchy }
+		x = -2
+		y = 1
+		relative_position_id = GRE_Reinforce_the_hierarchy
+		cost = 5
+
+		completion_reward = {
+			custom_effect_tooltip = GRE_The_State_of_The_Government_2_tt
+		}
+	}
+	focus = {
+		id = GRE_eco_three
+		icon = GFX_focus_GRE_aris_velouchiotis
+		prerequisite = { focus = GRE_deal_with_klaras }
+		x = 0
+		y = 1
+		relative_position_id = GRE_deal_with_klaras
+		cost = 5
+
+		completion_reward = {
+
+			custom_effect_tooltip = GRE_The_State_of_The_Government_4_tt
+			
+		}
+	}
 		focus = {
 			id = GRE_deal_with_klaras
 			icon = GFX_focus_GRE_aris_velouchiotis
-			prerequisite = { focus = GRE_restaff_the_army_command }
+			prerequisite = { focus = GRE_Reinforce_the_hierarchy }
 			x = 0
 			y = 1
-			relative_position_id = GRE_restaff_the_army_command
+			relative_position_id = GRE_Reinforce_the_hierarchy
 			cost = 5
 
 			ai_will_do = {
@@ -4498,9 +4539,9 @@ focus = {
 		focus = {
 			id = GRE_international_socialist_volunteers
 			icon = GFX_goal_communist_brigades
-			prerequisite = { focus = GRE_deal_with_klaras }
-			relative_position_id = GRE_deal_with_klaras
-			x = -2
+			prerequisite = { focus = GRE_eco_two }
+			relative_position_id = GRE_eco_two
+			x = 0
 			y = 1
 			cost = 5
 			ai_will_do = {
@@ -4520,8 +4561,8 @@ focus = {
 		focus = {
 			id = GRE_found_opla
 			icon = GFX_goal_generic_anti_communism
-			prerequisite = { focus = GRE_deal_with_klaras }
-			relative_position_id = GRE_deal_with_klaras
+			prerequisite = { focus = GRE_Reinforce_the_hierarchy }
+			relative_position_id = GRE_Reinforce_the_hierarchy
 			x = 2
 			y = 1
 			cost = 5
@@ -4532,10 +4573,18 @@ focus = {
 			
 
 			completion_reward = {
-				add_ideas = GRE_opla
+
+				custom_effect_tooltip = GRE_The_State_of_The_Government_3_tt
+				
 			}
 			search_filters = {  FOCUS_FILTER_STABILITY }
 		}
+
+
+
+
+
+
 
 		focus = {
 			id = GRE_begin_internal_reforms
@@ -4549,10 +4598,33 @@ focus = {
 				factor = 60
 			}
 
-			
+			custom_effect_tooltip =  GRE_The_State_of_The_Government_tt 
 
 			completion_reward = {
-				add_ideas = GRE_Reforming_the_Nation
+				set_variable = { GRE_The_State_of_The_Government_consumer_goods_factor = 0.05 }
+				set_variable = { GRE_The_State_of_The_Government_production_speed_arms_factory_factor = -0.10 }
+				set_variable = { GRE_The_State_of_The_Government_production_speed_industrial_complex_factor = -0.10 }
+				set_variable = { GRE_The_State_of_The_Government_political_power_factor = -0.25 }
+				
+				add_dynamic_modifier = { modifier = GRE_The_State_of_The_Government_dynamic_modifier } 
+
+				custom_effect_tooltip =  GRE_The_State_of_The_Government_tt 
+
+
+				hidden_effect = {
+					
+
+
+				}
+
+
+
+
+
+
+
+
+
 			}
 			search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		}
@@ -4562,8 +4634,8 @@ focus = {
 			icon = GFX_goal_tfv_burn_the_royal_portraits
 			prerequisite = { focus = GRE_begin_internal_reforms }
 			relative_position_id = GRE_begin_internal_reforms
-			x = 1
-			y = 1
+			x = 6
+			y = 2
 			cost = 5
 			ai_will_do = {
 				factor = 60
@@ -4581,7 +4653,7 @@ focus = {
 			icon = GFX_goal_generic_multinational_army
 			prerequisite = { focus = GRE_fate_of_the_royal_family }
 			relative_position_id = GRE_fate_of_the_royal_family
-			x = 1
+			x = 0
 			y = 1
 			cost = 5
 			ai_will_do = {
@@ -4602,7 +4674,7 @@ focus = {
                 icon = GFX_goal_generic_denazification
                 prerequisite = { focus = GRE_protect_northern_minorities }
                 relative_position_id = GRE_fate_of_the_royal_family
-                x = 3
+                x = 0
                 y = 2
                 cost = 10
                 ai_will_do = {
@@ -4622,9 +4694,9 @@ focus = {
             focus = {
                 id = GRE_Reinforce_the_hierarchy
                 icon = GFX_focus_GRE_kke
-                prerequisite = { focus = GRE_purge_remaining_fascist_remnants }
-                relative_position_id = GRE_fate_of_the_royal_family
-                x = 3
+                prerequisite = { focus = GRE_begin_internal_reforms }
+                relative_position_id = GRE_begin_internal_reforms
+                x = 0
                 y = 3
                 cost = 8.7
                 ai_will_do = {
@@ -4634,6 +4706,14 @@ focus = {
                 
 
                 completion_reward = {
+
+					
+					custom_effect_tooltip = GRE_The_State_of_The_Government_1_tt
+					add_to_variable = {
+					GRE_The_State_of_The_Government_political_power_factor = 0.10 
+					}
+
+
 					custom_effect_tooltip = available_political_advisor
             		show_ideas_tooltip = GRE_Andreas_Tzimas
 
@@ -4649,34 +4729,14 @@ focus = {
                 }
             }
 
-		focus = {
-			id = GRE_marxs_dream
-			icon = GFX_goal_generic_karl_marx
-			prerequisite = { focus = GRE_enforce_nationalization }
-			prerequisite = { focus = GRE_deal_with_klaras }
-			prerequisite = { focus = GRE_Reinforce_the_hierarchy }
-			relative_position_id = GRE_deal_with_klaras
-			x = 0
-			y = 2
-			cost = 5
-			ai_will_do = {
-				factor = 60
-			}
-
-			
-
-			completion_reward = {
-				add_ideas = GRE_utopia
-			}
-			search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-		}
+		
 
 		focus = {
 			id = GRE_create_a_new_economic_plan
 			icon = GFX_goal_generic_communist_economy
-			prerequisite = { focus = GRE_begin_internal_reforms }
-			relative_position_id = GRE_begin_internal_reforms
-			x = -1
+			prerequisite = { focus = GRE_Align_With_the_ELAS }
+			relative_position_id = GRE_Align_With_the_ELAS
+			x = -4
 			y = 1
 			cost = 5
 			ai_will_do = {
@@ -4686,13 +4746,7 @@ focus = {
 			
 
 			completion_reward = {
-				add_ideas = GRE_renewed_economic_plan
-				add_tech_bonus = {
-					name = industrial_bonus
-					bonus = 1
-					uses = 2
-					category = industry
-				}
+				
 			}
 			search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL }
 		}
@@ -4702,7 +4756,7 @@ focus = {
 			icon = GFX_goal_generic_farm_tractor
 			prerequisite = { focus = GRE_create_a_new_economic_plan }
 			relative_position_id = GRE_create_a_new_economic_plan
-			x = -1
+			x = 0
 			y = 1
 			cost = 10
 			ai_will_do = {
@@ -4712,20 +4766,7 @@ focus = {
 			
 
 			completion_reward = {
-			  swap_ideas = { remove_idea = GRE_renewed_economic_plan add_idea = GRE_reformed_agrarian_economy }
-				random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 1
-				}
-				random_owned_controlled_state = {
-					add_extra_state_shared_building_slots = 1
-				}
-				IF = {
-					limit = { has_idea = GRE_civil_war_exhaustion }
-					modify_timed_idea = {
-						idea = GRE_civil_war_exhaustion
-						days = -70
-					}
-				}
+			
 			}
 			search_filters = { FOCUS_FILTER_INDUSTRY }
 		}
@@ -4736,7 +4777,7 @@ focus = {
 			icon = GFX_focus_GRE_red_economy
 			prerequisite = { focus = GRE_reform_agricultural_economy }
 			relative_position_id = GRE_reform_agricultural_economy
-			x = -2
+			x = 0
 			y = 1
 			cost = 10
 			ai_will_do = {
@@ -4746,14 +4787,7 @@ focus = {
 			
 
 			completion_reward = {
-			  swap_ideas = { remove_idea = GRE_reformed_agrarian_economy add_idea = GRE_controlled_stocks }
-				IF = {
-					limit = { has_idea = GRE_civil_war_exhaustion }
-					modify_timed_idea = {
-						idea = GRE_civil_war_exhaustion
-						days = -70
-					}
-				}
+			 
 			}
 		}
 
@@ -4761,34 +4795,8 @@ focus = {
 			id = GRE_enforce_nationalization
 			icon = GFX_focus_eng_concessions_to_the_trade_unions
 			prerequisite = { focus = GRE_control_the_stocks}
-			relative_position_id = GRE_reform_agricultural_economy
-			x = -2
-			y = 2
-			cost = 10
-			ai_will_do = {
-				factor = 60
-			}
-
-			
-
-			completion_reward = {
-			swap_ideas = { remove_idea = GRE_controlled_stocks add_idea = GRE_enforced_nationalization }
-			IF = {
-				limit = { has_idea = GRE_civil_war_exhaustion }
-					modify_timed_idea = {
-						idea = GRE_civil_war_exhaustion
-						days = -70
-					}
-				}
-			}
-		}
-
-		focus = {
-			id = GRE_Back_the_EAM
-			icon = GFX_goal_ussr_revolt
-			prerequisite = { focus = GRE_marxs_dream}
-			relative_position_id = GRE_marxs_dream
-			x = 1
+			relative_position_id = GRE_control_the_stocks
+			x = 0
 			y = 1
 			cost = 10
 			ai_will_do = {
@@ -4798,92 +4806,34 @@ focus = {
 			
 
 			completion_reward = {
-				add_ideas = GRE_Support_from_the_EAM
-				custom_effect_tooltip = GRE_civil_guard_divisions_tt
-				hidden_effect = {
-					if = {
-						limit = {
-							has_tech = tech_recon
-						}
-						division_template = {
-							name = "Politophylaki"
-							priority = 2
-							division_names_group = GRE_INF_01
-							regiments = {
-								infantry = { x = 0 y = 0 }
-								infantry = { x = 0 y = 1 }
-								infantry = { x = 0 y = 2 }
-								infantry = { x = 1 y = 0 }
-								
-							}
-						}
-						else = {
-							division_template = {
-								name = "Politophylaki"
-								priority = 2
-								division_names_group = GRE_INF_01
-								regiments = {
-									infantry = { x = 0 y = 0 }
-									infantry = { x = 0 y = 1 }
-									infantry = { x = 0 y = 2 }
-									infantry = { x = 1 y = 1 }
-								}
-							}
-						}
-					}
-					random_owned_controlled_state = {
-						limit = { ROOT = { has_full_control_of_state = PREV } }
-						prioritize = { 47 }
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-						create_unit = {
-							division = "name = \"Politophylaki\" division_template = \"Politophylaki\" start_experience_factor = 0.0"
-							owner = GRE
-						}
-					}
-				}
+			
+			}
+		}
+
+		focus = {
+			id = GRE_Back_the_EAM
+			icon = GFX_goal_ussr_revolt
+			prerequisite = { focus = GRE_begin_internal_reforms}
+			relative_position_id = GRE_begin_internal_reforms
+			x = 2
+			y = 1
+			cost = 10
+			ai_will_do = {
+				factor = 60
+			}
+
+			
+
+			completion_reward = {
+				
 			}
 		}
 
 		focus = {
 			id = GRE_A_Mountainous_Regime
 			icon = GFX_focus_GRE_a_land_of_mountains
-			prerequisite = { focus = GRE_Receive_EAM_Stockpiles}
-			relative_position_id = GRE_Receive_EAM_Stockpiles
+			prerequisite = { focus = GRE_All_Out_Integration}
+			relative_position_id = GRE_All_Out_Integration
 			x = 0
 			y = 1
 			cost = 10
@@ -4919,16 +4869,6 @@ focus = {
 			
 
 			completion_reward = {
-				add_equipment_to_stockpile = {
-					type = infantry_equipment_0
-					amount = 2000
-					producer = GRE
-				}
-				add_equipment_to_stockpile = {
-					type = support_equipment
-					amount = 750
-					producer = GRE
-				}
 				
 			}
 		}
@@ -4947,15 +4887,7 @@ focus = {
 			
 
 			completion_reward = {
-				random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-					  type = arms_factory
-					  level = 2
-					  instant_build = yes
-				  }
-			  }
-			  add_ideas = GRE_EAM_Military_Permits
+				
 			}
 		}
 		focus = {
@@ -4973,34 +4905,16 @@ focus = {
 			
 
 			completion_reward = {			
-				add_war_support = 0.10
-				if = {
-					limit = {
-						NOT = { has_idea = partial_economic_mobilisation }
-						NOT = { has_idea = war_economy }
-						NOT = { has_idea = tot_economic_mobilisation }
-					}
-					add_ideas = war_economy  
-					add_ideas = extensive_conscription     
-				}
-				else_if = {
-					limit = {
-						
-						NOT = { has_idea = tot_economic_mobilisation }
-					}
-					add_ideas = war_economy  
-					add_ideas = extensive_conscription       
-				}
-				         
+			        
 			}
 		}
 		focus = {
 			id = GRE_Align_With_the_ELAS
 			icon = GFX_focus_eng_concessions_to_the_trade_unions
 			mutually_exclusive = { focus = GRE_Back_the_EAM  }
-			prerequisite = { focus = GRE_marxs_dream}
-			relative_position_id = GRE_marxs_dream
-			x = -1
+			prerequisite = { focus = GRE_begin_internal_reforms}
+			relative_position_id = GRE_begin_internal_reforms
+			x = -2
 			y = 1
 			cost = 10
 			ai_will_do = {
@@ -5010,7 +4924,7 @@ focus = {
 			
 
 			completion_reward = {
-			add_ideas = GRE_ELAS_Economy
+			
 			}
 		}
 		focus = {
@@ -5026,65 +4940,71 @@ focus = {
 			}
 
 			completion_reward = {
-				GRE = { country_event = greece.200 }
+
+				USA = { country_event = usa.201 }
+				SOV = { country_event = usa.201 }
+				FRA = { country_event = usa.201 }
+				ENG = { country_event = usa.201 }
+
 			}
+			}
+			focus = {
+				id = GRE_Reach_Out_to_the_Commonwealth
+				icon = GFX_focus_eng_concessions_to_the_trade_unions
+				prerequisite = { focus = GRE_Align_With_the_ELAS}
+				relative_position_id = GRE_Align_With_the_ELAS
+				x = -2
+				y = 1
+				cost = 10
+				ai_will_do = {
+					factor = 60
+				}
+	
+				completion_reward = {
+				
+				}
+			}
+			focus = {
+				id = GRE_Seek_Ally_Support
+				icon = GFX_focus_eng_concessions_to_the_trade_unions
+				prerequisite = { focus = GRE_Reach_Out_to_the_Commonwealth}
+				relative_position_id = GRE_Reach_Out_to_the_Commonwealth
+				x = 0
+				y = 1
+				cost = 10
+				ai_will_do = {
+					factor = 60
+				}
+	
+				completion_reward = {
+				
+				}
+			}
+			focus = {
+				id = GRE_National_Bands_Agreement
+				icon = GFX_focus_eng_concessions_to_the_trade_unions
+				prerequisite = { focus = GRE_restaff_the_army_command}
+				prerequisite = { focus = GRE_city_defenses}
+				
+				relative_position_id = GRE_eco_three
+				x = 9
+				y = 2
+				cost = 10
+				ai_will_do = {
+					factor = 60
+				}
+	
+				completion_reward = {
+					
+				
+				}
 			}
 		}
-		focus = {
-			id = GRE_Reach_Out_to_Our_Neighbors_For_Support
-			icon = GFX_focus_eng_concessions_to_the_trade_unions
-			prerequisite = { focus = GRE_Align_With_the_ELAS}
-			relative_position_id = GRE_Align_With_the_ELAS
-			x = -2
-			y = 1
-			cost = 10
-			ai_will_do = {
-				factor = 60
-			}
 
-			
+		
 
-			completion_reward = {
-			
-			}
-		}
-		focus = {
-			id = GRE_Ask_for_Commonwealth_Assets
-			icon = GFX_focus_eng_concessions_to_the_trade_unions
-			prerequisite = { focus = GRE_Request_Support_From_Major_Powers}
-			relative_position_id = GRE_Request_Support_From_Major_Powers
-			x = 0
-			y = 1
-			cost = 10
-			ai_will_do = {
-				factor = 60
-			}
 
-			
 
-			completion_reward = {
-			
-			}
-		}
-
-		focus = {
-			id = GRE_Sabotage_Our_Enemies
-			icon = GFX_focus_eng_concessions_to_the_trade_unions
-			prerequisite = { focus = GRE_Reach_Out_to_Our_Neighbors_For_Support}
-			relative_position_id = GRE_Reach_Out_to_Our_Neighbors_For_Support
-			x = 0
-			y = 1
-			cost = 10
-			ai_will_do = {
-				factor = 60
-			}
-
-			
-
-			completion_reward = {
-			
-			}
-		}
 
 
 
@@ -5094,7 +5014,6 @@ focus = {
 
 
 	
-
 
 
 
