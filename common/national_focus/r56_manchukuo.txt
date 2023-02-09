@@ -296,33 +296,6 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			if = {
-				limit = {
-					NOT = {
-						has_dlc = "Together for Victory"
-					}
-				}
-				show_ideas_tooltip = MAN_yoshisuke_aikawa
-				else = {
-					show_ideas_tooltip = MAN_yoshisuke_aikawa_tfv
-				}
-			}
-			if = {
-				limit = {
-					is_ai = yes
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_dlc = "Together for Victory"
-						}
-					}
-					add_ideas = MAN_yoshisuke_aikawa
-					else = {
-						add_ideas = MAN_yoshisuke_aikawa_tfv
-					}
-				}
-			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -362,36 +335,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			if = {
-				limit = {
-					NOT = {
-						has_dlc = "Together for Victory"
-					}
-				}
-				show_ideas_tooltip = MAN_naoki_hoshino
-				else = {
-					show_ideas_tooltip = MAN_naoki_hoshino_tfv
-				}
-			}
-			if = {
-				limit = {
-					is_ai = yes
-					NOT = {
-						has_dlc = "Together for Victory"
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_dlc = "Together for Victory"
-						}
-					}
-					add_ideas = MAN_naoki_hoshino
-					else = {
-						add_ideas = MAN_naoki_hoshino_tfv
-					}
-				}
-			}
+			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -529,19 +473,7 @@ focus_tree = {
 			716 = {
 				oil > 3
 			}	
-			NOT = {
-				JAP = {
-					focus_progress = {
-						focus = JAP_manchuria_petroleum_company
-						progress > 0
-					}
-				}
-			}		
-		}
-		bypass = {
-			any_other_country = {
-				has_completed_focus = JAP_manchuria_petroleum_company
-			}
+					
 		}
 
 		completion_reward = {
@@ -824,6 +756,13 @@ focus_tree = {
 				}
 				add_ideas = war_economy
 			}
+			if = {
+				limit = {
+					has_idea = war_economy
+				}
+				add_political_power = 150
+			}
+			
 			add_timed_idea = {
 				idea = MAN_increased_factory_output
 				days = 150
@@ -881,7 +820,7 @@ focus_tree = {
 		}
 		x = 8
 		y = 1
-		cost = 10
+		cost = 5
 		completion_reward = {
 			army_experience = 10
 			add_tech_bonus = {
@@ -905,11 +844,9 @@ focus_tree = {
 		}
 		x = 8
 		y = 2
-		cost = 10
+		cost = 2
 		completion_reward = {
-			army_experience = 10
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = MAN_itagaki_seishiro
+			army_experience = 25
 		}
 	}
 	focus = {
@@ -1154,23 +1091,21 @@ focus_tree = {
 					is_puppet_of = JAP
 				}
 				add_equipment_to_stockpile = {
-					type = fighter_equipment_0
+					type = small_plane_airframe_0
 					amount = 100
 					producer = JAP
 				}
 				add_equipment_to_stockpile = {
-					type = fighter_equipment_1
+					type = small_plane_airframe_1
 					amount = 100
 					producer = JAP
 				}
 				add_equipment_to_stockpile = {
-					type = fighter_equipment_2
+					type = small_plane_cas_airframe_2
 					amount = 100
 					producer = JAP
 				}
 			}
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = MAN_aisin_gioro_puyi_air_chief
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
@@ -2157,16 +2092,10 @@ focus_tree = {
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
-				name = fighter_bonus
+				name = air_plane_models
 				bonus = 1
 				uses = 2
-				technology = early_fighter
-				technology = fighter1
-				technology = fighter2
-				technology = fighter3
-				technology = heavy_fighter1
-				technology = heavy_fighter2
-				technology = heavy_fighter3
+				category = light_air
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2186,13 +2115,10 @@ focus_tree = {
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
-				name = bomber_bonus
+				name = air_plane_models
 				bonus = 1
-				uses = 2
-				technology = strategic_bomber1
-				technology = strategic_bomber2
-				technology = strategic_bomber3
-				category = tactical_bomber
+				uses = 1
+				category = heavy_air
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2304,11 +2230,10 @@ focus_tree = {
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
-				name = CAS_bonus
+				name = air_plane_models
 				bonus = 1
-				ahead_reduction = 1
 				uses = 1
-				category = cas_bomber
+				category = light_air
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2328,11 +2253,10 @@ focus_tree = {
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
-				name = nav_bomber_bonus
+				name = air_plane_models
 				bonus = 1
-				ahead_reduction = 1
 				uses = 1
-				category = naval_bomber
+				category = medium_air
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -4116,6 +4040,9 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MAN_national_defence_forces_idea
 			custom_effect_tooltip = MAN_if_naoki
+			effect_tooltip = {
+				add_ideas = MAN_national_defence_forces_idea_plus
+			}
 				if = {
 					limit = {
 						has_country_flag = MAN_military

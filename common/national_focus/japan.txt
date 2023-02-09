@@ -632,6 +632,7 @@
 		}
 
 		completion_reward = {
+			custom_effect_tooltip = JAP_purge_tt
 			add_stability = 0.1
 			add_popularity = { ideology = fascism popularity = 0.1 }
 			hidden_effect = {
@@ -3054,10 +3055,9 @@
 		ai_will_do = {
 			factor = 3
 		}
-		
-
 
 		completion_reward = {
+			custom_effect_tooltip = JAP_support_tt
 			add_political_power = 100
 			609 = {
 				if = {
@@ -3575,20 +3575,12 @@ random_owned_controlled_state = {
 			air_experience = 25
 			MAN = {
 				add_tech_bonus = {
-					name = JAP_create_a_manchurian_imperial_air_force
+					name = air_plane_models
 					bonus = 1
 					uses = 1
-					category = tactical_bomber
-					category = cat_strategic_bomber
-					category = naval_bomber
-					category = cas_bomber
-				}
-				add_tech_bonus = {
-					name = JAP_create_a_manchurian_imperial_air_force
-					bonus = 1
-					uses = 1
-					category = light_fighter
-					category = cat_heavy_fighter
+					category = light_air
+					category = medium_air
+					category = heavy_air
 				}
 				every_owned_state = {
 					limit = {
@@ -5545,7 +5537,7 @@ random_owned_controlled_state = {
 		x = -4
 		y = 2
 		available = {
-			date < 1937.06
+			date < 1937.6.1
 		}
 		allow_branch = {
 			always = no
@@ -5728,7 +5720,7 @@ focus = {
 
 	available = {
 		OR = {
-			date < 1940.06
+			date < 1940.6.1
 			not = {
 				ROOT = {
 					or = {
@@ -6337,7 +6329,9 @@ focus = {
 		add_ideas = JAP_pacific_dominance
 	}
 }
-
+####
+### MANCHU INVESTMENT BRANCH
+###
 	focus = {
 		id = JAP_the_manchurian_project
 		icon = GFX_focus_jap_manchurian_project
@@ -6695,7 +6689,7 @@ focus = {
 					MAN = { has_focus_tree = generic_focus }
 				}
 				remove_ideas = MAN_kwantung_veto
-				add_country_flag = wrong_buff_manchu
+				set_country_flag = wrong_buff_manchu
 			}
 				swap_ideas = {
 					remove_idea = MAN_reliant_idea
@@ -6746,8 +6740,10 @@ focus = {
 					}
 				}
 				if = {
-					MAN = has_country_flag = wrong_buff_manchu
-					remove_idea = MAN_reliant_idea2
+					limit = {
+						MAN = { has_focus_tree = generic_focus }
+					}
+					remove_ideas = MAN_reliant_idea2
 				}
 			}
 			
@@ -8434,29 +8430,25 @@ focus = {
 		}
 
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				add_tech_bonus = {
-					name = scout_plane
-					bonus = 1.0
-					uses = 1
-					category = cat_scout_plane
-				}				
-			}				
 			add_tech_bonus = {
-				name = JAP_fighter_modernization
+				name = air_plane_models
 				bonus = 1
 				uses = 1
-				category = light_fighter
+				category = light_air
 			}
 			add_tech_bonus = {
-				name = JAP_fighter_modernization
+				name = air_plane_models
 				bonus = 1
 				uses = 1
-				category = cat_heavy_fighter
+				category = heavy_air
 			}
+			add_tech_bonus = {
+				name = air_plane_models
+				bonus = 1
+				uses = 1
+				category = air_equipment
+			}
+		
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -8590,18 +8582,12 @@ focus = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = JAP_bomber_modernization
+				name = air_plane_models
 				bonus = 1
 				uses = 1
-				category = cas_bomber
-				category = tactical_bomber
+				category = air_equipment
 			}
-			add_tech_bonus = {
-				name = JAP_bomber_modernization
-				bonus = 1
-				uses = 1
-				category = maritime
-			}			
+			
 			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -8625,10 +8611,10 @@ focus = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = JAP_strategic_bomber_effort
+				name = air_plane_models
 				bonus = 1
-				uses = 2
-				category = cat_strategic_bomber
+				uses = 1
+				category = heavy_air
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
