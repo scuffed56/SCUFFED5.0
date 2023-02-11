@@ -174,7 +174,7 @@ focus_tree = {
 		icon = GFX_focus_jap_manchurian_project
 		x = 14
 		y = 0
-		cost = 10
+		cost = 5
 		completion_reward = {
 			add_stability = 0.2
 			add_political_power = 50
@@ -189,7 +189,7 @@ focus_tree = {
 		}
 		x = 0
 		y = 1
-		cost = 10
+		cost = 5	
 		bypass = {
 			716 = {
 				NOT = {
@@ -277,7 +277,7 @@ focus_tree = {
 		}
 		x = 3
 		y = 2
-		cost = 10
+		cost = 5
 		completion_reward = {
 			set_country_flag = MAN_civilian
 			random_owned_controlled_state = {
@@ -316,7 +316,7 @@ focus_tree = {
 		}
 		x = 5
 		y = 2
-		cost = 10
+		cost = 5
 		completion_reward = {
 			set_country_flag = MAN_military
 			random_owned_controlled_state = {
@@ -411,7 +411,7 @@ focus_tree = {
 		icon = GFX_goal_generic_build_tank
 		x = 4
 		y = 1
-		cost = 10
+		cost = 5
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -863,7 +863,7 @@ focus_tree = {
 		available = {
 			is_puppet_of = JAP
 		}
-		cost = 10
+		cost = 5
 		completion_reward = {
 			if = {
 				limit = {
@@ -899,7 +899,7 @@ focus_tree = {
 		available = {
 			is_puppet_of = JAP
 		}
-		cost = 10
+		cost = 5
 		completion_reward = {
 			add_ai_strategy = {
 				type = antagonize
@@ -923,7 +923,7 @@ focus_tree = {
 					desc = "POLITICS_PU_YI_DESC"
 					picture = "gfx/leaders/MAN/Portrait_Manchuria_Henry_Pu_Yi.dds"
 					expire = "1965.1.1"
-					ideology = absolute_monarchism
+					ideology = despotism
 					traits = {
 						popular_figurehead
 						emperors_ambition
@@ -1104,7 +1104,7 @@ focus_tree = {
 		}
 		x = 10
 		y = 3
-		cost = 10
+		cost = 5
 		completion_reward = {
 			army_experience = 15
 			navy_experience = 5
@@ -1468,7 +1468,7 @@ focus_tree = {
 		icon = GFX_goal_MAN_destroy_opium
 		x = 31
 		y = 0
-		cost = 10
+		cost = 5
 		available = {
 			NOT = {
 				is_puppet_of = JAP
@@ -2729,7 +2729,7 @@ focus_tree = {
 		relative_position_id = MAN_destroy_opium_plantations
 		x = 2
 		y = 1
-		cost = 10
+		cost = 5
 		available_if_capitulated = yes
 		completion_reward = {
 			every_state = {
@@ -3114,10 +3114,10 @@ focus_tree = {
 			focus = MAN_peking_agreement
 			focus = MAN_infrastructure_effort
 		}
-		relative_position_id = MAN_infrastructure_effort
-		x = -2
-		y = 1
-		cost = 10
+		relative_position_id = MAN_destroy_opium_plantations
+		x = 2
+		y = 2
+		cost = 5
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -3201,9 +3201,9 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_national_defence_forces
 		}
-		relative_position_id = MAN_national_defence_forces
-		x = 0
-		y = 2
+		relative_position_id = MAN_destroy_opium_plantations
+		x = 4
+		y = 4
 		cost = 10
 		completion_reward = {
 			random_owned_controlled_state = {
@@ -4060,9 +4060,9 @@ focus_tree = {
 			focus = MAN_peking_agreement
 			focus = MAN_infrastructure_effort
 		}
-		relative_position_id = MAN_infrastructure_effort
-		x = 0
-		y = 1
+		relative_position_id = MAN_destroy_opium_plantations
+		x = 4
+		y = 2
 		cost = 10
 		completion_reward = {
 			add_ideas = MAN_national_defence_forces_idea
@@ -4219,9 +4219,9 @@ focus_tree = {
 			focus = MAN_industrial_effort_3
 			focus = MAN_armament_effort_2
 		}
-		relative_position_id = MAN_infrastructure_effort
-		x = -1
-		y = 5
+		relative_position_id = MAN_destroy_opium_plantations
+		x = 3
+		y = 6
 		cost = 10
 		available = {
 			amount_research_slots < 6
@@ -4240,10 +4240,10 @@ focus_tree = {
 		available = {
 			is_subject_of = JAP
 		}
-		relative_position_id = MAN_industrial_developement
-		x = 0
+		relative_position_id = MAN_destroy_opium_plantations
+		x = 4
 		y = 1
-		cost = 10
+		cost = 5
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -4627,7 +4627,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER }
 	}
 	focus = {
-		id = MAN_an_army_with_a_state
+		id = MAN_exile_takeover
 		icon = GFX_focus_AST_war_japan
 		prerequisite = {
 			focus = MAN_an_alternative
@@ -4678,10 +4678,10 @@ focus_tree = {
 	focus = {
 		id = MAN_reorganize_the_nation
 		icon = GFX_focus_jap_spiritual_mobilization
-		prerequisite = { focus = MAN_an_army_with_a_state }
+		prerequisite = { focus = MAN_exile_takeover }
 		x = -1
 		y = 1
-		relative_position_id = MAN_an_army_with_a_state
+		relative_position_id = MAN_exile_takeover
 
 		cost = 10
 
@@ -4702,7 +4702,12 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_stability = -0.1
+
+			add_timed_idea = {
+				idea = MAN_new_regime
+				days = 365
+			}
+			add_stability = -0.2
 			add_ideas = state_shintoism
 			add_ideas = limited_exports
 			if = { limit = { OR = { has_idea = disarmed_nation has_idea = volunteer_only } }
@@ -4730,13 +4735,13 @@ focus_tree = {
 
 	focus = {
 		id = MAN_dockyard_conversion
-		icon = GFX_goal_generic_construct_naval_dockyard
-		prerequisite = { focus = MAN_an_army_with_a_state}
+		icon = GFX_goal_MAN_kwantung_dock_focus
+		prerequisite = { focus = MAN_exile_takeover}
 		x = 1
 		y = 1
-		relative_position_id = MAN_an_army_with_a_state
+		relative_position_id = MAN_exile_takeover
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 
@@ -4759,8 +4764,15 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			745 = {
+			add_building_construction = {
+				type = naval_base
+				province = 1150
+				level = 4
+				instant_build = yes
+			}
+			}
 			random_state = {
-				prioritize = { 716 745 }
 				limit = {
 					is_owned_by = MAN
 					is_core_of = MAN
@@ -4774,7 +4786,6 @@ focus_tree = {
 				}
 			}
 			random_state = {
-				prioritize = { 716 745 }
 				limit = {
 					is_owned_by = MAN
 					is_core_of = MAN
@@ -4790,7 +4801,6 @@ focus_tree = {
 			if = { limit = { NOT = { has_tech = transport } }
 				set_technology = { transport = 1 }
 			}
-			unlock_decision_category_tooltip = MAN_the_greatest_struggle
 		}
 	}
 
@@ -4799,10 +4809,10 @@ focus_tree = {
 	focus = {
 		id = MAN_prepare_for_the_strike
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = MAN_the_greatest_struggle }
-		x = -1
-		y = 1
-		relative_position_id = MAN_the_greatest_struggle
+		prerequisite = { focus = MAN_a_bleak_outlook }
+		x = 4
+		y = 4
+		relative_position_id = MAN_an_alternative
 
 		cost = 10
 
@@ -4819,7 +4829,8 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_offsite_building = { type = arms_factory level = 5 }
+			add_ideas = FRA_alliance_with_industrialists
+			add_offsite_building = { type = arms_factory level = 3 }
 		}
 	}
 
@@ -4857,13 +4868,13 @@ focus_tree = {
 	}	
 
 	focus = {
-		id = MAN_the_greatest_struggle
-		icon = GFX_goal_generic_navy_battleship
+		id = MAN_a_bleak_outlook
+		icon = GFX_goal_MAN_kwantung_burden_focus
 		prerequisite = { focus = MAN_dockyard_conversion}
 		prerequisite = { focus = MAN_reorganize_the_nation}
 		x = 0
 		y = 2
-		relative_position_id = MAN_an_army_with_a_state
+		relative_position_id = MAN_exile_takeover
 
 		cost = 10
 
@@ -4891,7 +4902,6 @@ focus_tree = {
 				add_ideas = JAP_militarism_showa
 			}
 			random_state = {
-				prioritize = { 716 745 }
 				limit = {
 					is_owned_by = MAN
 					is_core_of = MAN
@@ -4905,36 +4915,48 @@ focus_tree = {
 				}
 			}
 			random_state = {
-				prioritize = { 716 745 }
 				limit = {
 					is_owned_by = MAN
 					is_core_of = MAN
-					is_coastal = yes
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
-					type = dockyard
-					level = 1
+					type = arms_factory
+					level = 2
 					instant_build = yes
 				}
 			}
 			add_tech_bonus = {
+				name = man_research_bonus
 				bonus = 1.0
-				uses = 3
+				uses = 1
 				category = naval_equipment
 			}
+			add_tech_bonus = {
+				name = man_research_bonus
+				bonus = 1.0
+				uses = 1
+				category = standard_artillery_tech
+			}
+			add_tech_bonus = {
+				name = man_research_bonus
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+			}
+			unlock_decision_category_tooltip = MAN_the_greatest_struggle
 		}
 	}
 
 	focus = {
 		id = MAN_guard_the_skies
 		icon = GFX_goal_generic_air_fighter2
-		prerequisite = { focus = MAN_the_greatest_struggle }
+		prerequisite = { focus = MAN_a_bleak_outlook}
 		x = 1
 		y = 1
-		relative_position_id = MAN_the_greatest_struggle
+		relative_position_id = MAN_a_bleak_outlook
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 
@@ -4965,7 +4987,7 @@ focus_tree = {
 			if = { limit = { owns_state = 716 }
 				716 = { add_building_construction = {
 					type = air_base
-					level = 1
+					level = 2
 					instant_build = yes
 			   	    }
 		  	  	}
@@ -4982,13 +5004,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAN_supply_our_armed_forces
+		id = MAN_supply_our_air_force
 		icon = GFX_goal_generic_oil_refinery
 		prerequisite = { focus = MAN_prepare_for_the_strike }
 		prerequisite = {focus =MAN_guard_the_skies } 
-		x = 2
-		y = 0
-		relative_position_id = MAN_we_wont_rest
+		x = 6
+		y = 5
+		relative_position_id = MAN_an_alternative
 
 		cost = 10
 
@@ -5047,8 +5069,8 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = MAN_we_wont_rest
-		icon = GFX_DAILI_Burn_The_Symbols_Of_Yamato
+		id = MAN_embracing_the_kodoha
+		icon = GFX_focus_generic_japanese_imperial_glory
 		prerequisite = { focus = MAN_prepare_for_the_strike }
 		prerequisite = {focus = MAN_guard_the_skies} 
 		x = 0
@@ -5079,13 +5101,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAN_military_exercises
-		icon = GFX_japanese_officer
-		prerequisite = { focus = MAN_we_wont_rest }
-		prerequisite = {focus = MAN_supply_our_armed_forces }
+		id = MAN_kwantung_military_advisors
+		icon = GFX_goal_CHI_support_pro_japanese_faction
+		prerequisite = { focus = MAN_embracing_the_kodoha }
+		prerequisite = {focus = MAN_supply_our_air_force }
 		x = -1
 		y = 1
-		relative_position_id = MAN_we_wont_rest
+		relative_position_id = MAN_embracing_the_kodoha
 
 		cost = 10
 
@@ -5106,7 +5128,13 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			add_ideas = MAN_kwantung_advisors
+			every_army_leader = {
+				add_planning = 1
+				add_attack = 1
+			}
 			add_tech_bonus = {
+				name = Manchurian_doctrine
 				bonus = 1.0
 				uses = 2
 				category = land_doctrine
@@ -5117,13 +5145,13 @@ focus_tree = {
 	focus = {
 		id = MAN_begin_the_nanshin_ron
 		icon = GFX_focus_attack_china
-		prerequisite = { focus = MAN_we_wont_rest}
-		prerequisite = {focus = MAN_supply_our_armed_forces } 
+		prerequisite = { focus = MAN_embracing_the_kodoha}
+		prerequisite = {focus = MAN_supply_our_air_force}
 		x = 3
 		y = 1
-		relative_position_id = MAN_we_wont_rest
+		relative_position_id = MAN_embracing_the_kodoha
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 
@@ -5166,9 +5194,9 @@ focus_tree = {
 
 	focus = {
 		id = MAN_consolidate_the_chinese_holdings
-		icon = GFX_focus_jap_spiritual_mobilization
-		prerequisite = { focus = MAN_supply_our_armed_forces }
-		prerequisite = { focus = MAN_we_wont_rest }
+		icon = GFX_goal_MAN_the_empire_returns
+		prerequisite = { focus = MAN_supply_our_air_force }
+		prerequisite = { focus = MAN_embracing_the_kodoha}
 		x = 1
 		y = 2
 		relative_position_id = MAN_prepare_for_the_strike
@@ -5215,7 +5243,7 @@ focus_tree = {
 					desc = "POLITICS_Hirohito_DESC"
 					picture = "gfx/leaders/JAP/Portrait_Japan_Hirohito.dds"
 					expire = "1989.1.1"
-					ideology = monarchism
+					ideology = despotism
 					traits = {
 						warrior_code
 						emperor_showa
