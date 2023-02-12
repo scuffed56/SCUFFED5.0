@@ -863,6 +863,7 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = MAN_an_alternative
+			focus = MAN_exile_takeover
 		}
 		x = 11
 		y = 1
@@ -898,6 +899,7 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = MAN_enhance_local_policing
+			focus = MAN_exile_takeover
 		}
 		relative_position_id = MAN_five_race_under_one_union
 		x = 4
@@ -969,7 +971,6 @@ focus_tree = {
 			focus = MAN_turn_to_the_bolshelviks
 			focus = MAN_contact_russian_fascists
 			focus = MAN_head_towards_democracy
-			focus = MAN_exile_takeover
 		}		
 		relative_position_id = MAN_an_alternative
 		x = -4
@@ -999,7 +1000,6 @@ focus_tree = {
 			focus = MAN_contact_qing_restorationists
 			focus = MAN_turn_to_the_bolshelviks
 			focus = MAN_head_towards_democracy
-			focus = MAN_exile_takeover
 		}		
 		x = 16
 		y = 2
@@ -1698,7 +1698,6 @@ focus_tree = {
 			focus = MAN_contact_qing_restorationists
 			focus = MAN_contact_russian_fascists
 			focus = MAN_head_towards_democracy
-			focus = MAN_exile_takeover
 		}
 		relative_position_id = MAN_an_alternative
 		x = 0
@@ -1740,7 +1739,6 @@ focus_tree = {
 			focus = MAN_contact_qing_restorationists
 			focus = MAN_contact_russian_fascists
 			focus = MAN_turn_to_the_bolshelviks
-			focus = MAN_exile_takeover
 		}		
 		relative_position_id = MAN_an_alternative
 		x = 2
@@ -1975,7 +1973,7 @@ focus_tree = {
 		}
 		relative_position_id = MAN_head_towards_democracy
 		x = 0
-		y = 4
+		y = 3
 		cost = 10
 		available = {
 			OR = {
@@ -4641,16 +4639,14 @@ focus_tree = {
 		id = MAN_exile_takeover
 		icon = GFX_focus_AST_war_japan
 		prerequisite = {
-			focus = MAN_an_alternative
+			focus = MAN_five_race_under_one_union
 		}
 		mutually_exclusive = {
-			focus = MAN_contact_qing_restorationists
-			focus = MAN_contact_russian_fascists
-			focus = MAN_turn_to_the_bolshelviks
-			focus = MAN_head_towards_democracy
+			focus = MAN_an_alternative
+			focus = MAN_enhance_local_policing
 		}	
 		x = 5
-		y = 1
+		y = 0
 		relative_position_id = MAN_an_alternative
 
 		cost = 5
@@ -4667,6 +4663,11 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
+			unlock_decision_category_tooltip = MAN_banditry_category
+				set_variable = {
+					MAN_maintain_control_timer = 180
+				}
+				custom_effect_tooltip = MAN_pacify_the_countryside_effect_tooltip
 			JAP = { 
 				add_opinion_modifier = { 
 					modifier = CHI_opposition target = MAN } 
@@ -4758,7 +4759,15 @@ focus_tree = {
 			if = { limit = { owns_state = 524 }
 				add_state_core = 524
 			}
-			if = { limit = { MEN = { exists = yes NOT = { is_subject_of = MAN } } }
+			if = { 
+					limit = { 
+						MEN = { 
+						exists = yes 
+						NOT = { 
+						is_subject_of = MAN 
+				} 
+								} 
+							}
 				add_state_core = 611
 				add_state_core = 612
 				create_wargoal = {
@@ -4766,6 +4775,21 @@ focus_tree = {
 					target = MEN
 				}
 			}
+			if = { 
+				limit = { 
+					KOR = { 
+					exists = yes 
+					NOT = { 
+					is_subject_of = MAN 
+			} 
+							} 
+						}
+
+			create_wargoal = {
+				type = annex_everything
+				target = KOR
+			}
+		}
 		}
 	}
 
@@ -4841,7 +4865,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = MAN_a_bleak_outlook }
 		x = 4
-		y = 4
+		y = 3
 		relative_position_id = MAN_an_alternative
 
 		cost = 10
@@ -5021,7 +5045,7 @@ focus_tree = {
 		icon = GFX_goal_generic_oil_refinery
 		prerequisite = { focus = MAN_prepare_for_the_strike focus = MAN_guard_the_skies}
 		x = 6
-		y = 5
+		y = 4
 		relative_position_id = MAN_an_alternative
 
 		cost = 10
