@@ -4636,23 +4636,18 @@ focus_tree = {
 		y = 1
 		relative_position_id = MAN_an_alternative
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
-			factor = 5000
+			factor = 10
 		}
 
 		available = {
 			JAP = { has_completed_focus = JAP_cast_the_die }
 		}
 
-		bypass = {
 
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = yes
+		available_if_capitulated = no
 
 		completion_reward = {
 			JAP = { 
@@ -4686,23 +4681,47 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-			factor = 5000
+			factor = 50
 		}
-
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
 		available_if_capitulated = yes
 
 		completion_reward = {
-
+			add_corps_commander_role = {
+				character = MAN_yasuji_okamura
+				traits={ infantry_expert brilliant_strategist fortress_buster }
+				skill = 3
+				attack_skill = 4
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+			}
+			add_corps_commander_role = {
+				character = MAN_hatazo_adachi
+				traits={ trait_reckless infantry_officer JAP_samurai_lineage trickster }
+				skill = 1
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			add_corps_commander_role = {
+				character = MAN_itagaki_seishiro
+				traits={ inflexible_strategist trait_reckless JAP_samurai_lineage }
+				skill = 4
+				attack_skill = 3
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 3
+			}
+			add_field_marshal_role = {
+				character = MAN_shunroku_hata
+				skill = 4
+				traits = {JAP_samurai_lineage offensive_doctrine}
+				attack_skill = 3
+				defense_skill = 4
+				planning_skill = 2
+				logistics_skill = 4
+			}
 			add_timed_idea = {
 				idea = MAN_new_regime
 				days = 365
@@ -4744,7 +4763,7 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-
+			factor = 19
 		}
 
 		available = {
@@ -4754,16 +4773,10 @@ focus_tree = {
 				is_controlled_by = ROOT
 			}
 		}
-
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
 		available_if_capitulated = yes
 
 		completion_reward = {
+			add_political_power = 25
 			745 = {
 			add_building_construction = {
 				type = naval_base
@@ -4820,17 +4833,11 @@ focus_tree = {
 
 		}
 
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
 		available_if_capitulated = yes
 
 		completion_reward = {
 			add_ideas = FRA_alliance_with_industrialists
-			add_offsite_building = { type = arms_factory level = 3 }
+			add_offsite_building = { type = arms_factory level = 5 }
 		}
 	}
 
@@ -4879,22 +4886,27 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-
+			factor = 10
 		}
 
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
 		available_if_capitulated = yes
 
 		completion_reward = {
+			add_equipment_to_stockpile = {
+			    type = infantry_equipment_0
+			    amount = 6000
+			    producer = JAP
+			}
+			add_equipment_to_stockpile = {
+			    type = artillery_equipment_1
+			    amount = 375
+			    producer = JAP
+			}
+			add_equipment_to_stockpile = {
+			    type = support_equipment
+			    amount = 150
+			    producer = JAP
+			}
 			if = { limit = { has_government = fascism }
 				add_ideas = JAP_militarism
 			}
@@ -4926,23 +4938,17 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			add_tech_bonus = {
-				name = man_research_bonus
-				bonus = 1.0
-				uses = 1
-				category = naval_equipment
-			}
-			add_tech_bonus = {
-				name = man_research_bonus
-				bonus = 1.0
-				uses = 1
-				category = standard_artillery_tech
-			}
-			add_tech_bonus = {
-				name = man_research_bonus
-				bonus = 1.0
-				uses = 1
-				category = infantry_weapons
+			random_state = {
+				limit = {
+					is_owned_by = MAN
+					is_core_of = MAN
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
 			}
 			unlock_decision_category_tooltip = MAN_the_greatest_struggle
 		}
@@ -4959,19 +4965,9 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-
+			factor = 10
 		}
 
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
 		available_if_capitulated = yes
 
 		completion_reward = {
@@ -5006,8 +5002,7 @@ focus_tree = {
 	focus = {
 		id = MAN_supply_our_air_force
 		icon = GFX_goal_generic_oil_refinery
-		prerequisite = { focus = MAN_prepare_for_the_strike }
-		prerequisite = {focus =MAN_guard_the_skies } 
+		prerequisite = { focus = MAN_prepare_for_the_strike focus = MAN_guard_the_skies}
 		x = 6
 		y = 5
 		relative_position_id = MAN_an_alternative
@@ -5015,19 +5010,9 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-
+			factor = 10
 		}
 
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
 		available_if_capitulated = yes
 
 		completion_reward = {
@@ -5054,7 +5039,6 @@ focus_tree = {
 			}
 
 			random_state = {
-				prioritize = { 716 }
 				limit = {
 					is_owned_by = MAN
 					is_core_of = MAN
@@ -5071,8 +5055,7 @@ focus_tree = {
 	focus = {
 		id = MAN_embracing_the_kodoha
 		icon = GFX_focus_generic_japanese_imperial_glory
-		prerequisite = { focus = MAN_prepare_for_the_strike }
-		prerequisite = {focus = MAN_guard_the_skies} 
+		prerequisite = { focus = MAN_prepare_for_the_strike focus = MAN_guard_the_skies}
 		x = 0
 		y = 1
 		relative_position_id = MAN_prepare_for_the_strike
@@ -5080,19 +5063,9 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-
+			factor = 10
 		}
 
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
 		available_if_capitulated = yes
 
 		completion_reward = {
@@ -5103,8 +5076,7 @@ focus_tree = {
 	focus = {
 		id = MAN_kwantung_military_advisors
 		icon = GFX_goal_CHI_support_pro_japanese_faction
-		prerequisite = { focus = MAN_embracing_the_kodoha }
-		prerequisite = {focus = MAN_supply_our_air_force }
+		prerequisite = { focus = MAN_embracing_the_kodoha focus = MAN_supply_our_air_force }
 		x = -1
 		y = 1
 		relative_position_id = MAN_embracing_the_kodoha
@@ -5112,15 +5084,7 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-
-		}
-
-		available = {
-
-		}
-
-		bypass = {
-
+			factor = 10
 		}
 
 		cancel_if_invalid = yes
@@ -5136,7 +5100,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = Manchurian_doctrine
 				bonus = 1.0
-				uses = 2
+				uses = 3
 				category = land_doctrine
 			}
 		}
@@ -5145,8 +5109,7 @@ focus_tree = {
 	focus = {
 		id = MAN_begin_the_nanshin_ron
 		icon = GFX_focus_attack_china
-		prerequisite = { focus = MAN_embracing_the_kodoha}
-		prerequisite = {focus = MAN_supply_our_air_force}
+		prerequisite = { focus = MAN_embracing_the_kodoha focus = MAN_supply_our_air_force }
 		x = 3
 		y = 1
 		relative_position_id = MAN_embracing_the_kodoha
@@ -5154,40 +5117,14 @@ focus_tree = {
 		cost = 5
 
 		ai_will_do = {
-
+			factor = 10
 		}
 
-		available = {
-
-		}
-
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_war_support = 0.1
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = CHI
-				expire = 0
-			}
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = PRC
-				expire = 0
-			}
-			if = {
-				limit = { OR = { owns_state = 611 owns_state = 612 } }
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = SHX
-					expire = 0
-				}
+			country_event = {
+				id = nippon_events.222
 			}
 		}
 	}
@@ -5204,19 +5141,13 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-
+			factor = 10
 		}
 
 		available = {
 			owns_state = 605
 		}
 
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
 		available_if_capitulated = yes
 
 		completion_reward = {
@@ -5259,6 +5190,32 @@ focus_tree = {
 					remove_claim_by = MAN
 				}
 			}
+		}
+	}
+	focus = {
+		id = MAN_retake_japan
+		icon = GFX_focus_AST_war_japan
+		prerequisite = { focus = MAN_consolidate_the_chinese_holdings }
+		prerequisite = { focus = MAN_begin_the_nanshin_ron }
+		prerequisite = { focus = MAN_kwantung_military_advisors }
+		x = 1
+		y = 2
+		relative_position_id = MAN_embracing_the_kodoha
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			JAP = {
+			country_event = {
+				id = japan.22
+			}
+		}
 		}
 	}
 }
