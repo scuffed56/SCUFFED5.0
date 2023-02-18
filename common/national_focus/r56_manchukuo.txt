@@ -850,6 +850,7 @@ focus_tree = {
 		cost = 2
 		completion_reward = {
 			army_experience = 25
+			add_ideas = MAN_mukden_military_academy
 		}
 	}
 	focus = {
@@ -899,7 +900,7 @@ focus_tree = {
 			focus = MAN_exile_takeover
 		}
 		relative_position_id = MAN_five_race_under_one_union
-		x = 4
+		x = 9
 		y = 1	
 		available = {
 			is_puppet_of = JAP
@@ -922,6 +923,51 @@ focus_tree = {
 				value = -100
 			}
 			add_political_power = 75
+			unlock_decision_tooltip = MAN_divert_machine_tools
+			if = {
+				limit = { 716 = { is_fully_controlled_by = ROOT } }
+				716 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			if = {
+				limit = { 717 = { is_fully_controlled_by = ROOT } }
+				717 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			if = {
+				limit = { 715 = { is_fully_controlled_by = ROOT } }
+				715 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			if = {
+				limit = { 328 = { is_fully_controlled_by = ROOT } }
+				328 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				} 
+			}
 			hidden_effect = {
 				create_country_leader = {
 					name = "Aisin Gioro Puyi"
@@ -959,10 +1005,129 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	focus = {
+		id = MAN_staff_court
+		icon = GFX_goal_generic_intelligence_exchange
+		mutually_exclusive = { focus = MAN_five_equal_peoples }
+		prerequisite = { focus = MAN_an_alternative }
+		x = -3
+		y = 1
+		relative_position_id = MAN_an_alternative
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+
+		search_filters = { FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+
+	focus = {
+		id = MAN_local_arms_procurement1
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = MAN_an_alternative }
+		x = -1
+		y = 1
+		relative_position_id = MAN_an_alternative
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 6
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		complete_tooltip = {
+			unlock_decision_tooltip = MAN_fund_underground_gun_shops
+			every_state = {
+				limit = {
+					has_state_flag = MAN_local_arms_procurement_AF
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+
+		completion_reward = {
+			unlock_decision_tooltip = MAN_fund_underground_gun_shops
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT 	
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = MAN_local_arms_procurement_AF
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT 	
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = MAN_local_arms_procurement_AF
+			}
+		}
+	}
+
+	focus = {
+		id = MAN_five_equals
+		icon = GFX_goal_PRC_restore_fengtian_clique
+		mutually_exclusive = { focus = MAN_staff_the_court_with_manchus }
+		prerequisite = { focus = MAN_an_alternative }
+		x = 1
+		y = 1
+		relative_position_id = MAN_an_alternative
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		completion_reward = {
+			add_war_support = 0.1
+		}
+	}
+
+	focus = {
 		id = MAN_contact_qing_restorationists
 		icon = GFX_goal_flag_qing
 		prerequisite = {
-			focus = MAN_an_alternative
+			focus = MAN_staff_court
+		}
+		prerequisite = {
+			focus = MAN_local_arms_procurement1
 		}
 		mutually_exclusive = {
 			focus = MAN_turn_to_the_bolshelviks
@@ -971,7 +1136,7 @@ focus_tree = {
 		}		
 		relative_position_id = MAN_an_alternative
 		x = -4
-		y = 1
+		y = 2
 		available = {
 			is_puppet_of = JAP
 			NOT = {
@@ -990,15 +1155,18 @@ focus_tree = {
 		id = MAN_contact_russian_fascists
 		icon = GFX_goal_MAN_contact_rfp
 		prerequisite = {
-			focus = MAN_an_alternative
+			focus = MAN_staff_court
 		}
-
+		prerequisite = {
+			focus = MAN_local_arms_procurement1
+		}
 		mutually_exclusive = {
 			focus = MAN_contact_qing_restorationists
 			focus = MAN_turn_to_the_bolshelviks
 			focus = MAN_head_towards_democracy
-		}		
-		x = 16
+		}
+		relative_position_id = MAN_an_alternative 
+		x = -2
 		y = 2
 		available = {
 			is_puppet_of = JAP
@@ -1016,6 +1184,7 @@ focus_tree = {
 		}
 		cost = 5
 		completion_reward = {
+			add_ideas = MAN_secret_recruitment_idea
 			add_political_power = 75
 			custom_effect_tooltip = MAN_contact_white_tt
 			set_country_flag = rfp_path
@@ -1328,7 +1497,7 @@ focus_tree = {
 		relative_position_id = MAN_contact_qing_restorationists
 		x = 0
 		y = 1
-		cost = 10
+		cost = 5
 		completion_reward = {
 			add_ideas = MAN_restoration_propaganda
 			set_country_flag = MAN_rest_propa_flag
@@ -1344,7 +1513,7 @@ focus_tree = {
 		relative_position_id = MAN_contact_qing_restorationists
 		x = 0
 		y = 2
-		cost = 10
+		cost = 5
 		completion_reward = {
 			add_popularity = {
 				ideology = fascism
@@ -1505,7 +1674,7 @@ focus_tree = {
 		relative_position_id = MAN_contact_russian_fascists
 		x = 0
 		y = 1
-		cost = 10
+		cost = 5
 		available = {
 			is_puppet_of = JAP
 			SOV = {
@@ -1533,12 +1702,12 @@ focus_tree = {
 		id = MAN_arm_the_rfr
 		icon = GFX_goal_extensive_conscription_fascism
 		prerequisite = {
-			focus = MAN_secret_recuitment
+			focus = MAN_assassination_of_japanese_officials
 		}
 		relative_position_id = MAN_contact_russian_fascists
 		x = 0
-		y = 3
-		cost = 10
+		y = 2
+		cost = 5
 		available = {
 			is_puppet_of = JAP
 			SOV = {
@@ -1559,6 +1728,7 @@ focus_tree = {
 				clr_country_flag = MAN_reliant_flag
 			}
 			army_experience = 50
+			add_ideas = MAN_white_russian_advisers
 			add_ideas = MAN_rfr_supporters
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
@@ -1578,7 +1748,7 @@ focus_tree = {
 		}
 		relative_position_id = MAN_contact_russian_fascists
 		x = 0
-		y = 4
+		y = 3
 		cost = 10
 		available = {
 			is_puppet_of = JAP
@@ -1689,7 +1859,10 @@ focus_tree = {
 		id = MAN_turn_to_the_bolshelviks
 		icon = GFX_focus_chi_mission_to_the_soviet_union
 		prerequisite = {
-			focus = MAN_an_alternative
+			focus = MAN_five_equals
+		}
+		prerequisite = {
+			focus = MAN_local_arms_procurement1
 		}
 		mutually_exclusive = {
 			focus = MAN_contact_qing_restorationists
@@ -1698,7 +1871,7 @@ focus_tree = {
 		}
 		relative_position_id = MAN_an_alternative
 		x = 0
-		y = 1
+		y = 2
 		cost = 5
 		ai_will_do = {
 			factor = 0
@@ -1730,7 +1903,10 @@ focus_tree = {
 		id = MAN_head_towards_democracy
 		icon = GFX_focus_chi_mission_to_the_us
 		prerequisite = {
-			focus = MAN_an_alternative
+			focus = MAN_five_equals
+		}
+		prerequisite = {
+			focus = MAN_local_arms_procurement1
 		}
 		mutually_exclusive = {
 			focus = MAN_contact_qing_restorationists
@@ -1739,7 +1915,7 @@ focus_tree = {
 		}		
 		relative_position_id = MAN_an_alternative
 		x = 2
-		y = 1
+		y = 2
 		cost = 5
 		available = {
 			is_puppet_of = JAP
@@ -1781,8 +1957,8 @@ focus_tree = {
 		}
 		relative_position_id = MAN_an_alternative
 		x = 0
-		y = 2
-		cost = 10
+		y = 3
+		cost = 5
 		available = {
 			has_idea = MAN_communist_influence
 			has_country_flag = independence_supported
@@ -1823,8 +1999,8 @@ focus_tree = {
 		}
 		relative_position_id = MAN_an_alternative
 		x = 0
-		y = 3
-		cost = 10
+		y = 4
+		cost = 5
 		available = {
 			SOV = {
 				exists = yes
@@ -1872,8 +2048,8 @@ focus_tree = {
 		}
 		relative_position_id = MAN_an_alternative
 		x = 0
-		y = 4
-		cost = 10
+		y = 5
+		cost = 5
 		available = {
 			r56_script_i_am_sane = yes
 			OR = {
@@ -1934,7 +2110,7 @@ focus_tree = {
 		relative_position_id = MAN_head_towards_democracy
 		x = 0
 		y = 1
-		cost = 10
+		cost = 5
 		available = {
 			has_idea = MAN_democratic_influence
 			has_country_flag = independence_supported
@@ -1971,7 +2147,7 @@ focus_tree = {
 		relative_position_id = MAN_head_towards_democracy
 		x = 0
 		y = 3
-		cost = 10
+		cost = 5
 		available = {
 			OR = {
 				has_government = democratic
@@ -2008,7 +2184,7 @@ focus_tree = {
 		relative_position_id = MAN_head_towards_democracy
 		x = 0
 		y = 2
-		cost = 10
+		cost = 5
 		available = {
 			USA = {
 				exists = yes
@@ -2874,7 +3050,7 @@ focus_tree = {
 			focus = MAN_reclaim_the_central_plain
 		}
 		relative_position_id = MAN_restore_the_empire
-		x = -3
+		x = -1
 		y = 2
 		cost = 10
 		available = {
@@ -3011,11 +3187,11 @@ focus_tree = {
 		id = MAN_revive_zongli_yamen
 		icon = GFX_goal_research_silver
 		prerequisite = {
-			focus = MAN_revive_the_grand_council
+			focus = MAN_restore_the_empire
 		}
 		relative_position_id = MAN_restore_the_empire
-		x = 1
-		y = 2
+		x = 2
+		y = 1
 		cost = 10
 		available = {
 			has_government = neutrality
@@ -3059,7 +3235,7 @@ focus_tree = {
 			focus = MAN_revive_the_grand_council
 		}
 		relative_position_id = MAN_restore_the_empire
-		x = -1
+		x = 1
 		y = 2
 		cost = 30
 		cancel_if_invalid = no
@@ -4505,8 +4681,8 @@ focus_tree = {
 		}
 		relative_position_id = MAN_an_alternative
 		x = 0
-		y = 5
-		cost = 10
+		y = 6
+		cost = 5
 		available = {
 			has_government = communism
 			NOT = {
@@ -4648,21 +4824,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
-	focus = {
-		id = MAN_secret_recuitment
-		icon = GFX_goal_generic_army_elite
-		prerequisite = {
-			focus = MAN_assassination_of_japanese_officials
-		}
-		relative_position_id = MAN_contact_russian_fascists
-		x = 0
-		y = 2
-		cost = 10
-		completion_reward = {
-			add_ideas = MAN_secret_recruitment_idea
-		}
-		search_filters = { FOCUS_FILTER_MANPOWER }
-	}
+
 	focus = {
 		id = MAN_exile_takeover
 		icon = GFX_goal_MAN_kwantung_takeover
@@ -4673,9 +4835,9 @@ focus_tree = {
 			focus = MAN_an_alternative
 			focus = MAN_enhance_local_policing
 		}	
-		x = 5
-		y = 0
-		relative_position_id = MAN_an_alternative
+		x = 1
+		y = 1
+		relative_position_id = MAN_five_race_under_one_union
 
 		cost = 5
 
@@ -4903,9 +5065,9 @@ focus_tree = {
 		id = MAN_prepare_for_the_strike
 		icon = GFX_goal_MAN_kwantung_factory
 		prerequisite = { focus = MAN_a_bleak_outlook }
-		x = 4
+		x = -1
 		y = 3
-		relative_position_id = MAN_an_alternative
+		relative_position_id = MAN_exile_takeover
 
 		cost = 10
 
@@ -5083,9 +5245,9 @@ focus_tree = {
 		id = MAN_supply_our_air_force
 		icon = GFX_goal_generic_oil_refinery
 		prerequisite = { focus = MAN_prepare_for_the_strike focus = MAN_guard_the_skies}
-		x = 6
+		x = 1
 		y = 4
-		relative_position_id = MAN_an_alternative
+		relative_position_id = MAN_exile_takeover
 
 		cost = 10
 
