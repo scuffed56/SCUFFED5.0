@@ -59,13 +59,14 @@ focus_tree = {
 		x = -5
 		y = 1
 		relative_position_id = KOR_free
-		mutually_exclusive = { focus = KOR_proclaim_the_anarchist_state }
 		mutually_exclusive = { focus = KOR_become_the_bastion }
-		mutually_exclusive = { focus = KOR_aftermath_of_the_kim_plot }
+		mutually_exclusive = {
+			focus = KOR_decide_who_will_rule
+		}
 
 
 		cost = 10
-		prerequisite = { focus = KOR_reorganize_the_nation }
+		prerequisite = { focus = KOR_free}
 
 		available = {
 		}
@@ -529,10 +530,12 @@ focus_tree = {
 		y = 1
         relative_position_id = KOR_free
 		mutually_exclusive = { focus = KOR_reorganize_the_state }
-		mutually_exclusive = { focus = KOR_aftermath_of_the_kim_plot }
+		mutually_exclusive = {
+			focus = KOR_decide_who_will_rule
+		}
 
 		cost = 10
-		prerequisite = { focus = KOR_reorganize_the_nation }
+		prerequisite = { focus = KOR_free }
 
 		available = {
 		}
@@ -762,7 +765,12 @@ focus_tree = {
 		x = 6
 		y = 1
         relative_position_id = KOR_free
-
+		mutually_exclusive = {
+			focus = KOR_become_the_bastion
+		}
+		mutually_exclusive = {
+			focus = KOR_reorganize_the_state
+		}
 		cost = 10
 		prerequisite = { focus = KOR_free }
 
@@ -824,7 +832,7 @@ focus_tree = {
 			relative_position_id = KOR_decide_who_will_rule
 	
 			cost = 10
-			prerequisite = { focus = KOR_decide_who_will_rule}
+			prerequisite = { focus = KOR_end_the_regency }
 	
 			available = {
 	
@@ -847,14 +855,14 @@ focus_tree = {
 				}
 	}
 	focus = {
-			id = KOR_monarchy_buff
+			id = KOR_facist_buff
 			icon = GFX_focus_generic_treaty
 			x = 1
 			y = 2
 			relative_position_id = KOR_decide_who_will_rule
 		
 			cost = 10
-			prerequisite = { focus = KOR_decide_who_will_rule}
+			prerequisite = { focus = KOR_dictatorship_continues }
 		
 			available = {
 		
@@ -877,14 +885,14 @@ focus_tree = {
 					}
 	}
 	focus = {
-					id = KOR_monarchy_buff
+					id = KOR_monarchy_consolidation
 					icon = GFX_focus_generic_treaty
 					x = 0
 					y = 3
 					relative_position_id = KOR_decide_who_will_rule
 			
 					cost = 10
-					prerequisite = { focus = KOR_decide_who_will_rule}
+					prerequisite = { focus = KOR_facist_buff focus = KOR_monarchy_buff }
 			
 					available = {
 			
@@ -906,13 +914,44 @@ focus_tree = {
 					ai_will_do = {
 						}
 	}
-	
+	focus = {
+		id = KOR_monarchy_research_slot
+		icon = GFX_focus_generic_treaty
+		x = 0
+		y = 4
+		relative_position_id = KOR_decide_who_will_rule
+
+		cost = 10
+		prerequisite = { focus = KOR_monarchy_consolidation }
+
+		available = {
+
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_research_slot = 1
+		}
+
+		ai_will_do = {
+			}
+}	
 		focus = {
 		id = KOR_dictatorship_continues
 		icon = GFX_focus_generic_treaty
 		x = 3
 		y = 2
         relative_position_id = KOR_decide_who_will_rule
+		mutually_exclusive = {
+			focus = KOR_end_the_regency
+		}
 
 		cost = 10
 		prerequisite = { focus = KOR_decide_who_will_rule}
@@ -1003,6 +1042,9 @@ focus_tree = {
 		x = -2
 		y = 1
         relative_position_id = KOR_decide_who_will_rule
+		mutually_exclusive = {
+			focus = KOR_dictatorship_continues
+		}
 
 		cost = 10
 		prerequisite = { focus = KOR_decide_who_will_rule}
