@@ -39,6 +39,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
+			add_ideas = KOR_changing_political_atmosphere
 			add_political_power = 200
 			create_corps_commander = {
 				name = "Kim Hong-il"
@@ -126,10 +127,9 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			remove_ideas = KOR_changing_political_atmosphere
 			add_war_support = 0.1
-			country_event = kor.4
 			add_popularity = { ideology = communism popularity = 0.3 }
-			custom_effect_tooltip = KOR_other_purged
         }
 
 		ai_will_do = {
@@ -258,22 +258,9 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			unlock_decision_tooltip = KOR_purges
 			add_ideas = communist_commissars
-			remove_unit_leader = 15920
-			remove_unit_leader = 15921
 			kill_ideology_leader = neutrality
-			custom_effect_tooltip = KOR_anarchist_purged
 			hidden_effect = {
-				create_country_leader = {
-					name = "Yi Kang"
-					desc = ""
-					picture = "gfx/leaders/KOR/portrait_kor_yi_kang.dds"
-					expire = "1965.1.1"
-					ideology = monarchism
-					traits = {
-					}
-				}
 			}
         }
 
@@ -518,9 +505,12 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			remove_ideas = KOR_changing_political_atmosphere
+			country_event = kor.2
 			set_politics = { ruling_party = democratic elections_allowed = yes }
 			add_popularity = { ideology = democratic popularity = 0.15 }
 			add_stability = 0.05
+			
         }
 
 	    ai_will_do = {
@@ -562,6 +552,13 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
 			
         }
 
@@ -687,33 +684,107 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			country_event = kor.1
 			add_ideas = communism_prohibited
 			add_popularity = { ideology = communism popularity = -0.3 }
 			kill_ideology_leader = communism
-			custom_effect_tooltip = KOR_communists_purged
-			custom_effect_tooltip = KOR_anarchist_purged
         }
 
 	    ai_will_do = {
 			}
 		}
+		focus = {
+			id = KOR_join_allies
+			icon = GFX_focus_chi_british_cooperation
+			x = -1
+			y = 1
+			relative_position_id = KOR_purge_the_communists
+	
+			cost = 10
+			prerequisite = { focus = KOR_purge_the_communists }
+	
+			available = {
+				is_in_faction = no
+				is_subject = no
+				ENG = {
+					exists = yes
+					is_puppet = no
+					NOT = {
+						has_war_with = ROOT
+					}
+				}
+				any_other_country = {
+					is_major = yes
+					is_faction_leader = yes
+					has_government = democratic
+				}
+				NOT = {
+					any_other_country = {
+						is_in_faction_with = ENG
+						has_war_with = ROOT
+					}
+				}
+			}
+	
+			bypass = {
+	
+			}
+	
+			cancel_if_invalid = yes
+			continue_if_invalid = no
+			available_if_capitulated = yes
+	
+			completion_reward = {
+				if = {
+					limit = {
+						ENG = {
+							has_government = democratic
+							is_faction_leader = yes
+							not = { has_war_with = ROOT }
+						}
+					}
+					ENG = { country_event = generic.2 }
+				}
+				else = {
+					get_best_alliance_match_democratic_effect = yes
+					var:best_leader = {
+						country_event = generic.2
+					}
+				}
+			}
+	
+			ai_will_do = {
+				}
+			}
     focus = {
-		id = KOR_the_election_question
+		id = KOR_ally_japan
 		icon = GFX_focus_generic_treaty
 		x = 1
-		y = 2
+		y = 1
         relative_position_id = KOR_purge_the_communists
 
 		cost = 10
 		prerequisite = { focus = KOR_purge_the_communists }
 
 		available = {
-
+			has_government = democratic
+			JAP = {
+				OR = {
+					is_faction_leader = yes
+					is_in_faction = no
+					is_in_faction_with = AST
+					is_in_faction_with = CAN
+				}
+				has_government = democratic
+			}
+			is_in_faction = no
+			is_subject = no
+			NOT = { has_war_with = JAP }
 		}
 
 		bypass = {
-
+			JAP = {
+				has_completed_focus = JAP_ally_korea
+			}
 		}
 
 		cancel_if_invalid = yes
@@ -721,13 +792,309 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_stability = 0.1
-		    country_event = { id = kor.2 }
+		    set_rule = {
+				can_create_factions = yes
+			}
+			if = {
+				limit = {
+					JAP = {
+						is_faction_leader = yes
+						has_government = democratic
+					}
+				}
+				JAP = {
+					country_event = generic.2
+				}
+			}
+			else_if = {
+				limit = {
+					JAP = {
+						has_government = democratic
+						is_faction_leader = no
+					}
+				}
+				create_faction = JAP_trans_pacific_faction
+				JAP = {
+					country_event = generic.5
+				}
+			}
+			else_if = {
+				limit = {
+					JAP = {
+						has_government = democratic
+						is_faction_leader = no
+					}
+					AST = {
+						has_government = democratic
+						is_faction_leader = yes
+					}
+				}
+				AST = {
+					country_event = generic.2
+				}
+			}
+			else_if = {
+				limit = {
+					JAP = {
+						has_government = democratic
+						is_faction_leader = no
+					}
+					CAN = {
+						has_government = democratic
+						is_faction_leader = yes
+					}
+				}
+				CAN = {
+					country_event = generic.2
+				}
+			}						
+		}
+        }
+		
+		focus = {
+		id = KOR_japan_investment
+		icon = GFX_focus_generic_treaty
+		x = 1
+		y = 2
+        relative_position_id = KOR_purge_the_communists
+
+		cost = 10
+		prerequisite = { focus = KOR_ally_japan }
+
+		available = {
+			is_in_faction_with = JAP
+		}
+
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+
+		completion_reward = {
+			#KOREA
+			if = {
+				limit = {
+					KOR = {
+						controls_state = 920
+						controls_state = 919
+						controls_state = 525
+						controls_state = 917
+					}
+				}
+				527 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}	
+				}
+				917 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				918 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				919 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			#JAPAN
+			if = {
+				limit = {
+					JAP = {
+						is_in_faction_with = KOR
+						controls_state = 529
+						controls_state = 528
+						controls_state = 530
+					}
+				}
+				534 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = infrastructure
+						level = 3
+						instant_build = yes
+					}	
+				}
+				530 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = infrastructure
+						level = 3
+						instant_build = yes
+					}
+				}
+				535 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = infrastructure
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
         }
 
 	    ai_will_do = {
 			}
 		}
+		focus = {
+			id = KOR_japan_military_agreement
+			icon = GFX_focus_generic_treaty
+			x = -1
+			y = 2
+			relative_position_id = KOR_purge_the_communists
+	
+			cost = 10
+			prerequisite = { focus = KOR_ally_japan }
+	
+			available = {
+				is_in_faction_with = JAP
+			}
+	
+			bypass = {
+			}
+	
+			cancel_if_invalid = yes
+			continue_if_invalid = no
+			available_if_capitulated = yes
+	
+			completion_reward = {
+				#KOREA
+				if = {
+					limit = {
+						KOR = {
+							controls_state = 920
+							controls_state = 919
+							controls_state = 525
+							controls_state = 917
+						}
+					}
+					527 = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}	
+					}
+					917 = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+					}
+					918 = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+					}
+					919 = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				#JAPAN
+				if = {
+					limit = {
+						JAP = {
+							is_in_faction_with = KOR
+							controls_state = 529
+							controls_state = 528
+							controls_state = 530
+						}
+					}
+					534 = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}	
+					}
+					530 = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+					}
+					535 = {
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+	
+			ai_will_do = {
+				}
+			}
+		focus = {
+			id = KOR_japan_landowners
+			icon = GFX_focus_generic_treaty
+			x = 1
+			y = 3
+			relative_position_id = KOR_purge_the_communists
+	
+			cost = 10
+			prerequisite = { focus = KOR_japan_investment }
+	
+			available = {
+	
+			}
+	
+			bypass = {
+	
+			}
+	
+			cancel_if_invalid = yes
+			continue_if_invalid = no
+			available_if_capitulated = yes
+	
+			completion_reward = {
+				JAP = {
+					swap_ideas = {
+						remove_idea = JAP_zaibatsus_empowered
+						add_idea = JAP_zaibatsus_subsidies
+					}
+				}
+			}
+	
+			ai_will_do = {
+				}
+			}
 		focus = {
 		id = KOR_decide_who_will_rule
 		icon = GFX_focus_generic_treaty
@@ -756,8 +1123,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_stability = 0.1
-		    country_event = { id = kor.2 }
+			add_ideas = KOR_invigorated_dictatorship
         }
 
 	    ai_will_do = {
@@ -787,7 +1153,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.1
-		    add_ideas = KOR_invigorated_dictatorship
+			remove_ideas = KOR_changing_political_atmosphere
         }
 
 	    ai_will_do = {
@@ -918,17 +1284,17 @@ focus_tree = {
 			}
 }	
 		focus = {
-		id = KOR_dictatorship_continues
+		id = KOR_align_with_land_owners_facist
 		icon = GFX_focus_generic_treaty
 		x = 3
 		y = 2
         relative_position_id = KOR_decide_who_will_rule
 		mutually_exclusive = {
-			focus = KOR_end_the_regency
+			
 		}
 
 		cost = 10
-		prerequisite = { focus = KOR_decide_who_will_rule}
+		prerequisite = { focus = KOR_dictatorship_continues}
 
 		available = {
 
@@ -944,21 +1310,21 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.1
-		    add_ideas = KOR_invigorated_dictatorship
+		    
         }
 
 	    ai_will_do = {
 			}
 		}
 		focus = {
-		id = KOR_dictatorship_continues
+		id = KOR_facist_dictator
 		icon = GFX_focus_generic_treaty
 		x = 3
 		y = 3
         relative_position_id = KOR_decide_who_will_rule
 
 		cost = 10
-		prerequisite = { focus = KOR_decide_who_will_rule}
+		prerequisite = { focus = KOR_align_with_land_owners_facist }
 
 		available = {
 
@@ -974,21 +1340,21 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.1
-		    add_ideas = KOR_invigorated_dictatorship
+		    
         }
 
 	    ai_will_do = {
 			}
 		}
 		focus = {
-		id = KOR_dictatorship_continues
+		id = KOR_facist_dictators2
 		icon = GFX_focus_generic_treaty
 		x = 3
 		y = 4
         relative_position_id = KOR_decide_who_will_rule
 
 		cost = 10
-		prerequisite = { focus = KOR_decide_who_will_rule}
+		prerequisite = { focus = KOR_facist_dictator }
 
 		available = {
 
@@ -1004,7 +1370,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.1
-		    add_ideas = KOR_invigorated_dictatorship
+		    
         }
 
 	    ai_will_do = {
@@ -1037,21 +1403,23 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.1
-		    add_ideas = KOR_invigorated_dictatorship
+		    remove_ideas = KOR_changing_political_atmosphere
+			set_politics = { ruling_party = neutrality elections_allowed = no }
+			country_event = { id = kor.6 }
         }
 
 	    ai_will_do = {
 			}
 		}
 		focus = {
-		id = KOR_end_the_regency
+		id = KOR_align_with_land_owners
 		icon = GFX_focus_generic_treaty
 		x = -3
 		y = 2
         relative_position_id = KOR_decide_who_will_rule
 
 		cost = 10
-		prerequisite = { focus = KOR_decide_who_will_rule}
+		prerequisite = { focus = KOR_end_the_regency }
 
 		available = {
 
@@ -1067,21 +1435,21 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.1
-		    add_ideas = KOR_invigorated_dictatorship
+		    
         }
 
 	    ai_will_do = {
 			}
 		}
 		focus = {
-		id = KOR_end_the_regency
+		id = KOR_invest_in_universities
 		icon = GFX_focus_generic_treaty
 		x = -3
 		y = 3
         relative_position_id = KOR_decide_who_will_rule
 
 		cost = 10
-		prerequisite = { focus = KOR_decide_who_will_rule}
+		prerequisite = { focus = KOR_align_with_land_owners }
 
 		available = {
 
@@ -1097,21 +1465,21 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.1
-		    add_ideas = KOR_invigorated_dictatorship
+		    
         }
 
 	    ai_will_do = {
 			}
 		}
 		focus = {
-		id = KOR_end_the_regency
+		id = KOR_bring_back_turtle_ships
 		icon = GFX_focus_generic_treaty
 		x = -3
 		y = 4
         relative_position_id = KOR_decide_who_will_rule
 
 		cost = 10
-		prerequisite = { focus = KOR_decide_who_will_rule}
+		prerequisite = { focus = KOR_invest_in_universities }
 
 		available = {
 
@@ -1127,7 +1495,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.1
-		    add_ideas = KOR_invigorated_dictatorship
+		    
         }
 
 	    ai_will_do = {
@@ -1182,7 +1550,7 @@ focus_tree = {
 	focus = {
 		id = KOR_amnesty_for_ex_japanese_army_officers
 		icon = GFX_goal_CHI_support_pro_japanese_faction
-		prerequisite = {focus =  }
+		prerequisite = { focus = KOR_puppet_jap }
 		mutually_exclusive = {  }
 		relative_position_id = KOR_puppet_jap
 		x = 1
@@ -1239,7 +1607,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_allow_zaibatsus
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = {  }
+		prerequisite = { focus = KOR_amnesty_for_ex_japanese_army_officers }
 		x = 3
 		y = 3
 		relative_position_id = KOR_puppet
@@ -1260,7 +1628,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_adopt_shinto
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = {  }
+		prerequisite = { focus = KOR_puppet_allow_zaibatsus }
 		x = 3
 		y = 4
 		relative_position_id = KOR_puppet
@@ -1282,7 +1650,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_remove_debuff
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = {  }
+		prerequisite = { focus = KOR_puppet_adopt_shinto }
 		x = 3
 		y = 5
 		relative_position_id = KOR_puppet
@@ -1347,7 +1715,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_other_training_generals
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { focus = KOR_puppet_other }
+		prerequisite = { focus = KOR_puppet_other_cement_control }
 		x = -3
 		y = 3
 		relative_position_id = KOR_puppet
@@ -1366,7 +1734,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_other_deterence
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { focus = KOR_puppet_other }
+		prerequisite = { focus = KOR_puppet_other_training_generals }
 		x = -3
 		y = 4
 		relative_position_id = KOR_puppet
@@ -1385,7 +1753,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_other_army_debuff
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { focus = KOR_puppet_other }
+		prerequisite = { focus = KOR_puppet_other_deterence }
 		x = -3
 		y = 5
 		relative_position_id = KOR_puppet
@@ -1404,7 +1772,8 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_industry
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { }
+		prerequisite = { focus = KOR_puppet_other }
+		prerequisite = { focus = KOR_puppet_jap }
 		x = 0
 		y = 2
 		relative_position_id = KOR_puppet
@@ -1442,7 +1811,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_industry1
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { }
+		prerequisite = { focus = KOR_puppet_industry }
 		x = 1
 		y = 3
 		relative_position_id = KOR_puppet
@@ -1477,7 +1846,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_industry2
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { }
+		prerequisite = { focus = KOR_puppet_industry }
 		x = -1
 		y = 3
 		relative_position_id = KOR_puppet
@@ -1512,7 +1881,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_industry3
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { }
+		prerequisite = { focus = KOR_puppet_industry2 focus = KOR_puppet_industry1 }
 		x = 0
 		y = 4
 		relative_position_id = KOR_puppet
@@ -1553,7 +1922,7 @@ focus_tree = {
 	focus = {
 		id = KOR_puppet_research_slot
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { }
+		prerequisite = { focus = KOR_puppet_industry3 }
 		x = 0
 		y = 5
 		relative_position_id = KOR_puppet
@@ -1573,7 +1942,7 @@ focus_tree = {
 	focus = {
 		id = KOR_militarism
 		icon = GFX_goal_extensive_conscription_fascism
-		prerequisite = {  }
+		prerequisite = { focus = KOR_puppet_research_slot }
 		
 		x = 0
 		y = 6
@@ -1601,7 +1970,7 @@ focus_tree = {
 	focus = {
 		id = KOR_mobilization
 		icon = GFX_goal_generic_intelligence_exchange
-		prerequisite = { }
+		prerequisite = { focus = KOR_militarism }
 		x = 0
 		y = 7
 		relative_position_id = KOR_puppet

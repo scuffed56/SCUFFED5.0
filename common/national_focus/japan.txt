@@ -5209,7 +5209,7 @@ random_owned_controlled_state = {
 		id = JAP_strengthen_civilian_government
 		icon = GFX_goal_JAP_strenghten_the_civilian_government
 		mutually_exclusive = { focus = JAP_purge_the_kodoha_faction focus = JAP_support_the_kodoha_faction focus = JAP_the_unthinkable_option }
-		x = 6
+		x = 7
 		y = 0
 		relative_position_id = JAP_support_the_kodoha_faction
 
@@ -5679,41 +5679,216 @@ random_owned_controlled_state = {
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STEEL }
 	}
 	focus = {
-		id = JAP_west_pacific_treaty_organization
-		icon = GFX_goal_generic_alliance
-		prerequisite = { focus = JAP_the_showa_constitution  }
-		mutually_exclusive = { focus = JAP_rekindle_the_old_alliance focus = JAP_trans_pacific_alliance }
+		id = JAP_ally_korea
+		icon = GFX_focus_generic_treaty
 		x = -2
 		y = 1
-		relative_position_id = JAP_the_showa_constitution
+        relative_position_id = JAP_the_showa_constitution
+		mutually_exclusive = { focus = JAP_trans_pacific_alliance focus = JAP_rekindle_the_old_alliance }
 
-		cost = 7	
+		cost = 10
+		prerequisite = { focus = JAP_the_showa_constitution }
 
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 2
-				CHI = { has_government = democratic }
+		available = {
+			has_government = democratic
+			KOR = {
+				OR = {
+					is_faction_leader = yes
+					is_in_faction = no
+					is_in_faction_with = AST
+					is_in_faction_with = CAN
+				}
+				has_government = democratic
+			}
+			is_in_faction = no
+			is_subject = no
+			NOT = { has_war_with = KOR }
+		}
+
+		bypass = {
+			KOR = {
+				has_completed_focus = KOR_ally_japan
 			}
 		}
 
-		available = {
-			is_subject = no
-		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
 
 		completion_reward = {
-			set_rule = { can_create_factions = yes }
-			create_faction = JAP_west_pacific_treaty_organization
+		    set_rule = {
+				can_create_factions = yes
+			}
+			if = {
+				limit = {
+					KOR = {
+						is_faction_leader = yes
+						has_government = democratic
+					}
+				}
+				KOR = {
+					country_event = generic.2
+				}
+			}
+			else_if = {
+				limit = {
+					KOR = {
+						has_government = democratic
+						is_faction_leader = no
+					}
+				}
+				create_faction = JAP_trans_pacific_faction
+				KOR = {
+					country_event = generic.5
+				}
+			}
+			else_if = {
+				limit = {
+					KOR = {
+						has_government = democratic
+						is_faction_leader = no
+					}
+					AST = {
+						has_government = democratic
+						is_faction_leader = yes
+					}
+				}
+				AST = {
+					country_event = generic.2
+				}
+			}
+			else_if = {
+				limit = {
+					KOR = {
+						has_government = democratic
+						is_faction_leader = no
+					}
+					CAN = {
+						has_government = democratic
+						is_faction_leader = yes
+					}
+				}
+				CAN = {
+					country_event = generic.2
+				}
+			}						
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
-	}
+        }
+	focus = {
+		id = JAP_korean_investment
+		icon = GFX_focus_generic_treaty
+		x = -1
+		y = 1
+        relative_position_id = JAP_ally_korea
+
+		cost = 10
+		prerequisite = { focus = JAP_ally_korea }
+
+		available = {
+			is_in_faction_with = KOR
+		}
+
+		bypass = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_ideas = KOR_north_east_asian_bank
+		    every_other_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = CHI
+						original_tag = KOR
+						original_tag = SIA
+					}
+				}
+				add_ideas = KOR_north_east_asian_bank
+			}
+        }
+
+	    ai_will_do = {
+			}
+		}
+		focus = {
+			id = JAP_korean_military_cooperation
+			icon = GFX_focus_generic_treaty
+			x = -1
+			y = 2
+			relative_position_id = JAP_ally_korea
+	
+			cost = 10
+			prerequisite = { focus = JAP_korean_investment }
+	
+			available = {
+				is_in_faction_with = KOR
+			}
+	
+			bypass = {
+			}
+	
+			cancel_if_invalid = yes
+			continue_if_invalid = no
+			available_if_capitulated = yes
+	
+			completion_reward = {
+				add_ideas = KOR_north_east_asian_military
+				every_other_country = {
+					limit = {
+						is_in_faction_with = ROOT
+						OR = {
+							original_tag = CHI
+							original_tag = KOR
+							original_tag = SIA
+						}
+					}
+					add_ideas = KOR_north_east_asian_military
+				}
+			}
+	
+			ai_will_do = {
+				}
+			}
+			focus = {
+				id = JAP_korean_chaebols
+				icon = GFX_focus_generic_treaty
+				x = -1
+				y = 3
+				relative_position_id = JAP_ally_korea
+		
+				cost = 10
+				prerequisite = { focus = JAP_korean_military_cooperation }
+		
+				available = {
+					is_in_faction_with = KOR
+				}
+		
+				bypass = {
+				}
+		
+				cancel_if_invalid = yes
+				continue_if_invalid = no
+				available_if_capitulated = yes
+		
+				completion_reward = {
+					KOR = {
+						add_ideas = KOR_the_chaebols
+					}
+				}
+		
+				ai_will_do = {
+					}
+				}
 	focus = {
 		id = JAP_island_investment
 		icon = GFX_goal_generic_industrial_planning
-		prerequisite = { focus = JAP_west_pacific_treaty_organization focus = JAP_rekindle_the_old_alliance focus = JAP_trans_pacific_alliance }
-		x = -2
-		y = 2
-		relative_position_id = JAP_the_showa_constitution
+		prerequisite = { focus = JAP_subsidise_the_zaibatsus }
+		x = 0
+		y = 1
+		relative_position_id = JAP_subsidise_the_zaibatsus
 
 		cost = 10
 
@@ -5740,7 +5915,7 @@ random_owned_controlled_state = {
 		id = JAP_rekindle_the_old_alliance
 		icon = GFX_goal_JAP_alliance_ENG
 		prerequisite = { focus = JAP_the_showa_constitution }
-		mutually_exclusive = { focus = JAP_west_pacific_treaty_organization focus = JAP_trans_pacific_alliance }
+		mutually_exclusive = { focus = JAP_trans_pacific_alliance focus = JAP_ally_korea }
 		x = 0
 		y = 1
 		relative_position_id = JAP_the_showa_constitution
@@ -5875,7 +6050,7 @@ random_owned_controlled_state = {
 		id = JAP_trans_pacific_alliance
 		icon = GFX_goal_JAP_alliance_USA
 		prerequisite = { focus = JAP_the_showa_constitution }
-		mutually_exclusive = { focus = JAP_west_pacific_treaty_organization focus = JAP_rekindle_the_old_alliance }
+		mutually_exclusive = {  focus = JAP_rekindle_the_old_alliance focus = JAP_ally_korea }
 		x = 2
 		y = 1
 		relative_position_id = JAP_the_showa_constitution
@@ -5966,10 +6141,10 @@ random_owned_controlled_state = {
 	focus = {
 		id = JAP_pacific_guardian
 		icon = GFX_focus_jap_pacific_guardian
-		prerequisite = { focus = JAP_west_pacific_treaty_organization focus = JAP_rekindle_the_old_alliance focus = JAP_trans_pacific_alliance }
-		x = 2
-		y = 1
-		relative_position_id = JAP_west_pacific_treaty_organization
+		prerequisite = { focus = JAP_ally_korea focus = JAP_rekindle_the_old_alliance focus = JAP_trans_pacific_alliance }
+		x = 0
+		y = 2
+		relative_position_id = JAP_the_showa_constitution
 
 		cost = 10
 
@@ -5985,7 +6160,7 @@ random_owned_controlled_state = {
 	focus = {
 		id = JAP_expand_the_alliance
 		icon = GFX_goal_philippines_invite_malaysia
-		prerequisite = { focus = JAP_trans_pacific_alliance focus = JAP_rekindle_the_old_alliance focus = JAP_west_pacific_treaty_organization }
+		prerequisite = { focus = JAP_trans_pacific_alliance focus = JAP_rekindle_the_old_alliance focus = JAP_ally_korea }
 		x = 0
 		y = 1
 		relative_position_id = JAP_trans_pacific_alliance
@@ -6326,7 +6501,7 @@ random_owned_controlled_state = {
 		id = JAP_crush_chinese_communists
 		icon = GFX_goal_PRC_destroy_the_communists
 		prerequisite = { focus = JAP_liberate_manchuria }
-		x = 2
+		x = 0
 		y = 2
 		relative_position_id = JAP_the_korean_question
 
@@ -6363,7 +6538,7 @@ random_owned_controlled_state = {
 		icon = GFX_focus_wonderweapons
 		prerequisite = { focus = JAP_liberate_manchuria }
 		prerequisite = { focus = JAP_anti_communist_volunteers }
-		x = -4
+		x = -2
 		y = 1
 		relative_position_id = JAP_liberate_manchuria
 
