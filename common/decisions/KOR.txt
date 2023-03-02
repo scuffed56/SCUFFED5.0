@@ -1,0 +1,122 @@
+####CATEGORY ALLOWED FOR KOREA
+KOR_economy_investment = {
+	#INVESTMENT DECISIONS RESOURCES RIGHT FOR FACTORIES TEMPORARY
+	KOR_discuss_investment_possibilities_with_FROM = {
+		icon = generic_construction
+
+		allowed = {
+			#original_tag = KOR
+		}
+		target_root_trigger = { has_completed_focus = KOR_free_trade_deals_with_the_americas }
+
+		available = {
+			NOT = {
+				has_country_flag = KOR_investment_pursued
+			}
+			NOT = {
+				FROM = { has_war_with = ROOT }
+				has_capitulated = yes
+				is_puppet = yes
+			}
+		}
+
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_major = yes
+					AND = {
+						date > 1940.1.1
+						num_of_factories > 64
+						has_war = no 
+						is_subject = no
+					}
+				}
+				OR = {
+					capital_scope = { is_on_continent = europe }
+					tag = USA
+				}
+				NOT = { has_country_flag = ROOT_rejecting_korean_overtures }
+			}
+		}
+
+		days_remove = 50
+
+		cost = 75
+
+		fire_only_once = no
+
+		ai_will_do = {
+			factor = 0.5
+			modifier = {
+				add = 5
+			}
+			modifier = {
+				factor = 5
+				is_historical_focus_on = yes
+			}
+		}
+
+		visible = {
+			has_completed_focus = KOR_free_trade_deals_with_the_americas
+			FROM = {
+				NOT = { has_country_flag = ROOT_rejecting_korean_overtures }
+			}
+		}
+
+		complete_effect = {
+			set_country_flag = KOR_investment_pursued
+		}
+
+		remove_effect = {
+			FROM = { country_event = { id = kor.126 } }
+			custom_effect_tooltip = KOR_investment_opinion_tt
+			clr_country_flag = KOR_investment_pursued
+		}
+	}
+}
+KOR_the_monarchist_civil_war = {
+
+	KOR_populist_plan_to_start_civil_war = {
+
+		priority = 10
+
+		icon = generic_ignite_civil_war
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		days_mission_timeout = 200
+
+		fire_only_once = yes
+
+		activation = {
+			has_completed_focus = KOR_end_the_regency
+			NOT = { has_completed_focus = KOR_remove_monarch_debuff }
+		}
+
+		visible = {
+			tag = KOR
+			has_completed_focus = KOR_end_the_regency
+			NOT = { 
+				has_completed_focus = KOR_remove_monarch_debuff
+			 }
+		}
+
+		cancel_if_not_visible = yes
+
+		is_good = yes
+
+		timeout_effect = {
+			start_civil_war = {
+				ruling_party = democratic
+				ideology = ROOT
+				size = 0.50	#This was too much for AI
+				capital = 527
+				states = { 527 917 918 }
+				keep_unit_leaders = {
+				}
+			}
+		}
+	}
+}
