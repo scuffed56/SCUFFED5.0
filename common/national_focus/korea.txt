@@ -36,9 +36,23 @@ focus_tree = {
 			NOT = {
 				is_subject = yes
 			}
+			KOR = {
+				controls_state = 527
+				controls_state = 917
+				controls_state = 918
+			}
 		}
 		
 		completion_reward = {
+			527 = {
+				remove_core_of = NKR
+			}
+			917 = {
+				remove_core_of = NKR
+			}
+			918 = {
+				remove_core_of = NKR
+			}
 			add_political_power = 75
 			create_corps_commander = {
 				name = "Kim Hong-il"
@@ -1660,7 +1674,7 @@ focus_tree = {
 			}
 		}
 		focus = {
-			id = KOR_service_by_requirement
+			id = KOR_service_by_requirement_korea
 			icon = GFX_goal_manpower
 			x = 1
 			y = 3
@@ -1740,7 +1754,7 @@ focus_tree = {
 			}
 		}
 		focus = {
-		id = KOR_align_with_land_owners
+		id = KOR_align_with_small_business
 		icon = GFX_focus_POL_agrarian_reform
 		x = -3
 		y = 2
@@ -1778,7 +1792,7 @@ focus_tree = {
         relative_position_id = KOR_decide_who_will_rule
 
 		cost = 5
-		prerequisite = { focus = KOR_align_with_land_owners }
+		prerequisite = { focus = KOR_align_with_small_business }
 
 		available = {
 
@@ -1918,7 +1932,7 @@ focus_tree = {
 		
 				cost = 10
 				prerequisite = { focus = KOR_bring_back_turtle_ships focus = KOR_attack_manchuria }
-				prerequisite = { focus = KOR_service_by_requirement focus = KOR_attack_manchuria }
+				prerequisite = { focus = KOR_service_by_requirement_korea focus = KOR_attack_manchuria }
 		
 		
 				available = {
@@ -2352,7 +2366,7 @@ focus_tree = {
 		random_owned_controlled_state = {
 			limit = {
 				free_building_slots = {
-					building = arms_factory
+					building = dockyard
 					size > 1
 					include_locked = yes
 				}
@@ -2360,7 +2374,7 @@ focus_tree = {
 
 			add_extra_state_shared_building_slots = 2
 			add_building_construction = {
-				type = arms_factory
+				type = dockyard
 				level = 2
 				instant_build = yes
 			}
@@ -2522,7 +2536,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_ideas = KOR_industry
+			add_ideas = KOR_industry1
 			525 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -2585,7 +2599,7 @@ focus_tree = {
 				}
 			}
 			swap_ideas = {
-				remove_idea = KOR_industry
+				remove_idea = KOR_industry1
 				add_idea = KOR_more_industry
 			}
 		}
@@ -2902,7 +2916,9 @@ focus_tree = {
 		prerequisite = { focus = KOR_free_trade_deals_with_the_americas focus = KOR_close_the_country }
 
 		available = {
-			num_of_factories > 19
+			NOT = {
+				has_idea = KOR_eco_ruined
+			}
 		}
 
 		bypass = {
@@ -3016,7 +3032,17 @@ focus_tree = {
 		available = {
 			}
 		completion_reward = {
-			remove_ideas = KOR_army_ruined
+			if = {
+				limit = {
+					NOT = {
+						has_idea = KOR_army_ruined
+					}
+				}
+				add_political_power = 100
+			}
+			else = {
+				remove_ideas = KOR_army_ruined
+			}
 			}
 	}
 	focus = {
@@ -3245,7 +3271,38 @@ focus_tree = {
 		available = {
 			}
 		completion_reward = {
-			add_ideas = KOR_mass_production
+			add_ideas = KOR_mass_production_idea
+			}
+	}
+	focus = {
+		id = KOR_academy
+		icon = GFX_goal_military_government
+		x = 1
+		y = 3
+		relative_position_id = KOR_quality
+		prerequisite = {
+			focus = KOR_new_tactics focus = KOR_extensive_planning focus = KOR_embrace_artillery
+			 focus = KOR_mass_production
+		}
+		cost = 10
+		mutually_exclusive = {
+			
+		   }
+		ai_will_do = {
+			factor = 1
+			}
+		available = {
+			}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = KOR_better_generals
+				}
+				add_political_power = 100
+			}
+			else = {
+				add_ideas = KOR_better_generals
+			}
 			}
 	}
 	####air
