@@ -3247,10 +3247,13 @@ country_event = {
 	# Sounds good
 	option = {
 		name = mtg_netherlands.77.a
+		ai_chance = {
+			factor = 100
+		}
 		custom_effect_tooltip = GAME_OVER_TT
 		FROM = {
 			country_event = { id = mtg_netherlands.78 }
-			set_country_flag = HOL_benelux_flag@ROOT
+			set_global_flag = HOL_benelux_flag@ROOT
 		}
 	}
 
@@ -3278,8 +3281,8 @@ country_event = {
 		name = excellent
 		if = {
 			limit = {
-				has_country_flag = HOL_benelux_flagBEL
-				has_country_flag = HOL_benelux_flagLUX
+				has_global_flag = HOL_benelux_flagBEL
+				has_global_flag = HOL_benelux_flagLUX
 			}
 			set_global_flag = HOL_benelux_formed
 			set_cosmetic_tag = HOL_benelux_unified
@@ -3293,13 +3296,15 @@ country_event = {
 					set_nationality = ROOT
 				}
 			}
-			annex_country = {
-			    target = BEL
-			    transfer_troops = yes
-			}
-			annex_country = {
-			    target = LUX
-			    transfer_troops = yes
+			ROOT = {
+				annex_country = {
+					target = BEL
+					transfer_troops = yes
+				}
+				annex_country = {
+					target = LUX
+					transfer_troops = yes
+				}
 			}
 			every_state = {
 				limit = {
@@ -3308,7 +3313,7 @@ country_event = {
 						is_core_of = LUX
 					}
 				}
-				add_core_of = ROOT
+				add_core_of = HOL
 			}
 			hidden_effect = { news_event = { id = mtg_news.64 days = 1 } }
 		}
