@@ -470,7 +470,49 @@
 								division = "name = \"9. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
 								owner = PREV
 							}
-						}						
+							create_unit = {
+								division = "name = \"10. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+							create_unit = {
+								division = "name = \"11. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+						}
+						529 = {
+							create_unit = {
+								division = "name = \"12. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+							create_unit = {
+								division = "name = \"13. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+							create_unit = {
+								division = "name = \"14. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+							create_unit = {
+								division = "name = \"15. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+							create_unit = {
+								division = "name = \"16. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+							create_unit = {
+								division = "name = \"17. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+							create_unit = {
+								division = "name = \"18. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+							create_unit = {
+								division = "name = \"19. Keibitai\" division_template = \"Keibitai\" start_experience_factor = 0"
+								owner = PREV
+							}
+						}							
 					}
 				}
 			}
@@ -848,8 +890,14 @@
 			add_tech_bonus = {
 				name = JAP_air_blueprints
 				bonus = 1
-				uses = 1
-				category = light_fighter
+				uses = 2
+				category = air_equipment
+			}
+			add_doctrine_cost_reduction = {
+				name = JAP_air_improve
+				cost_reduction = 0.5
+				uses = 3
+				category = air_doctrine
 			}
 		}
 	}
@@ -864,7 +912,6 @@
 		x = 1
 		y = 4
 		completion_reward = {
-		
 			add_ideas = JAP_domestic_jet_engine_designs_1
 		}
 	}
@@ -899,6 +946,12 @@
 				bonus = 1
 				category = armor
 			}
+			add_tech_bonus = {
+				name = armor
+				uses = 2
+				bonus = 0.5
+				category = armor
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -925,7 +978,7 @@
 			add_doctrine_cost_reduction = {
 				name = JAP_improve_tank_tactics
 				cost_reduction = 0.5
-				uses = 2
+				uses = 3
 				category = land_doctrine
 			}
 			add_ideas = JAP_tank_tactics
@@ -1114,10 +1167,10 @@
 		y = 2
 		available = {
 			date < 1937.6.1
+			has_completed_focus = JAP_close_the_island
 		}
 		allow_branch = {
-			always = no
-			#has_completed_focus = JAP_close_the_island
+			has_completed_focus = JAP_close_the_island
 		}
 		completion_reward = {
 			add_ideas = japanese_closed_eco
@@ -1271,7 +1324,8 @@
 	x = 0
 	y = 2
 	completion_reward = {
-		536 = {set_state_flag = japanese_core}
+		add_political_power = 50
+			536 = {set_state_flag = japanese_core}
 			533 = {set_state_flag = japanese_core}
 			534 = {set_state_flag = japanese_core}
 			282 = {set_state_flag = japanese_core}
@@ -1301,13 +1355,15 @@
 		y = 5
 
 		allow_branch = {
-			always = no
-			#has_completed_focus = JAP_close_the_island
+			AND = {
+				has_completed_focus = JAP_close_the_island
+				date > 1940.06.01
+			}
 		}
 
 		available = {
 		OR = {
-			date < 1940.6.1
+			date < 1941.01.01
 			not = {
 				ROOT = {
 					or = {
@@ -1348,6 +1404,7 @@
 			}
 		}
 	}
+
 	focus = {
 		id = JAP_investing_internal_industries
 		icon = GFX_focus_eng_crush_the_dream
@@ -1364,7 +1421,7 @@
 		completion_reward = {
 			add_tech_bonus = {
 				name = JAP_synth_oil_research
-				bonus = 1
+				bonus = 2
 				uses = 1
 				category = synth_resources
 			}
@@ -1445,6 +1502,7 @@
 		x = 2
 		y = 2
 		completion_reward = {
+			add_political_power = 50
 			random_owned_controlled_state = {
 				prioritize = { 533 }
 				add_manpower = -50000
@@ -1544,8 +1602,9 @@
 					add_ideas = war_economy
 				}
 				random_owned_controlled_state = {
+					
 					prioritize = { 529 }
-					add_extra_state_shared_building_slots = 3
+					add_extra_state_shared_building_slots = 4
 					add_building_construction = {
 						type = arms_factory
 						level = 2
@@ -1553,13 +1612,13 @@
 					}
 					add_building_construction = {
 						type = industrial_complex
-						level = 1
+						level = 2
 						instant_build = yes
 					}
 				}
 				random_owned_controlled_state = {
 					prioritize = { 532 }
-					add_extra_state_shared_building_slots = 3
+					add_extra_state_shared_building_slots = 4
 					add_building_construction = {
 						type = arms_factory
 						level = 2
@@ -1567,13 +1626,13 @@
 					}
 					add_building_construction = {
 						type = industrial_complex
-						level = 1
+						level = 2
 						instant_build = yes
 					}
 				}
 				random_owned_controlled_state = {
-					prioritize = { 282 }
-					add_extra_state_shared_building_slots = 3
+					prioritize = { 534 }
+					add_extra_state_shared_building_slots = 4
 					add_building_construction = {
 						type = arms_factory
 						level = 2
@@ -1581,13 +1640,13 @@
 					}
 					add_building_construction = {
 						type = industrial_complex
-						level = 1
+						level = 2
 						instant_build = yes
 					}
 				}
 				add_timed_idea = {
 					idea = JAP_production
-					days = 180
+					days = 270
 				}
 				add_timed_idea = {
 					idea = JAP_force_into_factories
@@ -1655,7 +1714,7 @@
 	y = 1
 	relative_position_id = JAP_cast_the_die
 
-	cost = 10
+	cost = 5
 
 	ai_will_do = {
 		factor = 1
@@ -1796,6 +1855,7 @@
 		}
 		completion_reward = {
 		add_ideas = JAP_naval_improvements
+		JAP_interservice_rivalry_towards_navy = yes
 		}
 	}
 
@@ -6608,7 +6668,7 @@ random_owned_controlled_state = {
 		icon = GFX_focus_generic_aluminum
 		prerequisite = { focus = JAP_expand_the_showa_steel_works }
 		x = 0
-		y = 1
+		y = 4
 		relative_position_id = JAP_expand_the_showa_steel_works
 
 		allow_branch = {
@@ -7351,7 +7411,7 @@ random_owned_controlled_state = {
 			}
 		}
 		available = {
-			has_completed_focus = JAP_support_the_kodoha_faction
+			
 		}
 
 		completion_reward = {
