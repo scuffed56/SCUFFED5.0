@@ -1,0 +1,271 @@
+GER_balance_of_power_category = {
+	GER_very_low_increase_effect = {
+
+		icon = decision_generic_decision
+		priority = 90
+		allowed = {
+			original_tag = GER
+		}
+
+		cost = 10
+
+		days_re_enable = 10
+
+		complete_effect = {
+			GER_bop_very_low_increase_effect = yes
+		}
+
+		visible = { has_completed_focus = GER_rhineland }
+		
+	}
+	
+	GER_low_increase_effect = {
+		priority = 90
+		icon = GFX_decision_generic_factory
+
+		allowed = {
+			original_tag = GER
+		}
+
+		cost = 50
+
+		days_re_enable = 365
+
+		complete_effect = {
+			custom_effect_tooltip = add_factory_effect
+			GER_bop_low_increase_effect = yes
+			add_offsite_building = { type = arms_factory level = 1 }
+		}
+
+		visible = { has_completed_focus = GER_rhineland }
+		
+	}
+	
+#	GER_medium_increase_effect = {
+#		priority = 90
+#		icon = GFX_decision_generic_military
+#
+#		allowed = {
+#			original_tag = GER
+#		}
+#
+#		cost = 50
+#
+#		days_re_enable = 10
+#
+#		complete_effect = {
+#			GER_bop_medium_increase_effect = yes
+#		}
+#
+#		visible = { has_completed_focus = GER_rhineland }
+#		
+#	}
+	
+	GER_high_increase_effect = {
+		priority = 90
+		icon = GFX_decision_ger_military_buildup
+
+		allowed = {
+			original_tag = GER
+		}
+
+		cost = 50
+
+		days_re_enable = 365
+
+		complete_effect = {
+			custom_effect_tooltip = add_equipment_effect
+			GER_bop_high_increase_effect = yes
+			add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+		}
+			add_equipment_to_stockpile = {
+			type = artillery_equipment
+			amount = 250
+		}
+	}
+
+		visible = { has_completed_focus = GER_rhineland }
+		
+	}
+	
+	GER_absurdly_high_increase_effect = {
+		priority = 90
+		icon = GFX_decision_generic_military
+	
+		allowed = {
+			original_tag = GER
+		}
+	
+		cost = 10
+	
+		days_re_enable = 365
+	
+		complete_effect = {
+			GER_bop_absurdly_high_increase_effect = yes
+			custom_effect_tooltip = GER_oppose_hitler_civil_war
+			effect_tooltip = {
+				GER_remove_mefo_bills = yes
+			}
+			every_state = {
+				limit = {
+					OR = {
+						state = 42
+						state = 51
+						state = 989
+						state = 922
+						state = 923
+					}
+				}
+				set_demilitarized_zone = no
+			}
+			add_political_power = 120
+			add_named_threat = { threat = 5 name = GER_oppose_hitler }
+			country_event = { id = wtt_germany.1 }
+		}
+	
+		visible = { 
+			has_completed_focus = GER_oppose_hitler_r56
+		}
+		
+	}
+	
+	GER_very_low_decrease_effect = {
+		priority = 90
+		icon = GFX_decision_generic_decision
+
+		allowed = {
+			original_tag = GER
+		}
+
+		cost = 10
+
+		days_re_enable = 10
+
+		complete_effect = {
+			GER_bop_very_low_decrease_effect = yes
+		}
+
+		visible = { has_completed_focus = GER_rhineland }
+		
+	}
+	
+	GER_low_decrease_effect = {
+		priority = 90
+		icon = GFX_decision_generic_construction
+
+		allowed = {
+			original_tag = GER
+		}
+
+		cost = 50
+
+		days_re_enable = 365
+
+		complete_effect = {
+			custom_effect_tooltip = add_building_slot
+			GER_bop_low_decrease_effect = yes
+			random_core_state = {
+				add_extra_state_shared_building_slots = 2
+			}
+		}
+
+		visible = { has_completed_focus = GER_rhineland }
+		
+	}
+	
+#	GER_medium_decrease_effect = {
+#		priority = 90
+#		icon = GFX_decision_generic_military
+#
+#		allowed = {
+#			original_tag = GER
+#		}
+#
+#		cost = 50
+#
+#		days_re_enable = 10
+#
+#		complete_effect = {
+#			GER_bop_medium_decrease_effect = yes
+#		}
+#
+#		visible = { has_completed_focus = GER_rhineland }
+#		
+#	}
+	
+	GER_high_decrease_effect = {
+		priority = 90
+		icon = GFX_decision_generic_military
+
+		allowed = {
+			original_tag = GER
+		}
+
+		custom_cost_trigger = {
+			has_political_power > 14
+			has_army_experience > 9
+		}
+		custom_cost_text = decision_cost_pp_15_ArmXP_10
+				
+		days_re_enable = 365
+
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = infantry_division_SS }
+				}
+				infantry_division_SS = yes
+			}
+			custom_effect_tooltip = GER_division_infantry_ss
+			GER_bop_high_decrease_effect = yes
+			
+				hidden_effect = {
+					random_owned_controlled_state = {
+								limit = { ROOT = { has_full_control_of_state = PREV } }
+								create_unit = {
+									division = "name = \"\" division_template = \"SS Motorisierte-Division\" start_experience_factor = 0.7 start_equipment_factor = 0.5" 
+									owner = GER
+								}
+								create_unit = {
+									division = "name = \"\" division_template = \"SS Motorisierte-Division\" start_experience_factor = 0.7 start_equipment_factor = 0.5" 
+									owner = GER
+						}
+					}
+				add_command_power = -50
+				army_experience = -10
+				}
+		}
+
+		visible = { has_completed_focus = GER_rhineland }
+		
+	}
+	
+	#GER_absurdly_high_decrease_effect = {
+	#	priority = 90
+	#	icon = GFX_decision_generic_military
+	#
+	#	allowed = {
+	#		original_tag = GER
+	#	}
+	#	
+	#	days_re_enable = 500
+	#	cost = 10
+	#	complete_effect = {
+	#		GER_bop_absurdly_high_decrease_effect = yes
+	#		hidden_effect = {
+	#			add_command_power = -50
+	#			add_political_power = -50
+	#			army_experience = -15
+	#		}
+	#	}
+	#
+	#	visible = { 
+	#		NOT = {
+	#		has_completed_focus = GER_rhineland
+	#	 	}
+	#	}
+	#	
+	#}
+}

@@ -1,0 +1,63 @@
+on_actions = {
+	
+	####LOSE EMPIRE LAND GET EMPIRE BUFF
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					FROM = { has_completed_focus = GER_return_of_the_kaiser_r56 }
+					ROOT = { 
+						OR = {
+							any_country = {
+								has_war_with = GER
+							}
+						} 
+					}
+					FROM.FROM = {
+						has_state_flag = imperial_territory_gained_flag
+					}
+				}
+				FROM.FROM = {  
+				 	set_state_flag = imperial_territory_lost_flag
+				 	clr_state_flag = imperial_territory_gained_flag
+				}
+		 		JAP = {
+		 			GER_imperial_ambition_down = yes 
+		 		}
+			}
+		}
+	}
+	####TAKE EMPIRE LAND GET EMPIRE BUFF
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					FROM = { 
+					    OR = { 
+							any_country = {
+								has_war_with = GER
+							}
+						}
+					}
+					ROOT = {
+						OR = {
+						 has_completed_focus = GER_return_of_the_kaiser_r56
+						} 
+					}
+					FROM.FROM = {
+						has_state_flag = imperial_territory_lost_flag
+					}
+				}
+				FROM.FROM = { 
+				 	set_state_flag = imperial_territory_gained_flag
+				 	clr_state_flag = imperial_territory_lost_flag
+				}
+		 		
+				GER = {
+				 GER_imperial_ambition_up = yes
+				}  
+			}
+		}
+	}
+}
+	

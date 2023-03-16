@@ -52,7 +52,6 @@ war_measures = {
 					has_completed_focus = TUR_join_the_allies
 					has_completed_focus = TUR_pivot_to_the_past
 					has_completed_focus = TUR_the_mediterranean_entente
-					has_completed_focus = TUR_anti_bolshevik_mediterranean_bloc
 					has_completed_focus = TUR_readdress_the_montreux_convention
 				}
 				
@@ -202,7 +201,7 @@ political_actions = {
 			42 = {
 				is_demilitarized_zone = yes
 			}
-			has_completed_focus = GER_a_new_reich			
+			has_completed_focus = GER_oppose_hitler_r56			
 		}
 
 		cost = 50
@@ -217,7 +216,7 @@ political_actions = {
 			42 = {
 				is_demilitarized_zone = yes
 			}
-			has_completed_focus = GER_a_new_reich
+			has_completed_focus = GER_oppose_hitler_r56
 		}
 
 		complete_effect = {
@@ -341,7 +340,7 @@ political_actions = {
 		visible = {
 			NOT = {
 				AND = {
-					has_global_flag = ger_standard_focus_tree
+					has_global_flag = ger_vanilla_focus_tree
 					NOT = { has_completed_focus = GER_first_ljubljana_award_vanilla } #required state and seems appropriate
 				}
 			}
@@ -365,5 +364,1159 @@ political_actions = {
 			}
 			ITA = { country_event = r56_italy_ljubljana_annexation.1 }
 		}
+	}
+}
+GER_upgrade_designers_decision_category = {
+	GER_upgrade_heavy_tank_designer = {
+		priority = 50
+
+		icon = GFX_decision_generic_merge_plant_tank
+
+		ai_will_do = {
+			base = 10
+		}
+
+
+		#target_trigger = {
+		#	FROM = { SOV_is_valid_subject = yes }
+		#}
+
+		allowed = {
+			original_tag = GER
+		}
+
+		available = {
+			AND = {
+				has_idea = porsche
+			NOT = { has_country_flag = GER_choose_more_tanks }
+			}
+		}
+		cancel_trigger = {
+			NOT = {
+				has_idea = porsche
+			}
+		}
+
+		cancel_effect = {
+		}
+		days_remove = 120
+
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GER_negotiate_designers_military
+			NOT = { has_country_flag = GER_heavy_tank_designer_upgrade_1_flag }
+			NOT = { has_country_flag = GER_choose_more_tanks }
+		}
+
+		cost = 50
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		complete_effect = {
+			set_country_flag = { flag = GER_choose_better_tanks value = 1 }
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = porsche
+				add_idea = porsche_2
+			}
+			set_country_flag = { flag = GER_heavy_tank_designer_upgrade_1_flag value = 1 } 
+		}
+	}
+	GER_upgrade_medium_tank_designer = {
+		priority = 50
+
+		icon = GFX_decision_generic_merge_plant_tank
+
+		ai_will_do = {
+			base = 10
+		}
+
+
+		#target_trigger = {
+		#	FROM = { SOV_is_valid_subject = yes }
+		#}
+
+		allowed = {
+			original_tag = GER
+		}
+
+		available = {
+			and = {
+				has_idea = GER_MAN
+				NOT = { has_country_flag = GER_choose_better_tanks }
+			}
+		}
+		cancel_trigger = {
+			NOT = {
+				has_idea = GER_MAN
+			}
+		}
+
+		cancel_effect = {
+		}
+		days_remove = 120
+
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GER_negotiate_designers_military
+			NOT = { has_country_flag = GER_medium_tank_designer_upgrade_1_flag }
+			NOT = { has_country_flag = GER_choose_better_tanks }
+		}
+
+		cost = 50
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		complete_effect = {
+			set_country_flag = { flag = GER_choose_more_tanks value = 1}
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = GER_MAN
+				add_idea = GER_MAN_2
+			}
+			set_country_flag = { flag = GER_medium_tank_designer_upgrade_1_flag value = 1 } 
+		}
+	}
+	GER_upgrade_artillery_designer = {
+		priority = 45
+
+		icon = GFX_decision_generic_merge_plant_materiel
+
+		ai_will_do = {
+			base = 0.5
+		}
+
+		allowed = {
+			original_tag = GER
+		}
+
+		available = {
+			has_idea = rheinmetall
+		}
+
+		days_remove = 120
+
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GER_negotiate_designers_military
+			NOT = { has_country_flag = GER_rheinmetall_designer_upgrade_1_flag }
+			NOT = { has_country_flag = GER_choose_infantry_designer }
+			NOT = { has_country_flag = GER_choose_motorised_designer }
+		}
+
+		cost = 50
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+		cancel_trigger = {
+			NOT = {
+				has_idea = rheinmetall
+			}
+		}
+
+		cancel_effect = {
+		}
+
+		complete_effect = {
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = rheinmetall
+				add_idea = rheinmetall_2
+			}
+			set_country_flag = { flag = GER_rheinmetall_designer_upgrade_1_flag value = 1 } 
+			set_country_flag = GER_choose_arty_designer
+		}
+	}
+	GER_upgrade_infantry_designer = {
+		priority = 45
+
+		icon = GFX_decision_generic_merge_plant_materiel
+
+		ai_will_do = {
+			base = 0.5
+		}
+
+		allowed = {
+			original_tag = GER
+		}
+
+		available = {
+			has_idea = mauser
+		}
+
+		days_remove = 120
+
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GER_negotiate_designers_military
+			NOT = { has_country_flag = GER_masuer_designer_upgrade_1_flag }
+			NOT = { has_country_flag = GER_choose_arty_designer }
+			NOT = { has_country_flag = GER_choose_motorised_designer }
+		}
+
+		cost = 50
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+		cancel_trigger = {
+			NOT = {
+				has_idea = mauser
+			}
+		}
+
+		cancel_effect = {
+		}
+
+		complete_effect = {
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = mauser
+				add_idea = mauser_2
+			}
+			set_country_flag = { flag = GER_mauser_designer_upgrade_1_flag value = 1 }
+			set_country_flag = GER_choose_infantry_designer
+		}
+	}
+	GER_upgrade_motorised_designer = {
+		priority = 45
+
+		icon = GFX_decision_generic_merge_plant_materiel
+
+		ai_will_do = {
+			base = 0.5
+		}
+
+		allowed = {
+			original_tag = GER
+		}
+
+		available = {
+			has_idea = opel
+		}
+
+		days_remove = 120
+
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GER_negotiate_designers_military
+			NOT = { has_country_flag = GER_opel_designer_upgrade_1_flag }
+			NOT = { has_country_flag = GER_choose_arty_designer }
+			NOT = { has_country_flag = GER_choose_infantry_designer }
+		}
+
+		cost = 50
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+		cancel_trigger = {
+			NOT = {
+				has_idea = opel
+			}
+		}
+
+		cancel_effect = {
+		}
+
+		complete_effect = {
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = opel
+				add_idea = opel_2
+			}
+			set_country_flag = { flag = GER_opel_designer_upgrade_1_flag value = 1 }
+			set_country_flag = GER_choose_motorised_designer
+		}
+	}
+	#####INDUSTRIAL DESIGNERS
+	GER_upgrade_synthetics_designer_1 = {
+		priority = 50
+
+		icon = generic_industry
+
+		ai_will_do = {
+			base = 10
+		}
+
+
+		#target_trigger = {
+		#	FROM = { SOV_is_valid_subject = yes }
+		#}
+
+		allowed = {
+			original_tag = GER
+		}
+
+		available = {
+			AND = {
+				has_idea = ig_faben
+				NOT = { has_country_flag = GER_choose_steel_designer }
+				NOT = { has_country_flag = GER_choose_electronic_designer }
+				NOT = { has_country_flag = GER_choose_naval_industry_designer }
+			}
+		}
+		cancel_trigger = {
+			NOT = {
+				has_idea = ig_faben
+			}
+		}
+
+		cancel_effect = {
+		}
+		days_remove = 120
+
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GER_negotiate_designers_industry
+			NOT = { has_country_flag = GER_choose_steel_designer }
+			NOT = { has_country_flag = GER_choose_electronic_designer }
+			NOT = { has_country_flag = GER_choose_naval_industry_designer }
+		}
+
+		cost = 50
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		complete_effect = {
+			set_country_flag = { flag = GER_choose_synthetic_designer value = 1 }###LOCKS OUT OTHER UPGRADING DESIGNERS
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = ig_faben
+				add_idea = ig_faben_upgraded
+			}
+			set_country_flag = { flag = GER_synthetic_designer_upgrade_1_flag value = 1 } 
+		}
+	}
+	GER_upgrade_synthetics_designer_2 = {
+		priority = 50
+
+		icon = generic_industry
+
+		ai_will_do = {
+			base = 10
+		}
+
+
+		#target_trigger = {
+		#	FROM = { SOV_is_valid_subject = yes }
+		#}
+
+		allowed = {
+			original_tag = GER
+		}
+
+		available = {
+			AND = {
+				has_idea = ig_faben_upgraded
+			}
+		}
+		cancel_trigger = {
+			NOT = {
+				has_idea = ig_faben_upgraded
+			}
+		}
+
+		cancel_effect = {
+		}
+		days_remove = 120
+
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GER_negotiate_designers_industry
+			has_idea = ig_faben_upgraded
+		}
+
+		cost = 50
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		complete_effect = {
+
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = ig_faben_upgraded
+				add_idea = ig_faben_improved
+			}
+			set_country_flag = { flag = GER_synthetic_designer_upgrade_2_flag value = 1 } 
+		}
+	}
+	####UPGRADE KRUPP
+	GER_upgrade_naval_industry_designer_1 = {
+		priority = 50
+
+		icon = generic_industry
+
+		ai_will_do = {
+			base = 10
+		}
+
+
+		#target_trigger = {
+		#	FROM = { SOV_is_valid_subject = yes }
+		#}
+
+		allowed = {
+			original_tag = GER
+		}
+
+		available = {
+			AND = {
+				has_idea = krupp
+				NOT = { has_country_flag = GER_choose_steel_designer }
+				NOT = { has_country_flag = GER_choose_electronic_designer }
+				NOT = { has_country_flag = GER_choose_synthetic_designer }
+			}
+		}
+		cancel_trigger = {
+			NOT = {
+				has_idea = krupp
+			}
+		}
+
+		cancel_effect = {
+		}
+		days_remove = 120
+
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GER_negotiate_designers_industry
+			NOT = { has_country_flag = GER_choose_steel_designer }
+			NOT = { has_country_flag = GER_choose_electronic_designer }
+			NOT = { has_country_flag = GER_choose_synthetic_designer }
+		}
+
+		cost = 50
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		complete_effect = {
+			set_country_flag = { flag = GER_choose_naval_industry_designer value = 1 }###LOCKS OUT OTHER UPGRADING DESIGNERS
+		}
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = krupp
+				add_idea = krupp_upgraded
+			}
+			set_country_flag = { flag = GER_naval_industry_upgrade_1_flag value = 1 } 
+		}
+	}
+	GER_upgrade_naval_industry_designer_2 = {
+		priority = 50
+
+		icon = generic_industry
+
+		ai_will_do = {
+			base = 10
+		}
+
+
+		#target_trigger = {
+		#	FROM = { SOV_is_valid_subject = yes }
+		#}
+
+		allowed = {
+			original_tag = GER
+		}
+
+		available = {
+			AND = {
+				has_idea = krupp_upgraded
+			}
+		}
+		cancel_trigger = {
+			NOT = {
+				has_idea = krupp_upgraded
+			}
+		}
+
+		cancel_effect = {
+		}
+		days_remove = 120
+
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GER_negotiate_designers_industry
+			has_idea = krupp_upgraded
+		}
+
+		cost = 50
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		complete_effect = {
+		}
+
+		remove_effect = {
+			modify_building_resources = {
+				building = steel_mill
+				resource = chromium
+				amount = 2
+			}
+			swap_ideas = {
+				remove_idea = krupp_upgraded
+				add_idea = krupp_improved
+			}
+			set_country_flag = { flag = GER_naval_industry_upgrade_2_flag value = 1 } 
+		}
+		}
+		####UPGRADE STEELWORKS
+		GER_upgrade_steelworks_designer_1 = {
+			priority = 50
+	
+			icon = generic_industry
+	
+			ai_will_do = {
+				base = 10
+			}
+	
+	
+			#target_trigger = {
+			#	FROM = { SOV_is_valid_subject = yes }
+			#}
+	
+			allowed = {
+				original_tag = GER
+			}
+	
+			available = {
+				AND = {
+					has_idea = GER_vereinigte_stahlwerke
+					NOT = { has_country_flag = GER_choose_naval_industry_designer }
+					NOT = { has_country_flag = GER_choose_electronic_designer }
+					NOT = { has_country_flag = GER_choose_synthetic_designer }
+				}
+			}
+			cancel_trigger = {
+				NOT = {
+					has_idea = GER_vereinigte_stahlwerke
+				}
+			}
+	
+			cancel_effect = {
+			}
+			days_remove = 120
+	
+			fire_only_once = yes
+	
+			visible = {
+				has_completed_focus = GER_negotiate_designers_industry
+				NOT = { has_country_flag = GER_choose_naval_industry_designer }
+				NOT = { has_country_flag = GER_choose_electronic_designer }
+				NOT = { has_country_flag = GER_choose_synthetic_designer }
+			}
+	
+			cost = 50
+	
+			modifier = {
+				civilian_factory_use = 3
+			}
+	
+			complete_effect = {
+				set_country_flag = { flag = GER_choose_steel_designer value = 1 }###LOCKS OUT OTHER UPGRADING DESIGNERS
+			}
+	
+			remove_effect = {
+				swap_ideas = {
+					remove_idea = GER_vereinigte_stahlwerke
+					add_idea = GER_vereinigte_stahlwerke_upgraded
+				}
+				set_country_flag = { flag = GER_steelworks_designer_upgrade_1_flag value = 1 } 
+			}
+		}
+		GER_upgrade_steelworks_designer_2 = {
+			priority = 50
+	
+			icon = generic_industry
+	
+			ai_will_do = {
+				base = 10
+			}
+	
+	
+			#target_trigger = {
+			#	FROM = { SOV_is_valid_subject = yes }
+			#}
+	
+			allowed = {
+				original_tag = GER
+			}
+	
+			available = {
+				AND = {
+					has_idea = GER_vereinigte_stahlwerke_upgraded
+				}
+			}
+			cancel_trigger = {
+				NOT = {
+					has_idea = GER_vereinigte_stahlwerke_upgraded
+				}
+			}
+	
+			cancel_effect = {
+			}
+			days_remove = 120
+	
+			fire_only_once = yes
+	
+			visible = {
+				has_completed_focus = GER_negotiate_designers_industry
+				has_idea = GER_vereinigte_stahlwerke_upgraded
+			}
+	
+			cost = 50
+	
+			modifier = {
+				civilian_factory_use = 3
+			}
+	
+			complete_effect = {
+	
+			}
+	
+			remove_effect = {
+				modify_building_resources = {
+					building = steel_mill
+					resource = steel
+					amount = 2
+				}
+				modify_building_resources = {
+					building = aluminum_mill
+					resource = aluminium
+					amount = 2
+				}
+				swap_ideas = {
+					remove_idea = GER_vereinigte_stahlwerke_upgraded
+					add_idea = GER_vereinigte_stahlwerke_improved
+				}
+				set_country_flag = { flag = GER_steelworks_designer_upgrade_2_flag value = 1 } 
+			}
+		}
+			####UPGRADE STEELWORKS
+			GER_upgrade_electronic_designer_1 = {
+				priority = 50
+		
+				icon = generic_industry
+		
+				ai_will_do = {
+					base = 10
+				}
+		
+		
+				#target_trigger = {
+				#	FROM = { SOV_is_valid_subject = yes }
+				#}
+		
+				allowed = {
+					original_tag = GER
+				}
+		
+				available = {
+					AND = {
+						has_idea = GER_vereinigte_stahlwerke
+						NOT = { has_country_flag = GER_choose_naval_industry_designer }
+						NOT = { has_country_flag = GER_choose_steel_designer }
+						NOT = { has_country_flag = GER_choose_synthetic_designer }
+					}
+				}
+				cancel_trigger = {
+					NOT = {
+						has_idea = siemens
+					}
+				}
+		
+				cancel_effect = {
+				}
+				days_remove = 120
+		
+				fire_only_once = yes
+		
+				visible = {
+					has_completed_focus = GER_negotiate_designers_industry
+					NOT = { has_country_flag = GER_choose_naval_industry_designer }
+					NOT = { has_country_flag = GER_choose_steel_designer }
+					NOT = { has_country_flag = GER_choose_synthetic_designer }
+				}
+		
+				cost = 50
+		
+				modifier = {
+					civilian_factory_use = 3
+				}
+		
+				complete_effect = {
+					set_country_flag = { flag = GER_choose_electronic_designer value = 1 }###LOCKS OUT OTHER UPGRADING DESIGNERS
+				}
+		
+				remove_effect = {
+					swap_ideas = {
+						remove_idea = siemens
+						add_idea = siemens_upgraded
+					}
+					set_country_flag = { flag = GER_electronic_designer_upgrade_1_flag value = 1 } 
+				}
+			}
+			GER_upgrade_electronic_designer_2 = {
+				priority = 50
+		
+				icon = generic_industry
+		
+				ai_will_do = {
+					base = 10
+				}
+		
+		
+				#target_trigger = {
+				#	FROM = { SOV_is_valid_subject = yes }
+				#}
+		
+				allowed = {
+					original_tag = GER
+				}
+		
+				available = {
+					AND = {
+						has_idea = siemens_upgraded
+					}
+				}
+				cancel_trigger = {
+					NOT = {
+						has_idea = siemens_upgraded
+					}
+				}
+		
+				cancel_effect = {
+				}
+				days_remove = 120
+		
+				fire_only_once = yes
+		
+				visible = {
+					has_completed_focus = GER_negotiate_designers_industry
+					has_idea = siemens_upgraded
+				}
+		
+				cost = 50
+		
+				modifier = {
+					civilian_factory_use = 3
+				}
+		
+				complete_effect = {
+		
+				}
+		
+				remove_effect = {
+					swap_ideas = {
+						remove_idea = siemens_upgraded
+						add_idea = siemens_improved
+					}
+					set_country_flag = { flag = GER_electronic_designer_upgrade_2_flag value = 1 } 
+				}
+			}	
+}
+#Category only allowed for GER
+GER_navy_buildup = {
+
+	GER_plan_z_mission = {
+
+		icon = generic_naval
+		visible = {
+			OR = {
+				has_completed_focus = GER_plan_z_r56
+				has_completed_focus = GER_rebuild_the_high_seas_fleet
+			}
+		}
+		available = {
+			OR = {
+				AND = {
+					has_navy_size = {
+						archetype = ship_hull_heavy
+						size > 7
+					}
+					has_navy_size = {
+						archetype = ship_hull_carrier
+						size > 1
+					}
+				}
+				has_navy_size = {
+					archetype = ship_hull_heavy
+					size > 9
+				}	
+			}	
+			OR = {
+				has_navy_size = {
+					archetype = ship_hull_cruiser
+					size > 29
+				}
+				AND = { 
+					has_navy_size = {
+						archetype = ship_hull_light
+						size > 19
+					}
+				}
+			}
+		}
+								
+ 		days_remove = 1285
+
+		days_mission_timeout = 1285
+		is_good = no
+		fire_only_once = yes
+
+		activation = {
+			OR = {
+				has_completed_focus = GER_plan_z_r56
+				has_completed_focus = GER_rebuild_the_high_seas_fleet_r56
+			}
+		}
+
+		complete_effect = {
+			create_equipment_variant = {
+				allow_without_tech = yes
+				name = "Preussen Class"
+				type = ship_hull_heavy_3
+				name_group = GER_BC_HISTORICAL
+				parent_version = 0
+				modules = {
+					fixed_ship_battery_slot = ship_heavy_battery_4
+					fixed_ship_anti_air_slot = ship_anti_air_2
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = heavy_ship_engine_3
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_bc_3
+					front_1_custom_slot = ship_heavy_battery_4
+					mid_1_custom_slot = ship_airplane_launcher_1
+					mid_2_custom_slot = ship_secondaries_2
+					rear_1_custom_slot = ship_heavy_battery_4
+				}
+			}
+			create_equipment_variant = {
+				allow_without_tech = yes
+				name = "Hindenburg Class"
+				type = ship_hull_super_heavy_1
+				name_group = GER_BB_HISTORICAL
+				parent_version = 0
+				modules = {
+					fixed_ship_battery_slot = ship_super_heavy_battery_1
+					fixed_ship_anti_air_slot = ship_anti_air_2
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = heavy_ship_engine_3
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_shbb
+					front_1_custom_slot = ship_super_heavy_battery_1
+					front_2_custom_slot = ship_anti_air_2
+					mid_1_custom_slot = ship_secondaries_2
+					mid_2_custom_slot = ship_airplane_launcher_1
+					rear_1_custom_slot = ship_super_heavy_battery_1
+				}
+			}
+			
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_heavy_3
+					creator = "GER" 
+					version_name = "Preussen Class"
+				}
+				name = "Moltke" 
+				requested_factories = 15
+				progress = 0.90
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_heavy_3
+					creator = "GER" 
+					version_name = "Preussen Class"
+				}
+				name = "Preussen" 
+				requested_factories = 15
+				progress = 0.70
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_super_heavy_1
+					creator = "GER" 
+					version_name = "Hindenburg Class"
+				}
+				name = "Hindenburg" 
+				requested_factories = 15
+				progress = 0.5
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_super_heavy_1
+					creator = "GER" 
+					version_name = "Hindenburg Class"
+				}
+				name = "Ludendorff" 
+				requested_factories = 15
+				progress = 0.5
+				amount = 1
+			}
+			add_war_support = 0.05
+			navy_experience = 150
+			add_stability = 0.10
+		}	
+	}
+
+	GER_lay_down_bismarck_and_tirpitz = {
+
+		icon = generic_naval
+
+		available = {
+			has_tech = improved_ship_hull_heavy
+			has_tech = improved_heavy_battery
+			has_tech = basic_heavy_armor_scheme
+			OR = {
+				has_completed_focus = GER_lay_down_battleships
+				has_completed_focus = GER_imperial_battleships
+			}
+			
+		}
+
+		cost = 0 
+
+		visible = {
+			has_completed_focus = GER_plan_z_r56
+		}
+
+		modifier = {
+			industrial_capacity_dockyard = 0.1
+		}
+		days_remove = 185
+		fire_only_once = yes
+
+		complete_effect = {
+			create_equipment_variant = {
+				allow_without_tech = yes
+				name = "Bismarck Class"
+				type = ship_hull_heavy_3
+				name_group = GER_BB_HISTORICAL
+				parent_version = 0
+				modules = {
+					fixed_ship_battery_slot = ship_heavy_battery_3
+					fixed_ship_anti_air_slot = ship_anti_air_2
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+					fixed_ship_radar_slot = ship_radar_2
+					fixed_ship_engine_slot = heavy_ship_engine_3
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_bb_3
+					front_1_custom_slot = ship_heavy_battery_3
+					mid_1_custom_slot = ship_heavy_battery_3
+					mid_2_custom_slot = ship_anti_air_2
+					mid_3_custom_slot = ship_anti_air_2
+					rear_1_custom_slot = ship_heavy_battery_3
+				}
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_heavy_3
+					creator = "GER" 
+					version_name = "Bismarck Class"
+				}
+				name = "Bismarck" 
+				requested_factories = 20
+				progress = 0.75
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = ship_hull_heavy_3
+					creator = "GER" 
+					version_name = "Bismarck Class"
+				}
+				name = "Tirpitz" 
+				requested_factories = 20
+				progress = 0.40
+				amount = 1
+			}
+		}	
+	}
+	GER_lay_down_panzerschiffs = {
+
+		icon = generic_naval
+
+		available = {
+			has_completed_focus = GER_panzerschiffs
+		}
+
+		cost = 0 
+
+		visible = {
+			has_completed_focus = GER_plan_z_r56
+		}
+
+		modifier = {
+			industrial_capacity_dockyard = 0.1
+		}
+		days_remove = 185
+		fire_only_once = yes
+
+		complete_effect = {
+			create_equipment_variant = {
+				allow_without_tech = yes
+				name = "Moltke Class"
+				type = ship_hull_cruiser_panzerschiff
+				name_group = GER_BC_HISTORICAL
+				parent_version = 0
+				modules = {
+					fixed_ship_battery_slot = ship_heavy_battery_2
+					fixed_ship_anti_air_slot = ship_anti_air_2
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = cruiser_ship_engine_2
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_cruiser_2
+					mid_1_custom_slot = ship_torpedo_2
+					mid_2_custom_slot = empty
+					rear_1_custom_slot = ship_medium_battery_2
+					rear_2_custom_slot = ship_airplane_launcher_1
+				}
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_cruiser_panzerschiff
+						creator = "GER" 
+						version_name = "Moltke Class"
+					}
+					name = "Moltke" 
+					requested_factories = 1
+					progress = 0.25
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_cruiser_panzerschiff
+						creator = "GER" 
+						version_name = "Moltke Class"
+					}
+					name = "Mackensen" 
+					requested_factories = 1
+					progress = 0.25
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_cruiser_panzerschiff
+						creator = "GER" 
+						version_name = "Moltke Class"
+					}
+					name = "Mecklenburg" 
+					requested_factories = 1
+					progress = 0.25
+					amount = 1
+				}
+		}	
+	}
+	GER_lay_down_super_heavys = {
+
+		icon = generic_naval
+
+		available = {
+			has_tech = improved_heavy_armor_scheme
+			has_tech = ship_hull_super_heavy
+			has_tech = improved_heavy_battery
+			has_completed_focus = GER_imperial_battleships
+		}
+
+		cost = 0 
+
+		visible = {
+			has_completed_focus = GER_rebuild_the_high_seas_fleet_r56
+		}
+
+		modifier = {
+			industrial_capacity_dockyard = 0.1
+		}
+		days_remove = 185
+		fire_only_once = yes
+
+		complete_effect = {
+			create_equipment_variant = {
+				allow_without_tech = yes
+				name = "Hindenburg Class"
+				type = ship_hull_super_heavy_1
+				name_group = GER_BB_HISTORICAL
+				parent_version = 0
+				modules = {
+					fixed_ship_battery_slot = ship_super_heavy_battery_1
+					fixed_ship_anti_air_slot = ship_anti_air_2
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = heavy_ship_engine_3
+					fixed_ship_secondaries_slot = ship_secondaries_2
+					fixed_ship_armor_slot = ship_armor_shbb
+					front_1_custom_slot = ship_super_heavy_battery_1
+					front_2_custom_slot = ship_anti_air_2
+					mid_1_custom_slot = ship_secondaries_2
+					mid_2_custom_slot = ship_airplane_launcher_1
+					rear_1_custom_slot = ship_super_heavy_battery_1
+				}
+			}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_super_heavy_1
+						creator = "GER" 
+						version_name = "Hindenburg Class"
+					}
+					name = "Hindenburg" 
+					requested_factories = 15
+					progress = 0.25
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_super_heavy_1
+						creator = "GER" 
+						version_name = "Hindenburg Class"
+					}
+					name = "Hindenburg" 
+					requested_factories = 15
+					progress = 0.25
+					amount = 1
+				}
+		}	
 	}
 }

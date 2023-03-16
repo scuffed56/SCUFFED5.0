@@ -1,0 +1,113 @@
+add_namespace = ger_coup_of_ss
+add_namespace = ger_coup_of_wehrmacht
+
+country_event = {
+	id = ger_coup_of_ss.1
+	title = ss_coup_event.1.t	
+	desc = ss_coup_event.1.d
+	picture = GFX_report_event_generic_ruins	
+
+	is_triggered_only = yes
+
+	option = {
+		name = ss_coup_event.1.a
+					
+			country_event = { 
+				id = ger_coup_of_ss.2 days = 1
+			}
+	}
+}
+country_event = {
+	id = ger_coup_of_ss.2
+	title = ss_coup_event.2.t	
+	desc = ss_coup_event.2.d
+	picture = GFX_report_event_german_troops
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ss_coup_event.2.a
+		
+			kill_country_leader = yes 
+			GER_heinrich_himmler = {
+					add_country_leader_role = {
+						promote_leader = yes
+						country_leader = {
+							ideology = nazism
+							expire = "1965.1.1.1"
+							traits = {
+								reichsfuhrer
+							}
+						}
+					}
+					remove_advisor_role = {
+							slot = political_advisor
+					}
+				}
+		hidden_effect = {
+			news_event = { id = news.28 days = 1 }			
+		}
+	}
+}
+
+country_event = {
+	id = ger_coup_of_wehrmacht.1
+	title = wehrmacht_coup_event.1.t	
+	desc = wehrmacht_coup_event.1.d
+	picture = GFX_report_event_generic_ruins	
+
+	is_triggered_only = yes
+
+	option = { 
+		name = wehrmacht_coup_event.1.a
+					
+				kill_country_leader = yes
+				GER_hermann_goring = {
+					add_country_leader_role = {
+						promote_leader = yes
+						country_leader = {
+							ideology = nazism
+							expire = "1965.1.1.1"
+							traits = {
+								reichsmarschall
+							}
+						}
+					}
+				}
+				hidden_effect = {
+					news_event = { id = wtt_news.50 days = 1 }
+				}
+				country_event = { 
+					id = ger_coup_of_wehrmacht.2 days = 1
+				}
+
+		}
+	}	
+
+country_event = {
+	id = ger_coup_of_wehrmacht.2
+	title = wehrmacht_coup_event.2.t	
+	desc = wehrmacht_coup_event.2.d
+	picture = GFX_report_event_ger_civil_war	
+
+	is_triggered_only = yes
+
+	
+	option = { 
+		name = wehrmacht_coup_event.2.a
+		start_civil_war = { 
+			ideology = neutrality
+			size = var:party_popularity@neutrality
+			keep_all_characters = yes
+		}
+		random_country = {
+			limit = {
+				original_tag = GER
+				has_civil_war = yes
+				has_government = neutrality
+			}
+			delete_unit_template_and_units = { division_template = "SS Motorisierte-Division" }
+			set_cosmetic_tag = GER_wehrmacht_coup
+		}
+	}	
+}
