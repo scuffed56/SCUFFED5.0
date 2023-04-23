@@ -44,6 +44,7 @@ NDefines.NMilitary.NUKE_MAX_DAMAGE_PERCENT = 1.2
 ----------------------------------
 NDefines.NAir.AIR_WING_FLIGHT_SPEED_MULT = 0.2
 NDefines.NAir.AIR_WING_XP_LEVELS = { 20, 40, 60, 80, 100, 140, 180, 220, 260, 300, 390, 480, 570, 660, 750, 780, 810, 840, 870, 900 }
+NDefines.NAir.AIR_DEPLOYMENT_DAYS = 0
 ----------------------------------
 NDefines.NNavy.SUPPLY_NEED_FACTOR = 0	
 NDefines.NNavy.PRIDE_OF_THE_FLEET_UNASSIGN_COST = 0							-- cost to unassign/replace pride of the fleet
