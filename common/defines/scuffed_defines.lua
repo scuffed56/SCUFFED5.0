@@ -20,7 +20,7 @@ NDefines.NProduction.MIN_POSSIBLE_TRAINING_MANPOWER = 15000000
 NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 30
 NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 50
 NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 30
-NDefines.NProduction.RAILWAY_GUN_MAX_MIL_FACTORIES_PER_LINE = 50
+NDefines.NProduction.RAILWAY_GUN_MAX_MIL_FACTORIES_PER_LINE = 10
 ----------------------------------
 NDefines.NTechnology.MAX_SUBTECHS = 4						-- Max number of sub technologies a technology can have.
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 30.0		-- Base amount of research points a country can save per slot.
