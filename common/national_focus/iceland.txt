@@ -3036,4 +3036,217 @@ focus_tree = {
 			country_event = SCA_iceland.9
 		}
 	}
+	# Icelandic Scuffed
+	focus = {
+		id = ICE_freedom
+		icon = GFX_goal_generic_freedom
+		cost = 10.00 
+		ai_will_do = {
+			factor = 0 
+		}
+		x = 2
+		y = 7
+
+		available = {
+			AND = {
+				DEN = {
+					has_opinion = {
+						target = ICE 
+						value > 99
+					}
+				}
+				compare_autonomy_progress_ratio > 0.4 
+			}
+		}
+
+		completion_reward = {
+			337 = { transfer_state_to = ICE }
+			101 = { transfer_state_to = ICE }
+			add_state_core = 337
+			add_state_core = 101
+			overlord = {
+				country_event = {
+					id = SCA_iceland.10
+					days = 1
+					random_hours = 12
+					random_days = 1
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ICE_freedom_grow
+		icon = GFX_goal_generic_industrial_democracy
+		cost = 10.00 
+		ai_will_do = {
+			factor = 0 
+		}
+		x = -1
+		y = 1
+		relative_position_id = ICE_freedom
+
+		prerequisite = { focus = ICE_freedom }
+		available = {
+			101 = {
+				CONTROLLER = {
+					tag = ICE
+				}
+			}
+		}
+		completion_reward = {
+			101 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+
+		}
+	}
+
+	focus = {
+		id = ICE_freedom_iron
+		icon = GFX_goal_generic_mining_iron
+		cost = 10.00 
+		ai_will_do = {
+			factor = 0 
+		}
+		x = 1
+		y = 1
+		relative_position_id = ICE_freedom
+		prerequisite = { focus = ICE_freedom }
+		available = {
+			has_tech = excavation2
+			101 = {
+				CONTROLLER = {
+					tag = ICE
+				}
+			}
+		}
+		completion_reward = {
+			101 = {
+				add_resource = {
+					type = steel
+					amount = 12
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ICE_freedom_productivity 
+		icon = GFX_goal_generic_strenght_through_industry
+		cost = 10.00 
+		ai_will_do = {
+			factor = 0 
+		}
+		x = -1
+		y = 1
+		relative_position_id = ICE_freedom_grow
+
+		prerequisite = { focus = ICE_freedom_grow }
+
+		completion_reward = {
+			add_ideas = ICE_idea_freedom_productivity
+		}
+	}
+	focus = {
+		id = ICE_freedom_aluminium 
+		icon = GFX_goal_tblra_aluminium
+		cost = 10.00 
+		ai_will_do = {
+			factor = 0 
+		}
+		x = 1
+		y = 1
+		relative_position_id = ICE_freedom_iron
+
+		prerequisite = { focus = ICE_freedom_iron }
+		available = {
+			has_tech = excavation3
+		}
+		completion_reward = {
+			101 = {
+				add_extra_state_shared_building_slots = 3
+				add_resource = {
+					type = aluminium
+					amount = 10
+				}
+			}
+		}
+
+	}
+
+	focus = {
+		id = ICE_freedom_military
+		icon = GFX_goal_generic_barrack_industry
+		cost = 10.00 
+		ai_will_do = {
+			factor = 0 
+		}
+		x = 0
+		y = 1
+		relative_position_id = ICE_freedom_productivity
+
+		prerequisite = {
+			 focus = ICE_freedom_productivity
+		}
+		completion_reward = {
+			101 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			337 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			
+
+			
+		}
+	}
+
+	focus = {
+		id = ICE_freedom_buildup_complete
+		icon = GFX_goal_r56_CAN_industry
+		cost = 10.00 
+		ai_will_do = {
+			factor = 0 
+		}
+		x = 2
+		y = 1
+		relative_position_id = ICE_freedom_military
+
+		prerequisite = { focus = ICE_freedom_military }
+		prerequisite = { focus = ICE_freedom_aluminium }
+		completion_reward = {
+			101 = {
+				add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+			}
+		}
+
+	}
+	
+	
 }

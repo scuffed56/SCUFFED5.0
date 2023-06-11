@@ -19,65 +19,65 @@ country_event = { # Invasion of Iceland
 		name = SCA_iceland.1.b
 	}
 }
-	country_event = {
-		id = SCA_iceland.2
-		title = SCA_iceland.1.t
-		desc = SCA_iceland.1.desc
-		picture = GFX_report_event_britain_invades_iceland
+country_event = {
+	id = SCA_iceland.2
+	title = SCA_iceland.1.t
+	desc = SCA_iceland.1.desc
+	picture = GFX_report_event_britain_invades_iceland
+
+	is_triggered_only = yes
 	
-		is_triggered_only = yes
-		
-		option = { # We comply
-			name = SCA_iceland.2.a
-			ai_chance = {
-				factor = 40 # We cannot fight Britain
-				modifier = {
-					factor = 0
-					has_army_manpower = { size > 100000 } # We can fight!
-				}
+	option = { # We comply
+		name = SCA_iceland.2.a
+		ai_chance = {
+			factor = 40 # We cannot fight Britain
+			modifier = {
+				factor = 0
+				has_army_manpower = { size > 100000 } # We can fight!
 			}
-			give_military_access = ENG
-			ENG = { give_guarantee = ICE }
-			diplomatic_relation = { country = ENG relation = non_aggression_pact }
 		}
-		
-		option = { # NEVER
-			name = SCA_iceland.2.b
-			ai_chance = {
-				factor = 1
-				modifier = {
-					factor = 10
-					OR = {
-						has_government = fascism
-						has_government = communism
-					}
+		give_military_access = ENG
+		ENG = { give_guarantee = ICE }
+		diplomatic_relation = { country = ENG relation = non_aggression_pact }
+	}
+	
+	option = { # NEVER
+		name = SCA_iceland.2.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				OR = {
+					has_government = fascism
+					has_government = communism
 				}
 			}
-			add_political_power = -250
+		}
+		add_political_power = -250
+		if = {
+			limit = { is_subject_of = DEN }
+			set_autonomy = {
+				target = ICE
+				autonomy_state = autonomy_free
+			}
+		}	
+			
+		ENG = {
+			declare_war_on = {
+				target = ICE
+				type = puppet_wargoal_focus
+			}
+		}
+		hidden_effect = {
 			if = {
-				limit = { is_subject_of = DEN }
-				set_autonomy = {
-					target = ICE
-					autonomy_state = autonomy_free
+				limit = {
+					is_ai = yes
 				}
-			}	
-				
-			ENG = {
-				declare_war_on = {
-					target = ICE
-					type = puppet_wargoal_focus
-				}
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-						is_ai = yes
-					}
-					add_ideas = ICE_futile_resistance
-				}
+				add_ideas = ICE_futile_resistance
 			}
 		}
 	}
+}
 	
 country_event = { # Guarantees
 	id = SCA_iceland.3
@@ -212,45 +212,45 @@ country_event = { #USSR asked about volunteers for Iceland
 		}
 	}
 }
-	country_event = {
-		id = SCA_iceland.5
-		title = SCA_iceland.5.t
-		desc = SCA_iceland.5.desc
-		
-		picture = GFX_report_event_spain_civil_war_volunteers_02
-		
-		is_triggered_only = yes
-		
-		option = {
-			name = SCA_iceland.5.a
-		}
+country_event = {
+	id = SCA_iceland.5
+	title = SCA_iceland.5.t
+	desc = SCA_iceland.5.desc
+	
+	picture = GFX_report_event_spain_civil_war_volunteers_02
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = SCA_iceland.5.a
 	}
-	country_event = {
-		id = SCA_iceland.6
-		title = SCA_iceland.6.t
-		desc = SCA_iceland.6.desc
-		
-		picture = GFX_report_event_spain_civil_war_volunteers_02
-		
-		is_triggered_only = yes
-		
-		option = {
-			name = SCA_iceland.6.a
-		}
+}
+country_event = {
+	id = SCA_iceland.6
+	title = SCA_iceland.6.t
+	desc = SCA_iceland.6.desc
+	
+	picture = GFX_report_event_spain_civil_war_volunteers_02
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = SCA_iceland.6.a
 	}
-	country_event = {
-		id = SCA_iceland.7
-		title = SCA_iceland.7.t
-		desc = SCA_iceland.7.desc
-		
-		picture = GFX_report_event_spain_civil_war_volunteers_02
-		
-		is_triggered_only = yes
-		
-		option = {
-			name = SCA_iceland.7.a
-		}
+}
+country_event = {
+	id = SCA_iceland.7
+	title = SCA_iceland.7.t
+	desc = SCA_iceland.7.desc
+	
+	picture = GFX_report_event_spain_civil_war_volunteers_02
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = SCA_iceland.7.a
 	}
+}
 	
 country_event = {
 	id = SCA_iceland.81
@@ -344,7 +344,31 @@ country_event = {
 		}
 	}
 }
-			
+
+country_event = {
+	id = SCA_iceland.10
+	title = SCA_iceland.10.t 
+	desc = SCA_iceland.10.desc 
+
+	picture = GFX_report_event_iceland_rebels
+
+	is_triggered_only = yes
+
+	option = {
+		name = SCA_iceland.10.a
+		ROOT = {
+			set_autonomy = {
+				target = ICE
+				autonomy_state = autonomy_free
+				end_wars = yes
+				end_civil_wars = no
+			}
+		}
+		hidden_effect = {
+			news_event = {id = news.338 hours = 24}
+		}
+	}
+}
 			
 		
 		
