@@ -59,7 +59,7 @@ focus_tree = {
 		}
 		
 		icon = GFX_focus_generic_cryptologic_bomb
-		x = 0
+		x = -3
 		y = 0
 		cost = 5
 		ai_will_do = {
@@ -403,7 +403,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		icon = GFX_goal_fortify_city_AA
-		x = -4
+		x = -5
 		y = 1
 		relative_position_id = limited_rearmament_focus
 		cost = 10
@@ -692,7 +692,7 @@ focus_tree = {
 		}	
 		prerequisite = { focus = radar_focus }
 		icon = GFX_focus_wonderweapons
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = radar_focus
 		mutually_exclusive = { focus = maud_focus }
@@ -806,10 +806,318 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 
+
+
+	focus = {
+		id = uk_Prepare_for_Industrialization
+		text = Prepare_for_Industrialization
+		icon = GFX_goal_ENG_lady_britannia
+		prerequisite = { focus = uk_industrial_focus }
+		x = 1
+		y = 2
+		relative_position_id = uk_industrial_focus
+		cost = 10
+		
+		available = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				OR = {
+					has_idea = ENG_no_further_appeasement_idea
+					NOT = { has_government = democratic }
+					OR = {
+						any_other_country = {
+							has_war_with = ROOT
+							num_of_factories > 30
+						}
+						GER = {
+							if = {
+								limit = {
+									NOT = { has_global_flag = ger_standard_focus_tree }
+								}
+								has_completed_focus = GER_rhineland
+							}
+							if = {
+								limit = {
+									has_global_flag = ger_standard_focus_tree
+								}
+								has_completed_focus = GER_rhineland_vanilla
+							}
+						}
+						threat > 0.2
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_dlc = "Man the Guns" }
+				}
+				OR = {
+					NOT = { has_government = democratic }
+					OR = {
+						any_other_country = {
+							has_war_with = ROOT
+							num_of_factories > 30
+						}
+						GER = {
+							if = {
+								limit = {
+									NOT = { has_global_flag = ger_standard_focus_tree }
+								}
+								has_completed_focus = GER_rhineland
+							}
+							if = {
+								limit = {
+									has_global_flag = ger_standard_focus_tree
+								}
+								has_completed_focus = GER_rhineland_vanilla
+							}
+						}
+						threat > 0.2
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			
+			random_owned_controlled_state = {
+				limit = {					
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				
+			}
+			random_owned_controlled_state = {
+				limit = {					
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				
+			}
+			
+			
+
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = uk_Civilian_Preparations
+		text = Civilian_Preparations
+		icon = GFX_goal_generic_industrial_planning
+		prerequisite = { focus = uk_Prepare_for_Industrialization }
+		mutually_exclusive = { focus = uk_Military_Financing }
+		x = 0
+		y = 3
+		relative_position_id = uk_industrial_focus
+		cost = 10
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			country_event = r56_eng.11
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}	
+					
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = uk_Finalizing_the_Civilian_Industry
+		text = Finalizing_the_Civilian_Industry
+		icon = GFX_goal_italy_expand_libyan_manufactures
+		prerequisite = { focus = uk_Civilian_Preparations }
+		
+		x = 0
+		y = 4
+		relative_position_id = uk_industrial_focus
+		cost = 10
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			country_event = r56_eng.12
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}	
+					
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = uk_Funding_the_Royal_Military
+		text = Funding_the_Royal_Military
+		icon = GFX_goal_ENG_sailor_enlistment
+		prerequisite = { focus = uk_Military_Financing }
+		
+		x = 2
+		y = 4
+		relative_position_id = uk_industrial_focus
+		cost = 10
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			country_event = r56_eng.14
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+	focus = {
+		id = uk_Military_Financing
+		text = Military_Financing
+		icon = GFX_goal_generic_national_defense_fund
+		prerequisite = { focus = uk_Prepare_for_Industrialization }
+		mutually_exclusive = { focus = uk_Civilian_Preparations }
+		x = 2
+		y = 3
+		relative_position_id = uk_industrial_focus
+		cost = 10
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			country_event = r56_eng.13
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
 	focus = {
 		id = uk_extra_tech_slot
 		text = extra_tech_slot
-		icon = GFX_focus_research
+		icon = GFX_goal_free_trade
 		prerequisite = { focus = uk_industrial_focus }
 		x = 0
 		y = 1
@@ -825,7 +1133,27 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-	
+	focus = {
+		id = uk_Scientific_Support
+		text = Scientific_Support
+		icon = GFX_focus_mex_privatisation
+		prerequisite = { focus = uk_extra_tech_slot }
+		x = -1
+		y = 1
+		relative_position_id = uk_extra_tech_slot
+		cost = 10
+		ai_will_do = {
+			factor = 50
+		}	
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_political_power = 75
+			add_ideas = ENG_Scientific_Funding
+			
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
 	focus = {
 		id = general_rearmament_focus
 		prerequisite = { focus = limited_rearmament_focus }
@@ -928,7 +1256,7 @@ focus_tree = {
 								has_completed_focus = GER_rhineland_vanilla
 							}
 						}
-						threat > 0.2
+						threat > 0.3
 					}
 				}
 			}
@@ -957,15 +1285,16 @@ focus_tree = {
 								has_completed_focus = GER_rhineland_vanilla
 							}
 						}
-						threat > 0.2
+						threat > 0.3
 					}
 				}
 			}
 		} #at war with major or ger in rhineland or high threat
-		prerequisite = { focus = uk_industrial_focus }
-		icon = GFX_goal_generic_munitions_factories
+		
+		prerequisite = { focus = uk_Finalizing_the_Civilian_Industry focus = uk_Funding_the_Royal_Military }
+		icon = GFX_focus_generic_army_modernizations
 		x = 1
-		y = 2
+		y = 5
 		relative_position_id = uk_industrial_focus
 		cost = 10
 		ai_will_do = {
@@ -1011,10 +1340,10 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 3
 					instant_build = yes
 				}
 				set_state_flag = royal_ordinance_focus_2AF
@@ -1028,31 +1357,15 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 3
 					instant_build = yes
 				}
 				set_state_flag = royal_ordinance_focus_2AF
 			}
-			random_owned_controlled_state = {
-				limit = {
-					is_in_home_area = yes
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-				set_state_flag = royal_ordinance_focus_2AF
-			}
+			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -1060,8 +1373,8 @@ focus_tree = {
 	focus = {
 		id = uk_small_arms_focus
 		prerequisite = { focus = royal_ordinance_focus }
-		icon = GFX_goal_generic_production2
-		x = 1
+		icon = GFX_focus_POL_ukrainian_army
+		x = 0
 		y = 1
 		relative_position_id = royal_ordinance_focus
 		cost = 10
@@ -1077,10 +1390,11 @@ focus_tree = {
 	}
 	focus = {
 		id = UK_secret_focus
-		prerequisite = { focus = royal_ordinance_focus }
-		prerequisite = { focus = maud_focus focus = ENG_tube_alloys }
+		
+		
+		prerequisite = { focus = maud_focus focus = ENG_tube_alloys focus = uk_Scientific_Support focus = royal_ordinance_focus }
 		icon = GFX_goal_generic_secret_weapon
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = royal_ordinance_focus
 		cost = 10
@@ -1826,7 +2140,7 @@ focus_tree = {
 	focus = {
 		id = uk_waves_focus
 		prerequisite = { focus = naval_rearmament_focus }
-		icon = GFX_goal_ENG_lady_britannia #GFX_goal_ENG_sailor_enlistment
+		icon = GFX_goal_liberty_ships #GFX_goal_ENG_sailor_enlistment
 		x = 1
 		y = 2
 		relative_position_id = naval_rearmament_focus
@@ -2300,7 +2614,7 @@ focus_tree = {
 			}
 		}
 
-		icon = GFX_goal_generic_befriend_egypt
+		icon = GFX_goal_EGY_army
 		x = 1
 		y = 1
 		relative_position_id = uk_mediterranean_focus
@@ -6651,7 +6965,7 @@ focus_tree = {
 				}
 			}
 		} 
-		icon = GFX_goal_generic_construction
+		icon = GFX_goal_NZL_coa_navy
 		x = 0
 		y = 1
 		relative_position_id = uk_australia_focus
