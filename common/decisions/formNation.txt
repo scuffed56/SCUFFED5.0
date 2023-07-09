@@ -11698,29 +11698,6 @@ formable_nations_mod_category = {
 							785 = { is_controlled_by = ROOT }
 						}
 					}
-					count_triggers = {
-						amount = 17
-						#Western Yugoslavia
-						102 = { is_controlled_by = ROOT }
-						853 = { is_controlled_by = ROOT }
-						103 = { is_controlled_by = ROOT }
-						109 = { is_controlled_by = ROOT }
-						104 = { is_controlled_by = ROOT }
-						804 = { is_controlled_by = ROOT }
-						163 = { is_controlled_by = ROOT }
-						#Switzerland
-						3 = { is_controlled_by = ROOT }
-						151 = { is_controlled_by = ROOT }
-						845 = { is_controlled_by = ROOT }
-						846 = { is_controlled_by = ROOT }
-						847 = { is_controlled_by = ROOT }
-						#Austria+West Hungary
-						4 = { is_controlled_by = ROOT }
-						152 = { is_controlled_by = ROOT }
-						153 = { is_controlled_by = ROOT }
-						848 = { is_controlled_by = ROOT }
-						155 = { is_controlled_by = ROOT }
-					}
 				}
 				AND = {
 					is_ai = no
@@ -12300,6 +12277,285 @@ formable_nations_mod_category = {
 			}
 		}
 	}
+	form_kingdom_portugal_and_brazil = {
+
+		icon = generic_form_nation
+
+		allowed = {
+			OR = {
+				original_tag = POR
+				original_tag = BRA
+			}
+		}
+
+		available = {
+			# Brazil
+			custom_trigger_tooltip = {
+				tooltip = form_country_brazil_required_states_tt
+				controls_state = 280
+				controls_state = 495
+				controls_state = 496
+				controls_state = 497
+				controls_state = 498
+				controls_state = 499
+				controls_state = 500
+				controls_state = 501
+				controls_state = 502
+				controls_state = 503
+				controls_state = 504
+				controls_state = 505
+			}
+			
+			# Portugal
+			custom_trigger_tooltip = {
+				tooltip = form_eu_portugal_required_states_tt
+				controls_state = 180
+				controls_state = 181
+				controls_state = 112
+				controls_state = 179
+				controls_state = 795
+			}
+		}
+
+		visible = {
+			OR = {
+				original_tag = POR
+				original_tag = BRA
+			}
+			NOT = { has_country_flag = unform_nation }
+		}
+		
+
+		complete_effect = {
+			set_cosmetic_tag = KPB_kingdom_portugal_and_brazil
+			if = {
+				limit = {
+					has_stability < 0.5
+				}
+				add_stability = 0.2
+			}
+			else_if = {
+				limit = {
+					has_stability > 0.5
+				}
+				add_stability = 0.2
+			}
+			# Brazil
+			custom_effect_tooltip = form_country_brazil_coring_states_tt
+			hidden_effect = {
+				280 = { add_core_of = ROOT }
+				495 = { add_core_of = ROOT }
+				496 = { add_core_of = ROOT }
+				497 = { add_core_of = ROOT }
+				498 = { add_core_of = ROOT }
+				499 = { add_core_of = ROOT }
+				500 = { add_core_of = ROOT }
+				501 = { add_core_of = ROOT }
+				502 = { add_core_of = ROOT }
+				503 = { add_core_of = ROOT }
+				504 = { add_core_of = ROOT }
+				505 = { add_core_of = ROOT }
+			}
+			# Portugal
+			custom_effect_tooltip = form_eu_portugal_coring_states_tt
+			hidden_effect = {
+				180 = { add_core_of = ROOT }
+				181 = { add_core_of = ROOT }
+				112 = { add_core_of = ROOT }
+				179 = { add_core_of = ROOT }
+				795 = { add_core_of = ROOT }
+			}
+			
+			hidden_effect = {
+				set_country_flag = unform_nation
+			}
+		}
+
+		ai_will_do = {
+			factor = 200
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = allow_ai_form_nations
+					option = NOT_ALLOWED
+				}
+			}
+		}
+	}
+
+	form_franco_spain = {
+
+		icon = generic_form_nation
+
+		allowed = {
+			OR = {
+				original_tag = FRA
+				original_tag = SPR
+			}
+			
+			NOT = { has_completed_focus = FRA_the_legitimate_heir }
+		}
+
+		available = {
+			# France
+			custom_trigger_tooltip = {
+				tooltip = form_eu_france_required_states_tt
+				controls_state = 29
+				controls_state = 18
+				controls_state = 17
+				controls_state = 28
+				controls_state = 15
+				controls_state = 16
+				controls_state = 27
+				controls_state = 14
+				controls_state = 30
+				controls_state = 24
+				controls_state = 23
+				controls_state = 33
+				controls_state = 26
+				controls_state = 20
+				controls_state = 32
+				controls_state = 735
+				controls_state = 25
+				controls_state = 22
+				controls_state = 21
+				controls_state = 19
+				controls_state = 20
+				controls_state = 1
+				controls_state = 785
+				controls_state = 31
+			}
+			# Spain
+			custom_trigger_tooltip = {
+				tooltip = form_iberia_spain_required_states_tt
+				controls_state = 165
+				controls_state = 166
+				controls_state = 167
+				controls_state = 177
+				controls_state = 171
+				controls_state = 174
+				controls_state = 172
+				controls_state = 176
+				controls_state = 170
+				controls_state = 41
+				controls_state = 175
+				controls_state = 169
+				controls_state = 173
+				controls_state = 168
+				controls_state = 788
+				controls_state = 789
+				controls_state = 790
+				controls_state = 791
+				controls_state = 792
+				controls_state = 793
+				controls_state = 794
+			}
+		}
+
+		visible = {
+			OR = {
+				original_tag = FRA
+				original_tag = SPR
+			}
+			NOT = { has_country_flag = unform_nation }
+		}
+		
+
+		complete_effect = {
+			set_cosmetic_tag = FRANCO_SPAIN
+			if = {
+				limit = {
+					has_stability < 0.5
+				}
+				add_stability = 0.2
+			}
+			else_if = {
+				limit = {
+					has_stability > 0.5
+				}
+				add_stability = 0.2
+			}
+			# France	
+			custom_effect_tooltip = form_eu_france_coring_states_tt
+			hidden_effect = {
+				29 = { add_core_of = ROOT }
+				18 = { add_core_of = ROOT }
+				17 = { add_core_of = ROOT }
+				28 = { add_core_of = ROOT }
+				15 = { add_core_of = ROOT }
+				16 = { add_core_of = ROOT }
+				27 = { add_core_of = ROOT }
+				14 = { add_core_of = ROOT }
+				30 = { add_core_of = ROOT }
+				24 = { add_core_of = ROOT }
+				23 = { add_core_of = ROOT }
+				33 = { add_core_of = ROOT }
+				26 = { add_core_of = ROOT }
+				20 = { add_core_of = ROOT }
+				32 = { add_core_of = ROOT }
+				735 = { add_core_of = ROOT }
+				25 = { add_core_of = ROOT }
+				22 = { add_core_of = ROOT }
+				21 = { add_core_of = ROOT }
+				19 = { add_core_of = ROOT }
+				20 = { add_core_of = ROOT }
+				1 = { add_core_of = ROOT }
+				785 = { add_core_of = ROOT }
+				31 = { add_core_of = ROOT }
+			}
+			
+			# Spain
+			custom_effect_tooltip = form_iberia_spain_coring_states_tt
+			hidden_effect = {
+				165 = { add_core_of = ROOT }
+				166 = { add_core_of = ROOT }
+				167 = { add_core_of = ROOT }
+				177 = { add_core_of = ROOT }
+				171 = { add_core_of = ROOT }
+				174 = { add_core_of = ROOT }
+				172 = { add_core_of = ROOT }
+				176 = { add_core_of = ROOT }
+				170 = { add_core_of = ROOT }
+				41 = { add_core_of = ROOT }
+				175 = { add_core_of = ROOT }
+				169 = { add_core_of = ROOT }
+				173 = { add_core_of = ROOT }
+				168 = { add_core_of = ROOT }
+				788 = { add_core_of = ROOT }
+				789 = { add_core_of = ROOT }
+				790 = { add_core_of = ROOT }
+				791 = { add_core_of = ROOT }
+				792 = { add_core_of = ROOT }
+				793 = { add_core_of = ROOT }
+				794 = { add_core_of = ROOT }
+			}
+			
+			
+			hidden_effect = {
+				set_country_flag = unform_nation
+			}
+		}
+
+		ai_will_do = {
+			factor = 200
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = allow_ai_form_nations
+					option = NOT_ALLOWED
+				}
+			}
+		}
+	}
+	
 	formable_nations_nepali_empire = {
 		ai_will_do = {
 			factor = 1
@@ -12328,6 +12584,8 @@ formable_nations_mod_category = {
 				}
 			}
 		}
+		
+
 		icon = formable_nations_transcaucasia
 		complete_effect = {  capital_scope = { set_state_flag = formable_nations_old_capital }
 		set_cosmetic_tag = FORM_NEP
