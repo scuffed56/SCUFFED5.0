@@ -17,14 +17,15 @@ focus_tree = {
 	focus = {
 		id = fin_political_focus
 		icon = GFX_focus_fin_political_focus
-		cost = 5
+		cost = 10
 		x = 18
 		y = 0
 		
 		available_if_capitulated = yes
 		
 			completion_reward = {
-					add_political_power = 75
+					add_political_power = 100
+					
 				}
 				search_filters = { FOCUS_FILTER_POLITICAL }
 
@@ -43,7 +44,7 @@ focus_tree = {
 			army_experience = 25
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 0.5
+				cost_reduction = 1
 				uses = 2
 				category = land_doctrine
 			}
@@ -325,7 +326,7 @@ focus_tree = {
 	focus = {
 		id = fin_neutralfoc
 		icon = GFX_goal_generic_generic_political
-		cost = 5
+		cost = 10
 		prerequisite = {
 			focus = fin_individual_freedom
 		}
@@ -796,26 +797,26 @@ focus_tree = {
 			add_ideas = FIN_stopai
 			add_equipment_to_stockpile = {
 				type = infantry_equipment_1 
-				amount = 1000 
+				amount = 3000 
 				producer = GER 
 			}
 			add_equipment_to_stockpile = {
 				type = support_equipment_1 
-				amount = 250 
+				amount = 1000
 				producer = GER 
 			}
 			add_equipment_to_stockpile = {
 				type = artillery_equipment_1 
-				amount = 100 
+				amount = 450
 				producer = GER 
 			}
 			add_equipment_to_stockpile = {
 				type = motorized_equipment
-				amount = 25
+				amount = 100
 				producer = GER
 			}
 			hidden_effect = {
-				add_manpower = 10000
+				add_manpower = 30000
 				load_oob = "FIN_GER"
 			}
 		}	
@@ -2830,11 +2831,7 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 		available = {
-			OR = {
-				has_defensive_war = yes
-				threat > 0.55
 			
-			}
 		}
 		
 		completion_reward = {
@@ -3738,7 +3735,13 @@ focus_tree = {
 		}
 		
 		completion_reward ={
-			
+			add_tech_bonus = {
+				
+				name = Finish_Module_Bonus
+				bonus = 0.5
+				uses = 2
+				category = air_equipment
+				}
 			custom_effect_tooltip = HOL_fokkers
 
 			if = {
@@ -3747,13 +3750,13 @@ focus_tree = {
 	            }
 	            add_equipment_to_stockpile = {
 	                type = small_plane_airframe_1
-	                amount = 100
+	                amount = 250
 	                producer = HOL
 	            }
 	            else = {
 	                add_equipment_to_stockpile = {
 	                    type = small_plane_airframe_0
-	                    amount = 100
+	                    amount = 250
 	                    producer = HOL
 					}   
 				}
@@ -4567,19 +4570,20 @@ focus_tree = {
 			focus = fin_realtionsfoc
 		}
 		available = {
-			NOT = { has_war_with = SWE }
-			SWE = { exists = yes }
-			NOT = {
-				has_idea = FIN_revenge
-			}
+			
+			
+			
 		}
 		relative_position_id = fin_realtionsfoc
 		x = 0
 		y = 1
 
 		completion_reward = { 
-			give_guarantee = SWE
-			SWE = { give_guarantee = FIN }
+			set_rule = { can_create_factions = yes }
+			create_faction = nordic_defence_alliance
+			SWE = { country_event = { id = finland.18 } }
+			add_ideas = fin_Finnish_Swedish_Defense_Pact
+			SWE = { add_ideas = fin_Finnish_Swedish_Defense_Pact }
 		}
 	}
 	
@@ -4589,7 +4593,7 @@ focus_tree = {
 		icon = GFX_goal_generic_position_armies
 		cost = 10
 		prerequisite = {
-			focus = fin_mutualdefpactfoc
+			focus = fin_mutualdefpactfoc foucs = fin_negroid
 		}
 		available = {
 			DEN = { has_war_with = GER }
@@ -4597,8 +4601,8 @@ focus_tree = {
 			SWE = { exists = yes }
 		}
 		relative_position_id = fin_mutualdefpactfoc
-		x = 1
-		y = 1
+		x = 0
+		y = 2
 		
 		completion_reward = { 
 				custom_effect_tooltip = fin_interventiontooltip
@@ -4799,7 +4803,7 @@ focus_tree = {
 					}
 				}
 			
-				# Norway
+			# Norway
 				110 = { add_core_of = ROOT }
 				142 = { add_core_of = ROOT }
 				143 = { add_core_of = ROOT }
@@ -4823,14 +4827,17 @@ focus_tree = {
 				964 = { add_core_of = ROOT }
 				337 = { add_core_of = ROOT } #Faroe islands
 
-				#Denmark claimed Greenland and Iceland, why not claim them for ourselves?
+			# Denmark claimed Greenland and Iceland, why not claim them for ourselves?
 				100 = { add_claim_by = ROOT }
 				101 = { add_claim_by = ROOT }
 		
 				news_event = { id = wtt_news.53 hours = 6 }
 				set_global_flag = form_scandinavia_flag
-			
-				add_ideas = SCA_united				
+			    
+				add_ideas = SCA_united	
+				add_ideas = generic_recent_army_unification
+				add_ideas = generic_recent_economic_unification
+				add_ideas = generic_recent_political_unification			
 			}
 		}
 			search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
@@ -5113,11 +5120,55 @@ focus_tree = {
 		completion_reward = {
 				add_ideas = fin_sweadvisors
 				SWE = { add_ideas = swe_finadvisors }
+				add_tech_bonus = {
+					ahead_reduction = 1
+					name = Fin-Swe_military_bonus
+					bonus = 1
+					uses = 1
+					category = armor
+					category = infantry_weapons
+					category = artillery
+				}
 		
 		}
 
 	}
-	
+	focus = {
+		id = fin_Scandinavian_Industrial_Boom
+		text = fin_swefinmilfoc
+		icon = GFX_goal_SWE_FIN_coa_royal
+		cost = 10
+		prerequisite = {
+			focus = fin_mutualdefpactfoc
+		}
+		relative_position_id = fin_mutualdefpactfoc
+		x = 1
+		y = 1
+		
+		available_if_capitulated = yes
+		
+		completion_reward = {
+			add_tech_bonus = {
+				ahead_reduction = 1
+				name = Fin-Swe_industry_bonus
+				bonus = 1
+				uses = 1
+				category = industry
+				
+			}	
+			add_ideas = fin_Finnish_Swedish_Industrial_Pact
+			SWE = { add_ideas = fin_Finnish_Swedish_Industrial_Pact }
+			SWE = { add_tech_bonus = {
+				ahead_reduction = 1
+				name = Fin-Swe_industry_bonus
+				bonus = 1
+				uses = 1
+				category = industry
+				}
+			}
+		}
+
+	}
 	focus = {
 		id = fin_nordicom
 		text = fin_nordicom
