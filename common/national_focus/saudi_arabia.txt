@@ -1207,7 +1207,7 @@
 	focus = {
 		id = SAU_army_focus_1
 		icon = GFX_goal_generic_small_arms
-		cost = 5.00
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -1220,7 +1220,7 @@
 		army_experience = 20
 		add_doctrine_cost_reduction = {
 				name = SAU_army_focus_1
-				cost_reduction = 0.5
+				cost_reduction = 1
 				uses = 2
 				category = land_doctrine
 			}
@@ -1276,7 +1276,7 @@
 	focus = {
 		id = SAU_artillery
 		icon = GFX_goal_generic_army_artillery2
-		cost = 10.00
+		cost = 10
 		prerequisite = { focus = SAU_army_infantry_desert }
 		ai_will_do = {
 			factor = 1
@@ -1298,7 +1298,7 @@
 	focus = {
 		id = SAU_land_doctrine1
 		icon = GFX_goal_generic_position_armies
-		cost = 5.00
+		cost = 5
 		prerequisite = { focus = SAU_army_infantry_desert }
 		ai_will_do = {
 			factor = 1
@@ -1310,7 +1310,7 @@
 		completion_reward = {
 			add_doctrine_cost_reduction = {
 				name = SAU_land_doctrine
-				cost_reduction = 0.5
+				cost_reduction = 1
 				uses = 2
 				category = land_doctrine
 			}
@@ -1357,7 +1357,7 @@
 			army_experience = 30
 			add_doctrine_cost_reduction = {
 				name = SAU_yemen_lessons
-				cost_reduction = 0.5
+				cost_reduction = 1
 				uses = 2
 				category = land_doctrine
 			}
@@ -1482,7 +1482,7 @@
 	focus = {
 		id = SAU_incorporate_nomad_tactics
 		icon = GFX_focus_generic_camel_corps
-		cost = 5.00
+		cost = 10
 		prerequisite = { focus = SAU_encourage_general_creativity }
 		ai_will_do = {
 			factor = 1
@@ -1736,7 +1736,51 @@
 			}
 		}
 	}
+	focus = {
+		id = SAU_invest_in_steel
+		icon = GFX_focus_generic_steel
+		prerequisite = { focus = SAU_2_Industrial_Start  }
+		x = 0
+		y = 1
+		relative_position_id = SAU_2_Industrial_Start
+		cost = 10
+		ai_will_do = {
+			base = 10
+		}
 
+		completion_reward = {
+
+				random_owned_controlled_state = {
+
+					add_extra_state_shared_building_slots = 4
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = steel_mill
+						level = 2
+						instant_build = yes
+					}				
+					add_resource = {
+						type = steel
+						amount = 12
+					}			
+				}
+				modify_building_resources = {
+					building = steel_mill
+					resource = steel
+					amount = 2
+				}
+				add_tech_bonus = {
+					ahead_reduction = 2
+					uses = 2
+					bonus = 1
+					category = steel_tech	
+				}
+			}
+	}
 	focus ={
 		id = SAU_2_Expand_Infra
 		icon = GFX_goal_generic_construct_infrastructure
@@ -3286,7 +3330,7 @@
 			
 			add_stability = 0.05
 		
-			add_timed_idea = { idea = GEN_Industrial_Boom_I days = 365 }
+			add_ideas = GEN_Industrial_Boom_I
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
@@ -4497,17 +4541,17 @@
 		y = 1
 		relative_position_id = SAU_2_Own_Design
 		
-		cost = 5
+		cost = 10
 
 		available_if_capitulated = yes
 
 		completion_reward = {
 			add_tech_bonus = {
 				name = bomber_bonus
-				bonus = 1
-				uses = 1
-				category = cas_bomber
-				category = tactical_bomber
+				bonus = 0.5
+				uses = 2
+				category = air_equipment
+				
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }

@@ -40,7 +40,7 @@ focus_tree = {
         completion_reward = {
         	random_owned_controlled_state = {
 				prioritize = { 7 }
-				add_extra_state_shared_building_slots = 1
+				
 				limit = {
 					free_building_slots = {
 						building = infrastructure
@@ -63,11 +63,24 @@ focus_tree = {
 				}
 				add_building_construction = {
 					type = infrastructure
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
-
+			random_owned_controlled_state = {
+				prioritize = { 36 }
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 3
+					instant_build = yes
+				}
+			}
 			if = {
 				limit = {
 					has_idea = tblra_recovery_from_the_great_depression1
@@ -127,7 +140,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = industrial_bonus
 				bonus = 1
-				uses = 1
+				uses = 2
 				category = industry
 			}
 			if = {
@@ -325,16 +338,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		available = {
-			NOT = {
-				OR = {
-					has_idea = tblra_recovery_from_the_great_depression1
-					has_idea = tblra_recovery_from_the_great_depression2
-					has_idea = tblra_recovery_from_the_great_depression3
-					has_idea = tblra_recovery_from_the_great_depression4
-					has_idea = tblra_recovery_from_the_great_depression5
-				}
-				has_idea = HOL_reliance_on_the_gold_standard
-			}
+			
 		}
 
 		ai_will_do = {
@@ -372,10 +376,42 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 4
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 4
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 36 }
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 7 }
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
 					instant_build = yes
 				}
 			}
@@ -446,10 +482,10 @@ focus_tree = {
         }
         completion_reward = {
             695 = {
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 3
                 add_building_construction = {
                     type = synthetic_refinery
-                    level = 1
+                    level = 2
                     instant_build = yes
 				}
 				add_building_construction = {
@@ -472,11 +508,11 @@ focus_tree = {
 					}
 				}
 			}
-          #  add_resource = {
-          #      type = rubber
-          #      amount = 2
-          #      state = 695
-          #  }
+            add_resource = {
+                type = rubber
+                amount = 2
+                state = 695
+            }
 			add_tech_bonus = {
 				name = GER_coal_liquidization
 				bonus = 1.0
@@ -513,12 +549,22 @@ focus_tree = {
 			factor = 2
 		}
         available = {
-            has_tech = excavation3
-			date > 1942.02.01
-			controls_state = 36
-		}
+			OR = {
+				controls_state = 6
+				BEL = {
+					is_puppet_of = ROOT				
+				}
+			}
+			OR = {
+				controls_state = 8
+				LUX = {
+					is_puppet_of = ROOT				
+				}
+			}
+        }
         completion_reward = {
-			36 = {
+			every_state = {
+				
 				add_extra_state_shared_building_slots = 2
 			}
         }

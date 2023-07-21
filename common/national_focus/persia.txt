@@ -7,6 +7,7 @@ focus_tree = {
 			tag = PER
 		}
 	}
+	shared_focus = GEN_Industrial_Boom
 	shared_focus = PER_UNIFIED_persian_imperial_ambitions
 	continuous_focus_position = { x = 50 y = 750 }
 	default = no
@@ -3048,5 +3049,50 @@ focus_tree = {
 				}
 				search_filters = { FOCUS_FILTER_INDUSTRY }
 
+	}
+	focus = {
+		id = PER_invest_in_steel
+		icon = GFX_focus_generic_steel
+		prerequisite = { focus = PER_increase_textile_production }
+		x = 1
+		y = 1
+		relative_position_id = PER_increase_textile_production
+		cost = 10
+		ai_will_do = {
+			base = 10
+		}
+
+		completion_reward = {
+
+				random_owned_controlled_state = {
+
+					add_extra_state_shared_building_slots = 4
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = steel_mill
+						level = 2
+						instant_build = yes
+					}				
+					add_resource = {
+						type = steel
+						amount = 12
+					}			
+				}
+				modify_building_resources = {
+					building = steel_mill
+					resource = steel
+					amount = 2
+				}
+				add_tech_bonus = {
+					ahead_reduction = 2
+					uses = 2
+					bonus = 1
+					category = steel_tech	
+				}
+			}
 	}
 }

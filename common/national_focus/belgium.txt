@@ -36,6 +36,10 @@ focus_tree = {
 			factor = 10
 		}
         completion_reward = {
+			add_popularity = {
+    			ideology = communism
+    			popularity = 0.10
+			}
 			add_timed_idea = {
 				idea = internationalism
 				days = 900
@@ -64,6 +68,10 @@ focus_tree = {
 			}
 		}		
         completion_reward = {
+			add_popularity = {
+    			ideology = communism
+    			popularity = 0.05
+			}
 		add_war_support = 0.1
         add_political_power = 120
 		remove_ideas = tblra_pillarized_society
@@ -92,6 +100,10 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			add_popularity = {
+    			ideology = communism
+    			popularity = 0.05
+			}
 			add_ideas = tblra_volunteer_corps
 			add_timed_idea = { idea = internationalism days = 1000 }
 		}
@@ -105,7 +117,7 @@ focus_tree = {
 		relative_position_id = tblra_communist_brigades
 		x = -1
 		y = 1
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 5
 		}
@@ -157,7 +169,7 @@ focus_tree = {
 		relative_position_id = tblra_communist_brigades
 		x = 1
 		y = 1
-		cost = 3
+		cost = 5
 		ai_will_do = {
 			factor = 5
 		}
@@ -201,7 +213,7 @@ focus_tree = {
 		relative_position_id = tblra_communist_youth
         x = 0
         y = 1
-        cost = 10
+        cost = 8
 		ai_will_do = {
 			factor = 5
 		}		
@@ -212,7 +224,7 @@ focus_tree = {
 			add_ideas = tblra_communist_army
 			add_timed_idea = {
 				idea = tblra_purge_the_army
-				days = 218
+				days = 120
 			}
 			army_experience = -10
 			remove_ideas = tblra_linguistic_question_in_military
@@ -240,7 +252,7 @@ focus_tree = {
 			set_rule = { can_create_factions = yes }
 			add_stability = 0.05
 			add_war_support = 0.1
-			add_political_power = 50			
+			add_political_power = 100			
     	}
     	search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 	}	
@@ -252,7 +264,7 @@ focus_tree = {
         relative_position_id = tblra_support_pcf2
 		x = 1
         y = 1	
-        cost = 10
+        cost = 8
 		ai_will_do = {
 			factor = 7
 		}		
@@ -279,7 +291,7 @@ focus_tree = {
 				}
 				add_tech_bonus = {
 					name = motorized_rockets_tech_bonus_name
-					bonus = 0.25
+					bonus = 1
 					uses = 1
 					category = mot_rockets
 				}				
@@ -295,7 +307,7 @@ focus_tree = {
         relative_position_id = tblra_sign_pact_with_soviets
 	    x = -1
         y = 1
-        cost = 10
+        cost = 8
 		ai_will_do = {
 			factor = 5
 		}		
@@ -374,9 +386,43 @@ focus_tree = {
 		}
 		completion_reward = {
 			HOL = { country_event = { id = tblra.28 days = 1 } }
+			INS = { country_event = { id = tblra.28 days = 1 } }
 			custom_effect_tooltip = tblra_puppet_netherlands_tootip
 		}
 	}	
+	focus = { 
+        id = tblra_attack_Luxemburg
+        icon = GFX_goal_generic_forceful_treaty
+        prerequisite = { focus = tblra_puppet_netherlands}	
+        relative_position_id = tblra_puppet_netherlands
+		x = 0
+        y = 1
+        cost = 5
+		ai_will_do = {
+			factor = 2
+		}
+		available = {
+			has_government = communism
+			is_puppet = no
+			NOT = {
+				LUX = {
+					is_in_faction_with = BEL
+				}
+			}
+			LUX = {
+				exists = yes
+			}
+		}
+		completion_reward = {
+			ROOT = {
+				create_wargoal = {
+					type = take_state_focus
+					target = LUX
+					expire = 0
+				}
+			}
+		}
+	}
     focus = { 
         id = tblra_communist_propaganda_Benelux
         icon = GFX_postive_heroism
@@ -536,8 +582,6 @@ focus_tree = {
         prerequisite = { focus = tblra_independent_revolution focus = tblra_sign_pact_with_soviets }
 		available = {
 			has_government = communism
-			has_war = yes
-			is_in_faction = yes
 			OR = {
 				num_of_factories > 30
 				any_country = {
@@ -642,7 +686,7 @@ focus_tree = {
         prerequisite = { focus = tblra_form_coalition_government }
         mutually_exclusive = { focus = tblra_stay_neutral }
 		relative_position_id = tblra_form_coalition_government
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 5
 		}		
@@ -663,7 +707,7 @@ focus_tree = {
 		relative_position_id = tblra_form_coalition_government		
         x = -1
         y = 1
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 7
 		}		
@@ -703,7 +747,7 @@ focus_tree = {
 		relative_position_id = tblra_deterrence
         x = 0
         y = 1
-        cost = 10
+        cost = 8
 		ai_will_do = {
 			factor = 5
 		}
@@ -733,11 +777,11 @@ focus_tree = {
 			}
 		prerequisite = {focus = tblra_stay_neutral focus = tblra_democratic_influence focus = tblra_king_reaction}
         completion_reward = {
-			army_experience = -15
+			
             remove_ideas = tblra_linguistic_question_in_military
 			add_timed_idea = {
 				idea = tblra_divide_the_military
-				days = 180
+				days = 90
 			}			
         }
 		search_filters = { FOCUS_FILTER_MILITARY_IMPROVEMENT FOCUS_FILTER_POLITICAL }
@@ -2327,17 +2371,17 @@ focus_tree = {
 			}
 		6 = { is_owned_by = BEL }
         }		
-        cost = 10
+        cost = 8
 		ai_will_do = {
 			factor = 10		
 			}		
 		available_if_capitulated = yes
         completion_reward = {
             6 = {
-                add_extra_state_shared_building_slots = 1
+                add_extra_state_shared_building_slots = 2
                 add_building_construction = {
                     type = industrial_complex
-                    level = 1
+                    level = 2
                     instant_build = yes
                 }
             }
@@ -2472,6 +2516,41 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+			888 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			889 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			890 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			768 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			769 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
 			if = { 
 				limit = {
 					has_dlc = "Together for Victory"
@@ -2502,7 +2581,7 @@ focus_tree = {
 		relative_position_id = tblra_urban_projects_capital
         x = -10
         y = 1
-        cost = 10 
+        cost = 8
  		ai_will_do = { 
  			factor = 1 
 		}
@@ -2532,7 +2611,7 @@ focus_tree = {
         completion_reward = {
 			add_resource = {
 				type = steel
-				amount = 4
+				amount = 5
 				state = 295
 			}
 			if = { 
@@ -2571,7 +2650,7 @@ focus_tree = {
 					}
 				}
 			}
-            has_tech = excavation3
+            has_tech = excavation2
 			OR ={
 				controls_state = 295
 				any_other_country = {
@@ -2592,7 +2671,7 @@ focus_tree = {
         completion_reward = {
             add_resource = {
                 type = steel
-                amount = 4
+                amount = 8
                 state = 295
             }
 			if = { 
@@ -2620,7 +2699,7 @@ focus_tree = {
 		relative_position_id = tblra_urban_projects_capital
         x = -8
         y = 1
-        cost = 10
+        cost = 8
 		ai_will_do = {
 			factor = 5			
 			}		
@@ -2660,12 +2739,12 @@ focus_tree = {
 			custom_effect_tooltip = TBLRA_congo_tree_tooltip		
             add_resource = {
                 type = rubber
-                amount = 6
+                amount = 2
                 state = 538
             }
 			add_resource = {
                 type = rubber
-                amount = 8
+                amount = 2
                 state = 538
             }
             add_resource = {
@@ -2675,7 +2754,7 @@ focus_tree = {
             }
             add_resource = {
                 type = rubber
-                amount = 3
+                amount = 2
                 state = 718
             }
 			if = { 
@@ -2741,20 +2820,26 @@ focus_tree = {
 		}	
 		available_if_capitulated = yes
         completion_reward = {
-			custom_effect_tooltip = TBLRA_congo_tree_tooltip		
+			custom_effect_tooltip = TBLRA_congo_tree_tooltip
+					
             add_resource = {
                 type = rubber
-                amount = 4
+                amount = 3
                 state = 538
             }
             add_resource = {
                 type = rubber
-                amount = 2
+                amount = 3
                 state = 295
             }
             add_resource = {
                 type = rubber
-                amount = 1
+                amount = 4
+                state = 888
+            }
+			add_resource = {
+                type = rubber
+                amount = 5
                 state = 718
             }
 			if = { 
@@ -2783,7 +2868,7 @@ focus_tree = {
 		relative_position_id = tblra_urban_projects_capital
 		x = -6
         y = 1
-        cost = 10
+        cost = 8
 		ai_will_do = {
 			factor = 5			
 			}		
@@ -2820,7 +2905,7 @@ focus_tree = {
 			custom_effect_tooltip = TBLRA_congo_tree_tooltip		
             add_resource = {
                 type = tungsten
-                amount = 5
+                amount = 3
                 state = 718
             }
             add_resource = {
@@ -2870,7 +2955,7 @@ focus_tree = {
 				}
 				}
 			}	
-            has_tech = excavation3
+            has_tech = excavation2
 			OR ={
 				AND ={
 					controls_state = 295
@@ -2890,12 +2975,12 @@ focus_tree = {
 			custom_effect_tooltip = TBLRA_congo_tree_tooltip		
             add_resource = {
                 type = tungsten
-                amount = 5
+                amount = 3
                 state = 718
             }
             add_resource = {
                 type = tungsten
-                amount = 1
+                amount = 4
                 state = 295
             }
 			if = { 
@@ -2940,7 +3025,7 @@ focus_tree = {
 					}
 				}
 			}	
-            has_tech = excavation4
+            has_tech = excavation3
 			OR ={
 				AND ={
 					controls_state = 295
@@ -2960,13 +3045,18 @@ focus_tree = {
 			custom_effect_tooltip = TBLRA_congo_tree_tooltip		
             add_resource = {
                 type = tungsten
-                amount = 5
+                amount = 2
                 state = 718
             }
             add_resource = {
                 type = tungsten
-                amount = 1
+                amount = 2
                 state = 295
+            }
+			add_resource = {
+                type = tungsten
+                amount = 4
+                state = 888
             }
 			if = { 
 				limit = {
@@ -3010,7 +3100,7 @@ focus_tree = {
 					}
 				}
 			}	
-            has_tech = excavation5
+            has_tech = excavation4
 			OR ={
 				AND ={
 					controls_state = 295
@@ -3030,13 +3120,33 @@ focus_tree = {
 			custom_effect_tooltip = TBLRA_congo_tree_tooltip		
             add_resource = {
                 type = tungsten
-                amount = 5
+                amount = 1
                 state = 718
             }
             add_resource = {
                 type = tungsten
                 amount = 1
                 state = 295
+            }
+			add_resource = {
+                type = tungsten
+                amount = 2
+                state = 888
+            }
+			add_resource = {
+                type = tungsten
+                amount = 2
+                state = 889
+            }
+			add_resource = {
+                type = tungsten
+                amount = 2
+                state = 769
+            }
+			add_resource = {
+                type = tungsten
+                amount = 2
+                state = 768
             }
 			if = { 
 				limit = {
@@ -3102,7 +3212,7 @@ focus_tree = {
 			295 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
-					type = naval_base
+					type = dockyard
 					level = 2
 					province = 10968
 					instant_build = yes
@@ -3112,6 +3222,15 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 			718 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			295 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			890 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			888 = {
 				add_extra_state_shared_building_slots = 1
 			}
 			if = { 
@@ -3170,10 +3289,10 @@ focus_tree = {
         completion_reward = {
 			custom_effect_tooltip = TBLRA_congo_tree_tooltip
             295 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
             }
@@ -3236,18 +3355,18 @@ focus_tree = {
         completion_reward = {
 			custom_effect_tooltip = TBLRA_congo_tree_tooltip
              538 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
             }
 			718 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -3439,10 +3558,10 @@ focus_tree = {
 			}		
         completion_reward = {		
 			6 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = dockyard
-					level = 1
+					level = 2
 					instant_build = yes
 				}
                 add_building_construction = {
@@ -3568,10 +3687,10 @@ focus_tree = {
 			}		
         completion_reward = {
             6 = {
-                add_extra_state_shared_building_slots = 1
+                add_extra_state_shared_building_slots = 3
                 add_building_construction = {
                     type = industrial_complex
-                    level = 1
+                    level = 2
                     instant_build = yes
                 }
             }
@@ -3597,6 +3716,7 @@ focus_tree = {
 			factor = 5			
 			}		
         completion_reward = {
+			add_ideas = tblra_Economic_Boom_of_Antwerp
             6 = {
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
@@ -3632,7 +3752,7 @@ focus_tree = {
 			}
 		34 = { is_owned_by = BEL }
         }        
-		cost = 10
+		cost = 5
         completion_reward = {
             34 = {
                 add_building_construction = {
@@ -3680,7 +3800,7 @@ focus_tree = {
 		6 = { is_owned_by = BEL }
 		34 = { is_owned_by = BEL }
         }
-		cost = 10
+		cost = 5
 			ai_will_do = {
 			factor = 0	
 			modifier = {
@@ -3861,7 +3981,7 @@ focus_tree = {
 		relative_position_id = tblra_urban_projects_capital  
         x = 8
         y = 0
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 6	
 			modifier = {
@@ -3874,11 +3994,11 @@ focus_tree = {
 			}			
 		}		
         completion_reward = {
-            army_experience = 5
+            army_experience = 25
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
+				cost_reduction = 1
+				uses = 2
 				category = land_doctrine
 			}
         }
@@ -3891,7 +4011,7 @@ focus_tree = {
 		relative_position_id = tblra_begin_rearmement
         x = 2
         y = 0
-        cost = 15
+        cost = 10
 		ai_will_do = {
 			factor = 2
 			modifier = {
@@ -3904,12 +4024,12 @@ focus_tree = {
 			}			
 		}		
         completion_reward = {
-            army_experience = 10
+            army_experience = 50
 			add_war_support = 0.05
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
+				cost_reduction = 1
+				uses = 2
 				category = land_doctrine
 			}
 			random_army_leader = { 
@@ -3957,9 +4077,7 @@ focus_tree = {
 				}
 			}
 		}
-		available = {
-			has_tech = interwar_antiair
-		}
+		
 		completion_reward = {
 			6 = {
 				add_building_construction = {
@@ -3988,7 +4106,7 @@ focus_tree = {
 		relative_position_id = tblra_form_air_guard_of_the_territory
         x = 0
         y = 1
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 4			
 			}		
@@ -4026,12 +4144,13 @@ focus_tree = {
         cost = 10
 		available_if_capitulated = yes		
         completion_reward = {
-            add_tech_bonus = {  
+			add_tech_bonus = {  
                 name = motorized_bonus
                 bonus = 1
-                uses = 1
-				category = hospital_tech
+                uses = 2
+				category = motorized_equipment
 				}
+            
             add_tech_bonus = {  
                 name = motorized_bonus
                 bonus = 1
@@ -4129,7 +4248,7 @@ focus_tree = {
         x = 1
         y = 1
         prerequisite = { focus = tblra_begin_rearmement focus = tblra_accept_van_den_den_bergen_plan}
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 5
 			modifier = {
@@ -4139,11 +4258,11 @@ focus_tree = {
 		}		
 		available_if_capitulated = yes
         completion_reward = {
-			army_experience = 5
+			army_experience = 25
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
+				cost_reduction = 1
+				uses = 2
 				category = land_doctrine
 			}
 		}
@@ -4179,7 +4298,7 @@ focus_tree = {
 		}		
 		available_if_capitulated = yes
         completion_reward = {
-			army_experience = 5
+			army_experience = 25
             add_tech_bonus = {
                 name = infantry_artillery_bonus
                 bonus = 1
@@ -4193,7 +4312,7 @@ focus_tree = {
                 uses = 1
 				category = r56_jaeger_infantry_tech				
             }            
-            #add_ideas = tblra_reserve_mobilization
+            add_ideas = tblra_reserve_mobilization
 			set_technology = { bicycle_infantry = 1 }
 			division_template = {
 				name = "Cyclistes Frontière"		# border cycling units....with tank destroyers
@@ -4232,7 +4351,7 @@ focus_tree = {
 		relative_position_id = tblra_equipement_modernization
         x = 0
         y = 1
-        cost = 10
+        cost = 7
 		ai_will_do = {
 			factor = 5			
 			}		
@@ -4240,8 +4359,8 @@ focus_tree = {
         completion_reward = {
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
+				cost_reduction = 1
+				uses = 3
 				category = land_doctrine
 			}
 		}
@@ -4254,13 +4373,13 @@ focus_tree = {
 		relative_position_id = tblra_equipement_modernization
         x = 1
         y = 2
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 5			
 			}		
 		available_if_capitulated = yes
         completion_reward = {
-            army_experience = 5
+            army_experience = 25
             add_tech_bonus = {
                 name = infantry_artillery_bonus
                 bonus = 1
@@ -4283,11 +4402,11 @@ focus_tree = {
 			}		
 		available_if_capitulated = yes
         completion_reward = {
-			army_experience = 5
+			army_experience = 25
             add_tech_bonus = {
                 name = infantry_artillery_bonus
                 bonus = 1
-                uses = 1
+                uses = 2
                 category = artillery
 			}				
         }
@@ -4320,9 +4439,9 @@ focus_tree = {
 		}
 		available = {
 			has_capitulated = no
-			is_in_faction_with = FRA
+			
 			FRA = {
-				has_capitulated = no
+				
 				OR = {
 					controls_state = 18
 					controls_state = 29
@@ -4470,7 +4589,7 @@ focus_tree = {
         prerequisite = { focus = tblra_experimental_weaponry }
         prerequisite = { focus = tblra_prototype_weapons }
 		available = {
-			num_of_factories > 50
+			num_of_factories > 40
 		}
 		relative_position_id = tblra_experimental_weaponry
         x = -1
@@ -4616,7 +4735,7 @@ focus_tree = {
 			}		
 		available_if_capitulated = yes	
         completion_reward = {
-            air_experience = -10
+            air_experience = 10
             add_tech_bonus = {
                 name = antiair_tech_bonus_name
                 bonus = 1
@@ -4657,7 +4776,7 @@ focus_tree = {
 		relative_position_id = tblra_van_overstraeten_aa_guns
         x = 3
         y = 0
-        cost = 10
+        cost = 8
 		ai_will_do = {
 			factor = 7			
 		}		
@@ -4666,22 +4785,20 @@ focus_tree = {
 			BEL ={
             	controls_state = 295
 				}
-			NOT = {
-				BEL = {controls_state = 6}	
-			}
+			
         }		
         completion_reward = {
-        	air_experience = 10
+        	air_experience = 100
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
-				cost_reduction = 0.5
+				cost_reduction = 1
 				uses = 2
 				category = air_doctrine
 			}
         	295 = {
             	add_building_construction = {
                 	type = air_base
-                	level = 1
+                	level = 5
                 	instant_build = yes
                 }
             }
@@ -4696,7 +4813,7 @@ focus_tree = {
 		relative_position_id = tblra_air_force_congo
         x = 3
         y = 0	
-        cost = 10
+        cost = 6
 		ai_will_do = {
 			factor = 4
 			}		
@@ -4708,7 +4825,7 @@ focus_tree = {
 		6 = { is_owned_by = BEL }
         }		
         completion_reward = {
-			air_experience = 25
+			air_experience = 50
 			if = {
 				limit = {
 					has_dlc = "La Resistance"
@@ -4716,14 +4833,14 @@ focus_tree = {
 			}	
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
-				cost_reduction = 0.5
+				cost_reduction = 1
 				uses = 2
 				category = air_doctrine
 			}
 			6 = {
 				add_building_construction = {
 					type = air_base
-					level = 2
+					level = 5
 					instant_build = yes
 				}
 			}
@@ -4749,7 +4866,7 @@ focus_tree = {
 		}
         prerequisite = { focus = tblra_revise_air_doctrine focus = tblra_air_force_congo}
         completion_reward = {
-            air_experience = 5
+            air_experience = 25
 			add_tech_bonus = {
 				name = tblra_Renard_fighters
 				bonus = 1
@@ -4784,7 +4901,7 @@ focus_tree = {
 		}
         prerequisite =  { focus = tblra_revise_air_doctrine}
         completion_reward = {
-            air_experience = 5
+            air_experience = 25
 			add_tech_bonus = {
 				name = tblra_revise_air_doctrine
 				bonus = 1
@@ -4793,7 +4910,7 @@ focus_tree = {
 			}
 				add_tech_bonus = {
 					name = tblra_multipurpose_bombers
-					bonus = 0.5
+					bonus = 1
 					uses = 1
 					category = air_equipment
 				}				
@@ -4808,7 +4925,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = tblra_air_force_congo
 
-		cost = 7
+		cost = 5
 
 		ai_will_do = {
 			factor = 6
@@ -4842,7 +4959,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = tblra_license_production
 
-		cost = 7
+		cost = 5
 
 		ai_will_do = {
 			factor = 20
@@ -4915,7 +5032,7 @@ focus_tree = {
 		mutually_exclusive = { focus = tblra_fighter_license}		
         x = 1
         y = 1
-        cost = 8
+        cost = 5
 		ai_will_do = {
 			factor = 4
 		}		
@@ -4980,7 +5097,7 @@ focus_tree = {
 		prerequisite = {focus = tblra_SABCAs_bombers focus = tblra_fighter_license }
         x = -2
         y = 1
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 4	
 				modifier = {
@@ -5079,7 +5196,7 @@ focus_tree = {
         x = -1
         y = 1
         completion_reward = {
-			air_experience = 5
+			air_experience = 25
         	add_tech_bonus = {
             	name = CAS_bonus
             	bonus = 1
@@ -5105,7 +5222,7 @@ focus_tree = {
         x = 1
         y = 1
         completion_reward = {
-        	air_experience = 5
+        	air_experience = 25
 			add_tech_bonus = {
 				name = tblra_rule_the_sea_through_the_sky
 				bonus = 1
@@ -5140,7 +5257,7 @@ focus_tree = {
        		34 = {
 	            add_building_construction = {
 	                type = air_base
-	                level = 3
+	                level = 5
 	                instant_build = yes
 	            }
 	        }
@@ -5189,10 +5306,10 @@ focus_tree = {
         }	
         completion_reward = {
 			6 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = dockyard
-					level = 2
+					level = 3
 					instant_build = yes
 				}
 			}
@@ -5384,7 +5501,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = ss_bonus
 				bonus = 1
-				uses = 1
+				uses = 2
 				technology = basic_submarine_snorkel
 				technology = improved_submarine_snorkel
 			}
@@ -5443,12 +5560,12 @@ focus_tree = {
         prerequisite = { focus = tblra_expand_the_navy }
 		prerequisite = { focus = tblra_Foreign_aviation_studies }
 		completion_reward = {
-        	navy_experience = 10
-			air_experience = 10
+        	navy_experience = 25
+			air_experience = 25
             add_tech_bonus = {
 				name = capital_ships_bonus
 				bonus = 1
-				uses = 1
+				uses = 2
 				category = cv_tech
             }
         }
@@ -5527,8 +5644,8 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = industrial_bonus
-				bonus = 1
-				uses = 2
+				bonus = 0.5
+				uses = 3
 				category = naval_gunnery_tech
 			}			
 		}
@@ -5541,7 +5658,7 @@ focus_tree = {
 		icon = GFX_goal_generic_occupy_states_coastal
 		x = 0
 		y = 1
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 4
 		}
