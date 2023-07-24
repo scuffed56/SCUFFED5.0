@@ -2763,10 +2763,32 @@ focus_tree = {
 
 		completion_reward = {
 			155 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = aluminum_mill
+					level = 2
+					instant_build = yes
+				}				
 				add_resource = {
 					type = aluminium
-					amount = 16
-				}
+					amount = 12
+				}			
+			}
+			modify_building_resources = {
+				building = aluminum_mill
+				resource = aluminium
+				amount = 2
+			}
+			add_tech_bonus = {
+				ahead_reduction = 2
+				uses = 1
+				bonus = 1
+				category = aluminium_tech	
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM}
@@ -5386,6 +5408,15 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+			}
 			add_tech_bonus = {
 				name = HUN_announce_the_gyor_program
 				bonus = 1
@@ -5624,12 +5655,20 @@ focus_tree = {
                         category = aluminium_tech
                     }                    
                 }
+				
             }			
 			155 = {
 				add_resource = {
 					type = aluminium
 					amount = 16
 				}
+			}
+			155 = {
+				add_building_construction = {
+					type = aluminum_mill
+					level = 1
+					instant_build = yes
+				}	
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
@@ -5880,10 +5919,7 @@ focus_tree = {
 
 		available = {
 			controls_state = 76
-			OR = {
-				has_tech = excavation4
-				has_tech = excavation5
-			}
+			
 		}
 
 		
@@ -6203,7 +6239,7 @@ focus_tree = {
 					name = scout_plane
 					bonus = 1.0
 					uses = 1
-					category = cat_scout_plane
+					category = light_fighter
 				}				
 			}			
 			add_doctrine_cost_reduction = {
@@ -6551,11 +6587,42 @@ focus_tree = {
 			country_event = DOD_hungary.160
 		}
 	}
+	focus = {
+		id = HUN_Aircraft_Developement
+		icon = GFX_goal_generic_air_production
+		prerequisite = { focus = HUN_establish_the_air_force }
+		x = 2
+		y = 3
+		relative_position_id = HUN_establish_the_air_force
 
+		cost = 10
+
+		ai_will_do = {
+			factor = 30
+		}
+
+		available = {
+			
+		}
+
+		available_if_capitulated = yes
+
+
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = scout_plane
+				bonus = 0.5
+				uses = 2
+				category = air_equipment
+			}	
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
 	focus = {
 		id = HUN_joint_air_development
 		icon = GFX_goal_generic_air_production
-		prerequisite = { focus = HUN_establish_the_air_force }
+		prerequisite = { focus = HUN_Aircraft_Developement }
 		x = 2
 		y = 5
 		relative_position_id = HUN_establish_the_air_force
