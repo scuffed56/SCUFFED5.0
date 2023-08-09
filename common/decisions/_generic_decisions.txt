@@ -1983,64 +1983,67 @@ foreign_politics = {
 economy_decisions = {
 	infrastructure_building_slot = {
 
-		icon = generic_construction
+    	icon = generic_construction
 
         allowed = {
             always = yes
         }
 
-        cost = 100
+        cost = 200
         fire_only_once = no
 
-        days_re_enable = 30
+        available = {
+            any_core_state = {
+            	is_fully_controlled_by = ROOT
+            }
+        }
 
-		available = {
-			any_owned_state = {
-				NOT = { has_state_flag = infrastructure_building_slot_flag }
+        visible = {
+			any_core_state = {
 				is_fully_controlled_by = ROOT
-				free_building_slots = {
-					building = infrastructure
-					size < 1
-				}
-			}
-		}
-
-		visible = {
-			any_owned_state = {
-				NOT = { has_state_flag = infrastructure_building_slot_flag }
-				is_fully_controlled_by = ROOT
-				free_building_slots = {
-					building = infrastructure
-					size < 1
-				}
 			}
 		}
 
         complete_effect = {
-			random_owned_state = {
+			if = {
 				limit = {
-					is_fully_controlled_by = ROOT
-            		free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
+					any_core_state = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
 					}
-					free_building_slots = {
-						building = infrastructure
-						size < 1
-					}
-					NOT = { has_state_flag = infrastructure_building_slot_flag }
 				}
-				add_extra_state_shared_building_slots = 1
-				set_state_flag = infrastructure_building_slot_flag
+				random_core_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				random_core_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				random_core_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				random_core_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+					}
+					add_extra_state_shared_building_slots = 1
+				}
 			}
 		}
 		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 10
-				any_owned_state = { free_building_slots = { building = industrial_complex size < 1 include_locked = no } }
-			}
+			factor = 0
 		}
     }
 
