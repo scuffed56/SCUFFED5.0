@@ -2407,7 +2407,7 @@ focus_tree = {
 		}
 
 		available = {
-			num_of_factories > 500	#absurd amount but maybe even remove the thing?
+			#num_of_factories > 500	#absurd amount but maybe even remove the thing?
 		}
 		available_if_capitulated = yes
 		completion_reward = {
@@ -2441,6 +2441,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = rocketry_tech_bonus_name
+				ahead_reduction = 2.0
 				bonus = 1
 				uses = 2
 				category = rocketry
@@ -2473,7 +2474,7 @@ focus_tree = {
 	focus = {
 		id = GER_deutsche_arbeitsfront
 		icon = GFX_goal_GER_deutsche_arbeitsfront
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_volksgemeinschaft
 		}
@@ -2616,7 +2617,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -2629,7 +2630,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -2642,7 +2643,7 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -2820,7 +2821,7 @@ focus_tree = {
 		prerequisite = {
 			#focus = GER_naval_rearmament_r56
 		}
-		x = 12
+		x = 11
 		y = 1
 		relative_position_id = GER_anschluss
 		ai_will_do = {
@@ -3165,6 +3166,9 @@ focus_tree = {
 		y = 0
 		cost = 5
 		completion_reward = {
+			add_dynamic_modifier = {
+				modifier = GER_develop_the_heer_r56_modifier
+			}
 			army_experience = 10
 			custom_effect_tooltip = available_chief_of_army
 			show_ideas_tooltip = walther_von_brauchitsch
@@ -3184,6 +3188,10 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
+			add_to_variable = { GER_mobile_warfare_planning_speed = 0.05 }
+			add_to_variable = { GER_mobile_warfare_experience_gain_cas_training_factor = 0.05 }
+			add_to_variable = { GER_mobile_warfare_experience_gain_light_armor_training_factor = 0.05 }
+			custom_effect_tooltip = GER_mobile_warfare_tt
 			custom_effect_tooltip = available_military_high_command
 			show_ideas_tooltip = erwin_rommel
 			add_doctrine_cost_reduction = {
@@ -3215,6 +3223,10 @@ focus_tree = {
 			factor = 50
 		}
 		completion_reward = {
+			add_to_variable = { GER_build_panzer_army_minimum_training_level = -0.05 }
+			add_to_variable = { GER_build_panzer_army_max_training = 0.05 }
+			add_to_variable = { GER_build_panzer_army_army_armor_attack_factor = 0.1 }
+			custom_effect_tooltip = GER_build_panzer_army_tt
 			add_tech_bonus = {
 				name = GER_build_panzer_army
 				bonus = 1.5
@@ -3271,6 +3283,8 @@ focus_tree = {
 			factor = 50
 		}
 		completion_reward = {
+			add_to_variable = { GER_build_panzer_quality_army_armor_defence_factor = -0.05 }
+			custom_effect_tooltip = GER_build_panzer_quality_tt
 			add_ideas = GER_tank_quality
 		}
 		search_filters = {
@@ -3294,6 +3308,8 @@ focus_tree = {
 			factor = 50
 		}
 		completion_reward = {
+			add_to_variable = { GER_build_panzer_quantity_tank_manufacturer_cost_factor = -0.05 } #Trash extra stat since this focus is just better
+			custom_effect_tooltip = GER_build_panzer_quantity_tt
 			add_ideas = GER_tank_quantity
 			add_tech_bonus = {
 				bonus = 1
@@ -3313,13 +3329,15 @@ focus_tree = {
 			focus = GER_build_panzer_quantity
 			focus = GER_build_panzer_quality
 		}
-		x = 0
-		y = 2
-		relative_position_id = GER_build_panzer_army
+		x = -1
+		y = 1
+		relative_position_id = GER_build_panzer_quantity
 		ai_will_do = {
 			factor = 50
 		}
 		completion_reward = {
+			add_to_variable = { GER_captured_heavy_weapons_truck_attrition_factor = -0.05 } 
+			custom_effect_tooltip = GER_captured_heavy_weapons_2_tt
 			add_ideas = GER_captured_heavy_weapons
 		}
 		search_filters = {
@@ -3330,9 +3348,9 @@ focus_tree = {
 		id = GER_counter_deep_battle
 		icon = GFX_goal_CHI_lure_them_in
 		prerequisite = { focus = GER_captured_heavy_weapons }
-		relative_position_id = GER_superior_firepower
-		x = -7
-		y = 4
+		relative_position_id = GER_captured_heavy_weapons
+		x = -1
+		y = 1
 		cost = 5
 		ai_will_do = {
 			factor = 3
@@ -3344,9 +3362,9 @@ focus_tree = {
 				category = infantry_weapons
 
 			}
-			#add_to_variable = { GER_counter_deep_battle_dig_in_speed_factor = 0.05 } 
-			#custom_effect_tooltip = GER_counter_deep_battle_tt
-			#custom_effect_tooltip = r56_enable_deep_battle_tt
+			add_to_variable = { GER_counter_deep_battle_dig_in_speed_factor = 0.05 } 
+			custom_effect_tooltip = GER_counter_deep_battle_tt
+			custom_effect_tooltip = r56_enable_deep_battle_tt
 			hidden_effect = {
 				set_technology = { masterful_backhand_blow = 1 popup = no }
 			}
@@ -3360,20 +3378,36 @@ focus_tree = {
 		id = GER_reuse_capture_weapons
 		icon = GFX_focus_ETH_freedom_at_gunpoint
 		prerequisite = { focus = GER_captured_heavy_weapons }
-		relative_position_id = GER_superior_firepower
-		x = -5
-		y = 4
-		cost = 10
+		relative_position_id = GER_captured_heavy_weapons
+		x = 1
+		y = 1
+		cost = 5
 		ai_will_do = {
 			factor = 3
 		}
 		completion_reward = {
-			#add_to_variable = { GER_captured_heavy_weapons_unit_upkeep_attrition_factor = -0.05 } 
-			#custom_effect_tooltip = GER_captured_heavy_weapons_tt
+			add_to_variable = { GER_captured_heavy_weapons_unit_upkeep_attrition_factor = -0.05 } 
+			custom_effect_tooltip = GER_captured_heavy_weapons_tt
 			swap_ideas = { remove_idea = GER_captured_heavy_weapons add_idea = GER_captured_weapons }
 			custom_effect_tooltip = GER_reuse_capture_weapons_random_generals_tt
 			
 			hidden_effect = {
+				random_army_leader = {			
+					limit = {
+						NOT = {
+							has_trait = scavenger
+						}
+					}
+					add_trait = {trait = scavenger}
+				}
+				random_army_leader = {			
+					limit = {
+						NOT = {
+							has_trait = scavenger
+						}
+					}
+					add_trait = {trait = scavenger}
+				}
 				random_army_leader = {			
 					limit = {
 						NOT = {
@@ -3395,13 +3429,13 @@ focus_tree = {
 		relative_position_id = GER_reuse_capture_weapons	
 		x = -1
 		y = 1
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}		
 		completion_reward = {
-			#add_to_variable = { GER_frontline_hospitals_experience_loss_factor = -0.05 } 
-			#custom_effect_tooltip = GER_frontline_hospitals_tt
+			add_to_variable = { GER_frontline_hospitals_experience_loss_factor = -0.05 } 
+			custom_effect_tooltip = GER_frontline_hospitals_tt
 			add_tech_bonus = {
 				name = hospital_company_tech_bonus_name
 				bonus = 3
@@ -3577,6 +3611,8 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
+			add_to_variable = { GER_superior_firepower_coordination_bonus = 0.05 }
+			custom_effect_tooltip = GER_superior_firepower_tt
 			add_doctrine_cost_reduction = {
 				name = GER_mobile_warfare
 				cost_reduction = 0.5
@@ -3642,6 +3678,8 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
+			add_to_variable = { GER_prevent_aerial_hegemony_cas_damage_reduction = 0.05 } 
+			custom_effect_tooltip = GER_prevent_aerial_hegemony_tt
 			add_ideas = GER_antiair
 			add_tech_bonus = {
                 name = antiair_tech_bonus_name
@@ -3660,11 +3698,13 @@ focus_tree = {
 		y = 2
 		cost = 5
 		completion_reward = {
+			add_to_variable = { GER_counter_sloped_armor_experience_gain_anti_tank_combat_factor = 0.05 } #Token extra stat
+			custom_effect_tooltip = GER_counter_sloped_armor_tt
 			add_tech_bonus = {
 				name = GER_counter_sloped_armor
-				bonus = 0.5
-				uses = 3
-				category = cat_medium_armor
+				bonus = 1
+				uses = 2
+				#category = cat_medium_armor
 				category = cat_anti_tank
 			}
 			add_ideas = { GER_counter_sloped_armor }
@@ -3682,6 +3722,8 @@ focus_tree = {
 		y = 2
 		cost = 5
 		completion_reward = {
+			add_to_variable = { GER_counter_anti_tank_experience_gain_medium_sp_artillery_brigade_combat_factor = 0.05 } #Token extra stat
+			custom_effect_tooltip = GER_counter_anti_tank_tt
 			add_ideas = GER_assault_gun
 			if = {
 				limit = {
@@ -3723,14 +3765,14 @@ focus_tree = {
 			factor = 3
 		}
 		completion_reward = {
-		#	add_to_variable = { GER_city_besiegement_experience_gain_artillery_combat_factor = 0.05 } #Token extra stat
-		#	custom_effect_tooltip = GER_city_besiegement_heer_tt
-			#custom_effect_tooltip = GER_city_besiegement_tt
+			add_to_variable = { GER_city_besiegement_experience_gain_artillery_combat_factor = 0.05 } #Token extra stat
+			custom_effect_tooltip = GER_city_besiegement_heer_tt
+			custom_effect_tooltip = GER_city_besiegement_tt
 			hidden_effect = { set_technology = { siege_artillery = 1 } }
 			add_tech_bonus = {
                 name = infantry_artillery_bonus
 				bonus = 1
-				uses = 1
+				uses = 2
 				category = artillery
 			}
 		}
@@ -3750,9 +3792,9 @@ focus_tree = {
 			factor = 3
 		}
 		completion_reward = {
-		#	add_to_variable = { GER_pocket_liqudation_special_forces_attack_factor = 0.05 }
-		#	add_to_variable = { GER_mobile_warfare_planning_speed = 0.05 }
-		#	custom_effect_tooltip = GER_pocket_liqudation_tt
+			add_to_variable = { GER_pocket_liqudation_special_forces_attack_factor = 0.05 }
+			add_to_variable = { GER_mobile_warfare_planning_speed = 0.05 }
+			custom_effect_tooltip = GER_pocket_liqudation_tt
 			#add_ideas = GER_pocket_liqudation_idea
 			add_tech_bonus = {
 				name = GER_shock_troops_tech_bonus
@@ -3777,9 +3819,12 @@ focus_tree = {
 			factor = 3
 		}
 		completion_reward = {
-			#add_to_variable = { GER_flak_towers_static_anti_air_damage_factor = 0.1 } 
-			#custom_effect_tooltip = GER_flak_towers_tt
-			add_ideas = GER_flak_towers
+			add_to_variable = { GER_flak_towers_static_anti_air_damage_factor = 0.1 } 
+			custom_effect_tooltip = GER_flak_towers_tt
+			add_timed_idea = { 
+				idea = GER_flak_towers
+				days = 180 
+			}
 			add_tech_bonus = {
                 name = antiair_tech_bonus_name
                 ahead_reduction = 1
@@ -3843,8 +3888,8 @@ focus_tree = {
 			factor = 2
 		}		
 		completion_reward = {
-			#add_to_variable = { GER_streamline_logistics_supply_combat_penalties_on_core_factor = -0.05 } 
-			#custom_effect_tooltip = GER_streamline_logistics_tt	
+			add_to_variable = { GER_streamline_logistics_supply_combat_penalties_on_core_factor = -0.05 } 
+			custom_effect_tooltip = GER_streamline_logistics_tt	
 			add_equipment_to_stockpile = {
 				type = train_equipment
 				amount = 100
@@ -3942,12 +3987,11 @@ focus_tree = {
 				casualties_k > 2000
 			}
 		}
-		#completion_reward = {
-		#	add_dynamic_modifier = {
-		#		modifier = r56_GER_desperate_measures
-		#	}
-			
-		#}
+		completion_reward = {
+			add_dynamic_modifier = {
+				modifier = r56_GER_desperate_measures
+			}
+		}
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
@@ -3972,9 +4016,9 @@ focus_tree = {
 			factor = 5
 		}
 		completion_reward = {
-			#add_to_variable = { GER_greater_collaborator_conscription_non_core_manpower = 0.01 } 
-			#add_to_variable = { GER_greater_collaborator_conscription_required_garrison_factor = -0.01 } 
-			#custom_effect_tooltip = GER_greater_collaborator_conscription_tt
+			add_to_variable = { GER_greater_collaborator_conscription_non_core_manpower = 0.1 } 
+			add_to_variable = { GER_greater_collaborator_conscription_required_garrison_factor = -0.1 } 
+			custom_effect_tooltip = GER_greater_collaborator_conscription_tt
 			every_state = {
 				limit = {
 					NOT = {
@@ -4031,73 +4075,73 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER
 		}
 	}
-	#focus = { #move down since more drastic than requirement and Speer required the above as well
-	#id = GER_total_war
-	#icon = GFX_victor
-	#cost = 5.00
-	#prerequisite = {
-	#	focus = GER_greater_collaborator_conscription
-	#}
-	#x = -1
-	#y = 1
-	#relative_position_id = GER_greater_collaborator_conscription
-	#ai_will_do = {
-	#	factor = 5
-	#}
-	#available = {
-	#	has_war_with_major = yes
-	#	OR = {
-	#		surrender_progress > 0.05
-	#		casualties_k > 4000
-	#	}
-	#}
-	#completion_reward = {
-	#	#add_to_variable = { GER_total_war_economy_cost_factor = -0.25 } 
-	#	#custom_effect_tooltip = GER_total_war_tt
-	#	add_ideas = GER_total_war_idea #dont stack recruitable boosts, because these should be hurting your industry, speer already has some buffs
-	#	if = {
-	#		limit = {
-	#			ROOT = {
-	#				NOT = {
-	#					has_completed_focus = GER_kill_hitler
-	#				}
-	#			}
-	#		}
-	#		custom_effect_tooltip = available_political_advisor
-	#		show_ideas_tooltip = speer
-	#	}
-	#	else = {
-	#		add_political_power = 75
-	#	}
-	#	#if = {
-	#	#	limit = {
-	#	#		NOT = { has_idea = tot_economic_mobilisation }
-	#	#	}
-	#	#	add_ideas = tot_economic_mobilisation
-	#	#}
-	#	hidden_effect = {
-	#		if = {
-	#			limit = {
-	#				difficulty > 1
-	#				GER = {
-	#					is_ai = yes
-	#				}
-	#			}
-	#			add_offsite_building = {
-	#				type = arms_factory level = 1
-	#			}
-	#			add_equipment_to_stockpile = {
-	#				type = infantry_equipment
-	#				amount = 250
-	#				producer = GER
-	#			}
-	#		}
-	#	}
-	#}
-	#search_filters = {
-	#	FOCUS_FILTER_INDUSTRY 
-	#}
-	#}#
+	# focus = { #move down since more drastic than requirement and Speer required the above as well
+	# id = GER_total_war
+	# icon = GFX_victor
+	# cost = 5.00
+	# prerequisite = {
+	# 	focus = GER_greater_collaborator_conscription
+	# }
+	# x = -1
+	# y = 1
+	# relative_position_id = GER_greater_collaborator_conscription
+	# ai_will_do = {
+	# 	factor = 5
+	# }
+	# available = {
+	# 	has_war_with_major = yes
+	# 	OR = {
+	# 		surrender_progress > 0.05
+	# 		casualties_k > 4000
+	# 	}
+	# }
+	# completion_reward = {
+	# 	add_to_variable = { GER_total_war_economy_cost_factor = -0.25 } 
+	# 	custom_effect_tooltip = GER_total_war_tt
+	# 	#add_ideas = GER_total_war_idea #dont stack recruitable boosts, because these should be hurting your industry, speer already has some buffs
+	# 	if = {
+	# 		limit = {
+	# 			ROOT = {
+	# 				NOT = {
+	# 					has_completed_focus = GER_kill_hitler
+	# 				}
+	# 			}
+	# 		}
+	# 		custom_effect_tooltip = available_political_advisor
+	# 		show_ideas_tooltip = speer
+	# 	}
+	# 	else = {
+	# 		add_political_power = 75
+	# 	}
+	# 	if = {
+	# 		limit = {
+	# 			NOT = { has_idea = tot_economic_mobilisation }
+	# 		}
+	# 		add_ideas = tot_economic_mobilisation
+	# 	}
+	# 	hidden_effect = {
+	# 		if = {
+	# 			limit = {
+	# 				difficulty > 1
+	# 				GER = {
+	# 					is_ai = yes
+	# 				}
+	# 			}
+	# 			add_offsite_building = {
+	# 				type = arms_factory level = 1
+	# 			}
+	# 			add_equipment_to_stockpile = {
+	# 				type = infantry_equipment
+	# 				amount = 250
+	# 				producer = GER
+	# 			}
+	# 		}
+	# 	}
+	# }
+	# search_filters = {
+	# 	FOCUS_FILTER_INDUSTRY 
+	# }
+	# }#
 	focus = {
 		id = GER_found_the_volkssturm
 		icon = GFX_focus_focus_fra_maquis
@@ -4118,9 +4162,9 @@ focus_tree = {
 			factor = 5
 		}
 		completion_reward = {
-		#	add_to_variable = { GER_found_the_volkssturm_army_org_regain_army_morale_factor = 0.05 } 
-		#	add_to_variable = { GER_found_the_volkssturm_conscription_factor = 0.05 } 
-		#	custom_effect_tooltip = GER_found_the_volkssturm_tt
+			add_to_variable = { GER_found_the_volkssturm_army_org_regain_army_morale_factor = 0.05 } 
+			add_to_variable = { GER_found_the_volkssturm_conscription_factor = 0.1 } 
+			custom_effect_tooltip = GER_found_the_volkssturm_tt
 			create_equipment_variant = {
 				name = "Volkssturm Small Arms"
 				type = infantry_equipment_0
@@ -4194,9 +4238,9 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			#add_to_variable = { GER_found_the_volkssturm_conscription_factor = 0.05 } 
-			#add_to_variable = { GER_werewolves_resistance_growth_on_our_occupied_states = 0.25 }
-			#custom_effect_tooltip = GER_werewolves_tt
+			add_to_variable = { GER_found_the_volkssturm_conscription_factor = 0.1 } 
+			add_to_variable = { GER_werewolves_resistance_growth_on_our_occupied_states = 0.5 }
+			custom_effect_tooltip = GER_werewolves_tt
 			add_manpower = 10000
 			custom_effect_tooltip = GER_found_the_volkssturm_stockpile_tt
 			hidden_effect = {
@@ -4236,8 +4280,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			#add_to_variable = { GER_front_line_cities_production_speed_bunker_factor = 0.05 } 
-			#custom_effect_tooltip = GER_front_line_cities_2_tt
+			add_to_variable = { GER_front_line_cities_production_speed_bunker_factor = 0.1 } 
+			custom_effect_tooltip = GER_front_line_cities_2_tt
 			every_state = {
 				limit = {
 					is_core_of = GER
@@ -4317,8 +4361,8 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-		#	add_to_variable = { GER_a_world_in_flames_army_core_defence_factor = 0.05 } 
-		#	custom_effect_tooltip = GER_a_world_in_flames_tt
+			add_to_variable = { GER_a_world_in_flames_army_core_defence_factor = 0.2 } 
+			custom_effect_tooltip = GER_a_world_in_flames_tt
 			if = {
 				limit = {
 					ROOT = {
@@ -4593,7 +4637,12 @@ focus_tree = {
 					}
 				}
 			}
+			add_timed_idea = {
+			idea = r56_a_world_in_flames_idea
+			days = 180
+			}
 		}
+		
 		search_filters = {
 			FOCUS_FILTER_INDUSTRY
 		}
@@ -4612,6 +4661,8 @@ focus_tree = {
 		y = 1
 		cost = 5
 		completion_reward = {
+			add_to_variable = { GER_mechanization_of_the_army_mechanized_defence_factor = 0.1 }
+			custom_effect_tooltip = GER_mechanization_of_the_army_tt
 			add_tech_bonus = {
 				name = GER_train_panzergrenadiers
 				bonus = 1
@@ -7440,7 +7491,7 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = GER_anschluss
-			focus = GER_consolidate_new_reich
+			#focus = GER_consolidate_new_reich
 		}
 		mutually_exclusive = {
 			focus = GER_alliance_with_italy
@@ -7658,7 +7709,7 @@ focus_tree = {
 		cost = 7.00
 		prerequisite = {
 			focus = GER_anschluss
-			focus = GER_consolidate_new_reich
+			#focus = GER_consolidate_new_reich
 			#focus = GER_anti_comitern_pact	#improves lines
 		}
 		mutually_exclusive = {
@@ -7696,7 +7747,7 @@ focus_tree = {
 		cost = 5.00
 		prerequisite = {
 			focus = GER_anschluss
-			focus = GER_consolidate_new_reich
+			#focus = GER_consolidate_new_reich
 		}
 		x = -10
 		y = 1
@@ -7749,7 +7800,7 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = GER_danzig_or_war
-			focus = GER_poland_trade
+			#focus = GER_poland_trade
 		}
 		relative_position_id = GER_anti_comitern_pact
 		x = 0
@@ -7846,15 +7897,12 @@ focus_tree = {
 		}
 		prerequisite = {
 			#focus = GER_european_claims #lets give the peaceful some expansion options
-			focus = GER_consolidate_new_reich
+			focus = GER_demand_northern_schleswig_r56
 		}
-		mutually_exclusive = {
-			focus = GER_danzig_or_war
-			focus = GER_poland_friend
-		}
-		relative_position_id = GER_anti_comitern_pact
-		x = -2
-		y = 3
+
+		relative_position_id = GER_demand_northern_schleswig_r56
+		x = 0
+		y = 1
 		ai_will_do = {
 			factor = 2.5
 			modifier = {
@@ -8023,6 +8071,8 @@ focus_tree = {
 
 		}
 		completion_reward = {
+			add_to_variable = { GER_schwerepunkt_tactics_army_armor_speed_factor = 0.05 }
+			custom_effect_tooltip = GER_schwerepunkt_tactics_tt
 			add_doctrine_cost_reduction = {
 				name = GER_schwerepunkt_tactics
 				cost_reduction = 0.5
@@ -8050,7 +8100,7 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = GER_poland_friend
-			focus = GER_poland_trade
+			#focus = GER_poland_trade
 		}
 		relative_position_id = GER_prepare_poland_invasion
 		x = 0
@@ -8311,7 +8361,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_poland_friend
 			focus = GER_danzig_or_war
-			focus = GER_poland_trade
+			#focus = GER_poland_trade
 		}
 		mutually_exclusive = {
 			focus = GER_second_vienna_award
@@ -8397,7 +8447,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_poland_friend
 			focus = GER_danzig_or_war
-			focus = GER_poland_trade
+			#focus = GER_poland_trade
 		}
 		relative_position_id = GER_danzig_or_war
 		mutually_exclusive = {
@@ -8562,7 +8612,7 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_danzig_or_war
 			focus = GER_poland_friend
-			focus = GER_poland_trade
+			#focus = GER_poland_trade
 		}
 		relative_position_id = GER_danzig_or_war
 		mutually_exclusive = {
@@ -8964,13 +9014,13 @@ focus_tree = {
 		prerequisite = {
 			focus = GER_danzig_or_war
 			focus = GER_poland_friend
-			focus = GER_poland_trade
+			#focus = GER_poland_trade
 		}
 		mutually_exclusive = {
 			focus = GER_help_SOV_revolutionaries_r56_2
 		}
 		relative_position_id = GER_poland_friend
-		x = -5
+		x = -3
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -9167,7 +9217,7 @@ focus_tree = {
 		id = GER_help_SOV_revolutionaries_r56_2 #other is democratic side
 		text = GER_help_SOV_revolutionaries
 		icon = GFX_goal_anti_comintern_pact
-		prerequisite = { focus = GER_poland_friend focus = GER_danzig_or_war focus = GER_poland_trade }
+		prerequisite = { focus = GER_poland_friend focus = GER_danzig_or_war }
 		mutually_exclusive = {
 			focus = GER_soviet_invasion
 		}
@@ -9225,89 +9275,89 @@ focus_tree = {
 			}
 		}
 	}
-	# focus = {
-	# 	id = GER_encirclement_doctrine
-	# 	icon = GFX_goal_generic_construct_military
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_soviet_invasion
-	# 		focus = GER_help_SOV_revolutionaries_r56_2
-	# 	}
-	# 	relative_position_id = GER_soviet_invasion
-	# 	x = 3
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_doctrine_cost_reduction = {
-	# 			name = GER_encirclement_doctrine
-	# 			cost_reduction = 0.5
-	# 			uses = 2
-	# 			category = land_doctrine
-	# 		}
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH
-	# 	}
-	# }
-	# focus = {
-	# 	id = GER_train_panzergrenadiers
-	# 	icon = GFX_goal_generic_axis_build_infantry
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_encirclement_doctrine
-	# 	}
-	# 	relative_position_id = GER_encirclement_doctrine
-	# 	x = -1
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	available = {
-	# 		#date > 1942.1.1
-	# 	}
-	# 	completion_reward = {
-	# 		add_tech_bonus = {
-	# 			name = GER_train_panzergrenadiers
-	# 			bonus = 0.5
-	# 			uses = 2
-	# 			category = cat_mechanized_equipment
-	# 		}
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH
-	# 	}
+	focus = {
+		id = GER_encirclement_doctrine
+		icon = GFX_goal_generic_construct_military
+		cost = 10.00
+		prerequisite = {
+			focus = GER_soviet_invasion
+			focus = GER_help_SOV_revolutionaries_r56_2
+		}
+		relative_position_id = GER_soviet_invasion
+		x = 2
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = GER_encirclement_doctrine
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
+	focus = {
+		id = GER_train_panzergrenadiers
+		icon = GFX_goal_generic_axis_build_infantry
+		cost = 10.00
+		prerequisite = {
+			focus = GER_encirclement_doctrine
+		}
+		relative_position_id = GER_encirclement_doctrine
+		x = -1
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			#date > 1942.1.1
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = GER_train_panzergrenadiers
+				bonus = 0.5
+				uses = 2
+				category = cat_mechanized_equipment
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
 
-	# }
-	# focus = {
-	# 	id = GER_seige_fortified_towns
-	# 	icon = GFX_focus_ger_bulwark_against_bolshevism
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_encirclement_doctrine
-	# 	}
-	# 	relative_position_id = GER_encirclement_doctrine
-	# 	x = 1
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	available = {
-	# 		#date > 1941.9.8
-	# 	}
-	# 	completion_reward = {
-	# 		add_tech_bonus = {
-	# 			name = GER_seige_fortified_towns
-	# 			bonus = 0.5
-	# 			uses = 2
-	# 			category = artillery
-	# 		}
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH
-	# 	}
-	# }
+	}
+	focus = {
+		id = GER_seige_fortified_towns
+		icon = GFX_focus_ger_bulwark_against_bolshevism
+		cost = 10.00
+		prerequisite = {
+			focus = GER_encirclement_doctrine
+		}
+		relative_position_id = GER_encirclement_doctrine
+		x = 1
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			#date > 1941.9.8
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = GER_seige_fortified_towns
+				bonus = 0.5
+				uses = 2
+				category = artillery
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
 	focus = {
 		id = GER_kill_hitler
 		icon = GFX_goal_ger_kill_hitler
@@ -9543,24 +9593,24 @@ focus_tree = {
 		}
 
 	}
-	# focus = {
-	# 	id = GER_production_effort
-	# 	icon = GFX_focus_GRE_red_economy
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_world_revolution
-	# 		focus = GER_alliance_with_soviets
-	# 	}
-	# 	x = 2
-	# 	y = 2
-	# 	relative_position_id = GER_repeal_reichstag_fire_decree
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_production_effort_idea
-	# 	}
-	# }
+	focus = {
+		id = GER_production_effort
+		icon = GFX_focus_GRE_red_economy
+		cost = 5
+		prerequisite = {
+			focus = GER_world_revolution
+			#focus = GER_alliance_with_soviets
+		}
+		x = 4
+		y = 2
+		relative_position_id = GER_world_revolution
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_production_effort_idea
+		}
+	}
 	focus = {
 		id = GER_restore_weimar
 		icon = GFX_goal_GER_restore_weimar
@@ -9841,7 +9891,7 @@ focus_tree = {
 	focus = {
 		id = GER_combine_SS_gestapo
 		icon = GFX_goal_generic_secret_police_2
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = GER_denounce_versailles
 		}
@@ -9855,7 +9905,7 @@ focus_tree = {
 			add_ideas = GER_combine_SS_gestapo_idea
 			add_tech_bonus = {
 				name = mp_focus
-				bonus = 1
+				bonus = 2
 				uses = 1
 				category = military_police_tech
 			}
@@ -9882,7 +9932,7 @@ focus_tree = {
 	focus = {
 		id = GER_form_the_reichskommissariats
 		icon = GFX_focus_ger_reichskommisariats
-		cost = 10.00
+		cost = 5
 		prerequisite = {
 			focus = GER_combine_SS_gestapo
 		}
@@ -10029,6 +10079,8 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			#custom_effect_tooltip = GER_total_war_tt
+			#add_to_variable = { GER_total_war_economy_cost_factor = -0.25 } 
 			#add_ideas = GER_total_war_idea #dont stack recruitable boosts, because these should be hurting your industry, speer already has some buffs
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = speer
@@ -10061,25 +10113,26 @@ focus_tree = {
 			FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER
 		}
 	}
-	# focus = {
-	# 	id = GER_foreign_volunteers
-	# 	icon = GFX_goal_generic_multinational_army
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_combine_SS_gestapo
-	# 	}
-	# 	prerequisite = {
-	# 		focus = GER_purge_political_opponents
-	# 	}
-	# 	x = 69
-	# 	y = 3
-	# 	completion_reward = {
-	# 		add_ideas = GER_foreign_volunteers_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_MANPOWER
-	# 	}
-	# }
+	focus = {
+		id = GER_foreign_volunteers
+		icon = GFX_goal_generic_multinational_army
+		cost = 5
+		prerequisite = {
+			focus = GER_combine_SS_gestapo
+		}
+		prerequisite = {
+			focus = GER_purge_political_opponents
+		}
+		relative_position_id = GER_combine_SS_gestapo 
+		x = 4
+		y = 1
+		completion_reward = {
+			add_ideas = GER_foreign_volunteers_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_MANPOWER
+		}
+	}
 	focus = {
 		id = GER_improve_national_spirit
 		icon = GFX_goal_GER_european_reich
@@ -10179,11 +10232,11 @@ focus_tree = {
 		icon = GFX_focus_research
 		cost = 10.00
 		prerequisite = {
-			focus = GER_consolidate_new_reich
+			#focus = GER_consolidate_new_reich
 			focus = GER_rhineland	#to emphasise it as an outlier among diplomatic focuses
 		}
-		relative_position_id = GER_anschluss
-		x = -12
+		relative_position_id = GER_rhineland
+		x = -2
 		y = 1
 		available = {
 			num_of_factories > 99
@@ -10969,7 +11022,7 @@ focus_tree = {
 			}
 		}
 		prerequisite = {
-			focus = GER_restore_the_empire
+			focus = GER_anti_comitern_pact
 			#focus = GER_mon_peaceful
 		}
 		available = {
@@ -11017,9 +11070,9 @@ focus_tree = {
 			}
 		}
 		
-		x = 0
+		x = -1
 		y = 1
-		relative_position_id = GER_restore_the_empire
+		relative_position_id = GER_anti_comitern_pact
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -11182,7 +11235,7 @@ focus_tree = {
 			#focus = GER_mon_peaceful
 		}
 		relative_position_id = GER_restore_the_empire
-		x = 3
+		x = 5
 		y = 1
 		ai_will_do = {
 			factor = 10
@@ -11237,173 +11290,174 @@ focus_tree = {
 		}
 
 	}
-	# focus = {
-	# 	id = GER_draft_new_constitution
-	# 	icon = GFX_goal_generic_forceful_treaty
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_consolidate_new_reich
-	# 	}
-	# 	relative_position_id = GER_consolidate_new_reich
-	# 	x = 6
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_timed_idea = {
-	# 			idea = GER_new_german_constitution
-	# 			days = 546
-	# 		}
-	# 	}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_infrastructure
-	# 	icon = GFX_goal_generic_construct_infrastructure
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_military_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = -3
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_infrastructure_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	focus = {
+		id = GER_draft_new_constitution
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10.00
+		prerequisite = {
+			focus = GER_restore_the_empire
+		}
+		relative_position_id = GER_restore_the_empire
+		x = 1
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_new_german_constitution
+			
+		}
+	}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_civilian_industry
-	# 	icon = GFX_goal_generic_construct_civ_factory
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_military_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = -1
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_civilian_industry_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	focus = {
+		id = GER_prioritize_infrastructure
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 10.00
+		prerequisite = {
+			focus = GER_prioritize_civilian_industry
+			focus = GER_prioritize_military_industry
+		}
+		mutually_exclusive = {
+			#focus = GER_prioritize_civilian_industry
+			#focus = GER_prioritize_military_industry
+			focus = GER_prioritize_defensive_construction
+		}
+		relative_position_id = GER_prioritize_civilian_industry
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_prioritize_infrastructure_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_military_industry
-	# 	icon = GFX_goal_generic_construct_mil_factory
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = 1
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_military_industry_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	focus = {
+		id = GER_prioritize_civilian_industry
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 10.00
+		prerequisite = {
+			focus = GER_draft_new_constitution
+		}
+		mutually_exclusive = {
+			#focus = GER_prioritize_infrastructure
+			focus = GER_prioritize_military_industry
+			#focus = GER_prioritize_defensive_construction
+		}
+		relative_position_id = GER_draft_new_constitution
+		x = -1
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_prioritize_civilian_industry_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
 
-	# }
-	# focus = {
-	# 	id = GER_prioritize_defensive_construction
-	# 	icon = GFX_focus_generic_coastal_fort
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_draft_new_constitution
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_military_industry
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = 3
-	# 	y = 1
-	# 	completion_reward = {
-	# 		add_ideas = GER_prioritize_defensive_construction_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_INDUSTRY
-	# 	}
+	focus = {
+		id = GER_prioritize_military_industry
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 10.00
+		prerequisite = {
+			focus = GER_draft_new_constitution
+		}
+		mutually_exclusive = {
+			#focus = GER_prioritize_infrastructure
+			focus = GER_prioritize_civilian_industry
+			#focus = GER_prioritize_defensive_construction
+		}
+		relative_position_id = GER_draft_new_constitution
+		x = 1
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_prioritize_military_industry_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
 
-	# }
-	# focus = {
-	# 	id = GER_kaiser_wilhelm_society
-	# 	icon = GFX_goal_research_silver
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_prioritize_civilian_industry
-	# 		focus = GER_prioritize_infrastructure
-	# 		focus = GER_prioritize_military_industry
-	# 		focus = GER_prioritize_defensive_construction
-	# 	}
-	# 	relative_position_id = GER_draft_new_constitution
-	# 	x = 0
-	# 	y = 2
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_research_slot = 1
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH
-	# 	}
+	focus = {
+		id = GER_prioritize_defensive_construction
+		icon = GFX_focus_generic_coastal_fort
+		cost = 10.00
+		prerequisite = {
+			focus = GER_prioritize_civilian_industry
+			focus = GER_prioritize_military_industry
+		}
+		mutually_exclusive = {
+			focus = GER_prioritize_infrastructure
+		#	focus = GER_prioritize_civilian_industry
+		#	focus = GER_prioritize_military_industry
+		}
+		relative_position_id = GER_prioritize_civilian_industry
+		x = 2
+		y = 1
+		completion_reward = {
+			add_ideas = GER_prioritize_defensive_construction_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+	}
 
-	# }
-	# focus = {
-	# 	id = GER_return_scientists
-	# 	icon = GFX_goal_tfv_generic_tech_sharing
-	# 	cost = 10.00
-	# 	prerequisite = {
-	# 		focus = GER_kaiser_wilhelm_society
-	# 	}
-	# 	relative_position_id = GER_kaiser_wilhelm_society
-	# 	x = 0
-	# 	y = 1
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# 	completion_reward = {
-	# 		add_ideas = GER_return_scientists_idea
-	# 	}
-	# 	search_filters = {
-	# 		FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER
-	# 	}
+	focus = {
+		id = GER_kaiser_wilhelm_society
+		icon = GFX_goal_research_silver
+		cost = 10.00
+		prerequisite = {
+			#focus = GER_prioritize_civilian_industry
+			focus = GER_prioritize_infrastructure
+			#focus = GER_prioritize_military_industry
+			focus = GER_prioritize_defensive_construction
+		}
+		relative_position_id = GER_draft_new_constitution
+		x = 0
+		y = 3
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+	}
 
-	# }
+	focus = {
+		id = GER_return_scientists
+		icon = GFX_goal_tfv_generic_tech_sharing
+		cost = 10.00
+		prerequisite = {
+			focus = GER_kaiser_wilhelm_society
+		}
+		relative_position_id = GER_kaiser_wilhelm_society
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = GER_return_scientists_idea
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER
+		}
+	}
+
 	# focus = {
 	# 	id = GER_5_factor
 	# 	icon = GFX_focus_generic_cryptologic_bomb
@@ -11971,9 +12025,9 @@ focus_tree = {
 		id = GER_revive_brest_litovsk
 		icon = GFX_focus_generic_polish_deal
 		cost = 5.00
-		prerequisite = {
-			focus = GER_european_claims
-		}
+		# prerequisite = {
+		# 	focus = GER_european_claims
+		# }
 		prerequisite = {
 			focus = GER_soviet_invasion
 		}
@@ -12000,10 +12054,10 @@ focus_tree = {
 		icon = GFX_goal_ger_not_nazi_africa
 		cost = 10.00
 		prerequisite = {
-			focus = GER_european_claims
+			focus = GER_our_place_in_the_sun_r56
 		}
-		relative_position_id = GER_european_claims
-		x = 2
+		relative_position_id = GER_our_place_in_the_sun_r56
+		x = 0
 		y = 1
 		available = {
 			is_subject = no
@@ -12086,7 +12140,7 @@ focus_tree = {
 			focus = GER_european_claims
 		}
 		relative_position_id = GER_european_claims
-		x = -2
+		x = 2
 		y = 1
 		available = {
 			is_subject = no
@@ -14489,9 +14543,11 @@ focus_tree = {
 	focus = {
 		id = GER_integrate_war_economies
 		icon = GFX_goal_hungary_alliance_with_romania
-		prerequisite = { focus = GER_finish_reinhardt }
-		prerequisite = { focus = GER_volkswagen }
-		prerequisite = { focus = GER_nationalize_aviation_industry}
+		prerequisite = { 
+			focus = GER_finish_reinhardt 
+			focus = GER_volkswagen
+			focus = GER_nationalize_aviation_industry
+	}
 		x = -1
 		y = 1
 		relative_position_id = GER_finish_reinhardt
