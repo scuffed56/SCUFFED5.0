@@ -1311,12 +1311,12 @@ focus = {
 
 	focus = {
 		id = RAJ_abolish_the_caste_system
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_goal_tfv_sever_ties_with_uk
 		prerequisite = { focus = RAJ_the_indian_national_congress }
 
 		x = 31
 		y = 1
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -1325,7 +1325,10 @@ focus = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			remove_ideas = RAJ_caste_system
+		add_ideas = collectivist_ethos_nonaligned
+		add_popularity = { ideology = fascism popularity = 0.15 }
+		add_popularity = { ideology = communism popularity = 0.15 }
+		add_popularity = { ideology = democratic popularity = 0.15 }
 		}
 	}
 
@@ -1335,17 +1338,17 @@ focus = {
 		icon = GFX_goal_support_democracy
 		prerequisite = { focus = RAJ_abolish_the_caste_system }
 		mutually_exclusive = { focus = RAJ_the_rise_of_communism focus = RAJ_subas_bose_way }
-
 		x = 31
 		y = 2
 		cost = 10
-
 		ai_will_do = {
 			factor = 10
 		}
 
 		available_if_capitulated = yes
-
+		available = {
+			democratic > 0.4
+		}
 		completion_reward = {
 		add_ideas = democratic_influence
 		add_popularity = { ideology = democratic popularity = 0.25 }
@@ -1512,9 +1515,8 @@ focus = {
 			available_if_capitulated = yes
 
 			completion_reward = {
-				give_guarantee = NEP
-				give_guarantee = BHU
-				give_guarantee = TIB
+			add_ideas = GEN_Strenghten_Democracy_I
+			remove_ideas = RAJ_caste_system
 			}
 		}
 
@@ -1577,7 +1579,9 @@ focus = {
 			factor = 10
 		}
 		available_if_capitulated = yes
-
+		available = {
+			communism > 0.4
+		}
 		completion_reward = {
 		add_ideas = communist_influence
 		add_popularity = { ideology = communism popularity = 0.25 }
@@ -1738,6 +1742,7 @@ focus = {
 		available_if_capitulated = yes
 
 		completion_reward = {
+			remove_ideas = RAJ_caste_system
 			add_political_power = 25
       custom_effect_tooltip = RAJ_banned_tt
 		hidden_effect = {
@@ -1803,7 +1808,9 @@ focus = {
 		}
 
 		available_if_capitulated = yes
-
+		available = {
+			fascism > 0.4
+		}
 		completion_reward = {
 		add_ideas = fascist_influence
 		add_popularity = { ideology = fascism popularity = 0.25 }
@@ -1907,7 +1914,7 @@ focus = {
 
 		x = 39
 		y = 6
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -1917,6 +1924,7 @@ focus = {
 
 		completion_reward = {
 			add_ideas = RAJ_gupt_pulis
+			remove_ideas = RAJ_caste_system
 		}
 	}
 
@@ -2196,12 +2204,12 @@ focus = {
 
 	focus = {
 		id = RAJ_strengthen_the_caste_system
-		icon = GFX_goal_generic_political_pressure
+		icon = GFX_goal_ENG_imperial_conscription
 		prerequisite = { focus = RAJ_expansion_of_colonial_powers }
 
 		x = 29
 		y = 1
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -2210,8 +2218,14 @@ focus = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_ideas = RAJ_strength_caste_system
-			remove_ideas = RAJ_caste_system
+			add_ideas = GEN_Defence_Act_I
+			add_ideas = collectivist_ethos_focus
+			RAJ = {
+				modify_tech_sharing_bonus = {
+					id = commonwealth_research
+					bonus = 0.05
+				}
+			}
 		}
 	}
 
@@ -2258,12 +2272,12 @@ focus = {
 
 	focus = {
 		id = RAJ_arrest_political_leaders
-		icon = GFX_goal_anti_comintern_pact
+		icon = GFX_goal_generic_citizens
 		prerequisite = { focus = RAJ_forced_mandatory_service }
 
 		x = 29
 		y = 4
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -2273,6 +2287,7 @@ focus = {
 
 		completion_reward = {
 			add_ideas =  RAJ_arrested_politcal_leaders
+			remove_ideas = RAJ_caste_system
 		}
 	}
 
@@ -2453,3 +2468,4 @@ focus = {
 			#Grants Deterrence modifier
 		}
 	}
+}
