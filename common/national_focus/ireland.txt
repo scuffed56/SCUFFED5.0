@@ -28,7 +28,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus IRE_IEAA"
-			add_political_power = 50
+			add_political_power = 150
 			unlock_decision_category_tooltip = IRE_IEAA_decisions
 				country_event = {
 					id = ireland.6
@@ -43,7 +43,7 @@ focus_tree = {
 		x = -4
 		y = 1
 		relative_position_id = IRE_IEAA
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
@@ -63,7 +63,7 @@ focus_tree = {
 		x = -4
 		y = 2
 		relative_position_id = IRE_IEAA
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
@@ -178,26 +178,26 @@ focus_tree = {
 				id = ireland.8
 			}
 			113 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
 			135 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
 			134 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -216,7 +216,7 @@ focus_tree = {
 		x = -2
 		y = 2
 		relative_position_id = IRE_IEAA
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
@@ -327,6 +327,14 @@ focus_tree = {
 			focus = IRE_TNTN
 		}
 		completion_reward = {
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
 			log = "[GetDateText]: [Root.GetName]: Focus IRE_NIIF"
 			if = {
 				limit = {
@@ -392,7 +400,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = IRE_IEAA
-		cost = 10
+		cost = 8
 		ai_will_do = {
 			factor = 5
 		}
@@ -405,8 +413,15 @@ focus_tree = {
 				name = IRE_IRF
 				bonus = 1
 				uses = 2
-				category = industry
+				
 				category = electronics
+			}
+			add_tech_bonus = {
+				name = IRE_IRF
+				bonus = 1
+				uses = 2
+				category = industry
+				
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -418,7 +433,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		relative_position_id = IRE_IEAA
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 5
 		}
@@ -426,6 +441,11 @@ focus_tree = {
 			focus = IRE_IRF
 		}
 		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 10
+				state = 135
+			}
 			log = "[GetDateText]: [Root.GetName]: Focus IRE_DBR"
 			add_ideas = IRE_ZINC
 		}
@@ -506,7 +526,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		relative_position_id = IRE_IEAA
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 5
 		}
@@ -548,11 +568,47 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus IRE_DSI"
-			add_resource = {
-				type = aluminium
-				amount = 4
-				state = 113
+			if = {
+				limit = {
+					NOT = {
+						has_tech = aluminum_production_1
+					}
+				}
+				set_technology = { aluminum_production_1 = 1 }
 			}
+			else = {
+				add_tech_bonus = {
+					name = industrial_bonus
+					ahead_reduction = 2
+					bonus = 1
+					uses = 1
+					category = aluminium_tech
+				}
+			}
+			random_owned_controlled_state = {
+				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = aluminum_mill
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = aluminum_mill
+					level = 1
+					instant_build = yes
+				}
+			}
+			modify_building_resources = {
+				building = aluminum_mill
+				resource = aluminium
+				amount = 2
+			 }
+			
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -564,7 +620,7 @@ focus_tree = {
 		x = 4
 		y = 2
 		relative_position_id = IRE_IEAA
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 9
 		}
@@ -576,6 +632,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus IRE_SCOB"
+			random_owned_controlled_state = {
+				
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = steel_mill
+					level = 1
+					instant_build = yes
+				}
+			}
 			add_resource = {
 				type = steel
 				amount = 6
@@ -611,10 +676,10 @@ focus_tree = {
 				  target_province = 3379 # belfast
 				}
 			119 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -648,10 +713,10 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus IRE_RTN"
 			119 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 4
 				add_building_construction = {
 					type = dockyard
-					level = 2
+					level = 4
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -708,7 +773,7 @@ focus_tree = {
 		}
 		search_filters =  { FOCUS_FILTER_INDUSTRY }
 		completion_reward  = {
-			add_timed_idea = { idea = IRE_civ_factory_bonus days = 730 }
+			add_ideas = IRE_civ_factory_bonus
 		}
 	}
 	
@@ -726,7 +791,7 @@ focus_tree = {
 		}
 		search_filters =  { FOCUS_FILTER_INDUSTRY }
 		completion_reward  = {
-			add_timed_idea = { idea = IRE_mil_factory_bonus days = 730 }
+			add_ideas = IRE_mil_factory_bonus
 		}
 	}
 	
@@ -803,6 +868,7 @@ focus_tree = {
 		}
 		search_filters =  { FOCUS_FILTER_POLITICAL }
 		completion_reward  = {
+			add_political_power = 75
 			if = {
 				limit = {
 					has_idea = IRE_autonomous_dominion
@@ -895,7 +961,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = IRE_confirm_ties_to_commonwealth
-		cost = 10
+		cost = 5
 		available = {
 			NOT = {
 				ENG = { has_completed_focus = ENG_a_change_in_course }
@@ -906,6 +972,7 @@ focus_tree = {
 		}
 		search_filters =  { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIRFORCE_BONUS }
 		completion_reward  = {
+			add_political_power = 25
 			add_to_tech_sharing_group = commonwealth_research
 			if = {
 				limit = {
@@ -961,10 +1028,10 @@ focus_tree = {
 		search_filters =  { FOCUS_FILTER_NAVY_BONUS FOCUS_FILTER_INDUSTRY }
 		completion_reward  = {
 			134 = {
-				add_extra_state_shared_building_slots = 1 
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -983,16 +1050,11 @@ focus_tree = {
 				}
 				add_building_construction = {
 					type = naval_base
-					level = 3
-					instant_build = yes
-					province = 7394
-				}
-				add_building_construction = {
-					type = naval_base
 					level = 1
 					instant_build = yes
-					province = 6405
+					province = 337
 				}
+				
 			}
 		}
 	}
@@ -1005,17 +1067,17 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = IRE_cooperation_with_britain
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 20
 		}
 		search_filters =  { FOCUS_FILTER_INDUSTRY }
 		completion_reward  = {
 			113 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 			}
@@ -1079,14 +1141,14 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = IRE_ulster_industrial_exchange
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 20
 		}
 		search_filters =  { FOCUS_FILTER_MANPOWER }
 		completion_reward  = {
 			add_ideas = IRE_rural_conscription
-			add_war_support = 0.15
+			add_war_support = 0.05
 		}
 	}
 	focus = { # makes IRA slightly more loyal
@@ -1096,7 +1158,7 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = IRE_cooperation_with_britain
-		cost = 10
+		cost = 5
 		available = {
 			OR = {
 				AND = {
@@ -3166,12 +3228,12 @@ focus_tree = {
 		icon = GFX_goal_generic_build_tank
 		x = 49
 		y = 0
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 20
 		}
 		completion_reward = {
-			add_political_power = 50
+			add_political_power = 75
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -3193,20 +3255,20 @@ focus_tree = {
 			focus = IRE_ARMYTREE
 		}
 		completion_reward = {
-			add_political_power = 20
+			add_political_power = 50
 			113 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
 			135 = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -3219,7 +3281,7 @@ focus_tree = {
 		x = -12
 		y = 3
 		relative_position_id = IRE_ARMYTREE
-		cost = 10
+		cost = 5
 		ai_will_do = { # honsestly think this one will probably cripple the Ai by doing something stupid - like focusing production on something they can't readily field
 			factor = 0
 		}
@@ -3240,7 +3302,7 @@ focus_tree = {
 		x = -12
 		y = 4
 		relative_position_id = IRE_ARMYTREE
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
@@ -3269,7 +3331,7 @@ focus_tree = {
 			custom_effect_tooltip = ire.hp.tt
 			unlock_decision_category_tooltip = IRE_HEAVYPRIORITIES_DECS
 			country_event = {
-				id = ireland.14
+				id = ireland.15
 			}	
 		}
 	}
@@ -3526,9 +3588,7 @@ focus_tree = {
 				name = IRE_CHANNELDEFENSE2
 				bonus = 1
 				uses = 2
-				technology = strategic_bomber1
-				technology = strategic_bomber2
-				technology = strategic_bomber3
+				
 				category = tactical_bomber
 			}
 		}
@@ -3555,10 +3615,7 @@ focus_tree = {
 				name = IRE_FIGHTERFOCUS
 				bonus = 1
 				uses = 2
-				technology = early_fighter
-				technology = fighter1
-				technology = fighter2
-				technology = fighter3
+				category = light_fighter
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -3701,7 +3758,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = IRE_MOBILE1
-				bonus = 1
+				bonus = 0.5
 				uses = 2
 				category = cat_mobile_warfare
 			}
@@ -3774,7 +3831,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = IRE_FIREPOWER1
-				bonus = 1
+				bonus = 0.5
 				uses = 2
 				category = cat_superior_firepower
 			}
@@ -4161,7 +4218,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = IRE_RUTHLESS
-				bonus = 1
+				bonus = 0.5
 				uses = 2
 				category = trade_interdiction_tree
 			}
@@ -4189,7 +4246,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = IRE_DIRECTCONFRONTATION
-				bonus = 1
+				bonus = 0.5
 				uses = 2
 				category = fleet_in_being_tree
 			}
