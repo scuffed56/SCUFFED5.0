@@ -481,7 +481,7 @@ tactic_breakthrough = { #counters ambush
 	base =  { factor = 4 }
 	picture = breakthrough
 	
-	countered_by = tactic_backhand_blow
+	countered_by = tactic_backhand_blow 
 	
 	attacker_movement_speed = 0.5
 	attacker = 0.25
@@ -571,6 +571,7 @@ tactic_backhand_blow = { #counters breakthrough
 	trigger = {
 		is_attacker = no
 		phase = no
+		OWNER = { NOT = { has_tech = masterful_backhand_blow } } #Fin improved version of Double Envelopment will replace this
 		OR = {
 			skill > 4
 			AND = {
@@ -589,6 +590,26 @@ tactic_backhand_blow = { #counters breakthrough
 	
 	attacker_movement_speed = -0.3
 	attacker = -0.2
+	defender = 0.25
+}
+
+tactic_masterful_backhand_blow = { #counters breakthrough - Germany focus reward ver
+only_show_for = GER
+
+	is_attacker = no
+	trigger = {
+		is_attacker = no
+		phase = no
+	}
+	
+	active = no
+	
+	base =  { factor = 4 }
+
+	picture = backhand_blow
+	
+	attacker_movement_speed = -0.40
+	attacker = -0.25
 	defender = 0.25
 }
 
@@ -810,7 +831,7 @@ tactic_guerrilla_tactics = { #People's army defender tactic. also for German vol
 	is_attacker = no
 	trigger = {
 		is_attacker = no
-		phase = no
+		phase = close_combat
 		OR = {
 			skill > 2
 			has_trait = trickster
@@ -820,7 +841,10 @@ tactic_guerrilla_tactics = { #People's army defender tactic. also for German vol
 	active = no
 	
 	base =  { factor = 4 }
+
 	picture = tactic_guerrilla_tactics
+
+	countered_by = tactic_cc_flamethrower_attack
 	
 	combat_width = -0.5
 	attacker = -0.7
