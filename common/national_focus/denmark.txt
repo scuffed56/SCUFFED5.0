@@ -3939,25 +3939,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ALLIANCE FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		available = {
-			is_subject = no
-			any_country = {
-				exists = yes
-				NOT = {
-					has_government = communism
-					has_war_with = DEN
-					is_in_faction_with = DEN
-				}
-				if = {
-					limit = {
-						DEN = { NOT = { has_completed_focus = DEN_Defy_Russia } }
-					}
-					NOT = {
-						has_war_with = SOV
-						is_in_faction_with = SOV
-					}
-				}
-				is_nordic_country = yes
-			}
+		
 		}
 		prerequisite = {
 			focus = DEN_Soviet_Military_Aid
@@ -3967,131 +3949,17 @@ focus_tree = {
 		y = 4
 		relative_position_id = DEN_DKP_Takeover
 		completion_reward = {	
-			every_other_country = {
-				limit = {
-					exists = yes
-					NOT = {
-						has_government = communism
-						has_war_with = DEN
-						is_in_faction_with = DEN
-					}
-					if = {
-						limit = {
-							NOT = { has_completed_focus = DEN_Defy_Russia }
-						}
-						NOT = {
-							is_in_faction_with = SOV
-							has_war_with = SOV
-						}
-					}
-					OR = {
-						tag = NOR
-						tag = SWE
-						tag = FIN
-						tag = KAR
-						tag = AHV
-						tag = SMI
-					}
-				}
-				set_country_flag = den_scandinavia_plan_target
-				effect_tooltip = {
-					DEN = {
-						declare_war_on = {
-							target = PREV
-							type = annex_everything
-						}
-					}
-				}
-				
-			}
-			if = {
-				limit = {
-					NOR = {
-						has_country_flag = den_scandinavia_plan_target
-						is_in_faction = no
-						is_ai = yes
-					}
-					SWE = {
-						has_country_flag = den_scandinavia_plan_target
-						is_in_faction = no
-						is_ai = yes
-					}
-					FIN = {
-						has_country_flag = den_scandinavia_plan_target
-						is_in_faction = no
-						is_ai = yes
-					}
-				}
-				SWE = {
-					create_faction = "Northern Lights"
-					add_to_faction = NOR
-					add_to_faction = FIN
-				}
-			}
-			if = {
-				limit = {
-					NOT = { has_completed_focus = DEN_Defy_Russia }
-				}
-				every_other_country = {
-					limit = {
-						has_country_flag = den_scandinavia_plan_target
-					}
-					effect_tooltip = {
-						every_owned_state = {
-							limit = {
-								is_core_of = ROOT
-							}
-							add_claim_by = DEN
-						}
-						DEN = {
-							declare_war_on = {
-								target = PREV
-								type = annex_everything
-							}
-						}
-						SOV = {
-							add_to_war = { 
-								targeted_alliance = DEN
-								enemy = PREV
-								hostility_reason = asked_to_join
-							}
-						}
-					}
-				}
-				custom_effect_tooltip = den_sca_plan_needs_approval_tt
-				SOV = {
-					country_event = {
-						id = denmark.71
-						hours = 20
-					}
-				}
-			}
-			else = {
-				every_other_country = {
-					limit = {
-						has_country_flag = den_scandinavia_plan_target
-					}
-					every_owned_state = {
-						limit = {
-							is_core_of = ROOT
-						}
-						add_claim_by = DEN
-					}
-					DEN = {
-						declare_war_on = {
-							target = PREV
-							type = annex_everything
-						}
-					}
-				}
-			}
-			#effect_tooltip = {
-			#	every_other_country = {
-			#		limit = {
-			#			has_country_flag = den_scandinavia_plan_target
-			#		}
-			#	}
-			#}
+			custom_effect_tooltip = FIN_Nordicunion
+			custom_effect_tooltip = FIN_acceptance
+			custom_effect_tooltip = form_country_norway_coring_states_tt
+			custom_effect_tooltip = form_country_sweden_coring_states_tt
+			custom_effect_tooltip = form_scandinavia_denmark_coring_states_tt
+			SWE = { country_event = denmark.55 }		
+			NOR = { country_event = denmark.55 }
+			FIN = { country_event = denmark.55 }
+			add_ideas = generic_recent_army_unification
+			add_ideas = generic_recent_economic_unification
+			add_ideas = generic_recent_political_unification
 		}
 
 	}
