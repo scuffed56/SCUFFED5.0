@@ -1178,24 +1178,11 @@ focus_tree = {
 		}
 		x = 12
 		y = 2
-		bypass = {
-			OR = {
-				has_idea = service_by_requirement
-				has_idea = all_adults_serve
-				has_idea = scraping_the_barrel
-			}
-		}
-		cost = 10
+
+		cost = 5
 		completion_reward = {
 			if = {
-				limit = {
-					NOT = {
-						has_idea = service_by_requirement
-						has_idea = all_adults_serve
-						has_idea = scraping_the_barrel
-					}
-				}
-				add_ideas = service_by_requirement
+				add_ideas = PUP_mobilizing_for_war1
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
@@ -1214,6 +1201,29 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+
+	focus = {
+		id = MAN_national_defense_state
+		icon = GFX_goal_generic_build_tank
+		prerequisite = { focus = MAN_labour_service_corps }
+		x = 0
+		y = 1
+		relative_position_id = MAN_labour_service_corps
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		available_if_capitulated = yes
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = MAN_national_defense_state
+		}
+	}
+
 	focus = {
 		id = MAN_manchukuo_imperial_air_force
 		icon = GFX_goal_MAN_coa_air_force
@@ -1327,7 +1337,7 @@ focus_tree = {
 			}
 		}
 		continue_if_invalid = yes
-		x = 11
+		x = 10
 		y = 4
 		cost = 10
 		completion_reward = {
@@ -4587,9 +4597,12 @@ focus_tree = {
 		available = {
 			is_puppet_of = JAP
 		}
+		bypass = {
+			owns_state = 745
+		}
 		x = 10
 		y = 5
-		cost = 10
+		cost = 2.5
 		completion_reward = {
 			JAP = {
 				country_event = {
@@ -4620,6 +4633,34 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
+
+	focus = {
+		id = MAN_national_cooperation_government
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = MAN_a_self_sufficient_army }
+		x = -2
+		y = 1
+		relative_position_id = MAN_a_self_sufficient_army
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			every_state = {
+				limit = { is_core_of = CHI }
+				add_core_of = ROOT
+			}
+			MAN_low_legitimacy_level_down = yes
+		}
+	}
+
+
+
+
 	focus = {
 		id = MAN_reform_command_structure
 		icon = GFX_goal_generic_army_doctrines
