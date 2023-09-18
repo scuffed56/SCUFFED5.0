@@ -21,6 +21,7 @@ NDefines.NProduction.DEFAULT_MAX_NAV_FACTORIES_PER_LINE = 30
 NDefines.NProduction.CONVOY_MAX_NAV_FACTORIES_PER_LINE = 50
 NDefines.NProduction.CAPITAL_SHIP_MAX_NAV_FACTORIES_PER_LINE = 30
 NDefines.NProduction.RAILWAY_GUN_MAX_MIL_FACTORIES_PER_LINE = 10
+NDefines.NProduction.BASE_FACTORY_SPEED_NAV = 3.5
 ----------------------------------
 NDefines.NTechnology.MAX_SUBTECHS = 4						-- Max number of sub technologies a technology can have.
 NDefines.NTechnology.BASE_RESEARCH_POINTS_SAVED = 30.0		-- Base amount of research points a country can save per slot.
@@ -45,14 +46,16 @@ NDefines.NMilitary.NUKE_MIN_DAMAGE_PERCENT = 0.9
 NDefines.NMilitary.NUKE_MAX_DAMAGE_PERCENT = 1.2
 NDefines.NMilitary.RETREAT_SPEED_FACTOR = 0.15
 ----------------------------------
-NDefines.NAir.AIR_WING_FLIGHT_SPEED_MULT = 0.2
+NDefines.NAir.AIR_WING_FLIGHT_SPEED_MULT = 0.02
 NDefines.NAir.AIR_WING_XP_LEVELS = { 20, 40, 60, 80, 100, 140, 180, 220, 260, 300, 390, 480, 570, 660, 750, 780, 810, 840, 870, 900 }
-NDefines.NAir.AIR_DEPLOYMENT_DAYS = 0
+NDefines.NAir.AIR_DEPLOYMENT_DAYS = 2
+NDefines.NAir.AIR_WING_COUNTRY_XP_FROM_TRAINING_FACTOR = 0.009
 ----------------------------------
 NDefines.NNavy.SUPPLY_NEED_FACTOR = 0	
 NDefines.NNavy.PRIDE_OF_THE_FLEET_UNASSIGN_COST = 0							-- cost to unassign/replace pride of the fleet
 NDefines.NNavy.PRIDE_OF_THE_FLEET_LOST_TEMP_MODIFIER_DURATION = 180	
+NDefines.NNavy.TRAINING_DAILY_COUNTRY_EXP_FACTOR = 0.002
 ----------------------------------
-NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 30
+NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 35
 ----------------------------------
 NDefines.NBuildings.MAX_SHARED_SLOTS = 35
