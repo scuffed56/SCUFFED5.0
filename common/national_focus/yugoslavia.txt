@@ -132,7 +132,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_western_focus
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
@@ -362,7 +362,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_limited_self_government
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
@@ -473,7 +473,7 @@ focus_tree = {
 		relative_position_id = YUG_limited_self_government
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
@@ -596,7 +596,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_devolved_croatia
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
@@ -694,7 +694,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_united_autonomous_croatia
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
@@ -801,7 +801,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = YUG_limited_self_government
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
@@ -2433,7 +2433,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_fate_of_banat
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
@@ -4287,7 +4287,7 @@ focus_tree = {
 		x = 22
 		y = 0
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 80
@@ -4390,6 +4390,12 @@ focus_tree = {
 						amount = 8
 					}
 				}
+				105 = {
+					add_resource = {
+						type = steel
+						amount = 8
+					}
+				}
 				set_global_flag = montenegro_tungsten_exploited
 			}
 			if = {
@@ -4406,7 +4412,13 @@ focus_tree = {
 						type = tungsten
 						amount = 8
 					}
-				}				
+				}	
+				105 = {
+					add_resource = {
+						type = steel
+						amount = 8
+					}
+				}			
 			}
 
 			if = {
@@ -4437,6 +4449,7 @@ focus_tree = {
 						amount = 8
 					}
 				}
+
 				set_global_flag = croatian_chromium_exploited				
 			}			
 		}
@@ -4847,10 +4860,10 @@ focus_tree = {
 					}
 				}
 				853 = {
-					add_extra_state_shared_building_slots = 1
+					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = industrial_complex
-						level = 1
+						level = 2
 						instant_build = yes
 					}
 				}
@@ -4861,10 +4874,10 @@ focus_tree = {
 					limit = {
 						ROOT = { has_full_control_of_state = PREV }
 					}
-					add_extra_state_shared_building_slots = 1
+					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = industrial_complex
-						level = 1
+						level = 2
 						instant_build = yes
 					}						
 				}				
@@ -5212,7 +5225,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_local_self_management
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 100
@@ -5267,23 +5280,7 @@ focus_tree = {
 
 
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				add_tech_bonus = {
-					name = scout_plane
-					bonus = 1.0
-					uses = 1
-					category = cat_scout_plane
-				}				
-			}					
-			add_doctrine_cost_reduction = {
-				name = air_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = air_doctrine
-			}
+			add_ideas = HUN_indigenous_designs #emergency fix
 		}
 	}
 
@@ -5291,7 +5288,7 @@ focus_tree = {
 		id = YUG_local_developers
 		icon = GFX_goal_generic_air_production
 		prerequisite = { focus = YUG_modernize_the_air_force }
-		mutually_exclusive = { focus = YUG_purchase_foreign }
+		
 		x = -2
 		y = 1
 		relative_position_id = YUG_modernize_the_air_force
@@ -5304,10 +5301,26 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
-
 		completion_reward = {
-			add_ideas = HUN_indigenous_designs #emergency fix
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				add_tech_bonus = {
+					name = scout_plane
+					bonus = 1.0
+					uses = 1
+					category = light_fighter
+				}				
+			}					
+			add_doctrine_cost_reduction = {
+				name = air_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
 		}
+		
 	}
 
 	focus = {
@@ -5328,17 +5341,12 @@ focus_tree = {
 
 
 		completion_reward = {
-			random_owned_controlled_state = {
-				prioritize = { 107 }
-				limit = {
-					ROOT = { has_full_control_of_state = PREV }
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
+			add_tech_bonus = {
+				name = YUG_the_ik_3
+				bonus = 0.5
+				
+				uses = 2
+				category = air_equipment
 			}
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = YUG_ikarus	
@@ -5499,7 +5507,7 @@ focus_tree = {
 		id = YUG_purchase_foreign
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = YUG_modernize_the_air_force }
-		mutually_exclusive = { focus = YUG_local_developers }
+		
 		x = 5
 		y = 1
 		relative_position_id = YUG_modernize_the_air_force
