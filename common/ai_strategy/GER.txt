@@ -564,7 +564,10 @@ war_with_poland = {
 	}
 	enable = {
 		tag = GER
-		has_completed_focus = GER_demand_memel
+		OR = {
+			has_completed_focus = GER_demand_memel
+			has_completed_focus = GER_demand_memel_vanilla
+		}
 		country_exists = POL
 	}
 	abort = {
@@ -589,10 +592,15 @@ danzig_of_war_preparation = {
 				focus = GER_danzig_or_war
 				progress > 0.01
 			}
+			focus_progress = {
+				focus = GER_danzig_or_war_vanilla
+				progress > 0.01
+			}
 		}
 		
 		NOT = {
 			has_completed_focus = GER_danzig_or_war
+			has_completed_focus = GER_danzig_or_war_vanilla
 			owns_state = 85
 		}
 		country_exists = POL
@@ -603,7 +611,7 @@ danzig_of_war_preparation = {
 			NOT = { country_exists = POL }
 
 			AND = {
- 				has_completed_focus = GER_danzig_or_war  
+				OR = { has_completed_focus = GER_danzig_or_war has_completed_focus = GER_danzig_or_war_vanilla }
 				GER = { has_war_with = POL }
 			}
 
@@ -646,7 +654,10 @@ war_with_soviets = {
 	}
 	enable = {
 		tag = GER
-		has_completed_focus = GER_soviet_invasion
+		OR = {
+			has_completed_focus = GER_soviet_invasion
+			has_completed_focus = GER_ussr_war_goal
+		}
 		country_exists = SOV
 		if = {
 			limit = {
@@ -722,6 +733,7 @@ italy_ally = {
 	enable = {
 		tag = GER
 		has_completed_focus = GER_alliance_with_italy
+		has_completed_focus = GER_italy_ally
 		country_exists = ITA
 	}
 	abort = {
@@ -777,6 +789,7 @@ japan_ally = {
 		JAP = {
 			has_war_with = USA
 		}
+		has_completed_focus = GER_japan_friend
 		country_exists = JAP
 	}
 	abort = {
@@ -800,11 +813,7 @@ china_ally = {
 		original_tag = GER
 	}
 	enable = {
-		tag = GER
-		has_war_with = USA
-		CHI = {
-			has_war_with = USA
-		}
+		has_completed_focus = GER_china_friend
 		country_exists = CHI
 	}
 	abort = {
@@ -834,7 +843,10 @@ turkey_ally = {
 	}
 	enable = {
 		tag = GER
-		has_completed_focus = GER_turkey_friend
+		OR = {
+			has_completed_focus = GER_turkey_friend
+			has_completed_focus = GER_turkey_friend_vanilla
+		}
 		country_exists = TUR
 	}
 	abort = {
@@ -860,7 +872,10 @@ spain_ally = {
 	}
 	enable = {
 		tag = GER
-		has_completed_focus = GER_nationalist_spain_ally
+		OR = {
+			has_completed_focus = GER_nationalist_spain_ally
+			has_completed_focus = GER_nationalist_spain_ally_vanilla
+		}
 		country_exists = SPR
 		SPR = { has_government = fascism } # TODO Find way to detect dynamic revolter tag
 	}
@@ -886,7 +901,10 @@ spain_ally_resistance = {
 		has_dlc = "La Resistance"
 	}
 	enable = {
-		has_completed_focus = GER_nationalist_spain_ally
+		OR = {
+			has_completed_focus = GER_nationalist_spain_ally
+			has_completed_focus = GER_nationalist_spain_ally_vanilla
+		}
 		country_exists = SPA
 	}
 	abort = {
@@ -915,6 +933,7 @@ denmark_ally = {
 	enable = {
 		tag = GER
 		DEN = { has_completed_focus = DEN_DNSAP_Takeover }
+		has_completed_focus = GER_denmark_friend
 		country_exists = DEN
 	}
 	abort = {
@@ -939,7 +958,10 @@ sweden_ally = {
 	}
 	enable = {
 		tag = GER
-		has_completed_focus = GER_sweden_friend_2
+		OR = {
+			has_completed_focus = GER_sweden_friend
+			has_completed_focus = GER_sweden_friend_vanilla
+		}
 		country_exists = SWE
 	}
 	abort = {
@@ -1002,7 +1024,7 @@ norway_ally = {
 			is_puppet = no
 		}
 
-		has_completed_focus = GER_norway_friend_2
+		has_completed_focus = GER_norway_friend
 		country_exists = NOR
 	}
 	abort = {
@@ -1041,7 +1063,10 @@ anschluss_rejected = {
 				}
 			}
 		}
-		has_completed_focus = GER_anschluss
+		OR = {
+			has_completed_focus = GER_anschluss
+			has_completed_focus = GER_anschluss_vanilla
+		}
 		country_exists = AUS
 	}
 	abort = {
@@ -1354,7 +1379,10 @@ GER_naval_role_ratios_maximum_kaiser = {
 	}
 	
 	enable = {
-		has_completed_focus = GER_oppose_hitler
+		OR = {
+			has_completed_focus = GER_consolidate_new_reich
+			has_completed_focus = GER_oppose_hitler
+		}
 		has_completed_focus = GER_rebuild_the_high_seas_fleet
 	}
 
@@ -1676,7 +1704,10 @@ dont_take_claims_on_POL_we_got_focus = {
 	enable = {
 		country_exists = POL
 		has_war = no
-		has_completed_focus = GER_demand_memel
+		OR = {
+			has_completed_focus = GER_demand_memel
+			has_completed_focus = GER_demand_memel_vanilla
+		}
 	}
 
 	abort = {
@@ -2197,6 +2228,10 @@ GER_let_italy_handle_french_front_alone = {
 				}
 				focus_progress = {
 					focus = GER_danzig_or_war
+					progress > 0.01
+				}
+				focus_progress = {
+					focus = GER_danzig_or_war_vanilla
 					progress > 0.01
 				}
 			}
