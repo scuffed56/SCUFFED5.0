@@ -46,7 +46,7 @@
 	shared_focus = {
 		id = SCA_scandinavian_unification
 		icon = GFX_goal_scandinavia
-		cost = 10
+		cost = 5
 		prerequisite = {
 
 		}
@@ -130,7 +130,7 @@
 	shared_focus = {
 		id = SCA_trans_scandinavian_railway
 		icon = GFX_goal_generic_construct_infrastructure
-		cost = 15
+		cost = 5
 		text = UNIFIED_GENERIC_trans_country_railway
 		prerequisite = {
 			focus = SCA_scandinavian_unification
@@ -178,7 +178,7 @@
 	shared_focus = {
 		id = SCA_trelleborg_rubber_factory
 		icon = GFX_focus_generic_rubber
-		cost = 10
+		cost = 5
 		prerequisite = {
 			focus = SCA_scandinavian_unification
 		}
@@ -253,7 +253,7 @@
 	#			tag = NIR
 	#		}
 	#	}				
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -264,28 +264,14 @@
 				is_core_of = ROOT
 			}
 			controls_state = 142
-			NOT = {
-				any_other_country = {
-					has_completed_focus = NOR_expanded_aluminium_production
-				}
-			}
+			
 			has_tech = aluminum_production_1
 
 		}
 		
-		bypass = {
-			OR = {
-				any_other_country = {
-					has_completed_focus = NOR_expanded_aluminium_production
-				}
-				tag = NOR
-			}
-
-		}
+		
 		allow_branch = {
-			NOT = {
-				original_tag = NOR
-			}
+			
 			OR = {
 				NOT = { tag = DEN }
 				has_cosmetic_tag = SCA
@@ -361,7 +347,7 @@
 				tag = DEN
 			}
 		}
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 10
@@ -410,7 +396,7 @@
 						original_tag = SWE
 					}
 				}
-				custom_effect_tooltip = available_designer
+				
 				show_ideas_tooltip = volvo
 				show_ideas_tooltip = landsverk	
 				show_ideas_tooltip = scania_tank				
@@ -457,29 +443,36 @@
 
 
 		completion_reward = {
+
 			random_owned_controlled_state = {
-				prioritize = { 144 }
+
+				add_extra_state_shared_building_slots = 4
 				add_building_construction = {
-					type = infrastructure
-					level = 1
+					type = industrial_complex
+					level = 2
 					instant_build = yes
 				}
+				add_building_construction = {
+					type = steel_mill
+					level = 2
+					instant_build = yes
+				}				
+				add_resource = {
+					type = steel
+					amount = 12
+				}			
 			}
-			random_owned_controlled_state = {
-				prioritize = { 666 }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}			
-            add_tech_bonus = {
-                name = excavation_tech_bonus_name
-                bonus = 0.5
-                uses = 1
-                category = excavation_tech
-            }			
-											
+			modify_building_resources = {
+				building = steel_mill
+				resource = steel
+				amount = 2
+			}
+			add_tech_bonus = {
+				ahead_reduction = 2
+				uses = 2
+				bonus = 1
+				category = steel_tech	
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_STEEL}
 	}
