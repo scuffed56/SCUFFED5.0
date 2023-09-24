@@ -1,42 +1,6 @@
 ﻿add_namespace = EYE_swiss
 
-news_event = { #Assassination of Wilhelm Gustloff
-	id = EYE_swiss.1
-	hidden = yes
-	
-	major = no
-	fire_only_once = yes
-	
-	trigger = {
-		tag = SWI
-		date > 1936.2.4
-		SWI = {
-			has_country_leader = { ruling_only = no name = "Wilhelm Gustloff" }
-			NOT = { has_country_flag = has_henne }
-			NOT = { has_completed_focus = SWI_kill_henne }
-		}
-		has_global_flag = SWI_R56_focus_tree	#vanilla has it too probably
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
-		random_list = {
-			5 = {
-				SWI = { country_event = EYE_swiss.1000 }
-			}
-			95 = {
-				SWI = { country_event = EYE_swiss.1200 }
-			}
-		}
-	}
-	
-	option = {
-		name = EYE_swiss.1.a
-	}
-}
+
 
 country_event = { #Gustloff Lives (Switzerland)
 	id = EYE_swiss.1000
@@ -537,44 +501,7 @@ country_event = {
 		}
 	}
 	
-#Swiss Banking if war occurs
-country_event = { #Offensive War
-	id = EYE_swiss.12
-	title = EYE_swiss.12.t
-	desc = EYE_swiss.12.desc
-	picture = GFX_report_event_soldiers_marching
-	
-	fire_only_once = yes
-	
-	is_triggered_only = yes
 
-	option = { 
-		name = EYE_swiss.12.a
-		trigger = { has_completed_focus = SWI_banks }		
-		add_offsite_building = { type = industrial_complex level = -1 }
-		if = {
-			limit = { has_idea = SWI_temp_banking }
-			swap_ideas = {
-				remove_idea = SWI_temp_banking
-				add_idea = SWI_lost_banking
-			}
-		}
-		else = {
-			swap_ideas = {
-				remove_idea = SWI_banking
-				add_idea = SWI_lost_banking
-			}
-		}		
-	}
-	option = {
-		name = EYE_swiss.12.b
-		trigger = { NOT = { has_completed_focus = SWI_banks } }
-		custom_effect_tooltip = EYE_swiss.12.tt
-		hidden_effect = {
-			set_country_flag = SWI_was_in_offensive_war
-		}
-	}
-}
 country_event = { #Defensive War
 	id = EYE_swiss.13
 	title = EYE_swiss.13.t
