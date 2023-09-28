@@ -1152,7 +1152,6 @@ IRE_ORGANISEPARTISANS_DECS = {
 			cost = 50
 			
 			complete_effect = {
-				load_oob = IRE_munster_defence_corps 
 			}
 		}	
 		raise_connaught_defence_corps = {
@@ -1753,9 +1752,6 @@ nothern_ireland_category =  {
 		war_with_target_on_timeout = yes
 		ai_will_do = {
 			base = 0
-			modifier = {
-				
-			}
 		}
 
 		days_mission_timeout = 30
@@ -1769,7 +1765,7 @@ nothern_ireland_category =  {
 			custom_effect_tooltip = effects_if_border_conflict_is_lost
 			effect_tooltip = {
 				add_political_power = -100
-				var:ROOT.defender_state_vs_@FROM = { FROM = { transfer_state = PREV } }
+			state = var:ROOT.defender_state_vs_@FROM = { FROM = { transfer_state = PREV } }
 			}
 			hidden_effect = {
 				remove_targeted_decision = { target = FROM decision = northern_campaign_incident_warning_defender }
@@ -1799,9 +1795,6 @@ nothern_ireland_category =  {
 		war_with_target_on_timeout = yes
 		ai_will_do = {
 			base = 0
-			modifier = {
-				
-			}
 		}
 
 		days_mission_timeout = 30
@@ -1815,7 +1808,7 @@ nothern_ireland_category =  {
 			custom_effect_tooltip = effects_if_border_conflict_is_lost
 			effect_tooltip = {
 				add_political_power = -100
-				var:ROOT.defender_state_vs_@FROM = { FROM = { transfer_state = PREV } }
+				state = var:ROOT.defender_state_vs_@FROM = { FROM = { transfer_state = PREV } }
 			}
 		}		
 	}
@@ -1829,7 +1822,7 @@ nothern_ireland_category =  {
 		allowed = { always = no } #Activated from effect
 
 		available = {
-			var:FROM.attacker_state_vs_@ROOT = {
+		state =	var:FROM.attacker_state_vs_@ROOT = {
 				is_fully_controlled_by = ROOT
 			}
 			divisions_in_border_state = {
@@ -1847,9 +1840,6 @@ nothern_ireland_category =  {
 
 		ai_will_do = {
 			base = 0
-			modifier = {
-				
-			}
 		}
 
 		cancel_trigger = {
@@ -1915,8 +1905,8 @@ nothern_ireland_category =  {
 		allowed = { always = no } #Activated from effect
 
 		available = {
-			var:FROM.defender_state_vs_@ROOT = { has_border_war = no }
-			var:FROM.attacker_state_vs_@ROOT = { has_border_war = no }
+		state = var:FROM.defender_state_vs_@ROOT = { has_border_war = no }
+		state =	var:FROM.attacker_state_vs_@ROOT = { has_border_war = no }
 		}
 		
 		highlight_states = {
@@ -1928,9 +1918,6 @@ nothern_ireland_category =  {
 
 		ai_will_do = {
 			base = 0
-			modifier = {
-				
-			}
 		}
 
 		days_mission_timeout = 360
@@ -1985,9 +1972,6 @@ nothern_ireland_category =  {
 
 		ai_will_do = {
 			base = 0
-			modifier = {
-				
-			}
 		}
 
 		fire_only_once = yes #Reactivation handled in effect
@@ -2068,12 +2052,12 @@ nothern_ireland_category =  {
 		complete_effect = {
 			if = {
 				limit = { is_border_conflict_defender_vs_FROM = yes }
-				var:ROOT.defender_state_vs_@FROM = { save_event_target_as = their_state }
-				var:ROOT.attacker_state_vs_@FROM = { save_event_target_as = our_state }
+			state =	var:ROOT.defender_state_vs_@FROM = { save_event_target_as = their_state }
+			state =	var:ROOT.attacker_state_vs_@FROM = { save_event_target_as = our_state }
 			}
 			else = {
-				var:FROM.defender_state_vs_@ROOT = { save_event_target_as = our_state }
-				var:FROM.attacker_state_vs_@ROOT = { save_event_target_as = their_state }
+			state =	var:FROM.defender_state_vs_@ROOT = { save_event_target_as = our_state }
+			state =	var:FROM.attacker_state_vs_@ROOT = { save_event_target_as = their_state }
 			}
 			FROM = {
 				country_event = { id = wtt_border_conflict_escalate_to_war.1 }
@@ -2092,10 +2076,10 @@ nothern_ireland_category =  {
 			declare_war_on = { target = FROM type = annex_everything }
 			if = {
 				limit = { is_border_conflict_defender_vs_FROM = yes }
-				var:attacker_state_vs_@FROM = {
+			state =	var:attacker_state_vs_@FROM = {
 					clr_state_flag = border_incident_active
 				}
-				var:defender_state_vs_@FROM = {
+			state =	var:defender_state_vs_@FROM = {
 					clr_state_flag = border_incident_active
 				}
 				clear_variable = attacker_state_vs_@FROM
@@ -2103,10 +2087,10 @@ nothern_ireland_category =  {
 			}
 			else = {
 				FROM = {
-					var:attacker_state_vs_@ROOT = {
+			state =	var:attacker_state_vs_@ROOT = {
 						clr_state_flag = border_incident_active
 					}
-					var:defender_state_vs_@ROOT = {
+			state =	var:defender_state_vs_@ROOT = {
 						clr_state_flag = border_incident_active
 					}
 					clear_variable = attacker_state_vs_@ROOT
@@ -2134,9 +2118,6 @@ nothern_ireland_category =  {
 
 		ai_will_do = {
 			base = 0
-			modifier = {
-				
-			}
 		}
 
 		fire_only_once = yes #Reactivation handled in effect
@@ -2286,7 +2267,7 @@ IRE_IRA_decisions = {
 		}
 		cost = 30
 		
-		days_remove 30
+		days_remove = 30
 		
 		modifier = {
 			political_power_gain = -0.5
@@ -2814,13 +2795,6 @@ IRE_IRA_decisions = {
 		
 		ai_will_do = { # always a good idea
 			factor = 30
-			modifier = {
-				IRE = {
-					all_unit_leader = {
-						has_trait = IRA_sympathies
-					}
-				}
-			}
 					
 		}
 		
