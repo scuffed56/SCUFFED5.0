@@ -88,24 +88,24 @@ no_garrison = {
 				has_government = democratic
 			}
 			has_active_resistance = no
-			add = 200
+			add = 0
 		}
 		# if losing, get manpower & equipment back
 		modifier = {
 			FROM = {
 				surrender_progress > 0.15
 			}
-			add = 100
+			add = 0
 		}
 		modifier = {
 			FROM = {
 				surrender_progress > 0.4
 			}
-			add = 500
+			add = 0
 		}
 
 		modifier = {
-			check_variable  = { uncapped_resistance_target > -0.4 }
+			check_variable  = { uncapped_resistance_target > -0.2 }
 			add = -60
 		}
 	}
@@ -127,6 +127,8 @@ autonomous_occupation = {
 		local_factories 				= -0.25
 		local_resources 				= -0.25
 		local_manpower 					= -0.25
+		resistance_decay 				= 0.25
+		resistance_growth 				= -0.25
 	}
 
 	ai_will_do = {
@@ -156,6 +158,8 @@ foreign_civilian_oversight = {
 		local_factories 				= -0.1
 		local_resources 				= -0.1
 		local_manpower 					= -0.1
+		resistance_decay 				= 0.5
+		resistance_growth 				= -0.5
 	}
 	starting_law = yes
 
@@ -183,6 +187,8 @@ local_police_force_garrison = {
 		enemy_operative_detection_chance_over_occupied_tag = 10 # offset detection chance by +1%
 		enemy_intel_network_gain_factor_over_occupied_tag = -0.25 # -25% scaled by the number of occupied states and the ratio of the network covering those occupied states
 		# todo + spy defense
+		resistance_decay 				= 0.5
+		resistance_growth 				= -0.5
 	}
 
 
@@ -223,6 +229,8 @@ secret_police_oversight = {
 		enemy_operative_detection_chance_over_occupied_tag = 25 # offset detection chance by +1%
 		enemy_intel_network_gain_factor_over_occupied_tag = -0.50 # -25% scaled by the number of occupied states and the ratio of the network covering those occupied states
 		# todo + spy defense
+		resistance_decay 			= 1.0
+		resistance_growth 			= -1.0
 	}
 }
 
@@ -241,6 +249,8 @@ liberate_workers_occupation = {
 		resistance_damage_to_garrison 	= 0.25
 		local_factories 				= 0.5
 		local_resources 				= 0.5
+		resistance_decay 				= 2.0
+		resistance_growth 				= -2.0
 	}
 
 	ai_will_do = {
@@ -259,6 +269,8 @@ military_governor_occupation = {
 		local_factories 			= 0.10
 		local_resources 			= 0.10
 		local_manpower 				= 0.10
+		resistance_decay 			= 1.0
+		resistance_growth 			= -1.0
 	}
 	ai_will_do = {
 		base = 0
@@ -293,6 +305,8 @@ martial_law_occupation = {
 		resistance_damage_to_garrison 	= 0.5
 		local_factories 				= 0.1
 		local_resources 				= 0.1
+		resistance_decay 				= 1.0
+		resistance_growth 				= -1.0
 	}
 
 	ai_will_do = {
@@ -321,13 +335,16 @@ forced_labor_occupation = {
 	sound_effect = "Martial_Law_Interface_Forced_Labor_Occupation"
 
 	state_modifier = {
-		resistance_target 					= -0.50
+		resistance_target 					= -0.75
 		compliance_gain 					= -0.08
 		resistance_damage_to_garrison 		= 0.3
 		required_garrison_factor 			= 0.15
 		local_resources 					= 0.50
 		local_factories 					= 0.25
 		repair_speed_infrastructure_factor 	= 0.50
+
+		resistance_decay 				= 2.0
+		resistance_growth 				= -2.0
 
 		custom_modifier_tooltip = "resource_sabotage_decrease_tooltip"
 	}
@@ -408,7 +425,7 @@ harsh_quotas_occupation = {
 	sound_effect = "Martial_Law_Interface_Harsh_Quotas_Occupation"
 
 	state_modifier = {
-		resistance_target 				= -0.50
+		resistance_target 				= -0.75
 		compliance_gain 				= -0.08
 		required_garrison_factor 		= 0.15
 		resistance_damage_to_garrison 	= 0.50
@@ -418,6 +435,9 @@ harsh_quotas_occupation = {
 
 		repair_speed_arms_factory_factor = 0.50
 		repair_speed_industrial_complex_factor = 0.50
+
+		resistance_decay 				= 2.0
+		resistance_growth 				= -2.0
 
 		custom_modifier_tooltip = "factory_sabotage_decrease_tooltip"
 	}
@@ -450,12 +470,13 @@ brutally_oppressive_occupation = {
 	}
 
 	state_modifier = {
-		resistance_target 				= -0.75
+		resistance_target 				= -1.0
 		compliance_gain 				= -0.11
 		required_garrison_factor 		= 0.30
 		resistance_damage_to_garrison 	= 1.0
 		local_resources 				= 0.25
-		resistance_decay 				= 1.0
+		resistance_decay 				= 3.0
+		resistance_growth 				= -3.0
 	}
 
 	ai_will_do = {
