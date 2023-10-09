@@ -860,7 +860,7 @@ focus_tree = {
 		icon = GFX_focus_generic_cryptologic_bomb
 		x = -1
 		y = 1
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 3
 		}
@@ -1162,7 +1162,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_military_modernization
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1203,7 +1203,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_preserve_greater_romania
 
-		cost = 8
+		cost = 5
 
 		ai_will_do = {
 			factor = 20
@@ -1251,10 +1251,10 @@ focus_tree = {
 				limit = {
 					has_state_flag = ROM_national_defense_industry_AF1
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -1262,10 +1262,10 @@ focus_tree = {
 				limit = {
 					has_state_flag = ROM_national_defense_industry_AF2
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -1315,7 +1315,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = ROM_national_defense_industry
-		cost = 7
+		cost = 5
 
 		ai_will_do = {
 			factor = 20
@@ -1410,18 +1410,18 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 100
 			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
 			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -1459,7 +1459,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_civil_works
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1581,7 +1581,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_danubian_transport_network
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 20
@@ -1659,7 +1659,7 @@ focus_tree = {
 		y = 3
 		relative_position_id = ROM_civil_works
 
-		cost = 8
+		cost = 5
 
 		ai_will_do = {
 			factor = 9
@@ -1713,7 +1713,7 @@ focus_tree = {
 		y = 3
 		relative_position_id = ROM_civil_works
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 5
@@ -1910,6 +1910,12 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL}
 
 		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 2
+				uses = 3
+				category = refining_tech
+			}	
 			46 = {
 				add_resource = {
 					type = oil
@@ -2642,11 +2648,34 @@ focus_tree = {
 		id = ROM_institute_royal_dictatorship
 		icon = GFX_goal_ROM_institute_royal_dictatorship_two
 		mutually_exclusive = { focus = ROM_codreanu_goga_cooperation }
-		x = 28
+		x = 20
 		y = 0
 
 		cost = 5
-
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = ROM_codreanu_goga_cooperation
+				}
+			}
+		}
+		offset = {
+			x = 0
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ROM_institute_royal_dictatorship
+			}
+		}	
 		ai_will_do = {
 			factor = 9
 		}
@@ -2665,6 +2694,7 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
 			add_political_power = 120
 			create_country_leader = {
 				name = "Carol II"
@@ -3850,23 +3880,46 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 
+
+	################################### FACISCT PATH #######################
 	focus = {
 		id = ROM_codreanu_goga_cooperation
 		icon = GFX_goal_support_fascism
-		
-		mutually_exclusive = { focus = ROM_institute_royal_dictatorship }
-		x = 37
+		x = 28
 		y = 0
 		
 		cost = 5
+		mutually_exclusive = { focus = ROM_institute_royal_dictatorship }
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = ROM_institute_royal_dictatorship
+				}
+			}
+		}
+		offset = {
+			x = -8
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ROM_codreanu_goga_cooperation
+			}
+		}	
 
 		ai_will_do = {
 			factor = 5
 		}
 
 		available = {
-			is_subject = no
-			date < 1937.01.01
 		}
 
 
@@ -3874,7 +3927,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_popularity = { ideology = fascism popularity = 0.07 }
+			add_popularity = { ideology = fascism popularity = 0.10 }
 			add_stability = -0.05
 			set_party_name = { 
 			    ideology = fascism
@@ -3893,6 +3946,7 @@ focus_tree = {
 			# 		nationalist_uniter
 			# 	}
 			# }		
+			mark_focus_tree_layout_dirty = yes
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -3919,19 +3973,19 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-		#	if = {
-		#		limit = { NOT = {has_idea = ROM_mihail_sturdza} }
-		#		add_ideas = ROM_mihail_sturdza  #to turn Romania fascist
-		#	}			
-			add_timed_idea = { idea = nationalism days = 1095 }
-			#add_popularity = { ideology = fascism popularity = 0.05 }
-			add_stability = -0.1
-			add_tech_bonus = {
-				name = mp_tech_bonus_name
-				bonus = 1
-				uses = 1
-				category = military_police_tech
+			if = {
+				limit = { NOT = {has_idea = ROM_mihail_sturdza} }
+				add_ideas = ROM_mihail_sturdza  #to turn Romania fascist
 			}			
+			add_timed_idea = { idea = nationalism days = 365 }
+			add_popularity = { ideology = fascism popularity = 0.10 }
+			add_stability = -0.05
+			# add_tech_bonus = {
+			# 	name = mp_tech_bonus_name
+			# 	bonus = 1
+			# 	uses = 1
+			# 	category = military_police_tech
+			# }			
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}	
@@ -3963,9 +4017,9 @@ focus_tree = {
 			start_civil_war = {
 				ruling_party = fascism
 				ideology = neutrality
-				size = 0.5
+				size = 0.9
 				
-				states = { 78 766 80 76 77 46 955 84 79 }
+				states = { 46 76 77 78 79 80 81 82 83 84 766 955 }
 				keep_unit_leaders = {
 					5627 5629 5630 5634 5637 5639
 				}				
@@ -3994,8 +4048,8 @@ focus_tree = {
                     original_tag = ROM
                     has_government = neutrality
 				}
-				set_stability = 0.9
-				set_war_support = 0.8
+				set_stability = 0.3
+				set_war_support = 0.3
 				load_oob = ROM_civil_war_monarchist
 				#Transfer guarantees
 				if = {
@@ -4151,9 +4205,6 @@ focus_tree = {
 
 		available = {
 			has_government = fascism
-			NOT = {
-				has_completed_focus = ROM_institute_royal_dictatorship
-			}
 		}
 
 
@@ -4174,7 +4225,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		
-		cost = 10
+		cost = 8
 
 		ai_will_do = {
 			factor = 50
@@ -4211,7 +4262,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = ROM_everything_for_the_country
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 20
@@ -4251,7 +4302,7 @@ focus_tree = {
 		y = 2
 		
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 20
@@ -4273,7 +4324,9 @@ focus_tree = {
 			#find an ecceliastic supporter of the legionary regime?
 			#custom_effect_tooltip = available_political_advisor
        		#show_ideas_tooltip = SOV_patriarch_sergius
+			add_ideas = r56_ROM_restructured_government
 		}
+		
 	}	
 
 	focus = {
@@ -4287,7 +4340,7 @@ focus_tree = {
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 
-		cost = 10
+		cost = 8
 		
 		ai_will_do = {
 			factor = 40
@@ -4295,10 +4348,6 @@ focus_tree = {
 		
 		available = {
 			has_government = fascism
-
-			NOT = {
-				has_completed_focus = ROM_institute_royal_dictatorship
-			}
 		}
 		
 
@@ -4307,9 +4356,10 @@ focus_tree = {
 
 
 		completion_reward = {
-
-			add_ideas = r56_CAN_restructured_government_02
-			
+			swap_ideas = {
+				remove_idea = r56_ROM_restructured_government
+				add_idea = r56_ROM_restructured_government_02
+			}
 		}
 	}
 	focus = {
@@ -4334,12 +4384,7 @@ focus_tree = {
 					has_government = fascism
 				}
 				fascism > 0.8
-			}
-			has_idea = ROM_mihail_sturdza
-			NOT = {
-				has_completed_focus = ROM_institute_royal_dictatorship
-			}			
-			
+			}		
 		}
 		
 
@@ -4348,10 +4393,14 @@ focus_tree = {
 
 
 		completion_reward = {
-
-			remove_ideas = ROM_mihail_sturdza
+			if = {
+				limit = {
+					has_idea = ROM_mihail_sturdza
+				}
+				remove_idea = ROM_mihail_sturdza
+			}
 			add_political_power = 150
-			add_stability = 0.02
+			add_stability = 0.05
 		}
 	}
 
@@ -4372,9 +4421,6 @@ focus_tree = {
 		}
 
 		available = {
-			NOT = {
-				has_completed_focus = ROM_institute_royal_dictatorship
-			}
 		}
 
 
@@ -4427,7 +4473,7 @@ focus_tree = {
 	focus = {
 		id = ROM_expand_the_air_force
 		icon = GFX_goal_generic_airport
-		x = 45
+		x = 37
 		y = 0
 
 		cost = 5
@@ -4436,7 +4482,17 @@ focus_tree = {
 			factor = 5
 		}
 
-		
+		offset = {
+			x = -8
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ROM_codreanu_goga_cooperation
+			}
+		}	
 
 		complete_tooltip = {
 			air_experience = 25
@@ -4970,7 +5026,7 @@ focus_tree = {
 	focus = {
 		id = ROM_army_maneuvers
 		icon = GFX_goal_generic_army_doctrines
-		x = 55
+		x = 47
 		y = 0
 
 		cost = 5
@@ -4978,6 +5034,17 @@ focus_tree = {
 		ai_will_do = {
 			factor = 9
 		}
+		offset = {
+			x = -8
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ROM_codreanu_goga_cooperation
+			}
+		}	
 
 		available_if_capitulated = yes
 
@@ -5652,13 +5719,25 @@ focus_tree = {
 	focus = {
 		id = ROM_expand_the_galati_shipyards
 		icon = GFX_goal_generic_construct_naval_dockyard
-		x = 65
+		x = 55
 		y = 0
 
 		cost = 10
 
 		ai_will_do = {
 			factor = 3
+		}
+
+		offset = {
+			x = -8
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ROM_codreanu_goga_cooperation
+			}
 		}
 
 		available_if_capitulated = yes
