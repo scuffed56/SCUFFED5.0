@@ -281,674 +281,789 @@ on_actions = {
 	}
 
 ###---> On Capitulation <><> <><> <><>
-	on_capitulation = { #ROOT is surrendering country, FROM is winner.
-		effect = {
-			if = {	#add unique conscription law upon capitulation- Fantom
-				limit = {
-					is_in_faction = yes
-					any_other_country = {	#making sure they have some allies to host them
-						is_in_faction_with = ROOT
-						is_major = yes
-						has_war_with = FROM
-					}
+on_capitulation = { #ROOT is surrendering country, FROM is winner.
+effect = {
+	if = {	#add unique conscription law upon capitulation- Fantom
+		limit = {
+			is_in_faction = yes
+			any_other_country = {	#making sure they have some allies to host them
+				is_in_faction_with = ROOT
+				is_major = yes
+				has_war_with = FROM
+			}
+			NOT = {
+				AND = {
+					original_tag = CAN
+					NOT = { has_global_flag = can_tfv_focus_tree }
 					NOT = {
-						AND = {
-							original_tag = CAN
-							NOT = { has_global_flag = can_tfv_focus_tree }
-							NOT = {
-								has_completed_focus = r56_CAN_conscription_crisis
-							}
-						}
-					}
-					NOT = {
-						AND = {
-							original_tag = MAN
-							has_country_flag = MAN_r56_focus_tree
-							has_country_flag = MAN_reliant_flag
-						}
-					}
-					NOT = {	#no special things for anarchists
-						AND = {
-							original_tag = HON
-							has_completed_focus = HON_free_our_markets
-							has_idea = r56_idea_capitalism_anarchist_society
-						}
-					}
-					NOT = {
-						AND = {
-							original_tag = SPR
-							has_dlc = "La Resistance"
-							has_completed_focus = SPR_all_must_bear_the_torch
-						}
-					}
-					NOT = {
-						AND = {
-							original_tag = MON
-							has_completed_focus = MON_changes_within
-						}
-					}
-				}
-				add_ideas = influx_of_exiles_r56_law	#conscription law
-			}
-			if = {	#add unique trade law upon capitulation
-				limit = {
-					is_in_faction = yes
-					any_other_country = {	#making sure they have some allies to host them
-						is_in_faction_with = ROOT
-						is_major = yes
-						has_war_with = FROM
-					}
-					NOT = {	#no special things for anarchists
-						AND = {
-							original_tag = HON
-							has_completed_focus = HON_free_our_markets
-							has_idea = r56_idea_capitalism_anarchist_society
-						}
-					}
-					NOT = {
-						AND = {
-							original_tag = SPR
-							has_dlc = "La Resistance"
-							has_completed_focus = SPR_all_must_bear_the_torch
-						}
-					}
-					NOT = {
-						AND = {
-							original_tag = MON
-							has_completed_focus = MON_changes_within
-						}
-					}
-					NOT = {
-						AND = {
-							original_tag = CHI
-							has_dlc = "Waking the Tiger"
-							has_idea = CHI_nine_power_treaty 
-						}
-					}
-				}
-				add_ideas = full_host_reliance_r56_law	#trade law
-			}
-			if = {	#add unique economy law upon capitulation
-				limit = {
-					is_in_faction = yes
-					any_other_country = {	#making sure they have some allies to host them
-						is_in_faction_with = ROOT
-						is_major = yes
-						has_war_with = FROM
-					}
-					NOT = {	#no extra fun for anarchists
-						has_idea = SPR_collectivized_society
-					}
-				}
-				add_ideas = evacuated_assets_r56_law	#economy law
-			}
-			if = {
-				limit = {
-					is_major = yes
-				}
-				set_major = no
-			}
-
-			# Polish government goes into exile after the capitulation by both USSR and Germany
-			if = {
-				limit = {
-					tag = POL
-					is_in_faction = yes							#have to be in faction
-					has_war_with = GER
-					has_war_with = SOV
-					has_global_flag = sov_yes_pact
-					has_idea = POL_shock_from_surprised_attack_idea	#only in this case the exile will work in such way
-				}
-				every_other_country = {
-					limit = {
-						is_in_faction_with = POL
-						is_faction_leader = yes
-					}
-					POL = {
-						become_exiled_in = {
-							target = PREV
-						}
+						has_completed_focus = r56_CAN_conscription_crisis
 					}
 				}
 			}
-
-			every_state = {
-				limit = { has_state_flag = r56_aluminium_collection }
-				add_resource = {
-					type = aluminium
-					amount = -1
-				}
-				clr_state_flag = r56_aluminium_collection
-			}
-			if = {	#moved from Belgian events	-	event about king Leopold Surrender
-				limit = {
-					original_tag = BEL
-					has_idea = tblra_leopold3
-					OR = {
-						has_government = democratic
-						has_government = fascism
-					}
-				}
-				country_event = { id = tblra.62 hours = 12 }
-				
-			}
-			if = { #
-				limit = { tag = VIC }
-				random_other_country = {
-					limit = {
-						has_country_flag = free_france
-					}
-					annex_country = { target = VIC transfer_troops = yes }
+			NOT = {
+				AND = {
+					original_tag = MAN
+					has_country_flag = MAN_r56_focus_tree
+					has_country_flag = MAN_reliant_flag
 				}
 			}
-			if = { #MOD. Small OPT
-				limit = {
-					has_dlc = "Man the Guns"
-					has_government = democratic
-				}
-				if = {
-					limit = {
-						original_tag = RAJ
-						is_subject_of = ENG
-					}
-					drop_cosmetic_tag = yes
-				}
-				else_if = {
-					limit = {
-						original_tag = MAL
-						is_subject_of = ENG
-					}
-					drop_cosmetic_tag = yes
-				}
-				else_if = {
-					limit = {
-						original_tag = INS
-						is_subject_of = HOL
-					}
-					drop_cosmetic_tag = yes
+			NOT = {	#no special things for anarchists
+				AND = {
+					original_tag = HON
+					has_completed_focus = HON_free_our_markets
+					has_idea = r56_idea_capitalism_anarchist_society
 				}
 			}
-			if = {
-				limit = {
-					original_tag = DNZ
-					DNZ = {
-						NOT = { has_country_flag = r56_dnz_dont_lose_cores }
-					}
-				}
-				85 = { remove_core_of = DNZ }
-			}
-			if = {
-				limit = {
-					original_tag = RUT
-					RUT = {
-						has_country_flag = r56_UPA_check
-					}
-				}
-				if = {
-					limit = {
-						HUN = {
-							exists = yes
-						}
-					}
-					HUN = {
-						country_event = { id = axis_minors_ruthenia.8 days = 1 }
-					}
-				}
-				every_state = { 
-					limit = {
-						is_core_of = RUT
-						NOT = {
-							is_owned_and_controlled_by = UKR
-							is_owned_and_controlled_by = DOU
-						}
-					}
-					add_dynamic_modifier = { modifier = r56_upa_state_modifier } 
+			NOT = {
+				AND = {
+					original_tag = SPR
+					has_dlc = "La Resistance"
+					has_completed_focus = SPR_all_must_bear_the_torch
 				}
 			}
-			if = {
-				limit = {
+			NOT = {
+				AND = {
+					original_tag = MON
+					has_completed_focus = MON_changes_within
+				}
+			}
+		}
+		add_ideas = influx_of_exiles_r56_law	#conscription law
+	}
+	if = {	#add unique trade law upon capitulation
+		limit = {
+			is_in_faction = yes
+			any_other_country = {	#making sure they have some allies to host them
+				is_in_faction_with = ROOT
+				is_major = yes
+				has_war_with = FROM
+			}
+			NOT = {	#no special things for anarchists
+				AND = {
+					original_tag = HON
+					has_completed_focus = HON_free_our_markets
+					has_idea = r56_idea_capitalism_anarchist_society
+				}
+			}
+			NOT = {
+				AND = {
+					original_tag = SPR
+					has_dlc = "La Resistance"
+					has_completed_focus = SPR_all_must_bear_the_torch
+				}
+			}
+			NOT = {
+				AND = {
+					original_tag = MON
+					has_completed_focus = MON_changes_within
+				}
+			}
+			NOT = {
+				AND = {
 					original_tag = CHI
-					CHI = {
-						has_completed_focus = KMT_the_big_rear_concept
-					}
-				}
-				every_state = {
-					limit = {
-						has_dynamic_modifier = {
-							modifier = r56_the_big_rear
-						}
-					}
-					remove_dynamic_modifier = { modifier = r56_the_big_rear } 
-				}
-				
-			}
-			if = {
-				limit = {
-					original_tag = CHI
-					CHI = {
-						has_completed_focus = KMT_the_big_rear_concept
-					}
-				}
-				every_state = {
-					limit = {
-						has_dynamic_modifier = {
-							modifier = r56_the_big_rear
-						}
-					}
-					remove_dynamic_modifier = { modifier = r56_the_rear } 
-				}
-				
-			}
-			if = {
-				limit = {
-					original_tag = CHI
-					CHI = {
-						has_completed_focus = KMT_lure_them_in_strategy
-					}
-				}
-				every_state = {
-					limit = {
-						has_dynamic_modifier = {
-							modifier = r56_lure_them_in
-						}
-					}
-					remove_dynamic_modifier = { modifier = r56_lure_them_in } 
+					has_dlc = "Waking the Tiger"
+					has_idea = CHI_nine_power_treaty
 				}
 			}
-			if = {
-				limit = {
-					original_tag = DEN
-					OR = {
-						ICE = { is_subject_of = DEN }
-						DEN = { owns_state = 100 }
-						ICE = { owns_state = 100 }
-					}
-					NOR = {
-						NOT = {
-							has_completed_focus = NOR_reclaim_the_islands
-							has_completed_focus = NOR_icelandic-faroese_revolt
-							has_completed_focus = NOR_reclaim_danish
-							has_completed_focus = NOR_unite_the_scandinavian_workers
-						}
-					}
-				}
-				country_event = { id = wtt_denmark.1 days = 1 }
+		}
+		add_ideas = full_host_reliance_r56_law	#trade law
+	}
+	if = {	#add unique economy law upon capitulation
+		limit = {
+			is_in_faction = yes
+			any_other_country = {	#making sure they have some allies to host them
+				is_in_faction_with = ROOT
+				is_major = yes
+				has_war_with = FROM
 			}
+			NOT = {	#no extra fun for anarchists
+				has_idea = SPR_collectivized_society
+			}
+		}
+		add_ideas = evacuated_assets_r56_law	#economy law
+	}
+	if = {
+		limit = {
+			is_major = yes
+		}
+		set_major = no
+	}
 
-			if = {
-				limit = {
-					ROOT = {
-						OR = {
-							tag = SHX
-							tag = GXC
-							tag = XSM
-							tag = YUN
-							tag = SIK
-							tag = TNG
-							tag = CHI
-						}
-						has_country_flag = is_warlords
-						is_in_faction_with = PRC
-						has_idea = KMT_united_front
-						has_completed_focus = CHI_cooperation_with_the_communists
-					}
-				}
-				PRC = {
-					country_event = { id = kmt.300 }
-				}
+	# Polish government goes into exile after the capitulation by both USSR and Germany
+	if = {
+		limit = {
+			tag = POL
+			is_in_faction = yes							#have to be in faction
+			has_war_with = GER
+			has_war_with = SOV
+			has_global_flag = sov_yes_pact
+			has_idea = POL_shock_from_surprised_attack_idea	#only in this case the exile will work in such way
+		}
+		every_other_country = {
+			limit = {
+				is_in_faction_with = POL
+				is_faction_leader = yes
 			}
-
-			if = {
-				limit = {
-					ROOT = {
-						OR = {
-							tag = SHX
-							tag = GXC
-							tag = XSM
-							tag = YUN
-							tag = SIK
-							tag = TNG
-							tag = CHI
-						}
-						has_country_flag = is_warlords
-						is_in_faction_with = event_target:KMT_central_gov_tag
-						has_idea = KMT_united_front
-						NOT = {
-							has_completed_focus = CHI_cooperation_with_the_communists
-						}
-					}
-				}
-				event_target:KMT_central_gov_tag = {
-					country_event = { id = kmt.300 }
-				}
-			}
-
-			if = {
-				limit = {
-					ROOT = {
-						tag = MAN
-						is_subject_of = JAP
-						has_country_leader = {
-							character = MAN_puyi
-							ruling_only = yes
-						}
-					}
-					FROM = {
-						OR = {
-							tag = CHI
-							tag = PRC
-							tag = event_target:KMT_central_gov_tag
-						}
-					}
-				}
-				FROM = {
-					country_event = { id = kmt.303 }
-				}
-			}
-
-			if = {
-				limit = {
-					ROOT = {
-						OR = {
-							tag = PGR
-							has_cosmetic_tag = HCPC
-						}
-						is_puppet_of = CHI
-					}
-				}
-				CHI = {
-					country_event = { id = kmt.300 }
-				}
-				MEN = {
-					transfer_state = 611
-				}
-			}
-			if = {
-				limit = {
-					original_tag = ITA
-					ITA = {
-						NOT = {
-							has_completed_focus = ITA_royal_intervention
-						}
-						has_government = fascism
-						has_completed_focus = ITA_militarize_the_rome_protocols
-						has_war_with = GER
-					}
-					GER = {
-						has_government = fascism
-						has_war_with = ITA
-					}
-				}
-				ITA = {
-					set_cosmetic_tag = ITA_RSI
-					set_party_name = {
-						ideology = fascism
-						long_name = "Partito Fascista Repubblicano"
-						name = "PFR"
-					}
-					retire_ideology_leader = fascism
-					if = {
-						limit = {
-							NOT = {
-								has_country_flag = r56_ita_badoglio_is_leader
-							}
-						}
-						if = {
-							limit = { has_unit_leader = 690 }
-							remove_unit_leader = 690
-						}
-						create_country_leader = {
-							name = "Pietro Badoglio"
-							desc = " "
-							picture = "gfx/leaders/ITA/Portrait_Italy_Pietro_Badoglio.dds"
-							expire = "1965.1.1"
-							ideology = fascism_ideology
-							traits = {
-								army_connections
-							}
-						}
-					}
-				}
-			}
-
-			if = {
-				limit = { original_tag = POL }
-				if = {
-					limit = { has_unit_leader = 3180 }
-					remove_unit_leader = 3180
-				}
-				if = {
-					limit = {
-						NOT = { has_completed_focus = POL_Draw_Closer_To_The_USSR }
-						NOT = { has_completed_focus = POL_Seek_Autonomy }
-					}
-					POL = { set_party_name = { ideology = communism long_name = POL_GL_party_long name = POL_GL_party } }
-				}
-				if = {
-					limit = {
-						POL = { is_puppet = no }
-					}
-					POL = { set_party_name = { ideology = fascism long_name = POL_KN_party_long name = POL_KN_party } }
-					POL = { set_party_name = { ideology = neutrality long_name = POL_ZWZ_party_long name = POL_ZWZ_party } }
-					set_cosmetic_tag = POLAK
-				}
-				if = { #MOD. Optimized a little.
-					limit = {
-						POL = {
-							has_civil_war = no
-							is_puppet = no
-							is_in_faction = yes
-							NOT = { has_country_flag = POL_Exile_Government_Formed }
-						}
-					}
-					set_country_flag = POL_Exile_Government_Formed
-					if = {
-						limit = { POL = { has_government = neutrality } }
-						POL = { country_event = poland.196 }
-					}
-					else_if = {
-						limit = { POL = { has_government = democratic } }
-						if = {
-							limit = {
-								POL = {
-									NOT = { has_completed_focus = POL_The_Polish_Socialist_Party }
-									NOT = { has_completed_focus = POL_The_Endecja_Movement }
-								}
-							}
-							add_offsite_building = { type = arms_factory level = 1 }
-							create_country_leader = {
-								name = "Władysław Sikorski"
-								desc = " "
-								picture = "Portrait_Poland_Wladyslaw_Sikorski.dds"
-								expire = "1965.1.1"
-								ideology = liberalism
-								traits = {
-									democratic_reformer
-									r56_trait_opposed_to_communism
-								}
-							}
-						}
-						else_if = {
-							limit = { POL = { has_completed_focus = POL_The_Polish_Socialist_Party } }
-							POL = { country_event = poland.198 }
-						}
-						else = {
-							set_global_flag = Dmowski_dead
-							create_country_leader = {
-								name = "Tadeusz Bielecki"
-								desc = " "
-								picture = "r56_portrait_POL_Tadeusz_Bielecki.dds"
-								expire = "1965.1.1"
-								ideology = conservatism
-								traits = {
-									polish_nationalist
-									political_pragmatist
-									dislikes_germany
-								}
-							}
-							POL = { set_party_name = { ideology = democratic long_name = POL_NOW_long name = POL_NOW_party } }
-						}
-					}
-				}
-
-				94 = { add_core_of = BLR }
-				97 = { add_core_of = BLR }
-				935 = { add_core_of = BLR }
-				936 = { add_core_of = BLR }
-				95 = { add_core_of = BLR }
-				96 = { add_core_of = BLR }
-				89 = { add_core_of = UKR }
-				91 = { add_core_of = UKR }
-				93 = { add_core_of = UKR }
-				784 = { add_core_of = LIT }
-			}
-
-			if = {
-				limit = { original_tag = GER }
-				if = {
-					limit = {
-						has_global_flag = had_yalta_conference
-						NOT = {
-							has_global_flag = r56_we_killed_no_no_man
-						}
-						has_country_leader = {
-							name = "Adolf Hitler"
-							ruling_only = yes
-						}
-					}
-					kill_ideology_leader = fascism
-					create_country_leader = { #more of a easter egg since at this point Germany can't come back from Yalta
-						name = "Karl Donitz"
-						desc = " "
-						picture = "Portrait_Germany_Karl_Donitz.dds"
-						expire = "1965.1.1"
-						ideology = nazism
-						traits = {
-							retired_admiral
-						}
-					}
-				}
-				if = {
-					limit = {
-						has_country_flag = r56_GER_endsieg_event_happened
-						NOT = {
-							has_country_flag = r56_GER_endsieg_event_pullback_happened
-						}
-					}
-					delete_unit_template_and_units = {
-						division_template = "Volkssturm"
-						disband = yes
-					}
-					delete_unit_template_and_units = {
-						division_template = "Heeresgruppe"
-						disband = yes
-					}
-				}
-				if = {
-					limit = { has_idea = r56_endsieg_idea }
-					remove_ideas = r56_endsieg_idea
-				}
-				if = {
-					limit = {
-						has_global_flag = had_yalta_conference
-						GER = { has_government = fascism }
-					}
-					#MOD. Reduced.
-					every_state = { #removing old German cores
-						# 58, 56, 59, 54, 53, 52, 923, 51, 42
-						# 42, 51, 52, 53, 54, 56, 58, 59, 923
-						# 923, 42, 51. France border
-						limit = { is_core_of = GER is_core_of = WGR }
-						THIS = { remove_core_of = GER }
-					}
-					for_each_scope_loop = { #Reduced with array black magic.
-						array = GER.core_states #Only check German cores
-						if = {
-							limit = { #Affect only these states.
-								OR = {
-									state = 28 state = 39 state = 63 state = 66 state = 67 state = 68 state = 69 state = 85 state = 86 state = 152 state = 153 state = 188 state = 807 state = 853 state = 965
-								}
-							}
-							THIS = { remove_core_of = GER }
-						}
-					}
-
-					if = { #Remove Claims.
-						limit = {
-							69 = {
-								is_claimed_by = GER
-							}
-						}
-						GER = {
-							remove_state_claim = 69
-						}
-					}
-					if = {
-						limit = {
-							964 = {
-								is_claimed_by = GER
-							}
-						}
-						GER = {
-							remove_state_claim = 964
-						}
-					}
-					if = {
-						limit = {
-							86 = {
-								is_claimed_by = GER
-							}
-						}
-						GER = {
-							remove_state_claim = 86
-						}
-					}
-					if = {
-						limit = {
-							807 = {
-								is_claimed_by = GER
-							}
-						}
-						GER = {
-							remove_state_claim = 807
-						}
-					}
-					if = {
-						limit = {
-							762 = {
-								is_claimed_by = GER
-							}
-						}
-						GER = {
-							remove_state_claim = 762
-						}
-					}
-					if = {
-						limit = {
-							853 = {
-								is_claimed_by = GER
-							}
-						}
-						GER = {
-							remove_state_claim = 853
-						}
-					}
-				}
-			}
-
-			if = {	#end of the Soviet civil war - lower the created tension a bit (otherwise it is usually +30% and world goes on fire if someone else is agreessive too ) - Fantom
-				limit = {
-					original_tag = SOV
-					FROM = {	#those one who revolted
-						original_tag = SOV
-					}
-				}
-				FROM = {
-					add_named_threat = { threat = -15 name = SOV_end_of_political_instability_th }
+			POL = {
+				become_exiled_in = {
+					target = PREV
 				}
 			}
 		}
 	}
+	if = {
+		limit = {
+			tag = event_target:den_scw_volunteers_received
+			original_tag = SPR
+		}
+		DEN = {
+			add_manpower = 400 #TODO EVENT
+		}
+
+	}
+	if = {
+		limit = {
+			tag = DEN
+			is_in_faction = yes	#don't fire the event if Denmark was alone and will be handled in the peace deal in a second - Illya
+			FROM = {
+				NOT = {
+					has_government = democratic
+				}
+			}
+		}
+		FROM = {
+			DEN = {
+				set_variable = {
+					occupation_target = PREV
+				}
+			}
+			country_event = {
+				id = denmark.101
+			}
+		}
+	}
+	if = {
+		limit = {
+			original_tag = DEN
+			OR = {
+				ICE = { is_subject_of = DEN }
+				DEN = { owns_state = 100 }
+				ICE = { owns_state = 100 }
+			}
+			NOR = {
+				NOT = {
+					has_completed_focus = NOR_reclaim_the_islands
+					has_completed_focus = NOR_icelandic-faroese_revolt
+					has_completed_focus = NOR_reclaim_danish
+					has_completed_focus = NOR_unite_the_scandinavian_workers
+				}
+			}
+		}
+		country_event = { id = wtt_denmark.1 days = 1 }
+	}
+
+	every_state = {
+		limit = { has_state_flag = r56_aluminium_collection }
+		add_resource = {
+			type = aluminium
+			amount = -1
+		}
+		clr_state_flag = r56_aluminium_collection
+	}
+	if = {	#moved from Belgian events	-	event about king Leopold Surrender
+		limit = {
+			original_tag = BEL
+			has_idea = BEL_leopold3
+			OR = {
+				has_government = democratic
+				has_government = fascism
+			}
+		}
+		country_event = { id = belgium.62 hours = 12 }
+
+	}
+	if = { #
+		limit = { tag = VIC }
+		random_other_country = {
+			limit = {
+				has_country_flag = free_france
+			}
+			annex_country = { target = VIC transfer_troops = yes }
+		}
+	}
+	if = { #MOD. Small OPT
+		limit = {
+			has_dlc = "Man the Guns"
+			has_government = democratic
+		}
+		if = {
+			limit = {
+				original_tag = RAJ
+				is_subject_of = ENG
+			}
+			drop_cosmetic_tag = yes
+		}
+		else_if = {
+			limit = {
+				original_tag = MAL
+				is_subject_of = ENG
+			}
+			drop_cosmetic_tag = yes
+		}
+		else_if = {
+			limit = {
+				original_tag = INS
+				is_subject_of = HOL
+			}
+			drop_cosmetic_tag = yes
+		}
+	}
+	if = {
+		limit = {
+			original_tag = DNZ
+			DNZ = {
+				NOT = { has_country_flag = r56_dnz_dont_lose_cores }
+			}
+			is_ai = yes
+		}
+		85 = { remove_core_of = DNZ }
+	}
+	if = {
+		limit = {
+			original_tag = RUT
+			RUT = {
+				has_country_flag = r56_UPA_check
+			}
+		}
+		if = {
+			limit = {
+				HUN = {
+					exists = yes
+				}
+			}
+			HUN = {
+				country_event = { id = axis_minors_ruthenia.8 days = 1 }
+			}
+		}
+		every_state = {
+			limit = {
+				is_core_of = RUT
+				NOT = {
+					is_owned_and_controlled_by = UKR
+					is_owned_and_controlled_by = DOU
+				}
+			}
+			add_dynamic_modifier = { modifier = r56_upa_state_modifier }
+		}
+	}
+	if = {
+		limit = {
+			original_tag = CHI
+			CHI = {
+				has_completed_focus = KMT_the_big_rear_concept
+			}
+		}
+		every_state = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = r56_the_big_rear
+				}
+			}
+			remove_dynamic_modifier = { modifier = r56_the_big_rear }
+		}
+		every_state = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = r56_the_big_rear
+				}
+			}
+			remove_dynamic_modifier = { modifier = r56_the_rear }
+		}
+	}
+
+	if = {
+		limit = {
+			original_tag = CHI
+			CHI = {
+				has_completed_focus = KMT_lure_them_in_strategy
+			}
+		}
+		every_state = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = r56_lure_them_in
+				}
+			}
+			remove_dynamic_modifier = { modifier = r56_lure_them_in }
+		}
+	}
+
+	if = {
+		limit = {
+			original_tag = DEN
+			OR = {
+				ICE = { is_subject_of = DEN }
+				DEN = { owns_state = 100 }
+				ICE = { owns_state = 100 }
+			}
+			NOR = {
+				NOT = {
+					has_completed_focus = NOR_reclaim_the_islands
+					has_completed_focus = NOR_icelandic-faroese_revolt
+					has_completed_focus = NOR_reclaim_danish
+					has_completed_focus = NOR_unite_the_scandinavian_workers
+				}
+			}
+		}
+		country_event = { id = wtt_denmark.1 days = 1 }
+	}
+
+	if = {
+		limit = {
+			ROOT = {
+				OR = {
+					tag = SHX
+					tag = GXC
+					tag = XSM
+					tag = YUN
+					tag = SIK
+					tag = TNG
+					tag = CHI
+				}
+				has_country_flag = is_warlords
+				is_in_faction_with = PRC
+				has_idea = KMT_united_front
+				has_completed_focus = CHI_cooperation_with_the_communists
+			}
+		}
+		PRC = {
+			country_event = { id = kmt.300 }
+		}
+	}
+
+	if = {
+		limit = {
+			ROOT = {
+				OR = {
+					tag = SHX
+					tag = GXC
+					tag = XSM
+					tag = YUN
+					tag = SIK
+					tag = TNG
+					tag = CHI
+				}
+				has_country_flag = is_warlords
+				is_in_faction_with = event_target:KMT_central_gov_tag
+				has_idea = KMT_united_front
+				NOT = {
+					has_completed_focus = CHI_cooperation_with_the_communists
+				}
+			}
+		}
+		event_target:KMT_central_gov_tag = {
+			country_event = { id = kmt.300 }
+		}
+	}
+
+	if = {
+		limit = {
+			ROOT = {
+				tag = MAN
+				is_subject_of = JAP
+				has_country_leader = {
+					character = MAN_puyi
+					ruling_only = yes
+				}
+			}
+			FROM = {
+				OR = {
+					tag = CHI
+					tag = PRC
+					tag = event_target:KMT_central_gov_tag
+				}
+			}
+		}
+		FROM = {
+			country_event = { id = kmt.303 }
+		}
+	}
+
+	if = {
+		limit = {
+			ROOT = {
+				OR = {
+					tag = PGR
+					has_cosmetic_tag = HCPC
+				}
+				is_puppet_of = CHI
+			}
+		}
+		CHI = {
+			country_event = { id = kmt.300 }
+		}
+		MEN = {
+			transfer_state = 611
+		}
+	}
+	if = {
+		limit = {
+			original_tag = ITA
+			ITA = {
+				NOT = {
+					has_completed_focus = ITA_royal_intervention
+				}
+				has_government = fascism
+				has_completed_focus = ITA_militarize_the_rome_protocols
+				has_war_with = GER
+			}
+			GER = {
+				has_government = fascism
+				has_war_with = ITA
+			}
+		}
+		ITA = {
+			set_cosmetic_tag = ITA_RSI
+			set_party_name = {
+				ideology = fascism
+				long_name = "Partito Fascista Repubblicano"
+				name = "PFR"
+			}
+			retire_ideology_leader = fascism
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = r56_ita_badoglio_is_leader
+					}
+				}
+				if = {
+					limit = { has_unit_leader = 690 }
+					remove_unit_leader = 690
+				}
+				create_country_leader = {
+					name = "Pietro Badoglio"
+					desc = " "
+					picture = "gfx/leaders/ITA/Portrait_Italy_Pietro_Badoglio.dds"
+					expire = "1965.1.1"
+					ideology = fascism_ideology
+					traits = {
+						army_connections
+					}
+				}
+			}
+		}
+	}
+
+	if = {
+		limit = { original_tag = POL }
+		if = {
+			limit = { has_unit_leader = 3180 }
+			remove_unit_leader = 3180
+		}
+		if = {
+			limit = {
+				NOT = { has_completed_focus = POL_Draw_Closer_To_The_USSR }
+				NOT = { has_completed_focus = POL_Seek_Autonomy }
+			}
+			POL = { set_party_name = { ideology = communism long_name = POL_GL_party_long name = POL_GL_party } }
+		}
+		if = {
+			limit = {
+				POL = { is_puppet = no }
+			}
+			POL = { set_party_name = { ideology = fascism long_name = POL_KN_party_long name = POL_KN_party } }
+			POL = { set_party_name = { ideology = neutrality long_name = POL_ZWZ_party_long name = POL_ZWZ_party } }
+			set_cosmetic_tag = POLAK
+		}
+		if = { #MOD. Optimized a little.
+			limit = {
+				POL = {
+					has_civil_war = no
+					is_puppet = no
+					is_in_faction = yes
+					NOT = { has_country_flag = POL_Exile_Government_Formed }
+				}
+			}
+			set_country_flag = POL_Exile_Government_Formed
+			if = {
+				limit = { POL = { has_government = neutrality } }
+				POL = { country_event = poland.196 }
+			}
+			else_if = {
+				limit = { POL = { has_government = democratic } }
+				if = {
+					limit = {
+						POL = {
+							NOT = { has_completed_focus = POL_The_Polish_Socialist_Party }
+							NOT = { has_completed_focus = POL_The_Endecja_Movement }
+						}
+					}
+					add_offsite_building = { type = arms_factory level = 1 }
+					create_country_leader = {
+						name = "Władysław Sikorski"
+						desc = " "
+						picture = "Portrait_Poland_Wladyslaw_Sikorski.dds"
+						expire = "1965.1.1"
+						ideology = liberalism
+						traits = {
+							democratic_reformer
+							r56_trait_opposed_to_communism
+						}
+					}
+				}
+				else_if = {
+					limit = { POL = { has_completed_focus = POL_The_Polish_Socialist_Party } }
+					POL = { country_event = poland.198 }
+				}
+				else = {
+					set_global_flag = Dmowski_dead
+					create_country_leader = {
+						name = "Tadeusz Bielecki"
+						desc = " "
+						picture = "r56_portrait_POL_Tadeusz_Bielecki.dds"
+						expire = "1965.1.1"
+						ideology = conservatism
+						traits = {
+							polish_nationalist
+							political_pragmatist
+							dislikes_germany
+						}
+					}
+					POL = { set_party_name = { ideology = democratic long_name = POL_NOW_long name = POL_NOW_party } }
+				}
+			}
+		}
+
+		94 = { add_core_of = BLR }		#removed Bialystok - not a Belarussian core! - Fantom
+		935 = { add_core_of = BLR }
+		936 = { add_core_of = BLR }
+		95 = { add_core_of = BLR }
+		96 = { add_core_of = BLR }
+		89 = { add_core_of = UKR }
+		91 = { add_core_of = UKR }
+		93 = { add_core_of = UKR }
+		784 = { add_core_of = LIT }
+	}
+
+	if = {
+		limit = { original_tag = GER }
+		if = {
+			limit = {
+				has_global_flag = had_yalta_conference
+				NOT = {
+					has_global_flag = r56_we_killed_no_no_man
+				}
+				has_country_leader = {
+					character = GER_adolf_hitler
+					ruling_only = yes
+				}
+			}
+			kill_ideology_leader = fascism
+			create_country_leader = { #more of a easter egg since at this point Germany can't come back from Yalta
+				name = "Karl Donitz"
+				desc = " "
+				picture = "Portrait_Germany_Karl_Donitz.dds"
+				expire = "1965.1.1"
+				ideology = nazism
+				traits = {
+					retired_admiral
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = r56_GER_endsieg_event_happened
+				NOT = {
+					has_country_flag = r56_GER_endsieg_event_pullback_happened
+				}
+			}
+			delete_unit_template_and_units = {
+				division_template = "Volkssturm"
+				disband = yes
+			}
+			delete_unit_template_and_units = {
+				division_template = "Heeresgruppe"
+				disband = yes
+			}
+		}
+		if = {
+			limit = { has_idea = r56_endsieg_idea }
+			remove_ideas = r56_endsieg_idea
+		}
+		if = {
+			limit = {
+				has_global_flag = had_yalta_conference
+				OR = {
+					GER = { has_government = fascism }
+					GER = { is_ai = yes }
+				}
+			}
+			#MOD. Reduced.
+			every_state = { #removing old German cores
+				# 58, 56, 59, 54, 53, 52, 923, 51, 42
+				# 42, 51, 52, 53, 54, 56, 58, 59, 923
+				# 923, 42, 51. France border
+				limit = { is_core_of = GER is_core_of = WGR }
+				THIS = { remove_core_of = GER }
+			}
+			for_each_scope_loop = { #Reduced with array black magic.
+				array = GER.core_states #Only check German cores
+				if = {
+					limit = { #Affect only these states.
+						OR = {
+							state = 28 state = 39 state = 63 state = 66 state = 67 state = 68 state = 69 state = 85 state = 86 state = 152 state = 153 state = 188 state = 807 state = 853 state = 965
+						}
+					}
+					THIS = { remove_core_of = GER }
+				}
+			}
+
+			if = { #Remove Claims.
+				limit = {
+					69 = {
+						is_claimed_by = GER
+					}
+				}
+				GER = {
+					remove_state_claim = 69
+				}
+			}
+			if = {
+				limit = {
+					964 = {
+						is_claimed_by = GER
+					}
+				}
+				GER = {
+					remove_state_claim = 964
+				}
+			}
+			if = {
+				limit = {
+					86 = {
+						is_claimed_by = GER
+					}
+				}
+				GER = {
+					remove_state_claim = 86
+				}
+			}
+			if = {
+				limit = {
+					807 = {
+						is_claimed_by = GER
+					}
+				}
+				GER = {
+					remove_state_claim = 807
+				}
+			}
+			if = {
+				limit = {
+					762 = {
+						is_claimed_by = GER
+					}
+				}
+				GER = {
+					remove_state_claim = 762
+				}
+			}
+			if = {
+				limit = {
+					853 = {
+						is_claimed_by = GER
+					}
+				}
+				GER = {
+					remove_state_claim = 853
+				}
+			}
+		}
+	}
+
+	if = {	#end of the Soviet civil war - lower the created tension a bit (otherwise it is usually +30% and world goes on fire if someone else is agreessive too ) - Fantom
+		limit = {
+			original_tag = SOV
+			FROM = {	#those one who revolted
+				original_tag = SOV
+			}
+		}
+		FROM = {
+			add_named_threat = { threat = -5 name = SOV_end_of_political_instability_th }	#was -15, lowered a bit ince BBA - Fantom
+		}
+	}
+	if = { #removing RK's claims
+		limit = {
+			OR = {
+				original_tag =  D01
+				original_tag =  D02
+				original_tag =  D03
+				original_tag =  D04
+				original_tag =  D05
+				original_tag =  D06
+				original_tag =  D07
+				original_tag =  D08
+				original_tag =  D09
+				original_tag =  D10
+			}
+		}
+		every_state = {
+			limit = {
+				is_claimed_by = ROOT
+			}
+			remove_claim_by = ROOT
+		}
+	}
+	if = { #Removing MPL's claims
+		limit = { 
+			original_tag =  MPL
+		}
+		every_state = {
+			limit = {
+				is_claimed_by = ROOT
+			}
+			remove_claim_by = ROOT
+		}
+	}
+	if = { #MPL refugees
+		limit = {
+			has_civil_war = no
+			NOT = {
+				original_tag = MPL
+			}
+			FROM = {
+				has_government = fascism
+			}
+			OR = {
+				capital_scope = {
+					is_on_continent = middle_east
+				}
+			}
+			MPL = {
+				has_completed_focus = MPL_two_people_union
+			}
+		}
+		MPL = {
+			set_variable_to_random = {
+				var = MPL_temp_refugees
+				max = 80000
+				min = 45000
+				integer = yes
+			}
+		}
+		log = "MPL fascist takeover refugee [?MPL.MPL_temp_refugees]"
+		save_event_target_as = MPL_target_refugees
+		MPL = {
+			country_event = {
+				id = mandate_palestine.410
+				days = 20
+				random_days = 10
+				random_hours = 24
+			}
+		}
+	}
+}
+}
 
 	on_civil_war_end_before_annexation = {
 		effect = {
