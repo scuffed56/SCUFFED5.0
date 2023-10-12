@@ -67,7 +67,7 @@ recruit_character = NOR_haakon_steen_lie				### Norway's democratic, fascist and
 recruit_character = NOR_rolf_joergen_fuglesang
 recruit_character = NOR_just_ebbesen_von_der_lippe
 
-set_research_slots = 4
+set_research_slots = 3
 
 add_ideas = {
 	limited_conscription
@@ -76,9 +76,16 @@ add_ideas = {
 	NOR_aftermath_of_the_depression_3
 }
 
-set_stability = 0.75
+#set_stability = 0.75	#this entry was duplicate and overwritten
 set_war_support = 0.1
 set_technology = {
+	# Extended Technologies
+	etax_doctrine = 1
+	camo = 1
+
+	steel_production_1 = 1
+	aluminum_production_1 = 1
+
 	infantry_weapons = 1
 	infantry_weapons1 = 1
 	gw_artillery = 1
@@ -92,8 +99,11 @@ set_technology = {
 if = {
 	limit = { has_dlc = "By Blood Alone" }
 		set_technology = {
-			engines_1 = 1
 			iw_small_airframe = 1
+			iw_medium_airframe = 1
+			engines_1 = 1
+			aa_lmg = 1
+			early_bombs = 1
 		}
 		set_air_oob = "NOR_1936_air_bba"
 	else = {
@@ -263,3 +273,35 @@ if = {
 	}
 }
 
+if = {
+	limit = {
+		has_aat = yes 
+	}
+	# add_ideas = {	#by on_action if tree selected
+	# 	NOR_complacent_cabinet_ns
+	# 	NOR_obsolete_armed_forces_ns_1
+	# 	NOR_the_hard_thirties_ns
+	# 	NOR_anti_communist_sentiment_ns
+	# 	NOR_crumbling_fortifications_ns
+	# 	NOR_birger_ljungberg
+	# 	NOR_kristian_laake
+	# } 
+	store_core_states_on_game_start = yes
+	# Setting Independent Norway Dmod variables 
+	set_variable = { NOR.NOR_independent_norway_dmod_consumer_goods_factor = 0 } 
+	set_variable = { NOR.NOR_independent_norway_dmod_production_speed_industrial_complex_factor = 0 } 
+	set_variable = { NOR.NOR_independent_norway_dmod_production_speed_infrastructure_factor = 0 } 
+	set_variable = { NOR.NOR_independent_norway_dmod_research_speed_factor = 0 } 
+	set_variable = { NOR.NOR_independent_norway_dmod_production_speed_supply_node = 0} 
+
+	# Setting Airforce Dmod variables 
+	set_variable = { NOR.NOR_army_air_force_dmod_license_air_purchase_cost = 0 }
+	set_variable = { NOR.NOR_army_air_force_dmod_production_speed_air_base_factor = 0 }
+	set_variable = { NOR.NOR_army_air_force_dmod_production_speed_anti_air_building_factor = 0 }
+	set_variable = { NOR.NOR_army_air_force_dmod_air_doctrine_cost_factor = 0 }
+	set_variable = { NOR.NOR_army_air_force_dmod_air_ace_bonuses_factor = 0 }
+	set_variable = { NOR.NOR_army_air_force_dmod_air_ace_generation_chance_factor = 0 }
+	set_variable = { NOR.NOR_army_air_force_dmod_air_attack_factor = 0 }
+	set_variable = { NOR.NOR_army_air_force_dmod_air_defence_factor = 0 }
+	set_variable = { NOR.NOR_army_air_force_dmod_air_nav_efficiency = 0 }
+}
