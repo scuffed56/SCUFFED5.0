@@ -95,6 +95,7 @@ ideas = {
 				ai_focus_defense_factor = 0.5
 				ai_focus_peaceful_factor = 0.5
 				ai_get_ally_desire_factor = -100
+				embargo_threshold_factor = 2.5
 			}
 		}
 
@@ -260,7 +261,7 @@ ideas = {
 				democratic_drift = 0.03
 				communism_drift = 0.01
 				fascism_drift = -0.05
-				consumer_goods_factor = -0.04
+				consumer_goods_factor = -0.08
 				production_speed_industrial_complex_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.1
 				production_factory_max_efficiency_factor = 0.1
@@ -276,7 +277,7 @@ ideas = {
 			picture = generic_goods_red_bonus
 
 			modifier = {
-				consumer_goods_factor = -0.1
+				consumer_goods_factor = -0.15
 			}
 		}
 		SWE_fortify_our_borders = {
@@ -430,7 +431,7 @@ ideas = {
 			picture = generic_goods_red_bonus
 
 			modifier = {
-				consumer_goods_factor = -0.06
+				consumer_goods_factor = -0.12
 				industrial_capacity_factory = 0.05
 				industrial_capacity_dockyard = 0.05
 			}
@@ -548,14 +549,14 @@ ideas = {
 			picture = strategic_bombing_focus
 
 			equipment_bonus = {
-				artillery_equipment = {
-					build_cost_ic = -0.1 instant = yes
+				artillery = {
+					build_cost_ic = -0.05 instant = yes
 				}
 				anti_air_equipment = {
-					build_cost_ic = -0.1 instant = yes
+					build_cost_ic = -0.05 instant = yes
 				}
 				anti_tank_equipment = {
-					build_cost_ic = -0.1 instant = yes
+					build_cost_ic = -0.05 instant = yes
 				}
 			}
 			modifier = {
@@ -760,7 +761,7 @@ ideas = {
 			modifier = {
 				fascism_drift = 0.03
 				stability_weekly = 0.005
-				war_support_weekly = 0.007
+				war_support_factor = 0.20
 				political_power_factor = 0.15
 			}
 		}
@@ -795,7 +796,7 @@ ideas = {
 			modifier = {
 				industrial_capacity_factory = 0.1
 				industrial_capacity_dockyard = 0.1
-				consumer_goods_factor = -0.1
+				consumer_goods_factor = -0.15
 			}
 		}
 		SWE_swedish_influence = {
@@ -1114,10 +1115,16 @@ ideas = {
 				has_war_with = GER
 			}
 			modifier = {
-				consumer_goods_factor = -0.02
+				consumer_goods_factor = -0.05
 				production_speed_industrial_complex_factor = 0.05
 				production_speed_infrastructure_factor = 0.05
 			}
+
+			targeted_modifier = {
+				tag = GER
+				extra_trade_to_target_factor = 0.05
+			}
+
 		}
 		SWE_swedish_german_trade_plus_1_idea = {
 			picture = SOV_third_five_year_plan
@@ -1128,7 +1135,7 @@ ideas = {
 				has_war_with = GER
 			}
 			modifier = {
-				consumer_goods_factor = -0.08
+				consumer_goods_factor = -0.15
 				production_speed_industrial_complex_factor = 0.1
 				production_speed_infrastructure_factor = 0.1
 			}
@@ -1144,8 +1151,8 @@ ideas = {
 				always = no
 			}
 			modifier = {
-				consumer_goods_factor = -0.06
-				political_power_factor = 0.1
+				consumer_goods_factor = -0.15
+				political_power_factor = 0.05
 				production_factory_efficiency_gain_factor = 0.05
 				production_factory_max_efficiency_factor = 0.05
 			}
@@ -1159,14 +1166,15 @@ ideas = {
 				has_war_with = GER
 			}
 			modifier = {
-				consumer_goods_factor = -0.16
+				consumer_goods_factor = -0.25
 				production_speed_industrial_complex_factor = 0.2
 				production_speed_infrastructure_factor = 0.2
 			}
 			targeted_modifier = {
 				tag = GER
-				extra_trade_to_target_factor = 0.1
+				extra_trade_to_target_factor = 0.15
 				cic_to_target_factor = 0.15
+				trade_cost_for_target_factor = -1
 			}
 		}
 		SWE_swedish_german_trade_negative_2_idea = {
@@ -1175,7 +1183,7 @@ ideas = {
 				always = no
 			}
 			modifier = {
-				consumer_goods_factor = -0.1
+				consumer_goods_factor = -0.25
 				political_power_factor = 0.15
 				production_factory_efficiency_gain_factor = 0.15
 				production_factory_max_efficiency_factor = 0.15
@@ -1187,7 +1195,6 @@ ideas = {
 				always = no
 			}
 			modifier = {
-				war_support_weekly = 0.025
 				production_factory_efficiency_gain_factor = -0.05
 				production_factory_max_efficiency_factor = -0.05				
 			}
@@ -1263,351 +1270,202 @@ ideas = {
 				weekly_manpower = 150
 				stability_weekly = -0.01
 			}					
-		}						
+		}
+		SWE_appropriated_capitalist_industries = {
+			picture = communist_industry
+
+			allowed = {
+				original_tag = SWE
+				NOT = { has_government = fascism }
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				consumer_goods_factor = -0.2
+				production_speed_buildings_factor = 0.1
+			}
+
+		}
+		SWE_nkvd_model = {
+
+			picture = nkvd_2
+
+			removal_cost = -1
+			
+			allowed = {
+				always = no # Added via focus
+			}
+
+			allowed_civil_war = {
+				tag = SOV
+			}
+			
+			modifier = {
+				operative_slot = 1
+				root_out_resistance_effectiveness_factor = 0.05
+				resistance_damage_to_garrison = -0.05
+			}
+		}
+		SWE_scandinavianism_bad = {
+			name = SWE_scandinavianism_idea
+			picture = SWE_scandinavianism
+
+			allowed = {
+				original_tag = SWE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				consumer_goods_factor = 0.2
+				production_speed_buildings_factor = -0.1 
+				political_power_factor = -0.15
+				party_popularity_stability_factor = -0.15
+				war_stability_factor = 0.15
+			}
+		}
+		SWE_scandinavianism_good = {
+			name = SWE_scandinavianism_idea
+			picture = SWE_scandinavianism
+
+			allowed = {
+				original_tag = SWE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				consumer_goods_factor = -0.15
+				production_speed_buildings_factor = 0.1 
+				political_power_factor = 0.15
+				party_popularity_stability_factor = 0.15
+				war_stability_factor = -0.15
+			}
+		}
+		SWE_centralized_command_structure_idea = {
+			picture = SWE_scandinavianism
+
+			allowed = {
+				original_tag = SWE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				max_planning_factor = 0.25
+				planning_speed = 0.25
+				army_core_attack_factor = 0.1
+			}
+		}			
+		SWE_decentralized_command_structure_idea = {
+			picture = SWE_scandinavianism
+
+			allowed = {
+				original_tag = SWE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				surrender_limit = 0.25
+				supply_consumption_factor = -0.1
+				army_core_defence_factor = 0.1
+			}
+		}
+		SWE_joint_air_command_idea = {
+			picture = SWE_scandinavianism
+
+			allowed = {
+				original_tag = SWE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				air_air_superiority_agility_factor = 0.1
+				air_interception_attack_factor = 0.1
+				air_interception_detect_factor = 0.1
+				air_home_defence_factor = 0.1
+			}
+		}
+		SWE_scandinavian_volunteers_idea = {
+			allowed = {
+				always = no
+			}
+
+			removal_cost = -1
+
+			picture = generic_infantry_bonus
+
+			modifier = {
+				send_volunteer_divisions_required = -0.5
+				send_volunteer_size = 6
+				acclimatization_cold_climate_gain_factor = 0.1
+				send_volunteers_tension = -0.2
+			}
+		}
+		SWE_centralized_industry = {
+			allowed = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_infantry_bonus
+
+			modifier = {
+				production_lack_of_resource_penalty_factor = -0.15
+				production_speed_buildings_factor = 0.05
+				global_building_slots_factor = 0.1
+			}
+		}
+		SWE_extensive_naval_project_funding = {
+			allowed = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_infantry_bonus
+
+			modifier = {
+				industrial_capacity_factory = -0.3
+				stability_factor = -0.1
+				political_power_factor = -0.2
+				consumer_goods_factor = 0.1
+			}
+		}
+		SWE_north_sea_protector = {
+			allowed = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture = generic_infantry_bonus
+
+			modifier = {
+				experience_gain_navy_factor = 0.3
+				naval_accidents_chance = -0.1
+				naval_coordination = 0.1
+				naval_critical_score_chance_factor = 0.1
+			}
+		}			
 	}
 
-
-	tank_manufacturer = {
-
-		designer = yes
-
-		SWE_volvo = {
-
-			visible = {
-				OR = {
-					original_tag = SWE
-					original_tag = NOR
-					original_tag = FIN
-					original_tag = DEN
-					original_tag = KAR
-					original_tag = ICE
-					original_tag = GRL
-				}
-				if = {
-					limit = {
-						NOT = {
-							original_tag = SWE
-						}
-
-					}
-					has_completed_focus = SCA_unified_armament_industries
-				}
-			}
-			allowed = {
-				OR = {
-					original_tag = SWE
-					original_tag = NOR
-					original_tag = FIN
-					original_tag = DEN
-					original_tag = KAR
-					original_tag = ICE
-					original_tag = GRL
-				}
-			}
-			available = {
-				if = {
-					limit = {
-						NOT = {
-							original_tag = SWE
-						}
-
-					}
-					has_completed_focus = SCA_unified_armament_industries
-				}
-			}
-
-			research_bonus = {
-				armor = 0.15
-			}
-
-			traits = { fast_tank_manufacturer }
-
-		}
-		SWE_ab_landsverk = {
-			visible = {
-				OR = {
-					original_tag = SWE
-					original_tag = NOR
-					original_tag = FIN
-					original_tag = DEN
-					original_tag = KAR
-					original_tag = ICE
-					original_tag = GRL
-				}
-				if = {
-					limit = {
-						NOT = {
-							original_tag = SWE
-						}
-
-					}
-					has_completed_focus = SCA_unified_armament_industries
-				}
-			}
-			allowed = {
-				OR = {
-					original_tag = SWE
-					original_tag = NOR
-					original_tag = FIN
-					original_tag = DEN
-					original_tag = KAR
-					original_tag = ICE
-					original_tag = GRL
-				}
-			}
-			available = {
-				if = {
-					limit = {
-						NOT = {
-							original_tag = SWE
-						}
-
-					}
-					has_completed_focus = SCA_unified_armament_industries
-				}
-				if = {
-					limit = {
-						tag = SWE
-					}
-				has_completed_focus = SWE_contract_landsverk
-				}
-			}
-
-			research_bonus = {
-				armor = 0.15
-			}
-
-			traits = { medium_tank_manufacturer }
-
-			modifier = {
-			}
-		}
-		SWE_scania_tank = {
-			visible = {
-				OR = {
-					original_tag = SWE
-					original_tag = NOR
-					original_tag = FIN
-					original_tag = DEN
-					original_tag = KAR
-					original_tag = ICE
-					original_tag = GRL
-				}
-				if = {
-					limit = {
-						NOT = {
-							original_tag = SWE
-						}
-
-					}
-					has_completed_focus = SCA_unified_armament_industries
-				}
-			}
-			allowed = {
-				OR = {
-					original_tag = SWE
-					original_tag = NOR
-					original_tag = FIN
-					original_tag = DEN
-					original_tag = KAR
-					original_tag = ICE
-					original_tag = GRL
-				}
-			}
-			available = {
-				if = {
-					limit = {
-						NOT = {
-							original_tag = SWE
-						}
-
-					}
-					has_completed_focus = SCA_unified_armament_industries
-				}
-			}
-			research_bonus = {
-				armor = 0.15
-			}
-
-			traits = { heavy_tank_manufacturer }
-
-			modifier = {
-				# notable tanks L-120 and L-60, lighter tanks as well as the medium tank Stridsvagn m/42, that was mobile and well protected.
-			}
-		}
-	}
-
-	aircraft_manufacturer = {
-
-		designer = yes
-
-		SWE_saab = {
-			allowed = {
-				original_tag = SWE
-			}
-			available = {
-				has_completed_focus = SWE_contract_saab
-			}
-			research_bonus = {
-				air_equipment = 0.15
-			}
-			traits = { medium_aircraft_manufacturer }
-			ai_will_do = {
-				factor = 1
-			}
-		}
-		SWE_cvm = {
-			allowed = {
-				original_tag = SWE
-			}
-			available = {
-				has_completed_focus = SWE_contract_cvm
-			}
-			research_bonus = {
-				air_equipment = 0.15
-			}
-			traits = {
-				naval_aircraft_manufacturer
-			}
-			equipment_bonus = {
-			}
-			ai_will_do = {
-				factor = 1
-			}
-		}
-		SWE_ffvs = {
-			allowed = {
-				original_tag = SWE
-			}
-			available = {
-				has_completed_focus = SWE_contract_ffvs
-			}
-			research_bonus = {
-				air_equipment = 0.15
-			}
-			traits = { light_aircraft_manufacturer }
-			ai_will_do = {
-				factor = 1
-			}
-		}
-		SWE_junkers = {
-			allowed = {
-				original_tag = SWE
-			}
-			available = {
-				NOT = {
-					has_war_with = GER
-				}
-				has_completed_focus = SWE_hire_junkers
-			}
-			research_bonus = {
-				air_equipment = 0.15
-			}
-			traits = { licensed_cas_aircraft_manufacturer }
-			ai_will_do = {
-				factor = 1
-			}
-		}
-		SWE_hawker = {
-			allowed = {
-				original_tag = SWE
-			}
-			available = {
-				NOT = {
-					has_war_with = ENG
-				}
-				has_completed_focus = SWE_work_with_hawker
-			}
-			research_bonus = {
-				air_equipment = 0.15
-			}
-			traits = { licensed_medium_aircraft_manufacturer }
-			ai_will_do = {
-				factor = 1
-			}
-		}
-		SWE_republic_aviation = {
-			allowed = {
-				original_tag = SWE
-			}
-			available = {
-				NOT = {
-					has_war_with = USA
-				}
-				has_completed_focus = SWE_license_republic_aviation
-			}
-			research_bonus = {
-				air_equipment = 0.15
-			}
-			traits = { licensed_fighter_aircraft_manufacturer }
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	}
-
-	naval_manufacturer = {
-
-		designer = yes
-
-		SWE_marinverkstaderna = {
-			allowed = {
-				original_tag = SWE
-			}
-
-			research_bonus = {
-				naval_equipment = 0.15
-			}
-
-			traits = { atlantic_fleet_naval_manufacturer }
-
-			modifier = {
-			}
-		}
-		SWE_ab_gotaverken = {
-			allowed = {
-				original_tag = SWE
-			}
-
-			research_bonus = {
-				naval_equipment = 0.15
-			}
-
-			traits = { convoy_escort_naval_manufacturer }
-
-			modifier = {
-			}
-		}
-		SWE_kockums = {
-			allowed = {
-				original_tag = SWE
-			}
-
-			research_bonus = {
-				naval_equipment = 0.15
-			}
-
-			cost = 150
-
-			traits = { naval_manufacturer }
-
-			equipment_bonus = {
-				light_cruiser = {
-					lg_attack = 0.2
-					naval_range = -0.5
-					armor_value = 0.5
-				}
-				heavy_cruiser = {
-					hg_attack = 0.2
-					naval_range = -0.5
-					armor_value = 0.5
-				}
-			}
-
-			modifier = {
-			}
-		}
-	}
 
 
 	industrial_concern = {
@@ -1626,10 +1484,13 @@ ideas = {
 
 			traits = { industrial_concern }
 		}
-		SWE_ericsson = {
+		SWE_ericsson_r56 = {
 
 			allowed = {
 				original_tag = SWE
+				NOT = {
+					has_dlc = "Arms Against Tyranny"
+				}
 			}
 
 			research_bonus = {
@@ -1646,7 +1507,7 @@ ideas = {
 
 			research_bonus = {
 				industry = 0.10
-				synth_resources = 0.155
+				synth_resources = 0.15
 			}
 
 			traits = { refinery_concern }
@@ -1685,9 +1546,8 @@ ideas = {
 			}
 
 			research_bonus = {
-				industry = 0.05
-				
-				excavation_tech = 0.15
+				industry = 0.10
+				excavation_tech = 0.25
 			}
 			modifier = {
 				country_resource_steel = 16
@@ -1701,93 +1561,4 @@ ideas = {
 		}
 	}
 
-	materiel_manufacturer = {
-
-		designer = yes
-
-		SWE_bofors = {
-			allowed = {
-				original_tag = SWE
-			}
-
-			research_bonus = {
-				artillery = 0.15
-				naval_gunnery_tech = 0.15
-			}
-
-			equipment_bonus = {
-				artillery = {
-					reliability = 0.10
-				}
-			}
-
-			traits = { artillery_manufacturer }
-
-			modifier = {
-			}
-		}
-		SWE_husqvarna = {
-			allowed = {
-				original_tag = SWE
-			}
-
-			research_bonus = {
-				infantry_weapons = 0.15
-			}
-
-			equipment_bonus = {
-				# rifles and pistols
-			}
-
-			traits = { infantry_equipment_manufacturer }
-
-			modifier = {
-			}
-		}
-		SWE_carl_gustafs_gevarsfaktori = { #copy of BEL M.A.E. Carl Gustafs (Stads) Gevärsfaktori
-
-			cost = 100
-
-			picture = generic_infantry_equipment_manufacturer_2
-
-			available = {
-
-			}
-
-			allowed = {
-				has_dlc = "Death or Dishonor"
-					original_tag = SWE
-			}
-
-			research_bonus = {
-				infantry_weapons = 0.10
-			}
-
-			traits = { infantry_equipment_manufacturer }
-
-			modifier = {
-				equipment_conversion_speed = 0.1
-			}
-		}
-		SWE_scania = {
-			allowed = {
-				original_tag = SWE
-			}
-
-			research_bonus = {
-				motorized_equipment = 0.15
-			}
-
-			available = {
-				has_completed_focus = SWE_hire_scania_vabis
-			}
-
-			traits = { motorized_equipment_manufacturer }
-			modifier = {
-				motorized_attack_factor = 0.05
-				mechanized_attack_factor = 0.05
-			}
-
-		}
-	}
 }
