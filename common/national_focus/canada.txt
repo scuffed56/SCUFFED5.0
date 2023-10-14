@@ -2778,14 +2778,28 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = naval_bomber
+				name = CAN_fund_fairchilds_development
 				bonus = 1.0
 				uses = 1
 				category = air_equipment
+				
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = r56_fairchild_aircraft_ltd
-			show_ideas_tooltip = ENG_bristol
+
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = CAN_fairchild_aircraft_ltd_organization
+				mio:CAN_fairchild_aircraft_ltd_organization = {
+					add_mio_funds = 2500
+				}
+			}
+
+			else = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = CAN_fairchild_aircraft_ltd
+			}
 		}
 	}
 		
@@ -3557,12 +3571,33 @@ focus_tree = {
 
 
 		completion_reward = {
-			navy_experience = 10
 			add_tech_bonus = {
-				name = cv_tech
+				name = CAN_cookie_carriers
 				bonus = 1.0
 				uses = 1
-				category = cv_tech
+				category = cat_strategic_bomber
+			}
+
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = CAN_handley_page_organization
+				mio:CAN_handley_page_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+
+				#	unlock_mio_trait_tooltip  = {
+				#		department = CAN_mio_department_design_plane_heavy_combat
+				#		trait = CAN_mio_trait_cookie_carriers
+				#	}
+				}
+			}
+
+			else = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = CAN_handley_page
 			}
 		}
 	}
