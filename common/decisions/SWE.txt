@@ -779,7 +779,7 @@ SWE_politics = {
 
 		}
 		cost = 50
-		modifier = { consumer_goods_factor = 0.05 }
+		modifier = { consumer_goods_factor = 0.1 }
 		
 		#fire_only_once = yes
 		days_remove = 365
@@ -826,7 +826,7 @@ SWE_politics = {
 
 		}
 		cost = 35
-		modifier = { consumer_goods_factor = 0.05 }
+		modifier = { consumer_goods_factor = 0.1 }
 		
 		#fire_only_once = yes
 		days_remove = 270
@@ -1378,7 +1378,7 @@ SWE_politics = {
 
 		modifier = {
 			production_factory_efficiency_gain_factor = 0.1
-			consumer_goods_factor = 0.1
+			consumer_goods_factor = 0.2
 		}
 
 		remove_effect = {
@@ -1467,12 +1467,15 @@ SWE_mines = {
 				666 = {
 					has_dynamic_modifier = { modifier = SWE_blown_up_mines }
 				}
+				837 = {
+					has_dynamic_modifier = { modifier = SWE_blown_up_mines }
+				}
 			}
 			has_capitulated = no
 		}
 		cost = 15
 		available = {
-			#has_war = yes
+			has_war = yes
 			controls_state = 666
 		}
 
@@ -1528,7 +1531,6 @@ SWE_mines = {
 				666 = {
 					has_dynamic_modifier = { modifier = SWE_blown_up_mines }
 				}
-
 			}
 			has_capitulated = no
 		}
@@ -1556,6 +1558,11 @@ SWE_mines = {
 				}
 			}
 
+			918 = {
+				remove_dynamic_modifier = {
+					modifier = SWE_blown_up_mines
+				}
+			}
 		}
 	}
 }
@@ -1768,7 +1775,10 @@ SWE_rationing_policies = {
 		}
 		
 		visible = {
-			has_completed_focus = SWE_rationing
+			OR = {
+				has_completed_focus = SWE_rationing
+				has_completed_focus = SWE_rationing_r56
+			}
 			SWE_herman_eriksson = { NOT = { has_trait = SWE_minister_of_supply }}
 		}
 		cost = 75
