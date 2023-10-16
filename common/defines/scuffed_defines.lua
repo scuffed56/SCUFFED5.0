@@ -59,3 +59,7 @@ NDefines.NNavy.TRAINING_DAILY_COUNTRY_EXP_FACTOR = 0.002
 NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 35
 ----------------------------------
 NDefines.NBuildings.MAX_SHARED_SLOTS = 35
+----------------------------------
+ NDefines.NIndustrialOrganisation.DESIGN_TEAM_CHANGE_XP_COST = 1
+ NDefines.NIndustrialOrganisation.DESIGN_TEAM_RESEARCH_BONUS = 0.1
+
