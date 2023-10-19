@@ -60,6 +60,16 @@ NDefines.NFocus.MAX_SAVED_FOCUS_PROGRESS = 35
 ----------------------------------
 NDefines.NBuildings.MAX_SHARED_SLOTS = 35
 ----------------------------------
- NDefines.NIndustrialOrganisation.DESIGN_TEAM_CHANGE_XP_COST = 1
- NDefines.NIndustrialOrganisation.DESIGN_TEAM_RESEARCH_BONUS = 0.1
+NDefines.NIndustrialOrganisation.DESIGN_TEAM_CHANGE_XP_COST = 1
+NDefines.NIndustrialOrganisation.DESIGN_TEAM_RESEARCH_BONUS = 0.1
+------------------------------------
+-- NDefines.NAI.INDUSTRIAL_ORG_TRAIT_UNLOCK_RANDOMNESS = 3 -- AI will pick a random from N top traits when choosing a trait to unlock
+-- NDefines.NAI.INDUSTRIAL_ORG_POLICY_CHANGE_RANDOMNESS = 3 -- AI will pick a random from N top policies when choosing a policy to attach to an MIO
+-- NDefines.NAI.INDUSTRIAL_ORG_RESEARCH_ASSIGN_RANDOMNESS = 3 -- AI will pick a random from N top MIOs when choosing an MIO to assign to a research
+-- NDefines.NAI.INDUSTRIAL_ORG_PRODUCTION_ASSIGN_RANDOMNESS = 3 -- AI will pick a random from N top MIOs when choosing an MIO to assign to a production line
+-- NDefines.NAI.INDUSTRIAL_ORG_POLICY_CHANGE_SCALE 1.0 -- Policy change weight will be scaled by this value
+-- NDefines.NAI.INDUSTRIAL_ORG_TRAIT_RANK_FACTOR 0.80 -- When precomputing weights, traits will affect the final score less the further down the tree they are, by this factor
+-- NDefines.NAI.INDUSTRIAL_ORG_RESEARCH_BONUS_FACTOR 1.0 -- Research bonus will be multiplied by this factor when evaluating design teams
+
+
 
