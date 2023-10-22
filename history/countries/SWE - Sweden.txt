@@ -202,12 +202,41 @@ set_war_support = 0.05 #Reduced War Support since the Swedish Government and maj
 set_research_slots = 4
 
 add_ideas = {
-	SWE_neutrality_idea_sweden
-	SWE_kungen_gustaf_v_idea
-	SWE_swedish_disarmament_idea
-	SWE_swedish_german_trade_0_idea
-	SWE_nationalist_military_garrisons_rebellious
+	SWE_historical_trade_with_Germany
+	SWE_hungershield
+	SWE_severe_lack_of_ammunition
+	#SWE_standardized_equipment
+	SWE_gustaf_v_idea
 }
+add_dynamic_modifier = { modifier = SWE_folkhemmet }
+						# Election/BoP Stuff
+	#set_power_balance = {
+	#	id = SWE_riksdag_political_balance
+	#	set_default = no  # whether or not to reset the power balance to the initial value, default = no
+	#	set_value = -0.2
+	#}
+	set_variable = { SWE_election_countdown = 280 }
+	set_variable = { SWE_4_years = 1460 }
+	#activate_mission = SWE_BoP_election_countdown
+					if = {
+						limit = {
+							has_idea = SWE_en_svensk_tiger
+						}
+						remove_ideas = SWE_en_svensk_tiger
+					}
+					else_if = {
+						limit = {
+							has_idea = SWE_en_svensk_tiger_lar
+						}
+						remove_ideas = SWE_en_svensk_tiger_lar
+					}
+					SWE_gosta_bagge = {
+						remove_country_leader_trait = SWE_conservatist
+						add_country_leader_trait = SWE_minor_opposition_party_in_power
+						add_country_leader_trait = minister_of_ecclesiastical_affairs
+					}
+				
+			
 
 country_event = { id = sweden_german_trade.1 days = 90 random_days = 10 } # EVENT ACTIVATING TRADE WITH GERMANY
 

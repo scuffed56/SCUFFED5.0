@@ -16,9 +16,41 @@ set_research_slots = 4
 
 add_ideas = {
 	limited_conscription
-	sisu	#DLC tree gets less OP version to be upgraded
+	FIN_sisu_2
 	FIN_communism_banned	#removed by on_action for DLC tree
 }
+
+country_event = { id = AAT_finland_political.02 days = 426 }
+								FIN_kyosti_kallio = {
+									add_country_leader_trait = personal_agenda_kallio
+									add_country_leader_trait = backed_by_political_coalition
+								}
+								FIN_aimo_aaltonen={
+									add_country_leader_trait = personal_agenda_aaltonen
+									if = {
+										limit = {
+											has_dlc = "La Resistance"
+										}
+										add_country_leader_trait = committed_anti_fascist
+									}
+									else = {
+										add_country_leader_trait = committed_anti_fascist_no_lar
+									}
+								}
+								FIN_vilho_annala = {
+									add_country_leader_trait = personal_agenda_annala
+									add_country_leader_trait = economic_reformer
+									remove_country_leader_trait = hawk
+								}
+								set_power_balance = {
+									id = FIN_power_balance
+									left_side = FIN_bad_side
+									right_side = FIN_good_side
+									set_value = -0.45 #Adding FIN_sisu_2 idea below
+								}
+
+
+
 recruit_character = FIN_pehr_evind_Svinhufvud	#country leader, ported alternate ideology leader role - TODO check
 recruit_character = FIN_kyosti_kallio			#country leader, was right ideology, but DLC-tree traits added by on_action
 recruit_character = FIN_risto_heikki_ryti		#country leader, ported DLC-tree only advisor role and alternate ideology leader role - TODO check
