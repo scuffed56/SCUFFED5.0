@@ -1,42 +1,71 @@
-﻿capital = 100
+﻿capital = 100 #Iceland
 
-oob = "ICE_1936"
+set_oob = "ICE_1936"
+
+set_variable = { ICE.communism_support_needed = 0.15 }
+
 set_research_slots = 3
-set_technology = {
-	etax_doctrine = 1
-	camo = 1
 
-	infantry_weapons = 1
-	tech_support = 1
+IF = {
+	limit = {
+		has_dlc = "Arms Against Tyranny"
+	}
+	add_ideas = {
+		ICE_christian_x
+		disarmed_nation
+		isolation
+	}
+	
+	set_war_support = 0.15
 }
-if = {
+IF = {
+	limit = {
+		NOT = { has_dlc = "Arms Against Tyranny" }
+	}
+	add_ideas = {
+		disarmed_nation
+		civilian_economy
+	}
+}
+set_cosmetic_tag = ICE_personal_union
+
+set_technology = {
+	infantry_weapons = 1
+	infantry_weapons1 = 1
+	tech_support = 1		
+	tech_engineers = 1
+	tech_recon = 1
+}
+IF = {
+	limit = {
+		NOT = { has_dlc = "By Blood Alone" }
+	}
+	set_technology = {
+		early_fighter = 1
+		early_bomber = 1
+	}
+}
+IF = {
 	limit = { NOT = { has_dlc = "Man the Guns" } }
 	set_technology = {
-		early_submarine = 1
-		early_light_cruiser = 1
+		early_destroyer = 1
 		transport = 1
 	}
 }
-if = {
+IF = {
 	limit = { has_dlc = "Man the Guns" }
 	set_technology = {
 		basic_naval_mines = 1
 		early_ship_hull_light = 1
-		early_ship_hull_submarine = 1
 		basic_battery = 1
-		basic_light_battery = 1
-		basic_medium_battery = 1
+		basic_cruiser_armor_scheme = 1
 		basic_torpedo = 1
-		basic_depth_charges = 1
-		#basic_secondary_battery = 1
+		coastal_defense_ships = 1
 		mtg_transport = 1
 	}
 }
 
-add_ideas = {
-	ICE_icelandic_neutrality
-	ICE_christian_x_r56
-}
+
 
 # The Icelandic Economy
 IF = {
@@ -53,84 +82,227 @@ IF = {
 	set_variable = { ICE_black_gold_cost = 30 }
 	set_variable = { ICE_black_gold_runs_dry_chance = 0 } #technically not necessary to set this here, 0 is default
 	set_variable = { ICE_black_gold_success_chance = 50 }
+	add_dynamic_modifier = {
+		modifier = ICE_the_icelandic_economy_modifier
+	}
 }
-
-recruit_character = ICE_hermann_jonasson					#ported democratic reformer role which I made DLC tree-exclusive, Stefam Stefamsson for R56 tree
-recruit_character = ICE_gisli_sigurbjornsson				#fascist leader, advisor role for DLC tree, ignored trait since we have 2 already and I found no info
-recruit_character = ICE_brynjolfur_bjarnason				#communist leader, ported new trait and change from stalinism to marxism for both trees, advisor role for DLC tree
-recruit_character = ICE_jon_baldvinsson						#neutrality leader, might need to be disabled for DLC tree, for it to work
-recruit_character = ICE_sveinn_bjornsson					#socialist democratic leader for R56, and centrist neutrality leader for DLC, economic advisor for DLC owners
-recruit_character = ICE_tryggvi_porhallsson					#secondary neutrality leader, might need to be disabled for DLC tree, for it to work
-recruit_character = ICE_einar_arnalds						#unit commander
-recruit_character = ICE_olafur_sveinsson					#admiral, navy chief
-recruit_character = ICE_magnus_jonsson_r56					#neutrality advocate, made R56 tree only
-recruit_character = ICE_einar_olgeirsson_r56				#communist revolutionary, made R56 tree only
-recruit_character = ICE_stefan_stefansson					#democratic reformer, made R56 tree only
-recruit_character = ICE_eidur_kvaran						#fascist dem, made R56 tree only
-recruit_character = ICE_bjorn_olafsson_r56					#cpt. of industry, made R56 tree only
-recruit_character = ICE_olafur_johannesson					#backroom backstabber
-recruit_character = ICE_bjorn_bordarson						#silent workhorse, the DLC tree uses none so making R56 tree only
-recruit_character = ICE_asgeir_asgeirsson					#smooth talker
-recruit_character = ICE_bjorn_bjornsson						#army chief, DLC has only one, so will keep
-recruit_character = ICE_eysteinn_jonsson_naval				#same name as DLC guy, but must be a different person (or was their name taken as generic name since we lacked him?)
-recruit_character = ICE_agnar_hansen						#merged with DLC version, discarded DLC air chief role in favor of ours, but ported their fantasy naval chief role
-recruit_character = ICE_borsteinn_jonsson					#air chief, DLC has only one, so will keep
-recruit_character = ICE_richard_thors						#hc, DLC has no hc, so will keep
-recruit_character = ICE_thor_jensen							#hc, DLC has no hc, so will keep
-recruit_character = ICE_johannes_snorrason					#hc, DLC has no hc, so will keep
-recruit_character = ICE_olafur_thors_naval					#had same name as a DLC character, but different person (or was their name taken as generic name since we lacked him?)
-recruit_character = ICE_erling_ellingsen					#air theorist, DLC has none, so will keep
-recruit_character = ICE_pot									#prince of terror generic, DLC has unique one but fascist-exclusive, so Ill keep
-recruit_character = ICE_acd2								#defensive army chief, DLC has only one chief so will keep
-recruit_character = ICE_ar									#hc, DLC has no hc, so will keep
-recruit_character = ICE_acas								#hc, DLC has no hc, so will keep
-
-
 # Characters
-IF = {	#note: these characters were lacking allowed statements, I added these, but if for some reason a different country can acquire these advisors, thatd be an issue
+IF = {
 	limit = {
 		has_dlc = "Arms Against Tyranny"
 	}
-	#commented out ones we (R56) had first (vanilla uses pre-character system for non-DLC basic ideology leaders)
-	#recruit_character = ICE_hermann_jonasson
-	#recruit_character = ICE_gisli_sigurbjornsson
-	#recruit_character = ICE_brynjolfur_bjarnason
-	#recruit_character = ICE_sveinn_bjornsson
-	recruit_character = ICE_olafur_thors					#democratic leader and weak advisor, should be harmless to R56 tree
-	recruit_character = ICE_eysteinn_jonsson				#fairly weak advisor, should be harmless to R56 tree
-	recruit_character = ICE_haraldur_gudhmundsson			#anti-fascist cpt of industry, should be harmless to R56 tree
-	recruit_character = ICE_skuli_gudhmundsson				#fairly weak advisor, should be harmless to R56 tree
-	recruit_character = ICE_stefan_johann_stefansson		#R56 has the same guy, but it needed to be seperate
-	recruit_character = ICE_jakob_moller					#fairly weak advisor, should be harmless to R56 tree
-	recruit_character = ICE_magnus_jonsson					#technocrat, also exists in other role for R56 tree, so split, this one only for DLC tree
-	recruit_character = ICE_einar_arnorsson					#fairly weak advisor, should be harmless to R56 tree
-	recruit_character = ICE_bjorn_olafsson					#traveler, also exists in other role for R56 tree, so split, this one only for DLC tree
-	recruit_character = ICE_vilhjalmur_thor					#fairly weak advisor, should be harmless to R56 tree
-	recruit_character = ICE_johann_saemundsson				#fairly weak advisor, should be harmless to R56 tree
-	recruit_character = ICE_bjorn_thordharson				#fairly weak advisor, should be harmless to R56 tree (has neutrality drift, but so does an unconditional R56 advisor)
-	recruit_character = ICE_olafur_petursson				#fascist-only prince of terror, R56 has a universal one
-	recruit_character = ICE_olaf_j_thorlacius				#fairly weak advisor, should be harmless to R56 tree
-	recruit_character = ICE_einar_olgeirsson				#communist-only editor, also exists in other role for R56 tree, so split, this one only for DLC tree
-	recruit_character = ICE_isleifur_hognason				#fairly weak advisor, should be harmless to R56 tree, made availability check tree-dependent
-	#recruit_character = ICE_agnar_eldberg_kofoed-hansen	#note: name difference with R56, same guy
-	#recruit_character = ICE_bjorn_sveinsson_bjornsson		#note: name difference with R56, same guy
-	recruit_character = ICE_king_knud						#empty character, harmless to R56 tree
-	recruit_character = ICE_werner_gerlach					#fairly weak advisor, should be harmless to R56 tree, made availability check tree-dependent
+	recruit_character = ICE_hermann_jonasson
+	recruit_character = ICE_gisli_sigurbjornsson
+	recruit_character = ICE_brynjolfur_bjarnason
+	recruit_character = ICE_sveinn_bjornsson
+	recruit_character = ICE_olafur_thors
+	recruit_character = ICE_eysteinn_jonsson
+	recruit_character = ICE_haraldur_gudhmundsson
+	recruit_character = ICE_skuli_gudhmundsson
+	recruit_character = ICE_stefan_johann_stefansson
+	recruit_character = ICE_jakob_moller
+	recruit_character = ICE_magnus_jonsson
+	recruit_character = ICE_einar_arnorsson
+	recruit_character = ICE_bjorn_olafsson
+	recruit_character = ICE_vilhjalmur_thor
+	recruit_character = ICE_johann_saemundsson
+	recruit_character = ICE_bjorn_thordharson
+	recruit_character = ICE_olafur_petursson
+	recruit_character = ICE_olaf_j_thorlacius
+	recruit_character = ICE_einar_olgeirsson
+	recruit_character = ICE_isleifur_hognason
+	recruit_character = ICE_agnar_eldberg_kofoed-hansen
+	recruit_character = ICE_bjorn_sveinsson_bjornsson
+	recruit_character = ICE_king_knud	
+	recruit_character = ICE_werner_gerlach
 }
+1939.1.1 = {
+	IF = {
+		limit = {
+			has_dlc = "Arms Against Tyranny"
+		}
+		#drop_cosmetic_tag = yes
+		add_political_power = 1198
+		add_command_power = 100
+
+		complete_national_focus = ICE_expand_the_fishing_industry
+		complete_national_focus = ICE_the_kingdom_of_iceland
+		complete_national_focus = ICE_hydroelectric_power
+		complete_national_focus = ICE_declare_absolute_neutrality
+		complete_national_focus = ICE_infrastructure_projects
+		complete_national_focus = ICE_gardhur_airfield
+		complete_national_focus = ICE_the_icelandic_police_force
+		complete_national_focus = ICE_engineering_projects
+		complete_national_focus = ICE_the_merchant_fleet
+
+		set_oob = "ICE_1939"
+		set_technology = {
+			gw_artillery = 1
+			interwar_artillery = 1
+			interwar_antiair = 1
+			infantry_weapons2 = 1
+			support_weapons = 1
+			tech_trucks = 1
+
+			#doctrines
+			air_superiority = 1
+			grand_battle_plan = 1
+			trench_warfare = 1
+			fleet_in_being = 1
+			battlefleet_concentration = 1
+			submarine_operations = 1
+
+			#electronics
+			electronic_mechanical_engineering = 1
+			radio = 1
+			radio_detection = 1
+			mechanical_computing = 1
+			computing_machine = 1
+
+			#industry
+			basic_machine_tools = 1
+			improved_machine_tools = 1
+			advanced_machine_tools = 1
+			fuel_silos = 1
+			construction1 = 1
+			construction2 = 1
+			dispersed_industry = 1
+			dispersed_industry2 = 1
+		}
+	}
+	IF = {
+		limit = {
+			NOT = {
+				has_dlc = "Arms Against Tyranny"
+			}
+		}
+		#drop_cosmetic_tag = yes
+		add_political_power = 1198
+		add_command_power = 100
+		
+		#generic focuses
+		complete_national_focus = army_effort
+		complete_national_focus = equipment_effort
+		complete_national_focus = motorization_effort
+		complete_national_focus = aviation_effort
+		complete_national_focus = naval_effort
+		complete_national_focus = large_navy
+		complete_national_focus = industrial_effort
+		complete_national_focus = construction_effort
+		complete_national_focus = production_effort
+		
+		set_oob = "ICE_1939"
+		set_technology = {
+			gw_artillery = 1
+			interwar_artillery = 1
+			interwar_antiair = 1
+			infantry_weapons2 = 1
+			support_weapons = 1
+			tech_trucks = 1
+
+			#doctrines
+			air_superiority = 1
+			grand_battle_plan = 1
+			trench_warfare = 1
+			fleet_in_being = 1
+			battlefleet_concentration = 1
+			submarine_operations = 1
+
+			#electronics
+			electronic_mechanical_engineering = 1
+			radio = 1
+			radio_detection = 1
+			mechanical_computing = 1
+			computing_machine = 1
+
+			#industry
+			basic_machine_tools = 1
+			improved_machine_tools = 1
+			advanced_machine_tools = 1
+			fuel_silos = 1
+			construction1 = 1
+			construction2 = 1
+			dispersed_industry = 1
+			dispersed_industry2 = 1
+		}
+	}
+}
+
+set_convoys = 30
+set_stability = 0.65
 
 set_politics = {
 	ruling_party = democratic
-	last_election = "1934.6.24"
-	election_frequency = 48
+	last_election = "1933.10.16"
+	election_frequency = 36
 	elections_allowed = yes
 }
 set_popularities = {
-	democratic = 64
-	fascism = 1
-	communism = 10
-	neutrality = 25
+	democratic = 96
+	fascism = 2
+	communism = 2
 }
 
-set_convoys = 20
-set_stability = 0.9
-set_war_support = 0.15
+1939.1.1 = {
+	set_politics = {
+		ruling_party = democratic
+		last_election = "1936.10.19"
+		election_frequency = 36
+		elections_allowed = yes
+	}
+	set_popularities = {
+		democratic = 84
+		fascism = 2
+		communism = 2
+		neutrality = 12
+	}
+}
+
+IF = {
+	limit = {
+		NOT = { has_dlc = "Arms Against Tyranny" }
+	}
+	create_country_leader = {
+		name = "Sveinn Björnsson"
+		desc = ""
+		picture = GFX_portrait_Sveinn_Bjornsson
+		expire = "1965.1.1"
+		ideology = conservatism
+		traits = {
+			#
+		}
+	}
+
+	create_country_leader = {
+		name = "Johannes Valurson"
+		desc = ""
+		picture = GFX_portrait_Johannes_Valurson
+		expire = "1965.1.1"
+		ideology = fascism_ideology
+		traits = {
+			#
+		}
+	}
+
+	create_country_leader = {
+		name = "Haraldur Gudmunsson"
+		desc = ""
+		picture = GFX_portrait_Haraldur_Gudmunsson
+		expire = "1965.1.1"
+		ideology = centrism
+		traits = {
+			#
+		}
+	}
+
+	create_country_leader = {
+		name = "Einar Olgeirsson"
+		desc = ""
+		picture = GFX_portrait_Einar_Olgeirsson
+		expire = "1965.1.1"
+		ideology = marxism
+		traits = {
+			#
+		}
+	}
+}
