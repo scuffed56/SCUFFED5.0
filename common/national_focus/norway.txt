@@ -5204,7 +5204,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = NOR_the_chamberlains_overture
-		cost = 10
+		cost = 5
 		available = {
 			set_temp_variable = {
 				var = temp_preparedness
@@ -5329,18 +5329,28 @@ focus_tree = {
 		relative_position_id = NOR_the_crowns_executive_powers
 		cost = 10
 		available = {
-			neutrality > 0.65
+			neutrality > 0.50
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
+
+			hidden_effect = {
+                retire_ideology_leader = democratic 
+            }
+			
+			promote_character = NOR_king_haakon_vii
+
 			set_politics = {
 				ruling_party = neutrality
 				elections_allowed = no
 				name = NOR_Wedel-Jarlsberg_regency_name
 				long_name = NOR_Wedel-Jarlsberg_regency_long_name
 			}
+			
+			
+
 			NOR_set_kingdom_of_norway_variables = yes
 			add_dynamic_modifier = { modifier = NOR_kingdom_of_norway_dmod }
 			set_division_template_lock = {
@@ -5394,7 +5404,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = NOR_the_kingdom_of_norway
-		cost = 10
+		cost = 5
 		available = {
 		}
 
@@ -5412,7 +5422,7 @@ focus_tree = {
 				}
 			}
 			navy_experience = 50
-			add_command_power = 20
+			add_command_power = 40
 		}
 	}
 
@@ -5463,7 +5473,7 @@ focus_tree = {
 			}
 			add_to_variable = {
 				var = NOR_kingdom_of_norway_dmod_research_speed
-				value = 0.08
+				value = 0.10
 				tooltip = research_speed_factor_tt
 			}
 
@@ -5478,7 +5488,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = NOR_promote_civilian_donations
-		cost = 10
+		cost = 5
 		available = {
 		}
 
@@ -5497,7 +5507,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = NOR_prince_olav_to_navy_staff
-		cost = 10
+		cost = 5
 		available = {
 		}
 
@@ -5536,7 +5546,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = NOR_enhance_coastal_defense
-		cost = 10
+		cost = 5
 		available = {
 		}
 
@@ -5647,7 +5657,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = NOR_rule_the_northern_sea
-		cost = 10
+		cost = 5
 		available = {
 		}
 
@@ -5721,7 +5731,7 @@ focus_tree = {
 			set_variable = {
 				var = NOR_kingdom_of_norway_dmod_special_forces_organization
 				value = 0.10
-				tooltip = special_forces_organization_tt
+				
 			}
 		}
 	}
@@ -5794,7 +5804,7 @@ focus_tree = {
 		relative_position_id = NOR_for_the_king_and_prince
 		cost = 10
 		available = {
-			has_war_support > 0.7
+			has_war_support > 0.40
 		}
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY }
@@ -6221,33 +6231,11 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
-			100 = {
-				controller = {
-					country_event = {
-						id = AAT_norway.17
-						hours = 3 
-					}
-				}
-			}
+			ICE = {
+				country_event = { id = AAT_norway.17 days = 1 }
+            }
 			set_country_flag = NOR_claiming_iceland
-			effect_tooltip = {
-				custom_effect_tooltip = if_they_accept
-				100 = {
-					transfer_state_to = NOR
-				}
-				custom_effect_tooltip = if_they_reject
-				100 = {
-					controller = {
-						ROOT = {
-							create_wargoal = {
-								type = take_state_focus
-								target = PREV
-								generator = { 100 } 
-							}
-						}
-					}
-				}
-			}
+		
 		}
 	}
 	focus = {
@@ -6430,66 +6418,9 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
-			set_country_flag = NOR_claiming_bjarmeland
-			213 = { # USing Murmansk because it's the closest one to Norway  
-				controller = {
-					country_event = {
-						id = AAT_norway.17
-						hours = 3 
-					}
-					effect_tooltip = {
-						custom_effect_tooltip = if_they_accept
-						213 = { # Murmansk 
-							transfer_state_to = NOR
-						}
-						if = {  # Arkhangelsk  
-							limit = {
-								owns_state = 214
-							}
-							214 = { transfer_State_to = NOR }
-						}
-						if = { # Onega  
-							limit = {
-								owns_state = 215 
-							}
-							215 = { transfer_state_to = NOR }
-						}
-						custom_effect_tooltip = if_they_reject
-						ROOT = {
-							create_wargoal = {
-								type = take_state_focus
-								target = PREV
-								generator = { 213 } 
-							}
-						}
-						if = {  #  Arkhangelsk 
-							limit = {
-								owns_state = 214
-							}
-							ROOT = {
-								create_wargoal = {
-									type = take_state_focus
-									target = PREV
-									generator = { 214 } 
-								}
-							}
-						}
-						if = { # Onega  
-							limit = {
-								owns_state = 215 
-							}
-							ROOT = {
-								create_wargoal = {
-									type = take_state_focus
-									target = PREV
-									generator = { 215 } 
-								}
-							}
-						}
-						
-					}
-				}
-			}
+			FIN = {
+				country_event = { id = AAT_norway.17 days = 1 }
+            }
 		}
 	}
 
@@ -7943,6 +7874,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
+			add_research_slot = 1
 			custom_effect_tooltip = NOR_modify_independent_norway_TT
 			add_to_variable = {
 				var = NOR.NOR_independent_norway_dmod_research_speed_factor
@@ -8571,7 +8503,7 @@ focus_tree = {
 		x = -5
 		y = 1
 		relative_position_id = NOR_the_royal_norwegian_navy
-		cost = 10
+		cost = 5
 		available = {
 		}
 
@@ -8608,7 +8540,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = NOR_the_royal_norwegian_navy
-		cost = 10
+		cost = 5
 		available = {
 			NOR_broken_gun_trigger = yes 
 		}
@@ -8667,7 +8599,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = NOR_the_royal_norwegian_navy
-		cost = 10
+		cost = 5
 		available = {
 			NOR_broken_gun_trigger = yes 
 		}
@@ -8761,7 +8693,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = NOR_expand_the_dockyards
 		
-		cost = 10
+		cost = 5
 		
 		bypass = {
 			has_capitulated = yes
@@ -8807,7 +8739,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		relative_position_id = NOR_battleship_focus
-		cost = 10
+		cost = 5
 		available = {
 			NOR_broken_gun_trigger = yes 
 		}
@@ -8840,7 +8772,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = NOR_battleship_focus
-		cost = 10
+		cost = 5
 		available = {
 			NOR_broken_gun_trigger = yes 
 		}
@@ -8890,7 +8822,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = NOR_kystvakten
-		cost = 10
+		cost = 5
 		available = {
 			NOR_broken_gun_trigger = yes 
 		}
@@ -8929,7 +8861,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = NOR_kystvakten
-		cost = 10
+		cost = 5
 		available = {
 			NOR_broken_gun_trigger = yes  
 		}
