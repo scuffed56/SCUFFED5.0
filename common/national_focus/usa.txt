@@ -2159,7 +2159,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_ideas = r56_USA_over_there
+			add_timed_idea = {
+				idea = r56_USA_over_there
+				days = 365
+			} 
 			if = {
 				limit = {
 					NOT = { has_idea = BEL_volunteer_corps }
@@ -8885,17 +8888,8 @@ focus_tree = {
 
 		available = {
 			has_tech = interwar_antitank
-			if = {
-				limit = {
-					ROOT = {
-						has_full_control_of_state = 371
-					}
-				}
-				divisions_in_state = {
-					size > 2
-					state = 371
-				}
-
+			has_army_manpower = {
+				size > 650000
 			}
 		}
 		
@@ -9049,7 +9043,7 @@ focus_tree = {
 		
 			add_ideas = scuffed_army_rangers_idea
 			
-			custom_effect_tooltip = USA_army_rangers_tt
+			#custom_effect_tooltip = USA_army_rangers_tt
 		}
 	}
 	
@@ -9218,9 +9212,10 @@ focus_tree = {
 				limit = {
 					has_dlc = "No Step Back"
 				}
+				OR = {
 				has_tech = basic_medium_tank_chassis
-				has_tech = improved_medium_tank_chassis
 				has_tech = basic_heavy_tank_chassis
+				}
 				has_tech = armor_tech_1
 				has_tech = engine_tech_1
 				OR = {
@@ -9655,433 +9650,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = tank_destroyer_board
-			
-			if = {
+			IF = {
 				limit = {
-					NOT = { has_dlc = "No Step Back" }
-				}
-				add_tech_bonus = {
-					name = armor_bonus
-					bonus = 1
-					uses = 1
-					technology = improved_light_td
-					technology = advanced_light_td
-					technology = advanced_light_tank_td_a
-					technology = advanced_light_tank_td_b
-					technology = basic_medium_td
-					technology = improved_medium_td
-					technology = advanced_medium_td				
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = USA_tank_destroyer_board_organization
+				mio:USA_tank_destroyer_board_organization = {
+					add_mio_size = 2
 				}
 			}
-			
-			if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				if = {
-					limit = {
-						has_tech = antitank4 #tank will use tank_high_velocity_cannon_2
-					}
-					if = {
-						limit = {
-							has_tech = centimetric_radar
-						}
-						create_equipment_variant = {
-							name = "M10 Wolverine"
-							type = medium_tank_destroyer_chassis_1
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon_2
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_bogie_suspension
-								armor_type_slot = tank_riveted_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_3
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 4
-							}
-							icon = "gfx/interface/technologies/USA_basic_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else_if = {
-						limit = {
-							has_tech = decimetric_radar
-						}
-						create_equipment_variant = {
-							name = "M10 Wolverine"
-							type = medium_tank_destroyer_chassis_1
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon_2
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_bogie_suspension
-								armor_type_slot = tank_riveted_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_2
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 4
-							}
-							icon = "gfx/interface/technologies/USA_basic_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else_if = {
-						limit = {
-							has_tech = radio
-						}
-						create_equipment_variant = {
-							name = "M10 Wolverine"
-							type = medium_tank_destroyer_chassis_1
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon_2
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_bogie_suspension
-								armor_type_slot = tank_riveted_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_1
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 4
-							}
-							icon = "gfx/interface/technologies/USA_basic_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else = {
-						create_equipment_variant = {
-							name = "M10 Wolverine"
-							type = medium_tank_destroyer_chassis_1
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon_2
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_bogie_suspension
-								armor_type_slot = tank_riveted_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 4
-							}
-							icon = "gfx/interface/technologies/USA_basic_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-				}
-				else = {
-					#tank will use tank_high_velocity_cannon
-					if = {
-						limit = {
-							has_tech = centimetric_radar
-						}
-						create_equipment_variant = {
-							name = "M10 Wolverine"
-							type = medium_tank_destroyer_chassis_1
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_bogie_suspension
-								armor_type_slot = tank_riveted_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_3
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 4
-							}
-							icon = "gfx/interface/technologies/USA_basic_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else_if = {
-						limit = {
-							has_tech = decimetric_radar
-						}
-						create_equipment_variant = {
-							name = "M10 Wolverine"
-							type = medium_tank_destroyer_chassis_1
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_bogie_suspension
-								armor_type_slot = tank_riveted_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_2
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 4
-							}
-							icon = "gfx/interface/technologies/USA_basic_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else_if = {
-						limit = {
-							has_tech = radio
-						}
-						create_equipment_variant = {
-							name = "M10 Wolverine"
-							type = medium_tank_destroyer_chassis_1
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_bogie_suspension
-								armor_type_slot = tank_riveted_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_1
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 4
-							}
-							icon = "gfx/interface/technologies/USA_basic_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else = {
-						create_equipment_variant = {
-							name = "M10 Wolverine"
-							type = medium_tank_destroyer_chassis_1
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_bogie_suspension
-								armor_type_slot = tank_riveted_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 4
-							}
-							icon = "gfx/interface/technologies/USA_basic_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-				}
-				
-				
-				if = {
-					limit = {
-						has_tech = antitank4 #tank will use tank_high_velocity_cannon_2
-					}
-					if = {
-						limit = {
-							has_tech = centimetric_radar
-						}
-						create_equipment_variant = {
-							name = "M18 Hellcat"
-							type = medium_tank_destroyer_chassis_2
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon_2
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_torsion_bar_suspension
-								armor_type_slot = tank_welded_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_3
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 3
-							}
-							icon = "gfx/interface/technologies/USA_improved_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else_if = {
-						limit = {
-							has_tech = decimetric_radar
-						}
-						create_equipment_variant = {
-							name = "M18 Hellcat"
-							type = medium_tank_destroyer_chassis_2
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon_2
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_torsion_bar_suspension
-								armor_type_slot = tank_welded_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_2
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 3
-							}
-							icon = "gfx/interface/technologies/USA_improved_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else_if = {
-						limit = {
-							has_tech = radio
-						}
-						create_equipment_variant = {
-							name = "M18 Hellcat"
-							type = medium_tank_destroyer_chassis_2
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon_2
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_torsion_bar_suspension
-								armor_type_slot = tank_welded_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_1
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 3
-							}
-							icon = "gfx/interface/technologies/USA_improved_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else = {
-						create_equipment_variant = {
-							name = "M18 Hellcat"
-							type = medium_tank_destroyer_chassis_2
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon_2
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_torsion_bar_suspension
-								armor_type_slot = tank_welded_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 3
-							}
-							icon = "gfx/interface/technologies/USA_improved_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-				}
-				else = {
-					#tank will use tank_high_velocity_cannon
-					if = {
-						limit = {
-							has_tech = centimetric_radar
-						}
-						create_equipment_variant = {
-							name = "M18 Hellcat"
-							type = medium_tank_destroyer_chassis_2
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_torsion_bar_suspension
-								armor_type_slot = tank_welded_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_3
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 3
-							}
-							icon = "gfx/interface/technologies/USA_improved_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else_if = {
-						limit = {
-							has_tech = decimetric_radar
-						}
-						create_equipment_variant = {
-							name = "M18 Hellcat"
-							type = medium_tank_destroyer_chassis_2
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_torsion_bar_suspension
-								armor_type_slot = tank_welded_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_2
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 3
-							}
-							icon = "gfx/interface/technologies/USA_improved_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else_if = {
-						limit = {
-							has_tech = radio
-						}
-						create_equipment_variant = {
-							name = "M18 Hellcat"
-							type = medium_tank_destroyer_chassis_2
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_torsion_bar_suspension
-								armor_type_slot = tank_welded_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = tank_radio_1
-								special_type_slot_3 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 3
-							}
-							icon = "gfx/interface/technologies/USA_improved_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-					else = {
-						create_equipment_variant = {
-							name = "M18 Hellcat"
-							type = medium_tank_destroyer_chassis_2
-							parent_version = 0
-							modules = {
-								main_armament_slot = tank_high_velocity_cannon
-								turret_type_slot = tank_medium_three_man_tank_turret
-								suspension_type_slot = tank_torsion_bar_suspension
-								armor_type_slot = tank_welded_armor
-								engine_type_slot = tank_diesel_engine
-								special_type_slot_1 = sloped_armor
-								special_type_slot_2 = easy_maintenance
-							}
-							upgrades = {
-								tank_nsb_engine_upgrade = 8
-								tank_nsb_armor_upgrade = 3
-							}
-							icon = "gfx/interface/technologies/USA_improved_medium_tank_destroyer.dds" #DLC icon, maybe revisit for non-dlc owners
-						}
-					}
-				}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = tank_destroyer_board
 			}
 		}
 	}
@@ -10100,120 +9681,23 @@ focus_tree = {
 		}
 
 		available = {
-			if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				has_tech = advanced_medium_tank_chassis
-				has_tech = artillery4
-			}
+
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = detroit_arsenal
-			
-			if = {
+			IF = {
 				limit = {
-					has_dlc = "No Step Back"
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = USA_detroit_arsenal_organization
+				mio:USA_detroit_arsenal_organization = {
+					add_mio_size = 2
 				}
-				
-				if = {
-					limit = {
-						has_tech = centimetric_radar
-					}
-					create_equipment_variant = {
-						name = "T20 M27"
-						type = medium_tank_chassis_3
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_medium_cannon_2
-							turret_type_slot = tank_medium_three_man_tank_turret
-							suspension_type_slot = tank_torsion_bar_suspension
-							armor_type_slot = tank_welded_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = sloped_armor
-							special_type_slot_2 = easy_maintenance
-							special_type_slot_3 = tank_radio_3
-						}
-						upgrades = {
-							tank_nsb_engine_upgrade = 7
-							tank_nsb_armor_upgrade = 8
-						}
-						icon = "gfx/interface/technologies/USA_adv_main_tank.dds"
-					}
-				}
-				else_if = {
-					limit = {
-						has_tech = decimetric_radar
-					}
-					create_equipment_variant = {
-						name = "T20 M27"
-						type = medium_tank_chassis_3
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_medium_cannon_2
-							turret_type_slot = tank_medium_three_man_tank_turret
-							suspension_type_slot = tank_torsion_bar_suspension
-							armor_type_slot = tank_welded_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = sloped_armor
-							special_type_slot_2 = easy_maintenance
-							special_type_slot_3 = tank_radio_2
-						}
-						upgrades = {
-							tank_nsb_engine_upgrade = 7
-							tank_nsb_armor_upgrade = 8
-						}
-						icon = "gfx/interface/technologies/USA_adv_main_tank.dds"
-					}
-				}
-				else_if = {
-					limit = {
-						has_tech = radio
-					}
-					create_equipment_variant = {
-						name = "T20 M27"
-						type = medium_tank_chassis_3
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_medium_cannon_2
-							turret_type_slot = tank_medium_three_man_tank_turret
-							suspension_type_slot = tank_torsion_bar_suspension
-							armor_type_slot = tank_welded_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = sloped_armor
-							special_type_slot_2 = easy_maintenance
-							special_type_slot_3 = tank_radio_1
-						}
-						upgrades = {
-							tank_nsb_engine_upgrade = 7
-							tank_nsb_armor_upgrade = 8
-						}
-						icon = "gfx/interface/technologies/USA_adv_main_tank.dds"
-					}
-				}
-				else = {
-					create_equipment_variant = {
-						name = "T20 M27"
-						type = medium_tank_chassis_3
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_medium_cannon_2
-							turret_type_slot = tank_medium_three_man_tank_turret
-							suspension_type_slot = tank_torsion_bar_suspension
-							armor_type_slot = tank_welded_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = sloped_armor
-							special_type_slot_2 = easy_maintenance
-						}
-						upgrades = {
-							tank_nsb_engine_upgrade = 7
-							tank_nsb_armor_upgrade = 8
-						}
-						icon = "gfx/interface/technologies/USA_adv_main_tank.dds"
-					}
-				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = detroit_arsenal
 			}
 		}
 	}
