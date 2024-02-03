@@ -850,8 +850,21 @@ focus_tree = {
 			    uses = 1
 				category = light_air
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = BUL_dar
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = BUL_dar_organization
+
+				mio:BUL_dar_organization = {
+					add_mio_size = 3
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = BUL_dar
+			}
 		}
 	}
 
@@ -991,6 +1004,21 @@ focus_tree = {
 				category = cat_strategic_bomber
 				category = tactical_bomber
 			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = BUL_kaproni_bulgarski_organization
+
+				mio:BUL_kaproni_bulgarski_organization = {
+					add_mio_size = 3
+				}
+			}
+			else = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = BUL_kaproni_bulgarski
+			}
 		}
 	}
 
@@ -1064,8 +1092,21 @@ focus_tree = {
 				category = infantry_weapons
 				category = support_tech
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = BUL_dvf
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = BUL_dvf_organization
+
+				mio:BUL_dvf_organization = {
+					add_mio_size = 3
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = BUL_dvf
+			}
 		}
 	}
 
@@ -1101,8 +1142,21 @@ focus_tree = {
 			    uses = 2
 				category = artillery
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = BUL_dvf_sopot
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = BUL_dvf_sopot_organization
+
+				mio:BUL_dvf_sopot_organization = {
+					add_mio_size = 3
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = BUL_dvf_sopot
+			}
 		}
 	}
 
@@ -1122,62 +1176,53 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
 			effect_tooltip = {
-				if = {
-					limit = {
-						country_exists = GER
-						NOT = { has_war_with = GER }
-						GER = { BUL_is_valid_subject = yes }
-					}
-					activate_targeted_decision = { target = GER decision = BUL_military_agreements }
+				IF = {
+					limit = { has_dlc = "Arms Against Tyranny"}
+					unlock_decision_category_tooltip = foreign_mio_decisions_category
 				}
-				if = {
-					limit = {
-						country_exists = PRE
-						NOT = { has_war_with = PRE }
-						PRE = { BUL_is_valid_subject = yes }
+				ELSE = {
+					if = {
+						limit = {
+							country_exists = GER
+							NOT = { has_war_with = GER }
+							GER = { BUL_is_valid_subject = yes }
+						}
+						activate_targeted_decision = { target = GER decision = BUL_military_agreements }
 					}
-					activate_targeted_decision = { target = PRE decision = BUL_military_agreements }
-				}
-				if = {
-					limit = {
-						country_exists = WGR
-						NOT = { has_war_with = WGR }
-						WGR = { BUL_is_valid_subject = yes }
+					if = {
+						limit = {
+							country_exists = ENG
+							NOT = { has_war_with = ENG }
+							ENG = { BUL_is_valid_subject = yes }
+						}
+						activate_targeted_decision = { target = ENG decision = BUL_military_agreements }
 					}
-					activate_targeted_decision = { target = WGR decision = BUL_military_agreements }
-				}								
-				if = {
-					limit = {
-						country_exists = ENG
-						NOT = { has_war_with = ENG }
-						ENG = { BUL_is_valid_subject = yes }
+					if = {
+						limit = {
+							country_exists = SOV
+							NOT = { has_war_with = SOV }
+							SOV = { BUL_is_valid_subject = yes }
+						}
+						activate_targeted_decision = { target = SOV decision = BUL_military_agreements }
 					}
-					activate_targeted_decision = { target = ENG decision = BUL_military_agreements }
-				}
-				if = {
-					limit = {
-						country_exists = SOV
-						NOT = { has_war_with = SOV }
-						SOV = { BUL_is_valid_subject = yes }
+					if = {
+						limit = {
+							country_exists = ITA
+							NOT = { has_war_with = ITA }
+							ITA = { BUL_is_valid_subject = yes }
+						}
+						activate_targeted_decision = { target = ITA decision = BUL_military_agreements }
 					}
-					activate_targeted_decision = { target = SOV decision = BUL_military_agreements }
-				}
-				if = {
-					limit = {
-						country_exists = ITA
-						NOT = { has_war_with = ITA }
-						ITA = { BUL_is_valid_subject = yes }
-					}
-					activate_targeted_decision = { target = ITA decision = BUL_military_agreements }
 				}
 			}
 			hidden_effect = {
-				activate_targeted_decision = { target = GER decision = BUL_military_agreements }
-				activate_targeted_decision = { target = PRE decision = BUL_military_agreements }
-				activate_targeted_decision = { target = WGR decision = BUL_military_agreements }
-				activate_targeted_decision = { target = ENG decision = BUL_military_agreements }
-				activate_targeted_decision = { target = SOV decision = BUL_military_agreements }
-				activate_targeted_decision = { target = ITA decision = BUL_military_agreements }
+				IF = {
+					limit = { NOT = { has_dlc = "Arms Against Tyranny"} }
+					activate_targeted_decision = { target = GER decision = BUL_military_agreements }
+					activate_targeted_decision = { target = ENG decision = BUL_military_agreements }
+					activate_targeted_decision = { target = SOV decision = BUL_military_agreements }
+					activate_targeted_decision = { target = ITA decision = BUL_military_agreements }
+				}
 			}
 		}
 	}
@@ -1297,7 +1342,25 @@ focus_tree = {
 				}
 				add_ideas = BUL_prussia_of_the_balkans_01
 			}
-			BUL_replace_national_aircraft_designer = yes
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				every_military_industrial_organization = {
+					limit = {
+						OR = {
+							is_military_industrial_organization = BUL_dar_organization
+							is_military_industrial_organization = BUL_kaproni_bulgarski_organization
+							is_military_industrial_organization = BUL_dvf_organization
+							is_military_industrial_organization = BUL_dvf_sopot_organization
+						}
+					}
+					complete_mio_trait = BUL_mio_trait_prussia_of_the_balkans
+				}
+			}
+			else = {
+				BUL_replace_national_aircraft_designer = yes
+			}
 		}
 	}
 
@@ -2308,8 +2371,21 @@ focus_tree = {
 					province = 9783
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = BUL_varna_naval_dockyard
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = BUL_varna_naval_dockyard_organization
+
+				mio:BUL_varna_naval_dockyard_organization = {
+					add_mio_size = 3
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = BUL_varna_naval_dockyard
+			}
 		}
 	}
 
@@ -2375,7 +2451,17 @@ focus_tree = {
 			    category = cl_tech
 			    category = ca_tech
 			}
-			BUL_replace_national_naval_designer = yes
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:BUL_varna_naval_dockyard_organization = {
+					complete_mio_trait = BUL_mio_trait_an_aegean_sea_fleet
+				}
+			}
+			else = {
+				BUL_replace_national_naval_designer = yes
+			}
 
 			custom_effect_tooltip = BUL_an_aegean_sea_fleet_tt
 			every_controlled_state = {

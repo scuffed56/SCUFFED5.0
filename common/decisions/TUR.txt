@@ -1,40 +1,55 @@
 political_actions = {
-#	TUR_recall_ataturk_to_active_service = {
-#
-#		icon = generic_army_support
-#
-#		allowed = {
-#			original_tag = TUR
-#		}
-#		available = {
-#			has_country_leader = { ruling_only = yes name = "Mustafa Kemal Atatürk" }
-#			has_defensive_war = yes			
-#		}
-#		visible = {
-#			date < 1938.11.10
-#			has_country_leader = { ruling_only = yes name = "Mustafa Kemal Atatürk" }
-#		}
-#		cost = 0
-#		fire_only_once = yes
-#		ai_will_do = {
-#			factor = 1
-#		}
-#		complete_effect = {
-#			create_field_marshal = {
-#				name = "Mustafa Kemal Atatürk"
-#				picture = "Portrait_Turkey_Mustafa_Kemal_Ataturk_Military.dds"
-#				traits = { brilliant_strategist war_hero infantry_officer trickster desert_fox hill_fighter }
-#				skill = 4
-#				id = 59
-#				attack_skill = 4
-#				defense_skill = 3
-#				planning_skill = 4
-#				logistics_skill = 2
-#			}
-#			add_war_support = 0.1
-#			add_stability = -0.05
-#		}
-#	}
+	TUR_recall_ataturk_to_active_service = {
+
+		icon = generic_army_support
+
+		allowed = {
+			original_tag = TUR
+		}
+		available = {
+			has_country_leader = { ruling_only = yes name = "Mustafa Kemal Atatürk" }
+			has_defensive_war = yes			
+		}
+		visible = {
+			has_country_leader = { ruling_only = yes name = "Mustafa Kemal Atatürk" }
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_dlc = "Battle for the Bosporus"
+				}
+				add_field_marshal_role = {
+					character = TUR_mustafa_kemal_ataturk
+					traits = { trait_TUR_kemalist_champion brilliant_strategist war_hero infantry_officer trickster desert_fox hill_fighter }
+					skill = 4
+					attack_skill = 4
+					defense_skill = 3
+					planning_skill = 4
+					logistics_skill = 2
+					legacy_id = 59
+				}
+			}
+			else = {
+				add_field_marshal_role = {
+					character = TUR_mustafa_kemal_ataturk
+					traits = { brilliant_strategist war_hero infantry_officer trickster desert_fox hill_fighter }
+					skill = 4
+					attack_skill = 4
+					defense_skill = 3
+					planning_skill = 4
+					logistics_skill = 2
+					legacy_id = 59
+				}
+			}
+			add_war_support = 0.1
+			add_stability = -0.05
+		}
+	}
 	TUR_alter_the_royal_laws_of_succession = {
 
 		icon = eng_trade_unions_support
@@ -814,7 +829,7 @@ TUR_the_constitutional_arrows_category = {
 
 		days_remove = 80
 
-		days_re_enable =  210	#was 200
+		days_re_enable =  200	#was 200
 
 		cost = 100
 
@@ -869,11 +884,11 @@ TUR_the_constitutional_arrows_category = {
 			}
 		}
 
-		days_remove = 90
+		days_remove = 70
 
 		days_re_enable =  210
 
-		cost = 75
+		cost = 50
 
 		ai_will_do = {
 			factor = 5
@@ -946,7 +961,7 @@ TUR_industrial_projects_category = {
 			} 
 		}
 
-		days_remove = 180
+		days_remove = 70
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1025,7 +1040,7 @@ TUR_industrial_projects_category = {
 		}
 
 
-		days_remove = 180
+		days_remove = 70
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1104,7 +1119,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 180
+		days_remove = 70
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1184,7 +1199,7 @@ TUR_industrial_projects_category = {
 			has_tech = synth_oil_experiments
 		}
 
-		days_remove = 240
+		days_remove = 70
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1275,9 +1290,9 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 200
+		days_remove = 70
 
-		cost = 300
+		cost = 200
 
 		ai_will_do = {
 			factor = 5
@@ -1371,7 +1386,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 180
+		days_remove = 70
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1458,7 +1473,7 @@ TUR_industrial_projects_category = {
 			has_idea = TUR_nuri_demirag
 		}
 
-		days_remove = 240
+		days_remove = 70
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1537,7 +1552,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 180
+		days_remove = 70
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1615,7 +1630,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 180
+		days_remove = 70
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1680,9 +1695,10 @@ TUR_industrial_projects_category = {
 			has_tech = steel_production_1
 		}
 
-		days_remove = 280
+		days_remove = 90
 
 		cost = TUR_etatism_cost_penalty_var?50
+		#TUR_etatism_cost_penalty_var
 
 		ai_will_do = {
 			factor = 5
@@ -1701,11 +1717,11 @@ TUR_industrial_projects_category = {
 		}
 
 		remove_effect = {
-			#add_resource = {
-			#	type = steel
-			#	amount = 4
-			#	state = 347
-			#}
+			add_resource = {
+				type = steel
+				amount = 4
+				state = 347
+			}
 			347 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -1741,7 +1757,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		cost = 75
+		cost = 50
 
 		ai_will_do = {
 			factor = 5
@@ -1939,7 +1955,7 @@ economy_decisions = {
 			has_idea = TUR_tpda
 		}
 
-		cost = 120
+		cost = 100
 
 		ai_will_do = {
 			factor = 5
@@ -1974,9 +1990,9 @@ economy_decisions = {
 			has_idea = TUR_tpda_absorbed
 		}
 
-		days_remove = 180
+		days_remove = 90
 
-		cost = 120
+		cost = 100
 
 		ai_will_do = {
 			factor = 5

@@ -2098,8 +2098,17 @@ focus_tree = {
 				}
 
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = ETH_hmmbi
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = invites_mio_tt
+				show_mio_tooltip = ETH_hmmbi_organization
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = ETH_hmmbi
+			}
 		}
 	}
 	focus = {
@@ -2202,8 +2211,17 @@ focus_tree = {
 					set_state_flag = ETH_can_improve_communication_state_flag
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = ETH_ncgf
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = invites_mio_tt
+				show_mio_tooltip = ETH_ncgf_organization
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = ETH_ncgf
+			}
 		}
 	}
 	focus = {
@@ -2497,60 +2515,69 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 
 		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				unlock_decision_category_tooltip = foreign_mio_decisions_category
+			}
 			custom_effect_tooltip = ETH_invite_foreign_industrialists_tt
-			IF = {
-				limit = {
-					ENG = {
-						exists = yes
-						has_opinion = {
-							target = ROOT
-							value > 50
-						}
-					}					
+			else = {
+				custom_effect_tooltip = ETH_invite_foreign_industrialists_tt
+				IF = {
+					limit = {
+						ENG = {
+							exists = yes
+							has_opinion = {
+								target = ROOT
+								value > 50
+							}
+						}					
+					}
 				}
-			}
-			IF = {
-				limit = {
-					SWE = {
-						exists = yes
-						has_opinion = {
-							target = ROOT
-							value > 50
-						}
-					}					
+				IF = {
+					limit = {
+						SWE = {
+							exists = yes
+							has_opinion = {
+								target = ROOT
+								value > 50
+							}
+						}					
+					}
 				}
-			}
-			IF = {
-				limit = {
-					GER = {
-						exists = yes
-						has_opinion = {
-							target = ROOT
-							value > 50
-						}
-					}					
+				IF = {
+					limit = {
+						GER = {
+							exists = yes
+							has_opinion = {
+								target = ROOT
+								value > 50
+							}
+						}					
+					}
 				}
-			}
-			IF = {
-				limit = {
-					CZE = {
-						exists = yes
-						has_opinion = {
-							target = ROOT
-							value > 50
-						}
-					}					
+				IF = {
+					limit = {
+						CZE = {
+							exists = yes
+							has_opinion = {
+								target = ROOT
+								value > 50
+							}
+						}					
+					}
 				}
-			}
-			IF = {
-				limit = {
-					JAP = {
-						exists = yes
-						has_opinion = {
-							target = ROOT
-							value > 50
-						}
-					}					
+				IF = {
+					limit = {
+						JAP = {
+							exists = yes
+							has_opinion = {
+								target = ROOT
+								value > 50
+							}
+						}					
+					}
 				}
 			}
 		}
@@ -6906,10 +6933,33 @@ focus_tree = {
 					modifier = ETH_SOV_trade 
 				} 
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = SOV_rubin_design_bureau
-			show_ideas_tooltip = SOV_mig_design_bureau
-			show_ideas_tooltip = SOV_gaz
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = invites_mio_tt
+				show_mio_tooltip = SOV_rubin_design_bureau_organization
+				show_mio_tooltip = SOV_mig_design_bureau_organization
+				show_mio_tooltip = SOV_gaz_organization
+
+				mio:SOV_rubin_design_bureau_organization = {
+					add_mio_size = 1
+				}
+				mio:SOV_mig_design_bureau_organization = {
+					add_mio_size = 1
+				}
+				mio:SOV_gaz_organization = {
+					add_mio_size = 1
+				}
+
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = SOV_rubin_design_bureau
+				show_ideas_tooltip = SOV_mig_design_bureau
+				show_ideas_tooltip = SOV_gaz
+			}
+			custom_effect_tooltip = available_industrial_concern
 			custom_effect_tooltip = ETH_stalingrad_tractor_factory_tt
 			IF = {
 				limit = { is_subject_of = SOV }
@@ -8177,14 +8227,29 @@ focus_tree = {
 				hours = 1
 			}
 			custom_effect_tooltip = ETH_outsourced_production_tt
-			custom_effect_tooltip = ETH_outsourced_production_air_tt
-			show_ideas_tooltip = ETH_imam
-			show_ideas_tooltip = caproni_ETH
-			show_ideas_tooltip = macchi_ETH
-			custom_effect_tooltip = ETH_outsourced_production_army_tt
-			show_ideas_tooltip = fiat_ETH
-			show_ideas_tooltip = breda_ETH
-			show_ideas_tooltip = beretta_ETH
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = ETH_outsourced_production_air_tt
+				show_mio_tooltip = ITA_imam_organization
+				show_mio_tooltip = ITA_caproni_organization
+				show_mio_tooltip = ITA_macchi_organization
+				custom_effect_tooltip = ETH_outsourced_production_army_tt
+				show_mio_tooltip = ITA_fiat_organization
+				show_mio_tooltip = ITA_breda_organization
+				show_mio_tooltip = ITA_beretta_organization
+			}
+			ELSE = {
+				custom_effect_tooltip = ETH_outsourced_production_air_tt
+				show_ideas_tooltip = ETH_imam
+				show_ideas_tooltip = caproni_ETH
+				show_ideas_tooltip = macchi_ETH
+				custom_effect_tooltip = ETH_outsourced_production_army_tt
+				show_ideas_tooltip = fiat_ETH
+				show_ideas_tooltip = breda_ETH
+				show_ideas_tooltip = beretta_ETH
+			}
 			custom_effect_tooltip = ETH_outsourced_production_factories_tt
 		}
 	}
