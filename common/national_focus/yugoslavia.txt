@@ -4883,25 +4883,17 @@ focus_tree = {
 
 		available = {
 			NOT = {
-				has_idea = YUG_idea_croatian_opposition
-				CRO = {
-					focus_progress = {
-						focus = YUG_expand_the_university_of_zagreb
-						progress > 0
-					}
-				}				
+				has_idea = YUG_idea_croatian_opposition			
 			}
 		}
 
-		bypass = {
-		  	CRO = {has_completed_focus = CRO_expand_the_university_of_zagreb}
-		}
+		
 
 		available_if_capitulated = yes
 
 		completion_reward = {
 			add_research_slot = 1
-			CRO = { add_research_slot = 1}
+			
 		}
 	}
 
@@ -5427,11 +5419,8 @@ focus_tree = {
 
 
 		completion_reward = {
+			set_technology = { steel_production_1 = 1 }	
 			108 = {
-				add_resource = {
-					type = steel
-					amount = 2
-				}
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = steel_mill
@@ -5439,12 +5428,7 @@ focus_tree = {
 					instant_build = yes
 				}				
 			}
-			add_tech_bonus = {
-				name = industrial_bonus
-				bonus = 1
-				uses = 1
-				category = steel_tech
-			}			
+			
 		}
 	}
 
@@ -5641,6 +5625,7 @@ focus_tree = {
 		id = YUG_ikarus
 		icon = GFX_focus_YUG_ikarus
 		prerequisite = { focus = YUG_local_developers }
+		mutually_exclusive = { focus = YUG_rogozarski focus = YUG_zmaj }
 		x = -2
 		y = 1
 		relative_position_id = YUG_local_developers
@@ -5655,34 +5640,20 @@ focus_tree = {
 
 
 		completion_reward = {
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = YUG_ikarus_organization
-				mio:YUG_ikarus_organization = {
-					add_mio_size = 1
-					add_mio_funds = 500
-				}
+			add_tech_bonus = {
+				name = YUG_the_ik_3
+				bonus = 0.5
+				uses = 2
+				category = air_equipment
 			}
-			else = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = YUG_ikarus
+			custom_effect_tooltip = available_mio_tt
+			show_mio_tooltip = YUG_ikarus_organization
+			mio:YUG_ikarus_organization = {
+				add_mio_size = 1
+				add_mio_funds = 750
 			}
 
-			random_owned_controlled_state = {
-				prioritize = { 107 }
-				limit = {
-					ROOT = { has_full_control_of_state = PREV }
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-			}
+
 		}
 	}
 
@@ -5690,6 +5661,7 @@ focus_tree = {
 		id = YUG_rogozarski
 		icon = GFX_focus_YUG_rogozarski
 		prerequisite = { focus = YUG_local_developers }
+		mutually_exclusive = { focus = YUG_ikarus focus = YUG_zmaj }
 		x = 0
 		y = 1
 		relative_position_id = YUG_local_developers
@@ -5703,33 +5675,17 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = YUG_rogozarski_organization
-				mio:YUG_rogozarski_organization = {
-					add_mio_size = 1
-					add_mio_funds = 500
-				}
+			add_doctrine_cost_reduction = {
+				name = GER_air_doc
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
 			}
-			else = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = YUG_rogozarski	
-			}
-
-			random_owned_controlled_state = {
-				prioritize = { 107 }
-				limit = {
-					ROOT = { has_full_control_of_state = PREV }
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
+			custom_effect_tooltip = available_mio_tt
+			show_mio_tooltip = YUG_rogozarski_organization
+			mio:YUG_rogozarski_organization = {
+				add_mio_size = 1
+				add_mio_funds = 1000
 			}
 		}
 	}
@@ -5738,6 +5694,7 @@ focus_tree = {
 		id = YUG_zmaj
 		icon = GFX_focus_YUG_zmaj
 		prerequisite = { focus = YUG_local_developers }
+		mutually_exclusive = { focus = YUG_ikarus focus = YUG_rogozarski }
 		x = 2
 		y = 1
 		relative_position_id = YUG_local_developers
@@ -5768,18 +5725,20 @@ focus_tree = {
 			}
 
 			random_owned_controlled_state = {
-				prioritize = { 107 }
-				limit = {
-					ROOT = { has_full_control_of_state = PREV }
-				}
-				add_extra_state_shared_building_slots = 1
+				
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
-			
+			custom_effect_tooltip = available_mio_tt
+			show_mio_tooltip = YUG_zmaj_organization
+			mio:YUG_zmaj_organization = {
+				add_mio_size = 1
+				add_mio_funds = 1000
+			}
 		}
 	}
 
@@ -5801,26 +5760,12 @@ focus_tree = {
 
 
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-				add_tech_bonus = {
-					name = YUG_the_ik_3
-					bonus = 3.0
-					ahead_reduction = 2
-					uses = 1
-					category = light_air
-				}
-			}
-			else = {
-				add_tech_bonus = {
-					name = YUG_the_ik_3
-					bonus = 3.0
-					ahead_reduction = 2
-					uses = 1
-					category = light_fighter
-				}
+			add_tech_bonus = {
+				name = YUG_the_ik_3
+				bonus = 1.0
+				ahead_reduction = 1
+				uses = 1
+				category = light_fighter
 			}
 		}
 	}
