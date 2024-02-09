@@ -1848,17 +1848,15 @@ focus_tree = {
 		}
 		
 		bypass = {
-			NOT = {
-				has_idea = uncontrolled_exports
+			POL = {
+				owns_state = 85
 			}
-			has_civil_war = no
 		}
 
 		available_if_capitulated = yes
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			add_named_threat = { threat = 1 name = POL_Pressure_Gdansk }
 			add_stability = -0.03
 			add_political_power = 50
 			DNZ = { country_event = poland.30 }
@@ -3204,7 +3202,7 @@ focus_tree = {
 		available = {
 			OR = {
 				date > 1938.01.01
-				has_war_support > 0.50
+				# has_war_support > 0.50
 			}
 		}
 
@@ -3232,8 +3230,10 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = POL_fb
+			mio:POL_fb_organization = {
+				add_mio_size = 1
+				add_mio_funds = 1000
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
@@ -7913,14 +7913,7 @@ focus_tree = {
 		}
 
 		available = {
-			NOT = {
-				OR = {
-					has_completed_focus = POL_camp_of_national_unity
-					has_completed_focus = POL_dissolve_the_bbwr
-					has_completed_focus = POL_ozon
-				}
-			}
-			neutrality > 0.5
+			has_government = neutrality
 		}
 
 		available_if_capitulated = yes
@@ -16902,17 +16895,35 @@ focus_tree = {
 		id = POL_prepare_for_the_inevitable
 		icon = GFX_focus_POL_prepare_for_the_inevitable
 		available = {
-			OR = {
-				has_capitulated = yes
+			if = {
+				limit = {
+					is_ai = yes
+				}
 				AND = {
-					OR = {
+					has_war = yes
+					NOT = {
 						has_war_with = GER
+					}
+					NOT = {
 						has_war_with = SOV
 					}
-					is_in_faction = yes
-					surrender_progress > 0.4
+				}
+				
+			}
+			else = {
+				OR = {
+					has_capitulated = yes
+					AND = {
+						OR = {
+							has_war_with = GER
+							has_war_with = SOV
+						}
+						is_in_faction = yes
+						surrender_progress > 0.25
+					}
 				}
 			}
+			
 		}
 		allow_branch = { has_dlc = "Man the Guns" }
 
@@ -17087,86 +17098,7 @@ focus_tree = {
 		y = 1
 		prerequisite = { focus = POL_prepare_for_the_inevitable }
 		relative_position_id = POL_prepare_for_the_inevitable
-		offset = {
-			x = 2
-			y = 0
-		}
-		offset = {
-			x = -28
-			y = 0
-			trigger = {
-				NOT = { has_dlc = "No Step Back" }
-			}
-		}
 		
-		offset = {
-			x = -27
-			y = 0
-			trigger = {
-				has_dlc = "No Step Back"
-				has_completed_focus = POL_complete_april_constitution
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-			}
-		}
-
-		offset = {	#new, 2
-			x = -6
-			y = 0
-			trigger = {
-				NOT = {
-					has_dlc = "No Step Back"
-				}
-				has_completed_focus = POL_complete_april_constitution
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-			}
-		}
-
-		offset = { #new
-			x = -43
-			y = 0
-			trigger = {
-				has_completed_focus = POL_radicalize_the_front
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_dlc = "No Step Back"
-			}
-		}
-
-		offset = { #new, 2
-			x = -22
-			y = 0
-			trigger = {
-				has_completed_focus = POL_radicalize_the_front
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				NOT = {
-					has_dlc = "No Step Back"
-				}
-			}
-		}
-
-		offset = { #new
-			x = -20
-			y = 0
-			trigger = {
-				has_dlc = "No Step Back"
-				has_completed_focus = POL_rewrite_1935_constitution
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-			}
-		}
 		cost = 5
 
 		ai_will_do = {
@@ -17215,6 +17147,150 @@ focus_tree = {
 			}
 			add_manpower = 125000
 		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
+	}
+
+	focus = {
+		id = POL_emergency_moabilization
+		text = "Emergency Moablization"
+		icon = GFX_focus_generic_support_the_left_right
+		x = 9
+		y = 1
+		prerequisite = { focus = POL_prepare_for_the_inevitable }
+		relative_position_id = POL_prepare_for_the_inevitable
+		
+		allow_branch = {
+			is_ai = yes
+		}
+
+		cost = 1
+
+		ai_will_do = {
+			factor = 100000
+		}
+
+		available_if_capitulated = yes
+		
+		available = {
+			and = {
+				has_war = yes
+				NOT = { has_war_with = GER }
+				NOT = { has_war_with = SOV }
+			}
+			
+		}
+
+		completion_reward = {
+			division_template = {
+				name = "Federal Reserve Unit"
+				priority = 0
+
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+					infantry = { x = 2 y = 0 }
+					infantry = { x = 2 y = 1 }
+					infantry = { x = 2 y = 2 }
+					artillery_brigade = { x = 3 y = 0 }
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 85 }
+				create_unit = {
+					division = "name = \"Chełmińska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 762 }
+				create_unit = {
+					division = "name = \"Cieszyńska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 762 }
+				create_unit = {
+					division = "name = \"Dąbrowska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 85 }
+				create_unit = {
+					division = "name = \"Kaliska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 89 }
+				create_unit = {
+					division = "name = \"Karpacka Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 91 }
+				create_unit = {
+					division = "name = \"Lwowska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 89 }
+				create_unit = {
+					division = "name = \"Podhalańska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 88 }
+				create_unit = {
+					division = "name = \"Podkarpacka Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 98 }
+				create_unit = {
+					division = "name = \"Pomorska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 86 }
+				create_unit = {
+					division = "name = \"Poznańska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 87 }
+				create_unit = {
+					division = "name = \"Sieradzka Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 762 }
+				create_unit = {
+					division = "name = \"Śląska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 10 }
+				create_unit = {
+					division = "name = \"Warszawska Brygada ON\" division_template = \"Federal Reserve Unit\" start_experience_factor = 0.1 start_equipment_factor = 0.75 force_equipment_variants = { infantry_equipment_0 = { owner = POL } }" 
+					owner = POL
+				}
+			}
+		}
+		
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 	}
 
@@ -17575,15 +17651,32 @@ focus_tree = {
 		icon = GFX_focus_pol_military_buildup
 		prerequisite = { focus = POL_expand_polish_intelligence }
 		available = {
-			OR = {
-				has_capitulated = yes
+			if = {
+				limit = {
+					is_ai = yes
+				}
 				AND = {
-					OR = {
+					has_war = yes
+					NOT = {
 						has_war_with = GER
+					}
+					NOT = {
 						has_war_with = SOV
 					}
-					is_in_faction = yes
-					surrender_progress < 0.5
+				}
+				
+			}
+			else = {
+				OR = {
+					has_capitulated = yes
+					AND = {
+						OR = {
+							has_war_with = GER
+							has_war_with = SOV
+						}
+						is_in_faction = yes
+						surrender_progress < 0.5
+					}
 				}
 			}
 		}
