@@ -4,7 +4,7 @@ tags={
 	"Events"
 	"Fixes"
 }
-name="SCUFFED 56"
+name="SCUFFED 56 - DEV"
 replace_path="history/states"
 replace_path="map/strategicregions"
 supported_version="1.13.*"
