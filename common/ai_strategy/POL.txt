@@ -10,6 +10,59 @@
 # protect
 # influence
 
+POL_smort_ai = {
+	allowed = {
+		original_tag = POL
+	}
+	enable = {
+		any_country = {
+			and = {
+				NOT = { original_tag = SOV }
+				NOT = { original_tag = GER }
+				or = {
+					is_justifying_wargoal_against = POL
+					has_wargoal_against = POL
+					has_war_with = POL
+				}
+			}
+		}
+	}
+	abort = {
+		or = {
+			GER = {
+				or = {
+					is_justifying_wargoal_against = POL
+					has_wargoal_against = POL
+					has_war_with = POL
+				}
+			}
+			SOV = {
+				or = {
+					is_justifying_wargoal_against = POL
+					has_wargoal_against = POL
+					has_war_with = POL
+				}
+			}
+		}
+	}
+	
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER
+		value = -100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = SOV
+		value = -100
+	}
+	ai_strategy = {
+		type = garrison
+		value = -100
+	}
+
+}
+
 POL_build_army = {
 	allowed = {
 		original_tag = POL
@@ -64,6 +117,11 @@ pol_unit_production = { #If adding country-unique ones, bear in mind that they S
 		
 	abort = {
 		always = no
+	}
+
+	ai_strategy = {
+		type = garrison
+		value = 1
 	}
 
 	ai_strategy = {
