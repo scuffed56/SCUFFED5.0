@@ -10,15 +10,176 @@
 # protect
 # influence
 
+
+CHI_defend_china = {
+	allowed = {  
+		or = {
+			original_tag = SHX
+			original_tag = YUN
+			original_tag = GXC
+			original_tag = XSM
+			original_tag = TNG
+			original_tag = SIK
+		}
+		
+	}
+	enable = {
+		has_war_with = JAP
+	}
+	abort = {
+		or = {
+			has_war = no
+			surrender_progress > 0
+		}
+	}
+	ai_strategy = {
+		type = force_defend_ally_borders
+		id = CHI
+		value = 1000
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = -2000
+	}
+}
+CHI_frount_prio = {
+	allowed = { 
+		or = {
+			original_tag = CHI 
+			original_tag = SHX
+			original_tag = YUN
+			original_tag = GXC
+			original_tag = XSM
+			original_tag = TNG
+			original_tag = SIK
+			original_tag = PRC
+		}
+		
+	}
+	enable = {
+		has_war_with = JAP
+	}
+	abort = {
+		or = {
+			has_war_with = SOV
+			has_war_with = MON
+			has_war_with = RAJ
+			has_war_with = FRI
+			has_war_with = FRA
+			has_war_with = AFG
+			has_war_with = ENG
+			has_war_with = POR
+			NOT = { has_war_with = JAP }
+		}
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = SOV
+		value = -100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = MON
+		value = -100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = RAJ
+		value = -100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = FRI
+		value = -100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = FRA
+		value = -100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = AFG
+		value = -100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = ENG
+		value = -100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = POR
+		value = -100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = JAP
+		value = 10000
+	}
+	ai_strategy = {
+		type = front_control
+
+		tag = JAP
+
+
+		priority = 10000
+		ordertype = front
+		execution_type = careful
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = KOR
+		value = 10000
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = MAN
+		value = 10000
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = MEN
+		value = 10000
+	}
+
+}
+
 CHI_unit_production = {
-	allowed = { original_tag = CHI }
+	allowed = { 
+		or = {
+			original_tag = CHI 
+			original_tag = SHX
+			original_tag = YUN
+			original_tag = GXC
+			original_tag = XSM
+			original_tag = TNG
+			original_tag = SIK
+		}
+		
+	}
 	enable = {
 		always = yes
 	}
-	abort = {
-		always = no
-	}
 	
+	ai_strategy = {
+		type = force_build_armies
+		value = 200
+	}
+
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = 200000
+	}
+
+	ai_strategy = {
+        type = building_target
+        id = arms_factory
+        value = 2000
+    }
+
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
@@ -28,7 +189,7 @@ CHI_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = garrison
-		value = 0
+		value = -100
 	}
 
 	ai_strategy = {
@@ -60,7 +221,7 @@ CHI_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 75 # From 70 to 75
+		value = -100
 	}
 	
 	ai_strategy = {
@@ -116,13 +277,13 @@ CHI_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = cas
-		value = 5
+		value = -100
 	}
 	
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
-		value = 15
+		value = -100
 	}
 	
 	ai_strategy = {
@@ -279,7 +440,7 @@ CHI_you_should_be_prepared_for_war = {
 
 CHI_buffer_in_mainland = {
 	allowed = {
-		is_literally_china = yes
+		tag = CHI
 	}
 	enable = {
 		date < 1941.1.1

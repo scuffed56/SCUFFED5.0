@@ -1548,7 +1548,7 @@ focus_tree = {
 		y = 0
 		#relative_position_id = WARLORD_secure_internal_politics
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 4
@@ -1592,9 +1592,9 @@ focus_tree = {
 	focus = {
 		id = SIK_complete_horgos_hami_road
 		icon = GFX_goal_generic_road
-		prerequisite = { focus = SIK_industrial_investment }
+		prerequisite = { focus = SIK_import_german_equipment }
 		relative_position_id = SIK_industrial_investment
-		x = 2
+		x = 3
 		y = 1
 
 		cost = 10
@@ -1642,7 +1642,7 @@ focus_tree = {
 		icon = GFX_focus_research
 		text = CHI_public_education_reform
 		prerequisite = { focus = SIK_industrial_investment }
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = SIK_industrial_investment
 
@@ -1662,12 +1662,12 @@ focus_tree = {
 		id = SIK_local_arms_production
 		icon = GFX_goal_generic_production
 		text = CHI_local_arms_production
-		prerequisite = { focus = SIK_industrial_investment }
-		x = 0
+		prerequisite = { focus = SIK_industrial_investment  focus = SIK_import_german_equipment }
+		x = 1
 		y = 1
 		relative_position_id = SIK_industrial_investment
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 4
@@ -1738,10 +1738,10 @@ focus_tree = {
 		y = 2
 		relative_position_id = SIK_industrial_investment
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
-			factor = 2
+			factor = 40
 		}
 
 		completion_reward = {
@@ -1751,8 +1751,52 @@ focus_tree = {
 				uses = 1
 				category = infantry_weapons
 			}
+			mio:CHI_hanyan_arsenal_organization = {
+				complete_mio_trait = china_mio_trait_mass_rifle_production
+				add_mio_funds = 2000
+			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = SIK_import_german_equipment
+		text = "Import German Equipment"
+		icon = GFX_goal_rhineland
+		relative_position_id = CHI_industrial_investment
+		x = 2
+		y = 0
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 60
+		}
+
+		available = {
+			NOT = {
+				has_completed_focus = WARLORD_cooperation_with_the_communists
+			}
+		}
+		
+		bypass = {
+			OR = {
+				has_war_with = GER		
+				GER = {
+					has_civil_war = yes
+				}
+			}
+		}
+
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2500
+				producer = GER
+			}	
+			army_experience = 10
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
