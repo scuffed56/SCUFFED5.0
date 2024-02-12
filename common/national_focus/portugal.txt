@@ -2557,7 +2557,7 @@ focus_tree = {
 		y = 0
 
 		relative_position_id = POR_army_reorganization
-		cost = 10
+		cost = 5
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
 			set_party_name = {
@@ -2667,10 +2667,10 @@ focus_tree = {
 			if = {
 				limit = { has_full_control_of_state = 112 }
 				112 = { #Lisbon
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -2742,6 +2742,7 @@ focus_tree = {
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POR_bento_de_jesus_caraca
 			remove_ideas = POR_unstable_republic
+			remove_ideas = internationalism
 			if = {
 				limit = {
 					NOT = { has_government = communism }
@@ -2752,7 +2753,7 @@ focus_tree = {
 
 				if = { #Low Stability triggers a Civil War
 					limit = {
-						has_stability < 0.4
+						has_stability < 0.3
 					}
 					set_temp_variable = { POR_communist_cw_opposition = party_popularity@neutrality }
 					multiply_temp_variable = { POR_communist_cw_opposition = 0.8 }
@@ -2898,7 +2899,7 @@ focus_tree = {
 		y = 3
 
 		relative_position_id = POR_nation_in_arms
-		cost = 10
+		cost = 8
 		completion_reward = {
 			SOV = {
 				country_event = { id = generic.2 hours = 4 }
@@ -3493,7 +3494,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = POR_the_iberian_socialist_union
 
-		cost = 5
+		cost = 8
 
 		ai_will_do = {
 			factor = 5
@@ -3562,7 +3563,7 @@ focus_tree = {
 		y = 1
 
 		relative_position_id = POR_the_iberian_socialist_union
-		cost = 10
+		cost = 8
 		completion_reward = {
 			if = {
 				limit = {
@@ -3663,10 +3664,10 @@ focus_tree = {
 
 		bypass = {
 		}
-		prerequisite = { focus = POR_the_popular_front_bloc }
+		prerequisite = { focus = POR_the_popular_front_bloc focus = POR_ }
 		icon = GFX_focus_por_latin_american_communism
-		x = 0
-		y = 2
+		x = -1
+		y = 1
 
 		relative_position_id = POR_the_popular_front_bloc
 		cost = 10
@@ -4179,6 +4180,10 @@ focus_tree = {
 		relative_position_id = POR_support_the_spanish_republic
 		cost = 10
 		completion_reward = {
+			add_popularity = {
+			    ideology = democratic
+			    popularity = 0.05
+			}
 			every_other_country = {
 				add_opinion_modifier = {
 				    target = POR
@@ -4229,6 +4234,11 @@ focus_tree = {
 				    amount = 50
 				    state = 112 #Lisbon
 				}
+				add_resource = {
+				    type = steel
+				    amount = 18
+				    state = 112 #Lisbon
+				}
 			}
 			add_tech_bonus = {
 				name = POR_british_investment_in_mines
@@ -4260,22 +4270,21 @@ focus_tree = {
 	}
 
 	focus = {
-		id = POR_british_guns
+		id = POR_allied_banking
 		available = {
 		}
 
 		bypass = {
 		}
 		prerequisite = { focus = POR_strict_neutrality_in_the_spanish_civil_war }
-		icon = GFX_goal_generic_military_sphere
+		icon = GFX_focus_generic_improve_the_administration
 		x = 1
 		y = 1
 
 		relative_position_id = POR_strict_neutrality_in_the_spanish_civil_war
 		cost = 10
 		completion_reward = {
-			unlock_decision_tooltip = POR_buy_aa_in_britain
-			unlock_decision_tooltip = POR_buy_at_in_britain
+			add_ideas = POR_allied_banking_idea
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -4296,7 +4305,7 @@ focus_tree = {
 		bypass = {
 			NOT = { country_exists = ENG }
 		}
-		prerequisite = { focus = POR_british_investment_in_mines focus = POR_british_guns}
+		prerequisite = { focus = POR_british_investment_in_mines focus = POR_allied_banking}
 		icon = GFX_focus_generic_industry_3
 		x = 1
 		y = 1
@@ -4448,7 +4457,7 @@ focus_tree = {
 
 				if = { #Low Stability triggers a Civil War
 					limit = {
-						has_stability < 0.4
+						has_stability < 0.3
 					}
 					set_temp_variable = { POR_democratic_cw_opposition = party_popularity@neutrality }
 					multiply_temp_variable = { POR_democratic_cw_opposition = 0.6 }
@@ -4711,7 +4720,7 @@ focus_tree = {
 		y = 0
 
 		relative_position_id = POR_popular_front
-		cost = 10
+		cost = 5
 		completion_reward = {
 			add_ideas = POR_estado_novo
 			add_political_power = 100
@@ -4783,7 +4792,7 @@ focus_tree = {
 		y = 1
 
 		relative_position_id = POR_support_the_spanish_nationalists
-		cost = 10
+		cost = 5
 		completion_reward = {
 			add_ideas = por_portuguese_legion
 		}
@@ -5453,7 +5462,7 @@ focus_tree = {
 
 				if = { #Low Stability triggers a Civil War
 					limit = {
-						has_stability < 0.6
+						has_stability < 0.3
 					}
 					set_temp_variable = { POR_fascist_cw_opposition = party_popularity@neutrality }
 					multiply_temp_variable = { POR_fascist_cw_opposition = 0.6 }
@@ -5482,7 +5491,7 @@ focus_tree = {
 				else = {
 					add_stability = -0.2
 				}
-				custom_effect_tooltip = POR_potential_civil_war_high_requirement_tt
+				custom_effect_tooltip = POR_potential_civil_war_low_requirement_tt
 			}
 			else = {
 				add_political_power = 120
@@ -5607,217 +5616,26 @@ focus_tree = {
 	}
 
 	focus = {
-		id = POR_expand_the_chinese_territories
+		id = POR_more_buildings
+
 
 		select_effect = {
-			every_country = {
-				limit = {
-					OR = {
-						controls_state = 592
-						controls_state = 594
-						controls_state = 325
-						controls_state = 613
-						controls_state = 622
-						controls_state = 604
-						controls_state = 615
-						controls_state = 611
-						controls_state = 328
-					}
-				}
-				ROOT = {
-					add_ai_strategy = {
-						type = prepare_for_war
-						id = PREV
-						value = 100
-					}
-				}
-			}
 		}
 
 		available = {
-			owns_state = 729
-			r56_script_i_am_sane = yes
-			has_army_manpower = {
-				size > 249999
-			}		
-			has_civil_war = no			
+			
 		}
-
-		bypass = {
-		}
-		prerequisite = { focus = POR_join_the_axis focus = POR_the_fifth_empire }
-		icon = GFX_focus_usa_focus_on_asia
+		prerequisite = { focus = POR_the_fifth_empire focus = POR_join_the_axis }
+		icon = GFX_goal_generic_production2
 		x = -1
 		y = 1
 
 		relative_position_id = POR_the_fifth_empire
 		cost = 10
 		completion_reward = {
-			hidden_effect = {
-				592 = {
-					owner =  {
-						ROOT = {
-							create_wargoal = {
-							  	target = PREV
-								expire = 0
-							    type = annex_everything
-							}
-						}
-					}
-				}
-
-				594 = {
-					owner =  {
-						ROOT = {
-							if = {
-								limit = {
-									NOT = { has_wargoal_against = PREV }
-								}
-								create_wargoal = {
-								  	target = PREV
-									expire = 0
-								    type = annex_everything
-								}
-							}
-						}
-					}
-				}
-
-				325 = {
-					owner =  {
-						ROOT = {
-							if = {
-								limit = {
-									NOT = { has_wargoal_against = PREV }
-								}
-								create_wargoal = {
-								  	target = PREV
-									expire = 0
-								    type = annex_everything
-								}
-							}
-						}
-					}
-				}
-
-				613 = {
-					owner =  {
-						ROOT = {
-							if = {
-								limit = {
-									NOT = { has_wargoal_against = PREV }
-								}
-								create_wargoal = {
-								  	target = PREV
-									expire = 0
-								    type = annex_everything
-								}
-							}
-						}
-					}
-				}
-
-				622 = {
-					owner =  {
-						ROOT = {
-							if = {
-								limit = {
-									NOT = { has_wargoal_against = PREV }
-								}
-								create_wargoal = {
-								  	target = PREV
-									expire = 0
-								    type = annex_everything
-								}
-							}
-						}
-					}
-				}
-
-				604 = {
-					owner =  {
-						ROOT = {
-							if = {
-								limit = {
-									NOT = { has_wargoal_against = PREV }
-								}
-								create_wargoal = {
-								  	target = PREV
-									expire = 0
-								    type = annex_everything
-								}
-							}
-						}
-					}
-				}
-
-				615 = {
-					owner =  {
-						ROOT = {
-							if = {
-								limit = {
-									NOT = { has_wargoal_against = PREV }
-								}
-								create_wargoal = {
-								  	target = PREV
-									expire = 0
-								    type = annex_everything
-								}
-							}
-						}
-					}
-				}
-
-				611 = {
-					owner =  {
-						ROOT = {
-							if = {
-								limit = {
-									NOT = { has_wargoal_against = PREV }
-								}
-								create_wargoal = {
-								  	target = PREV
-									expire = 0
-								    type = annex_everything
-								}
-							}
-						}
-					}
-				}
-
-				328 = {
-					owner =  {
-						ROOT = {
-							if = {
-								limit = {
-									NOT = { has_wargoal_against = PREV }
-								}
-								create_wargoal = {
-								  	target = PREV
-									expire = 0
-								    type = annex_everything
-								}
-							}
-						}
-					}
-				}
-			}
-			custom_effect_tooltip = POR_expand_the_chinese_territories_tt
-
-			hidden_effect = {
-				random_country = {
-					limit = { controls_state = 592 }
-					ROOT = {
-						add_ai_strategy = {
-							type = prepare_for_war
-							id = PREV
-							value = 100
-						}
-					}
-				}
-			}
+			add_ideas = tot_economic_mobilisation
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = {  FOCUS_FILTER_MANPOWER }
 	}
 
 	focus = {
@@ -6771,7 +6589,7 @@ focus_tree = {
 			#Civil war suddenly easier for the AI, should allow a restoration as currently they fail every single time.
 			if = { #Low Stability triggers a Civil War
 				limit = {
-					has_stability < 0.4
+					has_stability < 0.3
 					is_ai = yes
 				}
 				set_temp_variable = { POR_monarchist_cw_opposition = party_popularity@fascism }
