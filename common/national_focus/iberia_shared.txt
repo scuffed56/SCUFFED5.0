@@ -64,7 +64,7 @@
 		dynamic = yes 
 
 		available = {
-			has_global_flag = scw_over
+			# has_global_flag = scw_over
 			is_faction_leader = yes 
 			any_allied_country = {
 				IBERIAN_is_iberian = yes
@@ -192,20 +192,10 @@
 		}
 
 		completion_reward_joint_originator = { #original completer
-			add_field_marshal_role = {
-				character = POR_jose_filipe_de_barros_rodrigues
-				traits = { artillerist skilled_staffer infantry_leader hill_fighter unyielding_defender }
-				skill = 5
-				attack_skill = 4
-				defense_skill = 3
-				planning_skill = 2
-				logistics_skill = 3
-				legacy_id = -1
+		if = {
+			limit = {
+				tag = POR
 			}
-		}
-
-
-		completion_reward_joint_member = { #other members
 			add_field_marshal_role = {
 				character = POR_jose_filipe_de_barros_rodrigues
 				traits = { artillerist skilled_staffer infantry_leader hill_fighter unyielding_defender }
@@ -215,6 +205,37 @@
 				planning_skill = 2
 				logistics_skill = 3
 				legacy_id = -1
+			}
+		}
+		else = {
+			every_army_leader = {
+				skill = 1
+			}
+		}
+			
+		}
+
+
+		completion_reward_joint_member = { #other members
+			if = {
+				limit = {
+					tag = POR
+				}
+				add_field_marshal_role = {
+					character = POR_jose_filipe_de_barros_rodrigues
+					traits = { artillerist skilled_staffer infantry_leader hill_fighter unyielding_defender }
+					skill = 4
+					attack_skill = 4
+					defense_skill = 3
+					planning_skill = 2
+					logistics_skill = 3
+					legacy_id = -1
+				}
+			}
+			else = {
+				every_army_leader = {
+					skill = 1
+				}
 			}
 		}
 	}
