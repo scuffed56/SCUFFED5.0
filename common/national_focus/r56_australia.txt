@@ -17,7 +17,8 @@ focus_tree = {
 	
 	continuous_focus_position = { x = 50 y = 1000 }
 
-	shared_focus = ENG_welcome_british_exiles
+	#
+#shared_focus = ENG_welcome_british_exiles
 
 #	focus = {
 #		id = AST_R56_
@@ -1408,11 +1409,15 @@ focus_tree = {
 				name = AST_R56_ran_torped_factory
 				bonus = 1.0
 				uses = 2
-				category = torpedo_equipment
-				category = naval_bomber
+				category = plane_modules_tech
+				category = light_air
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = AST_R56_ran_torped_factory_designer
+			custom_effect_tooltip = available_mio_tt
+            show_mio_tooltip = ENG_fairey_aviation_organization
+            mio:ENG_fairey_aviation_organization = {
+                add_mio_size = 1
+                add_mio_funds = 750
+            }
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -3022,7 +3027,7 @@ focus_tree = {
 		relative_position_id = AST_R56_strengthen_british_ties
 		mutually_exclusive = {
 			focus = AST_R56_third_time_lucky
-			#focus = AST_R56_royalist_propoganda
+			focus = AST_R56_hail_to_the_king
 			focus = AST_R56_australia_first
 			focus = AST_R56_appeal_to_the_labour_dissidents
 			focus = AST_R56_dreams_of_a_republic
@@ -3107,7 +3112,7 @@ focus_tree = {
 		relative_position_id = AST_R56_reaffirm_commonwelth_commitments
 		mutually_exclusive = {
 			focus = AST_R56_third_time_lucky
-			#focus = AST_R56_royalist_propoganda
+			focus = AST_R56_hail_to_the_king
 			focus = AST_R56_australia_first
 			focus = AST_R56_reaffirm_commonwelth_commitments
 			focus = AST_R56_appeal_to_the_labour_dissidents
@@ -5157,7 +5162,7 @@ focus_tree = {
 		relative_position_id = AST_R56_the_labor_government
 		mutually_exclusive = {
 			focus = AST_R56_third_time_lucky
-			#focus = AST_R56_royalist_propoganda
+			focus = AST_R56_hail_to_the_king
 			focus = AST_R56_australia_first
 			focus = AST_R56_reaffirm_commonwelth_commitments
 			focus = AST_R56_dreams_of_a_republic
@@ -6347,7 +6352,7 @@ focus_tree = {
 		id = AST_R56_australia_first
 		icon = GFX_goal_AST_australia_first
 		mutually_exclusive = { 
-			#focus = AST_R56_royalist_propoganda 
+			focus = AST_R56_hail_to_the_king
 			focus = AST_R56_appeal_to_the_labour_dissidents 
 			focus = AST_R56_third_time_lucky
 			focus = AST_R56_reaffirm_commonwelth_commitments
@@ -6546,7 +6551,7 @@ focus_tree = {
 		id = AST_R56_the_writers_revolution
 		icon = GFX_goal_generic_scientific_exchange
 
-		prerequisite = { focus = AST_R56_never_another_gallipoli }
+		prerequisite = { focus = AST_R56_never_another_gallipoli focus = AST_R56_joint_board_defense }
 		x = 3
 		y = 1
 		relative_position_id = AST_R56_never_another_gallipoli
@@ -6558,7 +6563,7 @@ focus_tree = {
 		}
 
 		available = {
-			NOT = { has_country_flag = britain_enforced_our_loyalty }
+			#NOT = { has_country_flag = britain_enforced_our_loyalty }
 		}
 
 		cancel_if_invalid = yes
@@ -6788,7 +6793,7 @@ focus_tree = {
 		id = AST_R56_australias_natural_wealth
 		icon = GFX_goal_generic_construction2
 
-		prerequisite = { focus = AST_R56_a_corporate_state focus = AST_R56_the_economic_state }
+		prerequisite = { focus = AST_R56_a_corporate_state }
 		x = 1
 		y = 1
 		relative_position_id = AST_R56_a_corporate_state
@@ -7280,30 +7285,520 @@ focus_tree = {
 	#################################
 	#### CENTRE PARTY			 ####
 	#################################
+	#focus = {
+	#	id = AST_R56_third_time_lucky
+	#	icon = GFX_goal_support_fascism
+	#	mutually_exclusive = { 
+	#		focus = AST_R56_hail_to_the_king
+	#		focus = AST_R56_appeal_to_the_labour_dissidents
+	#		focus = AST_R56_australia_first
+	#		focus = AST_R56_reaffirm_commonwelth_commitments
+	#		focus = AST_R56_dreams_of_a_republic
+	#	}
+	#	x = 8
+	#	y = 0
+	#	relative_position_id = AST_R56_australia_first
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 1
+	#		modifier = {
+	#			ENG = {
+	#				has_completed_focus = ENG_organize_the_blackshirts
+	#			}
+	#			factor = 2
+	#		}
+	#	}
+#
+	#	available = {
+	#		is_subject_of = ENG
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		add_timed_idea = { idea = fascist_influence days = 365 }
+	#		custom_effect_tooltip = available_political_advisor
+	#		show_ideas_tooltip = AST_generic_fascist_demagogue
+	#		hidden_effect = {
+	#			if = {
+	#				limit = {
+	#					is_ai = yes
+	#				}
+	#				add_ideas = AST_generic_fascist_demagogue
+	#			}
+	#		}
+	#		if = {
+	#			limit = {
+	#				OR = {
+	#					has_dlc = "Together for Victory"
+	#					has_dlc = "Death or Dishonor"
+	#				}
+	#			}
+	#			add_autonomy_ratio = {
+	#				value = 0.2
+	#				localization = AST_R56_third_time_lucky
+	#			}
+	#		}
+	#	}
+	#	search_filters = { FOCUS_FILTER_TFV_AUTONOMY }
+	#}
+	
+	#focus = {
+	#	id = AST_R56_reestablish_the_new_guard
+	#	icon = GFX_goal_AST_new_guard
+	#	prerequisite = { focus = AST_R56_third_time_lucky }
+	#	x = -1
+	#	y = 1
+	#	relative_position_id = AST_R56_third_time_lucky
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		add_ideas = AST_R56_new_guard_idea
+	#	}
+	#	search_filters = { FOCUS_FILTER_MANPOWER }
+	#}
+#
+	#focus = {
+	#	id = AST_R56_repeal_socialist_legislation
+	#	icon = GFX_goal_generic_anti_communism
+	#	prerequisite = { focus = AST_R56_third_time_lucky }
+	#	x = 1
+	#	y = 1
+	#	relative_position_id = AST_R56_third_time_lucky
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		add_ideas = AST_R56_repeal_socialist_legislation_idea
+	#		add_war_support = 0.05
+	#		add_stability = -0.05
+	#	}
+	#	search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
+	#}
+#
+	#focus = {
+	#	id = AST_R56_the_guiding_principles
+	#	icon = GFX_focus_generic_self_management
+	#	prerequisite = { focus = AST_R56_repeal_socialist_legislation }
+	#	prerequisite = { focus = AST_R56_reestablish_the_new_guard }
+	#	x = 1
+	#	y = 1
+	#	relative_position_id = AST_R56_reestablish_the_new_guard
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		add_political_power = 100
+	#		add_stability = 0.1
+	#		add_war_support = 0.1
+	#	}
+	#	search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+	#}
+#
+	#focus = {
+	#	id = AST_R56_the_economic_state
+	#	icon = GFX_goal_fascist_factory
+	#	prerequisite = { focus = AST_R56_the_guiding_principles }
+	#	x = -2
+	#	y = 1
+	#	relative_position_id = AST_R56_the_guiding_principles
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		add_ideas = AST_R56_the_economic_state_idea_0
+	#	}
+	#	search_filters = { FOCUS_FILTER_INDUSTRY }
+	#}
+#
+	#focus = {
+	#	id = AST_R56_free_private_enterprises
+	#	icon = GFX_goal_generic_fascist_bills
+	#	prerequisite = { focus = AST_R56_the_economic_state }
+	#	x = -1
+	#	y = 1
+	#	relative_position_id = AST_R56_the_economic_state
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		AST_lower_depression = yes
+	#		if = {
+	#			limit = {
+	#				has_idea = AST_R56_the_economic_state_idea_2
+	#			}
+	#			swap_ideas = {
+	#				remove_idea = AST_R56_the_economic_state_idea_2
+	#				add_idea = AST_R56_the_economic_state_idea_3
+	#			}
+	#		}
+	#		else = {
+	#			swap_ideas = {
+	#				remove_idea = AST_R56_the_economic_state_idea_0
+	#				add_idea = AST_R56_the_economic_state_idea_1
+	#			}
+	#		}
+	#	}
+	#	search_filters = { FOCUS_FILTER_INDUSTRY }
+	#}
+#
+	#focus = {
+	#	id = AST_R56_national_work_service
+	#	icon = GFX_goal_generic_citizens
+	#	prerequisite = { focus = AST_R56_the_economic_state }
+	#	x = 1
+	#	y = 1
+	#	relative_position_id = AST_R56_the_economic_state
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		AST_lower_depression = yes
+	#		add_stability = -0.05
+	#		if = {
+	#			limit = {
+	#				has_idea = AST_R56_the_economic_state_idea_1
+	#			}
+	#			swap_ideas = {
+	#				remove_idea = AST_R56_the_economic_state_idea_1
+	#				add_idea = AST_R56_the_economic_state_idea_3
+	#			}
+	#		}
+	#		else = {
+	#			swap_ideas = {
+	#				remove_idea = AST_R56_the_economic_state_idea_0
+	#				add_idea = AST_R56_the_economic_state_idea_2
+	#			}
+	#		}
+	#	}
+	#	search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
+	#}
+#
+	#focus = {
+	#	id = AST_R56_end_unjust_and_inequitable_taxation
+	#	icon = GFX_focus_generic_industry_3
+	#	prerequisite = { focus = AST_R56_national_work_service }
+	#	prerequisite = { focus = AST_R56_free_private_enterprises }
+	#	x = 1
+	#	y = 1
+	#	relative_position_id = AST_R56_free_private_enterprises
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	complete_tooltip = {
+	#		AST_lower_depression = yes
+	#		random_state = {
+	#			limit = {
+	#				has_state_flag = AST_R56_fash_ic
+	#			}
+	#			add_extra_state_shared_building_slots = 2
+	#			add_building_construction = {
+	#				type = industrial_complex
+	#				level = 2
+	#				instant_build = yes
+	#			}
+	#		}
+	#	}
+#
+	#	completion_reward = {
+	#		AST_lower_depression = yes
+	#		random_owned_controlled_state = {
+	#			prioritize = { 519 521 520 522 }
+	#			limit = {
+	#				is_coastal = yes
+	#				free_building_slots = {
+	#					building = industrial_complex
+	#					size > 2
+	#					include_locked = yes
+	#				}
+	#			}
+	#			add_extra_state_shared_building_slots = 2
+	#			add_building_construction = {
+	#				type = industrial_complex
+	#				level = 2
+	#				instant_build = yes
+	#			}
+	#			set_state_flag = AST_R56_fash_ic
+	#		}
+	#	}
+	#	search_filters = { FOCUS_FILTER_INDUSTRY }
+	#}
+#
+	#
+	#focus = {
+	#	id = AST_R56_everyone_does_their_duty
+	#	icon = GFX_focus_generic_commonwealth_build_infantry
+	#	prerequisite = { focus = AST_R56_the_guiding_principles }
+	#	x = 0
+	#	y = 1
+	#	relative_position_id = AST_R56_the_guiding_principles
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		remove_ideas = AST_R56_memories_of_gallipoli
+	#		add_stability = -0.05
+	#		add_war_support = 0.05
+	#		custom_effect_tooltip = AST_R56_unlock_mobilisation_tt
+	#	}
+	#	search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
+	#}
+#
+	#focus = {
+	#	id = AST_R56_abolition_of_bureaucratic_control
+	#	icon = GFX_focus_renounce_the_treaty_of_trianon
+	#	prerequisite = { focus = AST_R56_the_guiding_principles }
+	#	x = 2
+	#	y = 1
+	#	relative_position_id = AST_R56_the_guiding_principles
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		add_ideas = AST_R56_abolition_of_bureaucratic_control_idea
+	#	}
+	#	search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+	#}
+#
+	#focus = {
+	#	id = AST_R56_silence_anti_british_opposition
+	#	icon = GFX_goal_generic_political_pressure
+	#	prerequisite = { focus = AST_R56_abolition_of_bureaucratic_control }
+	#	x = -1
+	#	y = 1
+	#	relative_position_id = AST_R56_abolition_of_bureaucratic_control
+#
+	#	cost = 5
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		add_political_power = 50
+	#		add_stability = 0.05
+	#	}
+	#	search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+	#}
+#
+	#focus = {
+	#	id = AST_R56_encourage_private_schooling
+	#	icon = GFX_focus_research
+	#	prerequisite = { focus = AST_R56_abolition_of_bureaucratic_control }
+	#	x = 1
+	#	y = 1
+	#	relative_position_id = AST_R56_abolition_of_bureaucratic_control
+#
+	#	cost = 10
+#
+	#	ai_will_do = {
+	#		factor = 5
+	#	}
+#
+	#	available = {
+	#		has_government = fascism
+	#	}
+	#	
+	#	bypass = {
+#
+	#	}
+#
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+#
+	#	completion_reward = {
+	#		add_research_slot = 1
+	#	}
+	#	search_filters = { FOCUS_FILTER_RESEARCH }
+	#}
+
+	#################################
+	#### ROYALIST				 ####
+	#################################
 	focus = {
-		id = AST_R56_third_time_lucky
-		icon = GFX_goal_support_fascism
+		id = AST_R56_hail_to_the_king
+		icon = GFX_focus_eng_god_save_the_king
 		mutually_exclusive = { 
-			#focus = AST_R56_royalist_propoganda
+			focus = AST_R56_third_time_lucky
 			focus = AST_R56_appeal_to_the_labour_dissidents
 			focus = AST_R56_australia_first
 			focus = AST_R56_reaffirm_commonwelth_commitments
 			focus = AST_R56_dreams_of_a_republic
 		}
-		x = 8
+		x = 9
 		y = 0
 		relative_position_id = AST_R56_australia_first
 
 		cost = 5
 
 		ai_will_do = {
-			factor = 1
-			modifier = {
-				ENG = {
-					has_completed_focus = ENG_organize_the_blackshirts
-				}
-				factor = 2
-			}
+			factor = 0
 		}
 
 		available = {
@@ -7317,591 +7812,132 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-
+		
+      
 		completion_reward = {
-			add_timed_idea = { idea = fascist_influence days = 365 }
+			add_ideas = GEN_Strenghten_Monarchy_I
 			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = AST_generic_fascist_demagogue
-			hidden_effect = {
-				if = {
-					limit = {
-						is_ai = yes
-					}
-					add_ideas = AST_generic_fascist_demagogue
-				}
+			show_ideas_tooltip = AST_David_Smith
+			show_ideas_tooltip = AST_George_Jackson
+			add_autonomy_score = {
+				value = -75
+				#localization = EGY_empower_govenor_general_autonomy
 			}
-			if = {
-				limit = {
-					OR = {
-						has_dlc = "Together for Victory"
-						has_dlc = "Death or Dishonor"
-					}
-				}
-				add_autonomy_ratio = {
-					value = 0.2
-					localization = AST_R56_third_time_lucky
+			AST = {
+				modify_tech_sharing_bonus = {
+					id = commonwealth_research
+					bonus = 0.05
 				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_TFV_AUTONOMY }
 	}
-	
-	focus = {
-		id = AST_R56_reestablish_the_new_guard
-		icon = GFX_goal_AST_new_guard
-		prerequisite = { focus = AST_R56_third_time_lucky }
-		x = -1
-		y = 1
-		relative_position_id = AST_R56_third_time_lucky
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			has_government = fascism
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			add_ideas = AST_R56_new_guard_idea
-		}
-		search_filters = { FOCUS_FILTER_MANPOWER }
-	}
 
 	focus = {
-		id = AST_R56_repeal_socialist_legislation
-		icon = GFX_goal_generic_anti_communism
-		prerequisite = { focus = AST_R56_third_time_lucky }
-		x = 1
-		y = 1
-		relative_position_id = AST_R56_third_time_lucky
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			has_government = fascism
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			add_ideas = AST_R56_repeal_socialist_legislation_idea
-			add_war_support = 0.05
-			add_stability = -0.05
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
-	}
-
-	focus = {
-		id = AST_R56_the_guiding_principles
-		icon = GFX_focus_generic_self_management
-		prerequisite = { focus = AST_R56_repeal_socialist_legislation }
-		prerequisite = { focus = AST_R56_reestablish_the_new_guard }
-		x = 1
-		y = 1
-		relative_position_id = AST_R56_reestablish_the_new_guard
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			has_government = fascism
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			add_political_power = 100
-			add_stability = 0.1
-			add_war_support = 0.1
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
-	}
-
-	focus = {
-		id = AST_R56_the_economic_state
-		icon = GFX_goal_fascist_factory
-		prerequisite = { focus = AST_R56_the_guiding_principles }
-		x = -2
-		y = 1
-		relative_position_id = AST_R56_the_guiding_principles
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			has_government = fascism
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			add_ideas = AST_R56_the_economic_state_idea_0
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-
-	focus = {
-		id = AST_R56_free_private_enterprises
-		icon = GFX_goal_generic_fascist_bills
-		prerequisite = { focus = AST_R56_the_economic_state }
-		x = -1
-		y = 1
-		relative_position_id = AST_R56_the_economic_state
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			has_government = fascism
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			AST_lower_depression = yes
-			if = {
-				limit = {
-					has_idea = AST_R56_the_economic_state_idea_2
-				}
-				swap_ideas = {
-					remove_idea = AST_R56_the_economic_state_idea_2
-					add_idea = AST_R56_the_economic_state_idea_3
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = AST_R56_the_economic_state_idea_0
-					add_idea = AST_R56_the_economic_state_idea_1
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-
-	focus = {
-		id = AST_R56_national_work_service
-		icon = GFX_goal_generic_citizens
-		prerequisite = { focus = AST_R56_the_economic_state }
-		x = 1
-		y = 1
-		relative_position_id = AST_R56_the_economic_state
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			has_government = fascism
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			AST_lower_depression = yes
-			add_stability = -0.05
-			if = {
-				limit = {
-					has_idea = AST_R56_the_economic_state_idea_1
-				}
-				swap_ideas = {
-					remove_idea = AST_R56_the_economic_state_idea_1
-					add_idea = AST_R56_the_economic_state_idea_3
-				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = AST_R56_the_economic_state_idea_0
-					add_idea = AST_R56_the_economic_state_idea_2
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
-	}
-
-	focus = {
-		id = AST_R56_end_unjust_and_inequitable_taxation
-		icon = GFX_focus_generic_industry_3
-		prerequisite = { focus = AST_R56_national_work_service }
-		prerequisite = { focus = AST_R56_free_private_enterprises }
-		x = 1
-		y = 1
-		relative_position_id = AST_R56_free_private_enterprises
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			has_government = fascism
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		complete_tooltip = {
-			AST_lower_depression = yes
-			random_state = {
-				limit = {
-					has_state_flag = AST_R56_fash_ic
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-
-		completion_reward = {
-			AST_lower_depression = yes
-			random_owned_controlled_state = {
-				prioritize = { 519 521 520 522 }
-				limit = {
-					is_coastal = yes
-					free_building_slots = {
-						building = industrial_complex
-						size > 2
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				set_state_flag = AST_R56_fash_ic
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-
-	
-	focus = {
-		id = AST_R56_everyone_does_their_duty
-		icon = GFX_focus_generic_commonwealth_build_infantry
-		prerequisite = { focus = AST_R56_the_guiding_principles }
-		x = 0
-		y = 1
-		relative_position_id = AST_R56_the_guiding_principles
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			has_government = fascism
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			remove_ideas = AST_R56_memories_of_gallipoli
-			add_stability = -0.05
-			add_war_support = 0.05
-			custom_effect_tooltip = AST_R56_unlock_mobilisation_tt
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
-	}
-
-	focus = {
-		id = AST_R56_abolition_of_bureaucratic_control
-		icon = GFX_focus_renounce_the_treaty_of_trianon
-		prerequisite = { focus = AST_R56_the_guiding_principles }
-		x = 2
-		y = 1
-		relative_position_id = AST_R56_the_guiding_principles
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-			has_government = fascism
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			add_ideas = AST_R56_abolition_of_bureaucratic_control_idea
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}
-
-	focus = {
-		id = AST_R56_silence_anti_british_opposition
+		id = AST_R56_dismantle_democracy
 		icon = GFX_goal_generic_political_pressure
-		prerequisite = { focus = AST_R56_abolition_of_bureaucratic_control }
-		x = -1
+		prerequisite = { focus = AST_R56_hail_to_the_king }
+		relative_position_id = AST_R56_hail_to_the_king
+		x = 1
 		y = 1
-		relative_position_id = AST_R56_abolition_of_bureaucratic_control
 
 		cost = 5
 
-		ai_will_do = {
-			factor = 5
-		}
-
 		available = {
-			has_government = fascism
+			
 		}
 		
 		bypass = {
 
 		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
 
 		completion_reward = {
 			add_political_power = 50
-			add_stability = 0.05
+			add_ideas = collectivist_ethos_focus
+			add_stability = -0.05
+			add_war_support = 0.05
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.10
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.05
+			}
 		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
 
 	focus = {
-		id = AST_R56_encourage_private_schooling
-		icon = GFX_focus_research
-		prerequisite = { focus = AST_R56_abolition_of_bureaucratic_control }
-		x = 1
+		id = AST_R56_joint_board_defense
+		icon = GFX_goal_generic_national_defense_fund
+		prerequisite = { focus = AST_R56_hail_to_the_king }
+		relative_position_id = AST_R56_hail_to_the_king
+		x = -1
 		y = 1
-		relative_position_id = AST_R56_abolition_of_bureaucratic_control
 
-		cost = 10
-
-		ai_will_do = {
-			factor = 5
-		}
+		cost = 5
 
 		available = {
-			has_government = fascism
+			
 		}
 		
 		bypass = {
 
 		}
 
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
 		completion_reward = {
-			add_research_slot = 1
+			add_war_support = 0.05
+			army_experience = 25
+			add_ideas = r56_CAN_pjdnb_idea
+			ENG = { add_ideas = r56_CAN_pjdnb_idea }
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 
-	#################################
-	#### ROYALIST				 ####
-	#################################
+	focus = {
+		id = AST_R56_empower_govenor_general
+		icon = GFX_goal_generic_army_elite
+		prerequisite = { focus = AST_R56_joint_board_defense }
+		prerequisite = { focus = AST_R56_dismantle_democracy}
+		relative_position_id = AST_R56_joint_board_defense
+		x = 1
+		y = 1
 
-	# focus = {
-	# 	id = AST_R56_royalist_propoganda
-	# 	icon = GFX_focus_generic_support_the_left_right
-	# 	mutually_exclusive = {
-	# 		focus = AST_R56_third_time_lucky
-	# 		focus = AST_R56_appeal_to_the_labour_dissidents
-	# 		focus = AST_R56_australia_first
-	# 		focus = AST_R56_reaffirm_commonwelth_commitments
-	# 		focus = AST_R56_dreams_of_a_republic
-	# 	}
-	# 	x = -10
-	# 	y = 0
-	# 	relative_position_id = AST_R56_third_time_lucky
+		cost = 5
 
-	# 	cost = 10
-
-	# 	ai_will_do = {
-	# 		factor = 1
-	# 		modifier = {
-	# 			ENG = {
-	# 				has_completed_focus = ENG_the_kings_party
-	# 			}
-	# 			factor = 10
-	# 		}
-	# 	}
-
-	# 	available = {
-	# 		is_subject_of = ENG
-	# 		ENG = {
-	# 			has_country_flag = edward_viii_refused_to_abdicate_flag
-	# 			NOT = { has_country_flag = ENG_abdication_crisis_changed_mind }
-	# 		}
-	# 	}
+		available = {
+	    neutrality > 0.4
+		}
 		
-	# 	bypass = {
+		bypass = {
 
-	# 	}
+		}
 
-	# 	cancel_if_invalid = yes
-	# 	continue_if_invalid = no
-	# 	available_if_capitulated = no
-
-	# 	completion_reward = {
-	# 		add_timed_idea = { idea = neutrality_influence days = 365 }
-	# 		custom_effect_tooltip = available_political_advisor
-	# 		show_ideas_tooltip = AST_billy_hughes
-	# 	}
-	# }
-	
-	# focus = {
-	# 	id = AST_R56_the_dismissal
-	# 	icon = GFX_goal_generic_demand_territory
-	# 	prerequisite = { focus = AST_R56_royalist_propoganda }
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = AST_R56_royalist_propoganda
-
-	# 	cost = 10
-
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-
-	# 	available = {
-	# 		neutrality > 0.3
-	# 	}
-		
-	# 	bypass = {
-
-	# 	}
-
-	# 	cancel_if_invalid = yes
-	# 	continue_if_invalid = no
-	# 	available_if_capitulated = no
-
-	# 	completion_reward = {
-	# 		add_stability = -0.1
-	# 		add_political_power = 100
-	# 		set_politics = {
-	# 			ruling_party = neutrality
-	# 			elections_allowed = no
-	# 		}
-	# 	}
-	# }
-	
-	# focus = {
-	# 	id = AST_R56_unite_the_imperial_loyalists
-	# 	icon = GFX_goal_generic_national_unity
-	# 	prerequisite = { focus = AST_R56_the_dismissal }
-	# 	x = 0
-	# 	y = 2
-	# 	relative_position_id = AST_R56_the_dismissal
-
-	# 	cost = 10
-
-	# 	ai_will_do = {
-	# 		factor = 5
-	# 	}
-
-	# 	available = {
-	# 		has_government = neutrality
-	# 	}
-		
-	# 	bypass = {
-
-	# 	}
-
-	# 	cancel_if_invalid = yes
-	# 	continue_if_invalid = no
-	# 	available_if_capitulated = no
-
-	# 	completion_reward = {
-	# 		add_stability = 0.2
-	# 	}
-	# }
-	
-	# Ask for Things
+		completion_reward = {
+			ENG = {
+				set_autonomy = {
+					target = AST
+					autonomy_state = autonomy_colony
+					end_wars = no
+					end_civil_wars = no
+				}
+			}
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			add_stability = 0.05
+			add_war_support = 0.05
+			add_political_power = 75
+		}
+	}
 
 	focus = {
-		id = AST_R56_australian_singapore
-		icon = GFX_goal_generic_dangerous_deal
-		prerequisite = { focus = AST_R56_the_guiding_principles }
-		x = 5
+		id = AST_R56_start_the_trade_company
+		icon = GFX_goal_vietnam_strike_malaysia
+		prerequisite = { focus = AST_R56_empower_govenor_general }
+		x = 3
 		y = 1
-		relative_position_id = AST_R56_the_guiding_principles
+		relative_position_id = AST_R56_empower_govenor_general
 
 		cost = 10
 
@@ -7922,6 +7958,17 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
+			custom_effect_tooltip = AST_R56_start_trade_tt
+			hidden_effect = {
+			add_state_core = 914
+			add_state_core = 915
+			add_state_core = 960
+			add_state_core = 951
+			add_state_core = 336
+			add_state_core = 333
+			add_state_core = 1014
+			add_state_core = 916
+			}
 			if = {
 				limit = {
 					MAL = { is_subject_of = ENG }
@@ -7936,19 +7983,19 @@ focus_tree = {
 					expire = 0
 				}
 			}
+			add_ideas = AST_R56_trade_idea1
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
-
 	focus = {
-		id = AST_R56_intergrate_new_zealand
-		icon = GFX_goal_generic_forceful_treaty
-		prerequisite = { focus = AST_R56_australian_singapore }
-		x = 0
+		id = AST_R56_imperial_new_zealand
+		icon = GFX_goal_NZL_coa_navy
+		prerequisite = { focus = AST_R56_start_the_trade_company }
+		x = -1
 		y = 1
-		relative_position_id = AST_R56_australian_singapore
+		relative_position_id = AST_R56_start_the_trade_company
 
-		cost = 10
+		cost = 5
 
 		will_lead_to_war_with = NZL
 
@@ -7957,16 +8004,12 @@ focus_tree = {
 		}
 
 		available = {
-			NZL = {
-				NOT = {
-					is_in_faction_with = ROOT
-				}
-				
-			}
 		}
 		
 		bypass = {
-
+			owns_state = 284
+			owns_state = 723
+			owns_state = 726
 		}
 
 		cancel_if_invalid = yes
@@ -7974,6 +8017,9 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
+			add_state_core = 284
+			add_state_core = 723
+			add_state_core = 726
 			if = {
 				limit = {
 					NZL = {
@@ -7987,7 +8033,551 @@ focus_tree = {
 				NZL = { country_event = { id = r56_australia.19 hours = 4 } }
 			}
 			
-			unlock_decision_tooltip = { decision = AST_assimilate_new_zealand show_effect_tooltip = yes }
 		}
 	}
+
+	focus = {
+		id = AST_R56_invasion_indonesia
+		icon = GFX_dutch_east_indies
+		prerequisite = { focus = AST_R56_start_the_trade_company }
+		x = 1
+		y = 1
+		relative_position_id = AST_R56_start_the_trade_company
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			
+		}
+		
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = bypass_trade_node_tt
+				OR = {
+					ENG = {
+						owns_state = 974
+						owns_state = 672
+						owns_state = 335
+						owns_state = 976
+						owns_state = 446
+						owns_state = 667
+						owns_state = 977
+						owns_state = 978
+						owns_state = 334
+						owns_state = 673
+						owns_state = 975
+						owns_state = 668
+						owns_state = 669
+						owns_state = 738
+						owns_state = 951
+						owns_state = 915
+						owns_state = 914
+						owns_state = 960
+						owns_state = 333
+						owns_state = 916
+					}
+					AST = {
+						owns_state = 974
+						owns_state = 672
+						owns_state = 335
+						owns_state = 976
+						owns_state = 446
+						owns_state = 667
+						owns_state = 977
+						owns_state = 978
+						owns_state = 334
+						owns_state = 673
+						owns_state = 975
+						owns_state = 668
+						owns_state = 669
+						owns_state = 738
+						owns_state = 951
+						owns_state = 915
+						owns_state = 914
+						owns_state = 960
+						owns_state = 333
+						owns_state = 916
+					}
+				}
+			}
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		will_lead_to_war_with = HOL
+		will_lead_to_war_with = INS
+
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = HOL
+				expire = 0
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = INS
+				expire = 0
+			}
+		ENG = {
+			create_wargoal = {
+				type = annex_everything
+				target = HOL
+				expire = 0
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = INS
+				expire = 0
+			}
+		}
+
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+	focus = {
+		id = AST_R56_east_oceanic_company
+		icon = GFX_focus_SWE_italian_destroyers
+		prerequisite = { focus = AST_R56_invasion_indonesia }
+		prerequisite = { focus = AST_R56_imperial_new_zealand }
+		x = -1
+		y = 1
+		relative_position_id = AST_R56_invasion_indonesia
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+		
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = AST_R56_trade_required_tt
+				owns_state = 974
+				owns_state = 672
+				owns_state = 335
+				owns_state = 976
+				owns_state = 446
+				owns_state = 667
+				owns_state = 977
+				owns_state = 978
+				owns_state = 334
+				owns_state = 673
+				owns_state = 975
+				owns_state = 668
+				owns_state = 669
+				owns_state = 738
+				owns_state = 951
+				owns_state = 915
+				owns_state = 914
+				owns_state = 960
+				owns_state = 333
+				owns_state = 916
+			}
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			custom_effect_tooltip = AST_R56_east_oceanic_tt
+			hidden_effect = {
+				add_state_core = 974
+				add_state_core = 672
+				add_state_core = 335
+				add_state_core = 976
+				add_state_core = 446
+				add_state_core = 667
+				add_state_core = 977
+				add_state_core = 978
+				add_state_core = 334
+				add_state_core = 673
+				add_state_core = 975
+				add_state_core = 668
+				add_state_core = 669
+				add_state_core = 738
+				add_state_core = 951
+				add_state_core = 915
+				add_state_core = 914
+				add_state_core = 960
+				add_state_core = 333
+				add_state_core = 916
+
+			}
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					is_core_of = INS
+				}
+				add_dynamic_modifier = {
+					modifier = Colonial_suppression
+					scope = ROOT
+				}
+			}
+
+			set_cosmetic_tag = East_oceanic_company
+			add_stability = 0.10
+			add_war_support = 0.10
+
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+	}
+
+
+
+	focus = {
+		id = AST_R56_Imperial_Shipping
+		icon = GFX_focus_POL_develop_polish_shipbuilding
+		prerequisite = { focus = AST_R56_empower_govenor_general }
+		relative_position_id = AST_R56_empower_govenor_general
+		x = 0
+		y = 1
+
+		cost = 10
+
+		available = {
+		}
+		
+		bypass = {
+		}
+
+		completion_reward = {
+			add_ideas = RAJ_Reinvigorated_Imperial_Shipping
+
+		}
+	}
+
+	focus = {
+		id = AST_R56_Imperial_work_force
+		icon = GFX_focus_generic_full_employment
+		prerequisite = { focus = AST_R56_empower_govenor_general }
+		relative_position_id = AST_R56_empower_govenor_general
+		x = -3
+		y = 1
+
+		cost = 5
+
+		available = {
+		}
+		
+		bypass = {
+		}
+
+		completion_reward = {
+		add_ideas = Imperial_work_force
+		AST_lower_depression = yes
+
+		}
+	}
+
+	focus = {
+		id = AST_R56_Imperial_civilian_dev
+		icon = GFX_focus_DEN_no_regulations
+		prerequisite = { focus = AST_R56_Imperial_work_force }
+		relative_position_id = AST_R56_Imperial_work_force
+		x = 1
+		y = 1
+
+		cost = 5
+
+		available = {
+		}
+		
+		bypass = {
+		}
+
+		completion_reward = {
+			#872 = {
+			#	add_extra_state_shared_building_slots = 2
+			#	add_building_construction = {
+			#		type = industrial_complex
+			#		level = 2
+			#		instant_build = yes
+			#	}
+			#}
+			519 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+	
+		AST_lower_depression = yes
+
+		}
+	}
+
+	focus = {
+		id = AST_R56_Imperial_mil_dev
+		icon = GFX_focus_generic_reorient_production
+		prerequisite = { focus = AST_R56_Imperial_work_force }
+		relative_position_id = AST_R56_Imperial_work_force
+		x = -1
+		y = 1
+
+		cost = 10
+
+		available = {
+		}
+		
+		bypass = {
+		}
+
+		completion_reward = {
+			add_ideas = Imperial_army
+			872 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+	
+		AST_lower_depression = yes
+
+		}
+	}
+
+	focus = {
+		id = AST_R56_Imperial_dock_dev
+		icon = GFX_focus_generic_refit_civilian_ships
+		prerequisite = { focus = AST_R56_Imperial_mil_dev focus = AST_R56_Imperial_civilian_dev }
+		relative_position_id = AST_R56_Imperial_mil_dev
+		x = 1
+		y = 1
+
+		cost = 5
+
+		available = {
+		}
+		
+		bypass = {
+		}
+
+		completion_reward = {
+			871 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_ideas = HOL_assume_the_naval_burden
+	
+
+		}
+	}
+
+	focus = {
+		id = AST_R56_imperial_supply_chain
+		icon = GFX_goal_ENG_pride_of_the_fleet
+		prerequisite = { focus = AST_R56_Imperial_Shipping }
+		relative_position_id = AST_R56_Imperial_Shipping
+		x = 0
+		y = 1
+
+		cost = 5
+
+		available = {
+		}
+		
+		bypass = {
+		}
+
+		completion_reward = {
+			add_ideas = imperial_supply_chain
+
+		}
+	}
+
+	focus = {
+		id = AST_R56_imperial_officer_corps
+		icon = GFX_focus_generic_full_social_mobilization
+		prerequisite = { focus = AST_R56_imperial_supply_chain }
+		prerequisite = { focus = AST_R56_east_oceanic_company }
+		prerequisite = { focus = AST_R56_Imperial_dock_dev }
+		relative_position_id = AST_R56_imperial_supply_chain
+		x = 0
+		y = 2
+
+		cost = 10
+
+		available = {
+		}
+		
+		bypass = {
+		}
+
+		completion_reward = {
+			every_navy_leader = { 
+				add_defense = 1
+				add_coordination = 1
+			}
+			every_army_leader = {
+				add_planning = 1
+			}
+			add_ideas = ENG_admiralty_naval_staff
+			add_ideas = POR_luso_monarchist_military_cooperation
+			remove_ideas = AST_R56_memories_of_gallipoli
+
+		}
+	}
+
+
+	focus = {
+		id = AST_R56_fight_for_king
+		icon = GFX_focus_hol_united_netherlands
+
+		prerequisite = { focus = AST_R56_imperial_officer_corps }
+		x = 0
+		y = 1
+		relative_position_id = AST_R56_imperial_officer_corps
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 6
+		}
+
+		available = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			custom_effect_tooltip = king_war_eco_tt
+			if = {
+                limit = {
+                    has_war_support < 0.5
+                }
+                add_war_support = 0.1
+            }
+            else_if = {
+                limit = {
+                    has_idea = war_economy
+                }
+                add_political_power = 150
+            }
+            else = {
+                add_ideas = war_economy
+            }
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
+	}
+	
+	# Ask for Things
+
+	#focus = {
+	#	id = AST_R56_australian_singapore
+	#	icon = GFX_goal_generic_dangerous_deal
+	#	prerequisite = { focus = AST_R56_the_guiding_principles }
+	#	x = 5
+	#	y = 1
+	#	relative_position_id = AST_R56_the_guiding_principles
+
+	#	cost = 10
+
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+
+	#	available = {
+	#		
+	#	}
+	#	
+	#	bypass = {
+
+	#	}
+
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+
+	#	completion_reward = {
+	#		if = {
+	#			limit = {
+	#				MAL = { is_subject_of = ENG }
+	#				is_in_faction_with = ENG
+	#			}
+	#			ENG = { country_event = { id = r56_australia.15 hours = 4 } }
+	#		}
+	#		else = {
+	#			create_wargoal = {
+	#				type = puppet_wargoal_focus
+	#				target = MAL
+	#				expire = 0
+	#			}
+	#		}
+	#	}
+	#	search_filters = { FOCUS_FILTER_ANNEXATION }
+	#}
+
+	#focus = {
+	#	id = AST_R56_intergrate_new_zealand
+	#	icon = GFX_goal_generic_forceful_treaty
+	#	prerequisite = { focus = AST_R56_australian_singapore }
+	#	x = 0
+	#	y = 1
+	#	relative_position_id = AST_R56_australian_singapore
+
+	#	cost = 10
+
+	#	will_lead_to_war_with = NZL
+
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+
+	#	available = {
+	#		NZL = {
+	#			NOT = {
+	#				is_in_faction_with = ROOT
+	#			}
+	#			
+	#		}
+	#	}
+	#	
+	#	bypass = {
+
+	#	}
+
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+	#	available_if_capitulated = no
+
+	#	completion_reward = {
+	#		if = {
+	#			limit = {
+	#				NZL = {
+	#					exists = yes
+	#				}
+	#				
+	#				NOT = {
+	#					has_war_with = NZL
+	#				}
+	#			}
+	#			NZL = { country_event = { id = r56_australia.19 hours = 4 } }
+	#		}
+	#		
+	#		unlock_decision_tooltip = { decision = AST_assimilate_new_zealand show_effect_tooltip = yes }
+	#	}
+	#}
 }
