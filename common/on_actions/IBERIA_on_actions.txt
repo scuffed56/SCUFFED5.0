@@ -1,0 +1,49 @@
+on_actions = {
+	on_join_faction = { 
+		effect = { # Adding the correct flags for the Joint Focus Alliance
+			if = {
+				limit = {
+					FROM = { 
+						has_country_flag = IBERIAN_alliance_leader
+					}
+					IBERIAN_is_iberian = yes
+				}
+				set_country_flag = IBERIAN_alliance_member
+				IBERIAN_add_to_iberian_alliance = yes 
+			}
+		}
+	}
+
+	on_offer_join_faction = {
+		effect = { # Adding the correct flags for the Joint Focus Alliance
+			if = {
+				limit = {
+					has_country_flag = IBERIAN_alliance_leader
+					FROM = { 
+						IBERIAN_is_iberian = yes
+					}
+				}
+				FROM = {
+					set_country_flag = IBERIAN_alliance_member
+					IBERIAN_add_to_iberian_alliance = yes 
+				}
+			}
+		}
+	}
+
+	on_leave_faction = {
+		effect = { # Removing Joint Focus Tree flags 
+			if = {
+				limit = {
+					IBERIAN_is_iberian = yes
+					OR = {
+						has_country_flag = IBERIAN_alliance_leader
+						has_country_flag = IBERIAN_alliance_member
+					} 
+				}
+				clr_country_flag = IBERIAN_alliance_leader
+				clr_country_flag = IBERIAN_alliance_member
+			}
+		}
+	}
+}
