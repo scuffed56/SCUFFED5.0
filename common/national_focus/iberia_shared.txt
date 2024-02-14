@@ -1,0 +1,1072 @@
+#	joint_focus = {
+#		id = IBERIAN_
+#		# icon =
+#		prerequisite = { focus =  }
+#		x = 0
+#		y = 1
+#		relative_position_id = 
+#
+#		cost = 10
+#
+#		ai_will_do = {
+#			factor = 1
+#		}
+#
+#		joint_trigger = {
+#  			IBERIAN_basic_joint_trigger = yes 
+#		}
+#
+#		available = {
+#
+#		}
+#		
+#		bypass = {
+#
+#		}
+#
+#		cancel_if_invalid = yes
+#
+#
+#		completion_reward = { #only the completer
+#
+#		}
+#
+#		completion_reward_joint_originator = { #original completer
+#
+#		}
+#
+#
+#		completion_reward_joint_member = { #other members
+#
+#		}
+#	}
+
+	shared_focus = {
+		id = IBERIAN_form_joint_alliance
+		icon = GFX_focus_por_iberian_summit
+		x = 0
+		y = 0
+
+		cost = 10
+
+		offset = {
+			x = 68
+			y = 0
+			trigger = {
+				has_focus_tree = portuguese_focus
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		dynamic = yes 
+
+		available = {
+			has_global_flag = scw_over
+			is_faction_leader = yes 
+			any_allied_country = {
+				IBERIAN_is_iberian = yes
+			}	
+			is_subject = no 
+			IBERIAN_alliance_created_already = no 
+		}
+
+		completion_reward = {
+			if = {
+				limit = {	
+					IBERIAN_alliance_created_already = no
+				}
+				hidden_effect = {
+					every_other_country = {
+						limit = {
+							is_in_faction_with = ROOT
+							IBERIAN_is_iberian = yes
+						}
+						set_country_flag = IBERIAN_already_member_flag
+					}
+					
+				}
+				IBERIAN_create_iberian_alliance = yes 
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	joint_focus = {
+		id = IBERIAN_joint_exercises
+		icon = GFX_focus_generic_license_production
+		prerequisite = { focus = IBERIAN_form_joint_alliance }
+		x = -1
+		y = 1
+		relative_position_id = IBERIAN_form_joint_alliance
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+			army_experience = 25
+			navy_experience = 25
+			air_experience  = 25
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				cost_reduction = 0.5
+				category = land_doctrine
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+			army_experience = 10
+			navy_experience = 10
+			air_experience  = 10
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				cost_reduction = 0.5
+				category = land_doctrine
+			}
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_hire_jose_rodrigues
+		icon = GFX_focus_generic_military_mission
+		prerequisite = { focus = IBERIAN_joint_exercises }
+		x = -1
+		y = 1
+		relative_position_id = IBERIAN_joint_exercises
+
+		cost = 10
+
+		mutually_exclusive = {
+			focus = IBERIAN_strengthen_the_regime
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+			add_field_marshal_role = {
+				character = POR_jose_filipe_de_barros_rodrigues
+				traits = { artillerist skilled_staffer infantry_leader hill_fighter unyielding_defender }
+				skill = 5
+				attack_skill = 4
+				defense_skill = 3
+				planning_skill = 2
+				logistics_skill = 3
+				legacy_id = -1
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+			add_field_marshal_role = {
+				character = POR_jose_filipe_de_barros_rodrigues
+				traits = { artillerist skilled_staffer infantry_leader hill_fighter unyielding_defender }
+				skill = 4
+				attack_skill = 4
+				defense_skill = 3
+				planning_skill = 2
+				logistics_skill = 3
+				legacy_id = -1
+			}
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_joint_military_intigration
+		icon = GFX_goal_generic_military_deal
+		prerequisite = { focus = IBERIAN_hire_jose_rodrigues focus = IBERIAN_strengthen_the_regime }
+		x = -1
+		y = 1
+		relative_position_id = IBERIAN_hire_jose_rodrigues
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+		
+		}
+
+		completion_reward_joint_originator = { #original completer
+			custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_army_org_factor
+				value = 0.05
+				tooltip = MODIFIER_ARMY_ORG_FACTOR_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_army_speed_factor
+				value = 0.10
+				tooltip = MODIFIER_ARMY_SPEED_FACTOR_TT
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_experience_gain_army_factor
+				value = 0.20
+				tooltip = experience_gain_army_factor_tt
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+			custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_army_org_factor
+				value = 0.05
+				tooltip = army_org_factor_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_army_speed_factor
+				value = 0.10
+				tooltip = MODIFIER_ARMY_SPEED_FACTOR_TT
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_experience_gain_army_factor
+				value = 0.10
+				tooltip = experience_gain_army_factor_tt
+			}
+		}
+	}
+
+	
+	joint_focus = {
+		id = IBERIAN_share_intelignece
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = { focus = IBERIAN_form_joint_alliance }
+		x = -3
+		y = 1
+		relative_position_id = IBERIAN_form_joint_alliance
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+			custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_operative_slot
+				value = 1
+				tooltip = operative_slot_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_intelligence_agency_defense
+				value = 0.30
+				tooltip = MODIFIER_INTELLIGENCE_AGENCY_DEFENSE_TT
+			}
+
+		}
+
+
+		completion_reward_joint_member = { #other members
+			custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_operative_slot
+				value = 1
+				tooltip = operative_slot_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_intelligence_agency_defense
+				value = 0.25
+				tooltip = MODIFIER_INTELLIGENCE_AGENCY_DEFENSE_TT
+			}
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_strengthen_the_regime
+		icon = GFX_goal_tfv_strengthen_commonwealth_ties
+		prerequisite = { focus = IBERIAN_share_intelignece }
+		x = -1
+		y = 1
+		relative_position_id = IBERIAN_share_intelignece
+
+		mutually_exclusive = {
+			focus = IBERIAN_hire_jose_rodrigues
+		}
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+			add_stability = 0.1
+			add_country_leader_trait = strengthened_leadership
+		}
+
+
+		completion_reward_joint_member = { #other members
+			add_stability = 0.05
+			add_country_leader_trait = strengthened_leadership
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_political_connections
+		icon = GFX_focus_generic_improve_the_administration
+		prerequisite = { focus = IBERIAN_form_joint_alliance }
+		x = 0
+		y = 2
+		relative_position_id = IBERIAN_form_joint_alliance
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+			add_political_power = 100
+			custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_political_power_factor
+				value = 0.10
+				tooltip = MODIFIER_POLITICAL_POWER_FACTOR_TT
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+			add_political_power = 50
+			custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_political_power_factor
+				value = 0.10
+				tooltip = MODIFIER_POLITICAL_POWER_FACTOR_TT
+			}
+			
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_civilian_intigration
+		icon = GFX_focus_generic_modernize_industry
+		prerequisite = { focus = IBERIAN_political_connections }
+		x = -1
+		y = 1
+		relative_position_id = IBERIAN_political_connections
+
+		cost = 10
+
+		mutually_exclusive = {
+			focus = IBERIAN_military_intigration
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+			custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_production_speed_industrial_complex_factor
+				value = 0.10
+				tooltip = production_speed_industrial_complex_factor_tt
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+		custom_effect_tooltip = IBERIAN_modify_nordic_idea
+		add_to_variable = {
+			var = IBERIAN_alliance_political_power_factor
+			value = 0.10
+			tooltip = production_speed_industrial_complex_factor_tt
+		}
+		
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = ROOT
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = ROOT
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_military_intigration
+		icon = GFX_focus_generic_reorient_production
+		prerequisite = { focus = IBERIAN_political_connections }
+		x = 1
+		y = 1
+		relative_position_id = IBERIAN_political_connections
+
+		cost = 10
+
+		mutually_exclusive = {
+			focus = IBERIAN_civilian_intigration
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+			custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_production_speed_arms_factory_factor
+				value = 0.10
+				tooltip = production_speed_arms_factory_factor_tt
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+			custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_production_speed_arms_factory_factor
+				value = 0.10
+				tooltip = production_speed_arms_factory_factor_tt
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_full_economic_intigration
+		icon = GFX_focus_SOV_organize_wreckers
+		prerequisite = { focus = IBERIAN_civilian_intigration focus = IBERIAN_military_intigration }
+		x = 1
+		y = 1
+		relative_position_id = IBERIAN_civilian_intigration
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+		custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_production_factory_efficiency_gain_factor
+				value = 0.10
+				tooltip = production_factory_efficiency_gain_factor_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_consumer_goods_factor
+				value = -0.15
+				tooltip = consumer_goods_factor_tt
+			}
+
+		}
+
+
+		completion_reward_joint_member = { #other members
+		custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_production_factory_efficiency_gain_factor
+				value = 0.05
+				tooltip = production_factory_efficiency_gain_factor_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_consumer_goods_factor
+				value = -0.1
+				tooltip = consumer_goods_factor_tt
+			}
+
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_weapon_research_grants
+		icon = GFX_focus_NORDIC_com_research
+		prerequisite = { focus = IBERIAN_form_joint_alliance }
+		x = 1
+		y = 1
+		relative_position_id = IBERIAN_form_joint_alliance
+
+		cost = 10
+
+		mutually_exclusive = {
+			focus = IBERIAN_naval_research_grants
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+			add_tech_bonus = {
+				name = BUL_reorganize_the_military_industry
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+				category = artillery
+				category = support_tech
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+			add_tech_bonus = {
+				name = BUL_reorganize_the_military_industry
+				bonus = 0.5
+				uses = 2
+				category = infantry_weapons
+				category = artillery
+				category = support_tech
+			}
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_deply_new_tatics
+		icon = GFX_goal_fortify_the_westwall
+		prerequisite = { focus = IBERIAN_weapon_research_grants }
+		x = 1
+		y = 1
+		relative_position_id = IBERIAN_weapon_research_grants
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+		custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_army_core_defence_factor
+				value = 0.10
+				tooltip = army_core_defence_factor_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_max_dig_in_factor
+				value = 0.05
+				tooltip = max_dig_in_factor_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_dig_in_speed_factor
+				value = 0.10
+				tooltip = dig_in_speed_factor_tt
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+		custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_army_core_defence_factor
+				value = 0.05
+				tooltip = army_core_defence_factor_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_max_dig_in_factor
+				value = 0.05
+				tooltip = max_dig_in_factor_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_dig_in_speed_factor
+				value = 0.10
+				tooltip = dig_in_speed_factor_tt
+			}
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_military_research_labatories
+		icon = GFX_focus_NORDIC_com_capstone_research
+		prerequisite = { focus = IBERIAN_deply_new_tatics focus = IBERIAN_rebuild_the_navies }
+		x = 1
+		y = 1
+		relative_position_id = IBERIAN_deply_new_tatics
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+		custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_research_speed_factor
+				value = 0.075
+				tooltip = research_speed_factor_tt
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+		custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_research_speed_factor
+				value = 0.05
+				tooltip = research_speed_factor_tt
+			}
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_naval_research_grants
+		icon = GFX_focus_NORDIC_com_navy
+		prerequisite = { focus = IBERIAN_form_joint_alliance }
+		x = 3
+		y = 1
+		relative_position_id = IBERIAN_form_joint_alliance
+
+		cost = 10
+
+		mutually_exclusive = {
+			focus = IBERIAN_weapon_research_grants
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+			add_tech_bonus = {
+				name = BUL_reorganize_the_military_industry
+				bonus = 1.0
+				uses = 2
+				category = naval_equipment
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+		add_tech_bonus = {
+			name = BUL_reorganize_the_military_industry
+			bonus = 0.5
+			uses = 2
+			category = naval_equipment
+		}
+		}
+	}
+
+	joint_focus = {
+		id = IBERIAN_rebuild_the_navies
+		icon = GFX_focus_SWE_Vasa_II
+		prerequisite = { focus = IBERIAN_naval_research_grants }
+		x = 1
+		y = 1
+		relative_position_id = IBERIAN_naval_research_grants
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		joint_trigger = {
+ 			IBERIAN_basic_joint_trigger = yes 
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+
+
+		completion_reward = { #only the completer
+
+		}
+
+		completion_reward_joint_originator = { #original completer
+		custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_industrial_capacity_dockyard
+				value = 0.10
+				tooltip = production_speed_dockyard_factor_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_naval_speed_factor
+				value = 0.05
+				tooltip = MODIFIER_NAVAL_SPEED_FACTOR_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_experience_gain_navy
+				value = 0.15
+				tooltip = experience_gain_navy_tt
+			}
+		}
+
+
+		completion_reward_joint_member = { #other members
+		custom_effect_tooltip = IBERIAN_modify_nordic_idea
+			add_to_variable = {
+				var = IBERIAN_alliance_industrial_capacity_dockyard
+				value = 0.05
+				tooltip = production_speed_dockyard_factor_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_naval_speed_factor
+				value = 0.05
+				tooltip = MODIFIER_NAVAL_SPEED_FACTOR_tt
+			}
+			add_to_variable = {
+				var = IBERIAN_alliance_experience_gain_navy
+				value = 0.10
+				tooltip = experience_gain_navy_tt
+			}
+		}
+	}
