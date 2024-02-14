@@ -7820,7 +7820,7 @@ focus_tree = {
 			show_ideas_tooltip = AST_David_Smith
 			show_ideas_tooltip = AST_George_Jackson
 			add_autonomy_score = {
-				value = -200
+				value = -75
 				#localization = EGY_empower_govenor_general_autonomy
 			}
 			AST = {
@@ -7902,10 +7902,10 @@ focus_tree = {
 		x = 1
 		y = 1
 
-		cost = 10
+		cost = 5
 
 		available = {
-	    neutrality > 0.3
+	    neutrality > 0.4
 		}
 		
 		bypass = {
@@ -7958,6 +7958,8 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
+			custom_effect_tooltip = AST_R56_start_trade_tt
+			hidden_effect = {
 			add_state_core = 914
 			add_state_core = 915
 			add_state_core = 960
@@ -7966,6 +7968,7 @@ focus_tree = {
 			add_state_core = 333
 			add_state_core = 1014
 			add_state_core = 916
+			}
 			if = {
 				limit = {
 					MAL = { is_subject_of = ENG }
@@ -8051,12 +8054,64 @@ focus_tree = {
 		}
 		
 		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = bypass_trade_node_tt
+				OR = {
+					ENG = {
+						owns_state = 974
+						owns_state = 672
+						owns_state = 335
+						owns_state = 976
+						owns_state = 446
+						owns_state = 667
+						owns_state = 977
+						owns_state = 978
+						owns_state = 334
+						owns_state = 673
+						owns_state = 975
+						owns_state = 668
+						owns_state = 669
+						owns_state = 738
+						owns_state = 951
+						owns_state = 915
+						owns_state = 914
+						owns_state = 960
+						owns_state = 333
+						owns_state = 916
+					}
+					AST = {
+						owns_state = 974
+						owns_state = 672
+						owns_state = 335
+						owns_state = 976
+						owns_state = 446
+						owns_state = 667
+						owns_state = 977
+						owns_state = 978
+						owns_state = 334
+						owns_state = 673
+						owns_state = 975
+						owns_state = 668
+						owns_state = 669
+						owns_state = 738
+						owns_state = 951
+						owns_state = 915
+						owns_state = 914
+						owns_state = 960
+						owns_state = 333
+						owns_state = 916
+					}
+				}
+			}
 
 		}
 
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
+
+		will_lead_to_war_with = HOL
+		will_lead_to_war_with = INS
 
 		completion_reward = {
 			create_wargoal = {
@@ -8100,28 +8155,32 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 		}
+		
 
 		available = {
-			owns_state = 974
-			owns_state = 672
-			owns_state = 335
-			owns_state = 976
-			owns_state = 446
-			owns_state = 667
-			owns_state = 977
-			owns_state = 978
-			owns_state = 334
-			owns_state = 673
-			owns_state = 975
-			owns_state = 668
-			owns_state = 669
-			owns_state = 738
-			owns_state = 951
-			owns_state = 915
-			owns_state = 914
-			owns_state = 960
-			owns_state = 333
-			owns_state = 916
+			custom_trigger_tooltip = {
+				tooltip = AST_R56_trade_required_tt
+				owns_state = 974
+				owns_state = 672
+				owns_state = 335
+				owns_state = 976
+				owns_state = 446
+				owns_state = 667
+				owns_state = 977
+				owns_state = 978
+				owns_state = 334
+				owns_state = 673
+				owns_state = 975
+				owns_state = 668
+				owns_state = 669
+				owns_state = 738
+				owns_state = 951
+				owns_state = 915
+				owns_state = 914
+				owns_state = 960
+				owns_state = 333
+				owns_state = 916
+			}
 		}
 		
 		bypass = {
@@ -8156,6 +8215,16 @@ focus_tree = {
 				add_state_core = 333
 				add_state_core = 916
 
+			}
+			every_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					is_core_of = INS
+				}
+				add_dynamic_modifier = {
+					modifier = Colonial_suppression
+					scope = ROOT
+				}
 			}
 
 			set_cosmetic_tag = East_oceanic_company
@@ -8221,7 +8290,7 @@ focus_tree = {
 		x = 1
 		y = 1
 
-		cost = 10
+		cost = 5
 
 		available = {
 		}
@@ -8230,14 +8299,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			872 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
+			#872 = {
+			#	add_extra_state_shared_building_slots = 2
+			#	add_building_construction = {
+			#		type = industrial_complex
+			#		level = 2
+			#		instant_build = yes
+			#	}
+			#}
 			519 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -8368,6 +8437,50 @@ focus_tree = {
 			remove_ideas = AST_R56_memories_of_gallipoli
 
 		}
+	}
+
+
+	focus = {
+		id = AST_R56_fight_for_king
+		icon = GFX_focus_hol_united_netherlands
+
+		prerequisite = { focus = AST_R56_imperial_officer_corps }
+		x = 0
+		y = 1
+		relative_position_id = AST_R56_imperial_officer_corps
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 6
+		}
+
+		available = {
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			custom_effect_tooltip = king_war_eco_tt
+			if = {
+                limit = {
+                    has_war_support < 0.5
+                }
+                add_war_support = 0.1
+            }
+            else_if = {
+                limit = {
+                    has_idea = war_economy
+                }
+                add_political_power = 150
+            }
+            else = {
+                add_ideas = war_economy
+            }
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 	}
 	
 	# Ask for Things
