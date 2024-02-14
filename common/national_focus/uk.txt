@@ -10893,6 +10893,32 @@ focus_tree = {
 	}
 
 	focus = {
+		id = ENG_militarism
+		icon = GFX_goal_extensive_conscription_fascism
+		prerequisite = { 
+			focus = ENG_the_british_path_to_fascism
+		}
+		relative_position_id = ENG_the_british_path_to_fascism
+		x = 2
+		y = 1
+		cost = 10
+
+		ai_will_do = {
+			factor = 4
+		}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			ENG_mosley_pacifism_level_down = yes
+			remove_ideas = ENG_the_war_to_end_all_wars		
+			add_ideas = ENG_militarism
+			army_experience = 20
+		}
+		search_filters = { FOCUS_FILTER_MANPOWER }
+	}
+	
+	focus = {
 		id = ENG_secure_the_italian_alliance
 		prerequisite = { focus = ENG_militarism }
 		available = {
@@ -11528,31 +11554,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
 	}
-	focus = {
-		id = ENG_militarism
-		icon = GFX_goal_extensive_conscription_fascism
-		prerequisite = { 
-			focus = ENG_the_british_path_to_fascism
-		}
-		relative_position_id = ENG_the_british_path_to_fascism
-		x = 2
-		y = 1
-		cost = 10
 
-		ai_will_do = {
-			factor = 4
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			ENG_mosley_pacifism_level_down = yes
-			remove_ideas = ENG_the_war_to_end_all_wars		
-			add_ideas = ENG_militarism
-			army_experience = 20
-		}
-		search_filters = { FOCUS_FILTER_MANPOWER }
-	}
 
 	### UNALIGNED/FASCIST SHARED PATH ###
 
@@ -11784,6 +11786,73 @@ focus_tree = {
 	}
 
 	focus = {
+		id = ENG_imperial_conscription
+		prerequisite = { focus = ENG_the_sun_never_sets }	
+		available = {
+
+		}
+		icon = GFX_goal_ENG_imperial_conscription
+		x = 0
+		y = 2
+		relative_position_id = ENG_the_sun_never_sets
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			add_ideas = ENG_imperial_conscription_idea
+			army_experience = 20
+			every_country = {
+				limit = {
+					is_subject_of = ENG
+				}
+				add_ideas = ENG_imperial_conscription_subject_idea
+			}
+		}
+		search_filters = { FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_MANPOWER }
+	}
+		focus = {
+		id = ENG_the_Naval_Commitment
+		prerequisite = { focus = ENG_the_sun_never_sets }	
+		available = {
+			has_government = neutrality
+			has_country_flag = has_hired_Winston_Churchill_flag
+			
+			or = {
+				has_war_support > 0.60	
+				threat > 0.35
+			}
+		}
+		icon = GFX_goal_generic_naval_academy
+		x = -1
+		y = 1
+		relative_position_id = ENG_the_sun_never_sets
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			add_ideas = ENG_the_Naval_Commitment_idea
+			if = {
+                limit = {
+                    has_war_support < 0.5
+                }
+                add_war_support = 0.1
+            }
+            else_if = {
+                limit = {
+                    has_idea = war_economy
+                }
+                add_political_power = 150
+            }
+            else = {
+                add_ideas = war_economy
+            }
+
+		}
+		search_filters = { FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_MANPOWER }
+	}
+	focus = {
 		id = ENG_expose_the_belly_of_the_bear
 		prerequisite = { focus = ENG_pre_empt_the_ideological_threat }	
 		available = {
@@ -11832,74 +11901,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = ENG_imperial_conscription
-		prerequisite = { focus = ENG_the_sun_never_sets }	
-		available = {
 
-		}
-		icon = GFX_goal_ENG_imperial_conscription
-		x = 0
-		y = 2
-		relative_position_id = ENG_the_sun_never_sets
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_imperial_conscription_idea
-			army_experience = 20
-			every_country = {
-				limit = {
-					is_subject_of = ENG
-				}
-				add_ideas = ENG_imperial_conscription_subject_idea
-			}
-		}
-		search_filters = { FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_MANPOWER }
-	}
-
-	focus = {
-		id = ENG_the_Naval_Commitment
-		prerequisite = { focus = ENG_the_sun_never_sets }	
-		available = {
-			has_government = neutrality
-			has_country_flag = has_hired_Winston_Churchill_flag
-			
-			or = {
-				has_war_support > 0.60	
-				threat > 0.35
-			}
-		}
-		icon = GFX_goal_generic_naval_academy
-		x = -1
-		y = 1
-		relative_position_id = ENG_the_sun_never_sets
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_the_Naval_Commitment_idea
-			if = {
-                limit = {
-                    has_war_support < 0.5
-                }
-                add_war_support = 0.1
-            }
-            else_if = {
-                limit = {
-                    has_idea = war_economy
-                }
-                add_political_power = 150
-            }
-            else = {
-                add_ideas = war_economy
-            }
-
-		}
-		search_filters = { FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_MANPOWER }
-	}
 
 	focus = {
 		id = ENG_consolidate_the_british_isles
@@ -12933,29 +12935,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_STABILITY }
 	}
-	focus = {
-		id = ENG_Socialist_Research_Grants
-		prerequisite = { focus = ENG_socialist_science_pool }
-		
-		available = {
-		
-		}
-		bypass = {
-			
-			
-		}
-		icon = GFX_socialist_science
-		x = 0
-		y = 2
-		relative_position_id = ENG_socialist_science_pool
-		cost = 10
-			
-		completion_reward = {
-			add_ideas = ENG_A_Socialist_Military
-			SOV = { country_event = { id = soviet.107 hours = 3 } }
-		}
-		search_filters = { FOCUS_FILTER_STABILITY }
-	}
+	
 
 
 	focus = {
@@ -13177,6 +13157,29 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 
+	focus = {
+		id = ENG_Socialist_Research_Grants
+		prerequisite = { focus = ENG_socialist_science_pool }
+		
+		available = {
+		
+		}
+		bypass = {
+			
+			
+		}
+		icon = GFX_socialist_science
+		x = 0
+		y = 2
+		relative_position_id = ENG_socialist_science_pool
+		cost = 10
+			
+		completion_reward = {
+			add_ideas = ENG_A_Socialist_Military
+			SOV = { country_event = { id = soviet.107 hours = 3 } }
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+	}
 	### COMMUNIST SHARED FINISHER BRANCH ###
 
 	focus = {
