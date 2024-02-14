@@ -1215,12 +1215,12 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAN_national_defense_state
-		icon = GFX_goal_generic_build_tank
-		prerequisite = { focus = MAN_labour_service_corps }
-		x = 0
-		y = 1
-		relative_position_id = MAN_labour_service_corps
+		id = MAN_national_defense_state_jap
+		icon = GFX_goal_JAP_defence
+		prerequisite = { focus = MAN_send_cadets_to_japan }
+        relative_position_id = MAN_acquire_kanto_shu
+		x = -2
+		y = 2
 
 		cost = 10
 
@@ -1232,7 +1232,8 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			add_ideas = MAN_national_defense_state
+			add_ideas = extensive_conscription
+			add_ideas = japanese_war_economy
 		}
 	}
 
@@ -1645,8 +1646,13 @@ focus_tree = {
 		y = 0
 		cost = 5
 		available = {
-			NOT = {
-				is_puppet_of = JAP
+			OR = {
+				NOT = {
+					is_puppet_of = JAP
+				}
+				JAP = {
+					has_government = neutrality
+				}
 			}
 		}
 		completion_reward = {
@@ -4661,7 +4667,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAN_national_cooperation_government
+		id = MAN_national_cooperation_government1
 		icon = GFX_goal_generic_improve_relations
 		prerequisite = { focus = MAN_a_self_sufficient_army }
 		x = -2
