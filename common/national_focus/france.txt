@@ -10,6 +10,41 @@ focus_tree = {
 	default = no
 	continuous_focus_position = { x = 50 y = 925 }
 	focus = {
+		id = FRA_vienot_agreement
+		icon = GFX_goal_FRA_increase_military_spendings
+		cost = 10
+		x = 0
+		y = 0
+
+
+		
+		ai_will_do = {
+			factor = 1.5
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = FRA_devalue_the_franc
+				days = 365
+			}
+			33 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+
+		
+		}
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
 		id = FRA_tools_modernisation
 		icon = GFX_goal_generic_production2
 		cost = 10
@@ -454,25 +489,28 @@ focus = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
+
+
 	focus = {
-		id = FRA_cnrs
-		icon = GFX_focus_research
+		id = FRA_research_grants
+		icon = GFX_focus_research2
 		cost = 10
 		prerequisite = {
-			focus = FRA_investment_civ
-			focus = FRA_gueye_lamine_law
+			focus = FRA_monetary_tripartite_agreement
+			focus = FRA_expand_railroad
 		}
-		available_if_capitulated = yes
-		relative_position_id = FRA_investment_civ
+		relative_position_id = FRA_monetary_tripartite_agreement
 		x = 1
 		y = 1
+		
 		
 		ai_will_do = {
 			factor = 3
 		}
-		 available = {
-		# 	amount_research_slots < 6
-		 }
+		available = {
+			#amount_research_slots < 6
+			num_of_factories > 150	
+		}
 		
 		# bypass = {
 		# 	amount_research_slots > 5
@@ -509,35 +547,6 @@ focus = {
 					id = news.174
 				}
 			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	focus = {
-		id = FRA_research_grants
-		icon = GFX_focus_research2
-		cost = 10
-		prerequisite = {
-			focus = FRA_monetary_tripartite_agreement
-			focus = FRA_expand_railroad
-		}
-		relative_position_id = FRA_monetary_tripartite_agreement
-		x = 1
-		y = 1
-		
-		
-		ai_will_do = {
-			factor = 3
-		}
-		available = {
-			#amount_research_slots < 6
-			num_of_factories > 150	
-		}
-		
-		# bypass = {
-		# 	amount_research_slots > 5
-		# }		
-		completion_reward = {
-			add_research_slot = 1
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -825,79 +834,7 @@ focus = {
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
 	}
 
-	focus = {
-		id = FRA_sahara_oil
-		icon = GFX_goal_generic_oil_refinery
-		cost = 5
-		prerequisite = {
-			focus = FRA_expand_the_citizenship
-		}
-		available_if_capitulated = yes
-		relative_position_id = FRA_expand_the_citizenship
-		x = -3
-		y = 1
-		available = {
-			OR = {
-				ROOT = {
-					controls_state = 459
-					controls_state = 460
-					controls_state = 513
-				}
-				ALG = {
-					is_subject_of = ROOT
-					controls_state = 459
-					controls_state = 460
-					controls_state = 513
-				}
-			}
-		}
-		
-		ai_will_do = {
-			factor = 2
-		}
-		completion_reward = {
-			add_resource = {
-				type = oil
-				amount = 4
-				state = 459
-			}
-			add_resource = {
-				type = oil
-				amount = 4
-				state = 460
-			}
-			add_resource = {
-				type = oil
-				amount = 8
-				state = 513
-			}
-			459 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = synthetic_refinery
-					level = 2
-					instant_build = yes
-				}
-			}
-			if = {
-				limit = {
-					ALG = {
-						is_subject_of = ROOT
-						controls_state = 459
-						controls_state = 460
-						controls_state = 513
-					}
-				}
-				ALG = {
-					add_autonomy_ratio = {
-						value = -0.15
-						localization = FRA_colonial_investments
-					}
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL}
-	}
+
 	focus = {
 		id = FRA_develop_indochine
 		icon = GFX_goal_indochina_a_true_federation
@@ -991,118 +928,7 @@ focus = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TFV_AUTONOMY }
 	}
-	focus = {
-		id = FRA_tungsten_mines
-		icon = GFX_focus_generic_tungsten
-		cost = 10
-		prerequisite = {
-			focus = FRA_expand_the_citizenship
-		}
-		available_if_capitulated = yes
 
-		x = 3
-		y = 1
-		relative_position_id = FRA_expand_the_citizenship
-		available = {
-			has_tech = excavation2
-			OR = {
-				ROOT = {
-					controls_state = 671
-				}
-				FRI = {
-					is_subject_of = ROOT
-					controls_state = 671
-				}
-				VIN = {
-					is_subject_of = ROOT
-					controls_state = 671
-				}
-			}
-		}
-		
-		ai_will_do = {
-			factor = 2
-		}
-		completion_reward = {
-			add_resource = {
-				type = tungsten
-				amount = 14
-				state = 671
-			}
-			671 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-			if = {
-				limit = {
-					VIN = {
-						is_subject_of = ROOT
-						controls_state = 671
-					}
-				}
-				VIN = {
-					add_autonomy_ratio = {
-						value = -0.1
-						localization = FRA_colonial_investments
-					}
-				}
-			}
-			if = {
-				limit = {
-					FRI = {
-						is_subject_of = ROOT
-						controls_state = 671
-					}
-				}
-				FRI = {
-					add_autonomy_ratio = {
-						value = -0.1
-						localization = FRA_colonial_investments
-					}
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TUNGSTEN}
-	}
-	focus = {
-		id = FRA_vienot_agreement
-		icon = GFX_goal_FRA_increase_military_spendings
-		cost = 10
-		x = 0
-		y = 0
-
-
-		
-		ai_will_do = {
-			factor = 1.5
-		}
-		completion_reward = {
-			add_timed_idea = {
-				idea = FRA_devalue_the_franc
-				days = 365
-			}
-			33 = {
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-
-		
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_POLITICAL }
-	}
 	focus = {
 		id = FRA_rewrite_protectorate_treaties
 		icon = GFX_goal_generic_consumer_goods
@@ -1361,6 +1187,34 @@ focus = {
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 	}
+	focus = {
+		id = FRA_cnrs
+		icon = GFX_focus_research
+		cost = 10
+		prerequisite = {
+			focus = FRA_investment_civ
+			focus = FRA_gueye_lamine_law
+		}
+		available_if_capitulated = yes
+		relative_position_id = FRA_investment_civ
+		x = 1
+		y = 1
+		
+		ai_will_do = {
+			factor = 3
+		}
+		 available = {
+		# 	amount_research_slots < 6
+		 }
+		
+		# bypass = {
+		# 	amount_research_slots > 5
+		# }		
+		completion_reward = {
+			add_research_slot = 1
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
 
 	focus = {
 		id = FRA_the_blum_viollette_proposal
@@ -1435,6 +1289,156 @@ focus = {
 		completion_reward = {
 			add_ideas = { FRA_expanded_citizenship }
 		}
+	}
+	focus = {
+		id = FRA_sahara_oil
+		icon = GFX_goal_generic_oil_refinery
+		cost = 5
+		prerequisite = {
+			focus = FRA_expand_the_citizenship
+		}
+		available_if_capitulated = yes
+		relative_position_id = FRA_expand_the_citizenship
+		x = -3
+		y = 1
+		available = {
+			OR = {
+				ROOT = {
+					controls_state = 459
+					controls_state = 460
+					controls_state = 513
+				}
+				ALG = {
+					is_subject_of = ROOT
+					controls_state = 459
+					controls_state = 460
+					controls_state = 513
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 2
+		}
+		completion_reward = {
+			add_resource = {
+				type = oil
+				amount = 4
+				state = 459
+			}
+			add_resource = {
+				type = oil
+				amount = 4
+				state = 460
+			}
+			add_resource = {
+				type = oil
+				amount = 8
+				state = 513
+			}
+			459 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 2
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					ALG = {
+						is_subject_of = ROOT
+						controls_state = 459
+						controls_state = 460
+						controls_state = 513
+					}
+				}
+				ALG = {
+					add_autonomy_ratio = {
+						value = -0.15
+						localization = FRA_colonial_investments
+					}
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL}
+	}
+	focus = {
+		id = FRA_tungsten_mines
+		icon = GFX_focus_generic_tungsten
+		cost = 10
+		prerequisite = {
+			focus = FRA_expand_the_citizenship
+		}
+		available_if_capitulated = yes
+
+		x = 3
+		y = 1
+		relative_position_id = FRA_expand_the_citizenship
+		available = {
+			has_tech = excavation2
+			OR = {
+				ROOT = {
+					controls_state = 671
+				}
+				FRI = {
+					is_subject_of = ROOT
+					controls_state = 671
+				}
+				VIN = {
+					is_subject_of = ROOT
+					controls_state = 671
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 2
+		}
+		completion_reward = {
+			add_resource = {
+				type = tungsten
+				amount = 14
+				state = 671
+			}
+			671 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					VIN = {
+						is_subject_of = ROOT
+						controls_state = 671
+					}
+				}
+				VIN = {
+					add_autonomy_ratio = {
+						value = -0.1
+						localization = FRA_colonial_investments
+					}
+				}
+			}
+			if = {
+				limit = {
+					FRI = {
+						is_subject_of = ROOT
+						controls_state = 671
+					}
+				}
+				FRI = {
+					add_autonomy_ratio = {
+						value = -0.1
+						localization = FRA_colonial_investments
+					}
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TUNGSTEN}
 	}
 	focus = {
 		id = FRA_france_undividable
