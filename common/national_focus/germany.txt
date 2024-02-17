@@ -2866,327 +2866,7 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH
 		}
 	}
-
-	focus = {
-		id = GER_u_boat_effort_r56
-		text = GER_u_boat_effort
-		icon = GFX_goal_generic_navy_submarine
-		prerequisite = {
-			focus = GER_naval_effort_r56
-		}
-		mutually_exclusive = {
-			focus = GER_plan_z_r56
-			focus = GER_rebuild_the_high_seas_fleet
-		}
-		x = 1
-		y = 3
-		relative_position_id = GER_naval_effort_r56
-		cost = 10
-		ai_will_do = {
-			factor = 10
-		}
-
-		available_if_capitulated = yes
-		complete_tooltip = {
-			navy_experience = 25
-			every_state = {
-				limit = {
-					has_state_flag = GER_u_boat_effort_2dockyards
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-			add_tech_bonus = {
-				name = GER_u_boat_effort
-				bonus = 1.0
-				uses = 1
-				category = ss_tech
-			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				set_technology = {
-					cruiser_submarines = 1
-				}
-				add_tech_bonus = {
-					name = SPR_navy_modernization
-					bonus = 2
-					uses = 1
-					category = torpedo_equipment
-				}
-			}
-		}
-
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			navy_experience = 25
-			random_owned_controlled_state = {
-				limit = {
-					dockyard > 0
-					free_building_slots = {
-						building = dockyard
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-				set_state_flag = GER_u_boat_effort_2dockyards
-			}
-			add_tech_bonus = {
-				name = GER_u_boat_effort
-				bonus = 1.0
-				uses = 1
-				category = ss_tech
-			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				set_technology = {
-					cruiser_submarines = 1
-				}
-				add_tech_bonus = {
-					name = SPR_navy_modernization
-					bonus = 2
-					uses = 1
-					category = torpedo_equipment
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = GER_trade_interdiction_r56
-		icon = GFX_goal_generic_wolf_pack
-		prerequisite = {
-			focus = GER_u_boat_effort_r56
-		}
-		text = GER_trade_interdiction
-		x = 0
-		y = 1
-		relative_position_id = GER_u_boat_effort_r56
-		cost = 5
-		ai_will_do = {
-			factor = 1
-		}
-
-		available_if_capitulated = yes
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = ti_bonus
-				cost_reduction = 0.5
-				uses = 2
-				category = trade_interdiction_tree
-			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus = {
-					name = GER_trade_interdiction
-					bonus = 3.0
-					uses = 1
-					category = naval_minelaying
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = GER_modular_construction_r56
-		icon = GFX_goal_generic_construct_naval_dockyard
-		prerequisite = {
-			focus = GER_trade_interdiction_r56
-		}
-		text = GER_modular_construction
-		x = 0
-		y = 1
-		relative_position_id = GER_trade_interdiction_r56
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}
-
-		available_if_capitulated = yes
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			add_ideas = GER_modular_construction
-		}
-	}
-	focus = {
-		id = GER_crossing_the_atlantic_r56
-		text = GER_crossing_the_atlantic
-		icon = GFX_focus_spa_the_war_of_vengeance
-		prerequisite = {
-			focus = GER_plan_z_r56 
-			focus = GER_modular_construction_r56
-			focus = GER_prepare_for_the_next_blockade
-		}
-		available = {
-			is_puppet = no
-			has_war_with = USA
-			OR = {
-				AND = {
-					has_war_with = SOV
-					SOV = {
-						has_capitulated = yes
-					}
-				}
-				SOV = {
-					exists = no
-				}
-				SOV = {
-					is_puppet = yes
-				}
-			}
-			NOT = {
-				any_country = {
-					NOT = {
-						tag = ENG
-					}
-					has_war_with = GER
-					is_in_faction_with = USA
-					any_owned_state = {
-						is_on_continent = europe
-					}
-					has_capitulated = no
-				}
-			}
-		}
-		cancel_if_invalid = yes
-		relative_position_id = GER_plan_z_r56
-		x = 1
-		y = 4
-		cost = 10
-		ai_will_do = {
-			factor = 10
-		}
-		search_filters = {
-			FOCUS_FILTER_INDUSTRY
-		}
-		completion_reward = {
-			every_state = {
-				limit = {
-					is_fully_controlled_by = ROOT
-					is_on_continent = europe
-					is_coastal = yes
-					arms_factory < 1
-				}
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = dockyard
-					level = 3
-					instant_build = yes
-				}
-				custom_effect_tooltip = GER_crossing_the_atlantic_2_factories_tt
-				hidden_effect = {
-					random_state = {
-						limit = {
-							is_fully_controlled_by = ROOT
-							is_on_continent = europe
-							NOT = {
-								is_coastal = yes
-							}
-							arms_factory > 1
-						}
-						remove_building = {
-							type = arms_factory
-							level = 1
-						}
-					}
-				}
-			}
-			every_state = {
-				limit = {
-					is_fully_controlled_by = ROOT
-					is_on_continent = europe
-					is_coastal = yes
-					arms_factory < 2
-					arms_factory > 0
-				}
-				add_extra_state_shared_building_slots = 3
-				remove_building = {
-					type = arms_factory
-					level = 1
-				}
-				add_building_construction = {
-					type = dockyard
-					level = 3
-					instant_build = yes
-				}
-				custom_effect_tooltip = GER_crossing_the_atlantic_1_factory_tt
-				hidden_effect = {
-					random_state = {
-						limit = {
-							is_fully_controlled_by = ROOT
-							is_on_continent = europe
-							NOT = {
-								is_coastal = yes
-							}
-							arms_factory > 0
-						}
-						remove_building = {
-							type = arms_factory
-							level = 1
-						}
-					}
-				}
-			}
-			every_state = {
-				limit = {
-					is_fully_controlled_by = ROOT
-					is_on_continent = europe
-					is_coastal = yes
-					arms_factory > 1
-				}
-				remove_building = {
-					type = arms_factory
-					level = 1
-				}
-				add_building_construction = {
-					type = dockyard
-					level = 3
-					instant_build = yes
-				}
-			}
-			add_tech_bonus = {
-				name = GER_landing_craft
-				bonus = 1
-				uses = 1
-				category = tp_tech
-			}
-			if = {
-				limit = {
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus = {
-					name = GER_landing_craft
-					bonus = 1
-					uses = 1
-					category = amphibious_armor_tech
-				}
-
-			}
-		}
-	}
-
+	
 	focus = {
 		id = GER_denmark_friend_2
 		text = GER_denmark_friend
@@ -3215,9 +2895,8 @@ focus_tree = {
 				is_in_faction_with = DEN
 			}
 		}
-		x = 2
-		y = 0
-		relative_position_id = GER_weserubung
+		x = -3
+		y = 1
 		cost = 5
 		ai_will_do = {
 			factor = 3
@@ -3550,6 +3229,328 @@ focus_tree = {
 			}
 		}
 	}
+
+
+	focus = {
+		id = GER_u_boat_effort_r56
+		text = GER_u_boat_effort
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = {
+			focus = GER_naval_effort_r56
+		}
+		mutually_exclusive = {
+			focus = GER_plan_z_r56
+			focus = GER_rebuild_the_high_seas_fleet
+		}
+		x = 1
+		y = 3
+		relative_position_id = GER_naval_effort_r56
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+
+		available_if_capitulated = yes
+		complete_tooltip = {
+			navy_experience = 25
+			every_state = {
+				limit = {
+					has_state_flag = GER_u_boat_effort_2dockyards
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = GER_u_boat_effort
+				bonus = 1.0
+				uses = 1
+				category = ss_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_technology = {
+					cruiser_submarines = 1
+				}
+				add_tech_bonus = {
+					name = SPR_navy_modernization
+					bonus = 2
+					uses = 1
+					category = torpedo_equipment
+				}
+			}
+		}
+
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			navy_experience = 25
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = GER_u_boat_effort_2dockyards
+			}
+			add_tech_bonus = {
+				name = GER_u_boat_effort
+				bonus = 1.0
+				uses = 1
+				category = ss_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_technology = {
+					cruiser_submarines = 1
+				}
+				add_tech_bonus = {
+					name = SPR_navy_modernization
+					bonus = 2
+					uses = 1
+					category = torpedo_equipment
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = GER_trade_interdiction_r56
+		icon = GFX_goal_generic_wolf_pack
+		prerequisite = {
+			focus = GER_u_boat_effort_r56
+		}
+		text = GER_trade_interdiction
+		x = 0
+		y = 1
+		relative_position_id = GER_u_boat_effort_r56
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = ti_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = trade_interdiction_tree
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = GER_trade_interdiction
+					bonus = 3.0
+					uses = 1
+					category = naval_minelaying
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = GER_modular_construction_r56
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = {
+			focus = GER_trade_interdiction_r56
+		}
+		text = GER_modular_construction
+		x = 0
+		y = 1
+		relative_position_id = GER_trade_interdiction_r56
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_ideas = GER_modular_construction
+		}
+	}
+	focus = {
+		id = GER_crossing_the_atlantic_r56
+		text = GER_crossing_the_atlantic
+		icon = GFX_focus_spa_the_war_of_vengeance
+		prerequisite = {
+			focus = GER_plan_z_r56 
+			focus = GER_modular_construction_r56
+			focus = GER_prepare_for_the_next_blockade
+		}
+		available = {
+			is_puppet = no
+			has_war_with = USA
+			OR = {
+				AND = {
+					has_war_with = SOV
+					SOV = {
+						has_capitulated = yes
+					}
+				}
+				SOV = {
+					exists = no
+				}
+				SOV = {
+					is_puppet = yes
+				}
+			}
+			NOT = {
+				any_country = {
+					NOT = {
+						tag = ENG
+					}
+					has_war_with = GER
+					is_in_faction_with = USA
+					any_owned_state = {
+						is_on_continent = europe
+					}
+					has_capitulated = no
+				}
+			}
+		}
+		cancel_if_invalid = yes
+		relative_position_id = GER_plan_z_r56
+		x = 1
+		y = 4
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					is_on_continent = europe
+					is_coastal = yes
+					arms_factory < 1
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+				custom_effect_tooltip = GER_crossing_the_atlantic_2_factories_tt
+				hidden_effect = {
+					random_state = {
+						limit = {
+							is_fully_controlled_by = ROOT
+							is_on_continent = europe
+							NOT = {
+								is_coastal = yes
+							}
+							arms_factory > 1
+						}
+						remove_building = {
+							type = arms_factory
+							level = 1
+						}
+					}
+				}
+			}
+			every_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					is_on_continent = europe
+					is_coastal = yes
+					arms_factory < 2
+					arms_factory > 0
+				}
+				add_extra_state_shared_building_slots = 3
+				remove_building = {
+					type = arms_factory
+					level = 1
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+				custom_effect_tooltip = GER_crossing_the_atlantic_1_factory_tt
+				hidden_effect = {
+					random_state = {
+						limit = {
+							is_fully_controlled_by = ROOT
+							is_on_continent = europe
+							NOT = {
+								is_coastal = yes
+							}
+							arms_factory > 0
+						}
+						remove_building = {
+							type = arms_factory
+							level = 1
+						}
+					}
+				}
+			}
+			every_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					is_on_continent = europe
+					is_coastal = yes
+					arms_factory > 1
+				}
+				remove_building = {
+					type = arms_factory
+					level = 1
+				}
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = GER_landing_craft
+				bonus = 1
+				uses = 1
+				category = tp_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = GER_landing_craft
+					bonus = 1
+					uses = 1
+					category = amphibious_armor_tech
+				}
+
+			}
+		}
+	}
+
 
 ########################################## END OF NAVAL TREE ##########################################
 
@@ -9694,61 +9695,7 @@ focus_tree = {
 
 	}
 
-	focus = {
-		id = GER_soviet_ally
-		icon = GFX_focus_chi_mission_to_the_soviet_union
-		prerequisite = { focus = GER_soviet_support }
-		relative_position_id = GER_soviet_support
-		available = {
-			is_subject = no
-			has_government = fascism
-			has_war = no
-			SOV = {
-				has_government = communism #added after NSB, vanilla should fix this better at some point hopefully
-				has_war = no
-				NOT = { has_war_with = GER }
-				is_subject = no
-			}
-		}
-		bypass = {
-			SOV = {
-				is_in_faction_with = GER
-			}
-		}
-		x = -1
-		y = 1
-		relative_position_id = GER_soviet_support
-		cost = 10
-		ai_will_do = {
-			factor = 0.01
-			modifier = {
-				factor = 0
-				NOT = { is_in_faction_with = POL }
-				country_exists = POL
-			}			
-			modifier = {
-				factor = 0
-				OR = {
-					has_war_with = POL
-					has_war_with = FRA
-				}
-			}				
-		}	
-		search_filters = { FOCUS_FILTER_ALLIANCE }
-		completion_reward = {
-			if = {
-				limit = { is_faction_leader = yes }
-				custom_effect_tooltip = ger_sov_buddies_tooltip_2
-			}
-			custom_effect_tooltip = ger_sov_buddies_tooltip
-			add_ideas = soviet_german_friendship
-			SOV = {
-				add_opinion_modifier = { target = GER modifier = ger_sov_alliance_focus }
-				add_ideas = soviet_german_friendship
-				country_event = germany.89
-			}
-		}
-	}
+
 	focus = {
 		id = GER_soviet_support
 		icon = GFX_focus_chi_mission_to_the_soviet_union
@@ -9898,7 +9845,62 @@ focus_tree = {
 			FOCUS_FILTER_RESEARCH
 		}
 	}
-	
+
+		focus = {
+		id = GER_soviet_ally
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+		prerequisite = { focus = GER_soviet_support }
+		relative_position_id = GER_soviet_support
+		available = {
+			is_subject = no
+			has_government = fascism
+			has_war = no
+			SOV = {
+				has_government = communism #added after NSB, vanilla should fix this better at some point hopefully
+				has_war = no
+				NOT = { has_war_with = GER }
+				is_subject = no
+			}
+		}
+		bypass = {
+			SOV = {
+				is_in_faction_with = GER
+			}
+		}
+		x = -1
+		y = 1
+		relative_position_id = GER_soviet_support
+		cost = 10
+		ai_will_do = {
+			factor = 0.01
+			modifier = {
+				factor = 0
+				NOT = { is_in_faction_with = POL }
+				country_exists = POL
+			}			
+			modifier = {
+				factor = 0
+				OR = {
+					has_war_with = POL
+					has_war_with = FRA
+				}
+			}				
+		}	
+		search_filters = { FOCUS_FILTER_ALLIANCE }
+		completion_reward = {
+			if = {
+				limit = { is_faction_leader = yes }
+				custom_effect_tooltip = ger_sov_buddies_tooltip_2
+			}
+			custom_effect_tooltip = ger_sov_buddies_tooltip
+			add_ideas = soviet_german_friendship
+			SOV = {
+				add_opinion_modifier = { target = GER modifier = ger_sov_alliance_focus }
+				add_ideas = soviet_german_friendship
+				country_event = germany.89
+			}
+		}
+	}
 	
 	################################# DESPERATE MEASURES ##################################################
 	focus = {
@@ -12011,37 +12013,6 @@ focus_tree = {
 					value = 200
 				}	
 			}
-		}
-	}
-
-	focus = {
-		id = GER_carte_blanche_for_alsace_and_french_colonies
-		icon = GFX_goal_spr_stab_the_french_in_the_back
-		prerequisite = { focus = GER_colonies_for_support }
-		will_lead_to_war_with = FRA
-		available = {
-			is_subject = no
-			FRA = { has_government = communism }
-			NOT = { is_in_faction_with = FRA }
-		}
-		
-		x = 0
-		y = 1
-		relative_position_id = GER_colonies_for_support
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}
-		
-		completion_reward = {
-			create_wargoal = {
-				type = annex_everything
-				target = FRA
-				expire = 0
-			}
-			add_state_claim = 28
-			add_state_claim = 773
-			add_state_claim = 777
 		}
 	}
 
@@ -16128,6 +16099,36 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = GER_carte_blanche_for_alsace_and_french_colonies
+		icon = GFX_goal_spr_stab_the_french_in_the_back
+		prerequisite = { focus = GER_colonies_for_support }
+		will_lead_to_war_with = FRA
+		available = {
+			is_subject = no
+			FRA = { has_government = communism }
+			NOT = { is_in_faction_with = FRA }
+		}
+		
+		x = 0
+		y = 1
+		relative_position_id = GER_colonies_for_support
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		
+		completion_reward = {
+			create_wargoal = {
+				type = annex_everything
+				target = FRA
+				expire = 0
+			}
+			add_state_claim = 28
+			add_state_claim = 773
+			add_state_claim = 777
+		}
+	}
 
 
 	focus = {
