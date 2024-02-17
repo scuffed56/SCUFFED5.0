@@ -4,9 +4,10 @@ characters={
 		portraits={
 			civilian={
 				large="gfx/leaders/ENG/r56_portrait_ENG_Winston_Churchill.dds"
+				small="GFX_idea_ENG_winston_churchill"
 			}
 			army={
-				small="GFX_idea_ENG_winston_churchill"
+				small="GFX_idea_ENG_winston_churchill_army"
 			}
 		}
 		advisor={
@@ -28,9 +29,6 @@ characters={
 				original_tag  = ENG
 				has_dlc = "Man the Guns"
 			}
-			on_add = {
-				set_country_flag = has_hired_Winston_Churchill_flag
-			}
 			traits  = {
 				royalist_bulldog 
 			}
@@ -38,7 +36,29 @@ characters={
 				factor  = 1.000
 			}
 		}
-
+		advisor={ # He was first lord of the admiralty, after all
+		slot = navy_chief
+		idea_token = ENG_winston_churchill_navy
+		allowed = {
+			original_tag = ENG
+		}
+		available = {
+			NOT = {
+				has_completed_focus = ENG_eliminate_the_upper_class
+				has_country_leader = {
+					character = ENG_winston_churchill
+					ruling_only = yes
+				}
+			}
+		}
+		traits = {
+			navy_chief_reform_3
+		}
+		cost = 150
+		ai_will_do = {
+			factor = 0.500
+		}
+	}
 		country_leader={
 			ideology=conservatism
 			traits = {
