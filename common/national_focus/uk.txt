@@ -11786,73 +11786,6 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ENG_imperial_conscription
-		prerequisite = { focus = ENG_the_sun_never_sets }	
-		available = {
-
-		}
-		icon = GFX_goal_ENG_imperial_conscription
-		x = 0
-		y = 2
-		relative_position_id = ENG_the_sun_never_sets
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_imperial_conscription_idea
-			army_experience = 20
-			every_country = {
-				limit = {
-					is_subject_of = ENG
-				}
-				add_ideas = ENG_imperial_conscription_subject_idea
-			}
-		}
-		search_filters = { FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_MANPOWER }
-	}
-		focus = {
-		id = ENG_the_Naval_Commitment
-		prerequisite = { focus = ENG_the_sun_never_sets }	
-		available = {
-			has_government = neutrality
-			has_country_flag = has_hired_Winston_Churchill_flag
-			
-			or = {
-				has_war_support > 0.60	
-				threat > 0.35
-			}
-		}
-		icon = GFX_goal_generic_naval_academy
-		x = -1
-		y = 1
-		relative_position_id = ENG_the_sun_never_sets
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			add_ideas = ENG_the_Naval_Commitment_idea
-			if = {
-                limit = {
-                    has_war_support < 0.5
-                }
-                add_war_support = 0.1
-            }
-            else_if = {
-                limit = {
-                    has_idea = war_economy
-                }
-                add_political_power = 150
-            }
-            else = {
-                add_ideas = war_economy
-            }
-
-		}
-		search_filters = { FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_MANPOWER }
-	}
-	focus = {
 		id = ENG_expose_the_belly_of_the_bear
 		prerequisite = { focus = ENG_pre_empt_the_ideological_threat }	
 		available = {
@@ -12258,6 +12191,75 @@ focus_tree = {
 			custom_effect_tooltip = ENG_the_sun_never_sets_tt
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = ENG_the_Naval_Commitment
+		prerequisite = { focus = ENG_the_sun_never_sets }	
+		available = {
+			has_government = neutrality
+			#has_country_flag = has_hired_Winston_Churchill_flag
+			
+			or = {
+				has_war_support > 0.60	
+				threat > 0.35
+			}
+		}
+		icon = GFX_goal_generic_naval_academy
+		x = -1
+		y = 1
+		relative_position_id = ENG_the_sun_never_sets
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			add_ideas = ENG_the_Naval_Commitment_idea
+			if = {
+                limit = {
+                    has_war_support < 0.5
+                }
+                add_war_support = 0.1
+            }
+            else_if = {
+                limit = {
+                    has_idea = war_economy
+                }
+                add_political_power = 150
+            }
+            else = {
+                add_ideas = war_economy
+            }
+
+		}
+		search_filters = { FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_MANPOWER }
+	}
+
+	focus = {
+		id = ENG_imperial_conscription
+		prerequisite = { focus = ENG_the_sun_never_sets }	
+		available = {
+
+		}
+		icon = GFX_goal_ENG_imperial_conscription
+		x = 0
+		y = 2
+		relative_position_id = ENG_the_sun_never_sets
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			add_ideas = ENG_imperial_conscription_idea
+			army_experience = 20
+			every_country = {
+				limit = {
+					is_subject_of = ENG
+				}
+				add_ideas = ENG_imperial_conscription_subject_idea
+			}
+		}
+		search_filters = { FOCUS_FILTER_TFV_AUTONOMY FOCUS_FILTER_MANPOWER }
 	}
 
 	focus = {
@@ -12827,46 +12829,6 @@ focus_tree = {
 	}
 
 	focus = {
-		id = ENG_soviet_cooperation
-		prerequisite = { focus = ENG_preparing_the_second_front }
-		prerequisite = { focus = ENG_tackle_fascism }
-		
-		available = {
-			is_subject = no
-			country_exists = SOV
-			NOT = { has_war_with = SOV }
-			SOV = { has_government = communism }
-		}
-		bypass = {
-			is_in_faction_with = SOV
-		}
-		icon = GFX_focus_chi_mission_to_the_soviet_union
-		x = 1
-		y = 1
-		relative_position_id = ENG_preparing_the_second_front
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		completion_reward = {
-			if = {
-				limit = {
-					SOV = { NOT = { has_war_with = GER } }
-				}
-				SOV = { country_event = { id = mtg_britain.49 hours = 6 } }
-			}
-			else = {
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = GER
-					expire = 0
-				}
-			}
-		}
-		search_filters = { FOCUS_FILTER_ALLIANCE }
-	}
-
-	focus = {
 		id = ENG_the_one_true_revolution
 		prerequisite = { focus = ENG_reach_out_across_the_channel }
 		
@@ -13021,6 +12983,46 @@ focus_tree = {
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = ENG_soviet_cooperation
+		prerequisite = { focus = ENG_preparing_the_second_front }
+		prerequisite = { focus = ENG_tackle_fascism }
+		
+		available = {
+			is_subject = no
+			country_exists = SOV
+			NOT = { has_war_with = SOV }
+			SOV = { has_government = communism }
+		}
+		bypass = {
+			is_in_faction_with = SOV
+		}
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+		x = 1
+		y = 1
+		relative_position_id = ENG_preparing_the_second_front
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			if = {
+				limit = {
+					SOV = { NOT = { has_war_with = GER } }
+				}
+				SOV = { country_event = { id = mtg_britain.49 hours = 6 } }
+			}
+			else = {
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = GER
+					expire = 0
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
 
 	focus = {
