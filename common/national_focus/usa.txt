@@ -200,6 +200,10 @@ focus_tree = {
 			add_stability = -0.05
 			custom_effect_tooltip = available_political_advisor
 		    show_ideas_tooltip = earl_browder
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
 			if = {
 		    	limit = {
 					has_idea = rt56_j_edgar_hoover
@@ -667,7 +671,7 @@ focus_tree = {
 		available = {
 			congress_high_support_trigger = yes
 			OR = {
-				has_idea_with_trait = communist_revolutionary
+				communism > 0.2
 				has_government = communism
 			}
 			not = { has_completed_focus = USA_limited_intervention }
@@ -755,7 +759,7 @@ focus_tree = {
 
 		available = {
 			OR = {
-				has_idea_with_trait = communist_revolutionary
+				communism > 0.3
 				has_government = communism
 			}
 			congress_high_support_trigger = yes
@@ -1781,7 +1785,7 @@ focus_tree = {
 			}
 			set_rule = { can_send_volunteers = yes }
 			add_ideas = USA_limited_intervention
-			USA_congress_medium_opposition = yes
+			USA_congress_large_opposition = yes
 			if = {
 				limit = {
 					has_war_support < 0.4
@@ -1808,6 +1812,7 @@ focus_tree = {
 		prerequisite = { focus = USA_limited_intervention }
 		available = {
 			has_government = democratic
+			congress_high_support_trigger = yes
 		}
 
 		bypass = {
@@ -1825,7 +1830,6 @@ focus_tree = {
 		#}
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			add_war_support = 0.05
 			if = {
 				limit = {
 					NOT = { has_government = communism }
@@ -1835,9 +1839,15 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_war_support < 0.4
+					has_war_support < 0.5
 				}
-				USA_congress_small_opposition = yes
+				USA_congress_large_opposition = yes
+			}
+			if = {
+				limit = {
+					has_war_support < 0.15
+				}
+				add_war_support = 0.05
 			}
 		}
 	}
@@ -1957,8 +1967,12 @@ focus_tree = {
 
 		available = {
 			OR = {
-				has_war = yes
-				has_war_support > 0.5
+				has_war_with_major = yes
+				AND = {
+					has_war_support > 0.5
+					congress_high_support_trigger = yes
+				}
+				
 			}
 		}
 
@@ -2129,7 +2143,7 @@ focus_tree = {
 		completion_reward = {
 			add_timed_idea = {
 				idea = r56_USA_over_there
-				days = 365
+				days = 120
 			} 
 			if = {
 				limit = {
@@ -2949,8 +2963,30 @@ focus_tree = {
 		prerequisite = { focus = USA_arsenal_of_democracy }
 		available = {
 			OR = {
-				has_war = yes
-				has_war_support > 0.35
+				has_war_with_major = yes
+				AND = {
+					has_war_support > 0.35
+					OR = {
+						date > 1938.3.1
+						CHI = {
+							exists = no
+						}
+						OR = {
+							NOT = {
+								CZE = {
+									controls_state = 9
+								}
+							}
+							CZE = {
+								exists = no 
+							}
+							CZE = {
+								is_subject = yes
+							}
+						}
+					}
+				}
+				
 			}
 			democratic > 0.95
 		}
@@ -2991,7 +3027,7 @@ focus_tree = {
 			}
 			add_timed_idea = {
 				idea = rt56_the_gaint_wakes_idea
-				days = 365
+				days = 180
 			}
 			random_owned_controlled_state = {
 				prioritize = { 360 }
@@ -8750,7 +8786,7 @@ focus_tree = {
 		y = 1
 		prerequisite = { focus = USA_war_department }
 		relative_position_id = USA_war_department
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 1
