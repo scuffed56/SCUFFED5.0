@@ -1,0 +1,5460 @@
+@MAX_NUM_OF_MALE_NAMES = 20
+@MAX_NUM_OF_FEMALE_NAMES = 20
+@MAX_NUM_OF_LAST_NAMES = 20
+
+# usage:
+## set_temp_variable = { article_index = 0 }
+## set_temp_variable = { article_id = 1 }
+## set_id_for_article_index = yes
+set_id_for_article_index = {
+	if = {
+		limit = {
+			OR = {
+				NOT = { is_in_array = { global.newspaper_articles = article_id } }
+				check_variable = { global.newspaper_articles^article_index = article_id }
+			}
+		}
+		remove_newspaper_article = yes
+		set_variable = { global.newspaper_articles^article_index = article_id }
+		add_to_variable = { global.newspaper_new_articles_number = 1 }
+		set_newspaper_individual_article_targets = yes
+		set_if_newspaper_article_should_be_kept_longer = yes
+	}
+}
+
+# usage:
+## set_temp_variable = { article_id = v }
+## set_newspaper_individual_article_targets = yes
+set_newspaper_individual_article_targets = {
+	set_temp_variable = { max_num_of_male_names = @MAX_NUM_OF_MALE_NAMES }
+	set_temp_variable = { max_num_of_female_names = @MAX_NUM_OF_FEMALE_NAMES }
+	set_temp_variable = { max_num_of_last_names = @MAX_NUM_OF_LAST_NAMES }
+
+	meta_effect = {
+		text = {
+			clear_array = global.newspaper_article_targets_[ID]
+			if = {
+				limit = {
+					check_variable = { article_id = 1 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 3 }
+				}
+				random_country = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					random_owned_state = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 100 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 4 }
+				}
+				random_state = {
+					limit = {
+						is_coastal = yes
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 5 }
+				}
+				random_country = {
+					limit = {
+						any_owned_state = {
+							is_coastal = yes
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 6 }
+				}
+				random_list = {
+					8 = { set_temp_variable = { temp = 2 } }
+					8 = { set_temp_variable = { temp = 3 } }
+					8 = { set_temp_variable = { temp = 4 } }
+					8 = { set_temp_variable = { temp = 5 } }
+					8 = { set_temp_variable = { temp = 6 } }
+					8 = { set_temp_variable = { temp = 7 } }
+					8 = { set_temp_variable = { temp = 8 } }
+					8 = { set_temp_variable = { temp = 9 } }
+					8 = { set_temp_variable = { temp = 10 } }
+					8 = { set_temp_variable = { temp = 11 } }
+					8 = { set_temp_variable = { temp = 12 } }
+					8 = { set_temp_variable = { temp = 13 } }
+					8 = { set_temp_variable = { temp = 14 } }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 7 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 8 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 10 }
+				}
+				random_country = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					random_owned_state = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 11 }
+				}
+				if = {
+					limit = {
+						any_country = {
+							NOT = { has_government = fascism }
+						}
+					}
+					random_country = {
+						limit = {
+							NOT = { has_government = fascism }
+						}
+						random_owned_state = {
+							add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+				else = {
+					random_country = {
+						random_owned_state = {
+							add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 12 }
+				}
+				if = {
+					limit = {
+						any_country = {
+							NOT = { has_government = fascism }
+						}
+					}
+					random_state = {
+						limit = {
+							owner = {
+								NOT = { has_government = fascism }
+							}
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+				else = {
+					random_state = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 13 }
+				}
+				if = {
+					limit = {
+						any_country = {
+							NOT = { has_government = fascism }
+						}
+					}
+					random_state = {
+						limit = {
+							owner = {
+								NOT = { has_government = fascism }
+							}
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+				else = {
+					random_state = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 15 }
+				}
+				set_temp_variable = { temp = random }
+				if = {
+					limit = {
+						check_variable = { temp < 0.01 }
+					}
+					set_temp_variable = { temp = 0.01 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 18 }
+				}
+				random_country = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				if = {
+					limit = {
+						check_variable = { temp < 0.01 }
+					}
+					set_temp_variable = { temp = 0.01 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 19 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 20 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 100000 }
+				if = {
+					limit = {
+						check_variable = { temp < 1000 }
+					}
+					set_temp_variable = { temp = 1000 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 21 }
+				}
+				if = {
+					limit = {
+						any_state = {
+							infrastructure < 10
+						}
+					}
+					random_state = {
+						limit = {
+							infrastructure < 10
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						if = {
+							limit = {
+								any_neighbor_state = {
+									NOT = { is_in_array = { global.newspaper_article_targets_[ID] = THIS.id } }
+								}
+							}
+							random_neighbor_state = {
+								limit = {
+									NOT = { is_in_array = { global.newspaper_article_targets_[ID] = THIS.id } }
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+							}
+						}
+						else = {
+							random_state = {
+								limit = {
+									NOT = { is_in_array = { global.newspaper_article_targets_[ID] = THIS.id } }
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+							}
+						}
+					}
+				}
+				else = {
+					random_state = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						if = {
+							limit = {
+								any_neighbor_state = {
+									NOT = { is_in_array = { global.newspaper_article_targets_[ID] = THIS.id } }
+								}
+							}
+							random_neighbor_state = {
+								limit = {
+									NOT = { is_in_array = { global.newspaper_article_targets_[ID] = THIS.id } }
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+							}
+						}
+						else = {
+							random_state = {
+								limit = {
+									NOT = { is_in_array = { global.newspaper_article_targets_[ID] = THIS.id } }
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 22 }
+				}
+				if = {
+					limit = {
+						any_country = {
+							NOT = { has_government = fascism }
+						}
+					}
+					random_country = {
+						limit = {
+							NOT = { has_government = fascism }
+						}
+						random_owned_state = {
+							add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						}
+						set_temp_variable = { temp = random }
+						random_list = {
+							33 = { }
+							33 = { divide_temp_variable = { temp = 2 } }
+							33 = { divide_temp_variable = { temp = 3 } }
+						}
+						if = {
+							limit = {
+								check_variable = { temp < 0.01 }
+							}
+							set_temp_variable = { temp = 0.01 }
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = temp }
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+				else = {
+					random_country = {
+						random_owned_state = {
+							add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						}
+						set_temp_variable = { temp = random }
+						random_list = {
+							33 = { }
+							33 = { divide_temp_variable = { temp = 2 } }
+							33 = { divide_temp_variable = { temp = 3 } }
+						}
+						if = {
+							limit = {
+								check_variable = { temp < 0.01 }
+							}
+							set_temp_variable = { temp = 0.01 }
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = temp }
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 23 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 24 }
+				}
+				random_country = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 50 }
+				round_temp_variable = temp
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp_2 = random }
+				multiply_temp_variable = { temp_2 = 50 }
+				round_temp_variable = temp_2
+				if = {
+					limit = {
+						NOT = { check_variable = { temp_2 > temp } }
+					}
+					add_to_temp_variable = { temp_2 = 1 }
+				}
+				add_to_temp_variable = { temp_2 = temp }
+				add_to_array = { global.newspaper_article_targets_[ID] = temp_2 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 25 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				random_list = {
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 30 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 31 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 32 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 33 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 34 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 35 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 36 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 37 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 38 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 39 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 40 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 41 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 42 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 43 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 44 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 45 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 46 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 47 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 48 } }
+					5 = { add_to_array = { global.newspaper_article_targets_[ID] = 49 } }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 26 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 100 }
+				round_temp_variable = temp
+				random_list = {
+					25 = {	add_to_temp_variable = { temp = 50 } }
+					25 = {	add_to_temp_variable = { temp = 100 } }
+					25 = {	add_to_temp_variable = { temp = 150 } }
+					25 = {	add_to_temp_variable = { temp = 200 } }
+				}
+				set_temp_variable = { temp_2 = [YEAR] }
+				subtract_from_temp_variable = { temp_2 = temp }
+				add_to_array = { global.newspaper_article_targets_[ID] = temp_2 }
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 500 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 10 }
+					}
+					set_temp_variable = { temp = 10 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 41 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 10 }
+				round_temp_variable = temp
+				set_temp_variable = { temp_2 = random }
+				multiply_temp_variable = { temp_2 = 10 }
+				round_temp_variable = temp_2
+				if = {
+					limit = {
+						NOT = { check_variable = { temp > temp_2 } }
+					}
+					set_temp_variable = { temp = temp_2 }
+					add_to_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				add_to_array = { global.newspaper_article_targets_[ID] = temp_2 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 42 }
+				}
+				if = {
+					limit = {
+						NOT = { has_variable = global.newspaper_article_var_[ID] }
+					}
+					set_variable = { global.newspaper_article_var_[ID] = 699 }
+				}
+				add_to_variable = { global.newspaper_article_var_[ID] = 1 }
+				add_to_array = { global.newspaper_article_targets_[ID] = global.newspaper_article_var_[ID] }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 43 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 5 }
+				round_temp_variable = temp
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp_2 = random }
+				multiply_temp_variable = { temp_2 = 5 }
+				round_temp_variable = temp_2
+				if = {
+					limit = {
+						NOT = { check_variable = { temp_2 > temp } }
+					}
+					set_temp_variable = { temp_2 = temp }
+					add_to_temp_variable = { temp_2 = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp_2 }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 10 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				random_list = {
+					25 = { set_temp_variable = { random_sports = 1 } }
+					25 = { set_temp_variable = { random_sports = 2 } }
+					25 = { set_temp_variable = { random_sports = 3 } }
+					25 = { set_temp_variable = { random_sports = 4 } }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = random_sports }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 44 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 100 }
+				round_temp_variable = temp
+				add_to_temp_variable = { temp = 100 }
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 5000 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 5 }
+					}
+					set_temp_variable = { temp = 5 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 2000000 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 50000 }
+					}
+					set_temp_variable = { temp = 50000 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 45 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 150 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 46 }
+				}
+				random_state = {
+					limit = {
+						OR = {
+							AND = {
+								NOT = { is_on_continent = africa }
+								NOT = { is_on_continent = middle_east }
+							}
+							is_coastal = yes
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 47 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 20 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 48 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 50 }
+				}
+				random_country = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					if = {
+						limit = {
+							has_government = fascism
+						}
+						random_list = {
+							33 = { set_temp_variable = { random_ideology = 2 } }
+							33 = { set_temp_variable = { random_ideology = 3 } }
+							33 = { set_temp_variable = { random_ideology = 4 } }
+						}
+					}
+					else_if = {
+						limit = {
+							has_government = communism
+						}
+						random_list = {
+							33 = { set_temp_variable = { random_ideology = 1 } }
+							33 = { set_temp_variable = { random_ideology = 3 } }
+							33 = { set_temp_variable = { random_ideology = 4 } }
+						}
+					}
+					else_if = {
+						limit = {
+							has_government = democratic
+						}
+						random_list = {
+							33 = { set_temp_variable = { random_ideology = 1 } }
+							33 = { set_temp_variable = { random_ideology = 2 } }
+							33 = { set_temp_variable = { random_ideology = 4 } }
+						}
+					}
+					else = {
+						random_list = {
+							33 = { set_temp_variable = { random_ideology = 1 } }
+							33 = { set_temp_variable = { random_ideology = 2 } }
+							33 = { set_temp_variable = { random_ideology = 3 } }
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = random_ideology }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 51 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 52 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 53 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_female_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				random_list = {
+					5 = { set_temp_variable = { temp = 25 } }
+					5 = { set_temp_variable = { temp = 26 } }
+					5 = { set_temp_variable = { temp = 27 } }
+					5 = { set_temp_variable = { temp = 28 } }
+					5 = { set_temp_variable = { temp = 29 } }
+					5 = { set_temp_variable = { temp = 30 } }
+					5 = { set_temp_variable = { temp = 31 } }
+					5 = { set_temp_variable = { temp = 32 } }
+					5 = { set_temp_variable = { temp = 33 } }
+					5 = { set_temp_variable = { temp = 34 } }
+					5 = { set_temp_variable = { temp = 35 } }
+					5 = { set_temp_variable = { temp = 36 } }
+					5 = { set_temp_variable = { temp = 37 } }
+					5 = { set_temp_variable = { temp = 38 } }
+					5 = { set_temp_variable = { temp = 39 } }
+					5 = { set_temp_variable = { temp = 40 } }
+					5 = { set_temp_variable = { temp = 41 } }
+					5 = { set_temp_variable = { temp = 42 } }
+					5 = { set_temp_variable = { temp = 43 } }
+					5 = { set_temp_variable = { temp = 44 } }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				random_state = {
+					set_variable = { global.newspaper_serial_killer_state = THIS.id }
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 54 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 50 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 5 }
+					}
+					set_temp_variable = { temp = 5 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 55 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 50 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 5 }
+					}
+					set_temp_variable = { temp = 5 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 56 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_female_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 57 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 58 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_female_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 59 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 60 }
+				}
+				random_list = {
+					5 = { set_temp_variable = { temp = 18 } }
+					5 = { set_temp_variable = { temp = 19 } }
+					5 = { set_temp_variable = { temp = 20 } }
+					5 = { set_temp_variable = { temp = 21 } }
+					5 = { set_temp_variable = { temp = 22 } }
+					5 = { set_temp_variable = { temp = 23 } }
+					5 = { set_temp_variable = { temp = 24 } }
+					5 = { set_temp_variable = { temp = 25 } }
+					5 = { set_temp_variable = { temp = 26 } }
+					5 = { set_temp_variable = { temp = 27 } }
+					5 = { set_temp_variable = { temp = 28 } }
+					5 = { set_temp_variable = { temp = 29 } }
+					5 = { set_temp_variable = { temp = 30 } }
+					5 = { set_temp_variable = { temp = 31 } }
+					5 = { set_temp_variable = { temp = 32 } }
+					5 = { set_temp_variable = { temp = 33 } }
+					5 = { set_temp_variable = { temp = 34 } }
+					5 = { set_temp_variable = { temp = 35 } }
+					5 = { set_temp_variable = { temp = 36 } }
+					5 = { set_temp_variable = { temp = 37 } }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_female_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 61 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 62 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				random_list = {
+					5 = { set_temp_variable = { temp = 37 } }
+					5 = { set_temp_variable = { temp = 38 } }
+					5 = { set_temp_variable = { temp = 39 } }
+					5 = { set_temp_variable = { temp = 40 } }
+					5 = { set_temp_variable = { temp = 41 } }
+					5 = { set_temp_variable = { temp = 42 } }
+					5 = { set_temp_variable = { temp = 43 } }
+					5 = { set_temp_variable = { temp = 44 } }
+					5 = { set_temp_variable = { temp = 45 } }
+					5 = { set_temp_variable = { temp = 46 } }
+					5 = { set_temp_variable = { temp = 47 } }
+					5 = { set_temp_variable = { temp = 48 } }
+					5 = { set_temp_variable = { temp = 49 } }
+					5 = { set_temp_variable = { temp = 50 } }
+					5 = { set_temp_variable = { temp = 51 } }
+					5 = { set_temp_variable = { temp = 52 } }
+					5 = { set_temp_variable = { temp = 53 } }
+					5 = { set_temp_variable = { temp = 54 } }
+					5 = { set_temp_variable = { temp = 55 } }
+					5 = { set_temp_variable = { temp = 56 } }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				if = {
+					limit = {
+						any_country = {
+							is_ai = no
+						}
+					}
+					random_country = {
+						limit = {
+							is_ai = no
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+				else = {
+					var:global.newspaper_serial_killer_state = {
+						owner = {
+							add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						}
+					}
+				}
+				random_list = {
+					50 = { set_temp_variable = { temp = 1 } }
+					50 = { set_temp_variable = { temp = 2 } }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				clear_variable = global.newspaper_serial_killer_state
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 63 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				if = {
+					limit = {
+						any_country = {
+							is_ai = no
+						}
+					}
+					random_country = {
+						limit = {
+							is_ai = no
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+				else = {
+					var:global.newspaper_serial_killer_state = {
+						owner = {
+							add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						}
+					}
+				}
+				random_list = {
+					50 = { set_temp_variable = { temp = 1 } }
+					50 = { set_temp_variable = { temp = 2 } }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				clear_variable = global.newspaper_serial_killer_state
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 64 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				if = {
+					limit = {
+						NOT = { has_global_flag = newspaper_serial_killer_story_murderer_got_away }
+					}
+					clear_variable = global.newspaper_serial_killer_state
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 65 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 66 }
+				}
+				var:global.newspaper_serial_killer_state = {
+					random_state = {
+						limit = {
+							NOT = { state = PREV }
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				clear_variable = global.newspaper_serial_killer_state
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 67 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 68 }
+				}
+				random_country = {
+					limit = {
+						is_subject = no
+						has_war = no
+						any_neighbor_country = {
+							is_subject = no
+							NOT = { is_in_faction_with = PREV }
+							NOT = { has_non_aggression_pact_with = PREV }
+							NOT = { has_war_with = PREV }
+							NOT = { has_government = PREV }
+							has_army_manpower = {
+								size > 50000
+							}
+							strength_ratio = {
+								tag = PREV
+								ratio > 1.25
+							}
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					random_neighbor_country = {
+						limit = {
+							is_subject = no
+							NOT = { is_in_faction_with = PREV }
+							NOT = { has_non_aggression_pact_with = PREV }
+							NOT = { has_war_with = PREV }
+							NOT = { has_government = PREV }
+							has_army_manpower = {
+								size > 50000
+							}
+							strength_ratio = {
+								tag = PREV
+								ratio > 1.25
+							}
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 69 }
+				}
+				random_country = {
+					limit = {
+						is_subject = no
+						has_war = no
+						any_neighbor_country = {
+							NOT = { has_country_flag = newspaper_reported_about_justifying_against_@PREV }
+							is_subject = no
+							is_justifying_wargoal_against = PREV
+							NOT = { is_in_faction_with = PREV }
+							NOT = { has_non_aggression_pact_with = PREV }
+							NOT = { has_war_with = PREV }
+							NOT = { has_government = PREV }
+							has_army_manpower = {
+								size > 50000
+							}
+							strength_ratio = {
+								tag = PREV
+								ratio > 1.25
+							}
+						}
+					}
+					random_neighbor_country = {
+						limit = {
+							NOT = { has_country_flag = newspaper_reported_about_justifying_against_@PREV }
+							is_subject = no
+							is_justifying_wargoal_against = PREV
+							NOT = { is_in_faction_with = PREV }
+							NOT = { has_non_aggression_pact_with = PREV }
+							NOT = { has_war_with = PREV }
+							NOT = { has_government = PREV }
+							has_army_manpower = {
+								size > 50000
+							}
+							strength_ratio = {
+								tag = PREV
+								ratio > 1.25
+							}
+						}
+						set_country_flag = newspaper_reported_about_justifying_against_@PREV
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 70 }
+				}
+				random_country = {
+					limit = {
+						is_subject = no
+						has_war = no
+						any_neighbor_country = {
+							is_subject = no
+							NOT = { is_in_faction_with = PREV }
+							NOT = { has_non_aggression_pact_with = PREV }
+							NOT = { has_war_with = PREV }
+							NOT = { has_government = PREV }
+							has_army_manpower = {
+								size > 50000
+							}
+							strength_ratio = {
+								tag = PREV
+								ratio > 1.25
+							}
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					random_neighbor_country = {
+						limit = {
+							is_subject = no
+							NOT = { is_in_faction_with = PREV }
+							NOT = { has_non_aggression_pact_with = PREV }
+							NOT = { has_war_with = PREV }
+							NOT = { has_government = PREV }
+							has_army_manpower = {
+								size > 50000
+							}
+							strength_ratio = {
+								tag = PREV
+								ratio > 1.25
+							}
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 71 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				FROM.FROM = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 72 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GRE.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 73 }
+				}
+				GER = {
+					random_owned_state = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 75 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = 379.id }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 2000000 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 50000 }
+					}
+					set_temp_variable = { temp = 50000 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 76 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 77 }
+				}
+				random_state = {
+					limit = {
+						NOT = { region = 33 }
+						NOT = { region = 122 }
+						NOT = { region = 121 }
+						NOT = { region = 36 }
+						NOT = { region = 161 }
+						NOT = { region = 12 }
+						NOT = { region = 150 }
+						NOT = { region = 147 }
+						NOT = { region = 151 }
+						NOT = { region = 149 }
+						NOT = { region = 197 }
+						NOT = { region = 191 }
+						NOT = { region = 132 }
+						NOT = { region = 13 }
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 3000 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 100 }
+					}
+					set_temp_variable = { temp = 100 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 78 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 15 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 79 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 200 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 80 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				add_to_array = { global.newspaper_article_targets_[ID] = 518.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 82 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = 124.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 83 }
+				}
+				random_country = {
+					limit = {
+						has_country_flag = newspaper_article_for_election_can_be_triggered
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				every_country = {
+					limit = {
+						has_country_flag = newspaper_article_for_election_can_be_triggered
+					}
+					clr_country_flag = newspaper_article_for_election_can_be_triggered
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 84 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 85 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 86 }
+				}
+				random_country = {
+					limit = {
+						has_country_flag = newspaper_article_for_coup_can_be_triggered
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				every_country = {
+					limit = {
+						has_country_flag = newspaper_article_for_coup_can_be_triggered
+					}
+					clr_country_flag = newspaper_article_for_coup_can_be_triggered
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 87 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 88 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 89 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 90 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 91 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 92 }
+				}
+				FROM.FROM = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 93 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				FROM.FROM = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 94 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = SOV.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = POL.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 95 }
+				}
+				set_temp_variable = { temp = num_divisions }
+				divide_temp_variable = { temp = 2 }
+				round_temp_variable = temp
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 96 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 97 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				capital_scope = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 98 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				random_country = {
+					limit = {
+						has_civil_war = yes
+						original_tag = SPR
+						OR = {
+							has_government = fascism
+							has_government = neutrality
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = SOV.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 99 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 100 }
+				}
+				random_state = {
+					limit = {
+						owner = {
+							has_government = democratic
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 101 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				FROM = {
+					capital_scope = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 102 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = days_since_german_war_declaration }
+				clear_variable = days_since_german_war_declaration
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 103 }
+				}
+				FROM.FROM = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = USA.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 104 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 105 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 106 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 108 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 57.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 109 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 64.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 110 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = SOV.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 111 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 51.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 42.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FRA.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 112 }
+				}
+				if = {
+					limit = {
+						ENG = { has_war_with = GER }
+						FRA = {
+							NOT = { has_war_with = GER }
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+				}
+				else = {
+					add_to_array = { global.newspaper_article_targets_[ID] = FRA.id }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = 51.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 113 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 51.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 42.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 114 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 115 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = JAP.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = USA.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 629.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 116 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = USA.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = JAP.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 629.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 117 }
+				}
+				FROM = {
+					controller = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 118 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ITA.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 119 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = USA.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 120 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 608.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 121 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 122 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = USA.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 123 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = USA.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 124 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 125 }
+				}
+				if = {
+					limit = {
+						has_global_flag = olympics_jap_1940
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = JAP.id }
+				}
+				else_if = {
+					limit = {
+						has_global_flag = olympics_fin_1940
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = FIN.id }
+				}
+				else = {
+					add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 126 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 69.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = CZE.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FRA.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 127 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 69.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 128 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 129 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 130 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 131 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 132 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = global.yalta_origin }
+				add_to_array = { global.newspaper_article_targets_[ID] = global.yalta_partner }
+				clear_variable = global.yalta_origin
+				clear_variable = global.yalta_partner
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 133 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 134 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 10 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 2 }
+					}
+					set_temp_variable = { temp = 2 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 135 }
+				}
+				random_country = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				random_list = {
+					20 = { set_temp_variable = { random_disaster = 1 } }
+					20 = { set_temp_variable = { random_disaster = 2 } }
+					20 = { set_temp_variable = { random_disaster = 3 } }
+					20 = { set_temp_variable = { random_disaster = 4 } }
+					20 = { set_temp_variable = { random_disaster = 5 } }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = random_disaster }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 136 }
+				}
+				random_country = {
+					if = {
+						limit = {
+							has_government = fascism
+						}
+						random_list = {
+							33 = { set_temp_variable = { random_ideology = 2 } }
+							33 = { set_temp_variable = { random_ideology = 3 } }
+							33 = { set_temp_variable = { random_ideology = 4 } }
+						}
+					}
+					else_if = {
+						limit = {
+							has_government = communism
+						}
+						random_list = {
+							33 = { set_temp_variable = { random_ideology = 1 } }
+							33 = { set_temp_variable = { random_ideology = 3 } }
+							33 = { set_temp_variable = { random_ideology = 4 } }
+						}
+					}
+					else_if = {
+						limit = {
+							has_government = democratic
+						}
+						random_list = {
+							33 = { set_temp_variable = { random_ideology = 1 } }
+							33 = { set_temp_variable = { random_ideology = 2 } }
+							33 = { set_temp_variable = { random_ideology = 4 } }
+						}
+					}
+					else = {
+						random_list = {
+							33 = { set_temp_variable = { random_ideology = 1 } }
+							33 = { set_temp_variable = { random_ideology = 2 } }
+							33 = { set_temp_variable = { random_ideology = 3 } }
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = random_ideology }
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 137 }
+				}
+				random_state = {
+					limit = {
+						any_neighbor_state = {
+							infrastructure > 0
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					random_neighbor_state = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 138 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				random_country = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = 150 }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 5 }
+					}
+					set_temp_variable = { temp = 5 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 140 }
+				}
+				random_state = {
+					limit = {
+						is_on_continent = africa
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 142 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = 378.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 143 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					controller = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 147 }
+				}
+				495 = {
+					controller = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 148 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 149 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 150 }
+				}
+				if = {
+					limit = {
+						any_state = {
+							NOT = { has_state_flag = newspaper_article_for_resource_discovered_triggered }
+							OR = {
+								AND = {
+									has_resources_amount = { resource = oil amount > 0 }
+									has_resources_amount = { resource = oil amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = aluminium amount > 0 }
+									has_resources_amount = { resource = aluminium amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = rubber amount > 0 }
+									has_resources_amount = { resource = rubber amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = tungsten amount > 0 }
+									has_resources_amount = { resource = tungsten amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = steel amount > 0 }
+									has_resources_amount = { resource = steel amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = chromium amount > 0 }
+									has_resources_amount = { resource = chromium amount < 100 }
+								}
+							}
+							OR = {
+								check_variable = { modifier@local_resources > 0 }
+								controller = {
+									check_variable = { modifier@local_resources > 0.5 }
+								}
+							}
+						}
+					}
+					random_state = {
+						limit = {
+							NOT = { has_state_flag = newspaper_article_for_resource_discovered_triggered }
+							OR = {
+								AND = {
+									has_resources_amount = { resource = oil amount > 0 }
+									has_resources_amount = { resource = oil amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = aluminium amount > 0 }
+									has_resources_amount = { resource = aluminium amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = rubber amount > 0 }
+									has_resources_amount = { resource = rubber amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = tungsten amount > 0 }
+									has_resources_amount = { resource = tungsten amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = steel amount > 0 }
+									has_resources_amount = { resource = steel amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = chromium amount > 0 }
+									has_resources_amount = { resource = chromium amount < 100 }
+								}
+							}
+							OR = {
+								check_variable = { modifier@local_resources > 0 }
+								controller = {
+									check_variable = { modifier@local_resources > 0.5 }
+								}
+							}
+						}
+						prioritize = { 292 }
+						set_state_flag = newspaper_article_for_resource_discovered_triggered
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						random_list = {
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = oil amount > 0 } }
+										NOT = { has_resources_amount = { resource = oil amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 1 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = aluminium amount > 0 } }
+										NOT = { has_resources_amount = { resource = aluminium amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 2 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = rubber amount > 0 } }
+										NOT = { has_resources_amount = { resource = rubber amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 3 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = tungsten amount > 0 } }
+										NOT = { has_resources_amount = { resource = tungsten amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 4 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = steel amount > 0 } }
+										NOT = { has_resources_amount = { resource = steel amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 5 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = chromium amount > 0 } }
+										NOT = { has_resources_amount = { resource = chromium amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 6 }
+							}
+						}
+						controller = {
+							add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						}
+					}
+				}
+				else = {
+					random_state = {
+						limit = {
+							NOT = { has_state_flag = newspaper_article_for_resource_discovered_triggered }
+							OR = {
+								AND = {
+									has_resources_amount = { resource = oil amount > 0 }
+									has_resources_amount = { resource = oil amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = aluminium amount > 0 }
+									has_resources_amount = { resource = aluminium amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = rubber amount > 0 }
+									has_resources_amount = { resource = rubber amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = tungsten amount > 0 }
+									has_resources_amount = { resource = tungsten amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = steel amount > 0 }
+									has_resources_amount = { resource = steel amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = chromium amount > 0 }
+									has_resources_amount = { resource = chromium amount < 100 }
+								}
+							}
+						}
+						prioritize = { 292 }
+						set_state_flag = newspaper_article_for_resource_discovered_triggered
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						random_list = {
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = oil amount > 0 } }
+										NOT = { has_resources_amount = { resource = oil amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 1 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = aluminium amount > 0 } }
+										NOT = { has_resources_amount = { resource = aluminium amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 2 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = rubber amount > 0 } }
+										NOT = { has_resources_amount = { resource = rubber amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 3 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = tungsten amount > 0 } }
+										NOT = { has_resources_amount = { resource = tungsten amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 4 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = steel amount > 0 } }
+										NOT = { has_resources_amount = { resource = steel amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 5 }
+							}
+							16 = {
+								modifier = {
+									factor = 0
+									OR = {
+										NOT = { has_resources_amount = { resource = chromium amount > 0 } }
+										NOT = { has_resources_amount = { resource = chromium amount < 100 } }
+									}
+								}
+								add_to_array = { global.newspaper_article_targets_[ID] = 6 }
+							}
+						}
+						controller = {
+							add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 151 }
+				}
+				random_state = {
+					limit = {
+						is_capital = yes
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 152 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 153 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				random_country = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 160 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = SOV.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = USA.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 161 }
+				}
+				if = {
+					limit = {
+						any_country = {
+							has_tech = jet_engines
+						}
+					}
+					random_country = {
+						limit = {
+							has_tech = jet_engines
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = 3 }
+				}
+				else_if = {
+					limit = {
+						any_country = {
+							has_tech = experimental_rockets
+						}
+					}
+					random_country = {
+						limit = {
+							has_tech = experimental_rockets
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = 2 }
+				}
+				else_if = {
+					limit = {
+						any_country = {
+							has_tech = nukes
+						}
+					}
+					random_country = {
+						limit = {
+							has_tech = nukes
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = 1 }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 162 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = 377.id }
+				377 = {
+					controller = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 163 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = 605.id }
+				605 = {
+					controller = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 164 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 10.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 165 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = 60.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 167 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 169 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 170 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 171 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_female_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 172 }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 174 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 175 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 176 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_male_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_last_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+				set_temp_variable = { temp = random }
+				multiply_temp_variable = { temp = max_num_of_female_names }
+				round_temp_variable = temp
+				if = {
+					limit = {
+						check_variable = { temp < 1 }
+					}
+					set_temp_variable = { temp = 1 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 177 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					CONTROLLER = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+					random_country = {
+						limit = {
+							OR = {
+								NOT = { controls_state = PREV }
+								all_state = {
+									is_controlled_by = PREV
+								}
+							}
+						}
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 178 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					CONTROLLER = {
+						add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 179 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 180 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = JAP.id }
+				set_temp_variable = { temp = FROM.state_population_k }
+				divide_temp_variable = { temp = 16 }
+				add_to_array = { global.newspaper_article_targets_[ID] = temp }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 181 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = FROM.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = ROOT.id }
+				add_to_array = { global.newspaper_article_targets_[ID] = JAP.id }
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 182 }
+				}
+				add_to_array = { global.newspaper_article_targets_[ID] = GER.id }
+				if = {
+					limit = {
+						ENG = {
+							exists = yes
+							has_government = democratic
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = ENG.id }
+				}
+				else_if = {
+					limit = {
+						FRA = {
+							exists = yes
+							has_government = democratic
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = FRA.id }
+				}
+				if = {
+					limit = {
+						USA = {
+							exists = yes
+							has_government = democratic
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = USA.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 183 }
+				}
+				event_target:GER_fascism = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				event_target:ITA_fascism = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				event_target:JAP_initiator = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+				if = {
+					limit = {
+						country_exists = USA
+						USA = {
+							has_government = democratic
+							NOT = { has_war_with = event_target:GER_fascism }
+							NOT = { has_war_with = event_target:ITA_fascism }
+							NOT = { has_war_with = event_target:JAP_initiator }
+						}
+					}
+					add_to_array = { global.newspaper_article_targets_[ID] = USA.id }
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { article_id = 184 }
+				}
+				random_state = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+
+			# otherwise random country
+			else = {
+				random_country = {
+					add_to_array = { global.newspaper_article_targets_[ID] = THIS.id }
+				}
+			}
+		}
+		ID = "[?article_id]"
+		YEAR = "[GetYear]"
+	}
+}
+
+# usage:
+## set_temp_variable = { article_index = 0 }
+## remove_newspaper_article = yes
+remove_newspaper_article = {
+	meta_effect = {
+		text = {
+			clear_array = global.newspaper_article_targets_[ID]
+			if = {
+				limit = {
+					has_global_flag = keep_newspaper_article_[INDEX]
+				}
+				clr_global_flag = keep_newspaper_article_[INDEX]
+			}
+		}
+		ID = "[?global.newspaper_articles^article_index]"
+		INDEX = "[?article_index]"
+	}
+	set_variable = { global.newspaper_articles^article_index = 0 }
+}
+
+# usage:
+## choose_any_random_newspaper_article_slot = yes
+choose_any_random_newspaper_article_slot = {
+	random_list = {
+		12 = {
+			set_temp_variable = { article_index = 0 }
+		}
+		12 = {
+			set_temp_variable = { article_index = 1 }
+		}
+		12 = {
+			set_temp_variable = { article_index = 2 }
+		}
+		12 = {
+			set_temp_variable = { article_index = 3 }
+		}
+		12 = {
+			set_temp_variable = { article_index = 4 }
+		}
+		12 = {
+			set_temp_variable = { article_index = 5 }
+		}
+		12 = {
+			set_temp_variable = { article_index = 6 }
+		}
+		12 = {
+			set_temp_variable = { article_index = 7 }
+		}
+	}
+}
+
+# usage:
+## choose_random_newspaper_small_and_side_article_slot = yes
+choose_random_newspaper_small_and_side_article_slot = {
+	random_list = {
+		14 = {
+			set_temp_variable = { article_index = 0 }
+		}
+		14 = {
+			set_temp_variable = { article_index = 1 }
+		}
+		14 = {
+			set_temp_variable = { article_index = 2 }
+		}
+		14 = {
+			set_temp_variable = { article_index = 3 }
+		}
+		14 = {
+			set_temp_variable = { article_index = 4 }
+		}
+		14 = {
+			set_temp_variable = { article_index = 6 }
+		}
+		14 = {
+			set_temp_variable = { article_index = 7 }
+		}
+	}
+}
+
+# usage:
+## choose_random_newspaper_small_article_slot = yes
+choose_random_newspaper_small_article_slot = {
+	random_list = {
+		20 = {
+			set_temp_variable = { article_index = 0 }
+		}
+		20 = {
+			set_temp_variable = { article_index = 1 }
+		}
+		20 = {
+			set_temp_variable = { article_index = 2 }
+		}
+		20 = {
+			set_temp_variable = { article_index = 3 }
+		}
+		20 = {
+			set_temp_variable = { article_index = 4 }
+		}
+	}
+}
+
+# usage:
+## choose_random_newspaper_main_and_side_article_slot = yes
+choose_random_newspaper_main_and_side_article_slot = {
+	random_list = {
+		33 = {
+			set_temp_variable = { article_index = 5 }
+		}
+		33 = {
+			set_temp_variable = { article_index = 6 }
+		}
+		33 = {
+			set_temp_variable = { article_index = 7 }
+		}
+	}
+}
+
+# usage:
+## choose_random_newspaper_side_article_slot = yes
+choose_random_newspaper_side_article_slot = {
+	random_list = {
+		50 = {
+			set_temp_variable = { article_index = 6 }
+		}
+		50 = {
+			set_temp_variable = { article_index = 7 }
+		}
+	}
+}
+
+# usage:
+## clear_and_resize_newspaper_array = yes
+clear_and_resize_newspaper_array = {
+	clear_array = global.newspaper_articles
+	resize_array = { global.newspaper_articles = 8 }
+	set_variable = { global.newspaper_date = global.date }
+	set_variable = { global.newspaper_issue_number = 1 }
+	set_variable = { global.newspaper_price = random }
+	multiply_variable = { global.newspaper_price = 3 }
+	set_variable = { global.newspaper_new_articles_number = 0 }
+	meta_effect = {
+		text = {
+			set_variable = { global.newspaper_publish_year = [YEAR] }
+		}
+		YEAR = "[GetYear]"
+	}
+	clear_newspaper_archive = yes
+}
+
+# usage:
+# clear_non_special_newspaper_articles = yes
+clear_non_special_newspaper_articles = {
+	if = {
+		limit = {
+			check_variable = { global.newspaper_articles^num < 8 }
+		}
+		resize_array = { global.newspaper_articles = 8 }
+	}
+	clear_temp_array = non_special_articles_in_last_newspaper
+	for_each_loop = {
+		array = global.newspaper_articles
+		value = v
+		index = i
+		set_temp_variable = { article_index = i }
+		set_temp_variable = { article_id = v }
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			add_to_temp_array = { non_special_articles_in_last_newspaper = article_id }
+			remove_newspaper_article = yes
+		}
+	}
+}
+
+# usage:
+## populate_newspaper_with_random_articles = yes
+populate_newspaper_with_random_articles = {
+	for_loop_effect = {
+		start = 0
+		end = 8
+		value = j
+		set_temp_variable = { article_index = j }
+		if = {
+			limit = {
+				check_variable = { global.newspaper_articles^article_index = 0 }
+			}
+			random_list = {
+				1 = { set_temp_variable = { article_id = 1 } }
+				1 = { set_temp_variable = { article_id = 2 } }
+				1 = { set_temp_variable = { article_id = 3 } }
+				1 = { set_temp_variable = { article_id = 4 } }
+				1 = { set_temp_variable = { article_id = 5 } }
+				1 = { set_temp_variable = { article_id = 6 } }
+				1 = { set_temp_variable = { article_id = 7 } }
+				1 = { set_temp_variable = { article_id = 8 } }
+				1 = { set_temp_variable = { article_id = 9 } }
+				1 = { set_temp_variable = { article_id = 10 } }
+				1 = { set_temp_variable = { article_id = 11 } }
+				1 = { set_temp_variable = { article_id = 12 } }
+				1 = { set_temp_variable = { article_id = 13 } }
+				1 = { set_temp_variable = { article_id = 14 } }
+				1 = { set_temp_variable = { article_id = 15 } }
+				1 = { set_temp_variable = { article_id = 16 } }
+				1 = { set_temp_variable = { article_id = 17 } }
+				1 = { set_temp_variable = { article_id = 18 } }
+				1 = { set_temp_variable = { article_id = 19 } }
+				1 = { set_temp_variable = { article_id = 20 } }
+				1 = { set_temp_variable = { article_id = 21 } }
+				1 = { set_temp_variable = { article_id = 22 } }
+				1 = { set_temp_variable = { article_id = 23 } }
+				1 = { set_temp_variable = { article_id = 24 } }
+				1 = { set_temp_variable = { article_id = 25 } }
+				1 = { set_temp_variable = { article_id = 26 } }
+				1 = { set_temp_variable = { article_id = 27 } }
+				1 = { set_temp_variable = { article_id = 28 } }
+				1 = { set_temp_variable = { article_id = 29 } }
+				1 = { set_temp_variable = { article_id = 30 } }
+				1 = { set_temp_variable = { article_id = 31 } }
+				1 = { set_temp_variable = { article_id = 32 } }
+				1 = { set_temp_variable = { article_id = 33 } }
+				1 = { set_temp_variable = { article_id = 34 } }
+				1 = { set_temp_variable = { article_id = 35 } }
+				1 = { set_temp_variable = { article_id = 36 } }
+				1 = { set_temp_variable = { article_id = 37 } }
+				1 = { set_temp_variable = { article_id = 38 } }
+				1 = { set_temp_variable = { article_id = 39 } }
+				1 = { set_temp_variable = { article_id = 40 } }
+				1 = { set_temp_variable = { article_id = 41 } }
+				1 = {
+					modifier = {
+						factor = 0.75
+						check_variable = { global.newspaper_article_var_42 > 700 }
+					}
+					set_temp_variable = { article_id = 42 }
+				}
+				1 = { set_temp_variable = { article_id = 43 } }
+				1 = { set_temp_variable = { article_id = 44 } }
+				1 = { set_temp_variable = { article_id = 45 } }
+				1 = { set_temp_variable = { article_id = 46 } }
+				1 = { set_temp_variable = { article_id = 47 } }
+				1 = { set_temp_variable = { article_id = 48 } }
+				0.75 = {
+					modifier = {
+						factor = 0
+						is_in_array = { global.newspaper_articles = 146 }
+					}
+					set_temp_variable = { article_id = 49 }
+				}
+				1 = { set_temp_variable = { article_id = 50 } }
+				1 = { set_temp_variable = { article_id = 134 } }
+				1 = { set_temp_variable = { article_id = 135 } }
+				1 = { set_temp_variable = { article_id = 136 } }
+				1 = { set_temp_variable = { article_id = 137 } }
+				1 = { set_temp_variable = { article_id = 138 } }
+				1 = { set_temp_variable = { article_id = 140 } }
+				1 = { set_temp_variable = { article_id = 143 } }
+				0.75 = {
+					modifier = {
+						factor = 0
+						is_in_array = { global.newspaper_articles = 49 }
+					}
+					set_temp_variable = { article_id = 146 }
+				}
+				0.33 = { set_temp_variable = { article_id = 151 } }
+				1 = { set_temp_variable = { article_id = 152 } }
+				0.5 = { set_temp_variable = { article_id = 153 } }
+				0.75 = { set_temp_variable = { article_id = 154 } }
+				0.33 = { set_temp_variable = { article_id = 168 } }
+				0.5 = { set_temp_variable = { article_id = 169 } }
+				1 = { set_temp_variable = { article_id = 170 } }
+				1 = { set_temp_variable = { article_id = 171 } }
+				0.5 = {
+					modifier = {
+						factor = 0
+						NOT = { check_variable = { article_index = 5 } }
+					}
+					set_temp_variable = { article_id = 172 }
+				}
+				0.75 = {
+					modifier = {
+						factor = 0
+						date > 1945.1.1
+					}
+					set_temp_variable = { article_id = 174 }
+				}
+				0.2 = { set_temp_variable = { article_id = 176 } }
+				0.33 = { set_temp_variable = { article_id = 177 } }
+				0.25 = { set_temp_variable = { article_id = 178 } }
+				1 = { set_temp_variable = { article_id = 179 } }
+			}
+			if = {
+				limit = {
+					OR = {
+						is_in_array = { global.newspaper_articles = article_id }
+						is_in_array = { non_special_articles_in_last_newspaper = article_id }
+					}
+				}
+				while_loop_effect = {
+					limit = {
+						OR = {
+							is_in_array = { global.newspaper_articles = article_id }
+							is_in_array = { non_special_articles_in_last_newspaper = article_id }
+						}
+					}
+					random_list = {
+						1 = { set_temp_variable = { article_id = 1 } }
+						1 = { set_temp_variable = { article_id = 2 } }
+						1 = { set_temp_variable = { article_id = 3 } }
+						1 = { set_temp_variable = { article_id = 4 } }
+						1 = { set_temp_variable = { article_id = 5 } }
+						1 = { set_temp_variable = { article_id = 6 } }
+						1 = { set_temp_variable = { article_id = 7 } }
+						1 = { set_temp_variable = { article_id = 8 } }
+						1 = { set_temp_variable = { article_id = 9 } }
+						1 = { set_temp_variable = { article_id = 10 } }
+						1 = { set_temp_variable = { article_id = 11 } }
+						1 = { set_temp_variable = { article_id = 12 } }
+						1 = { set_temp_variable = { article_id = 13 } }
+						1 = { set_temp_variable = { article_id = 14 } }
+						1 = { set_temp_variable = { article_id = 15 } }
+						1 = { set_temp_variable = { article_id = 16 } }
+						1 = { set_temp_variable = { article_id = 17 } }
+						1 = { set_temp_variable = { article_id = 18 } }
+						1 = { set_temp_variable = { article_id = 19 } }
+						1 = { set_temp_variable = { article_id = 20 } }
+						1 = { set_temp_variable = { article_id = 21 } }
+						1 = { set_temp_variable = { article_id = 22 } }
+						1 = { set_temp_variable = { article_id = 23 } }
+						1 = { set_temp_variable = { article_id = 24 } }
+						1 = { set_temp_variable = { article_id = 25 } }
+						1 = { set_temp_variable = { article_id = 26 } }
+						1 = { set_temp_variable = { article_id = 27 } }
+						1 = { set_temp_variable = { article_id = 28 } }
+						1 = { set_temp_variable = { article_id = 29 } }
+						1 = { set_temp_variable = { article_id = 30 } }
+						1 = { set_temp_variable = { article_id = 31 } }
+						1 = { set_temp_variable = { article_id = 32 } }
+						1 = { set_temp_variable = { article_id = 33 } }
+						1 = { set_temp_variable = { article_id = 34 } }
+						1 = { set_temp_variable = { article_id = 35 } }
+						1 = { set_temp_variable = { article_id = 36 } }
+						1 = { set_temp_variable = { article_id = 37 } }
+						1 = { set_temp_variable = { article_id = 38 } }
+						1 = { set_temp_variable = { article_id = 39 } }
+						1 = { set_temp_variable = { article_id = 40 } }
+						1 = { set_temp_variable = { article_id = 41 } }
+						1 = {
+							modifier = {
+								factor = 0.75
+								check_variable = { global.newspaper_article_var_42 > 700 }
+							}
+							set_temp_variable = { article_id = 42 }
+						}
+						1 = { set_temp_variable = { article_id = 43 } }
+						1 = { set_temp_variable = { article_id = 44 } }
+						1 = { set_temp_variable = { article_id = 45 } }
+						1 = { set_temp_variable = { article_id = 46 } }
+						1 = { set_temp_variable = { article_id = 47 } }
+						1 = { set_temp_variable = { article_id = 48 } }
+						0.75 = {
+							modifier = {
+								factor = 0
+								is_in_array = { global.newspaper_articles = 146 }
+							}
+							set_temp_variable = { article_id = 49 }
+						}
+						1 = { set_temp_variable = { article_id = 50 } }
+						1 = { set_temp_variable = { article_id = 134 } }
+						1 = { set_temp_variable = { article_id = 135 } }
+						1 = { set_temp_variable = { article_id = 136 } }
+						1 = { set_temp_variable = { article_id = 137 } }
+						1 = { set_temp_variable = { article_id = 138 } }
+						1 = { set_temp_variable = { article_id = 140 } }
+						1 = { set_temp_variable = { article_id = 143 } }
+						0.75 = {
+							modifier = {
+								factor = 0
+								is_in_array = { global.newspaper_articles = 49 }
+							}
+							set_temp_variable = { article_id = 146 }
+						}
+						0.33 = { set_temp_variable = { article_id = 151 } }
+						1 = { set_temp_variable = { article_id = 152 } }
+						0.5 = { set_temp_variable = { article_id = 153 } }
+						0.75 = { set_temp_variable = { article_id = 154 } }
+						0.33 = { set_temp_variable = { article_id = 168 } }
+						0.5 = { set_temp_variable = { article_id = 169 } }
+						1 = { set_temp_variable = { article_id = 170 } }
+						1 = { set_temp_variable = { article_id = 171 } }
+						0.5 = {
+							modifier = {
+								factor = 0
+								NOT = { check_variable = { article_index = 5 } }
+							}
+							set_temp_variable = { article_id = 172 }
+						}
+						0.75 = {
+							modifier = {
+								factor = 0
+								date > 1945.1.1
+							}
+							set_temp_variable = { article_id = 174 }
+						}
+						0.2 = { set_temp_variable = { article_id = 176 } }
+						0.33 = { set_temp_variable = { article_id = 177 } }
+						0.25 = { set_temp_variable = { article_id = 178 } }
+						1 = { set_temp_variable = { article_id = 179 } }
+					}
+				}
+			}
+			set_id_for_article_index = yes
+		}
+		else_if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			meta_effect = {
+				text = {
+					clr_global_flag = keep_newspaper_article_[INDEX]
+				}
+				INDEX = "[?article_index]"
+			}
+		}
+	}
+	clear_temp_array = non_special_articles_in_last_newspaper
+}
+
+# usage:
+## set_temp_variable = { article_index = 0 }
+## set_temp_variable = { article_id = 1 }
+## set_if_newspaper_article_should_be_kept_longer = yes
+set_if_newspaper_article_should_be_kept_longer = {
+	if = {
+		limit = {
+			newspaper_article_is_special = yes
+		}
+		meta_effect = {
+			text = {
+				set_global_flag = keep_newspaper_article_[INDEX]
+			}
+			INDEX = "[?article_index]"
+		}
+	}
+}
+
+# usage:
+## populate_newspaper_with_important_articles = yes
+populate_newspaper_with_important_articles = {
+	# Death of George V
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_george_v_death_story }
+			country_exists = ENG
+			ENG = {
+				has_country_flag = ENG_king_died
+				NOT = { has_country_flag = { flag = ENG_king_died days > 7 } }
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_any_random_newspaper_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 76 }
+			set_id_for_article_index = yes
+			set_global_flag = newspaper_george_v_death_story
+		}
+	}
+	# Election
+	if = {
+		limit = {
+			any_country = {
+				has_country_flag = newspaper_article_for_election_can_be_triggered
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_any_random_newspaper_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 83 }
+			set_id_for_article_index = yes
+		}
+		else = {
+			every_country = {
+				limit = {
+					has_country_flag = newspaper_article_for_election_can_be_triggered
+				}
+				clr_country_flag = newspaper_article_for_election_can_be_triggered
+			}
+		}
+	}
+	# Kristallnacht
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_kristallnacht_story }
+			date > 1938.11.1
+			date < 1939.1.1
+			country_exists = GER
+			GER = {
+				has_government = fascism
+			}
+		}
+		set_temp_variable = { article_index = 5 }
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 84 }
+			set_id_for_article_index = yes
+			set_global_flag = newspaper_kristallnacht_story
+		}
+	}
+	# Coup
+	if = {
+		limit = {
+			any_country = {
+				has_country_flag = newspaper_article_for_coup_can_be_triggered
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_any_random_newspaper_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 86 }
+			set_id_for_article_index = yes
+		}
+		else = {
+			every_country = {
+				limit = {
+					has_country_flag = newspaper_article_for_coup_can_be_triggered
+				}
+				clr_country_flag = newspaper_article_for_coup_can_be_triggered
+			}
+		}
+	}
+	# Molotov Ribbentrop Pact
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_ger_sov_nap_story }
+			country_exists = GER
+			country_exists = SOV
+			country_exists = POL
+			has_global_flag = sov_yes_pact
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_main_and_side_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 94 }
+			set_id_for_article_index = yes
+			set_global_flag = newspaper_ger_sov_nap_story
+		}
+	}
+	# Remilitarization of the Rhineland
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_rhineland_story }
+			OR = {
+				has_global_flag = newspaper_article_for_rhineland_normal_can_be_triggered
+				has_global_flag = newspaper_article_for_rhineland_war_can_be_triggered
+				has_global_flag = newspaper_article_for_rhineland_back_down_can_be_triggered
+			}
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_main_and_side_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			if = {
+				limit = {
+					has_global_flag = newspaper_article_for_rhineland_normal_can_be_triggered
+				}
+				set_temp_variable = { article_id = 111 }
+				clr_global_flag = newspaper_article_for_rhineland_normal_can_be_triggered
+			}
+			if = {
+				limit = {
+					has_global_flag = newspaper_article_for_rhineland_war_can_be_triggered
+				}
+				set_temp_variable = { article_id = 112 }
+				clr_global_flag = newspaper_article_for_rhineland_war_can_be_triggered
+			}
+			if = {
+				limit = {
+					has_global_flag = newspaper_article_for_rhineland_back_down_can_be_triggered
+				}
+				set_temp_variable = { article_id = 113 }
+				clr_global_flag = newspaper_article_for_rhineland_back_down_can_be_triggered
+			}
+			set_id_for_article_index = yes
+			set_global_flag = newspaper_rhineland_story
+		}
+	}
+	# Pearl Harbor
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_pearl_harbor_story }
+			country_exists = JAP
+			country_exists = USA
+			JAP = {
+				has_offensive_war_with = USA
+			}
+			629 = {
+				is_owned_and_controlled_by = USA
+			}
+		}
+		set_temp_variable = { article_index = 5 }
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_global_flag = newspaper_pearl_harbor_story
+			random_list = {
+				80 = {
+					set_temp_variable = { article_id = 115 }
+				}
+				20 = {
+					set_temp_variable = { article_id = 116 }
+				}
+			}
+			set_id_for_article_index = yes
+		}
+	}
+	# Italy joins Axis
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_steel_pact_story }
+			country_exists = GER
+			country_exists = ITA
+			GER = {
+				is_faction_leader = yes
+				is_in_faction_with = ITA
+				has_country_leader = { name = "Adolf Hitler" ruling_only = yes }
+			}
+			ITA = {
+				has_country_leader = { name = "Benito Mussolini" ruling_only = yes }
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_any_random_newspaper_article_slot = yes
+		}
+		set_global_flag = newspaper_steel_pact_story
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 118 }
+			set_id_for_article_index = yes
+		}
+	}
+	# USA joins Allies
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_usa_allies_story }
+			country_exists = GER
+			country_exists = USA
+			OR = {
+				country_exists = ENG
+				country_exists = FRA
+			}
+			USA = {
+				has_war_with = GER
+				OR = {
+					AND = {
+						is_in_faction_with = ENG
+						ENG = { has_defensive_war_with = GER }
+					}
+					AND = {
+						is_in_faction_with = FRA
+						FRA = { has_defensive_war_with = GER }
+					}
+				}
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_any_random_newspaper_article_slot = yes
+		}
+		set_global_flag = newspaper_usa_allies_story
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 119 }
+			set_id_for_article_index = yes
+		}
+	}
+	# Hindenburg disaster
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_hindenburg_destroyed_story }
+			has_global_flag = hindenburg_destroyed
+			country_exists = GER
+			OR = {
+				country_exists = USA
+				AND = {
+					has_global_flag = hindenburg_event_in_progress
+					country_exists = ENG
+					ENG = {
+						owns_state = 126
+					}
+				}
+			}
+		}
+		set_global_flag = newspaper_hindenburg_destroyed_story
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_main_and_side_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			if = {
+				limit = {
+					NOT = { has_global_flag = hindenburg_event_in_progress }
+				}
+				set_temp_variable = { article_id = 122 }
+			}
+			else = {
+				set_temp_variable = { article_id = 124 }
+			}
+			set_id_for_article_index = yes
+		}
+	}
+	# Hindenburg disaster averted
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_hindenburg_survived_story }
+			has_global_flag = hindenburg_survives
+			country_exists = GER
+			country_exists = USA
+		}
+		set_global_flag = newspaper_hindenburg_survived_story
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_main_and_side_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 123 }
+			set_id_for_article_index = yes
+		}
+	}
+	# Olympic Summer Games of 1936 & 1940
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					NOT = { has_global_flag = newspaper_summer_olympics_1936_story }
+					has_global_flag = olympics_1936
+					country_exists = GER
+				}
+				AND = {
+					NOT = { has_global_flag = newspaper_summer_olympics_1940_story }
+					OR = {
+						AND = {
+							has_global_flag = olympics_jap_1940
+							country_exists = JAP
+						}
+						AND = {
+							has_global_flag = olympics_fin_1940
+							country_exists = FIN
+						}
+					}
+				}
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_any_random_newspaper_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			if = {
+				limit = {
+					has_global_flag = olympics_1936
+				}
+				set_global_flag = newspaper_summer_olympics_1936_story
+			}
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = olympics_jap_1940
+						has_global_flag = olympics_fin_1940
+					}
+				}
+				set_global_flag = newspaper_summer_olympics_1940_story
+			}
+			set_temp_variable = { article_id = 125 }
+			set_id_for_article_index = yes
+		}
+	}
+	# Sudetenland ceded to Germany
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_sudetenland_story }
+			country_exists = GER
+			country_exists = CZE
+			country_exists = ENG
+			country_exists = FRA
+			GER = {
+				has_country_flag = sudetenland_acquired
+			}
+		}
+		set_global_flag = newspaper_sudetenland_story
+		set_temp_variable = { article_index = 5 }
+		set_temp_variable = { article_id = 126 }
+		set_id_for_article_index = yes
+	}
+	# Edward VIII abdicates
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_edward_viii_abdicate_story }
+			country_exists = ENG
+			has_global_flag = newspaper_edward_viii_abdicated
+			NOT = { has_global_flag = { flag = newspaper_edward_viii_abdicated days > 7 } }
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_main_and_side_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 128 }
+			set_id_for_article_index = yes
+			set_global_flag = newspaper_edward_viii_abdicate_story
+		}
+	}
+	# Edward VIII marries Wallis Simpson
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_edward_viii_marriage_story }
+			country_exists = ENG
+			ENG = {
+				has_country_flag = edward_viii_married_wallis_simpson
+				NOT = { has_country_flag = { flag = edward_viii_married_wallis_simpson days > 7 } }
+			}
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_main_and_side_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 129 }
+			set_id_for_article_index = yes
+			set_global_flag = newspaper_edward_viii_marriage_story
+		}
+	}
+	# Edward VIII becomes country leader
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_edward_viii_ruler_story }
+			country_exists = ENG
+			ENG = {
+				has_country_leader = {
+					name = "Edward VIII"
+					ruling_only = yes
+				}
+			}
+		}
+		set_global_flag = newspaper_edward_viii_ruler_story
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_main_and_side_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_temp_variable = { article_id = 130 }
+			}
+			else = {
+				set_temp_variable = { article_id = 131 }
+			}
+			set_id_for_article_index = yes
+		}
+	}
+	# Invention
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					NOT = { has_global_flag = newspaper_nuclear_bombs_invention_story }
+					any_country = {
+						has_tech = nukes
+					}
+				}
+				AND = {
+					NOT = { has_global_flag = newspaper_rockets_invention_story }
+					any_country = {
+						has_tech = experimental_rockets
+					}
+				}
+				AND = {
+					NOT = { has_global_flag = newspaper_jet_engine_invention_story }
+					any_country = {
+						has_tech = jet_engines
+					}
+				}
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			if = {
+				limit = {
+					NOT = { has_global_flag = newspaper_nuclear_bombs_invention_story }
+					any_country = {
+						has_tech = nukes
+					}
+				}
+				set_global_flag = newspaper_nuclear_bombs_invention_story
+			}
+			if = {
+				limit = {
+					NOT = { has_global_flag = newspaper_rockets_invention_story }
+					any_country = {
+						has_tech = experimental_rockets
+					}
+				}
+				set_global_flag = newspaper_rockets_invention_story
+			}
+			if = {
+				limit = {
+					NOT = { has_global_flag = newspaper_jet_engine_invention_story }
+					any_country = {
+						has_tech = jet_engines
+					}
+				}
+				set_global_flag = newspaper_jet_engine_invention_story
+			}
+			set_temp_variable = { article_id = 161 }
+			set_id_for_article_index = yes
+		}
+	}
+	# Nuremberg Trials
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_nuremberg_trials_story }
+			has_global_flag = newspaper_yalta_conference
+			has_global_flag = { flag = newspaper_yalta_conference days > 365 }
+			OR = {
+				country_exists = WGR
+				country_exists = DDR
+			}
+			NOT = { country_exists = GER }
+			count_triggers = {
+				amount = 2
+				country_exists = USA
+				country_exists = ENG
+				country_exists = FRA
+				country_exists = SOV
+			}
+			NOT = {
+				any_country = {
+					has_government = fascism
+					capital_scope = {
+						is_on_continent = europe
+					}
+					OR = {
+						has_war_with = USA
+						has_war_with = FRA
+						has_war_with = ENG
+						has_war_with = SOV
+					}
+				}
+			}
+		}
+		set_temp_variable = { article_index = 5 }
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 166 }
+			random_list = {
+				80 = {
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_nuremberg_trials_story
+				}
+				20 = {
+				}
+			}
+		}
+	}
+	# Munich Bomb
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_munich_bomb_story }
+			country_exists = GER
+			GER = {
+				has_government = fascism
+				has_country_leader = { name = "Adolf Hitler" ruling_only = yes }
+				controls_state = 52
+				OR = {
+					has_war = yes
+					has_global_flag = GER_has_started_war
+				}
+				OR = {
+					ENG = {
+						exists = yes
+						has_government = democratic
+					}
+					FRA = {
+						exists = yes
+						has_government = democratic
+					}
+					USA = {
+						exists = yes
+						has_government = democratic
+					}
+				}
+			}
+			meta_trigger = {
+				text = {
+					date > [YEAR].11.2
+					date < [YEAR].11.22
+				}
+				YEAR = "[GetYear]"
+			}
+		}
+		set_temp_variable = { article_index = 5 }
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 182 }
+			random_list = {
+				70 = {
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_munich_bomb_story
+				}
+				20 = {
+				}
+			}
+		}
+	}
+}
+
+# usage:
+## populate_newspaper_with_semi_random_articles = yes
+populate_newspaper_with_semi_random_articles = {
+	# Serial Killer Chain Story
+	if = {
+		limit = {
+			has_global_flag = newspaper_serial_killer_story
+		}
+		choose_random_newspaper_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				97 = { }
+				3 = {
+					if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murder_1_report }
+						}
+						set_temp_variable = { article_id = 53 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_serial_killer_story_murder_1_report
+					}
+					else_if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murder_2_report }
+						}
+						set_temp_variable = { article_id = 54 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_serial_killer_story_murder_2_report
+					}
+					else_if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murder_3_report }
+						}
+						set_temp_variable = { article_id = 55 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_serial_killer_story_murder_3_report
+					}
+					else_if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murder_4_report }
+						}
+						set_temp_variable = { article_id = 56 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_serial_killer_story_murder_4_report
+					}
+					else_if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murder_5_report }
+						}
+						set_temp_variable = { article_id = 57 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_serial_killer_story_murder_5_report
+					}
+					else_if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murder_6_report }
+						}
+						set_temp_variable = { article_id = 58 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_serial_killer_story_murder_6_report
+					}
+					else_if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murder_7_report }
+						}
+						set_temp_variable = { article_id = 59 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_serial_killer_story_murder_7_report
+					}
+					else_if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murder_8_report }
+						}
+						set_temp_variable = { article_id = 60 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_serial_killer_story_murder_8_report
+					}
+					else_if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murder_9_report }
+						}
+						set_temp_variable = { article_id = 61 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_serial_killer_story_murder_9_report
+					}
+					else_if = {
+						limit = {
+							NOT = { has_global_flag = newspaper_serial_killer_story_murderer_got_away }
+						}
+						random_list = {
+							25 = { set_temp_variable = { article_id = 62 } }
+							25 = { set_temp_variable = { article_id = 63 } }
+							25 = { set_temp_variable = { article_id = 64 } }
+							25 = { set_temp_variable = { article_id = 65 } }
+						}
+						if = {
+							limit = {
+								NOT = { check_variable = { article_id = 65 } }
+							}
+							if = {
+								limit = {
+									check_variable = { article_id = 64 }
+								}
+								random_list = {
+									50 = { }
+									50 = {
+										set_global_flag = newspaper_serial_killer_story_murderer_got_away
+									}
+								}
+							}
+							if = {
+								limit = {
+									NOT = { has_global_flag = newspaper_serial_killer_story_murderer_got_away }
+								}
+								clr_global_flag = newspaper_serial_killer_story_murder_1_report
+								clr_global_flag = newspaper_serial_killer_story_murder_2_report
+								clr_global_flag = newspaper_serial_killer_story_murder_3_report
+								clr_global_flag = newspaper_serial_killer_story_murder_4_report
+								clr_global_flag = newspaper_serial_killer_story_murder_5_report
+								clr_global_flag = newspaper_serial_killer_story_murder_6_report
+								clr_global_flag = newspaper_serial_killer_story_murder_7_report
+								clr_global_flag = newspaper_serial_killer_story_murder_8_report
+								clr_global_flag = newspaper_serial_killer_story_murder_9_report
+								clr_global_flag = newspaper_serial_killer_story
+							}
+						}
+						else = {
+							set_global_flag = newspaper_serial_killer_story_murderer_got_away
+						}
+						set_id_for_article_index = yes
+					}
+					else_if = {
+						limit = {
+							has_global_flag = { flag = newspaper_serial_killer_story_murderer_got_away days > 90 }
+						}
+						set_temp_variable = { article_id = 66 }
+						set_id_for_article_index = yes
+						clr_global_flag = newspaper_serial_killer_story_murder_1_report
+						clr_global_flag = newspaper_serial_killer_story_murder_2_report
+						clr_global_flag = newspaper_serial_killer_story_murder_3_report
+						clr_global_flag = newspaper_serial_killer_story_murder_4_report
+						clr_global_flag = newspaper_serial_killer_story_murder_5_report
+						clr_global_flag = newspaper_serial_killer_story_murder_6_report
+						clr_global_flag = newspaper_serial_killer_story_murder_7_report
+						clr_global_flag = newspaper_serial_killer_story_murder_8_report
+						clr_global_flag = newspaper_serial_killer_story_murder_9_report
+						clr_global_flag = newspaper_serial_killer_story_murderer_got_away
+						clr_global_flag = newspaper_serial_killer_story
+					}
+				}
+			}
+		}
+	}
+	# Großtraktor Story
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_grosstraktor_story }
+			country_exists = GER
+			date > 1926.1.1
+			date < 1939.6.1
+		}
+		choose_random_newspaper_small_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				90 = { }
+				10 = {
+					set_temp_variable = { article_id = 67 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_grosstraktor_story
+				}
+			}
+		}
+	}
+	# Fears of Invasion
+	if = {
+		limit = {
+			any_country = {
+				is_subject = no
+				has_war = no
+				any_neighbor_country = {
+					is_subject = no
+					NOT = { is_in_faction_with = PREV }
+					NOT = { has_non_aggression_pact_with = PREV }
+					NOT = { has_war_with = PREV }
+					NOT = { has_government = PREV }
+					has_army_manpower = {
+						size > 50000
+					}
+					strength_ratio = {
+						tag = PREV
+						ratio > 1.25
+					}
+				}
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				15 = {
+					set_temp_variable = { article_id = 68 }
+					set_id_for_article_index = yes
+				}
+				15 = {
+					set_temp_variable = { article_id = 70 }
+					set_id_for_article_index = yes
+				}
+			}
+		}
+	}
+	# Termination of diplomatic relations
+	if = {
+		limit = {
+			any_country = {
+				is_subject = no
+				has_war = no
+				any_neighbor_country = {
+					NOT = { has_country_flag = newspaper_reported_about_justifying_against_@PREV }
+					is_subject = no
+					is_justifying_wargoal_against = PREV
+					NOT = { is_in_faction_with = PREV }
+					NOT = { has_non_aggression_pact_with = PREV }
+					NOT = { has_war_with = PREV }
+					NOT = { has_government = PREV }
+					has_army_manpower = {
+						size > 50000
+					}
+					strength_ratio = {
+						tag = PREV
+						ratio > 1.25
+					}
+				}
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				50 = { }
+				50 = {
+					set_temp_variable = { article_id = 69 }
+					set_id_for_article_index = yes
+				}
+			}
+		}
+	}
+	# Olympic Winter Games of 1936
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_winter_olympics_1936_story }
+			country_exists = GER
+			date > 1936.2.1
+			date < 1936.3.1
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_temp_variable = { article_id = 73 }
+			set_id_for_article_index = yes
+			set_global_flag = { flag = newspaper_winter_olympics_1936_story value = 1 days = 32 }
+		}
+	}
+	# Construction of Hoover Dam finished
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_hooverdam_story }
+			date > 1936.3.1
+			country_exists = USA
+			379 = {
+				is_owned_by = USA
+			}
+		}
+		choose_random_newspaper_small_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				60 = { }
+				30 = {
+					set_temp_variable = { article_id = 74 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_hooverdam_story
+				}
+				10 = {
+					set_temp_variable = { article_id = 75 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_hooverdam_story
+				}
+			}
+		}
+	}
+	# Temperature records
+	choose_random_newspaper_small_and_side_article_slot = yes
+	if = {
+		limit = {
+			NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+		}
+		random_list = {
+			80 = { }
+			20 = {
+				set_temp_variable = { article_id = 77 }
+				set_id_for_article_index = yes
+			}
+		}
+	}
+	# Boxing match
+	choose_any_random_newspaper_article_slot = yes
+	if = {
+		limit = {
+			NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+		}
+		random_list = {
+			85 = { }
+			15 = {
+				set_temp_variable = { article_id = 78 }
+				set_id_for_article_index = yes
+			}
+		}
+	}
+	# Solar Eclipse
+	choose_random_newspaper_small_and_side_article_slot = yes
+	if = {
+		limit = {
+			NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+		}
+		random_list = {
+			95 = { }
+			5 = {
+				set_temp_variable = { article_id = 79 }
+				set_id_for_article_index = yes
+			}
+		}
+	}
+	# Last Tasmanian Tiger
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_last_tasmanian_tiger_story }
+		}
+		choose_random_newspaper_small_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				80 = { }
+				20 = {
+					set_temp_variable = { article_id = 80 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_last_tasmanian_tiger_story
+				}
+			}
+		}
+	}
+	# Donald & Pluto film
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_donald_and_pluto_story }
+		}
+		choose_random_newspaper_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				30 = {
+					set_temp_variable = { article_id = 81 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_donald_and_pluto_story
+				}
+			}
+		}
+	}
+	# Viking Age tool chest
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_viking_tool_chest_story }
+		}
+		choose_random_newspaper_small_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				30 = {
+					set_temp_variable = { article_id = 82 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_viking_tool_chest_story
+				}
+			}
+		}
+	}
+	# News about volunteers in Spanish Civil War
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_spanish_civil_war_volunteers_story }
+			has_global_flag = spanish_civil_war
+			has_global_flag = { flag = spanish_civil_war days > 7 }
+			country_exists = SPR
+			country_exists = GER
+			country_exists = SOV
+			SPR = {
+				has_civil_war = yes
+				has_volunteers_amount_from = {
+					tag = SOV
+					count > 0
+				}
+			}
+			any_country = {
+				has_civil_war = yes
+				original_tag = SPR
+				NOT = { tag = SPR }
+				has_volunteers_amount_from = {
+					tag = GER
+					count > 0
+				}
+			}
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_main_and_side_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				50 = { }
+				50 = {
+					set_temp_variable = { article_id = 98 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_spanish_civil_war_volunteers_story
+				}
+			}
+		}
+	}
+	# Condor Legion and bombing of Guernica
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_spanish_civil_war_guernica_bombing_story }
+			has_global_flag = spanish_civil_war
+			has_global_flag = { flag = spanish_civil_war days > 7 }
+			country_exists = SPR
+			country_exists = GER
+			any_country = {
+				has_civil_war = yes
+				original_tag = SPR
+				has_volunteers_amount_from = {
+					tag = GER
+					count > 0
+				}
+			}
+		}
+		set_temp_variable = { article_index = 5 }
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				60 = { }
+				40 = {
+					set_temp_variable = { article_id = 99 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_spanish_civil_war_guernica_bombing_story
+				}
+			}
+		}
+	}
+	# Guernica painting
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_spanish_civil_war_guernica_painting_story }
+			has_global_flag = newspaper_spanish_civil_war_guernica_bombing_story
+			has_global_flag = { flag = newspaper_spanish_civil_war_guernica_bombing_story days > 35 }
+			any_country = {
+				has_government = democratic
+			}
+		}
+		choose_random_newspaper_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				60 = { }
+				40 = {
+					set_temp_variable = { article_id = 100 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_spanish_civil_war_guernica_painting_story
+				}
+			}
+		}
+	}
+	# Center of the New World
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_germany_ss_center_of_the_new_world_story }
+			NOT = { has_global_flag = newspaper_germany_capital_germania_story }
+			country_exists = GER
+			GER = {
+				has_government = fascism
+				has_war = no
+				OR = {
+					is_in_faction = no
+					is_faction_leader = yes
+				}
+				OR = {
+					NOT = { country_exists = ENG }
+					ENG = {
+						OR = {
+							is_subject_of = GER
+							is_in_faction_with = GER
+						}
+					}
+				}
+				OR = {
+					NOT = { country_exists = FRA }
+					FRA = {
+						OR = {
+							is_subject_of = GER
+							is_in_faction_with = GER
+						}
+					}
+				}
+				OR = {
+					NOT = { country_exists = SOV }
+					SOV = {
+						OR = {
+							is_subject_of = GER
+							is_in_faction_with = GER
+						}
+					}
+				}
+				OR = {
+					NOT = { country_exists = USA }
+					USA = {
+						OR = {
+							is_subject_of = GER
+							is_in_faction_with = GER
+						}
+					}
+				}
+				NOT = {
+					any_state = {
+						is_on_continent = europe
+						NOT = { is_owned_by = GER }
+						owner = {
+							NOT = { is_subject_of = GER }
+							NOT = { is_in_faction_with = GER }
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				GER = {
+					has_country_leader = { name = "Heinrich Himmler" ruling_only = yes }
+				}
+			}
+			set_temp_variable = { article_index = 5 }
+			if = {
+				limit = {
+					NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+				}
+				random_list = {
+					75 = { }
+					25 = {
+						set_temp_variable = { article_id = 108 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_germany_ss_center_of_the_new_world_story
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				GER = {
+					has_country_leader = { name = "Adolf Hitler" ruling_only = yes }
+				}
+			}
+			set_temp_variable = { article_index = 5 }
+			if = {
+				limit = {
+					NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+				}
+				random_list = {
+					75 = { }
+					25 = {
+						set_temp_variable = { article_id = 109 }
+						set_id_for_article_index = yes
+						set_global_flag = newspaper_germany_capital_germania_story
+					}
+				}
+			}
+		}
+	}
+	# Soviet Purge
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_soviet_purge_story }
+			country_exists = SOV
+			SOV = {
+				has_government = communism
+				check_variable = { SOV_great_purge_counter > 0 }
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				30 = {
+					set_temp_variable = { article_id = 110 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_soviet_purge_story
+				}
+			}
+		}
+	}
+	# Launch of the Bismarck
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_bismarck_launch_story }
+			NOT = { has_global_flag = GER_has_started_war }
+			country_exists = GER
+			GER = {
+				has_government = fascism
+				has_war = no
+				owns_state = 58
+				date > 1939.1.1
+				date < 1940.1.1
+				has_navy_size = { unit = battleship size > 2 }
+			}
+		}
+		set_temp_variable = { article_index = 5 }
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				30 = {
+					set_temp_variable = { article_id = 133 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_bismarck_launch_story
+				}
+			}
+		}
+	}
+	# Decline of African Elephants
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_african_elephants_story }
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				80 = { }
+				20 = {
+					set_temp_variable = { article_id = 139 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_african_elephants_story
+				}
+			}
+		}
+	}
+	# Ohio River floods
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_ohio_river_floods_story }
+			date > 1937.1.21
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				30 = {
+					set_temp_variable = { article_id = 141 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_ohio_river_floods_story
+				}
+			}
+		}
+	}
+	# Droughts across America
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_droughts_across_america_story }
+			date > 1939.7.1
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				85 = { }
+				15 = {
+					set_temp_variable = { article_id = 142 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_droughts_across_america_story
+				}
+			}
+		}
+	}
+	# Railroad efficiency at all-time high
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_railroad_efficiency_story }
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				95 = { }
+				5 = {
+					set_temp_variable = { article_id = 144 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_railroad_efficiency_story
+				}
+			}
+		}
+	}
+	# New Miracle Drug?
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_lemon_drug_story }
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				98 = { }
+				2 = {
+					set_temp_variable = { article_id = 145 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_lemon_drug_story
+				}
+			}
+		}
+	}
+	# Amazon Rainforest in Flames!
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_amazon_rainforest_fire_story }
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				85 = { }
+				15 = {
+					set_temp_variable = { article_id = 147 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_amazon_rainforest_fire_story
+				}
+			}
+		}
+	}
+	# Reichsautobahn
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_reichsautobahn_story }
+			NOT = { has_global_flag = GER_has_started_war }
+			has_start_date < 1939.1.1
+			country_exists = GER
+			GER = {
+				has_government = fascism
+				has_war = no
+				has_completed_focus = GER_autobahn
+			}
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_small_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_global_flag = newspaper_reichsautobahn_story
+			random_list = {
+				20 = { }
+				80 = {
+					set_temp_variable = { article_id = 148 }
+					set_id_for_article_index = yes
+				}
+			}
+		}
+	}
+	# KDF-Wagen
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_volkswagen_story }
+			has_start_date < 1939.1.1
+			NOT = { has_global_flag = GER_has_started_war }
+			country_exists = GER
+			GER = {
+				has_government = fascism
+				has_war = no
+				has_completed_focus = GER_kdf_wagen
+			}
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				newspaper_any_special_article_is_in_article_slot = yes
+			}
+			choose_random_newspaper_small_article_slot = yes
+		}
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			set_global_flag = newspaper_volkswagen_story
+			random_list = {
+				20 = { }
+				80 = {
+					set_temp_variable = { article_id = 149 }
+					set_id_for_article_index = yes
+				}
+			}
+		}
+	}
+	# Resource Discovered
+	if = {
+		limit = {
+			any_state = {
+				NOT = { has_state_flag = newspaper_article_for_resource_discovered_triggered }
+				OR = {
+					AND = {
+						has_resources_amount = { resource = oil amount > 0 }
+						has_resources_amount = { resource = oil amount < 100 }
+					}
+					AND = {
+						has_resources_amount = { resource = aluminium amount > 0 }
+						has_resources_amount = { resource = aluminium amount < 100 }
+					}
+					AND = {
+						has_resources_amount = { resource = rubber amount > 0 }
+						has_resources_amount = { resource = rubber amount < 100 }
+					}
+					AND = {
+						has_resources_amount = { resource = tungsten amount > 0 }
+						has_resources_amount = { resource = tungsten amount < 100 }
+					}
+					AND = {
+						has_resources_amount = { resource = steel amount > 0 }
+						has_resources_amount = { resource = steel amount < 100 }
+					}
+					AND = {
+						has_resources_amount = { resource = chromium amount > 0 }
+						has_resources_amount = { resource = chromium amount < 100 }
+					}
+				}
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				95 = { }
+				5 = {
+					modifier = {
+						factor = 2
+						any_state = {
+							NOT = { has_state_flag = newspaper_article_for_resource_discovered_triggered }
+							OR = {
+								AND = {
+									has_resources_amount = { resource = oil amount > 0 }
+									has_resources_amount = { resource = oil amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = aluminium amount > 0 }
+									has_resources_amount = { resource = aluminium amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = rubber amount > 0 }
+									has_resources_amount = { resource = rubber amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = tungsten amount > 0 }
+									has_resources_amount = { resource = tungsten amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = steel amount > 0 }
+									has_resources_amount = { resource = steel amount < 100 }
+								}
+								AND = {
+									has_resources_amount = { resource = chromium amount > 0 }
+									has_resources_amount = { resource = chromium amount < 100 }
+								}
+							}
+							OR = {
+								check_variable = { modifier@local_resources > 0 }
+								controller = {
+									check_variable = { modifier@local_resources > 0.5 }
+								}
+							}
+						}
+					}
+					set_temp_variable = { article_id = 150 }
+					set_id_for_article_index = yes
+				}
+			}
+		}
+	}
+	# Havana Liner on Fire
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_moro_castle_story }
+			date > 1934.9.8
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				80 = { }
+				20 = {
+					set_temp_variable = { article_id = 155 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_moro_castle_story
+				}
+			}
+		}
+	}
+	# Modern Times (movie)
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_modern_times_movie_story }
+			date > 1936.2.5
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				30 = {
+					set_temp_variable = { article_id = 156 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_modern_times_movie_story
+				}
+			}
+		}
+	}
+	# Stagecoach (movie)
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_stagecoach_movie_story }
+			date > 1939.2.2
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				30 = {
+					set_temp_variable = { article_id = 157 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_stagecoach_movie_story
+				}
+			}
+		}
+	}
+	# Gone with the Wind (movie)
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_gone_with_the_wind_movie_story }
+			date > 1939.12.15
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				30 = {
+					set_temp_variable = { article_id = 158 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_gone_with_the_wind_movie_story
+				}
+			}
+		}
+	}
+	# The Wizard of Oz (movie)
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_the_wizard_of_oz_movie_story }
+			date > 1939.8.25
+		}
+		choose_random_newspaper_main_and_side_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				70 = { }
+				30 = {
+					set_temp_variable = { article_id = 159 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_the_wizard_of_oz_movie_story
+				}
+			}
+		}
+	}
+	# Invention of the helicopter
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_helicopter_story }
+			date > 1939.9.14
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				80 = { }
+				20 = {
+					set_temp_variable = { article_id = 160 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_helicopter_story
+				}
+			}
+		}
+	}
+	# Dinosaur discovery (Segisaurus)
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_segisaurus_discovery_story }
+			date > 1933.1.1
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				85 = { }
+				15 = {
+					set_temp_variable = { article_id = 162 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_segisaurus_discovery_story
+				}
+			}
+		}
+	}
+	# Dinosaur discovery (Omeisaurus)
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_omeisaurus_discovery_story }
+			date > 1939.1.1
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				85 = { }
+				15 = {
+					set_temp_variable = { article_id = 163 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_omeisaurus_discovery_story
+				}
+			}
+		}
+	}
+	# Dinosaur discovery (Succinodon)
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_succinodon_discovery_story }
+			date > 1941.1.1
+			country_exists = GER
+			10 = {
+				is_controlled_by = GER
+			}
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				85 = { }
+				15 = {
+					set_temp_variable = { article_id = 164 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_succinodon_discovery_story
+				}
+			}
+		}
+	}
+	# Perils of "Red Lizzie"
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_red_lizzie_story }
+			country_exists = ENG
+		}
+		set_temp_variable = { article_index = 5 }
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				80 = { }
+				20 = {
+					set_temp_variable = { article_id = 173 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_red_lizzie_story
+				}
+			}
+		}
+	}
+	# Leper completely cured
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_leper_story }
+		}
+		choose_any_random_newspaper_article_slot = yes
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				90 = { }
+				10 = {
+					set_temp_variable = { article_id = 175 }
+					set_id_for_article_index = yes
+					set_global_flag = newspaper_leper_story
+				}
+			}
+		}
+	}
+	# Christmas
+	if = {
+		limit = {
+			NOT = { has_global_flag = newspaper_christmas_story }
+			meta_trigger = {
+				text = {
+					date < [YEAR].12.26
+					date > [YEAR].12.15
+				}
+				YEAR = "[GetYear]"
+			}
+		}
+		set_temp_variable = { article_index = 5 }
+		if = {
+			limit = {
+				NOT = { newspaper_any_special_article_is_in_article_slot = yes }
+			}
+			random_list = {
+				60 = { }
+				20 = {
+					set_temp_variable = { article_id = 184 }
+					set_id_for_article_index = yes
+					set_global_flag = { flag = newspaper_christmas_story days = 30 value = 1 }
+				}
+				20 = {
+					set_temp_variable = { article_id = 185 }
+					set_id_for_article_index = yes
+					set_global_flag = { flag = newspaper_christmas_story days = 30 value = 1 }
+				}
+			}
+		}
+	}
+}
+
+# usage:
+## set_newspaper_special_edition = yes
+set_newspaper_special_edition = {
+	add_current_newspaper_to_archive = yes
+	set_variable = { global.newspaper_date = global.date }
+	add_to_variable = { global.newspaper_issue_number = 1 }
+	set_variable = { global.newspaper_price = random }
+	multiply_variable = { global.newspaper_price = 3 }
+	set_variable = { global.newspaper_new_articles_number = 0 }
+	meta_effect = {
+		text = {
+			set_variable = { global.newspaper_publish_year = [YEAR] }
+		}
+		YEAR = "[GetYear]"
+	}
+
+	every_country = {
+		limit = {
+			is_ai = no
+			NOT = { has_variable = show_newspaper_window }
+		}
+		set_variable = { show_newspaper_topbar_alert = 2 }
+	}
+}
+
+# usage:
+## reload_current_newspaper_for_everyone = yes
+reload_current_newspaper_for_everyone = {
+	every_country = {
+		limit = {
+			check_variable = { show_newspaper_window > 0 }
+		}
+		specify_current_newspaper_for_load = yes
+	}
+}
+
+# usage:
+## update_newspaper_window = yes
+update_newspaper_window = {
+	if = {
+		limit = {
+			check_variable = { show_newspaper_window > 0 }
+		}
+		if = {
+			limit = {
+				check_variable = { show_newspaper_window > 1000 }
+			}
+			set_variable = { show_newspaper_window = 1 }
+		}
+		else = {
+			add_to_variable = { show_newspaper_window = 1 }
+		}
+	}
+}
+
+# usage:
+## specify_current_newspaper_for_load = yes
+specify_current_newspaper_for_load = {
+	clear_temp_array = display_newspaper_articles_temp
+	set_variable = { display_newspaper_date = global.newspaper_date }
+	set_variable = { display_newspaper_issue_number = global.newspaper_issue_number }
+	for_each_loop = {
+		array = global.newspaper_articles
+		value = v
+		set_temp_variable = { article_id = v }
+		add_to_temp_array = { display_newspaper_articles_temp = article_id }
+		meta_effect = {
+			text = {
+				clear_temp_array = display_newspaper_article_targets_[ID]_temp
+				for_each_loop = {
+					array = global.newspaper_article_targets_[ID]
+					value = j
+					add_to_temp_array = { display_newspaper_article_targets_[ID]_temp = j }
+				}
+			}
+			ID = "[?article_id]"
+		}
+	}
+	load_specified_newspaper = yes
+}
+
+# usage:
+## set_temp_variable = { newspaper_id = 1 }
+## specify_archive_newspaper_for_load = yes
+specify_archive_newspaper_for_load = {
+	clear_temp_array = display_newspaper_articles_temp
+	set_variable = { display_newspaper_issue_number = newspaper_id }
+	meta_effect = {
+		text = {
+			set_variable = { display_newspaper_date = global.archived_newspaper_date_[NEWSPAPER_ID] }
+			for_each_loop = {
+				array = global.archive_newspaper_articles_[NEWSPAPER_ID]
+				value = v
+				set_temp_variable = { article_id = v }
+				add_to_temp_array = { display_newspaper_articles_temp = article_id }
+			}
+		}
+		NEWSPAPER_ID = "[?newspaper_id]"
+	}
+	for_each_loop = {
+		array = display_newspaper_articles_temp
+		value = v
+		set_temp_variable = { article_id = v }
+		meta_effect = {
+			text = {
+				clear_temp_array = display_newspaper_article_targets_[ARTICLE_ID]_temp
+				for_each_loop = {
+					array = global.archived_newspaper_article_targets_[NEWSPAPER_ID]_[ARTICLE_ID]
+					value = j
+					add_to_temp_array = { display_newspaper_article_targets_[ARTICLE_ID]_temp = j }
+				}
+			}
+			NEWSPAPER_ID = "[?newspaper_id]"
+			ARTICLE_ID = "[?article_id]"
+		}
+	}
+	load_specified_newspaper = yes
+	if = {
+		limit = {
+			NOT = { has_country_flag = is_viewing_archived_newspaper_edition }
+		}
+		set_country_flag = is_viewing_archived_newspaper_edition
+	}
+	set_variable = { current_viewed_archived_newspaper = newspaper_id }
+}
+
+# usage:
+## load_specified_newspaper = yes
+load_specified_newspaper = {
+	clear_displayed_newspaper_variables = yes
+	for_each_loop = {
+		array = display_newspaper_articles_temp
+		value = v
+		set_temp_variable = { article_id = v }
+		add_to_array = { display_newspaper_articles = article_id }
+		meta_effect = {
+			text = {
+				for_each_loop = {
+					array = display_newspaper_article_targets_[ID]_temp
+					value = j
+					add_to_array = { display_newspaper_article_targets_[ID] = j }
+				}
+				clear_temp_array = display_newspaper_article_targets_[ID]_temp
+			}
+			ID = "[?article_id]"
+		}
+	}
+	clear_temp_array = display_newspaper_articles_temp
+	update_newspaper_window = yes
+}
+
+# usage:
+## clear_displayed_newspaper_variables = yes
+clear_displayed_newspaper_variables = {
+	for_each_loop = {
+		array = display_newspaper_articles
+		value = v
+		set_temp_variable = { article_id = v }
+		meta_effect = {
+			text = {
+				clear_array = display_newspaper_article_targets_[ID]
+			}
+			ID = "[?article_id]"
+		}
+	}
+	clear_array = display_newspaper_articles
+	if = {
+		limit = {
+			has_country_flag = is_viewing_archived_newspaper_edition
+		}
+		clr_country_flag = is_viewing_archived_newspaper_edition
+	}
+	if = {
+		limit = {
+			has_variable = current_viewed_archived_newspaper
+		}
+		clear_variable = current_viewed_archived_newspaper
+	}
+	if = {
+		limit = {
+			NOT = { has_variable = show_newspaper_archive_window }
+			has_country_flag = newspaper_archive_first_opened
+		}
+		clr_country_flag = newspaper_archive_first_opened
+	}
+}
+
+# usage:
+## add_current_newspaper_to_archive = yes
+add_current_newspaper_to_archive = {
+	if = {
+		limit = {
+			has_game_rule = {
+				rule = newspaper_mod_rule_enable_archive
+				option = ENABLED
+			}
+		}
+		if = {
+			limit = {
+				NOT = { is_in_array = { global.archived_newspaper_years = global.newspaper_publish_year } }
+			}
+			add_to_array = { global.archived_newspaper_years = global.newspaper_publish_year }
+			add_to_array = { global.newspaper_archive = 0 }
+			set_temp_variable = { length_of_newspaper_archive = global.newspaper_archive^num }
+			subtract_from_temp_variable = { length_of_newspaper_archive = 1 }
+			meta_effect = {
+				text = {
+					set_variable = { global.archived_newspaper_year_[INDEX] = global.newspaper_publish_year }
+				}
+				INDEX = "[?length_of_newspaper_archive]"
+			}
+		}
+		add_to_array = { global.newspaper_archive = global.newspaper_issue_number }
+		meta_effect = {
+			text = {
+				set_variable = { global.archived_newspaper_date_[NEWSPAPER_ID] = global.newspaper_date }
+				set_variable = { global.archived_newspaper_edition_year_[NEWSPAPER_ID] = global.newspaper_publish_year }
+			}
+			NEWSPAPER_ID = "[?global.newspaper_issue_number]"
+		}
+		for_each_loop = {
+			array = global.newspaper_articles
+			value = v
+			set_temp_variable = { article_id = v }
+			meta_effect = {
+				text = {
+					add_to_array = { global.archive_newspaper_articles_[NEWSPAPER_ID] = article_id }
+					clear_array = global.archived_newspaper_article_targets_[NEWSPAPER_ID]_[ARTICLE_ID]
+					for_each_loop = {
+						array = global.newspaper_article_targets_[ARTICLE_ID]
+						value = j
+						add_to_array = { global.archived_newspaper_article_targets_[NEWSPAPER_ID]_[ARTICLE_ID] = j }
+					}
+				}
+				ARTICLE_ID = "[?article_id]"
+				NEWSPAPER_ID = "[?global.newspaper_issue_number]"
+			}
+		}
+	}
+}
+
+# usage:
+## clear_newspaper_archive = yes
+clear_newspaper_archive = {
+	for_each_loop = {
+		array = global.newspaper_archive
+		value = v
+		index = i
+		for_each_loop = {
+			array = global.archive_newspaper_articles_[NEWSPAPER_ID]
+			value = j
+			meta_effect = {
+				text = {
+					clear_array = global.archived_newspaper_article_targets_[NEWSPAPER_ID]_[ARTICLE_ID]
+				}
+				NEWSPAPER_ID = "[?v]"
+				ARTICLE_ID = "[?j]"
+			}
+		}
+		meta_effect = {
+			text = {
+				clear_variable = global.archived_newspaper_year_[INDEX]
+				clear_variable = global.archived_newspaper_edition_year_[NEWSPAPER_ID]
+				clear_array = global.archived_newspaper_date_[NEWSPAPER_ID]
+				clear_array = global.archive_newspaper_articles_[NEWSPAPER_ID]
+			}
+			NEWSPAPER_ID = "[?v]"
+			INDEX = "[?i]"
+		}
+	}
+	clear_array = global.newspaper_archive
+	clear_array = global.archived_newspaper_years
+	every_country = {
+		clear_variable = show_newspaper_archive_window
+		clear_array = collapsed_newspapers_in_archive
+		clear_array = newspaper_favorited_editions
+	}
+}
+
+# usage:
+## generate_new_weekly_newspaper_edition_effect = yes
+generate_new_weekly_newspaper_edition_effect = {
+	add_current_newspaper_to_archive = yes
+	set_variable = { global.newspaper_date = global.date }
+	add_to_variable = { global.newspaper_issue_number = 1 }
+	set_variable = { global.newspaper_price = random }
+	multiply_variable = { global.newspaper_price = 3 }
+	meta_effect = {
+		text = {
+			set_variable = { global.newspaper_publish_year = [YEAR] }
+		}
+		YEAR = "[GetYear]"
+	}
+
+	clear_temp_array = newspaper_current_articles_temp
+	for_each_loop = {
+		array = global.newspaper_articles
+		value = j
+		add_to_temp_array = { newspaper_current_articles_temp = j }
+	}
+
+	clear_non_special_newspaper_articles = yes
+	populate_newspaper_with_important_articles = yes
+	populate_newspaper_with_semi_random_articles = yes
+	populate_newspaper_with_random_articles = yes
+
+	set_variable = { global.newspaper_new_articles_number = 0 }
+	for_each_loop = {
+		array = global.newspaper_articles
+		value = j
+		if = {
+			limit = {
+				NOT = { is_in_array = { newspaper_current_articles_temp = j } }
+			}
+			add_to_variable = { global.newspaper_new_articles_number = 1 }
+		}
+	}
+	clear_temp_array = newspaper_current_articles_temp
+
+	every_country = {
+		limit = {
+			is_ai = no
+			NOT = { has_variable = show_newspaper_window }
+		}
+		set_variable = { show_newspaper_topbar_alert = 1 }
+	}
+	reload_current_newspaper_for_everyone = yes
+}

@@ -124,6 +124,7 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 			}
 			NOT = { original_tag = SOV }
 			NOT = { original_tag = MPL }
+			NOT = { original_tag = FRA }
 		}
 		always = yes
 	}
@@ -255,35 +256,35 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 			NOT = { FROM = { tag = DNZ } }
 		}
 	}
-#	if = {
-#		limit = {
-#			OR = {
-#				has_game_rule = {
-#					rule = allow_release_nations
-#					option = FREE
-#				}
-#				has_game_rule = {
-#					rule = allow_release_nations
-#					option = PEACE_ONLY
-#				}
-#				has_game_rule = {
-#					rule = sov_fragmentation_status
-#					option = SOV_COSSACK_CORES
-#				}				
-#			}
-#			OR = {
-#				FROM = { original_tag = DON }
-#				FROM = { original_tag = KUB }
-#			}
-#		}
-#		custom_trigger_tooltip = {
-#			tooltip = RULE_ALLOW_RELEASE_NATIONS_COSSACK_TOOLTIP
-#			NOT = {
-#				FROM = { tag = DON }
-#				FROM = { tag = KUB }
-#			}
-#		}
-#	}
+	#if = {
+	#	limit = {
+	#		OR = {
+	#			has_game_rule = {
+	#				rule = allow_release_nations
+	#				option = FREE
+	#			}
+	#			has_game_rule = {
+	#				rule = allow_release_nations
+	#				option = PEACE_ONLY
+	#			}
+	#			has_game_rule = {
+	#				rule = sov_fragmentation_status
+	#				option = SOV_COSSACK_CORES
+	#			}				
+	#		}
+	#		OR = {
+	#			FROM = { original_tag = DON }
+	#			FROM = { original_tag = KUB }
+	#		}
+	#	}
+	#	custom_trigger_tooltip = {
+	#		tooltip = RULE_ALLOW_RELEASE_NATIONS_COSSACK_TOOLTIP
+	#		NOT = {
+	#			FROM = { tag = DON }
+	#			FROM = { tag = KUB }
+	#		}
+	#	}
+	#}
 	if = {
 		limit = {
 			OR = {
@@ -419,6 +420,19 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 		limit = {
 			has_game_rule = {
 				rule = allow_release_nations
+				option = FREE
+			}
+			original_tag = FRA
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_FRANCE_TOOLTIP
+			has_completed_focus = FRA_vienot_agreement
+		}
+	}
+	if = {
+		limit = {
+			has_game_rule = {
+				rule = allow_release_nations
 				option = PEACE_ONLY
 			}
 			OR = {
@@ -521,6 +535,20 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 				has_completed_focus = SOV_dissolve_the_treaty_agreement
 				has_completed_focus = SOV_dissolve_the_treaty_agreement_nsb
 			}
+		}
+	}
+	if = {
+		limit = {
+			has_game_rule = {
+				rule = allow_release_nations
+				option = PEACE_ONLY
+			}
+			original_tag = FRA
+		}
+		custom_trigger_tooltip = {
+			tooltip = RULE_ALLOW_RELEASE_NATIONS_FRANCE_TOOLTIP
+			has_war = no
+			has_completed_focus = FRA_vienot_agreement
 		}
 	}
 	if = {
@@ -654,6 +682,7 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 	}
 	#End Rt56 Ad-ons
 }
+
 DIPLOMACY_MILACC_ENABLE_TRIGGER = {
 	if = {
 		limit = {
@@ -794,7 +823,7 @@ DIPLOMACY_OFFER_DOCKING_RIGHTS_ENABLE_TRIGGER = {
 		}
 	}
 }
-DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = {
+DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = { #_OVERRIDES_GAME
 	if = {
 		limit = {
 			has_game_rule = {
@@ -802,7 +831,20 @@ DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = {
 				option = FREE
 			}
 		}
-		always = yes
+		IF = { # why does it look cursed you may ask? well as far as i can tell paradox in its infinite wisdom just attached ignoring of threat limit to this specific  = FREE option.
+			limit = {
+				has_game_rule = {
+					rule = r56rp_enable_bakedinrules
+					option = ENABLED
+				}
+				ROOT = { tag = USA }
+				has_idea = USA_neutrality_act
+			}
+			NOT = { has_idea = USA_neutrality_act }
+		}
+		ELSE_IF = {
+			always = yes
+		}
 	}
 	if = {
 		limit = {
@@ -1153,7 +1195,7 @@ DIPLOMACY_LEAVE_FACTION_ENABLE_TRIGGER = {
 		}
 	}
 }
- DIPLOMACY_ASSUME_FACTION_LEADERSHIP_ENABLE_TRIGGER = {
+DIPLOMACY_ASSUME_FACTION_LEADERSHIP_ENABLE_TRIGGER = {
 	if = {
 		limit = {
 			has_game_rule = {
@@ -1635,7 +1677,96 @@ DIPLOMACY_JOIN_ALLY_ENABLE_TRIGGER = {
 			always = no
 		}
 	}
+
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
+			}
+		}
+		IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 5
+					compare = greater_than_or_equals
+				}
+			}
+			OR = {
+				date > 1939.7.1
+				AND = {
+					date > 1939.1.1
+					FROM = { has_defensive_war = YES }
+				}
+			}
+			
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 4
+					compare = equals
+				}
+			}
+			OR = {
+				date > 1939.1.1
+				AND = {
+					date > 1938.7.1
+					FROM = { has_defensive_war = YES }
+				}
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 3
+					compare = equals
+				}
+			}
+			OR = {
+				date > 1938.1.1
+				AND = {
+					date > 1937.7.1
+					FROM = { has_defensive_war = YES }
+				}
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 2
+					compare = equals
+				}
+			}
+			OR = {
+				date > 1937.1.1
+				AND = {
+					date > 1937.7.1
+					FROM = { has_defensive_war = YES }
+				}
+			}			
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 1
+					compare = equals
+				}
+			}
+			date > 1936.1.1
+		}
+		ELSE = {
+			date > 1936.7.1
+		}
+	}
+	
 }
+
 DIPLOMACY_CALL_ALLY_ENABLE_TRIGGER = {
 	if = {
 		limit = {
@@ -1679,6 +1810,94 @@ DIPLOMACY_CALL_ALLY_ENABLE_TRIGGER = {
 		custom_trigger_tooltip = {
 			tooltip = POL_surprise_attack_shock_idea_JOIN
 			always = no
+		}
+	}
+
+	# r56rp baked in rules restrictor for calling in allies to be defended
+	IF = {
+		limit = {
+			has_game_rule = {
+				rule = r56rp_enable_bakedinrules
+				option = ENABLED
+			}
+		}
+		IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 5
+					compare = greater_than_or_equals
+				}
+			}
+			OR = {
+				AND = {
+					date > 1939.1.1
+					ROOT = { has_defensive_war = YES }
+				}
+				date > 1939.7.1
+			}
+			
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 4
+					compare = equals
+				}
+			}
+			OR = {
+				AND = {
+					date > 1938.7.1
+					ROOT = { has_defensive_war = YES }
+				}
+				date > 1939.1.1
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 3
+					compare = equals
+				}
+			}
+			OR = {
+				AND = {
+					date > 1937.7.1
+					ROOT = { has_defensive_war = YES }
+				}
+				date > 1938.1.1
+			}
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 2
+					compare = equals
+				}
+			}
+			OR = {
+				AND = {
+					date > 1937.7.1
+					ROOT = { has_defensive_war = YES }
+				}
+				date > 1937.1.1
+			}			
+		}
+		ELSE_IF = {
+			limit = {
+				check_variable = {
+					var = r56rp_rules_fp_controlled
+					value = 1
+					compare = equals
+				}
+			}
+			date > 1936.1.1
+		}
+		ELSE = {
+			date > 1936.7.1
 		}
 	}
 }

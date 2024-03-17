@@ -1,0 +1,330 @@
+add_namespace = r56rp_great_power_event
+
+news_event = { # Great Power Conference
+	id = r56rp_great_power_event.1
+	title = r56rp_great_power_event.1.t
+	desc = r56rp_great_power_event.1.desc
+	picture = GFX_r56w_news_event_12angrymen
+	is_triggered_only = yes
+
+	option = {
+		name = r56rp_great_power_events.1.a
+	}
+}
+
+add_namespace = r56rp_capitulation_fight_on
+
+country_event ={
+	id = r56rp_capitulation_fight_on.1
+	title = r56rp_capitulation_fight_on.1.t
+	desc = r56rp_capitulation_fight_on.1.desc
+	picture = GFX_r56w_report_event_fight_on
+	
+	trigger = {
+		ROOT = {
+			is_major = no
+			is_faction_leader = no
+			is_ai = no 
+			any_allied_country = {
+				is_faction_leader = yes
+				surrender_progress > 0.3
+			}
+		}
+	}
+
+	option = { #Fight On! / Take over Faction instantly.
+		name = r56rp_capitulation_fight_on.1.a
+		hidden_effect = {
+			ROOT = {
+				set_major = yes
+				set_faction_leader = yes
+			}
+		}
+		custom_effect_tooltip = fight_on_tt1
+	}
+
+	option = { # Oh Well? Offer Peace? / Leave Faction
+		name = r56rp_capitulation_fight_on.1.b
+		hidden_effect = {
+			ROOT = {
+				leave_faction = yes
+			}
+		}
+		custom_effect_tooltip = fight_on_tt2
+	}
+}
+
+add_namespace = r56rp_yugoslavian_menace
+
+country_event ={
+	id = r56rp_yugoslavian_menace.1
+	title = r56rp_yugoslavian_menace.1.t
+	desc = r56rp_yugoslavian_menace.1.desc
+	picture = GFX_report_event_yugoslavia_partisans
+	is_triggered_only = yes
+
+	option = { # Menacing Yugoslavs
+		name = r56rp_yugoslavian_menace.1.a
+	}
+
+}
+
+add_namespace = r56rp_northern_doctrine_event
+
+country_event ={
+	id = r56rp_northern_doctrine_event.1
+	title = r56rp_northern_doctrine_event.1.t
+	desc = r56rp_northern_doctrine_event.1.desc
+	picture = GFX_report_event_japanese_soldiers_03
+	is_triggered_only = yes
+
+	option = { # Menacing Jap's
+		name = r56rp_northern_doctrine_event.1.a
+	}
+
+}
+
+add_namespace = r56rp_coordinated_attack
+
+country_event = { # Success - No Losses/ Complete Suprise Attack
+	id = r56rp_coordinated_attack.1
+	title = r56rp_coordinated_attack.1.t
+	desc = r56rp_coordinated_attack.1.d
+	picture = GFX_r56w_coordinated_strike_succes
+	
+	is_triggered_only = yes
+
+	option = {
+		name = r56rp_coordinated_attack.1.a
+		destroy_ships = {
+			type = ship_hull_heavy
+			count = 4
+		}
+		destroy_ships = {
+			type = destroyer
+			count = 4
+		}
+		add_war_support = 0.10
+		create_wargoal = {
+			type = topple_government
+			target = JAP
+		}
+	}
+}
+
+country_event = { # Success 50% - Small Loses on our Side
+	id = r56rp_coordinated_attack.2
+	title = r56rp_coordinated_attack.2.t
+	desc = r56rp_coordinated_attack.2.d
+	picture = GFX_r56w_coordinated_strike
+	
+	is_triggered_only = yes
+
+	option = {
+		name = r56rp_coordinated_attack.2.a
+		destroy_ships = {
+			type = ship_hull_heavy
+			count = 2
+		}
+		destroy_ships = {
+			type = destroyer
+			count = 4
+		}
+		add_war_support = 0.05
+		create_wargoal = {
+			type = topple_government
+			target = JAP
+		}
+	}
+}
+
+country_event = { #Complete Failure - Destruction of our own Carrier Fleet
+	id = r56rp_coordinated_attack.3
+	title = r56rp_coordinated_attack.3.t
+	desc = r56rp_coordinated_attack.3.d
+	picture = GFX_r56w_coordinated_strike_failure
+	
+	is_triggered_only = yes
+
+	option = {
+		name = r56rp_coordinated_attack.3.a
+		destroy_ships = {
+			type = ship_hull_carrier
+			count = 4
+		}
+
+		destroy_ships = {
+			type = destroyer
+			count = 10
+		}
+		add_war_support = -0.05
+		create_wargoal = {
+			type = topple_government
+			target = USA
+		}
+	}
+}
+
+add_namespace = r56rp_germany_communist # Demand Slovenia/Secure Yugoslav Flank
+
+country_event = { # Slovenia
+	id = r56rp_germany_communist.1
+	title = r56rp_germany_communist.1.t
+	desc = r56rp_germany_communist.1.d
+	picture = GFX_r56w_coordinated_strike_failure
+	
+	is_triggered_only = yes
+
+	option = { # Accept
+		name = r56rp_germany_communist.1.a
+		GER = {
+			transfer_state = 102
+			transfer_state = 853
+			transfer_state = 956
+			hidden_effect = {
+				102 = { add_claim_by = GER }
+				853 = { add_claim_by = GER }
+				956 = { add_claim_by = GER }
+			}
+		}
+	}
+
+	option = { # Fuck off (Creates for Owner of the State not just Yugoslavia - Whoever owns it will be targetted)
+		name = r56rp_germany_communist.1.b
+		GER = {
+			102 = {
+				controller = { 
+   					ROOT = {
+   			    		create_wargoal = {
+          					target = PREV
+          					type = take_state_focus
+           					generator = { 102 853 956 }
+        				}
+   					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Alsace
+	id = r56rp_germany_communist.2
+	title = 56rp_germany_communist.2.t
+	desc = 56rp_germany_communist.2.d
+	picture = GFX_r56w_coordinated_strike_failure
+	
+	is_triggered_only = yes
+
+	option = { # Alsace Acceptance
+		name = r56rp_germany_communist.2.a
+		GER = {
+			transfer_state = 28
+			28 = { add_core_of = GER }
+		}
+		hidden_effect = {
+			GER = {
+				diplomatic_relation = {
+					country = FRA
+					relation = non_aggression_pact
+					active = yes
+				}	
+			}
+			FRA = {
+				diplomatic_relation = {
+					country = GER
+					relation = non_aggression_pact
+					active = yes
+				}
+				war_support_factor = -0.10
+				stability_factor = -0.15	
+			}
+		}
+	}
+
+	option = {
+		name = r56rp_germany_communist.2.b
+		GER = {
+			28 = {
+				controller = { 
+   					GER = {
+   			    		create_wargoal = {
+          					target = PREV
+          					type = take_state_focus
+           					generator = { 28 }
+        				}
+   					}
+				}
+			}
+		}
+		FRA = {
+			war_support_factor = 0.20
+		}
+	
+		hidden_effect = {
+			GER = {
+				28 = { add_core_of = GER }
+			}
+		}
+	}
+}
+
+country_event = { # Benelux Submission Event Chain
+	id = r56rp_germany_communist.3
+	title = 56rp_germany_communist.3.t
+	desc = 56rp_germany_communist.3.d
+	picture = GFX_r56w_coordinated_strike_failure
+	
+	is_triggered_only = yes
+
+	option = { # 
+		name = r56rp_germany_communist.3.a
+		GER = {
+			puppet = {
+				target = ROOT
+    			end_wars = no
+			}
+		}
+
+	}
+
+	option = { # 
+		name = r56rp_germany_communist.3.b
+
+		if = {
+			limit = {
+				tag = HOL
+			}
+			GER = {
+				create_wargoal = {
+            		target = HOL
+           	 		type =  puppet_wargoal_focus
+           			generator = { 6 34 965 }
+       			}
+			}
+		}
+		if = {
+			limit = {
+				tag = BEL
+			}
+			GER = {
+				create_wargoal = {
+            		target = BEL
+           	 		type =  puppet_wargoal_focus
+           			generator = { 35 7 36 }
+       			}
+			}
+		}
+		if = {
+			limit = {
+				tag = LUX
+			}
+			GER = {
+				create_wargoal = {
+            		target = LUX
+           	 		type =  puppet_wargoal_focus
+           			generator = { 8 }
+       			}
+			}
+		}
+	}
+}

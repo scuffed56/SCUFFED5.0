@@ -14,6 +14,50 @@
 @INFILTRATION_INF_EQ_COST = -500
 @DAYS_REMOVE_INFILTRATE_STATE = 60
 
+economy_decisions = {
+	r56rp_PRC_lower_illiteracy_mission = { #because getting 10 events in 30 day intervals is annoying as fuck
+
+		allowed = { always = no }
+
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		activation = {
+			always = no
+		}
+		icon = GFX_decision_eng_trade_unions_support     # For GFX_decision_mission_icon
+		is_good = yes
+		days_mission_timeout = 30
+		selectable_mission = no
+		timeout_effect = {
+			r56rp_PRC_lower_illiteracy = yes
+			if = {
+				limit = {
+					OR = {
+						has_idea = PRC_lack_skilled_personnel_10
+						has_idea = PRC_lack_skilled_personnel_9
+						has_idea = PRC_lack_skilled_personnel_8
+						has_idea = PRC_lack_skilled_personnel_7
+						has_idea = PRC_lack_skilled_personnel_6
+						has_idea = PRC_lack_skilled_personnel_5
+						has_idea = PRC_lack_skilled_personnel_4
+						has_idea = PRC_lack_skilled_personnel_3
+						has_idea = PRC_lack_skilled_personnel_2
+						has_idea = PRC_lack_skilled_personnel_1
+						has_idea = PRC_lack_skilled_personnel
+					}
+				}
+				hidden_effect = {
+					activate_mission = r56rp_PRC_lower_illiteracy_mission
+				}
+			}
+		}
+	}
+}
+
+
 PRC_infiltrate_nationalist_areas = { 
 
 # 283
@@ -386,18 +430,14 @@ PRC_infiltrate_nationalist_areas = {
 		target_trigger = {
 			FROM = {
 				OR = {
-					region = 164	#Eastern China
-					region = 165	#South China
-					region = 143	#North China
-					region = 155	#West Manchuria
-					region = 144	#Western China
-					region = 200	#Qinghai
-					
-					#marijn211: added 02/2024, these regions didnt exist when the original decision was made (originally targeted specific states before trigger existed), and were likely left out by accident
-					region = 246	#Central China
-					region = 247	#Yantze region
-					region = 243	#East Manchuria
-					region = 242	#North Manchuria
+					region = 164
+					region = 165
+					region = 143
+					region = 155
+					region = 144
+					region = 200
+					region = 155
+					region = 155
 				}
 				controller = {
 					tag = event_target:WTT_current_china_leader
@@ -409,7 +449,7 @@ PRC_infiltrate_nationalist_areas = {
 			command_power_gain = -0.5
 		}
 		
-		days_remove = 30 #shortened to 30 from 60 otherwise too long
+		days_remove = 30 #30 #shortened to 30 from 60 otherwise too long
 
 		ai_will_do = {
 			base = 120
@@ -1587,50 +1627,6 @@ political_actions = {
 				}
 			}
 		}
-	}
-	PRC_offer_a_separate_peace_to_japan = {
-
-		icon = generic_political_actions
-
-		allowed = {
-			original_tag = PRC
-		}
-
-		ai_will_do = {		#ohh yeah, we love our peace
-			base = 200
-		}
-
-		visible = {
-			has_war_with = JAP
-			no_jap_in_manchuria = yes
-		}
-
-		fire_only_once = yes
-
-		cost = 35
-
-		complete_effect = {
-			JAP = {
-				country_event = { id = prc.110 }
-				custom_effect_tooltip = needs_approval
-			}
-			effect_tooltip = {
-				white_peace = JAP
-				custom_effect_tooltip = PRC_takeover_dongbei_tt
-				if = {
-					limit = {
-						CHI = {
-							is_faction_leader = yes
-							is_in_faction_with = FROM
-						}
-					}
-					CHI = {
-						remove_from_faction = FROM
-					}
-				}
-			}
-		}
-
 	}
 }
 

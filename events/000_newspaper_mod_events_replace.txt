@@ -1,0 +1,301 @@
+﻿add_namespace = germany
+add_namespace = britain
+add_namespace = mtg_britain
+add_namespace = news
+add_namespace = wtt_japan
+
+# Austrian Anschluss Completed
+#country_event = {
+#	id = germany.4
+#	title = germany.4.t
+#	desc = germany.4.d
+#	picture = GFX_report_event_german_speech
+#
+#	is_triggered_only = yes
+#
+# 	immediate = {
+# 		hidden_effect = {
+# 			add_named_threat = { threat = 10 name = germany.4.t }
+# 		}
+# 	}
+#
+#	option = {
+#		name = germany.4.a
+#		4 = {
+#			if = {
+#				limit = { is_owned_by = AUS }
+#				add_core_of = GER
+#			}
+#		}
+#		152 = {
+#			if = {
+#				limit = { is_owned_by = AUS }
+#				add_core_of = GER
+#			}
+#		}
+#		153 = {
+#			if = {
+#				limit = { is_owned_by = AUS }
+#				add_core_of = GER
+#			}
+#		}
+#		AUS = {
+#			every_unit_leader = {
+#				set_nationality = GER
+#			}
+#		}
+#		annex_country = { target = AUS transfer_troops = yes }
+#		add_political_power = 75
+#		set_country_flag = AUS_annexed
+#		add_war_support = 0.1
+#		add_stability = 0.05
+#		USA = {
+#			set_country_flag = { flag = USA_anschluss_window days = 60 value = 1 }
+#		}
+#		custom_effect_tooltip = anschluss_mefo_bills_tt
+#		hidden_effect = { # Having it appear twice might be confusing
+#			GER_mefo_bills_level_down = yes
+#			GER_mefo_bills_level_down = yes
+#		}
+#		custom_effect_tooltip = anschluss_mefo_bills_double_reduction
+#		add_to_variable = { var = GER_mefo_bill_counter value = -10 }
+#
+#		if = {
+#			limit = {
+#				has_dlc = "Death or Dishonor"
+#				country_exists = YUG
+#				YUG = { has_war = no }
+#			}
+#			country_event = {
+#				id = DOD_yugoslavia.30
+#				days = 4
+#			}
+#		}
+#		hidden_effect = {
+#			news_event = { hours = 6 id = news.36 }
+#			if = {
+#				limit = {
+#					NOT = { has_global_flag = newspaper_article_for_anschluss_triggered }
+#				}
+#				set_newspaper_special_edition = yes
+#				set_global_flag = newspaper_article_for_anschluss_triggered
+#				set_temp_variable = { article_index = 5 }
+#				set_temp_variable = { article_id = 52 }
+#				set_id_for_article_index = yes
+#				reload_current_newspaper_for_everyone = yes
+#			}
+#		}
+#	}
+#}
+#
+# King abdicates
+#country_event = {
+#	id = britain.17
+#	title = britain.17.t
+#	desc = britain.17.d
+#	picture = GFX_report_event_generic_sign_treaty2
+#
+#	trigger = {
+#		tag = ENG
+#		has_country_flag = ENG_king_died
+#		date > 1936.12.1
+#		NOT = { has_dlc = "Man the Guns" }
+#	}
+#
+#	fire_only_once = yes
+#
+#	mean_time_to_happen = { days = 14 }
+#
+#	immediate = {
+#		hidden_effect = {
+#			remove_ideas = ENG_king_edward
+#			add_ideas = ENG_george_vi
+#			set_global_flag = newspaper_edward_viii_abdicated
+#		}
+#	}
+#
+#	option = {
+#		name = britain.17.a
+#		effect_tooltip = {
+#			remove_ideas = ENG_king_edward
+#			add_ideas = ENG_george_vi
+#		}
+#	}
+#}
+#
+# King abdicates - Man the Guns version
+#country_event = {
+#	id = mtg_britain.14
+#	title = britain.17.t
+#	desc = britain.17.d
+#	picture = GFX_report_event_generic_sign_treaty2
+#
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		hidden_effect = {
+#			remove_ideas = ENG_king_edward
+#			add_ideas = ENG_george_vi
+#			set_global_flag = newspaper_edward_viii_abdicated
+#		}
+#	}
+#
+#	option = {
+#		name = britain.17.a
+#		effect_tooltip = {
+#			remove_ideas = ENG_king_edward
+#			add_ideas = ENG_george_vi
+#		}
+#	}
+#}
+
+##Yalta Conference
+#news_event = {
+#	id = news.236
+#	title = news.236.t
+#	desc = news.236.d
+#	picture = GFX_news_event_generic_sign_treaty1
+#
+#	is_triggered_only = yes
+#
+#	major = yes
+#
+#	immediate = {
+#		hidden_effect = {
+#			if = {
+#				limit = {
+#					tag = ROOT
+#				}
+#				if = {
+#					limit = {
+#						GER = { has_government = fascism }
+#					}
+#					set_global_flag = newspaper_yalta_conference
+#				}
+#				event_target:yalta_origin = {
+#					set_variable = { global.yalta_origin = THIS.id }
+#				}
+#				event_target:yalta_partner = {
+#					set_variable = { global.yalta_partner = THIS.id }
+#				}
+#				set_newspaper_special_edition = yes
+#				set_temp_variable = { article_index = 5 }
+#				if = {
+#					limit = {
+#						newspaper_any_special_article_is_in_article_slot = yes
+#					}
+#					choose_random_newspaper_side_article_slot = yes
+#				}
+#				set_temp_variable = { article_id = 132 }
+#				set_id_for_article_index = yes
+#				reload_current_newspaper_for_everyone = yes
+#			}
+#		}
+#	}
+#
+#	option = {
+#		name = news.236.a
+#		trigger = {
+#			tag = GER
+#		}
+#	}
+#
+#	option = {
+#		name = news.236.b
+#		trigger = {
+#			OR = {
+#				event_target:yalta_origin = {
+#					tag = ROOT
+#				}
+#				event_target:yalta_partner = {
+#					tag = ROOT
+#				}
+#			}
+#		}
+#
+#		add_political_power = 100
+#	}
+#
+#	option = {
+#		name = news.236.c
+#		trigger = {
+#			NOT = {
+#				OR = {
+#					event_target:yalta_origin = {
+#						tag = ROOT
+#					}
+#					event_target:yalta_partner = {
+#						tag = ROOT
+#					}
+#				}
+#			}
+#			has_war_with = GER
+#		}
+#	}
+#
+#	option = {
+#		name = news.236.e
+#		trigger = {
+#			NOT = {
+#				OR = {
+#					event_target:yalta_origin = {
+#						tag = ROOT
+#					}
+#					event_target:yalta_partner = {
+#						tag = ROOT
+#					}
+#				}
+#			}
+#			NOT = {
+#				has_war_with = GER
+#			}
+#			NOT = {
+#				tag = GER
+#			}
+#		}
+#	}
+#}
+#
+# Tripartite Pact completed
+#ountry_event = {
+#	id = wtt_japan.113
+#	title = wtt_japan.113.t
+#	desc = wtt_japan.113.desc
+#	picture = GFX_report_event_japan_europe_pact
+#
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		hidden_effect = {
+#			if = {
+#				limit = {
+#					NOT = { has_global_flag = newspaper_article_for_tripartite_pact }
+#				}
+#				set_newspaper_special_edition = yes
+#				set_global_flag = newspaper_article_for_tripartite_pact
+#				set_temp_variable = { article_index = 5 }
+#				set_temp_variable = { article_id = 183 }
+#				set_id_for_article_index = yes
+#				reload_current_newspaper_for_everyone = yes
+#			}
+#		}
+#	}
+#
+#	option = {
+#		name = excellent
+#		effect_tooltip = {
+#			event_target:JAP_initiator = {
+#				give_guarantee = event_target:ITA_fascism
+#				give_guarantee = event_target:GER_fascism
+#			}
+#			event_target:GER_fascism = {
+#				give_guarantee = event_target:ITA_fascism
+#				give_guarantee = event_target:JAP_initiator
+#			}
+#			event_target:ITA_fascism = {
+#				give_guarantee = event_target:JAP_initiator
+#				give_guarantee = event_target:GER_fascism
+#			}
+#		}
+#	}
+#

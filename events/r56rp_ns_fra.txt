@@ -1,0 +1,296 @@
+﻿###########################
+# French Events
+###########################
+
+add_namespace = r56rp_france
+
+country_event = { # Detente with Germany # 1 Offer Solution
+	id = r56rp_france.1
+	title = r56rp_france.1.t
+	desc = r56rp_france.1.d
+	picture = GFX_report_event_journalists_speech
+
+ 	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # Offer payments to Germany
+		name = r56rp_france.1.a
+		country_event = {
+			id = r56rp_france.2
+		}
+	}
+
+	option = {
+		trigger = {
+			GER = {
+				has_full_control_of_state = 51
+				51 = { is_demilitarized_zone = yes }
+			}
+		}
+		name = r56rp_france.1.b
+		GER = { # Offer to Remilitarize Rhineland
+			country_event = {
+				id = r56rp_france.3
+			}
+		}
+
+	}
+
+	#option = { # Discuss Spheres of Influence
+	#	GER = {
+	#		country event = {
+	#			id = D
+	#		}
+	#	} 
+	#}
+	#
+	#
+	#
+	#
+}
+
+country_event = { # Payments for Versaille / Situation 1 Payments
+	id = r56rp_france.2
+	title = r56rp_france.2.t
+	desc = r56rp_france.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+ 	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { # Heavy Payment - Short
+		name = r56rp_france.2.a
+		GER = {
+			country_event = {
+				id = r56rp_france.4
+			}
+		}
+	
+	}
+
+	option = { # Light Payment - Long
+		name = r56rp_france.2.b
+		GER = {
+			country_event = {
+				id = r56rp_france.5
+			}
+		}
+	}
+
+	option = { # Return to Options.
+		name = r56rp_france.2.c
+		ROOT = {
+			country_event = {
+				id = r56rp_france.1
+			}
+		}
+	}
+}
+
+country_event = { # Remilitarize Rhineland if already hasn't happend. / Situation 2	
+	id = r56rp_france.3
+	title = r56rp_france.3.t
+	desc = r56rp_france.3.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+ 	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # German Accept - Positive Opinion / Non-aggression pact
+		name = r56rp_france.3.a
+		FRA = {
+			diplomatic_relation = {
+				country = GER
+				relation = non_aggression_pact
+				active = yes
+			}
+			country_event = {
+				id = r56rp_france.6
+			}
+		}
+		GER = {
+			diplomatic_relation = {
+				country = FRA
+				relation = non_aggression_pact
+				active = yes
+			}
+		}
+		every_state = {
+			limit = {
+				is_demilitarized_zone = yes
+				OR = {
+					state = 51  # Rhineland
+					state = 989 # Ostrhineland
+					state = 922 # Frankfurt
+					state = 42  # Moselland
+					state = 923 # Baden
+				}
+			}
+			set_demilitarized_zone = no
+		}
+	}
+
+	option = { # German say no. - Negative Opinion / Remilitarize anyway for Germany? # Warlider your choice.
+		name = r56rp_france.3.b 
+		FRA = {
+			add_opinion_modifier = {
+				target = GER
+				modifier = large_decrease
+			}
+		}
+		GER = {
+			add_opinion_modifier = {
+				target = FRA
+				modifier = large_decrease
+			}
+		}
+
+		FRA = {
+			country_event = {
+				id = r56rp_france.7
+			}
+		}
+
+		#FRA = {
+		#	country_event = {
+		#	id = germany.60
+		#}
+		#}
+	}
+}
+
+country_event = { # German Response Y/N Heavy Payment - Short
+	id = r56rp_france.4
+	title = r56rp_france.4.t
+	desc = r56rp_france.4.d
+	picture = GFX_report_event_generic_sign_treaty1
+
+ 	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # German Accept Heavy Payment - Short
+		name = r56rp_france.4.a
+		FRA = {
+			diplomatic_relation = {
+				country = GER
+				relation = non_aggression_pact
+				active = yes
+			}
+			set_country_flag = rp_versaille_payment_1_flag
+			activate_decision = rp_versaille_payment_1 
+		}
+		GER = {
+			diplomatic_relation = {
+				country = FRA
+				relation = non_aggression_pact
+				active = yes
+			}
+		}
+	}
+
+	option = { # German say no. - Negative Opinion
+		name = r56rp_france.4.b
+		FRA = {
+			country_event = {
+				id = r56rp_france.7
+			}
+		}
+	}
+}
+
+
+country_event = { # German Response Y/N Long Payment
+	id = r56rp_france.5
+	title = r56rp_france.5.t
+	desc = r56rp_france.5.d
+	picture = GFX_report_event_generic_sign_treaty1
+
+ 	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # German Accept Light Payment - Long
+		name = r56rp_france.5.a
+		FRA = {
+			diplomatic_relation = {
+				country = GER
+				relation = non_aggression_pact
+				active = yes
+			}
+			set_country_flag = rp_versaille_payment_2_flag
+			activate_decision = rp_versaille_payment_2
+		}
+		GER = {
+			diplomatic_relation = {
+				country = FRA
+				relation = non_aggression_pact
+				active = yes
+			}
+		}
+	}
+
+	option = { # German say no. - Negative Opinion
+		name = r56rp_france.5.b
+		FRA = {
+			country_event = {
+				id = r56rp_france.7
+			}
+		}
+	}
+}
+
+country_event = { # Generic Response Positive
+	id = r56rp_france.6
+	title = r56rp_france.6.t
+	desc = r56rp_france.6.d
+	picture = GFX_report_event_worried_french
+
+ 	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # German Accept Sphere of Influence
+		name = r56rp_france.6.a
+	}
+}
+
+country_event = { # Generic Response # Negative
+	id = r56rp_france.7
+	title = r56rp_france.7.t
+	desc = r56rp_france.7.d
+	picture = GFX_report_event_worried_french
+
+ 	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = r56rp_france.7.a
+	}
+}
+
+country_event = { # French "protection"
+	id = r56rp_france.8
+	title = r56rp_france.8.t
+	desc = r56rp_france.8.d
+	picture = GFX_report_event_worried_french
+
+ 	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #accept french guarantees
+		name = r56rp_france.8.a
+		FRA = {
+			give_guarantee = ROOT
+		}
+		ROOT = {
+			give_military_access = FRA
+		}
+	}
+	option = { #refuse, gain wargoal
+		name = r56rp_france.8.b
+		FRA = {
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = ROOT
+			}
+		}
+	}
+}

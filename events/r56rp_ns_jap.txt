@@ -1,0 +1,62 @@
+###########################
+# r56rp JAP Events
+###########################
+
+add_namespace = r56rp_jap
+
+country_event = { # japan asks germany for joint rocket research
+	id = r56rp_jap.1
+	title = r56rp_jap.1.t
+	desc = r56rp_jap.1.desc
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+
+	option = { 	# yes, we agree to joint research on rocket and jets
+		name = r56rp_jap.1.a
+		ai_chance = {
+			factor = 50
+
+		}
+
+		FROM = {
+			add_tech_bonus = {
+				name = JAP_german_rocketry
+				ahead_reduction = 1
+				bonus = 1
+				uses = 1
+				category = rocketry
+			}
+	
+			add_ideas = JAP_german_rocketry
+	
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Together for Victory"
+						has_dlc = "Death or Dishonor"
+						has_dlc = "Waking the Tiger"
+					}
+				}
+				FROM = { add_to_tech_sharing_group = r56rp_JAP_GER_rocket_jet_research }
+				ROOT = { add_to_tech_sharing_group = r56rp_JAP_GER_rocket_jet_research }
+			}
+		}
+		
+	}
+
+	option = { 	# no, no joint rocket research.
+		name = r56rp_jap.1.b
+		ai_chance = {
+			factor = 10
+		}
+
+		FROM = {
+			add_opinion_modifier = {
+				target = GER
+				modifier = r56rp_JAP_GER_refused_rocket
+			}
+		}
+	}
+}

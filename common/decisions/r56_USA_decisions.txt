@@ -868,22 +868,22 @@ war_measures = {
 	}	
 }
 
-USA_population_migration = { #This is flavor, don't care if events or things cancel the mission - Spicy Alfredo 
+USA_congress = { # r56rp, moved into congress, fuck flavour and its massive wall of text, just put your flavour into the mission description ffs
 
 	USA_population_migration_mission_0 = {
 
 		icon = infiltrate_state
 
 		available = {
-			hidden_trigger = { 
-				always = no
-				ROOT = {
-					has_war = no
-					OR = {
-						has_completed_focus =  USA_agricultural_adjustment_act
-						has_completed_focus = USA_labour_management_relations_act
-					}
+			ROOT = {
+				has_war = no
+				OR = {
+					has_completed_focus =  USA_agricultural_adjustment_act
+					has_completed_focus = USA_labour_management_relations_act
+					has_completed_focus = USA_worker_management_act
 				}
+			}
+			hidden_trigger = {
 				AND = {
 					controls_state = 371
 					controls_state = 370
@@ -917,11 +917,13 @@ USA_population_migration = { #This is flavor, don't care if events or things can
 
 		days_mission_timeout = 150
 
-		
 		fire_only_once = no
 
-		visible = {
+		allowed = {
 			original_tag = USA
+		}
+
+		visible = {
 			ROOT = {
 				has_war = no
 			}
@@ -955,28 +957,189 @@ USA_population_migration = { #This is flavor, don't care if events or things can
 			}
 		}
 
-		cancel_if_not_visible = yes
+		#cancel_if_not_visible = yes
 
-		is_good = yes
+		is_good = no
 
-		activation = { #activated through focuses
-			always = no
+		activation = { 
+			original_tag = USA
+			has_country_flag = r56_usa_always_false_flag
+		}
+
+		complete_effect = {
+			add_political_power = 50
 		}
 		
 		timeout_effect = {
-			country_event = { id = r56_usa.5 hours = 1 }
+			custom_effect_tooltip = USA_shifting_sands_tt
+			custom_effect_tooltip = USA_shifting_sands_2_tt
+			hidden_effect = {
+				activate_mission = USA_population_migration_mission_0 #postive feedback loop
+				random_list = {
+					2 = {
+						371 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						370 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						367 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						375 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						374 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						372 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						365 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						366 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						364 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						363 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						362 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						368 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						369 = {
+							add_manpower = -10000
+						}
+					}
+					2 = {
+						373 = {
+							add_manpower = -10000
+						}
+					}
+					1 = {
+						966 = {
+							add_manpower = -10000
+						}
+					}
+				}
+				random_list = {
+					2 = {
+						360 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						358 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						357 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						921 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						990 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						991 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						992 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						993 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						281 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						393 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						396 = {
+							add_manpower = 10000
+						}
+					}
+					2 = {
+						395 = {
+							add_manpower = 10000
+						}
+					}
+					1 = {
+						378 = {
+							add_manpower = 10000
+						}
+					}
+					1 = {
+						382 = {
+							add_manpower = 10000
+						}
+					}
+				}
+			}
 		}
 	}
 }
 
-USA_combating_jim_crow = {
+USA_congress = {
 
 	USA_pass_a_new_civil_rights_bill = {
 	
 		icon = eng_trade_unions_demand
+
+		allowed = {
+			original_tag = USA
+		}
 		
 		available = {
-			original_tag = USA
 			NOT = {
 				has_government = fascism
 			}
@@ -1028,7 +1191,11 @@ USA_combating_jim_crow = {
 		icon = generic_speech
 
 		state_target = yes
-		on_map_mode = map_and_decisions_view
+		on_map_mode = map_only
+
+		allowed = {
+			original_tag = USA
+		}
 
 		visible = {
 			hidden_trigger = {
@@ -1043,7 +1210,6 @@ USA_combating_jim_crow = {
 		}
 		
 		available = {
-			original_tag = USA
 			hidden_trigger = {
 				ROOT = {
 					owns_state = FROM
@@ -1055,7 +1221,6 @@ USA_combating_jim_crow = {
 			NOT = {
 				has_government = fascism
 			}
-			has_country_flag = USA_pass_a_new_civil_rights_bill_flag
 			FROM = {
 				has_state_flag = r56_jim_crow_state
 			}

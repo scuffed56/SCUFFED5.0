@@ -879,11 +879,15 @@ foreign_politics = {
 #Category allowed for JAP
 #Not visible if puppet
 JAP_southern_expansion = {
-
 	JAP_pressure_france = { 
 		icon = eng_trade_unions_demand
 		available = {
-			16 = { NOT = { is_controlled_by = FRA } } #Paris has fallen
+			OR = {
+				16 = { NOT = { is_controlled_by = FRA } } #Paris has fallen
+				FRA = {
+					has_war_with_major = yes
+				}
+			}
 			286 = { 
 				CONTROLLER = { 
 					NOT = {
@@ -1137,6 +1141,75 @@ JAP_southern_expansion = {
 			}
 		}
 	}
+
+	r56rp_coordinated_attack = {
+    	icon = generic_naval
+		
+		allowed = {
+			tag = JAP
+		}
+
+		fire_only_once = yes
+
+    	visible = {
+			has_completed_focus = JAP_strike_south_doctrine
+			has_government = fascism
+			date < 1942.03.03
+		}
+		
+		available = {
+			NOT = { has_war_with = USA }
+			date > 1939.01.01
+			has_navy_size = {
+				size > 3
+				type = carrier
+			}
+
+			ships_in_area = { area = 105 size > 39 } 
+			USA = {
+				ships_in_state_ports = {	
+					type = capital_ship
+					size > 3
+					state = 629
+				}
+			}
+
+		}
+		
+		cost = 50
+		days_remove = 7
+		fire_only_once = yes
+		
+		complete_effect = {
+			random_list = {
+				15 = {
+					JAP = {
+						country_event = r56rp_coordinated_attack.3
+					}
+				}
+				25 = {
+					USA = {
+						country_event = r56rp_coordinated_attack.1
+					}
+				}
+				55 = {
+					USA = {
+						country_event = r56rp_coordinated_attack.2
+					}
+				}
+			}
+		}
+		
+		remove_effect = {
+			hidden_effect = {
+				news_event = { hours = 6 id = attack_PH_news.1 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+    }
 }
 
 #Category allowed for JAP

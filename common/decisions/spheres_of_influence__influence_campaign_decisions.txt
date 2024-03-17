@@ -1,0 +1,1830 @@
+spheres_of_influence__influence_campaign = {
+	delta_open_influence_decision = {
+		icon = decision_icon_start_influence_campaign_in_delta
+		days_remove = 0
+		days_re_enable = 0
+		fire_only_once = no
+		target_trigger = {
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = no
+					}
+				}
+				FROM = {
+					has_opinion = { target = ROOT value > 29 }
+				}
+			}
+		}
+		available = {
+		}
+		visible = {
+			NOT = {
+				has_country_flag = ROOT.influence_tab_open_flag
+			}
+			is_ai = no
+		}
+		complete_effect = {
+			set_country_flag = ROOT.influence_tab_open_flag
+			FROM = {
+				set_country_flag = FROM.influence_tabbed_@ROOT
+			}
+		}
+		remove_effect = {
+		}
+	}
+	delta_return_influence_decision = {
+		icon = decision_icon_start_influence_campaign_in_delta
+		days_remove = 0
+		days_re_enable = 0
+		fire_only_once = no
+		priority = 0
+		target_trigger = {
+			FROM = {
+				has_country_flag = FROM.influence_tabbed_@ROOT
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = SOI_not_preforming_actions_tt
+				NOT = {
+					has_country_flag = ROOT.performing_actions_flag
+				}
+			}
+		}
+		visible = {
+			has_country_flag = ROOT.influence_tab_open_flag
+			FROM = {
+				has_country_flag = FROM.influence_tabbed_@ROOT
+			}
+			is_ai = no
+		}
+		complete_effect = {
+			clr_country_flag = ROOT.influence_tab_open_flag
+			FROM = {
+				clr_country_flag = FROM.influence_tabbed_@ROOT
+			}
+		}
+		remove_effect = {
+		}
+	}
+	start_influence_campaign_in_delta = {
+		icon = decision_icon_start_influence_campaign_in_delta
+		days_remove = 0
+		days_re_enable = 0
+		fire_only_once = yes
+		priority = 100
+		cost =  75
+		target_trigger = {
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = yes
+					}
+				}
+				FROM = {
+					OR = {
+						has_opinion = { target = ROOT value < 0 }
+						has_opinion = { target = ROOT value > -1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = no
+					}
+				}
+				FROM = {
+					has_opinion = { target = ROOT value > 29 }
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = -20
+			modifier = {
+				add = -5
+				ROOT = {
+					has_country_flag = under_influence_of_@FROM
+				}
+			}
+			modifier = {
+				add = -100
+				check_variable = { var:ROOT.AI_check_weeks_time < 2 }
+			}
+			modifier = {
+				add = 5
+				check_variable = { var:ROOT.AI_check_weeks_time > 2 }
+			}
+			modifier = {
+				add = 10
+				FROM = {
+					is_major = no
+					is_puppet = no
+					is_in_faction = no
+					NOT = {
+						has_country_flag = under_influence_of_@ROOT
+					}
+				}
+				OR = {
+					AND = {
+						has_game_rule = {
+							rule = soi_ai_range
+							option = SOI_ANYWHERE_INFLUENCE
+						}
+						OR = {
+							AND = {
+								ROOT = {
+									any_owned_state = {
+										is_coastal = yes
+									}
+								}
+								FROM = {
+									any_owned_state = {
+										is_coastal = yes
+									}
+								}
+							}
+							is_neighbor_of = FROM
+						}
+					}
+					AND = {
+						has_game_rule = {
+							rule = soi_ai_range
+							option = SOI_NEARBY_INFLUENCE
+						}
+						is_neighbor_of = FROM
+					}
+					AND = {
+						has_game_rule = {
+							rule = soi_ai_range
+							option = SOI_CONTINENTAL_INFLUENCE
+						}
+						OR = {
+							AND = {
+								FROM = {
+									capital_scope = {
+										is_on_continent = europe
+									}
+								}
+								ROOT = {
+									capital_scope = {
+										is_on_continent = europe
+									}
+								}
+							}
+							AND = {
+								FROM = {
+									capital_scope = {
+										is_on_continent = north_america
+									}
+								}
+								ROOT = {
+									capital_scope = {
+										is_on_continent = north_america
+									}
+								}
+							}
+							AND = {
+								FROM = {
+									capital_scope = {
+										is_on_continent = south_america
+									}
+								}
+								ROOT = {
+									capital_scope = {
+										is_on_continent = south_america
+									}
+								}
+							}
+							AND = {
+								FROM = {
+									capital_scope = {
+										is_on_continent = africa
+									}
+								}
+								ROOT = {
+									capital_scope = {
+										is_on_continent = africa
+									}
+								}
+							}
+							AND = {
+								FROM = {
+									capital_scope = {
+										is_on_continent = asia
+									}
+								}
+								ROOT = {
+									capital_scope = {
+										is_on_continent = asia
+									}
+								}
+							}
+							AND = {
+								FROM = {
+									capital_scope = {
+										is_on_continent = australia
+									}
+								}
+								ROOT = {
+									capital_scope = {
+										is_on_continent = australia
+									}
+								}
+							}
+							AND = {
+								FROM = {
+									capital_scope = {
+										is_on_continent = middle_east
+									}
+								}
+								ROOT = {
+									capital_scope = {
+										is_on_continent = middle_east
+									}
+								}
+							}
+						}
+						OR = {
+							AND = {
+								ROOT = {
+									any_owned_state = {
+										is_coastal = yes
+									}
+								}
+								FROM = {
+									any_owned_state = {
+										is_coastal = yes
+									}
+								}
+							}
+							is_neighbor_of = FROM
+						}
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_STRATEGIC_PRIORITY_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 3 }
+						}
+						check_variable = { var:ROOT.AI_check_priority = 1 }
+					}
+					OR = {
+						FROM = {
+							any_controlled_state = {
+								OR = {
+									check_variable = { var:resource@aluminium > 9 }
+									check_variable = { var:resource@chromium > 9 }
+									check_variable = { var:resource@oil > 9 }
+									check_variable = { var:resource@rubber > 9 }
+									check_variable = { var:resource@steel > 9 }
+									check_variable = { var:resource@tungsten > 9 }
+								}
+							}
+						}
+						check_variable = { var:ai_strategy_alliance@FROM > 19 }
+						check_variable = { var:ai_strategy_befriend@FROM > 19 }
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_IDEOLOGICAL_PRIORITY_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 4 }
+						}
+						check_variable = { var:ROOT.AI_check_priority = 1 }
+					}
+					has_government = ROOT
+				}
+			}
+			modifier = {
+				add = 15
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_BALANCED_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 2 }
+						}
+					}
+					strength_ratio = {
+						tag = FROM
+						ratio > 1.8
+					}
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_AGGRESSIVE_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 5 }
+						}
+					}
+					strength_ratio = {
+						tag = FROM
+						ratio > 1.4
+					}
+				}
+				else = {
+					strength_ratio = {
+						tag = FROM
+						ratio > 1.6
+					}
+				}
+			}
+			modifier = {
+				add = -15
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_BALANCED_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 2 }
+						}
+					}
+					strength_ratio = {
+						tag = FROM
+						ratio < 1.8
+					}
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_AGGRESSIVE_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 5 }
+						}
+					}
+					strength_ratio = {
+						tag = FROM
+						ratio < 1.4
+					}
+				}
+				else = {
+					strength_ratio = {
+						tag = FROM
+						ratio < 1.6
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_game_rule = {
+						rule = soi_ai_range
+						option = SOI_DEFAULT_RANGE
+					}
+					has_global_flag = SOI_AI_request_limit
+					check_variable = { var:ROOT.AI_check_months > 0}
+				}
+			}
+			modifier = {
+				add = var:ROOT.do_influence@FROM
+				has_game_rule = {
+					rule = soi_ai_behaviour
+					option = SOI_HISTORICAL_BEHAVIOUR
+				}
+			}
+		}
+
+		available = {
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = yes
+					}
+				}
+				FROM = {
+					OR = {
+						has_opinion = { target = ROOT value < 0 }
+						has_opinion = { target = ROOT value > -1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = no
+					}
+				}
+				FROM = {
+					has_opinion = { target = ROOT value > 29 }
+				}
+			}
+			FROM = {
+				is_major = no
+				custom_trigger_tooltip = {
+					tooltip = SOI_if_puppet_then_of_delta_tt
+					if = {
+						limit = {
+							is_puppet = yes
+						}
+						is_puppet_of = ROOT
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = SOI_if_faction_then_with_delta_tt
+					if = {
+						limit = {
+							is_in_faction = yes
+						}
+						is_in_faction_with = ROOT
+						is_faction_leader = no
+					}
+				}
+				OR = {
+					OR = {
+						FROM = { is_neighbor_of = ROOT }
+						any_country = {
+							is_puppet_of = ROOT
+							is_neighbor_of = FROM
+						}
+					}
+					OR = {
+						AND = {
+							any_country = {
+								is_puppet_of = ROOT
+								any_controlled_state = {
+									is_coastal = yes
+								}
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+						AND = {
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = ROOT
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+					}
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+			ROOT = {
+				num_of_factories > FROM.num_of_factories
+				is_puppet = no
+			}
+			NOT = {
+				custom_trigger_tooltip = {
+					tooltip = not_has_influence_campaign_tt
+					has_country_flag = has_influence_campaign_@FROM
+				}
+			}
+		}
+		visible = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+			FROM = {
+				is_puppet = no
+				if = {
+					limit = {
+						is_in_faction = yes
+					}
+					is_in_faction_with = ROOT
+				}
+				is_major = no
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = start_influence_campaign_tt
+			hidden_effect = {
+				set_country_flag = has_influence_campaign_@FROM
+				FROM = { set_country_flag = under_influence_of_@ROOT add_to_array = { array = ROOT.conflict_targets value = FROM.id } }
+				set_variable = { ROOT.influence_level@FROM = 0.00 }
+				set_variable = { var = THIS.opinion_about@ROOT value = 0.00 }
+				set_variable = { var = ROOT.this_multiplier@THIS value = 0.00 }
+
+				#log = "[ROOT.GetName] Started influence campaign in [FROM.GetName]"
+				add_to_variable = { var = global.AI_request_sent value = 1 }
+				if = {
+					limit = {
+						check_variable = { var = global.AI_request_sent value = global.AI_request_per_month_limit compare = greater_than_or_equals }
+					}
+					set_global_flag = SOI_AI_request_limit
+				}
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_AGGRESSIVE_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 5 }
+						}
+					}
+					set_variable = { var:ROOT.AI_check_months = 4 }
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_BALANCED_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 2 }
+						}
+					}
+					set_variable = { var:ROOT.AI_check_months = 6 }
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_IDEOLOGICAL_PRIORITY_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 4 }
+
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_STRATEGIC_PRIORITY_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 3 }
+						}
+					}
+					set_variable = { var:ROOT.AI_check_months = 5 }
+					if = {
+						limit = {
+							check_variable = { var:ROOT.AI_check_priority = 1 }
+						}
+						random_list = {
+							40 = {
+								set_variable = { var:ROOT.AI_check_priority = 1 }
+							}
+							60 = {
+								set_variable = { var:ROOT.AI_check_priority = 0 }
+							}
+						}
+					}
+					else = {
+						random_list = {
+							60 = {
+								set_variable = { var:ROOT.AI_check_priority = 1 }
+							}
+							40 = {
+								set_variable = { var:ROOT.AI_check_priority = 0 }
+							}
+						}
+					}
+				}
+				else = {
+					set_variable = { var:ROOT.AI_check_months = 5 }
+				}
+			}
+		}
+		remove_effect = {
+			hidden_effect = {
+				random_list = {
+					34 = {
+						set_variable = { ROOT.ai_influence_way = 0 }
+					}
+					33 = {
+						set_variable = { ROOT.ai_influence_way = 1 }
+					}
+					33 = {
+						set_variable = { ROOT.ai_influence_way = 2 }
+					}
+				}
+			}
+		}
+	}
+	send_factories_to_delta = {
+		cost = 50
+		icon = decision_icon_send_factories_to_delta
+		days_remove = 30
+		days_re_enable = 15
+		priority = 6
+		cancel_if_not_visible = no
+		target_trigger = {
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = yes
+					}
+				}
+				FROM = {
+					OR = {
+						has_opinion = { target = ROOT value < 0 }
+						has_opinion = { target = ROOT value > -1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = no
+					}
+				}
+				FROM = {
+					has_opinion = { target = ROOT value > 29 }
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = -5
+			modifier = {
+				add = 10
+				check_variable = {
+					var:ROOT.num_of_factories > var:FROM.num_of_factories
+				}
+			}
+			modifier = {
+				add = 10
+				check_variable = {
+					var:ROOT.check_decision_days@FROM > 30
+				}
+			}
+			modifier = {
+				add = 5
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_BALANCED_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 2 }
+						}
+					}
+					has_political_power > 80
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_AGGRESSIVE_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 5 }
+						}
+					}
+					has_political_power > 35
+				}
+				else = {
+					has_political_power > 60
+				}
+			}
+			modifier = {
+				add = -5
+				check_variable = {
+					var = var:ROOT.ai_influence_way
+					value = 1
+					compare = not_equals
+				}
+			}
+			modifier = {
+				add = 5
+				check_variable = {
+					var = var:ROOT.ai_influence_way
+					value = 1
+					compare = equals
+				}
+			}
+		}
+
+		available = {
+			check_variable = { ROOT.influence_power > 29.99 }
+			FROM = {
+				custom_trigger_tooltip = {
+					tooltip = SOI_if_puppet_then_of_delta_tt
+					if = {
+						limit = {
+							is_puppet = yes
+						}
+						is_puppet_of = ROOT
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = SOI_if_faction_then_with_delta_tt
+					if = {
+						limit = {
+							is_in_faction = yes
+						}
+						is_in_faction_with = ROOT
+						is_faction_leader = no
+					}
+				}
+				OR = {
+					OR = {
+						FROM = { is_neighbor_of = ROOT }
+						any_country = {
+							is_puppet_of = ROOT
+							is_neighbor_of = FROM
+						}
+					}
+					OR = {
+						AND = {
+							any_country = {
+								is_puppet_of = ROOT
+								any_controlled_state = {
+									is_coastal = yes
+								}
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+						AND = {
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = ROOT
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+					}
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+			ROOT = {
+				num_of_factories > FROM.num_of_factories
+				is_puppet = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_influence_campaign_tt
+				has_country_flag = has_influence_campaign_@FROM
+			}
+		}
+		visible = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_influence_campaign_tt
+				has_country_flag = has_influence_campaign_@FROM
+			}
+		}
+		targeted_modifier = {
+			tag = FROM
+			cic_to_target_factor = 0.20
+		}
+		complete_effect = {
+			add_to_variable = { ROOT.influence_power = -35 }
+			FROM = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = sent_factories
+				}
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = gain_influence_1_0_tt
+			hidden_effect = {
+				add_to_variable = { ROOT.influence_level@FROM = 1.0 }
+				set_variable = { ROOT.delta_a@FROM = 1.0 }
+				multiply_variable = { ROOT.delta_a@FROM = ROOT.influence_multiplier@FROM }
+				add_to_variable = { ROOT.influence_level@FROM = ROOT.delta_a@FROM }
+				clear_variable = ROOT.delta_a@FROM
+				random_list = {
+					40 = {
+						set_variable = { ROOT.ai_influence_way = 0 }
+					}
+					20 = {
+						set_variable = { ROOT.ai_influence_way = 1 }
+					}
+					40 = {
+						set_variable = { ROOT.ai_influence_way = 2 }
+					}
+				}
+				set_variable = {
+					var:ROOT.check_decision_days@FROM = 0
+				}
+			}
+		}
+	}
+	send_advisors_to_delta = {
+		icon = decision_icon_send_advisors_to_delta
+		days_remove = 35
+		days_re_enable = 10
+		cost = 25
+		priority = 5
+
+		cancel_if_not_visible = no
+		target_trigger = {
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = yes
+					}
+				}
+				FROM = {
+					OR = {
+						has_opinion = { target = ROOT value < 0 }
+						has_opinion = { target = ROOT value > -1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = no
+					}
+				}
+				FROM = {
+					has_opinion = { target = ROOT value > 29 }
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = -5
+			modifier = {
+				add = 10
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_BALANCED_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 2 }
+						}
+					}
+					political_power_daily > 0.9
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_AGGRESSIVE_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 5 }
+						}
+					}
+					political_power_daily > 0.5
+				}
+				else = {
+					political_power_daily > 0.75
+				}
+			}
+			modifier = {
+				add = 10
+				check_variable = {
+					var:ROOT.check_decision_days@FROM > 30
+				}
+			}
+			modifier = {
+				add = -5
+				check_variable = {
+					var = var:ROOT.ai_influence_way
+					value = 0
+					compare = not_equals
+				}
+			}
+			modifier = {
+				add = 5
+				check_variable = {
+					var = var:ROOT.ai_influence_way
+					value = 0
+					compare = equals
+				}
+			}
+		}
+
+		available = {
+			check_variable = { ROOT.influence_power > 14.99 }
+			FROM = {
+				custom_trigger_tooltip = {
+					tooltip = SOI_if_puppet_then_of_delta_tt
+					if = {
+						limit = {
+							is_puppet = yes
+						}
+						is_puppet_of = ROOT
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = SOI_if_faction_then_with_delta_tt
+					if = {
+						limit = {
+							is_in_faction = yes
+						}
+						is_in_faction_with = ROOT
+						is_faction_leader = no
+					}
+				}
+				OR = {
+					OR = {
+						FROM = { is_neighbor_of = ROOT }
+						any_country = {
+							is_puppet_of = ROOT
+							is_neighbor_of = FROM
+						}
+					}
+					OR = {
+						AND = {
+							any_country = {
+								is_puppet_of = ROOT
+								any_controlled_state = {
+									is_coastal = yes
+								}
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+						AND = {
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = ROOT
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+					}
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+				custom_trigger_tooltip = {
+					tooltip = SOI_not_banned_us_tt
+					NOT = {
+						has_country_flag = FROM.resisting_banned_country@ROOT
+					}
+				}
+			}
+			ROOT = {
+				num_of_factories > FROM.num_of_factories
+				is_puppet = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_influence_campaign_tt
+				has_country_flag = has_influence_campaign_@FROM
+			}
+		}
+		visible = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_influence_campaign_tt
+				has_country_flag = has_influence_campaign_@FROM
+			}
+		}
+		modifier = {
+			political_power_factor = -0.25
+		}
+		complete_effect = {
+			add_to_variable = { ROOT.influence_power = -20 }
+			FROM = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = sent_advisors
+				}
+			}
+		}
+		remove_effect = {
+			FROM = {
+				add_political_power = 75
+			}
+			custom_effect_tooltip = gain_influence_0_5_tt
+			hidden_effect = {
+				add_to_variable = { ROOT.influence_level@FROM = 0.5 }
+				set_variable = { ROOT.delta_b@FROM = 0.5 }
+				multiply_variable = { ROOT.delta_b@FROM = ROOT.influence_multiplier@FROM }
+				add_to_variable = { ROOT.influence_level@FROM = ROOT.delta_b@FROM }
+				clear_variable = ROOT.delta_b@FROM
+				random_list = {
+					34 = {
+						set_variable = { ROOT.ai_influence_way = 0 }
+					}
+					33 = {
+						set_variable = { ROOT.ai_influence_way = 1 }
+					}
+					33 = {
+						set_variable = { ROOT.ai_influence_way = 2 }
+					}
+				}
+				set_variable = {
+					var:ROOT.check_decision_days@FROM = 0
+				}
+			}
+		}
+	}
+	send_investment_expedition_in_delta = {
+		icon = decision_icon_send_investment_expedition_in_delta
+		days_remove = 90
+		days_re_enable = 45
+		cost = 75
+		priority = 4
+		
+		cancel_if_not_visible = no
+		target_trigger = {
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = yes
+					}
+				}
+				FROM = {
+					OR = {
+						has_opinion = { target = ROOT value < 0 }
+						has_opinion = { target = ROOT value > -1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						is_ai = no
+					}
+				}
+				FROM = {
+					has_opinion = { target = ROOT value > 29 }
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = -5
+			modifier = {
+				add = 10
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_BALANCED_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 2 }
+						}
+					}
+					ic_ratio = {
+						tag = FROM
+						ratio > 1.75
+					}
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_AGGRESSIVE_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 5 }
+						}
+					}
+					ic_ratio = {
+						tag = FROM
+						ratio > 1
+					}
+				}
+				else = {
+					ic_ratio = {
+						tag = FROM
+						ratio > 1.35
+					}
+				}
+			}
+			modifier = {
+				add = 100
+				check_variable = {
+					var:ROOT.check_decision_days@FROM > 30
+				}
+			}
+			modifier = {
+				add = -5
+				check_variable = {
+					var = var:ROOT.ai_influence_way
+					value = 2
+					compare = not_equals
+				}
+			}
+			modifier = {
+				add = 5
+				check_variable = {
+					var = var:ROOT.ai_influence_way
+					value = 2
+					compare = equals
+				}
+			}
+		}
+
+		available = {
+			check_variable = { ROOT.influence_power > 59.99 }
+			FROM = {
+				custom_trigger_tooltip = {
+					tooltip = SOI_if_puppet_then_of_delta_tt
+					if = {
+						limit = {
+							is_puppet = yes
+						}
+						is_puppet_of = ROOT
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = SOI_if_faction_then_with_delta_tt
+					if = {
+						limit = {
+							is_in_faction = yes
+						}
+						is_in_faction_with = ROOT
+						is_faction_leader = no
+					}
+				}
+				OR = {
+					OR = {
+						FROM = { is_neighbor_of = ROOT }
+						any_country = {
+							is_puppet_of = ROOT
+							is_neighbor_of = FROM
+						}
+					}
+					OR = {
+						AND = {
+							any_country = {
+								is_puppet_of = ROOT
+								any_controlled_state = {
+									is_coastal = yes
+								}
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+						AND = {
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = FROM
+							}
+							any_state = {
+								is_coastal = yes
+								is_controlled_by = ROOT
+							}
+							ROOT = {
+								has_navy_size = { size > 7 }
+							}
+						}
+					}
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+				custom_trigger_tooltip = {
+					tooltip = SOI_not_limited_us_tt
+					NOT = {
+						has_country_flag = FROM.resisting_outside_influence@ROOT
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = SOI_not_banned_us_tt
+					NOT = {
+						has_country_flag = FROM.resisting_banned_country@ROOT
+					}
+				}
+			}
+			ROOT = {
+				num_of_factories > FROM.num_of_factories
+				is_puppet = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_influence_campaign_tt
+				has_country_flag = has_influence_campaign_@FROM
+			}
+		}
+		visible = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_influence_campaign_tt
+				has_country_flag = has_influence_campaign_@FROM
+			}
+		}
+		modifier = {
+			political_power_factor = -0.5
+			production_speed_buildings_factor = -0.15
+			consumer_goods_factor = 0.15
+		}
+		complete_effect = {
+			add_to_variable = { ROOT.influence_power = -60 }
+			FROM = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = sent_investment_expedition
+				}
+				add_timed_idea = {
+					idea = SOI_influence_expedition
+					days = 120
+				}
+			}
+		}
+		remove_effect = {
+			FROM = {
+				add_political_power = 150
+			}
+			custom_effect_tooltip = gain_influence_1_5_tt
+			hidden_effect = {
+				add_to_variable = { ROOT.influence_level@FROM = 1.5 }
+				set_variable = { ROOT.delta_c@FROM = 1.5 }
+				multiply_variable = { ROOT.delta_c@FROM = ROOT.influence_multiplier@FROM }
+				add_to_variable = { ROOT.influence_level@FROM = ROOT.delta_c@FROM }
+				clear_variable = ROOT.delta_c@FROM
+				random_list = {
+					34 = {
+						set_variable = { ROOT.ai_influence_way = 0 }
+					}
+					33 = {
+						set_variable = { ROOT.ai_influence_way = 1 }
+					}
+					33 = {
+						set_variable = { ROOT.ai_influence_way = 2 }
+					}
+				}
+				set_variable = {
+					var:ROOT.check_decision_days@FROM = 0
+				}
+			}
+		}
+	}
+	enact_friendly_agreement_with_delta = {
+		icon = decision_icon_enact_friendly_agreement_with_delta
+		days_remove = 0
+		days_re_enable = 140
+		cost = 25
+		priority = 3
+		
+		target_trigger = {
+			FROM = {
+				check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_1_show_@FROM }
+			}
+		}
+		
+		ai_will_do = {
+			base = 5
+		}
+
+		available = {
+			FROM = {
+				has_war = no
+				NOT = {
+					has_non_aggression_pact_with = ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = SOI_avg_1_check_tt
+				check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_1_@FROM }
+			}
+		}
+		visible = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_influence_campaign_tt
+				has_country_flag = has_influence_campaign_@FROM
+			}
+			check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_1_show_@FROM }
+		}
+		complete_effect = {
+			give_military_access = FROM
+			FROM = {
+				give_military_access = ROOT
+			}
+			diplomatic_relation = {
+				country = FROM
+				relation = non_aggression_pact
+				active = yes
+			}
+			hidden_effect = {
+				add_to_variable = { ROOT.influence_level@FROM = 0.2 }
+				set_variable = { ROOT.delta_c@FROM = 0.2 }
+				multiply_variable = { ROOT.delta_c@FROM = ROOT.influence_multiplier@FROM }
+				add_to_variable = { ROOT.influence_level@FROM = ROOT.delta_c@FROM }
+				clear_variable = ROOT.delta_c@FROM
+			}
+		}
+		remove_effect = {
+			
+		}
+	}
+	take_over_delta = {
+		icon = decision_icon_take_over_delta
+		days_remove = 0
+		days_re_enable = 180
+		cost = 200
+		priority = 2
+		
+      target_trigger = {
+            FROM = {
+                check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_2_show_@FROM }
+            }
+            has_country_flag = has_influence_campaign_@FROM
+        }
+
+		ai_will_do = {
+			base = -10
+			modifier = {
+				add = 10
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_BALANCED_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 2 }
+						}
+					}
+					has_political_power > 75
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_game_rule = {
+								rule = soi_ai_behaviour
+								option = SOI_AGGRESSIVE_BEHAVIOUR
+							}
+							check_variable = { var:ROOT.ai_behaviour_var = 5 }
+						}
+					}
+					has_political_power > 30
+				}
+				else = {
+					has_political_power > 50
+				}
+			}
+			modifier = {
+				add = 5
+				has_government = FROM
+			}
+			modifier = {
+				add = 5
+				is_neighbor_of = FROM
+			}
+			modifier = {
+				factor = 0
+				has_game_rule = {
+					rule = soi_ai_behaviour
+					option = SOI_HISTORICAL_BEHAVIOUR
+				}
+			}
+		}
+
+		available = {
+			FROM = {
+				has_war = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = SOI_avg_2_check_tt
+				check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_2_@FROM }
+			}
+		}
+		visible = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_influence_campaign_tt
+				has_country_flag = has_influence_campaign_@FROM
+			}
+			check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_2_show_@FROM }
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					ROOT = {
+						is_in_faction = yes
+					}
+				}
+				ROOT = {
+					add_to_faction = FROM
+				}
+			}
+			ROOT = {
+				set_autonomy = { target = FROM autonomy_state = autonomy_colony }
+			}
+			set_temp_variable = { temp_c = FROM.total_states }
+			add_to_temp_variable = { temp_c = FROM.num_divisions }
+			add_to_temp_variable = { temp_c = FROM.num_of_factories }
+			divide_temp_variable = { temp_c = 100 }
+			multiply_temp_variable = { temp_c = 5 }
+			round_variable = temp_c
+			add_threat = var:temp_c
+		}
+		remove_effect = {
+			
+		}
+	}
+	integrate_delta_in_our_country = {
+		icon = decision_icon_integrate_delta_in_our_country
+		cost = 250
+		days_remove = 120
+		days_re_enable = 180
+
+		cancel_if_not_visible =  no
+      target_trigger = {
+            FROM = {
+                check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_2_show_@FROM }
+            }
+            has_country_flag = has_influence_campaign_@FROM
+        }
+		ai_will_do = {
+			base = -10
+			modifier = {
+				add = 15
+				OR = {
+					has_game_rule = {
+						rule = soi_ai_behaviour
+						option = SOI_AGGRESSIVE_BEHAVIOUR
+					}
+					check_variable = { var:ROOT.ai_behaviour_var = 5 }
+				}
+			}
+		}
+
+		available = {
+			FROM = {
+				is_puppet_of = ROOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = SOI_avg_3_check_tt
+				check_variable = { ROOT.influence_level@FROM > var:ROOT.avg_influence_3_@FROM }
+			}
+		}
+		visible = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+			FROM = {
+				exists = yes
+			}
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+			annex_country = { target = FROM transfer_troops = yes }
+			hidden_effect = {
+				set_variable = {
+					var:ROOT.check_decision_days@FROM = 0
+				}
+				clr_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					clr_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+		}
+	}
+	decision_state_delta = {
+		icon = decision_icon_take_state
+		days_remove = 7
+		days_re_enable = 14
+		cost = 5
+		state_target = yes
+		on_map_mode = map_only
+		cancel_if_not_visible = no
+		target_trigger = {
+			FROM = {
+				NOT = {
+					is_owned_by = ROOT
+				}
+			}
+			FROM.owner = {
+				has_country_flag = under_influence_of_@ROOT
+			}
+			check_variable = { var = ROOT.influence_level@FROM.owner value = 6 compare = greater_than_or_equals }
+		}
+		visible = {
+			is_ai = no
+			NOT = {
+				has_country_flag = ROOT.hide_onmap_decisions@FROM
+			}
+			FROM = {
+				OR = {
+					any_neighbor_state = {
+						is_owned_by = ROOT
+					}
+					is_coastal = yes
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM.owner = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = SOI_require_influence_level_tt
+				check_variable = { var = ROOT.influence_level@FROM.owner value = 6 compare = greater_than_or_equals }
+			}
+			custom_trigger_tooltip = {
+				tooltip = SOI_require_influence_state_tt
+				check_variable = { var = ROOT.state_influence@FROM value = 5 compare = greater_than_or_equals }
+			}
+			custom_trigger_tooltip = {
+				tooltip = SOI_require_influence_power_20_tt
+				check_variable = { var = ROOT.influence_power value = 20 compare = greater_than }
+			}
+			FROM = {
+				OR = {
+					any_neighbor_state = {
+						is_owned_by = ROOT
+					}
+					is_coastal = yes
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		remove_effect = {
+			ROOT = {
+				transfer_state = FROM
+			}
+			custom_effect_tooltip = SOI_will_take_1_influence_level_tt
+			hidden_effect = {
+				subtract_from_variable = { ROOT.influence_level@FROM.owner = 1 }
+				subtract_from_variable = { ROOT.influence_power = 20 }
+				set_variable = { ROOT.state_influence@FROM = 0 }
+			}
+		}
+	}
+	decision_showhide_onmap_influence = {
+		cancel_if_not_visible = no
+		target_trigger = {
+			FROM = {
+				has_country_flag = under_influence_of_@ROOT
+			}
+		}
+		visible = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+			FROM = {
+				exists = yes
+			}
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = ROOT.hide_onmap_decisions@FROM
+					}
+				}
+				set_country_flag = ROOT.hide_onmap_decisions@FROM
+			}
+			else = {
+				clr_country_flag = ROOT.hide_onmap_decisions@FROM
+			}
+		}
+	}
+	decision_influence_state_delta = {
+		icon = decision_icon_influence_state
+		days_remove = 7
+		days_re_enable = 2
+		cost = 10
+		state_target = yes
+		on_map_mode = map_only
+		cancel_if_not_visible = no
+		target_trigger = {
+			FROM = {
+				NOT = {
+					is_owned_by = ROOT
+				}
+			}
+			FROM.owner = {
+				has_country_flag = under_influence_of_@ROOT
+			}
+		}
+		visible = {
+			is_ai = no
+			NOT = {
+				has_country_flag = ROOT.hide_onmap_decisions@FROM
+			}
+			FROM = {
+				OR = {
+					any_neighbor_state = {
+						is_owned_by = ROOT
+					}
+					is_coastal = yes
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM.owner = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+		}
+		available = {
+			FROM = {
+				NOT = {
+					is_owned_by = ROOT
+				}
+				OR = {
+					any_neighbor_state = {
+						is_owned_by = ROOT
+					}
+					is_coastal = yes
+					owner = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = SOI_require_lower_state_influence_tt
+				check_variable = { var = ROOT.state_influence@FROM value = 5 compare = less_than }
+			}
+			custom_trigger_tooltip = {
+				tooltip = SOI_require_influence_power_20_tt
+				check_variable = { var = ROOT.influence_power value = 20 compare = greater_than }
+			}
+		}
+		visible = {
+			FROM = {
+				NOT = {
+					is_owned_by = ROOT
+				}
+			}
+			check_variable = { var = ROOT.state_influence@FROM value = 5 compare = less_than }
+		}
+		remove_effect = {
+			custom_effect_tooltip = SOI_will_higher_state_influence_tt
+			hidden_effect = {
+				add_to_variable = { ROOT.state_influence@FROM = 1 }
+				subtract_from_variable = { ROOT.influence_power = 20 }
+			}
+		}
+	}
+	decision_coup_puppet_delta = {
+		icon = decision_icon_integrate_delta_in_our_country
+		cost = 150
+		days_re_enable = 30
+		fire_only_once = no
+		priority = 1
+		target_trigger = {
+			FROM = {
+				has_country_flag = coup_successful
+			}
+		}
+		available = {
+			FROM = {
+				exists = yes
+				is_puppet = no
+				custom_trigger_tooltip = {
+					tooltip = SOI_if_faction_then_with_delta_tt
+					if = {
+						limit = {
+							is_in_faction = yes
+						}
+						is_in_faction_with = ROOT
+						is_faction_leader = no
+					}
+				}
+			}
+		}
+		visible = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				has_country_flag = ROOT.influence_tab_open_flag
+				FROM = {
+					has_country_flag = FROM.influence_tabbed_@ROOT
+				}
+			}
+			FROM = {
+				exists = yes
+				is_puppet = no
+			}
+			has_dlc = "La Resistance"
+			is_in_array = { array = ROOT.coup_states value = FROM.id }
+		}
+		complete_effect = {
+			FROM = {
+				clr_country_flag = coup_successful
+			}
+			remove_from_array = {
+				array = ROOT.coup_states
+				value = FROM
+			}
+			set_autonomy = {
+				target = FROM
+				autonomy_state = autonomy_puppet
+			}
+		}
+		remove_effect = {
+		}
+	}
+}

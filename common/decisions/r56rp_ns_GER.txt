@@ -1,0 +1,1452 @@
+political_actions = {
+	GER_war_with_usa_peace = {
+		icon = generic_prepare_civil_war
+		fire_only_once = yes
+		available = {
+			GER = {
+				has_war_with = USA
+			}
+			original_tag = GER
+		}
+
+		visible = {
+			GER = {
+				has_government = neutrality
+				has_war_with = USA
+			}
+		}
+
+		complete_effect = {
+			USA = {
+				USA = { country_event = { id = rpgermany.6 } }
+			}
+		}
+	}
+
+	r56rp_GER_demand_northern_schleswig = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_hol_exchange_intelligence_data
+
+		visible = {
+			has_completed_focus = GER_rally_the_monarchists
+			NOT = { has_country_flag = r56rp_demanded_schleswig }
+			original_tag = GER
+		}
+
+		target_trigger = {
+			FROM = {
+				controls_state = 964
+			}
+		}
+
+		available = {
+			has_completed_focus = GER_restore_the_empire
+		}
+
+		complete_effect = {
+			set_country_flag = r56rp_demanded_schleswig
+			if = {
+				limit = {
+					has_full_control_of_state = 964
+				}
+				add_state_core = 964
+				if = {
+					limit = {
+						NOT = {
+							owns_state = 964
+						}
+					}
+					transfer_state = 964
+				}
+				964 = {
+					set_state_name = "Nordschleswig"
+				}
+				set_province_name = {
+					id = 11251 name = "Apenrade"
+				}
+			}
+			else = {
+				every_country = {
+					limit = {
+						controls_state = 964
+					}
+					country_event = {
+						id = wtt_germany.80
+						hours = 3
+					}
+				}
+			}
+		}
+	}
+
+	r56rp_GER_befriend_china = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_hol_exchange_intelligence_data
+
+		visible = {
+			original_tag = GER
+		}
+
+		target_trigger = {
+			FROM = {
+				original_tag = CHI
+			}
+		}
+
+		available = {
+			CHI = {
+				exists = yes
+				is_subject = no 
+				NOT = { has_war_with = ROOT }
+				custom_trigger_tooltip = {
+					tooltip = GER_alone_or_peace_faction_tt
+					is_alone_or_in_faction_at_peace_with_GER = yes
+				}
+			}
+		}
+
+		complete_effect = {
+			event_target:WTT_current_china_leader = {
+				add_offsite_building = { type = arms_factory level = 2 }
+				add_opinion_modifier = { target = GER modifier = ger_chi_diplomacy_focus }
+				set_country_flag = GER_befriended_by_germany_flag
+			}
+			JAP = {
+				add_opinion_modifier = { target = GER modifier = supported_the_chinese }
+			}
+			set_country_flag = r56rp_GER_befriended_china
+		}
+	}
+
+	r56rp_GER_befriend_japan = {
+
+		cost = 25
+
+		fire_only_once = yes
+
+		icon = GFX_decision_hol_exchange_intelligence_data
+
+		visible = {
+			original_tag = GER
+		}
+
+		target_trigger = {
+			FROM = {
+				original_tag = JAP
+			}
+		}
+
+		available = {
+			JAP = {
+				exists = yes
+				is_subject = no 
+				NOT = { has_war_with = ROOT }
+				custom_trigger_tooltip = {
+					tooltip = GER_alone_or_peace_faction_tt
+					is_alone_or_in_faction_at_peace_with_GER = yes
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				is_in_faction_with = JAP
+				factor = 0 #GER-sempai has already noticed you!
+			}
+		}
+
+		complete_effect = {
+			JAP = {
+				add_opinion_modifier = { target = GER modifier = ger_jap_diplomacy_focus }
+			}
+			event_target:WTT_current_china_leader = {
+				add_opinion_modifier = { target = GER modifier = withdrew_advisors }
+				country_event = { id = china.3 hours = 6 }
+			}
+			custom_effect_tooltip = GER_japan_friend_tt
+			set_global_flag = falkenhausen_recalled
+			if = {
+				limit = {
+					has_dlc = "Waking the Tiger"
+				}
+				create_corps_commander = {
+					name = "Alexander von Falkenhausen"
+					gfx = GFX_portrait_chi_alexander_von_falkenhausen
+					skill = 3
+					attack_skill = 2
+					defense_skill = 2
+					planning_skill = 3
+					logistics_skill = 3
+					id = 603
+					traits = { infantry_officer }
+				}
+			}
+			set_country_flag = r56rp_GER_befriended_japan
+		}
+	}
+}
+
+imperial_germany_category = {
+	GER_mittelafrika_colony = {
+		icon = ger_reichskommissariats
+		fire_only_once = yes
+		available = {
+			GER = {
+				has_full_control_of_state = 773
+				has_full_control_of_state = 771
+				has_full_control_of_state = 770
+				has_full_control_of_state = 295
+				has_full_control_of_state = 718
+				has_full_control_of_state = 769
+				has_full_control_of_state = 768
+				has_full_control_of_state = 538
+				has_full_control_of_state = 772
+				has_full_control_of_state = 539
+				has_full_control_of_state = 660
+				has_full_control_of_state = 774
+			}
+			
+		}		
+		
+		cost = 0
+		
+		visible = {
+			OR = {
+				has_completed_focus = GER_r56rp_colonial_administration
+			}
+			ZIM = {
+				NOT = {
+					has_full_control_of_state = 295
+				}
+			}			
+		}
+
+		complete_effect = {
+			puppet = ZIM
+			ZIM = {
+				create_country_leader = {
+					name = "Franz Ritter von Epp"
+					desc = "POLITICS_WILHELM_MARSCHALL_DESC"
+					picture = "GFX_Portrait_Franz_Ritter_von_Epp"
+					expire = "1965.1.1"
+					ideology = oligarchism
+				}
+				set_party_name = { 
+					ideology = neutrality 
+					long_name = "Deutsche Kolonialregierung" 
+					name = "Kolonialregierung"
+				}				
+				set_cosmetic_tag = GER_ZIM_IMP
+				transfer_state = 890
+				transfer_state = 888
+				transfer_state = 889
+				transfer_state = 546
+				transfer_state = 773
+				transfer_state = 771
+				transfer_state = 770
+				transfer_state = 295
+				transfer_state = 718
+				transfer_state = 538
+				transfer_state = 772
+				transfer_state = 539
+				transfer_state = 660
+				transfer_state = 774
+
+				set_capital = { state = 546 }
+				
+				541 = { add_core_of = ZIM }
+				546 = { add_core_of = ZIM }
+				773 = { add_core_of = ZIM }
+				771 = { add_core_of = ZIM }
+				770 = { add_core_of = ZIM }
+				295 = { add_core_of = ZIM }
+				718 = { add_core_of = ZIM }
+				538 = { add_core_of = ZIM }
+				772 = { add_core_of = ZIM }
+				539 = { add_core_of = ZIM }
+				660 = { add_core_of = ZIM }
+				774 = { add_core_of = ZIM }
+				890 = { add_core_of = ZIM }
+				888 = { add_core_of = ZIM }
+				889 = { add_core_of = ZIM }
+				add_ideas = GER_r56rp_colonial_idea
+				add_ideas = GER_r56rp_colonial_army
+			}
+		}
+	}
+
+	GER_portugese_colonies_transfer = {
+		icon = ger_reichskommissariats
+		fire_only_once = yes
+		available = {
+			ZIM = {
+				is_puppet_of = GER
+			}
+			GER = {
+				has_full_control_of_state = 544
+				has_full_control_of_state = 540
+				has_full_control_of_state = 897
+				has_full_control_of_state = 896
+				has_full_control_of_state = 544
+				has_full_control_of_state = 891
+				has_full_control_of_state = 892
+				has_full_control_of_state = 796
+				has_full_control_of_state = 540
+			}	
+		}
+	
+		visible = {
+			GER = {
+				has_completed_focus = GER_r56rp_colonial_administration
+			}
+			NOT = {
+				ZIM = {
+					has_full_control_of_state = 897
+				}
+			}
+		}
+		
+		complete_effect = {
+			ZIM = {
+				transfer_state = 897
+				transfer_state = 896
+				transfer_state = 892
+				transfer_state = 796
+				transfer_state = 544
+				transfer_state = 540
+				transfer_state = 891
+				897 = { add_core_of = ZIM }
+				896 = { add_claim_by = ZIM }
+				796 = { add_core_of = ZIM }
+				544 = { add_core_of = ZIM }
+				540 = { add_core_of = ZIM }
+				892 = { add_core_of = ZIM }
+				891 = { add_core_of = ZIM }
+				896 = { add_core_of = ZIM }
+				add_ideas = GER_r56rp_colonial_idea
+				add_ideas = GER_r56rp_colonial_army
+			}
+		}
+	}
+
+	GER_spanish_colony_transfer = {
+		icon = ger_reichskommissariats
+		fire_only_once = yes
+		available = {
+			ZIM = {
+				is_puppet_of = GER
+				has_full_control_of_state = 539	
+			}
+			GER = {
+				has_full_control_of_state = 297
+			}
+		}
+		
+		visible = {
+			ZIM = {
+				is_puppet_of = GER
+				NOT = {
+					has_full_control_of_state = 297
+				}
+	
+			}			
+		}		
+			
+		complete_effect = {
+			ZIM = {
+				transfer_state = 297
+			}
+		}
+	}
+
+	GER_southwest_africa = {
+		icon = ger_reichskommissariats
+		fire_only_once = yes
+		available = {
+			OR = {
+				GER = {
+				
+					has_full_control_of_state = 893
+					has_full_control_of_state = 894
+					has_full_control_of_state = 895
+					has_full_control_of_state = 541
+				}
+				ZIM = {
+					has_full_control_of_state = 893
+					has_full_control_of_state = 894
+					has_full_control_of_state = 895
+					has_full_control_of_state = 541
+				}
+			}
+		}
+
+		visible = {
+			GER = {
+				has_completed_focus = GER_r56rp_colonial_administration
+			}
+			NOT = {
+				NMB = {
+					has_full_control_of_state = 893
+				}
+			}
+		}
+		
+		complete_effect = {
+			puppet = NMB
+			NMB = {
+				set_cosmetic_tag = GER_NMB
+				set_country_flag = GER_imperial_puppet
+				# Need's new Leadership
+				create_country_leader = {
+					name = "Theodore Seitz"
+					desc = "POLITICS_WILHELM_MARSCHALL_DESC"
+					picture = "GFX_Portrait_Theodore_Seitz"
+					expire = "1965.1.1"
+					ideology = oligarchism
+				}
+				# Colony
+				set_party_name = { 
+					ideology = neutrality 
+					long_name = "Deutsche Kolonialregierung" 
+					name = "Kolonialregierung"
+				}
+
+				transfer_state = 893
+				transfer_state = 894
+				transfer_state = 895
+				transfer_state = 541
+
+				893 = { add_core_of = NMB }
+				894 = { add_core_of = NMB }
+				895 = { add_core_of = NMB }
+				541 = { add_core_of = NMB }
+				add_ideas = GER_r56rp_colonial_idea
+				add_ideas = GER_r56rp_colonial_army
+			}
+		}
+	}
+
+	GER_togoland_protectorate = { # Wasn't really planned to be integrated so oh well.
+		icon = ger_reichskommissariats
+		fire_only_once = yes
+		available = {
+			GER = {
+				has_full_control_of_state = 777
+			}
+			
+		}
+
+		visible = {
+			GER = {
+				has_completed_focus = GER_r56rp_colonial_administration
+			}
+			NOT = {
+				TOG = {
+					has_full_control_of_state = 777
+				}
+			}
+		}
+		
+		complete_effect = {
+			puppet = TOG
+			TOG = {
+				set_cosmetic_tag = GER_TOG 
+				set_country_flag = GER_imperial_puppet
+				# Need's new Leadership
+				create_country_leader = {
+					name = "Kolonialregierung"
+					desc = "POLITICS_WILHELM_MARSCHALL_DESC"
+					picture = "GFX_Portrait_Colonial_Goverment"
+					expire = "1965.1.1"
+					ideology = oligarchism
+				}
+				# Colony
+				set_party_name = { 
+					ideology = neutrality 
+					long_name = "Deutsche Kolonialregierung" 
+					name = "Kolonialregierung"
+				}
+
+				transfer_state = 777
+
+				777 = { add_core_of = TOG }
+				add_ideas = GER_r56rp_colonial_idea
+				add_ideas = GER_r56rp_colonial_army
+			}
+		}
+	}
+
+
+	GER_south_african_puppet = { # Wasn't really planned to be integrated so oh well.
+		icon = ger_reichskommissariats
+		fire_only_once = yes
+		available = {
+			GER = {
+				has_full_control_of_state = 681
+				has_full_control_of_state = 275
+				has_full_control_of_state = 940
+				has_full_control_of_state = 719
+				has_full_control_of_state = 542
+				has_full_control_of_state = 939
+				has_full_control_of_state = 938
+			}
+			NOT = {
+				country_exists = SAF
+				OR = {
+					any_state = { is_controlled_by = SAF }
+				}
+			}
+		}
+
+		visible = {
+			GER = {
+				has_completed_focus = GER_r56rp_colonial_administration
+			}
+			NOT = {
+				SAF = {
+					has_full_control_of_state = 897
+				}
+			}
+		}
+		
+		complete_effect = {
+			puppet = SAF
+			SAF = {
+				set_country_flag = GER_imperial_puppet
+				set_cosmetic_tag = GER_SAF_IMP
+				# Need's new Leadership
+				create_country_leader = {
+					name = "Kolonialregierung"
+					desc = "POLITICS_WILHELM_MARSCHALL_DESC"
+					picture = "GFX_Portrait_Colonial_Goverment"
+					expire = "1965.1.1"
+					ideology = oligarchism
+				}
+				# Colony
+				set_party_name = { 
+					ideology = neutrality 
+					long_name = "Deutsche Kolonialregierung" 
+					name = "Kolonialregierung"
+				}
+
+				transfer_state = 719
+				transfer_state = 275
+				transfer_state = 940
+				transfer_state = 681
+				transfer_state = 938
+				transfer_state = 939
+				transfer_state = 542
+
+				542 = { add_core_of = SAF }
+				938 = { add_core_of = SAF }
+				939 = { add_core_of = SAF }
+
+				add_ideas = GER_r56rp_colonial_idea
+				add_ideas = GER_r56rp_colonial_army
+
+			}
+		}
+	}
+
+	GER_ost_afrika = { # Wasn't really planned to be integrated so oh well.
+		icon = ger_reichskommissariats
+		fire_only_once = yes
+		available = {
+			GER = {
+				has_full_control_of_state = 546
+				has_full_control_of_state = 548
+				has_full_control_of_state = 768
+				has_full_control_of_state = 769
+			}
+			NOT = {
+				country_exists = UGA	
+				OR = {
+					any_state = { is_controlled_by = UGA }
+				}
+			}
+		}
+
+		visible = {
+			GER = {
+				has_completed_focus = GER_r56rp_colonial_administration
+			}
+			NOT = {
+				UGA = {
+					has_full_control_of_state = 938
+				}
+			}
+		}
+		
+		complete_effect = {
+			puppet = UGA
+			UGA	 = {
+				set_country_flag = GER_imperial_puppet
+				set_cosmetic_tag = GER_UGA_IMP
+				# Need's new Leadership
+				create_country_leader = {
+					name = "Paul von Lettow-Vorbeck"
+					desc = "POLITICS_WILHELM_MARSCHALL_DESC"
+					picture = "GFX_portrait_ger_von_lettow_vorbeck"
+					expire = "1965.1.1"
+					ideology = oligarchism
+				}
+				# Colony
+				set_party_name = { 
+					ideology = neutrality 
+					long_name = "Deutsche Kolonialregierung" 
+					name = "Kolonialregierung"
+				}
+
+				transfer_state = 546
+				transfer_state = 548
+				transfer_state = 768
+				transfer_state = 769
+
+				546 = { add_core_of = UGA }
+				548 = { add_core_of = UGA }
+				769 = { add_core_of = UGA }
+				768 = { add_core_of = UGA }
+
+				add_ideas = GER_r56rp_colonial_idea
+				add_ideas = GER_r56rp_colonial_army
+			}
+		}
+	}
+
+
+	GER_merge_rhodesia = { # Wasn't really planned to be integrated so oh well.
+		icon = ger_reichskommissariats
+		fire_only_once = yes
+		available = {
+			GER = {
+				has_full_control_of_state = 545
+			}
+			ZIM = {
+				is_puppet_of = GER
+			}
+		}
+
+		visible = {
+			GER = {
+				has_completed_focus = GER_r56rp_colonial_administration
+			}
+			NOT = {
+				ZIM = {
+					has_full_control_of_state = 545
+				}
+			}
+		}
+		
+		complete_effect = {
+			ZIM = {
+				transfer_state = 545
+			}
+			545 = { add_core_of = ZIM }
+
+		}
+	}
+
+	GER_imperial_csa = { # Wasn't really planned to be integrated so oh well.
+		icon = ger_reichskommissariats
+		fire_only_once = yes
+		available = {
+			GER = {
+				has_full_control_of_state = 366
+				has_full_control_of_state = 365
+				has_full_control_of_state = 364
+				has_full_control_of_state = 363
+				has_full_control_of_state = 367
+				has_full_control_of_state = 370
+				has_full_control_of_state = 371
+				has_full_control_of_state = 375
+				has_full_control_of_state = 368
+				has_full_control_of_state = 362
+				has_full_control_of_state = 372
+				has_full_control_of_state = 374
+			}
+		}
+
+		visible = {
+			GER = {
+				has_completed_focus = GER_r56rp_north_american_war
+			}
+			NOT = {
+				CSA = {
+					has_full_control_of_state = 362
+				}
+			}
+		}
+		
+		complete_effect = {
+			puppet = CSA
+			CSA = {
+				set_capital = { state = 362 }
+				transfer_state = 366
+				transfer_state = 365
+				transfer_state = 364
+				transfer_state = 363
+				transfer_state = 367
+				transfer_state = 370
+				transfer_state = 371
+				transfer_state = 375
+				transfer_state = 368
+				transfer_state = 362
+				transfer_state = 372
+				transfer_state = 374
+				add_state_claim = 369
+				add_state_claim = 376
+				add_state_claim = 373
+
+				374 = { add_core_of = CSA }
+			}
+		}
+	}
+}
+
+GER_r56rp_formation_of_the_nva_category = {
+	GER_r56rp_rehabilitate_lower_officer_corp = {
+		icon = chi_war_of_resistance2
+		cost = 100
+		available = {
+			has_idea = GER_r56rp_establish_NVA_idea_1
+		}
+		complete_effect = {
+			If = {		
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_1
+				}
+				swap_ideas = {
+					add_idea = GER_r56rp_establish_NVA_idea_2
+					remove_idea = GER_r56rp_establish_NVA_idea_1
+				}
+			}
+		}
+	}
+	GER_r56rp_ideological_teaching_of_karl_marxs = {
+		icon = chi_war_of_resistance2
+		cost = 100
+		available = {
+			has_idea = GER_r56rp_establish_NVA_idea_2
+		}
+		complete_effect = {
+			If = {
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_2
+				}
+				swap_ideas = {
+				add_idea = GER_r56rp_establish_NVA_idea_3
+				remove_idea = GER_r56rp_establish_NVA_idea_2
+				}
+			}
+		}
+	}
+	GER_r56rp_impliment_schwerepunkt_tatics = {
+		icon = chi_war_of_resistance2
+		cost = 100
+		available = {
+			has_idea = GER_r56rp_establish_NVA_idea_3
+		}
+		complete_effect = {
+			If = {
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_3
+				}
+				swap_ideas = {
+				add_idea = GER_r56rp_establish_NVA_idea_4
+				remove_idea = GER_r56rp_establish_NVA_idea_3
+				}
+			}
+		}
+	}
+	GER_r56rp_night_battle_tatics = {
+		icon = chi_war_of_resistance2
+		cost = 100
+		available = {
+			has_idea = GER_r56rp_establish_NVA_idea_4
+		}
+		complete_effect = {
+			If = {
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_4
+				}
+				swap_ideas = {
+				add_idea = GER_r56rp_establish_NVA_idea_5
+				remove_idea = GER_r56rp_establish_NVA_idea_4
+				}
+			}
+		}
+	}
+	GER_r56rp_mandatory_civilian_training = {
+		icon = chi_war_of_resistance2
+		cost = 100
+		available = {
+			has_idea = GER_r56rp_establish_NVA_idea_5
+		}
+		complete_effect = {
+			If = {
+				limit = {
+				has_idea = GER_r56rp_establish_NVA_idea_5
+				}
+				swap_ideas = {
+				add_idea = GER_r56rp_establish_NVA_idea_6
+				remove_idea = GER_r56rp_establish_NVA_idea_5
+				}
+			}
+		}
+	}
+	GER_r56rp_revive_karl_marx_from_the_dead = {
+		icon = chi_war_of_resistance2
+		cost = 3000
+		available = {
+			has_idea = GER_r56rp_establish_NVA_idea_6
+		}
+		complete_effect = {
+			If = {
+				limit = {
+					has_idea = GER_r56rp_establish_NVA_idea_6
+				}
+				swap_ideas = {
+					remove_idea = GER_r56rp_establish_NVA_idea_6
+					add_idea = GER_r56rp_establish_NVA_idea_7
+				}
+			}
+			hidden_effect = {
+				add_ideas = GER_r56rp_karl_marx_called_you_cringe
+
+			}
+		}
+	}
+}
+
+
+
+#r56rp_rules = {
+#	r56rp_atlantikwall = {
+#		icon = generic_prepare_civil_war
+#		fire_only_once = yes
+#		state_target = yes
+#		on_map_mode = map_only
+#
+#		target_root_trigger = {
+#			always = yes
+#		}
+#		target_array = GER.controlled_states
+#		#targets = { state = 56 59 }
+#		target_trigger = {
+#			FROM = {
+#				is_coastal = yes
+#				NOT = {
+#					has_state_flag = r56rp_finished_atlantikwall_here
+#				}
+#				OR = {
+#					is_controlled_by = ROOT
+#					owner = {
+#						is_ally_with = ROOT
+#					}
+#				}
+#				OR = {
+#					region = 191 #northern norway
+#					region = 11 #southern norway
+#					region = 277 #jutland
+#					region = 6 #northwest germany
+#					region = 5 #benelaux
+#					region = 19 #Northern france
+#					region = 208 #western france
+#					state = 19
+#					state = 806
+#				}
+#			}
+#		}
+#
+#		complete_effect = {
+#			FROM = {
+#				set_state_flag = r56rp_finished_atlantikwall_here
+#			}
+#			if = {
+#				limit = {
+#					FROM = {
+#						state = 19
+#					}
+#				}
+#				19 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 23
+#					}
+#				}
+#				23 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 30
+#					}
+#				}
+#				30 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 14
+#					}
+#				}
+#				14 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 15
+#					}
+#				}
+#				15 = {
+#					#Fortify naval bases a bit extra close to Calais
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 3
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 29
+#					}
+#				}
+#				29 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#
+#					#Bonus Fortifications on Calais coastline
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					#Biggest fortifications on Calais itself
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_victory_point = yes
+#						}
+#						level = 3
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 6
+#					}
+#				}
+#				6 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}	
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 7
+#					}
+#				}
+#				7 = {
+#					#Fortify naval bases a bit extra close to Calais
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 3
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}	
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 36
+#					}
+#				}	
+#				36 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 56
+#					}
+#				}		
+#				56 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 59
+#					}
+#				}		
+#				59 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 58
+#					}
+#				}		
+#				58 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 99
+#					}
+#				}		
+#				99 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 964
+#					}
+#				}		
+#				964 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 110
+#					}
+#				}		
+#				110 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 142
+#					}
+#				}		
+#				142 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 143
+#					}
+#				}		
+#				143 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 144
+#					}
+#				}		
+#				144 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else_if = {
+#				limit = {
+#					FROM = {
+#						state = 785
+#					}
+#				}
+#				785 = {
+#					#Fortify naval bases
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			else = {
+#				FROM = {
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_naval_base = yes
+#						}
+#						level = 2
+#						instant_build = yes
+#					}
+#					add_building_construction = {
+#						type = coastal_bunker
+#						province = {
+#							all_provinces = yes
+#							limit_to_coastal = yes
+#						}
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#
+#		}
+#	}
+#}
+
+
+	
+
+						
+					
+						
+			
+	

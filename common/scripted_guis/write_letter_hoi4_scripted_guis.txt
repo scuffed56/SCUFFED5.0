@@ -1,0 +1,812 @@
+scripted_gui = { 
+	#molotoffs abomination.
+	# i still havent the foggiest what half the code i cut actualy did, with the exception of the timers.
+	# like a ton of lines was just a randomized insults system, where it would pick from a ready-made list. thats gone, not like it was useable in the first place...
+	
+	show_insults_expanded_diplo_action_window = {
+		context_type = selected_country_context
+		
+		window_name = "show_insults_expanded_diplo_action_window"
+		parent_window_token = selected_country_view_diplomacy
+		
+		visible = {
+			NOT = { tag = ROOT }
+			ROOT = {
+				is_ai = no
+			}
+		}
+		
+		effects = {
+			open_button_click = {
+				ROOT = { set_variable = { selected_country_to_insult = PREV.id } }
+			}
+		}
+	}
+
+	insults_expanded_popup_sender = {
+		context_type = player_context
+		
+		window_name = "insults_expanded_popup_sender"
+		
+		visible = {
+			has_variable = selected_country_to_insult
+		}
+
+		properties = {
+			r56rp_lettermod_flag_sender = {
+				image = "[ROOT.GetFlag]"
+			}
+		}
+
+		effects = {
+			cancel_button_click = {
+				clear_variable = selected_country_to_insult
+				clear_generated_insults_cache = yes
+				if = {
+					limit = {
+						NOT = { has_country_flag = has_sent_a_randomized_insult }
+						has_country_flag = randomized_insult
+					}
+					clr_country_flag = randomized_insult
+				}
+				if = {
+					limit = {
+						NOT = { has_country_flag = has_sent_a_written_insult }
+						has_country_flag = written_insult
+					}
+					clr_country_flag = written_insult
+				}
+			}
+			send_button_click = {
+				var:selected_country_to_insult = {
+					if = {
+						limit = {
+							is_in_array = { insulters = ROOT.id }
+						}
+						remove_from_array = { insulters = ROOT.id }
+					}
+					add_to_array = { insulters = ROOT.id }
+					if = {
+						limit = {
+							has_country_flag = recently_insulted_by_@ROOT
+						}
+						clr_country_flag = recently_insulted_by_@ROOT
+					}
+					else_if = {
+						limit = {
+							ROOT = {
+								NOT = { has_country_flag = custom_achievement_insulted_back }
+								has_country_flag = recently_insulted_by_@PREV
+							}
+						}
+						ROOT = {
+							set_country_flag = custom_achievement_insulted_back	# custom achievement
+						}
+					}
+					set_country_flag = recently_insulted_by_@ROOT
+					if = {
+						limit = {
+							ROOT = { check_variable = { show_write_insult_menu < 1 } }
+						}
+						set_variable = { type_of_received_insult_@ROOT = ROOT.chosen_type_of_insult }
+					}
+					else_if = {
+						limit = {
+							always = yes
+						}
+						if = {
+							limit = {
+								has_variable = type_of_received_insult_@ROOT
+							}
+							clear_variable = type_of_received_insult_@ROOT
+						}
+						for_each_loop = {
+							array = ROOT.written_type_of_insult_array
+							add_to_array = { received_written_type_of_insult_array_@ROOT = v }
+						}
+					}
+				}
+				clear_variable = selected_country_to_insult
+				clear_generated_insults_cache = yes
+				if = {
+					limit = {
+						NOT = { has_country_flag = has_sent_a_randomized_insult }
+						has_country_flag = randomized_insult
+					}
+					set_country_flag = has_sent_a_randomized_insult	# custom achievement
+				}
+				if = {
+					limit = {
+						NOT = { has_country_flag = has_sent_navy_seals_insult }
+						check_variable = { chosen_type_of_insult = 100 }
+					}
+					set_country_flag = has_sent_navy_seals_insult	# custom achievement
+				}
+				if = {
+					limit = {
+						NOT = { has_country_flag = has_sent_a_written_insult }
+						has_country_flag = written_insult
+					}
+					set_country_flag = has_sent_a_written_insult	# custom achievement
+				}
+			}
+
+			# Stuff for Writing Insults
+			write_insult_button_click = {
+				set_temp_variable = { show = 1 }
+				subtract_from_temp_variable = { show = show_write_insult_menu }
+				set_variable = { show_write_insult_menu = show }
+				if = {
+					limit = {
+						check_variable = { show_write_insult_menu > 0 }
+					}
+					clear_variable = chosen_type_of_insult
+					clear_variable = show_insuls_list_window
+					clear_array = valid_insults_list_array
+					if = {
+						limit = {
+							NOT = { has_country_flag = has_sent_a_randomized_insult }
+							has_country_flag = randomized_insult
+						}
+						clr_country_flag = randomized_insult
+					}
+					if = {
+						limit = {
+							NOT = { has_country_flag = has_sent_a_written_insult }
+							NOT = { has_country_flag = written_insult }
+						}
+						set_country_flag = written_insult
+					}
+				}
+				else_if = {
+					limit = {
+						always = yes
+					}
+					set_variable = { chosen_type_of_insult = last_randomized_insults^0 }
+					clear_array = written_type_of_insult_array
+					clear_variable = show_save_insuls_window
+					var:selected_country_to_insult = {
+						ROOT = {
+							randomize_insult_button_effect = yes
+						}
+					}
+					if = {
+						limit = {
+							NOT = { has_country_flag = has_sent_a_randomized_insult }
+							NOT = { has_country_flag = randomized_insult }
+						}
+						set_country_flag = randomized_insult
+					}
+					if = {
+						limit = {
+							NOT = { has_country_flag = has_sent_a_written_insult }
+							has_country_flag = written_insult
+						}
+						clr_country_flag = written_insult
+					}
+				}
+			}
+			write_insult_button_right_click = {
+				clear_array = written_type_of_insult_array
+			}
+			save_insult_button_click = {
+				set_temp_variable = { show = 1 }
+				subtract_from_temp_variable = { show = show_save_insuls_window }
+				set_variable = { show_save_insuls_window = show }
+				if = {
+					limit = {
+						check_variable = { saved_written_insults_array^num < 1 }
+					}
+					add_to_array = { array = saved_written_insults_array value = 0 index = 0 }
+				}
+			}
+			button_0_click = {
+				add_to_array = { written_type_of_insult_array = -10 }
+			}
+			button_1_click = {
+				add_to_array = { written_type_of_insult_array = -9 }
+			}
+			button_2_click = {
+				add_to_array = { written_type_of_insult_array = -8 }
+			}
+			button_3_click = {
+				add_to_array = { written_type_of_insult_array = -7 }
+			}
+			button_4_click = {
+				add_to_array = { written_type_of_insult_array = -6 }
+			}
+			button_5_click = {
+				add_to_array = { written_type_of_insult_array = -5 }
+			}
+			button_6_click = {
+				add_to_array = { written_type_of_insult_array = -4 }
+			}
+			button_7_click = {
+				add_to_array = { written_type_of_insult_array = -3 }
+			}
+			button_8_click = {
+				add_to_array = { written_type_of_insult_array = -2 }
+			}
+			button_9_click = {
+				add_to_array = { written_type_of_insult_array = -1 }
+			}
+			button_a_click = {
+				add_to_array = { written_type_of_insult_array = 1 }
+			}
+			button_a_capital_click = {
+				add_to_array = { written_type_of_insult_array = 1.5 }
+			}
+			button_b_click = {
+				add_to_array = { written_type_of_insult_array = 2 }
+			}
+			button_b_capital_click = {
+				add_to_array = { written_type_of_insult_array = 2.5 }
+			}
+			button_c_click = {
+				add_to_array = { written_type_of_insult_array = 3 }
+			}
+			button_c_capital_click = {
+				add_to_array = { written_type_of_insult_array = 3.5 }
+			}
+			button_d_click = {
+				add_to_array = { written_type_of_insult_array = 4 }
+			}
+			button_d_capital_click = {
+				add_to_array = { written_type_of_insult_array = 4.5 }
+			}
+			button_e_click = {
+				add_to_array = { written_type_of_insult_array = 5 }
+			}
+			button_e_capital_click = {
+				add_to_array = { written_type_of_insult_array = 5.5 }
+			}
+			button_f_click = {
+				add_to_array = { written_type_of_insult_array = 6 }
+			}
+			button_f_capital_click = {
+				add_to_array = { written_type_of_insult_array = 6.5 }
+			}
+			button_g_click = {
+				add_to_array = { written_type_of_insult_array = 7 }
+			}
+			button_g_capital_click = {
+				add_to_array = { written_type_of_insult_array = 7.5 }
+			}
+			button_h_click = {
+				add_to_array = { written_type_of_insult_array = 8 }
+			}
+			button_h_capital_click = {
+				add_to_array = { written_type_of_insult_array = 8.5 }
+			}
+			button_i_click = {
+				add_to_array = { written_type_of_insult_array = 9 }
+			}
+			button_i_capital_click = {
+				add_to_array = { written_type_of_insult_array = 9.5 }
+			}
+			button_j_click = {
+				add_to_array = { written_type_of_insult_array = 10 }
+			}
+			button_j_capital_click = {
+				add_to_array = { written_type_of_insult_array = 10.5 }
+			}
+			button_k_click = {
+				add_to_array = { written_type_of_insult_array = 11 }
+			}
+			button_k_capital_click = {
+				add_to_array = { written_type_of_insult_array = 11.5 }
+			}
+			button_l_click = {
+				add_to_array = { written_type_of_insult_array = 12 }
+			}
+			button_l_capital_click = {
+				add_to_array = { written_type_of_insult_array = 12.5 }
+			}
+			button_m_click = {
+				add_to_array = { written_type_of_insult_array = 13 }
+			}
+			button_m_capital_click = {
+				add_to_array = { written_type_of_insult_array = 13.5 }
+			}
+			button_n_click = {
+				add_to_array = { written_type_of_insult_array = 14 }
+			}
+			button_n_capital_click = {
+				add_to_array = { written_type_of_insult_array = 14.5 }
+			}
+			button_o_click = {
+				add_to_array = { written_type_of_insult_array = 15 }
+			}
+			button_o_capital_click = {
+				add_to_array = { written_type_of_insult_array = 15.5 }
+			}
+			button_p_click = {
+				add_to_array = { written_type_of_insult_array = 16 }
+			}
+			button_p_capital_click = {
+				add_to_array = { written_type_of_insult_array = 16.5 }
+			}
+			button_q_click = {
+				add_to_array = { written_type_of_insult_array = 17 }
+			}
+			button_q_capital_click = {
+				add_to_array = { written_type_of_insult_array = 17.5 }
+			}
+			button_r_click = {
+				add_to_array = { written_type_of_insult_array = 18 }
+			}
+			button_r_capital_click = {
+				add_to_array = { written_type_of_insult_array = 18.5 }
+			}
+			button_s_click = {
+				add_to_array = { written_type_of_insult_array = 19 }
+			}
+			button_s_capital_click = {
+				add_to_array = { written_type_of_insult_array = 19.5 }
+			}
+			button_t_click = {
+				add_to_array = { written_type_of_insult_array = 20 }
+			}
+			button_t_capital_click = {
+				add_to_array = { written_type_of_insult_array = 20.5 }
+			}
+			button_u_click = {
+				add_to_array = { written_type_of_insult_array = 21 }
+			}
+			button_u_capital_click = {
+				add_to_array = { written_type_of_insult_array = 21.5 }
+			}
+			button_v_click = {
+				add_to_array = { written_type_of_insult_array = 22 }
+			}
+			button_v_capital_click = {
+				add_to_array = { written_type_of_insult_array = 22.5 }
+			}
+			button_w_click = {
+				add_to_array = { written_type_of_insult_array = 23 }
+			}
+			button_w_capital_click = {
+				add_to_array = { written_type_of_insult_array = 23.5 }
+			}
+			button_x_click = {
+				add_to_array = { written_type_of_insult_array = 24 }
+			}
+			button_x_capital_click = {
+				add_to_array = { written_type_of_insult_array = 24.5 }
+			}
+			button_y_click = {
+				add_to_array = { written_type_of_insult_array = 25 }
+			}
+			button_y_capital_click = {
+				add_to_array = { written_type_of_insult_array = 25.5 }
+			}
+			button_z_click = {
+				add_to_array = { written_type_of_insult_array = 26 }
+			}
+			button_z_capital_click = {
+				add_to_array = { written_type_of_insult_array = 26.5 }
+			}
+			button_minus_click = {
+				add_to_array = { written_type_of_insult_array = 27 }
+			}
+			button_space_click = {
+				add_to_array = { written_type_of_insult_array = 28 }
+			}
+			button_comma_click = {
+				add_to_array = { written_type_of_insult_array = 29 }
+			}
+			button_questionmark_click = {
+				add_to_array = { written_type_of_insult_array = 30 }
+			}
+			button_apostrophe_click = {
+				add_to_array = { written_type_of_insult_array = 31 }
+			}
+			button_dot_click = {
+				add_to_array = { written_type_of_insult_array = 32 }
+			}
+			button_quotationmark_click = {
+				add_to_array = { written_type_of_insult_array = 33 }
+			}
+			button_exclamationmark_click = {
+				add_to_array = { written_type_of_insult_array = 34 }
+			}
+			button_bracketopen_click = {
+				add_to_array = { written_type_of_insult_array = 35 }
+			}
+			button_bracketclose_click = {
+				add_to_array = { written_type_of_insult_array = 36 }
+			}
+			button_delete_click = {
+				set_temp_variable = { temp = written_type_of_insult_array^num }
+				subtract_from_temp_variable = { temp = 1 }
+				remove_from_array = { array = written_type_of_insult_array index = temp }
+			}
+		}
+		
+		triggers = {
+			send_button_click_enabled = {
+				custom_trigger_tooltip = {
+					#tooltip = ROOT_COULD_INSULT_TARGET_NORMALLY_TOO
+					var:selected_country_to_insult = {
+						NOT = { is_in_faction_with = ROOT }
+						NOT = { has_war_with = ROOT }
+					}
+					OR = {
+						AND = {
+							check_variable = { show_write_insult_menu < 1 }
+							has_variable = chosen_type_of_insult
+						}
+						AND = {
+							check_variable = { show_write_insult_menu > 0 }
+							check_variable = { written_type_of_insult_array^num > 2 }
+						}
+					}
+				}
+			}
+			write_insult_button_right_click_enabled = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			# Stuff for Writing Insults
+			save_insult_button_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_0_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_1_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_2_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_3_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_4_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_5_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_6_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_7_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_8_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_9_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_a_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_a_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_b_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_b_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_c_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_c_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_d_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_d_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_e_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_e_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_f_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_f_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_g_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_g_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_h_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_h_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_i_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_i_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_j_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_j_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_k_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_k_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_l_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_l_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_m_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_m_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_n_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_n_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_o_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_o_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_p_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_p_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_q_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_q_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_r_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_r_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_s_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_s_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_t_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_t_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_u_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_u_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_v_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_v_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_w_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_w_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_x_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_x_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_y_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_y_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_z_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_z_capital_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_minus_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_space_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_comma_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_questionmark_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_apostrophe_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_dot_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_quotationmark_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_exclamationmark_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_bracketopen_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_bracketclose_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+			}
+			button_delete_visible = {
+				check_variable = { show_write_insult_menu > 0 }
+				check_variable = { written_type_of_insult_array^num > 0 }
+			}
+		}
+		
+		dynamic_lists = {
+			insult_entry_gridbox = {
+				array = written_type_of_insult_array
+				entry_container = insult_entry_gridbox_entry
+			}
+		}
+		
+		ai_enabled = {
+			always = yes
+		}
+		
+		ai_test_interval = 24
+		ai_test_variance = 0.2
+		
+		ai_check = {
+			always = yes
+		}
+		
+		ai_weights = {
+			send_button_click = {
+				ai_will_do = {
+					factor = 0
+				}
+			}
+			cancel_button_click = {
+				ai_will_do = {
+					factor = 0
+					modifier = {
+						var:selected_country_to_insult = {
+							OR = {
+								is_in_faction_with = ROOT
+								has_war_with = ROOT
+								AND = {
+									has_country_flag = recently_insulted_by_@ROOT
+									NOT = {
+										has_country_flag = {
+											flag = recently_insulted_by_@ROOT
+											days > 2
+										}
+									}
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			write_insult_button_click = {
+				ai_will_do = {
+					factor = 0
+				}
+			}
+		}
+	}
+	
+	insults_expanded_popup_receiver = {
+		context_type = player_context
+		
+		properties = {
+			r56rp_lettermod_flag_reciever = {
+				image = "[PREV.GetFlag]"
+			}
+		}
+
+		window_name = "insults_expanded_popup_receiver"
+		
+		visible = {
+			ROOT = {
+				NOT = { check_variable = { insulters^0 = 0 } }
+			}
+		}
+		
+		effects = {
+			insult_back_button_click = {
+				ROOT = {
+					set_variable = { selected_country_to_insult = PREV.id }
+					clear_variable = type_of_received_insult_@PREV
+					clear_array = received_written_type_of_insult_array_@PREV
+					remove_from_array = { insulters = PREV.id }
+					randomize_insult_button_effect = yes
+				}
+			}
+			ok_button_click = {
+				ROOT = {
+					clear_variable = type_of_received_insult_@PREV
+					clear_array = received_written_type_of_insult_array_@PREV
+					remove_from_array = { insulters = PREV.id }
+				}
+			}
+		}
+		
+		triggers = {
+			insult_back_button_click_enabled = {
+				custom_trigger_tooltip = {
+					#tooltip = ROOT_COULD_INSULT_TARGET_NORMALLY_TOO
+					NOT = { is_in_faction_with = ROOT }
+					NOT = { has_war_with = ROOT }
+				}
+			}
+		}
+		
+		dynamic_lists = {
+			insults_expanded_popup_receiver_gridbox = {
+				array = insulters
+				entry_container = insults_expanded_popup_receiver_entry
+				change_scope = yes
+				
+				ai_weights = {
+					insult_back_button_click = {
+						ai_will_do = {
+							factor = 0
+						}
+					}
+					ok_button_click = {
+						ai_will_do = {
+							factor = 1
+						}
+					}
+				}
+			}
+			insult_entry_gridbox = {
+				array = ROOT.received_written_type_of_insult_array_@THIS
+				entry_container = insult_entry_gridbox_entry
+			}
+		}
+		
+		ai_enabled = {
+			always = yes
+		}
+		
+		ai_test_interval = 24
+		ai_test_variance = 0.2
+		
+		ai_check = {
+			always = yes
+		}
+	}
+}

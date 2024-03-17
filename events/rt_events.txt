@@ -1,0 +1,319 @@
+add_namespace = rt
+
+country_event = {
+	id = rt.1 # request
+	title = rt.1.title
+	desc = rt.1.desc
+	picture = GFX_r56w_generic_event_07
+
+	is_triggered_only = yes
+	
+	option = { 
+		name = rt.1.a
+		
+		
+		FROM ={
+			country_event = rt.5
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = rt.1.b
+		FROM ={
+			country_event = rt.3
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+country_event = {
+	id = rt.2 # gift
+	title = rt.2.title
+	desc = rt.2.desc
+	picture = GFX_r56w_generic_event_07
+
+	is_triggered_only = yes
+	
+	option = { 
+		name = rt.2.a
+		
+		FROM ={
+			country_event = rt.6
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = rt.2.b
+		FROM ={
+			country_event = rt.4
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+country_event = {
+	id = rt.3 # request rejected
+	title = rt.3.title
+	desc = rt.3.desc
+	picture = GFX_r56w_generic_event_07
+
+	is_triggered_only = yes
+	option = { 
+		name = rt.3.a
+		root = {
+			set_variable = { aluminium_selected = 1 }
+			set_variable = { oil_selected = 1 }
+			set_variable = { rubber_selected = 1 }
+			set_variable = { steel_selected = 1 }
+			set_variable = { chromium_selected = 1 }
+			set_variable = { tungsten_selected = 1 }
+
+			set_variable = { aluminium_ammount = 0 }
+			set_variable = { oil_ammount = 0 }
+			set_variable = { rubber_ammount = 0 }
+			set_variable = { steel_ammount = 0 }
+			set_variable = { chromium_ammount = 0 }
+			set_variable = { tungsten_ammount = 0 }
+
+			clear_array = resource_list
+			set_variable = { state_lock = 1 }
+			set_variable = { state_lock_id = 0 }
+			clr_country_flag = rt_waiting
+		}
+	}
+}
+
+country_event = {
+	id = rt.4 # gift rejected
+	title = rt.4.title
+	desc = rt.4.desc
+	picture = GFX_r56w_generic_event_07
+
+	is_triggered_only = yes
+	option = { 
+		name = rt.4.a
+		root = {
+			set_variable = { aluminium_selected = 1 }
+			set_variable = { oil_selected = 1 }
+			set_variable = { rubber_selected = 1 }
+			set_variable = { steel_selected = 1 }
+			set_variable = { chromium_selected = 1 }
+			set_variable = { tungsten_selected = 1 }
+
+			set_variable = { aluminium_ammount = 0 }
+			set_variable = { oil_ammount = 0 }
+			set_variable = { rubber_ammount = 0 }
+			set_variable = { steel_ammount = 0 }
+			set_variable = { chromium_ammount = 0 }
+			set_variable = { tungsten_ammount = 0 }
+
+			clear_array = resource_list
+			set_variable = { state_lock = 1 }
+			set_variable = { state_lock_id = 0 }
+			clr_country_flag = rt_waiting
+		}
+	}
+}
+
+country_event = {
+	id = rt.5 # request accepted
+	title = rt.5.title
+	desc = rt.5.desc
+	picture = GFX_r56w_generic_event_07
+
+	is_triggered_only = yes
+	option = { 
+		name = rt.5.a
+		FROM = {
+			if = {
+				limit = {
+					check_variable = { ROOT.aluminium_selected = 2}
+				}
+				give_resource_rights = {
+					receiver = ROOT
+					state = ROOT.state_lock_id
+					resources = { aluminium }
+				}					
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.steel_selected = 2}
+				}
+				give_resource_rights = {
+					receiver = ROOT
+					state = ROOT.state_lock_id
+					resources = { steel }
+				}	
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.oil_selected = 2}
+				}
+				give_resource_rights = {
+					receiver = ROOT
+					state = ROOT.state_lock_id
+					resources = { oil }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.chromium_selected = 2}
+				}
+				give_resource_rights = {
+					receiver = ROOT
+					state = ROOT.state_lock_id
+					resources = { chromium }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.rubber_selected = 2}
+				}
+				give_resource_rights = {
+					receiver = ROOT
+					state = ROOT.state_lock_id
+					resources = { rubber }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.tungsten_selected = 2}
+				}
+				give_resource_rights = {
+					receiver = ROOT
+					state = ROOT.state_lock_id
+					resources = { tungsten }
+				}
+			}
+		}
+		ROOT = {
+			set_variable = { aluminium_selected = 1 }
+			set_variable = { oil_selected = 1 }
+			set_variable = { rubber_selected = 1 }
+			set_variable = { steel_selected = 1 }
+			set_variable = { chromium_selected = 1 }
+			set_variable = { tungsten_selected = 1 }
+
+			set_variable = { aluminium_ammount = 0 }
+			set_variable = { oil_ammount = 0 }
+			set_variable = { rubber_ammount = 0 }
+			set_variable = { steel_ammount = 0 }
+			set_variable = { chromium_ammount = 0 }
+			set_variable = { tungsten_ammount = 0 }
+
+			clear_array = resource_list
+			set_variable = { state_lock = 1 }
+			set_variable = { state_lock_id = 0 }
+			clr_country_flag = rt_waiting
+		}
+		
+	}
+}
+
+country_event = {
+	id = rt.6 # gift accepted
+	title = rt.6.title
+	desc = rt.6.desc
+	picture = GFX_r56w_generic_event_07
+
+	is_triggered_only = yes
+	option = { 
+		name = rt.6.a
+		ROOT = {
+			if = {
+				limit = {
+					check_variable = { ROOT.aluminium_selected = 2}
+				}
+					give_resource_rights = {
+						receiver = FROM
+						state = ROOT.state_lock_id
+						resources = { aluminium }
+					}
+				
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.steel_selected = 2}
+				}
+				give_resource_rights = {
+					receiver = FROM
+					state = ROOT.state_lock_id
+					resources = { steel }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.oil_selected = 2}
+				}
+				give_resource_rights = {
+					receiver = FROM
+					state = ROOT.state_lock_id
+					resources = { oil }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.chromium_selected = 2}
+				}
+				give_resource_rights = {
+					receiver = FROM
+					state = ROOT.state_lock_id
+					resources = { chromium }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.rubber_selected = 2}
+				}
+				ROOT = {
+					give_resource_rights = {
+						receiver = FROM
+						state = ROOT.state_lock_id
+						resources = { rubber }
+					}
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ROOT.tungsten_selected = 2}
+				}
+				ROOT = {
+					give_resource_rights = {
+						receiver = FROM
+						state = ROOT.state_lock_id
+						resources = { tungsten }
+					}
+				}	
+			}
+		}
+		
+		ROOT = {
+			set_variable = { aluminium_selected = 1 }
+			set_variable = { oil_selected = 1 }
+			set_variable = { rubber_selected = 1 }
+			set_variable = { steel_selected = 1 }
+			set_variable = { chromium_selected = 1 }
+			set_variable = { tungsten_selected = 1 }
+
+			set_variable = { aluminium_ammount = 0 }
+			set_variable = { oil_ammount = 0 }
+			set_variable = { rubber_ammount = 0 }
+			set_variable = { steel_ammount = 0 }
+			set_variable = { chromium_ammount = 0 }
+			set_variable = { tungsten_ammount = 0 }
+
+			clear_array = resource_list
+			set_variable = { state_lock = 1 }
+			set_variable = { state_lock_id = 0 }
+			clr_country_flag = rt_waiting
+		}
+	}
+}

@@ -427,6 +427,14 @@ leader_traits = {
 				FROM = { has_idea = SOV_purged_junior_army_officers_3 }
 				factor = 0
 			}
+			
+			modifier = {
+				FROM = { 
+					has_dlc = "By Blood Alone"
+				}
+				factor = 0
+			}
+			
 		}
 		defense_skill_factor = 1
 		planning_skill_factor = 1
@@ -435,6 +443,12 @@ leader_traits = {
 	cavalry_officer = { 
 		type = land
 		trait_type = personality_trait
+		unit_type = {
+			type = cavalry
+			type = camelry
+			type = motorized
+			type = mechanized
+		}
 		
 		trait_xp_factor = {
 			cavalry_leader = 1     #+100%
@@ -861,7 +875,6 @@ leader_traits = {
 		logistics_skill_factor = 1
 	}
 
-
 	
 ##################################
 # Field Marshal traits.
@@ -1198,10 +1211,16 @@ leader_traits = {
 	}
 	skilled_staffer = { 
 		type = corps_commander
-		gain_xp = {
-			check_variable = { num_units > 23 }
+		gain_xp_leader = {
+			if = {
+				limit = { is_leading_army_group = yes }
+				check_variable = { num_units > 99 }
+			}
+			else = {
+				check_variable = { num_units > 23 }
+			}
 		}
-		custom_gain_xp_trigger_tooltip = fighting_with_at_least_23_units
+		custom_gain_xp_trigger_tooltip = fighting_with_enough_units
 		
 		cost = 2000
 		
@@ -1399,26 +1418,6 @@ leader_traits = {
 		}
 		gui_row = 10
 		
-	#	unit_trigger = { # maybe it caused the system to break and no trait to be awarded?
-	#		OR = {
-	#			division_has_majority_template = paratrooper #now gainable with BBA, experimental, originally used for paratrooper trait, adapted to marines
-	#			division_has_majority_template = marine
-	#			division_has_majority_template = jaeger
-	#			division_has_majority_template = jungletroop
-	#			division_has_majority_template = desertinfantry
-	#			division_has_majority_template = shocktroop				
-	#		}
-	#		
-	#		owner = {
-	#			NOT = {
-	#				OR = {
-	#					has_idea = best_of_the_best_spirit
-	#					has_idea = academy_scholarships_spirit
-	#				}
-	#			}
-	#		}
-	#	}
-
 		slot = high_command
 		specialist_advisor_trait = army_commando_1
 		expert_advisor_trait = army_commando_2
@@ -1862,18 +1861,6 @@ leader_traits = {
 			factor = 0
 		}
 		
-	#	unit_trigger = {
-	#		division_has_majority_template = paratrooper #now gainable with BBA, experimental, after test doesn't seem to work upon promotion
-	#		owner = {
-	#			NOT = {
-	#				OR = {
-	#					has_idea = best_of_the_best_spirit
-	#					has_idea = academy_scholarships_spirit
-	#				}
-	#			}
-	#		}
-	#	}
-
 		trait_type = assignable_trait
 		any_parent = { commando }
 		
@@ -2597,6 +2584,10 @@ leader_traits = {
 		type = navy
 		sub_unit_modifiers = {
 			nav_bomber = {
+				air_attack_factor = 0.1
+				air_mission_efficiency = 0.1
+			}
+			cv_nav_bomber = {
 				air_attack_factor = 0.1
 				air_mission_efficiency = 0.1
 			}
@@ -3668,6 +3659,20 @@ leader_traits = {
 			boost_resistance_factor = 0.25
 		}
 	}
+	
+	promoted_from_the_ranks = {  
+		type = land
+		trait_type = personality_trait
+		
+		modifier = {
+			promote_cost_factor = 0.5
+			planning_speed = 0.1
+			recon_factor = 0.05
+		}
 
+		new_commander_weight = {
+			factor = 0
+		}
+	}
 
 }

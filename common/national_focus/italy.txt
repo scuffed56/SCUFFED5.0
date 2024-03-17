@@ -3353,6 +3353,89 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+
+			IF = { #aat probably doing something on its own, stilln nice tooltip to have for anyone without the dlc
+				limit = {
+					NOT = {
+						has_dlc = "Arms Against Tyranny"
+					}
+				}
+				custom_effect_tooltip = r56rp_italy_designer_changes.tt #in r56rp_i_english.yml
+				effect_tooltip = {
+					swap_ideas = {
+						remove_idea = fiat
+						add_idea = ITA_fiat_improved
+					}
+			
+				#NAVAL
+					swap_ideas = {
+						remove_idea = crda
+						add_idea = ITA_crda_improved
+					}
+					swap_ideas = {
+						remove_idea = ITA_cantiere_oto
+						add_idea = ITA_cantiere_oto_improved
+					}
+			
+				#AIRCRAFT
+					swap_ideas = {
+						remove_idea = macchi
+						add_idea = ITA_macchi_improved
+					}
+					swap_ideas = {
+						remove_idea = savoia_marchetti
+						add_idea = ITA_savoia_marchetti_improved
+					}
+					swap_ideas = {
+						remove_idea = caproni
+						add_idea = ITA_caproni_improved
+					}
+					swap_ideas = {
+						remove_idea = piaggio
+						add_idea = ITA_piaggio_improved
+					}
+					swap_ideas = {
+						remove_idea = ITA_crda_cant
+						add_idea = ITA_crda_cant_improved
+					}
+					swap_ideas = {
+						remove_idea = ITA_fiat_aviazione
+						add_idea = ITA_fiat_aviazione_improved
+					}
+			
+				#MATERIEL
+					swap_ideas = {
+						remove_idea = beretta
+						add_idea = ITA_beretta_improved
+					}
+					swap_ideas = {
+						remove_idea = lancia
+						add_idea = ITA_lancia_improved
+					}
+					swap_ideas = {
+						remove_idea = breda
+						add_idea = ITA_breda_improved
+					}
+					swap_ideas = {
+						remove_idea = ITA_brescia_arsenal
+						add_idea = ITA_brescia_arsenal_improved
+					}
+			
+				#INDUSTRIAL
+					swap_ideas = {
+						remove_idea = danieli
+						add_idea = ITA_danieli_improved
+					}
+					swap_ideas = {
+						remove_idea = ITA_italcementi
+						add_idea = ITA_italcementi_improved
+					}
+					swap_ideas = {
+						remove_idea = ITA_ducati_energia
+						add_idea = ITA_ducati_energia_improved
+					}
+				}
+			}
 		}
 	}
 	
@@ -3441,6 +3524,7 @@ focus_tree = {
 						province = 819					
 					}
 				}
+				
 			}
 
 			if = {
@@ -3539,6 +3623,41 @@ focus_tree = {
 			#		}
 			#	}
 			#}
+
+			custom_effect_tooltip = r56rp_italy_designer_changes.tt #in r56rp_i_english.yml
+
+			effect_tooltip = {
+				#NAVAL
+				swap_ideas = {
+					remove_idea = ITA_navalmeccanica
+					add_idea = ITA_navalmeccanica_improved
+				}
+				swap_ideas = {
+					remove_idea = ITA_cantiere_navale_di_ancona
+					add_idea = ITA_cantiere_navale_di_ancona_improved
+				}
+				swap_ideas = {
+					remove_idea = ITA_cantieri_navali_tosi
+					add_idea = ITA_cantieri_navali_tosi_improved
+				}
+
+				#AIRCRAFT
+				swap_ideas = {
+					remove_idea = ITA_imam
+					add_idea = ITA_imam_improved
+				}
+
+				#INDUSTRIAL
+				swap_ideas = {
+					remove_idea = ITA_terni_industria_ed_elettricita
+					add_idea = ITA_terni_industria_ed_elettricita_improved
+				}
+				swap_ideas = {
+					remove_idea = ITA_astaldi
+					add_idea = ITA_astaldi_improved
+				}
+				##
+			}
 		}
 	}
 
@@ -3590,7 +3709,6 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
-
 	focus = {
 		id = ITA_new_industrialization_program
 		icon = GFX_focus_generic_industry_3
@@ -5181,7 +5299,6 @@ focus_tree = {
 
 			#Update NS icon
 			ITA_improve_regio_esercito_dm_effect = yes
-			
 			if = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
@@ -21284,8 +21401,23 @@ focus_tree = {
 			add_to_variable = { ITA_military_industry_dm_industrial_capacity_dockyard = 0.05 }
 			custom_effect_tooltip = ITA_new_ricostruzione_industriale_military_industry_dm_tt
 
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = ITA_officine_meccaniche
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = ITA_officine_meccaniche_organization
+				mio:ITA_officine_meccaniche_organization = {
+					complete_mio_trait = ITA_mio_trait_new_ricostruzione_iundustriale_motorized
+					complete_mio_trait = ITA_mio_trait_new_ricostruzione_iundustriale_mechanized
+					complete_mio_trait = ITA_mio_trait_new_ricostruzione_iundustriale_train
+					add_mio_size = 3
+				}
+			}
+			else = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = ITA_officine_meccaniche
+			}
 		}
 	}
 
@@ -22524,6 +22656,7 @@ focus_tree = {
 
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = ITA_enrico_fermi
+			show_ideas_tooltip = ITA_alberto_tarchiani
 
 			ITA_bop_low_increase_democratic_side_effect = yes
 		}

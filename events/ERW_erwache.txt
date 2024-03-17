@@ -139,7 +139,7 @@ country_event = { #Steelworks Issues
 
 	fire_only_once = yes
 
-	option = { #was Goering Works, now genericized
+	option = { #Goering Works
 		name = erwache.2.a
 		ai_chance = {
 			factor = 70
@@ -150,19 +150,19 @@ country_event = { #Steelworks Issues
 			amount = 30
 			state = 66
 		}
-		#add_ideas = goeringworks_idea
+		add_ideas = goeringworks_idea
 
 	}
 
-	# option = { #United Steel
-	# 	name = erwache.2.b
-	# 	ai_chance = {
-	# 		factor = 30
-	# 	}
+	option = { #United Steel
+		name = erwache.2.b
+		ai_chance = {
+			factor = 30
+		}
 
-	# 	add_ideas = united_steel_idea	#underpowered
+		add_ideas = united_steel_idea
 
-	# }
+	}
 }
 
 country_event = { #Peaceful Empire
@@ -393,7 +393,7 @@ country_event = { #Crazy Empire
 	}
 }
 
-country_event = {#Reviving Brest Litovsk
+country_event = { #Reviving Brest Litovsk
 	id = erwache.7
 	title = erwache.7.t
 	desc = erwache.7.d
@@ -407,6 +407,18 @@ country_event = {#Reviving Brest Litovsk
 		name = erwache.7.a
 		ai_chance = {
 			factor = 90
+			modifier = {
+				factor = 70
+				surrender_progress > 0.3
+			}
+			modifier = {
+				factor = 50
+				surrender_progress > 0.5
+			}
+			modifier = {
+				factor = 30
+				surrender_progress > 0.7
+			}
 		}
 		news_event = erwache_news.2
 	}
@@ -415,209 +427,406 @@ country_event = {#Reviving Brest Litovsk
 		ai_chance = {
 			factor = 10
 			modifier = {
-				factor = 3
+				factor = 30
 				surrender_progress > 0.3
 			}
 			modifier = {
-				factor = 7
+				factor = 50
+				surrender_progress > 0.5
+			}
+			modifier = {
+				factor = 70
 				surrender_progress > 0.7
 			}
 		}
-		GER = { white_peace	= SOV}
-		if = {
-			limit = {
-				SOV = {owns_state = 11}
-			}
-			GER = {transfer_state = 11}
+
+		GER = { 
+			white_peace	= SOV
 		}
-		if = {
-			limit = {
-				SOV = {owns_state = 188}
+		#transfer states to germany (like ostland and other things like that.)
+		effect_tooltip = {
+			every_state = {
+				limit = {
+					is_controlled_by = SOV
+					OR = {
+						state = 188
+						state = 807
+						state = 86
+						state = 762
+						state = 85
+					}
+				}
+				set_state_owner_to = GER
 			}
-			GER = {transfer_state = 188}
+			SOV = {
+				release = UKR
+				release = BLR
+				release = LIT
+				release = LAT
+				release = EST
+				release = POL
+			}
+			GER = {
+				if = {
+					limit = {
+						has_government = neutrality
+					}
+					set_autonomy = {
+						target = EST
+						autonomy_state = autonomy_reichsland
+					}
+					set_autonomy = {
+						target = LIT
+						autonomy_state = autonomy_reichsland
+					}
+					set_autonomy = {
+						target = LAT
+						autonomy_state = autonomy_reichsland
+					}
+					set_autonomy = {
+						target = BLR
+						autonomy_state = autonomy_reichsland
+					}
+					set_autonomy = {
+						target = POL
+						autonomy_state = autonomy_reichsgouvernement
+					}
+					set_autonomy = {
+						target = UKR
+						autonomy_state = autonomy_reichsgouvernement
+					}
+				}
+				if = {
+					limit = {
+						has_government = fascism
+						has_dlc = "Death or Dishonor"
+					}
+					set_autonomy = {
+						target = EST
+						autonomy_state = autonomy_reichskommissariat
+					}
+					set_autonomy = {
+						target = LIT
+						autonomy_state = autonomy_reichskommissariat
+					}
+					set_autonomy = {
+						target = LAT
+						autonomy_state = autonomy_reichskommissariat
+					}
+					set_autonomy = {
+						target = BLR
+						autonomy_state = autonomy_reichskommissariat
+					}
+					set_autonomy = {
+						target = POL
+						autonomy_state = autonomy_reichsprotectorate
+					}
+					set_autonomy = {
+						target = UKR
+						autonomy_state = autonomy_reichsprotectorate
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_government = fascism has_dlc = "Death or Dishonor" }
+					}
+					set_autonomy = {
+						target = EST
+						autonomy_state = autonomy_puppet
+					}
+					set_autonomy = {
+						target = LIT
+						autonomy_state = autonomy_puppet
+					}
+					set_autonomy = {
+						target = LAT
+						autonomy_state = autonomy_puppet
+					}
+					set_autonomy = {
+						target = BLR
+						autonomy_state = autonomy_puppet
+					}
+					set_autonomy = {
+						target = POL
+						autonomy_state = autonomy_puppet
+					}
+					set_autonomy = {
+						target = UKR
+						autonomy_state = autonomy_puppet
+					}
+				}
+			}
 		}
-		if = {
-			limit = {
-				SOV = {owns_state = 189}
+		hidden_effect = {
+			every_state = {
+				if = {
+					limit = {
+						is_controlled_by = SOV
+						OR = {
+							state = 188
+							state = 807
+							state = 86
+							state = 762
+							state = 85
+						}
+					}
+					transfer_state_to = GER
+				}
+				if = {
+					limit = {
+						is_controlled_by = SOV
+						OR = {
+							state = 13
+							state = 811
+							state = 812
+							state = 813
+							state = 191
+						}
+					}
+					transfer_state_to = EST
+					GER = {
+						if = {
+							limit = { has_government = fascism has_dlc = "Death or Dishonor" }
+							set_autonomy = {
+								target = EST
+								autonomy_state = autonomy_reichskommissariat
+							}
+						}
+						else_if = {
+							limit = { NOT = { has_government = neutrality } }
+							set_autonomy = {
+								target = EST
+								autonomy_state = autonomy_puppet
+							}
+						}
+						else = {
+							set_autonomy = {
+								target = EST
+								autonomy_state = autonomy_reichsland
+							}
+						}
+					}
+					EST = { set_cosmetic_tag = EST_BRLI }
+				}
+				if = {
+					limit = {
+						is_controlled_by = SOV
+						OR = {
+							state = 12
+							state = 810
+							state = 808
+							state = 809
+							state = 190
+						}
+					}
+					transfer_state_to = LAT
+					GER = {
+						if = {
+							limit = { has_government = fascism has_dlc = "Death or Dishonor" }
+							set_autonomy = {
+								target = LAT
+								autonomy_state = autonomy_reichskommissariat
+							}
+						}
+						else_if = {
+							limit = { NOT = { has_government = neutrality } }
+							set_autonomy = {
+								target = LAT
+								autonomy_state = autonomy_puppet
+							}
+						}
+						else = {
+							set_autonomy = {
+								target = LAT
+								autonomy_state = autonomy_reichsland
+							}
+						}
+					}
+					LAT = { set_cosmetic_tag = LAT_BRLI }
+				}
+				if = {
+					limit = {
+						is_controlled_by = SOV
+						OR = {
+							state = 189
+							state = 815
+							state = 11
+							state = 814
+							state = 784
+						}
+					}
+					transfer_state_to = LIT
+					LIT = { set_capital = { state = 784 } }
+					GER = {
+						if = {
+							limit = { has_government = fascism has_dlc = "Death or Dishonor" }
+							set_autonomy = {
+								target = LIT
+								autonomy_state = autonomy_reichskommissariat
+							}
+						}
+						else_if = {
+							limit = { NOT = { has_government = neutrality } }
+							set_autonomy = {
+								target = LIT
+								autonomy_state = autonomy_puppet
+							}
+						}
+						else = {
+							set_autonomy = {
+								target = LIT
+								autonomy_state = autonomy_reichsland
+							}
+						}
+					}
+					LIT = { set_cosmetic_tag = LIT_BRLI }
+				}
+				if = {
+					limit = {
+						is_controlled_by = SOV
+						OR = {
+							state = 206
+							state = 204
+							state = 194
+							state = 94
+							state = 95
+							state = 96
+							state = 935
+							state = 936
+							state = 934
+							state = 97
+							state = 814
+						}
+					}
+					transfer_state_to = BLR
+					BLR = {
+						create_country_leader = {
+							name = GER_name_ober_ost_command_RT56RP
+							desc = "POLITICS_RT56RP_OBER_OST_DESC"
+							picture = GFX_Portrait_Ober_Ost
+							expire = "1965.1.1"
+							ideology = despotism
+							#traits = {
+							#}
+						}
+					}
+					GER = {
+						if = {
+							limit = { has_government = fascism has_dlc = "Death or Dishonor" }
+							set_autonomy = {
+								target = BLR
+								autonomy_state = autonomy_reichskommissariat
+							}
+						}
+						else_if = {
+							limit = { NOT = { has_government = neutrality } }
+							set_autonomy = {
+								target = BLR
+								autonomy_state = autonomy_puppet
+							}
+						}
+						else = {
+							set_autonomy = {
+								target = BLR
+								autonomy_state = autonomy_reichsland
+							}
+						}
+					}
+					BLR = { set_cosmetic_tag = BLR_BRLI }
+				}
+				if = {
+					limit = {
+						is_controlled_by = SOV
+						OR = {
+							state = 228
+							state = 227
+							state = 200
+							state = 196
+							state = 226
+							state = 221
+							state = 197
+							state = 203
+							state = 259
+							state = 225
+							state = 193
+							state = 202
+							state = 192
+							state = 834
+							state = 198
+							state = 199
+							state = 201
+							state = 93
+							state = 91
+							state = 89
+						}
+					}
+					transfer_state_to = UKR
+					GER = {
+						if = {
+							limit = { has_government = fascism has_dlc = "Death or Dishonor" }
+							set_autonomy = {
+								target = UKR
+								autonomy_state = autonomy_reichsprotectorate
+							}
+						}
+						else_if = {
+							limit = { NOT = { has_government = neutrality } }
+							set_autonomy = {
+								target = UKR
+								autonomy_state = autonomy_puppet
+							}
+						}
+						else = {
+							set_autonomy = {
+								target = UKR
+								autonomy_state = autonomy_reichsgouvernement
+							}
+						}
+					}
+					UKR = { set_cosmetic_tag = UKR_BRLI }
+				}
+				if = {
+					limit = {
+						is_controlled_by = SOV
+						OR = {
+							state = 98
+							state = 10
+							state = 92
+							state = 87
+							state = 90
+							state = 88
+						}
+					}
+					transfer_state_to = POL
+					GER = {
+						if = {
+							limit = { has_government = fascism has_dlc = "Death or Dishonor" }
+							set_autonomy = {
+								target = POL
+								autonomy_state = autonomy_reichsprotectorate
+							}
+						}
+						else_if = {
+							limit = { NOT = { has_government = neutrality } }
+							set_autonomy = {
+								target = POL
+								autonomy_state = autonomy_puppet
+							}
+						}
+						else = {
+							set_autonomy = {
+								target = POL
+								autonomy_state = autonomy_reichsgouvernement
+							}
+						}
+					}
+					POL = { set_cosmetic_tag = POL_BRLI }
+				}
 			}
-			GER = {transfer_state = 189}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 13}
-			}
-			GER = {transfer_state = 13}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 191}
-			}
-			GER = {transfer_state = 191}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 12}
-			}
-			GER = {transfer_state = 12}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 190}
-			}
-			GER = {transfer_state = 190}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 111}
-			}
-			FIN = {transfer_state = 111}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 145}
-			}
-			FIN = {transfer_state = 145}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 146}
-			}
-			FIN = {transfer_state = 146}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 147}
-			}
-			FIN = {transfer_state = 147}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 148}
-			}
-			FIN = {transfer_state = 148}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 149}
-			}
-			FIN = {transfer_state = 149}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 150}
-			}
-			FIN = {transfer_state = 150}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 722}
-			}
-			FIN = {transfer_state = 722}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 199}
-			}
-			UKR = {transfer_state = 199}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 198}
-			}
-			UKR = {transfer_state = 198}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 198}
-			}
-			UKR = {transfer_state = 198}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 201}
-			}
-			UKR = {transfer_state = 201}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 202}
-			}
-			UKR = {transfer_state = 202}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 192}
-			}
-			UKR = {transfer_state = 192}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 197}
-			}
-			UKR = {transfer_state = 197}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 203}
-			}
-			UKR = {transfer_state = 203}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 193}
-			}
-			UKR = {transfer_state = 193}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 196}
-			}
-			UKR = {transfer_state = 196}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 226}
-			}
-			UKR = {transfer_state = 226}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 259}
-			}
-			UKR = {transfer_state = 259}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 225}
-			}
-			UKR = {transfer_state = 225}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 221}
-			}
-			UKR = {transfer_state = 221}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 200}
-			}
-			UKR = {transfer_state = 200}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 227}
-			}
-			UKR = {transfer_state = 227}
-		}
-		if = {
-			limit = {
-				SOV = {owns_state = 228}
-			}
-			UKR = {transfer_state = 228}
 		}
 	}
 }
+
 
 # Austria asked about Anschluss
 country_event = {
@@ -716,12 +925,10 @@ country_event = {
 		add_state_claim = 4
 		add_state_claim = 152
 		add_state_claim = 153
-		add_state_claim = 848	#Vorarlberg, was missing
-		add_state_claim = 1054
 		create_wargoal = {
 			type = take_state_focus
 			target = AUS
-			generator = { 4 152 153 848 1054 }
+			generator = { 4 152 153 }
 		}
 	}
 }
@@ -756,12 +963,6 @@ country_event = {
 			}
 		}
 		848 = {
-			if = {
-				limit = { is_owned_by = AUS }
-				add_core_of = GER
-			}
-		}
-		1054 = {
 			if = {
 				limit = { is_owned_by = AUS }
 				add_core_of = GER

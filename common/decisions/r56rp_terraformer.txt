@@ -1,0 +1,440 @@
+economy_decisions = {
+
+	#terraform tools decision by warlider
+
+	r56rp_toggle_terraform_decisions = {
+        #priority = 100
+        visible = { 
+			always = yes
+			is_ai = no
+			#has_country_flag = r56rp_show_terraform
+		}
+		ai_will_do = {
+			base = 0
+		}
+		available = {
+		}
+        complete_effect = { 
+			if = {
+				limit = {
+					has_country_flag = r56rp_show_terraform
+				}
+				clr_country_flag = r56rp_show_terraform  
+			}
+			else = {
+				set_country_flag = r56rp_show_terraform
+			}
+        }
+    }
+
+	r56rp_terraformer_pastoral_rural = {  #pastoral to rural terraform
+
+		icon = generic_construction
+		#cost = 25
+		custom_cost_text = r56rp_terraformer_pastoral_rural_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 2
+        }
+
+		on_map_mode = map_only
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT				
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = pastoral
+			}
+		}
+
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+			FROM = {
+				infrastructure > 1
+			}
+			has_tech = construction1
+		}
+
+		visible = {
+			has_country_flag = r56rp_show_terraform
+			FROM = { 
+
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 2
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = rural
+				custom_effect_tooltip = r56rp_terraformer_pastoral_rural_effect_tt
+
+				#set_temp_variable = { r56rp_temp_math_terraformer_1 = state_population_k }
+				#multiply_temp_variable = { r56rp_temp_math_terraformer_1 = 10 }
+				#round_temp_variable = r56rp_temp_math_terraformer_1
+				#add_manpower = r56rp_temp_math_terraformer_1
+			}
+
+		}
+
+	}
+
+	r56rp_terraformer_rural_town = {  #pastoral to rural terraform
+
+		icon = generic_construction
+		#cost = 25
+		custom_cost_text = r56rp_terraformer_rural_town_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 2
+        }
+
+		on_map_mode = map_only
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = rural
+			}
+		}
+
+		available = {
+			num_of_civilian_factories_available_for_projects > 2
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 2
+			}
+			has_tech = construction2
+		}
+
+		visible = {
+			has_country_flag = r56rp_show_terraform
+			FROM = { 
+
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 2
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = town
+				custom_effect_tooltip = r56rp_terraformer_rural_town_effect_tt
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_town_largetown = {  #pastoral to rural terraform
+
+		icon = generic_construction
+		#cost = 50
+		custom_cost_text = r56rp_terraformer_town_largetown_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
+
+		on_map_mode = map_only
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = town
+			}
+		}
+
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 2
+			}
+			has_tech = construction2
+		}
+
+		visible = {
+			has_country_flag = r56rp_show_terraform
+			FROM = { 
+
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = large_town
+				custom_effect_tooltip = r56rp_terraformer_town_largetown_effect_tt
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_largetown_city = {  #pastoral to rural terraform
+
+		icon = generic_construction
+		#cost = 75
+		custom_cost_text = r56rp_terraformer_largetown_city_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
+
+		on_map_mode = map_only
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = large_town
+			}
+		}
+
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 3
+			}
+			has_tech = construction3
+		}
+
+		visible = {
+			has_country_flag = r56rp_show_terraform
+			FROM = { 
+
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = city
+				custom_effect_tooltip = r56rp_terraformer_largetown_city_effect_tt
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_city_largecity = {  #pastoral to rural terraform
+
+		icon = generic_construction
+		#cost = 75
+		custom_cost_text = r56rp_terraformer_city_largecity_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
+
+		on_map_mode = map_only
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = city
+			}
+		}
+
+		available = {
+			num_of_civilian_factories_available_for_projects > 5
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 3
+			}
+			has_tech = construction3
+		}
+
+		visible = {
+			has_country_flag = r56rp_show_terraform
+			FROM = { 
+
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = large_city
+				custom_effect_tooltip = r56rp_terraformer_city_largecity_effect_tt
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_largecity_metropolis = {  #pastoral to rural terraform
+
+		icon = generic_construction
+		#cost = 100
+		custom_cost_text = r56rp_terraformer_largecity_metropolis_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 10
+        }
+
+		on_map_mode = map_only
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = large_city
+			}
+		}
+
+		available = {
+			num_of_civilian_factories_available_for_projects > 10
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 4
+			}
+			has_tech = construction4
+		}
+
+		visible = {
+			has_country_flag = r56rp_show_terraform
+			FROM = { 
+
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = metropolis
+				custom_effect_tooltip = r56rp_terraformer_largecity_metropolis_effect_tt
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+
+	r56rp_terraformer_metropolis_megalopolis = {  #pastoral to rural terraform
+
+		icon = generic_construction
+		#cost = 150
+		custom_cost_text = r56rp_terraformer_metropolis_megalopolis_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 15
+        }
+
+		on_map_mode = map_only
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
+		
+		ai_will_do = {
+			base = 0
+		}
+
+		target_trigger = {
+			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+				is_fully_controlled_by = ROOT
+				state_population_k > 50
+				NOT = { has_state_flag = r56rp_being_terraformed }
+				has_state_category = metropolis
+			}
+		}
+
+		available = {
+			num_of_civilian_factories_available_for_projects > 15
+			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
+				infrastructure > 4
+			}
+			has_tech = construction4
+		}
+
+		visible = {
+			has_country_flag = r56rp_show_terraform
+			FROM = { 
+
+			}
+			is_ai = no #incase ai spams.
+		}
+
+		days_remove = 90
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_category = megalopolis
+				custom_effect_tooltip = r56rp_terraformer_metropolis_megalopolis_effect_tt
+			}
+			#clr_state_flag = r56rp_being_terraformed
+		}
+
+	}
+	
+}

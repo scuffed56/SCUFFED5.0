@@ -1,0 +1,316 @@
+add_namespace = soideltaevents
+
+country_event = {
+	id = soideltaevents.1
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = soideltaevents.1.a
+		random_country = {
+			limit = {
+				is_major = no
+				is_puppet = no
+				is_in_faction = no
+				AND = {
+					ROOT = { any_owned_state = { is_coastal = yes } }
+					OR = {
+						any_owned_state = {
+							is_coastal = yes
+						}
+						is_neighbor_of = ROOT
+					}
+				}
+				NOT = {
+					has_country_flag = under_influence_of_@ROOT
+				}
+			}
+			log = "(SOI-DEFAULT) [ROOT.GetTag] do influence in [THIS.GetTag]"
+			ROOT = { set_variable = { var = ROOT.do_influence@PREV value = 10 } }
+		}
+	}
+}
+country_event = {
+	id = soideltaevents.2
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = soideltaevents.2.a
+		random_country = {
+			limit = {
+				is_major = no
+				is_puppet = no
+				is_in_faction = no
+				AND = {
+					ROOT = { any_owned_state = { is_coastal = yes } }
+					OR = {
+						any_owned_state = {
+							is_coastal = yes
+						}
+						is_neighbor_of = ROOT
+					}
+				}
+				NOT = {
+					has_country_flag = under_influence_of_@ROOT
+				}
+			}
+			log = "(SOI-BALANCED) [ROOT.GetTag] do influence in [THIS.GetTag]"
+			ROOT = { set_variable = { var = ROOT.do_influence@PREV value = 10 } }
+		}
+	}
+}
+country_event = {
+	id = soideltaevents.3
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = soideltaevents.3.a
+		if = {
+			limit = {
+				check_variable = { var = ROOT.AI_check_priority value = 0 compare = equals }
+			}
+			random_country = {
+				limit = {
+					is_major = no
+					is_puppet = no
+					is_in_faction = no
+					AND = {
+						ROOT = { any_owned_state = { is_coastal = yes } }
+						OR = {
+							any_owned_state = {
+								is_coastal = yes
+							}
+							is_neighbor_of = ROOT
+						}
+					}
+					OR = {
+						any_controlled_state = {
+							OR = {
+								check_variable = { var:resource@aluminium > 9 }
+								check_variable = { var:resource@chromium > 9 }
+								check_variable = { var:resource@oil > 9 }
+								check_variable = { var:resource@rubber > 9 }
+								check_variable = { var:resource@steel > 9 }
+								check_variable = { var:resource@tungsten > 9 }
+							}
+						}
+						check_variable = { var:ai_strategy_alliance@THIS > 19 }
+						check_variable = { var:ai_strategy_befriend@THIS > 19 }
+					}
+					NOT = {
+						has_country_flag = under_influence_of_@ROOT
+					}
+				}
+				if = {
+					limit = {
+						THIS = {
+							exists = yes
+						}
+					}
+					log = "(SOI-STRATEGIC) [ROOT.GetTag] do influence in [THIS.GetTag]"
+					ROOT = { set_variable = { var = ROOT.do_influence@PREV value = 10 } }
+				}
+				else = {
+					random_country = {
+						limit = {
+							is_major = no
+							is_puppet = no
+							is_in_faction = no
+							AND = {
+								ROOT = { any_owned_state = { is_coastal = yes } }
+								OR = {
+									any_owned_state = {
+										is_coastal = yes
+									}
+									is_neighbor_of = ROOT
+								}
+							}
+							NOT = {
+								has_country_flag = under_influence_of_@ROOT
+							}
+						}
+						log = "(SOI-STRATEGIC) [ROOT.GetTag] do influence in [THIS.GetTag]"
+						ROOT = { set_variable = { var = ROOT.do_influence@PREV value = 10 } }
+					}
+				}
+			}
+			random_list = {
+				40 = {
+					set_variable = { var = ROOT.AI_check_priority value = 0 }
+				}
+				60 = {
+					set_variable = { var = ROOT.AI_check_priority value = 1 }
+				}
+			}
+		}
+		if = {
+			limit = {
+				check_variable = { var = ROOT.AI_check_priority value = 1 compare = equals }
+			}
+			random_country = {
+				limit = {
+					is_major = no
+					is_puppet = no
+					is_in_faction = no
+					AND = {
+						ROOT = { any_owned_state = { is_coastal = yes } }
+						OR = {
+							any_owned_state = {
+								is_coastal = yes
+							}
+							is_neighbor_of = ROOT
+						}
+					}
+					NOT = {
+						has_country_flag = under_influence_of_@ROOT
+					}
+				}
+				log = "(SOI-STRATEGIC) [ROOT.GetTag] do influence in [THIS.GetTag]"
+				ROOT = { set_variable = { var = ROOT.do_influence@PREV value = 10 } }
+			}
+			random_list = {
+				60 = {
+					set_variable = { var = ROOT.AI_check_priority value = 0 }
+				}
+				40 = {
+					set_variable = { var = ROOT.AI_check_priority value = 1 }
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = soideltaevents.4
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = soideltaevents.4.a
+		if = {
+			limit = {
+				check_variable = { var = ROOT.AI_check_priority value = 0 compare = equals }
+			}
+			random_country = {
+				limit = {
+					is_major = no
+					is_puppet = no
+					is_in_faction = no
+					AND = {
+						ROOT = { any_owned_state = { is_coastal = yes } }
+						OR = {
+							any_owned_state = {
+								is_coastal = yes
+							}
+							is_neighbor_of = ROOT
+						}
+					}
+					has_government = ROOT
+					NOT = {
+						has_country_flag = under_influence_of_@ROOT
+					}
+				}
+				if = {
+					limit = {
+						THIS = {
+							exists = yes
+						}
+					}
+					log = "(SOI-IDEOLOGY) [ROOT.GetTag] do influence in [THIS.GetTag]"
+					ROOT = { set_variable = { var = ROOT.do_influence@PREV value = 10 } }
+				}
+				else = {
+					random_country = {
+						limit = {
+							is_major = no
+							is_puppet = no
+							is_in_faction = no
+							AND = {
+								ROOT = { any_owned_state = { is_coastal = yes } }
+								OR = {
+									any_owned_state = {
+										is_coastal = yes
+									}
+									is_neighbor_of = ROOT
+								}
+							}
+							NOT = {
+								has_country_flag = under_influence_of_@ROOT
+							}
+						}
+						log = "(SOI-IDEOLOGY) [ROOT.GetTag] do influence in [THIS.GetTag]"
+						ROOT = { set_variable = { var = ROOT.do_influence@PREV value = 10 } }
+					}
+				}
+			}
+			random_list = {
+				40 = {
+					set_variable = { var = ROOT.AI_check_priority value = 0 }
+				}
+				60 = {
+					set_variable = { var = ROOT.AI_check_priority value = 1 }
+				}
+			}
+		}
+		if = {
+			limit = {
+				check_variable = { var = ROOT.AI_check_priority value = 1 compare = equals }
+			}
+			random_country = {
+				limit = {
+					is_major = no
+					is_puppet = no
+					is_in_faction = no
+					AND = {
+						ROOT = { any_owned_state = { is_coastal = yes } }
+						OR = {
+							any_owned_state = {
+								is_coastal = yes
+							}
+							is_neighbor_of = ROOT
+						}
+					}
+					NOT = {
+						has_country_flag = under_influence_of_@ROOT
+					}
+				}
+				log = "(SOI-IDEOLOGY) [ROOT.GetTag] do influence in [THIS.GetTag]"
+				ROOT = { set_variable = { var = ROOT.do_influence@PREV value = 10 } }
+			}
+			random_list = {
+				60 = {
+					set_variable = { var = ROOT.AI_check_priority value = 0 }
+				}
+				40 = {
+					set_variable = { var = ROOT.AI_check_priority value = 1 }
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = soideltaevents.5
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = soideltaevents.5.a
+		random_country = {
+			limit = {
+				is_major = no
+				is_puppet = no
+				is_in_faction = no
+				OR = {
+					is_neighbor_of = ROOT
+					AND = {
+						ROOT = { any_owned_state = { is_coastal = yes } }
+						any_owned_state = {
+							is_coastal = yes
+						}
+					}
+				}
+				NOT = {
+					has_country_flag = under_influence_of_@ROOT
+				}
+			}
+			log = "(SOI-AGGRESSIVE) [ROOT.GetTag] do influence in [THIS.GetTag]"
+			ROOT = { set_variable = { var = ROOT.do_influence@PREV value = 10 } }
+		}
+	}
+}

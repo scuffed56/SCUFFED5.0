@@ -1,4 +1,8 @@
-﻿focus_tree = {
+﻿#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
+focus_tree = {
 	id = manchukuo_focus
 	
 	country = {
@@ -13,7 +17,7 @@
 
 	default = no
 
-	continuous_focus_position = { x = 3000 y = 40 }
+	continuous_focus_position = { x = 80 y = 80 }
 
 	focus = {
 		id = MAN_pacify_the_countryside
@@ -42,7 +46,7 @@
 		y = 1
 		relative_position_id = MAN_pacify_the_countryside
 
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 1
@@ -261,7 +265,7 @@
 		y = 1
 		relative_position_id = MAN_pacify_the_countryside
 
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 1
@@ -395,7 +399,7 @@
 		#GFX_focus_CZE_german_puppet
 		prerequisite = { focus = MAN_army_modernization }
 		mutually_exclusive = { focus = MAN_assertiveness }
-		x = -3
+		x = -2
 		y = 4
 		relative_position_id = MAN_army_modernization
 
@@ -404,11 +408,57 @@
 		ai_will_do = {
 			factor = 6
 		}
+
+		available = {
+			is_puppet_of = JAP
+			JAP = {
+				OR = {
+					has_completed_focus = JAP_support_the_kodoha_faction
+					has_completed_focus = JAP_purge_the_kodoha_faction
+				}
+			}
+		}
 		
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = MAN_assertiveness
+						JAP = {
+							has_completed_focus = JAP_strengthen_civilian_government
+						}
+						JAP = {
+							has_completed_focus = JAP_the_unthinkable_option
+						}						
+					}
+				}
+			}
+		}
+		#offset = {
+		#	x = 0
+		#	y = 0
+		#	trigger = {
+		#			AND = {
+		#				has_game_rule = {
+		#					rule = obsolete_focus_branches_visibility
+		#					option = HIDE
+		#				}
+		#				has_completed_focus = MAN_the_kwantung_connection
+		#			}
+		#	}
+		#}
+
 		available_if_capitulated = yes
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
 			add_political_power = 120
 		}
 	}
@@ -433,13 +483,22 @@
 
 
 		completion_reward = {
-			add_stability = 0.1
 			if = {
 				limit = {
 					has_dlc = "La Resistance"
 					has_intelligence_agency = no
 				}
 				create_intelligence_agency = yes
+			}
+			ELSE_IF = {
+				limit = {
+					has_dlc = "La Resistance"
+					has_intelligence_agency = yes
+				}
+				add_stability = 0.1
+			}
+			ELSE = {
+				add_stability = 0.1
 			}
 		}
 	}
@@ -448,7 +507,7 @@
 		id = MAN_first_five_year_plan
 		icon = GFX_goal_generic_production
 		prerequisite = { focus = MAN_obedience }
-		x = 0
+		x = -5
 		y = 1
 		relative_position_id = MAN_obedience
 
@@ -468,7 +527,7 @@
 		id = MAN_support_aikawa
 		icon = GFX_goal_MAN_support_aikawa
 		prerequisite = { focus = MAN_first_five_year_plan }
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = MAN_first_five_year_plan
 
@@ -482,17 +541,7 @@
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			if = {
-				limit = {
-					NOT = {
-						has_dlc = "Together for Victory"
-					}
-				}
-				add_ideas = MAN_yoshisuke_aikawa
-				else = {
-					add_ideas = MAN_yoshisuke_aikawa_tfv
-				}
-			}
+			add_ideas = yoshisuke_aikawa_tfv
 			random_owned_controlled_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -516,7 +565,7 @@
 		id = MAN_support_hoshino
 		icon = GFX_goal_MAN_support_hoshino
 		prerequisite = { focus = MAN_first_five_year_plan }
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = MAN_first_five_year_plan
 
@@ -530,17 +579,7 @@
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			if = {
-				limit = {
-					NOT = {
-						has_dlc = "Together for Victory"
-					}
-				}
-				add_ideas = MAN_naoki_hoshino
-				else = {
-					add_ideas = MAN_naoki_hoshino_tfv
-				}
-			}
+			add_ideas = naoki_hoshino_tfv
 			random_owned_controlled_state = {
 				limit = { is_fully_controlled_by = ROOT }
 				add_extra_state_shared_building_slots = 1
@@ -566,7 +605,7 @@
 		id = MAN_establish_mangyo
 		icon = GFX_goal_generic_all_resource
 		prerequisite = { focus = MAN_support_aikawa }
-		x = -3
+		x = -2
 		y = 2
 		relative_position_id = MAN_first_five_year_plan
 
@@ -594,7 +633,7 @@
 		id = MAN_mantetsu_railway_monopoly
 		icon = GFX_focus_SOV_south_manchuria_railway
 		prerequisite = { focus = MAN_support_aikawa focus = MAN_support_hoshino }
-		x = -1
+		x = 0
 		y = 2
 		relative_position_id = MAN_first_five_year_plan
 
@@ -622,7 +661,7 @@
 		id = MAN_expand_opium_production
 		icon = GFX_goal_generic_opium
 		prerequisite = { focus = MAN_support_hoshino }
-		x = 1
+		x = 2
 		y = 2
 		relative_position_id = MAN_first_five_year_plan
 
@@ -653,7 +692,7 @@
 		icon = GFX_goal_MAN_economic_coherence
 		prerequisite = { focus = MAN_mantetsu_railway_monopoly }
 		prerequisite = { focus = MAN_establish_mangyo focus = MAN_expand_opium_production }
-		x = -1
+		x = 0
 		y = 3
 		relative_position_id = MAN_first_five_year_plan
 
@@ -681,9 +720,9 @@
 		id = MAN_invite_japanese_investors
 		icon = GFX_focus_jap_zaibatsu
 		prerequisite = { focus = MAN_total_economic_coherence }
-		x = -2
-		y = 4
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 1
+		relative_position_id = MAN_total_economic_coherence
 
 		cost = 10
 
@@ -736,7 +775,7 @@
 		id = MAN_expand_the_railways
 		icon = GFX_goal_generic_railroad
 		prerequisite = { focus = MAN_invite_japanese_investors }
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = MAN_invite_japanese_investors
 
@@ -831,7 +870,7 @@
 		id = MAN_develop_aluminum_sources
 		icon = GFX_focus_generic_aluminum
 		prerequisite = { focus = MAN_invite_japanese_investors }
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = MAN_invite_japanese_investors
 
@@ -857,9 +896,9 @@
 		id = MAN_expand_showa_steel_works
 		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = MAN_develop_aluminum_sources }
-		x = 0
-		y = 1
-		relative_position_id = MAN_develop_aluminum_sources
+		x = -1
+		y = 2
+		relative_position_id = MAN_invite_japanese_investors
 
 		cost = 10
 
@@ -889,7 +928,7 @@
 		id = MAN_social_research_unit
 		icon = GFX_focus_research
 		prerequisite = { focus = MAN_expand_the_railways }
-		x = 0
+		x = 1
 		y = 2
 		relative_position_id = MAN_invite_japanese_investors
 
@@ -912,9 +951,9 @@
 		icon = GFX_goal_generic_production
 		prerequisite = { focus = MAN_social_research_unit }
 		prerequisite = { focus = MAN_expand_showa_steel_works }
-		x = -3
-		y = 7
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 3
+		relative_position_id = MAN_invite_japanese_investors
 
 		cost = 5
 
@@ -956,8 +995,8 @@
 		icon = GFX_goal_generic_build_tank
 		prerequisite = { focus = MAN_second_five_year_plan }
 		x = 0
-		y = 1
-		relative_position_id = MAN_second_five_year_plan
+		y = 4
+		relative_position_id = MAN_invite_japanese_investors
 
 		cost = 5
 
@@ -977,9 +1016,9 @@
 		id = MAN_mukden_arsenal
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = MAN_total_economic_coherence }
-		x = 0
-		y = 4
-		relative_position_id = MAN_first_five_year_plan
+		x = -3
+		y = 1
+		relative_position_id = MAN_total_economic_coherence
 
 		cost = 10
 
@@ -1021,7 +1060,6 @@
 		available_if_capitulated = yes
 
 		completion_reward = {
-			air_experience = 35
 			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
@@ -1034,16 +1072,15 @@
 
 
 				mio:MAN_mamc_light_organization = {
-					add_mio_funds = 1000
+					add_mio_funds = 500
 				}
 				mio:MAN_mamc_medium_organization = {
-					add_mio_funds = 1000
+					add_mio_funds = 500
 				}
 				mio:MAN_mamc_heavy_organization = {
-					add_mio_funds = 1000
+					add_mio_funds = 500
 				}
 			}
-
 			ELSE = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = MAN_mamc_light
@@ -1056,10 +1093,10 @@
 	focus = {
 		id = MAN_alliance_with_the_kwantung_army
 		icon = GFX_goal_CHI_support_pro_japanese_faction
-		prerequisite = { focus = MAN_first_five_year_plan }
-		x = 3
+		prerequisite = { focus = MAN_obedience }
+		x = 0
 		y = 1
-		relative_position_id = MAN_first_five_year_plan
+		relative_position_id = MAN_obedience
 
 		cost = 5
 
@@ -1085,9 +1122,9 @@
 		id = MAN_officer_academies
 		icon = GFX_goal_generic_officers
 		prerequisite = { focus = MAN_alliance_with_the_kwantung_army }
-		x = 3
-		y = 2
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 1
+		relative_position_id = MAN_alliance_with_the_kwantung_army
 
 		cost = 5
 
@@ -1108,9 +1145,9 @@
 		id = MAN_labor_corps
 		icon = GFX_goal_generic_construction2
 		prerequisite = { focus = MAN_officer_academies }
-		x = 2
-		y = 3
-		relative_position_id = MAN_first_five_year_plan
+		x = -1
+		y = 2
+		relative_position_id = MAN_alliance_with_the_kwantung_army
 
 		cost = 5
 
@@ -1133,9 +1170,9 @@
 		id = MAN_military_supplies_requisition_law
 		icon = GFX_goal_machine_gun
 		prerequisite = { focus = MAN_officer_academies }
-		x = 3
-		y = 4
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 3
+		relative_position_id = MAN_alliance_with_the_kwantung_army
 
 		cost = 10
 
@@ -1160,9 +1197,9 @@
 		id = MAN_special_river_detachments
 		icon = GFX_goal_generic_marines2
 		prerequisite = { focus = MAN_officer_academies }
-		x = 4
-		y = 3
-		relative_position_id = MAN_first_five_year_plan
+		x = 1
+		y = 2
+		relative_position_id = MAN_alliance_with_the_kwantung_army
 
 		cost = 7.2
 
@@ -1195,9 +1232,9 @@
 		id = MAN_manchurian_auxiliary_navy
 		icon = GFX_goal_MAN_coa_navy
 		prerequisite = { focus = MAN_special_river_detachments }
-		x = 5
+		x = 1
 		y = 4
-		relative_position_id = MAN_first_five_year_plan
+		relative_position_id = MAN_alliance_with_the_kwantung_army
 
 		cost = 10
 
@@ -1233,9 +1270,9 @@
 		id = MAN_self_sufficient_military
 		icon = GFX_goal_MAN_coa_army
 		prerequisite = { focus = MAN_military_supplies_requisition_law }
-		x = 4
-		y = 5
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 6
+		relative_position_id = MAN_alliance_with_the_kwantung_army
 
 		cost = 10
 
@@ -1249,7 +1286,6 @@
 		completion_reward = {
 			army_experience = 20
 			add_doctrine_cost_reduction = {
-				name = MAN_self_sufficient_military
 				cost_reduction = 0.5
 				uses = 1
 				category = land_doctrine
@@ -1263,9 +1299,9 @@
 		icon = GFX_goal_MAN_auxiliary_forces
 		prerequisite = { focus = MAN_military_supplies_requisition_law }
 		prerequisite = { focus = MAN_labor_corps }
-		x = 2
-		y = 5
-		relative_position_id = MAN_first_five_year_plan
+		x = -1
+		y = 4
+		relative_position_id = MAN_alliance_with_the_kwantung_army
 
 		cost = 5
 
@@ -1278,7 +1314,6 @@
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
 			add_tech_bonus = {
-				name = MAN_auxiliary_forces
                 bonus = 1.0
                 uses = 2
                 category = military_police_tech
@@ -1290,9 +1325,9 @@
 		id = MAN_reinforce_east_hebei
 		icon = GFX_goal_generic_defend_hudgehog
 		prerequisite = { focus = MAN_self_sufficient_military }
-		x = 1
-		y = 6
-		relative_position_id = MAN_first_five_year_plan
+		x = -3
+		y = 1
+		relative_position_id = MAN_self_sufficient_military
 
 		cost = 7.2
 
@@ -1305,8 +1340,40 @@
 				has_completed_focus = JAP_purge_the_kodoha_faction
 			}
 		}
-			
-		
+
+		offset = {
+			x = 3
+			y = 0
+			trigger = {
+				OR = {
+					AND = {
+						has_game_rule = {
+							rule = obsolete_focus_branches_visibility
+							option = HIDE
+						}
+						has_completed_focus = MAN_the_kwantung_connection
+					}
+				}
+			}
+		}
+		offset = {
+			x = 2
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					OR = {
+						has_completed_focus = MAN_our_place_in_the_empire
+						JAP = {
+							has_completed_focus = JAP_support_the_kodoha_faction
+						}
+					}
+				}
+			}
+		}
 
 		available_if_capitulated = yes
 
@@ -1315,6 +1382,13 @@
 			build_railway = {
   				level = 1
   				build_only_on_allied = yes
+  				controller_priority = {
+    				base = 1
+    				modifier = {
+      					tag = MAN
+      					add = 2
+    				}
+  				}
   				fallback = yes
   				path = { 7633 10426 1508 10429 12469 7812 }
   				start_province = 7633
@@ -1361,8 +1435,8 @@
 		icon = GFX_goal_generic_defense_of_the_lands
 		prerequisite = { focus = MAN_self_sufficient_military }
 		x = 4
-		y = 6
-		relative_position_id = MAN_first_five_year_plan
+		y = 1
+		relative_position_id = MAN_self_sufficient_military
 
 		cost = 7.2
 
@@ -1375,8 +1449,37 @@
 				has_completed_focus = JAP_support_the_kodoha_faction
 			}
 		}
-			
-		
+		offset = {
+			x = -3
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					OR = {
+						has_completed_focus = MAN_our_place_in_the_empire
+						JAP = {
+							has_completed_focus = JAP_support_the_kodoha_faction
+						}
+					}
+				}
+			}
+		}
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					has_completed_focus = MAN_the_kwantung_connection
+				}
+			}
+		}	
 
 		available_if_capitulated = yes
 
@@ -1385,6 +1488,13 @@
 			build_railway = {
   				level = 1
   				build_only_on_allied = yes
+  				controller_priority = {
+    			base = 1
+    				modifier = {
+      					tag = MAN
+      					add = 2
+    				}
+  				}
   				fallback = yes
   				path = { 13278 13277 7697 12537 10541 7848 13279 10675 12548 }
   				start_province = 13278
@@ -1435,9 +1545,9 @@
 		icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = MAN_reinforce_east_hebei focus = MAN_reinforce_the_heilongjiang }
 		mutually_exclusive = { focus = MAN_the_kwantung_connection }
-		x = 4
-		y = 7
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 1
+		relative_position_id = MAN_reinforce_the_heilongjiang
 
 		cost = 10
 
@@ -1445,28 +1555,58 @@
 			factor = 1
 		}
 
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = MAN_assertiveness
+						has_completed_focus = MAN_the_kwantung_connection
+						JAP = {
+							has_completed_focus = JAP_strengthen_civilian_government
+						}
+						JAP = {
+							has_completed_focus = JAP_the_unthinkable_option
+						}
+					}
+				}
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					OR = {
+						has_completed_focus = MAN_our_place_in_the_empire
+						JAP = {
+							has_completed_focus = JAP_support_the_kodoha_faction
+						}
+					}
+				}
+			}
+		}
+
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
 			JAP = {
 				set_autonomy = {
 					target = MAN
 					autonomy_state = autonomy_wtt_imperial_subject
-					end_wars = no	#despite not ending wars without this, it resets state control still which can teleport invading armies
 				}
 			}
 			add_ideas = MAN_five_races_under_one_union
-			if = {
-				limit = {
-					has_idea = MAN_low_legitimacy_5
-				}
-				remove_ideas = MAN_low_legitimacy_5
-			}
-			if = {	#japan can lower by one tier, the focus tree before this cant make it any lower
-				limit = {
-					has_idea = MAN_low_legitimacy_4
-				}
-				remove_ideas = MAN_low_legitimacy_4
-			}
+			remove_ideas = MAN_low_legitimacy_5
 		}
 	}
 
@@ -1474,9 +1614,9 @@
 		id = MAN_mongol_dominion
 		icon = GFX_goal_generic_forceful_treaty
 		prerequisite = { focus = MAN_our_place_in_the_empire }
-		x = 3
-		y = 8
-		relative_position_id = MAN_first_five_year_plan
+		x = -1
+		y = 1
+		relative_position_id = MAN_our_place_in_the_empire
 
 		cost = 7.2
 
@@ -1524,9 +1664,9 @@
 		id = MAN_request_continental_territory
 		icon = GFX_goal_naval_treaty
 		prerequisite = { focus = MAN_our_place_in_the_empire }
-		x = 5
-		y = 8
-		relative_position_id = MAN_first_five_year_plan
+		x = 1
+		y = 1
+		relative_position_id = MAN_our_place_in_the_empire
 		cost = 5
 
 		ai_will_do = {
@@ -1577,9 +1717,9 @@
 		icon = GFX_goal_generic_dangerous_deal
 		prerequisite = { focus = MAN_request_continental_territory }
 		prerequisite = { focus = MAN_mongol_dominion }
-		x = 4
-		y = 9
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 2
+		relative_position_id = MAN_our_place_in_the_empire
 
 		cost = 10
 
@@ -1639,9 +1779,9 @@
 		id = MAN_depose_the_imbecile
 		icon = GFX_goal_MAN_depose_the_imbecile
 		prerequisite = { focus = MAN_mukden_convention }
-		x = 6
-		y = 10
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 1
+		relative_position_id = MAN_mukden_convention
 
 		cost = 10
 
@@ -1664,9 +1804,9 @@
 		icon = GFX_focus_ETH_peacekeeping_forces
 		prerequisite = { focus = MAN_depose_the_imbecile }
 		mutually_exclusive = { focus = MAN_the_imperial_wildcard focus = MAN_the_concord_of_ethnicities }
-		x = 4
-		y = 11
-		relative_position_id = MAN_first_five_year_plan
+		x = -2
+		y = 1
+		relative_position_id = MAN_depose_the_imbecile
 
 		cost = 5
 
@@ -1696,9 +1836,9 @@
 		id = MAN_establish_continental_frontier_army
 		icon = GFX_goal_generic_army_professionalism
 		prerequisite = { focus = MAN_reorganize_the_kwantung_army }
-		x = 4
-		y = 13
-		relative_position_id = MAN_first_five_year_plan
+		x = -2
+		y = 3
+		relative_position_id = MAN_depose_the_imbecile
 
 		cost = 10
 
@@ -1733,9 +1873,9 @@
 		icon = GFX_goal_MAN_imperial_wildcard
 		prerequisite = { focus = MAN_depose_the_imbecile }
 		mutually_exclusive = { focus = MAN_reorganize_the_kwantung_army focus = MAN_the_concord_of_ethnicities }
-		x = 6
-		y = 11
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 1
+		relative_position_id = MAN_depose_the_imbecile
 
 		cost = 5
 
@@ -1762,9 +1902,9 @@
 		id = MAN_technological_supremacy
 		icon = GFX_goal_generic_double_research
 		prerequisite = { focus = MAN_reorganize_the_kwantung_army focus = MAN_the_imperial_wildcard }
-		x = 5
-		y = 12
-		relative_position_id = MAN_first_five_year_plan
+		x = -1
+		y = 2
+		relative_position_id = MAN_depose_the_imbecile
 
 		cost = 10
 
@@ -1779,19 +1919,16 @@
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = MAN_technological_supremacy
 				bonus = 1
 				uses = 1
 				category = industry
 			}
 			add_tech_bonus = {
-				name = MAN_technological_supremacy
 				bonus = 1
 				uses = 1
 				category = infantry_weapons
 			}
 			add_tech_bonus = {
-				name = MAN_technological_supremacy
 				bonus = 1
 				uses = 1
 				category = artillery
@@ -1803,9 +1940,9 @@
 		id = MAN_council_of_corporations
 		icon = GFX_goal_generic_multipartism
 		prerequisite = { focus = MAN_the_concord_of_ethnicities focus = MAN_the_imperial_wildcard }
-		x = 7
-		y = 12
-		relative_position_id = MAN_first_five_year_plan
+		x = 1
+		y = 2
+		relative_position_id = MAN_depose_the_imbecile
 
 		cost = 10
 
@@ -1851,9 +1988,9 @@
 		icon = GFX_goal_generic_authority
 		prerequisite = { focus = MAN_technological_supremacy }
 		prerequisite = { focus = MAN_council_of_corporations }
-		x = 6
-		y = 13
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 3
+		relative_position_id = MAN_depose_the_imbecile
 
 		cost = 5
 
@@ -1877,9 +2014,9 @@
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = MAN_depose_the_imbecile }
 		mutually_exclusive = { focus = MAN_reorganize_the_kwantung_army focus = MAN_the_imperial_wildcard }
-		x = 8
-		y = 11
-		relative_position_id = MAN_first_five_year_plan
+		x = 2
+		y = 1
+		relative_position_id = MAN_depose_the_imbecile
 
 		cost = 5
 
@@ -1909,9 +2046,9 @@
 		id = MAN_the_pan_asian_dream
 		icon = GFX_focus_generic_population_growth
 		prerequisite = { focus = MAN_the_concord_of_ethnicities }
-		x = 8
-		y = 13
-		relative_position_id = MAN_first_five_year_plan
+		x = 2
+		y = 3
+		relative_position_id = MAN_depose_the_imbecile
 
 		cost = 10
 
@@ -1959,9 +2096,9 @@
 		icon = GFX_focus_SOV_reinforce_northern_naval_bases
 		prerequisite = { focus = MAN_the_pan_asian_dream focus = MAN_establish_continental_frontier_army focus = MAN_central_control }
 		
-		x = 6
-		y = 14
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 4
+		relative_position_id = MAN_depose_the_imbecile
 
 		cost = 14.3
 
@@ -2010,9 +2147,9 @@
 		icon = GFX_focus_jap_manchurian_project
 		prerequisite = { focus = MAN_operation_kantokuen }
 		mutually_exclusive = { focus = MAN_beyond_baikal }
-		x = 5
-		y = 15
-		relative_position_id = MAN_first_five_year_plan
+		x = -1
+		y = 1
+		relative_position_id = MAN_operation_kantokuen
 
 		cost = 7.2
 
@@ -2032,10 +2169,8 @@
 		completion_reward = {
 			add_state_core = 408
 			add_state_core = 409
-			add_state_core = 560
-			add_state_core = 561
 			add_state_core = 657
-			add_state_core = 561
+			add_state_core = 560
 			add_state_core = 819
 		}
 	}
@@ -2045,9 +2180,9 @@
 		icon = GFX_goal_MAN_beyond_baikal
 		prerequisite = { focus = MAN_operation_kantokuen }
 		mutually_exclusive = { focus = MAN_greater_manchuria }
-		x = 7
-		y = 15
-		relative_position_id = MAN_first_five_year_plan
+		x = 1
+		y = 1
+		relative_position_id = MAN_operation_kantokuen
 
 		cost = 7.2
 
@@ -2079,7 +2214,6 @@
 				add_state_core = 561
 				add_state_core = 563
 				add_state_core = 564
-				add_state_core = 565
 				add_state_core = 566
 			}
 		}
@@ -2090,9 +2224,9 @@
 		icon = GFX_goal_MAN_revise_imperial_treaties
 		prerequisite = { focus = MAN_beyond_baikal focus = MAN_greater_manchuria }
 		
-		x = 6
-		y = 16
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 2
+		relative_position_id = MAN_operation_kantokuen
 
 		cost = 10
 
@@ -2311,9 +2445,9 @@
 		icon = GFX_goal_MAN_liberation_is_nigh
 		prerequisite = { focus = MAN_revise_imperial_treaties }
 		
-		x = 6
-		y = 17
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 3
+		relative_position_id = MAN_operation_kantokuen
 
 		cost = 10
 
@@ -2381,8 +2515,8 @@
 		prerequisite = { focus = MAN_reinforce_east_hebei }
 		mutually_exclusive = { focus = MAN_our_place_in_the_empire }
 		x = 0
-		y = 7
-		relative_position_id = MAN_first_five_year_plan
+		y = 1
+		relative_position_id = MAN_reinforce_east_hebei
 
 		cost = 10
 
@@ -2390,10 +2524,54 @@
 			factor = 1
 		}
 
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = MAN_assertiveness
+						has_completed_focus = MAN_our_place_in_the_empire
+						JAP = {
+							has_completed_focus = JAP_support_the_kodoha_faction
+						}
+						JAP = {
+							has_completed_focus = JAP_strengthen_civilian_government
+						}
+						JAP = {
+							has_completed_focus = JAP_the_unthinkable_option
+						}	
+					}
+				}
+			}
+		}
+		offset = {
+			x = 0
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					OR = {
+						has_completed_focus = MAN_the_kwantung_connection
+					}
+				}
+			}
+		}
+
 		search_filters = { FOCUS_FILTER_POLITICAL }
+
 		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
 			country_event = manchukuo_events.1
 		}
+
 	}
 
 	focus = {
@@ -2401,8 +2579,8 @@
 		icon = GFX_goal_generic_improve_relations
 		prerequisite = { focus = MAN_the_kwantung_connection }
 		x = 0
-		y = 8
-		relative_position_id = MAN_first_five_year_plan
+		y = 1
+		relative_position_id = MAN_the_kwantung_connection
 
 		cost = 10
 
@@ -2412,15 +2590,6 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = CHI
-						is_claimed_by = CHI
-					}
-				}
-				add_claim_by = ROOT
-			}
 			add_relation_modifier = {
 				target = CHI
 				modifier = MAN_national_cooperation_government_modifier
@@ -2433,9 +2602,9 @@
 		id = MAN_imperial_tianjin_conference
 		icon = GFX_goal_MAN_tianjin_conference
 		prerequisite = { focus = MAN_national_cooperation_government }
-		x = -1
-		y = 9
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 2
+		relative_position_id = MAN_the_kwantung_connection
 
 		cost = 5
 
@@ -2466,9 +2635,9 @@
 		icon = GFX_focus_generic_military_mission
 		prerequisite = { focus = MAN_imperial_tianjin_conference }
 		mutually_exclusive = { focus = MAN_return_of_the_manchus }
-		x = -3
-		y = 10
-		relative_position_id = MAN_first_five_year_plan
+		x = -2
+		y = 1
+		relative_position_id = MAN_imperial_tianjin_conference
 
 		cost = 10
 
@@ -2492,9 +2661,9 @@
 		id = MAN_lessons_of_the_warlord_era 
 		icon = GFX_goal_generic_into_fire
 		prerequisite = { focus = MAN_order_under_the_marshal }
-		x = -4
-		y = 11
-		relative_position_id = MAN_first_five_year_plan
+		x = -3
+		y = 2
+		relative_position_id = MAN_imperial_tianjin_conference
 
 		cost = 10
 
@@ -2508,7 +2677,6 @@
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
 			add_doctrine_cost_reduction = {
-				name = MAN_lessons_of_the_warlord_era
 				cost_reduction = 0.5
 				uses = 2
 				category = land_doctrine
@@ -2520,9 +2688,9 @@
 		id = MAN_honor_the_military
 		icon = GFX_goal_manpower
 		prerequisite = { focus = MAN_order_under_the_marshal }
-		x = -2
-		y = 11
-		relative_position_id = MAN_first_five_year_plan
+		x = -1
+		y = 2
+		relative_position_id = MAN_imperial_tianjin_conference
 
 		cost = 10
 
@@ -2545,9 +2713,9 @@
 		icon = GFX_goal_MAN_back_to_the_basics
 		prerequisite = { focus = MAN_lessons_of_the_warlord_era }
 		prerequisite = { focus = MAN_honor_the_military }
-		x = -3
-		y = 12
-		relative_position_id = MAN_first_five_year_plan
+		x = -2
+		y = 3
+		relative_position_id = MAN_imperial_tianjin_conference
 
 		cost = 10
 
@@ -2560,7 +2728,21 @@
 
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			add_ideas = MAN_false_government
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+				set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+			}
+			add_timed_idea = {
+				idea = MAN_false_government
+				days = 720
+			}
 			add_ideas = MAN_warlord_governorates
 			add_trait = {
      			character = MAN_qi_xieyuan_tfv
@@ -2571,7 +2753,6 @@
 			every_state = {
 				limit = { is_core_of = CHI }
 				add_core_of = ROOT
-				hidden_effect = { remove_claim_by = ROOT }
 			}
 		}
 	}
@@ -2581,9 +2762,9 @@
 		icon = GFX_goal_MAN_return_of_manchus
 		prerequisite = { focus = MAN_imperial_tianjin_conference }
 		mutually_exclusive = { focus = MAN_order_under_the_marshal }
-		x = 1
-		y = 10
-		relative_position_id = MAN_first_five_year_plan
+		x = 2
+		y = 1
+		relative_position_id = MAN_imperial_tianjin_conference
 
 		cost = 10
 
@@ -2610,9 +2791,9 @@
 		id = MAN_vanguard_of_the_state
 		icon = GFX_goal_generic_army_elite
 		prerequisite = { focus = MAN_return_of_the_manchus }
-		x = 2
-		y = 11
-		relative_position_id = MAN_first_five_year_plan
+		x = 3
+		y = 2
+		relative_position_id = MAN_imperial_tianjin_conference
 
 		cost = 10
 
@@ -2634,9 +2815,9 @@
 		id = MAN_the_republican_disgrace
 		icon = GFX_goal_generic_election_chaos
 		prerequisite = { focus = MAN_return_of_the_manchus }
-		x = 0
-		y = 11
-		relative_position_id = MAN_first_five_year_plan
+		x = 1
+		y = 2
+		relative_position_id = MAN_imperial_tianjin_conference
 
 		cost = 10
 
@@ -2661,9 +2842,9 @@
 		icon = GFX_goal_MAN_big_brother_jap_man
 		prerequisite = { focus = MAN_the_republican_disgrace }
 		prerequisite = { focus = MAN_vanguard_of_the_state }
-		x = 1
-		y = 12
-		relative_position_id = MAN_first_five_year_plan
+		x = 2
+		y = 3
+		relative_position_id = MAN_imperial_tianjin_conference
 
 		cost = 10
 
@@ -2676,7 +2857,21 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_ideas = MAN_false_government
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+				set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+			}
+			add_timed_idea = {
+				idea = MAN_false_government
+				days = 720
+			}
 			add_ideas = MAN_subservient_empire
 			add_trait = {
      			character = MAN_aisin_gioro_pujie_tfv
@@ -2695,9 +2890,9 @@
 		id = MAN_propagate_nanshinron
 		icon = GFX_focus_jap_strike_south
 		prerequisite = { focus = MAN_back_to_the_basics focus = MAN_a_tale_of_two_emperors }
-		x = -1
-		y = 13
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 4
+		relative_position_id = MAN_imperial_tianjin_conference
 
 		cost = 10
 
@@ -2773,9 +2968,9 @@
 		id = MAN_pressure_tibet
 		icon = GFX_goal_generic_dissolve_parliament
 		prerequisite = { focus = MAN_propagate_nanshinron }
-		x = -1
-		y = 15
-		relative_position_id = MAN_first_five_year_plan
+		x = 0
+		y = 2
+		relative_position_id = MAN_propagate_nanshinron
 
 		cost = 10
 
@@ -2783,36 +2978,53 @@
 			factor = 1
 		}
 
-		available = {
-			is_subject = no
-			TIB = {
-				exists = yes
-				is_subject = no
-			}
-			any_neighbor_country = {
-				original_tag = TIB
-			}
-		}
 		bypass = {
 			OR = {
-				has_war_with = TIB
-				NOT = { country_exists = TIB }
-				TIB = { is_subject_of = ROOT }
+				TIB = {
+					exists = no
+					is_in_faction_with = ROOT
+				}
 			}
 		}
-		completion_reward = {
-			TIB = { country_event = { id = kmt.8  days = 3 }}
+
+		available = {
+			604 = {
+				OWNER = {
+					is_ally_with = ROOT
+				}
+			}
+			is_subject_of = JAP
 		}
+
 		search_filters = { FOCUS_FILTER_ANNEXATION }
+
+		completion_reward = {
+			if = {
+				limit = {
+					TIB = {
+					is_subject = YES
+					}
+				}
+				declare_war_on = {
+					target = TIB
+					type = puppet_wargoal_focus
+				}
+			}
+			else = {
+				TIB = {
+				country_event = manchukuo_events.6
+				}
+			}
+		}
 	}
 
 	focus = {
 		id = MAN_the_kashmir_border
 		icon = GFX_focus_generic_public_works_A
 		prerequisite = { focus = MAN_propagate_nanshinron }
-		x = 0
-		y = 14
-		relative_position_id = MAN_first_five_year_plan
+		x = 1
+		y = 1
+		relative_position_id = MAN_propagate_nanshinron
 
 		cost = 7.2
 
@@ -2842,6 +3054,13 @@
 			build_railway = {
   				level = 1
   				build_only_on_allied = yes
+  				controller_priority = {
+    			base = 1
+    				modifier = {
+      					tag = MAN
+      					add = 2
+    				}
+  				}
   				fallback = yes
   				path = { 7418 4167 4295 531 12882 7397 4313 11448 12815 4536 12846 7940 10865 10315 1943 10911 4973 }
   				start_province = 7418
@@ -2901,9 +3120,9 @@
 		id = MAN_remodel_the_river_detachments
 		icon = GFX_goal_generic_landing_craft
 		prerequisite = { focus = MAN_propagate_nanshinron }
-		x = 1
-		y = 15
-		relative_position_id = MAN_first_five_year_plan
+		x = 2
+		y = 2
+		relative_position_id = MAN_propagate_nanshinron
 
 		cost = 7.2
 
@@ -2950,9 +3169,9 @@
 		id = MAN_hainan_forward_operating_base
 		icon = GFX_goal_generic_naval_base
 		prerequisite = { focus = MAN_propagate_nanshinron }
-		x = -2
-		y = 14
-		relative_position_id = MAN_first_five_year_plan
+		x = -1
+		y = 1
+		relative_position_id = MAN_propagate_nanshinron
 
 		cost = 7.2
 
@@ -2978,7 +3197,15 @@
 			build_railway = {
   				level = 1
   				build_only_on_allied = yes
+  				controller_priority = {
+    			base = 1
+    				modifier = {
+      					tag = MAN
+      					add = 2
+    				}
+  				}
   				fallback = yes
+  				path = { }
   				start_province = 7097
   				target_province = 1070
 			}
@@ -3011,64 +3238,14 @@
 			}
 		}
 	}
-	
-	
-	focus = {
-		id = MAN_reclaim_the_entierty_of_manchuria_puppet
-		icon = GFX_goal_generic_occupy_states_ongoing_war
-		prerequisite = {  focus = MAN_propagate_nanshinron }
-		relative_position_id = MAN_propagate_nanshinron
-		x = 3
-		y = 1
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}
-		available = {
-			JAP = {
-				NOT = {
-					is_in_faction_with = SOV
-					has_non_aggression_pact_with = SOV
-					has_guaranteed = SOV
-				}
-			}
-			OR = {
-				SOV = { is_justifying_wargoal_against = JAP }
-				JAP = { is_justifying_wargoal_against = SOV }
-				has_war_with = SOV
-				VLA = {
-					exists = yes
-					NOT = { is_in_faction_with = MAN }
-				}
-				GUK = {
-					exists = yes
-					NOT = { is_in_faction_with = MAN }
-				}
-				FER = {
-					exists = yes
-					NOT = { is_in_faction_with = MAN }
-				}
-			}
-			
-		}
-		completion_reward = {
-			add_state_claim = 408
-			add_state_claim = 409
-			add_state_claim = 560
-			add_state_claim = 561
-			add_state_claim = 657
-			unlock_decision_tooltip = core_outer_manchuria_decision
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}
 
 	focus = {
 		id = MAN_assume_continental_responsibilities
 		icon = GFX_goal_generic_jungle_warfare
 		prerequisite = { focus = MAN_propagate_nanshinron }
-		x = -3
-		y = 15
-		relative_position_id = MAN_first_five_year_plan
+		x = -2
+		y = 2
+		relative_position_id = MAN_propagate_nanshinron
 
 		cost = 7.2
 
@@ -3106,11 +3283,55 @@
 		icon = GFX_goal_MAN_assertiveness
 		prerequisite = { focus = MAN_trade_delegation }
 		mutually_exclusive = { focus = MAN_obedience }
-		x = 3
+		x = 2
 		y = 4
 		relative_position_id = MAN_trade_delegation
 
 		cost = 10
+
+		available = {
+			OR = {
+				NOT = { is_puppet_of = JAP }
+				JAP = {
+					OR = {
+						has_completed_focus = JAP_support_the_kodoha_faction
+						has_completed_focus = JAP_purge_the_kodoha_faction
+						has_completed_focus = JAP_strengthen_civilian_government
+						has_completed_focus = JAP_the_unthinkable_option
+					}
+				}
+			}
+			
+		}
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = MAN_obedience
+				}
+			}
+		}
+		#offset = {
+		#	x = 0
+		#	y = 0
+		#	trigger = {
+		#		OR = {
+		#			AND = {
+		#				has_game_rule = {
+		#					rule = obsolete_focus_branches_visibility
+		#					option = HIDE
+		#				}
+		#				has_completed_focus = MAN_the_kwantung_connection
+		#			}
+		#		}
+		#	}
+		#}
 
 		ai_will_do = {
 			factor = 4
@@ -3124,6 +3345,7 @@
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
 			MAN_low_legitimacy_level_down = yes
 			set_country_flag = MAN_assertiveness
 			if = {
@@ -3229,10 +3451,10 @@
 	focus = {
 		id = MAN_national_martyr_shrine
 		icon = GFX_goal_generic_secret_weapon
-		prerequisite = { focus = MAN_request_control_of_the_railways  focus = MAN_first_five_year_plan }
+		prerequisite = { focus = MAN_obedience  focus = MAN_assertiveness }
 		x = -4
 		y = 1
-		relative_position_id = MAN_request_control_of_the_railways
+		relative_position_id = MAN_assertiveness
 
 		cost = 10
 
@@ -3249,6 +3471,41 @@
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			add_ideas = MAN_national_martyr_shrine_idea
+		}
+
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					has_completed_focus = MAN_obedience
+				}
+			}
+		}
+		offset = {
+			x = 2
+			y = 0
+			trigger = {
+				AND = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+					OR = {
+						has_completed_focus = MAN_assertiveness
+						JAP = {
+							has_completed_focus = JAP_strengthen_civilian_government
+						}
+						JAP = {
+							has_completed_focus = JAP_the_unthinkable_option
+						}						
+					}
+				}
+			}
 		}
 	}	
 	
@@ -3617,9 +3874,6 @@
 		completion_reward = {
 			navy_experience = 25
 			random_owned_controlled_state = {
-				limit = {
-					is_coastal = yes
-				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = dockyard
@@ -3628,9 +3882,6 @@
 				}
 			}
 			random_owned_controlled_state = {
-				limit = {
-					is_coastal = yes
-				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = dockyard
@@ -3823,7 +4074,7 @@
 		id = MAN_imperial_university
 		icon = GFX_focus_research
 		prerequisite = { focus = MAN_imperial_divinity }
-		x = -1
+		x = 1
 		y = 1
 		relative_position_id = MAN_imperial_divinity
 
@@ -3846,7 +4097,7 @@
 		icon = GFX_goal_MAN_restore_the_empire
 		prerequisite = { focus = MAN_imperial_divinity }
 		prerequisite = { focus = MAN_reclaim_the_empire }
-		x = 5
+		x = 6
 		y = 1
 		relative_position_id = MAN_imperial_divinity
 
@@ -3857,10 +4108,18 @@
 		}
 
 		available = {
-			608 = { is_fully_controlled_by = ROOT }
+			OR = {
+				any_allied_country = {
+					controls_state = 608
+				}
+				ROOT = {
+					controls_state = 608
+				}
+			}
 		}
 
 		completion_reward = {
+			608 = { transfer_state_to = ROOT }
 			set_capital = { state = 608 }
 			MAN_low_legitimacy_level_down = yes
 		}
@@ -3881,33 +4140,66 @@
 		}
 
 		available = {
-			any_state = {
-				is_core_of = ROOT
-				
+			CHI = {
 				OR = {
-					is_controlled_by = ROOT
-					controller = {
-						is_subject_of = ROOT
-					}
-					state = 729
-					state = 326
-					state = 728
-					state = 524
-					state = 434
-					state = 329
-					state = 330
-
-					state = 817
-					state = 818
-					state = 819
-					state = 820					
+					exists = no
+					has_capitulated = yes
+					is_subject_of = ROOT
+				}
+			}
+			PRC = {
+				OR = {
+					exists = no
+					has_capitulated = yes
+					is_subject_of = ROOT
 				}
 			}
 		}
+
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+				set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+			}
+
 			MAN_low_legitimacy_clear_all = yes	
 			set_cosmetic_tag = MAN_restored
+
+			every_state = {
+				limit = { is_core_of = CHI }
+				add_core_of = MAN
+			}
+
+			custom_effect_tooltip = r56rp_MAN_annex_subjects
+			every_subject_country = {
+				limit = {
+					OR = {
+						tag = TNG
+						tag = SHX
+						tag = PRC
+						tag = CHI
+						tag = GXC
+						tag = XSM
+						tag = YUN
+						tag = SIK
+					}
+				}
+				ROOT = {
+					annex_country = {
+						target = PREV
+						transfer_troops = yes
+					}
+				}
+			}
+
 			hidden_effect = {
 				news_event = { id = wtt_news.44 days = 2 }
 				if = {
@@ -3954,9 +4246,19 @@
 		completion_reward = {
 			add_war_support = 0.1
 			set_rule = { can_create_factions = yes }
+			create_wargoal = {
+				target = CHI
+				type = take_state_focus
+				generator = { 123 }
+			}
+			create_wargoal = {
+				target = PRC
+				type = take_state_focus
+				generator = { 123 }
+			}
 			every_state = {
 				limit = { is_core_of = CHI }
-				add_core_of = ROOT
+				add_claim_by = MAN
 			}
 		}
 	}
@@ -3976,20 +4278,9 @@
 			factor = 6
 		}
 		available = {
-			if = {
-				limit = {
-					has_dlc = "Together for Victory"
-				}
-				has_country_leader = {
-					character = MAN_puyi_tfv
-					ruling_only = yes
-				}
-			}
-			else = {
-				has_country_leader = {
-					character = MAN_puyi
-					ruling_only = yes
-				}
+			has_country_leader = {
+				character = MAN_puyi
+				ruling_only = yes
 			}
 			is_subject = no
 			OR = {
@@ -4039,47 +4330,50 @@
 		}
 		search_filters = { FOCUS_FILTER_ALLIANCE }
 	}
-	focus = {
-		id = MAN_assert_our_authority
-		icon = GFX_goal_CHI_defeat_the_warlords
-		mutually_exclusive = { focus = MAN_offer_vassalization }
-		prerequisite = { focus = MAN_reclaim_the_empire }
-		x = -1
-		y = 1
-		relative_position_id = MAN_reclaim_the_empire
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-		completion_reward = {
-			every_country = {
-				limit = {
-					is_independent_china_or_warlord = yes
-				}
-				ROOT = {
-					create_wargoal = {
-						type = annex_everything
-						target = PREV
-					}
-				}
-			}
-		}
-	}
+	#focus = { #depracated. vasalisation gives you wargoals anyways so a waste of time.
+	#	id = MAN_assert_our_authority
+	#	icon = GFX_goal_CHI_defeat_the_warlords
+	#	mutually_exclusive = { focus = MAN_offer_vassalization }
+	#	prerequisite = { focus = MAN_reclaim_the_empire }
+	#	x = -1
+	#	y = 1
+	#	relative_position_id = MAN_reclaim_the_empire
+	#
+	#	cost = 5
+	#
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+	#
+	#	search_filters = { FOCUS_FILTER_ANNEXATION }
+	#	completion_reward = {
+	#		every_country = {
+	#			limit = {
+	#				is_independent_china_or_warlord = yes
+	#				NOT = {
+	#					TAG = CHI
+	#				}
+	#			}
+	#			ROOT = {
+	#				create_wargoal = {
+	#					type = annex_everything
+	#					target = PREV
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
 
 	focus = {
 		id = MAN_offer_vassalization
 		icon = GFX_goal_CHI_focus_on_external_threats
-		mutually_exclusive = { focus = MAN_assert_our_authority }
+		#mutually_exclusive = { focus = MAN_assert_our_authority }
 		prerequisite = { focus = MAN_reclaim_the_empire }
 		x = 1
 		y = 1
 		relative_position_id = MAN_reclaim_the_empire
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -4094,19 +4388,53 @@
 				}
 				country_event = { id = wtt_manchukou.1 }
 			}
+			# indicator of what the event does.
+			custom_effect_tooltip = r56rp_if_accept_ultimatum
+			effect_tooltip = {
+				every_country = {
+					limit = {
+						is_chinese_warlord = yes
+						not = { tag = event_target:WTT_current_china_leader }
+					}
+					ROOT = {
+						puppet = {
+							target = PREV
+							end_wars = no
+						}
+					}
+				}
+			}
+			custom_effect_tooltip = r56rp_if_deny_ultimatum
+			effect_tooltip = {
+				every_country = {
+					limit = {
+						is_chinese_warlord = yes
+						not = { tag = event_target:WTT_current_china_leader }
+					}
+					ROOT = {
+						create_wargoal = {
+							type = puppet_wargoal_focus
+							target = PREV
+						}
+					}
+				}
+			}
 		}
 	}
 	focus = {
 		id = MAN_reclaim_the_entierty_of_manchuria
 		icon = GFX_goal_generic_occupy_states_ongoing_war
-		prerequisite = {  focus = MAN_offer_vassalization focus = MAN_assert_our_authority }
+		prerequisite = {  focus = MAN_offer_vassalization }
 		mutually_exclusive = {
 			focus = MAN_qing_romanov_alliance
 		}
 		relative_position_id = MAN_offer_vassalization
-		x = -1
+		x = 0
 		y = 1
 		cost = 10
+
+
+
 		ai_will_do = {
 			factor = 1
 		}
@@ -4114,17 +4442,30 @@
 			has_army_manpower = {
 				size > 499999
 			}
-			NOT = { is_in_faction_with = SOV }
+			NOT = {
+				is_in_faction_with = SOV
+			}
+		
+			OR = {
+				has_war = no
+				has_war_with = SOV
+				has_war_with = VLA
+				has_war_with = GUK
+				has_war_with = FER
+			}
+			
+		}
+		bypass = {
+			is_in_faction_with = SOV
 		}
 		completion_reward = {
 			add_state_claim = 408
 			add_state_claim = 409
 			add_state_claim = 560
-			add_state_claim = 561
 			add_state_claim = 657
-			unlock_decision_tooltip = core_outer_manchuria_decision
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
-	shared_focus = CHI_invite_foreign_investors
+	shared_focus = CHI_renegotiate_the_unequal_treaties
+	
 }

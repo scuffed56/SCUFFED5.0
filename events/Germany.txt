@@ -3,7 +3,6 @@
 ###########################
 
 add_namespace = germany
-add_namespace = ger_brest_litovsk
 
 # Austrian Anschluss Completed
 country_event = {
@@ -35,18 +34,6 @@ country_event = {
 			}
 		}
 		153 = {
-			if = {
-				limit = { is_owned_by = AUS }
-				add_core_of = GER
-			}
-		}
-		848 = {
-			if = {
-				limit = { is_owned_by = AUS }
-				add_core_of = GER
-			}
-		}
-		1054 = {
 			if = {
 				limit = { is_owned_by = AUS }
 				add_core_of = GER
@@ -109,6 +96,7 @@ country_event = {
 			GER_mefo_bills_level_down = yes
 		}
 		custom_effect_tooltip = anschluss_mefo_bills_double_reduction
+		add_to_variable = { var = GER_mefo_bill_counter value = -10 }
 		
 		if = {
 			limit = {
@@ -1427,7 +1415,7 @@ country_event = {
 		}
 	}
 
-	option = {	#Polish-Soviet war alternate scenario: original MR pact followed, Germany to receive Lithuania but the Soviets more Poland, state CONTROL is tranferred
+	option = {	#Polish-Soviet war alternate scenario:, state CONTROL is tranferred
 		name = germany.14.d
 		trigger = {
 			has_global_flag = SOV_complied_MR
@@ -1501,7 +1489,6 @@ country_event = {
 			set_province_controller = 12562
 			set_province_controller = 524
 		}
-		set_global_flag = GER_used_original_MR	#allow Germany to influence Lituania only if the Soviets are not to be ceded it
 		create_wargoal = {
 			type = annex_everything
 			target = LIT
@@ -2483,12 +2470,10 @@ country_event = {
 		add_state_claim = 4
 		add_state_claim = 152
 		add_state_claim = 153
-		add_state_claim = 848	#Vorarlberg
-		add_state_claim = 1054	#Styria
 		create_wargoal = {
 			type = take_state_focus
 			target = AUS
-			generator = { 4 152 153 848 1054 }
+			generator = { 4 152 153 }
 		}
 	}
 }
@@ -3928,6 +3913,7 @@ country_event = {
 		#		has_global_flag = ger_vanilla_focus_tree
 		#	}
 			custom_effect_tooltip = end_of_czechoslovakia_mefo_bills_tt
+			add_to_variable = { var = GER_mefo_bill_counter value = -5 }
 			GER_mefo_bills_level_down = yes
 		#}
 		
@@ -3985,6 +3971,7 @@ country_event = {
 		#		has_global_flag = ger_vanilla_focus_tree
 		#	}
 			custom_effect_tooltip = end_of_czechoslovakia_mefo_bills_tt
+			add_to_variable = { var = GER_mefo_bill_counter value = -5 }
 			GER_mefo_bills_level_down = yes
 		#}
 	}
@@ -4026,6 +4013,7 @@ country_event = {
 		#		has_global_flag = ger_vanilla_focus_tree
 		#	}
 			custom_effect_tooltip = end_of_czechoslovakia_mefo_bills_tt
+			add_to_variable = { var = GER_mefo_bill_counter value = -5 }
 			GER_mefo_bills_level_down = yes
 		#}
 	}
@@ -4050,6 +4038,7 @@ country_event = {
 		#		has_global_flag = ger_vanilla_focus_tree
 		#	}
 			custom_effect_tooltip = end_of_czechoslovakia_mefo_bills_tt
+			add_to_variable = { var = GER_mefo_bill_counter value = -5 }
 			GER_mefo_bills_level_down = yes
 		#}
 	}
@@ -4265,6 +4254,17 @@ country_event = {
 			modifier = {
 				factor = 0
 				is_historical_focus_on = yes
+			}
+		}
+		trigger = {
+			IF = {
+				limit = {
+					has_game_rule = {
+						rule = r56rp_enable_bakedinrules
+						option = ENABLED
+					}
+				}
+				date > 1939.6.1
 			}
 		}
 		add_political_power = -150
@@ -4831,6 +4831,7 @@ country_event = {
 		# Himmler becomes the new Fascist leader of Germany
 		kill_country_leader = yes
 		add_stability = 0.05
+		set_global_flag = r56rp_GER_himmler
 		GER_heinrich_himmler = {
 			add_country_leader_role = {
 				promote_leader = yes
@@ -4860,6 +4861,7 @@ country_event = {
 		# Göring becomes the new Fascist leader of Germany
 		kill_country_leader = yes
 		add_stability = 0.1
+		set_global_flag = r56rp_GER_goring
 		GER_hermann_goring = {
 			add_country_leader_role = {
 				promote_leader = yes
@@ -6653,6 +6655,7 @@ country_event = {
 			}
 		}
 		custom_effect_tooltip = yugoslavia_mefo_bills_tt
+		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
 		GER_mefo_bills_level_down = yes
 	}
 
@@ -6742,8 +6745,8 @@ country_event = {
 							limit = { YUG = { owns_state = 952 } }
 							transfer_state = 952
 						}
-					}
 					puppet = CRO #in case Croatia doesn't exist it shall become German puppet
+					}	
 				}
 				every_other_country = { #Making Croatian borders bigger to prevent bordergore 
 					limit = {
@@ -6856,8 +6859,8 @@ country_event = {
 						limit = { YUG = { owns_state = 952 } }
 						transfer_state = 952
 					}
-				}	
 				puppet = CRO #in case Croatia doesn't exist it shall become German puppet
+				}	
 			}
 			every_other_country = { #Croatia takes that to prevent border gore
 				limit = {
@@ -6911,6 +6914,7 @@ country_event = {
 			}
 		}
 		custom_effect_tooltip = yugoslavia_mefo_bills_tt
+		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
 		GER_mefo_bills_level_down = yes
 
 	}
@@ -7161,8 +7165,8 @@ country_event = {
 						limit = { YUG = { owns_state = 952 } }
 						transfer_state = 952
 					}
-				}	
 				puppet = CRO
+				}	
 			}
 			every_other_country = { #preventing bordergore in Croatian part
 				limit = {
@@ -7275,6 +7279,7 @@ country_event = {
 			}
 		}
 		custom_effect_tooltip = yugoslavia_mefo_bills_tt
+		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
 		GER_mefo_bills_level_down = yes
 	}
 }
@@ -8598,7 +8603,6 @@ country_event = {
 		}
 		WGR = {
 			add_state_core = 42
-			add_state_core = 1053
 			add_state_core = 50
 			add_state_core = 51
 			add_state_core = 52
@@ -8898,10 +8902,8 @@ country_event = {
 					#is_owned_and_controlled_by = GER
 					any_country_with_original_tag = {		#stupid new peace deals
 						original_tag_to_check = GER
-						ROOT ={
-							owns_state = PREV
-							controls_state = PREV
-						}
+						owns_state = PREV
+						controls_state = PREV
 					}
 				}
 				DDR = {
@@ -10944,16 +10946,20 @@ country_event = { #Resolves Europe Post Yalta
 			}
 			if = {
 				limit = {
-					has_global_flag = r56_BUL_in_yalta
-					has_global_flag = r56_GRE_in_yalta
+					AND = {
+						has_global_flag = r56_BUL_in_yalta
+						has_global_flag = r56_GRE_in_yalta
+					}
 					BUL = {
 						is_ai = yes
 					}
 				}
 				every_state = { 
 					limit = {
-						is_core_of = GRE
-						is_core_of = BUL
+						AND = {
+							is_core_of = GRE
+							is_core_of = BUL
+						}
 						owner = {
 							is_ai = yes
 						}
@@ -12053,11 +12059,11 @@ country_event = { #Historical post yalta fixing by marijn211
 						has_global_flag = r56_USA_can_occupy_yalta
 					}
 					has_global_flag = r56_ENG_can_occupy_yalta
-					1054 = {  
+					152 = {  
 						is_owned_by = SOV
 					}
 				}
-				ENG = { transfer_state = 1054 }
+				ENG = { transfer_state = 152 }
 			}
 		}
 		if = { #Fix released Lithuania in only Vilnius
@@ -13206,7 +13212,6 @@ country_event = { #Democratic anschluss
 			add_state_core = 152
 			add_state_core = 153
 			add_state_core = 848
-			add_state_core = 1054
 			#AI would probably do stupid things with a claim on South Tyrol, perhaps something for a future focus
 		}
 		country_event = r56.ger.26 #world event
@@ -13467,117 +13472,844 @@ country_event = { #Germany civil war
 
 	is_triggered_only = yes
 
-	timeout_days = 7
+	timeout_days = 3
 
-	immediate = { # just in case we want to manually trigger this event without the focus
-		hidden_effect = { 
-			if = {
+	immediate = {
+		hidden_effect={
+			random_country = {
 				limit = {
+					original_tag = GER
 					NOT = {
-						has_variable = cw_dem_preview
+						tag = GER
 					}
+					has_government = communism
+				}
+				save_event_target_as = communist_germany
+				set_country_flag = r56_communist_germany_aliases_set
+			}
+			random_country = {
+				limit = {
+					original_tag = GER
 					NOT = {
-						has_variable = cw_com_preview
+						tag = GER
+					}
+					has_government = democratic
+				}
+				save_event_target_as = conservative_germany
+				set_country_flag = r56_conservative_germany_aliases_set
+			}
+			every_character = {
+				limit = {
+					OR = {
+						is_character = GER_ernst_thalmann
+						is_character = GER_Walter_Ulbricht
+						is_character = GER_franz_jacob
+						is_character = GER_Franz_Dahlem
+						is_character = GER_Bernhard_Bastlein
 					}
 				}
-				GER_civil_war_setup_and_preview = yes
+				set_nationality = event_target:communist_germany
+			}
+			every_character = { #move over advisors and leaders
+				limit = {
+					OR = {
+						is_advisor = yes
+						is_unit_leader = yes
+						is_character = GER_konrad_adenauer
+					}
+					NOT = {
+						is_character = GER_rudolf_hess
+						is_character = GER_martin_bormann
+						is_character = GER_joseph_goebbels
+						is_character = GER_wilhelm_keitel
+						is_character = GER_heinrich_himmler
+						is_character = GER_hermann_goring
+						is_character = GER_joachim_von_ribbentrop
+						is_character = GER_fritz_todt
+						is_character = GER_albert_speer
+						is_character = GER_werner_von_fritsch #despite the Blomberg–Fritsch affair, he seemingly didnt stop supporting anti-democratic and nazi ideals
+						is_character = GER_ferdinand_schorner
+						is_character = GER_felix_steiner #SS 
+						
+						has_id = 10 #Walter Model
+						has_id = 15 #Walter Kruger
+						has_id = 20 #Paul Hausser
+						has_id = 24 #Sepp Dietrich
+					}
+				}
+				set_nationality = event_target:conservative_germany
+			}
+			event_target:conservative_germany = {
+				GER_erwin_von_witzleben = {
+					add_country_leader_role = {
+						promote_leader = yes
+						country_leader = {
+						  	ideology = conservatism
+						  	expire = "1942.1.1.1" #health
+						  	traits = {  }
+						}
+					}
+				}
+				every_unit_leader = {
+					limit = {
+						has_id = 19 #Johannes Blaskowitz
+					}
+					remove_unit_leader_trait = unpopular #Should be less controversial if Germany is being good
+				}
+				division_template = {
+					name = "Landsturmregiment"
+					is_locked = yes
+				
+					division_names_group = GER_Inf_01
+				
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 0 y = 3 }
+					}
+					support = { 
+						engineer = { x = 0 y = 0 }
+					}
+				}
+				every_controlled_state = {
+					limit = {
+						OR = {
+							state = 67 #Poland enclave
+							state = 54 #East
+							state = 989 #Upper
+							state = 922 #Center
+						}
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Landsturmregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Landsturmregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Landsturmregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+				}
+			}
+			event_target:communist_germany = {
+				add_command_power = 50
+				#Thalmann was imprisoned in the communist area, make him leader here and fire an event about him being freed if communists are chosen
+				GER_ernst_thalmann = {
+					promote_character = yes
+					promote_character = stalinism
+					set_portraits = { #temporarily doesnt use his fancy uniform
+						civilian = {
+							large="gfx/leaders/GER/r56_portrait_Ernst_Thalmann.dds"
+						}
+					}
+				}
+				set_variable = {
+					var = GER_commie_soviet_influence
+					value = 0
+				}
+				add_equipment_to_stockpile = { #buff to compensate for lack of industry, 5-divisions worth
+					type = infantry_equipment
+					amount = 5000
+					producer = GER
+				}
+				division_template = {
+					name = "Rotesregiment"
+					is_locked = yes
+				
+					division_names_group = GER_Inf_01
+				
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 0 y = 3 }
+					}
+					support = { 
+						engineer = { x = 0 y = 0 }
+					}
+				}
+				every_controlled_state = { #16 weak units in stronghold
+					limit = {
+						OR = {
+							state = 60
+							state = 65
+						}
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+					}
+				}
+				every_state = { #8 divisions in contested areas
+					limit = {
+						OR = {
+							state = 59
+							state = 64
+						}
+					}
+					create_unit = {
+						division = "name = \"Hamburger Rotes Regiment\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+						allow_spawning_on_enemy_provs = no
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+						allow_spawning_on_enemy_provs = no
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+						allow_spawning_on_enemy_provs = no
+					}
+					create_unit = {
+						division = "name = \"Infantry Division\" division_template = \"Rotesregiment\" start_experience_factor = 0.05"
+						owner = PREV
+						allow_spawning_on_enemy_provs = no
+					}
+				}
+			}
+			###heres your starting designs now stop annoying me about debug mode not saying your tag is GER
+			every_country = {
+				limit = {
+					OR = {
+						tag = event_target:communist_germany
+						tag = event_target:conservative_germany
+					}
+				}
+				if = {
+					limit = {
+						not = { has_dlc = "Man the Guns" }
+					}
+					create_equipment_variant = {
+						name = "Scharnhorst Class"
+						type = battle_cruiser_2
+						parent_version = 0
+						upgrades = {
+							ship_reliability_upgrade = 3
+							ship_engine_upgrade = 1
+							ship_armor_upgrade = 4
+							ship_gun_upgrade = 0
+						}
+					}
+					create_equipment_variant = {
+						name = "Deutschland Class"
+						type = battleship_1
+						parent_version = 0
+						upgrades = {
+							ship_reliability_upgrade = 0
+							ship_engine_upgrade = 0
+							ship_armor_upgrade = 0
+							ship_gun_upgrade = 0
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Deutschland Class"
+						type = heavy_cruiser_2
+						parent_version = 0
+						upgrades = {
+							ship_reliability_upgrade = 1
+							ship_engine_upgrade = 0
+							ship_armor_upgrade = 0
+							ship_gun_upgrade = 4
+						}
+						obsolete=yes
+					}
+					create_equipment_variant = {
+						name = "Leipzig Class"
+						type = light_cruiser_1
+						parent_version = 0
+						upgrades = {
+							ship_reliability_upgrade = 2
+							ship_engine_upgrade = 2
+							ship_gun_upgrade = 3
+							ship_anti_air_upgrade = 3
+						}
+						obsolete = yes
+					}
+					# Light Cruisers #
+					create_equipment_variant = {
+						name = "Königsberg Class"
+						type = light_cruiser_1
+						parent_version = 0
+						upgrades = {
+							ship_reliability_upgrade = 2
+							ship_engine_upgrade = 2
+							ship_gun_upgrade = 3
+							ship_anti_air_upgrade = 2
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "1924 Type"
+						type = destroyer_1
+						parent_version = 0
+						upgrades = {
+							ship_torpedo_upgrade = 1
+							destroyer_engine_upgrade = 1
+							ship_ASW_upgrade = 0
+							ship_anti_air_upgrade = 1
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Zerstörer 1934A"
+						type = destroyer_2
+						parent_version = 0
+						upgrades = {
+							ship_torpedo_upgrade = 1
+							destroyer_engine_upgrade = 1
+							ship_ASW_upgrade = 1
+							ship_anti_air_upgrade = 1
+						}
+					}
+					create_equipment_variant = {
+						name = "Type IIB"
+						type = submarine_2
+						parent_version = 0
+						upgrades = {
+							ship_reliability_upgrade = 1
+							sub_engine_upgrade = 0
+							sub_stealth_upgrade = 1
+							sub_torpedo_upgrade = 0
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Type VIIA"
+						type = submarine_2
+						parent_version = 0
+						upgrades = {
+							ship_reliability_upgrade = 4
+							sub_engine_upgrade = 3
+							sub_stealth_upgrade = 2
+							sub_torpedo_upgrade = 1
+						}
+					}
+					create_equipment_variant = {
+						name = "Type IA"
+						type = submarine_1
+						parent_version = 0
+						upgrades = {
+							ship_reliability_upgrade = 1
+							sub_engine_upgrade = 2
+							sub_stealth_upgrade = 2
+							sub_torpedo_upgrade = 2
+						}
+						obsolete = yes
+					}
+				}
+				if = {
+					limit = { has_dlc = "Man the Guns" }
+					create_equipment_variant = { #Are we making a CV or a Monster Cruiser? Make up your mind
+						name = "Graf Zeppelin Class"
+						type = ship_hull_carrier_conversion_ca
+						name_group = GER_CV_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_deck_slot_1 = ship_deck_space
+							fixed_ship_deck_slot_2 = ship_deck_space
+							fixed_ship_anti_air_slot = ship_anti_air_2
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = cruiser_ship_engine_2
+							fixed_ship_secondaries_slot = ship_secondaries_2 
+						}
+					}
+					create_equipment_variant = {
+						name = "Deutschland Class"
+						type = ship_hull_cruiser_panzerschiff
+						name_group = GER_CA_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_battery_slot = ship_heavy_battery_2
+							fixed_ship_secondaries_slot = ship_secondaries_1
+							fixed_ship_armor_slot = ship_armor_cruiser_2
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_engine_slot = cruiser_ship_engine_2
+							front_1_custom_slot = ship_anti_air_1
+							mid_1_custom_slot = ship_airplane_launcher_1
+							mid_2_custom_slot = ship_secondaries_1
+							rear_1_custom_slot = ship_torpedo_1
+						}
+					}
+					create_equipment_variant = {
+						name = "Type 24 Class"
+						type = ship_hull_light_1
+						name_group = GER_TB_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_light_battery_1
+							fixed_ship_anti_air_slot = empty
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = light_ship_engine_1
+							fixed_ship_torpedo_slot = ship_torpedo_1
+							rear_1_custom_slot = ship_mine_layer_1
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Zerstörer 1934 Class"
+						type = ship_hull_light_2
+						name_group = GER_DD_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_light_battery_2
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = light_ship_engine_2
+							fixed_ship_torpedo_slot = ship_torpedo_1
+							mid_1_custom_slot = ship_torpedo_1
+							rear_1_custom_slot = ship_mine_layer_1
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Zerstörer 1934A Class"
+						type = ship_hull_light_2
+						name_group = GER_DD_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_light_battery_2
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = light_ship_engine_2
+							fixed_ship_torpedo_slot = ship_torpedo_1
+							mid_1_custom_slot = ship_torpedo_1
+							rear_1_custom_slot = ship_depth_charge_1
+						}
+					}
+					create_equipment_variant = {
+						name = "Type I Class"
+						type = ship_hull_submarine_2
+						name_group = GER_SS_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_torpedo_slot = ship_torpedo_sub_1
+							fixed_ship_engine_slot = sub_ship_engine_1
+							rear_1_custom_slot = empty
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Type II Class"
+						type = ship_hull_submarine_1
+						name_group = GER_SS_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_torpedo_slot = ship_torpedo_sub_1
+							fixed_ship_engine_slot = sub_ship_engine_1
+							rear_1_custom_slot = empty
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Type IX Class"
+						type = ship_hull_submarine_2
+						name_group = GER_SS_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_torpedo_slot = ship_torpedo_sub_2
+							fixed_ship_engine_slot = sub_ship_engine_2
+							rear_1_custom_slot = empty
+						}
+					}
+					create_equipment_variant = {
+						name = "Type VII Class"
+						type = ship_hull_submarine_2
+						name_group = GER_SS_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_torpedo_slot = ship_torpedo_sub_2
+							fixed_ship_engine_slot = sub_ship_engine_1
+							rear_1_custom_slot = empty
+						}
+					}
+					create_equipment_variant = {
+						name = "Königsberg Class"
+						type = ship_hull_cruiser_2
+						name_group = GER_CL_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_light_medium_battery_1
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = cruiser_ship_engine_1
+							fixed_ship_armor_slot = ship_armor_cruiser_1
+							mid_1_custom_slot = ship_torpedo_1
+							mid_2_custom_slot = ship_light_medium_battery_1
+							rear_1_custom_slot = ship_mine_layer_1
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Emden Class"
+						type = ship_hull_cruiser_1
+						name_group = GER_CL_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_light_medium_battery_1
+							fixed_ship_anti_air_slot = empty
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = cruiser_ship_engine_1
+							fixed_ship_armor_slot = ship_armor_cruiser_1
+							mid_1_custom_slot = ship_light_medium_battery_1
+							mid_2_custom_slot = ship_torpedo_1
+							rear_1_custom_slot = empty
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Bremse Class"
+						type = ship_hull_cruiser_1
+						name_group = GER_CL_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_light_battery_1
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = cruiser_ship_engine_1
+							mid_1_custom_slot = ship_anti_air_1
+							mid_2_custom_slot = ship_mine_layer_1
+							rear_1_custom_slot = ship_mine_layer_1
+						}
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Leipzig Class"
+						type = ship_hull_cruiser_2
+						name_group = GER_CL_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_light_medium_battery_1
+							fixed_ship_anti_air_slot = ship_anti_air_2
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = cruiser_ship_engine_1
+							fixed_ship_armor_slot = ship_armor_cruiser_1
+							front_1_custom_slot = ship_light_medium_battery_1
+							mid_1_custom_slot = ship_torpedo_1
+							mid_2_custom_slot = ship_mine_layer_1
+							rear_1_custom_slot = ship_airplane_launcher_1
+						}
+					}
+					create_equipment_variant = {
+						name = "Admiral Hipper Class"
+						type = ship_hull_cruiser_2
+						name_group = GER_CA_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_medium_battery_2
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = cruiser_ship_engine_1
+							fixed_ship_armor_slot = ship_armor_cruiser_2
+							front_1_custom_slot = ship_anti_air_1
+							mid_1_custom_slot = ship_torpedo_1
+							mid_2_custom_slot = ship_airplane_launcher_1
+							rear_1_custom_slot = ship_medium_battery_2
+						}
+					}
+					create_equipment_variant = {
+						name = "Scharnhorst Class"
+						type = ship_hull_heavy_2
+						name_group = GER_BB_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_heavy_battery_2
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = heavy_ship_engine_2
+							fixed_ship_secondaries_slot = ship_secondaries_1
+							fixed_ship_armor_slot = ship_armor_bb_1
+							front_1_custom_slot = ship_anti_air_1
+							mid_1_custom_slot = empty
+							mid_2_custom_slot = ship_secondaries_1
+							rear_1_custom_slot = ship_heavy_battery_2
+						}
+					}
+					create_equipment_variant = {
+						name = "Deutschland Class"
+						type = ship_hull_pre_dreadnought
+						name_group = GER_BB_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_battery_slot = ship_heavy_battery_1
+							fixed_ship_anti_air_slot = ship_anti_air_1
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = heavy_ship_engine_1
+							fixed_ship_secondaries_slot = ship_secondaries_1
+							fixed_ship_armor_slot = ship_armor_bb_1
+							front_1_custom_slot = ship_anti_air_1
+							mid_1_custom_slot = ship_secondaries_1
+							rear_1_custom_slot = ship_torpedo_1
+						}
+						obsolete = yes
+					}
+				}
+				create_equipment_variant = {
+					name = "Ju 86"
+					type = tac_bomber_equipment_0
+					upgrades = {
+						plane_tac_bomb_upgrade = 5
+						plane_range_upgrade = 5
+						plane_engine_upgrade = 5
+						plane_reliability_upgrade = 10
+					}
+					obsolete = yes
+				}
+				create_equipment_variant = {
+					name = "Do 17"
+					type = tac_bomber_equipment_0
+					upgrades = {
+						plane_tac_bomb_upgrade = 5
+						plane_range_upgrade = 1
+						plane_engine_upgrade = 1
+						plane_reliability_upgrade = 5
+					}
+					obsolete = yes
+				}
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					create_equipment_variant = {
+						name = "Leichttraktor"
+						type = light_tank_chassis_0
+						parent_version = 0
+						modules = {
+							main_armament_slot = tank_small_cannon
+							turret_type_slot = tank_light_two_man_tank_turret
+							suspension_type_slot = tank_christie_suspension
+							armor_type_slot = tank_riveted_armor
+							engine_type_slot = tank_gasoline_engine
+							special_type_slot_1 = tank_radio_1
+						}
+						upgrades = {
+							tank_nsb_engine_upgrade = 2
+							tank_nsb_armor_upgrade = 2
+						}
+						obsolete = yes
+						icon = "gfx/interface/technologies/gwtank.dds"
+					}
+					create_equipment_variant = {
+						name = "Panzer I Ausf. A"
+						type = light_tank_chassis_1
+						parent_version = 0
+						modules = {
+							main_armament_slot = tank_heavy_machine_gun
+							turret_type_slot = tank_light_one_man_tank_turret
+							suspension_type_slot = tank_christie_suspension
+							armor_type_slot = tank_riveted_armor
+							engine_type_slot = tank_gasoline_engine
+							special_type_slot_1 = tank_radio_1
+						}
+						upgrades = {
+							tank_nsb_engine_upgrade = 5
+							tank_nsb_armor_upgrade = 1
+						}
+						icon = "gfx/interface/technologies/ger_basic_light_tank.dds"
+						obsolete = yes
+					}
+					create_equipment_variant = {
+						name = "Neubaufahrzeug"
+						type = heavy_tank_chassis_1
+						parent_version = 0
+						modules = {
+							main_armament_slot = tank_close_support_gun
+							turret_type_slot = tank_heavy_three_man_tank_turret
+							suspension_type_slot = tank_bogie_suspension
+							armor_type_slot = tank_riveted_armor
+							engine_type_slot = tank_gasoline_engine
+							special_type_slot_1 = tank_radio_1
+							special_type_slot_2 = secondary_turret_hmg
+							special_type_slot_3 = secondary_turret_hmg
+							special_type_slot_4 = secondary_turret_hmg
+						}
+						upgrades = {
+							tank_nsb_engine_upgrade = 6
+							tank_nsb_armor_upgrade = 2
+						}
+						icon = "gfx/interface/technologies/ger_basic_heavy_tank.dds"
+					}
+					create_equipment_variant = {
+						name = "Panzer II Ausf. a"
+						type = light_tank_chassis_2
+						parent_version = 0
+						modules = {
+							main_armament_slot = tank_auto_cannon
+							turret_type_slot = tank_light_two_man_tank_turret
+							suspension_type_slot = tank_christie_suspension
+							armor_type_slot = tank_riveted_armor
+							engine_type_slot = tank_gasoline_engine
+							special_type_slot_1 = tank_radio_1
+						}
+						upgrades = {
+							tank_nsb_engine_upgrade = 3
+							tank_nsb_armor_upgrade = 2
+						}
+						icon = "gfx/interface/technologies/ger_imp_light_tank.dds"
+					}
+				}
 			}
 		}
 	}
 
+	#Unit handling NEEDS to be in options or the player can disband the fascist army before switching
 	option = { #Democrats
 		name = r56.ger.25.a
-		custom_effect_tooltip = GER_civil_war_tt
-		effect_tooltip = {
-			var:cw_dem_preview = {
-				change_tag_from = GER
-			}
-		}
-
-		if = {
-			limit = {
-				check_variable = { num_equipment_in_armies_k@infantry_equipment < 20 }
-			}
-			set_global_flag = GER_invalidate_civil_war_achievement
-		}
-
 		hidden_effect = {
-			var:cw_dem_preview = {
-				GER_erwin_von_witzleben = {
-					set_nationality = GER
+			civil_war_anti_exploiter_punitive_action = yes	#give the nazis free divisions if player deleted army
+			transfer_units_fraction= {
+				target = event_target:communist_germany
+				size = 0.2
+				stockpile_ratio = 0.2 #bit of raiding
+				army_ratio = 0.15
+				navy_ratio = 0.1 #no majorities in naval regions
+				air_ratio = 0.05
+				keep_unit_leaders_trigger = {
+					always = yes 
 				}
 			}
-
-			# only preview here, since the since we need to reapply this later on due to single tile territory assignment, which gets overwritten by the fascists
-			GER_civil_war_make_this_democratic_preview = yes
-
-			GER_civil_war_teleport_armies = yes
-
-			var:cw_dem_preview = {
-				GER_civil_war_make_this_fascist = yes
+			transfer_units_fraction= {
+				target = event_target:conservative_germany
+				size = 0.4
+				stockpile_ratio = 0.55 #industrial core
+				army_ratio = 0.45
+				navy_ratio = 0.3 #no majorities in naval regions
+				air_ratio = 0.35
+				keep_unit_leaders_trigger = {
+					always = yes 
+				}
 			}
+			#create fascist paramilitaries here, after splitting and after the player can mess with them
+			division_template = {
+				name = "SS-Sturmbrigade"
+				is_locked = yes
 			
-			var:cw_com_preview = {
-				GER_civil_war_make_this_communist = yes
+				division_names_group = GER_Inf_01
+			
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+				}
+				support = { 
+					engineer = { x = 0 y = 0 }
+				}
 			}
-
-			GER_civil_war_make_this_democratic = yes
-		
-			clear_variable = cw_com_preview
-			clear_variable = cw_dem_preview
-
-			GER_civil_war_declare_wars = yes
+			every_controlled_state = {
+				create_unit = {
+					division = "name = \"Infantry Division\" division_template = \"SS-Sturmbrigade\" start_experience_factor = 0.05"
+					owner = PREV
+					allow_spawning_on_enemy_provs = no
+				}				
+			}
+		}
+		event_target:conservative_germany = {
+			change_tag_from = ROOT
 		}
 	}
 	option = { #Commies
 		name = r56.ger.25.b
-		custom_effect_tooltip = GER_civil_war_tt
-		effect_tooltip = {
-			var:cw_com_preview = {
-				change_tag_from = GER
-			}
-		}
-
-		if = {
-			limit = {
-				check_variable = { num_equipment_in_armies_k@infantry_equipment < 20 }
-			}
-			set_global_flag = GER_invalidate_civil_war_achievement
-		}
-
-		custom_effect_tooltip = GER_communists_are_pretty_hard_tt
-
 		hidden_effect = {
-			var:cw_com_preview = {
-				GER_ernst_thalmann = {
-					set_nationality = GER
+			civil_war_anti_exploiter_punitive_action = yes	#give the nazis free divisions if player deleted army
+			transfer_units_fraction= {
+				target = event_target:communist_germany
+				size = 0.2
+				stockpile_ratio = 0.2 #bit of raiding
+				army_ratio = 0.15
+				navy_ratio = 0.1 #no majorities in naval regions
+				air_ratio = 0.05
+				keep_unit_leaders_trigger = {
+					always = yes 
 				}
 			}
-
-			# only preview here, since the since we need to reapply this later on due to single tile territory assignment, which gets overwritten by the fascists
-			GER_civil_war_make_this_communist_preview = yes
-
-			GER_civil_war_teleport_armies = yes
-
-			var:cw_com_preview = {
-				GER_civil_war_make_this_fascist = yes
+			transfer_units_fraction= {
+				target = event_target:conservative_germany
+				size = 0.4
+				stockpile_ratio = 0.55 #industrial core
+				army_ratio = 0.45
+				navy_ratio = 0.3 #no majorities in naval regions
+				air_ratio = 0.35
+				keep_unit_leaders_trigger = {
+					always = yes 
+				}
 			}
-
-			var:cw_dem_preview = {
-				GER_civil_war_make_this_democratic = yes
+			#create fascist paramilitaries here, after splitting and after the player can mess with them
+			division_template = {
+				name = "SS-Sturmbrigade"
+				is_locked = yes
+			
+				division_names_group = GER_Inf_01
+			
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+				}
+				support = { 
+					engineer = { x = 0 y = 0 }
+				}
 			}
-
-			GER_civil_war_make_this_communist = yes
-
-			clear_variable = cw_com_preview
-			clear_variable = cw_dem_preview
-
-
-			GER_civil_war_declare_wars = yes
+			every_controlled_state = {
+				create_unit = {
+					division = "name = \"Infantry Division\" division_template = \"SS-Sturmbrigade\" start_experience_factor = 0.05"
+					owner = PREV
+					allow_spawning_on_enemy_provs = no
+				}
+			}
 		}
+		event_target:communist_germany = {
+			change_tag_from = ROOT
+		}
+		custom_effect_tooltip = GER_communists_are_pretty_hard_tt
 	}
 }
-
 country_event = { #based on original anschluss, as some strings still apply
 	id = r56.ger.26
 	title = news.36.t
@@ -13862,9 +14594,6 @@ country_event = { #Germany proposes to aid Britain in exchange for some colonies
 		546 = {
 			set_state_owner_to = GER
 		}
-		1055 = {
-			set_state_owner_to = GER
-		}
 		541 = {
 			set_state_owner_to = GER
 		}
@@ -14027,53 +14756,13 @@ country_event = { #Germany proposes economic integration
 	id = r56.ger.34
 	title = r56.ger.34.t
 	desc = r56.ger.34.desc
-	picture = GFX_report_event_generic_construction_site
 
 	is_triggered_only = yes
 
 	option = {	#yippie!
 		name = r56.ger.34.a
 		ai_chance = {
-			factor = 10
-			modifier = {
-				add = 5
-				FROM = {
-					strength_ratio = {
-						tag = ROOT
-						ratio > 1.7
-					}
-				}
-			}
-			modifier = {
-				add = 5
-				ROOT = {
-					NOT = {
-						is_in_faction_with = FROM
-					}
-					has_opinion = {
-						target = FROM
-						value > 40
-					}
-				}
-			}
-			modifier = {
-				add = 5
-				ROOT = {
-					is_in_faction_with = FROM
-					has_opinion = {
-						target = FROM
-						value > 80
-					}
-				}
-			}
-			modifier = {
-				add = 5
-				any_country = {
-					is_neighbor_of = ROOT
-					NOT = { tag = FROM }
-					has_added_tension_amount > 10
-				}
-			}
+			factor = 1
 		}
 		FROM = {
 			country_event = r56.ger.35
@@ -14092,35 +14781,7 @@ country_event = { #Germany proposes economic integration
 	option = {	#no!
 		name = r56.ger.34.b
 		ai_chance = {
-			factor = 10
-			modifier = {
-				add = 5
-				FROM = {
-					has_added_tension_amount > 45
-				}
-			}
-			modifier = {
-				add = 5
-				FROM = {
-					has_war = yes
-				}
-			}
-			modifier = {
-				add = 5
-				FROM = {
-					strength_ratio = {
-						tag = ROOT
-						ratio < 1.2
-					}
-				}
-			}
-			modifier = {
-				add = 5
-				has_opinion = {
-					target = FROM
-					value < 10
-				}
-			}
+			factor = 1
 		}
 		trigger = {	#LIT cant be couped so has to cut ties
 			NOT = {
@@ -14133,38 +14794,8 @@ country_event = { #Germany proposes economic integration
 	}
 	option = {	#we must purge their influence
 		name = r56.ger.34.c
-		trigger = {
-			NOT = {
-				is_in_faction_with = FROM
-				has_war_together_with = FROM
-			}
-		}
 		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				is_in_faction_with = FROM
-			}
-			modifier = {
-				add = 5
-				has_added_tension_amount > 90
-			}
-			modifier = {
-				add = 5 
-				FROM = {
-					strength_ratio = {
-						tag = ROOT
-						ratio < 0.7
-					}
-				}
-			}
-			modifier = {
-				add = 5 
-				has_opinion = {
-					target = FROM
-					value < -50
-				}
-			}
+			factor = 1
 		}
 		FROM = {
 			country_event = r56.ger.36
@@ -14180,37 +14811,16 @@ country_event = { #Integration accepted
 	id = r56.ger.35
 	title = r56.ger.35.t
 	desc = r56.ger.35.desc
-	picture = GFX_report_event_generic_sign_treaty3
 
 	is_triggered_only = yes
 
 	option = {
 		name = r56.ger.35.a
-		if = {
-			limit = {
-				has_dlc = "Death or Dishonor"
-				has_government = fascism
-			}
-			set_autonomy = {
-				target = FROM
-				autonomy_state = autonomy_satellite
-				end_wars = no
-				end_civil_wars = no
-			}
-		}
-		else_if = {
-			limit = {
-				has_dlc = "Together for Victory"
-			}
-			set_autonomy = {
-				target = FROM
-				autonomy_state = autonomy_dominion
-				end_wars = no
-				end_civil_wars = no
-			}
-		}
-		else = {
-			puppet = FROM
+		set_autonomy = {
+			target = FROM
+			autonomy_state = autonomy_dominion
+			end_wars = no
+			end_civil_wars = no
 		}
 	}
 }
@@ -14219,7 +14829,6 @@ country_event = { #Integration refused
 	id = r56.ger.36
 	title = r56.ger.36.t
 	desc = r56.ger.36.desc
-	picture = GFX_report_event_generic_read_write
 
 	is_triggered_only = yes
 
@@ -14230,13 +14839,6 @@ country_event = { #Integration refused
 	option = {	#embargo
 		name = r56.ger.36.b
 		send_embargo = FROM
-		if = {
-			limit = {
-				is_in_faction_with = FROM
-				is_faction_leader = yes
-			}
-			remove_from_faction = FROM
-		}
 	}
 	option = {	#war/overthrow
 		name = r56.ger.36.c
@@ -14246,13 +14848,6 @@ country_event = { #Integration refused
 		# 		has_government = democratic
 		# 	}
 		# 	add_threat = 0.3	#amount too small to show up, instead link to action on threats
-		# }
-		# if = {
-		# 	limit = {
-		# 		is_in_faction_with = FROM
-		# 		is_faction_leader = yes
-		# 	}
-		# 	remove_from_faction = FROM
 		# }
 		custom_effect_tooltip = GER_hostile_trade_decisions_tt
 		hidden_effect = {	#flag setting doesnt have loc anyway
@@ -14303,12 +14898,12 @@ country_event = { #The military seizes power from Kaiser
 			add_ideas = GER_wilhelm_iv_idea
 		}
 		GER_kurt_von_hammerstein_equord = {
-			add_country_leader_role = {
-				promote_leader = yes
-				country_leader = {
-					ideology = oligarchism
+		add_country_leader_role = {
+			promote_leader = yes
+			country_leader = {
+				ideology = oligarchism
 					expire = "1965.1.1"
-					traits = { SWE_conservatist }
+				traits = { SWE_conservatist }
 				}
 			}
 		}
@@ -14796,440 +15391,5 @@ country_event = { #
 		}
 		name = ger.renegotiate_versailles.3.a
 		add_political_power = 10
-	}
-}
-
-country_event = {
-	id = ger_brest_litovsk.1
-	title = ger_brest_litovsk.1.t
-	desc = ger_brest_litovsk.1.d
-	picture = GFX_report_event_soviet_german_soldier_handshake
-
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = { # Hell naw
-		name = ger_brest_litovsk.1.a
-		ai_chance = {
-			factor = 10
-			modifier = {
-				add = 10 
-				FROM = {
-					strength_ratio = {
-						tag = ROOT
-						ratio < 0.7
-					}
-				}
-			}
-			modifier = {
-				add = 5 
-				FROM = {
-					surrender_progress > 0.1
-				}
-			}
-			modifier = {
-				add = 5
-				surrender_progress < 0.3
-			}
-			modifier = {
-				add = 5
-				surrender_progress < 0.15
-			}
-			modifier = {
-				add = 5
-				casualties_k < 700
-			}
-		}
-		news_event = erwache_news.2
-	}
-	option = { # We give up
-		name = ger_brest_litovsk.1.b
-		ai_chance = {
-			factor = 10000
-			modifier = {
-				add = 10
-				FROM = {
-					strength_ratio = {
-						tag = ROOT
-						ratio > 1.5
-					}
-				}
-			}
-			modifier = {
-				add = 5
-				FROM = {
-					surrender_progress < 0.1
-				}
-			}
-			modifier = {
-				add = 5
-				surrender_progress > 0.35
-			}
-			modifier = {
-				add = 5
-				surrender_progress > 0.5
-			}
-			modifier = {
-				add = 5
-				casualties_k > 1200
-			}
-			modifier = {
-				add = 5
-				casualties_k > 2000
-			}
-		}
-		GER = {
-			white_peace = SOV
-		}
-		### Lithuania
-		every_owned_state = {
-			limit = {
-				is_core_of = LIT
-				is_owned_by = SOV
-			}
-			transfer_state_to = GER
-		}
-		### Latvia
-		every_owned_state = {
-			limit = {
-				is_core_of = LAT
-				is_owned_by = SOV
-			}
-			transfer_state_to = GER
-		}
-		### Estonia
-		every_owned_state = {
-			limit = {
-				is_core_of = EST
-				is_owned_by = SOV
-			}
-			transfer_state_to = GER
-		}
-		### Belarus
-		every_owned_state = {
-			limit = {
-				is_core_of = BLR
-				is_owned_by = SOV
-			}
-			transfer_state_to = GER
-		}
-		### Ukraine
-		every_owned_state = {
-			limit = {
-				is_core_of = UKR
-				is_owned_by = SOV
-			}
-			transfer_state_to = GER
-		}
-		if = {
-			limit = {
-				137 = { is_owned_by = SOV }
-			}
-			GER = {
-				transfer_state = 137
-			}
-		}
-		if = {
-			limit = {
-				ROM = {
-					is_in_faction_with = GER
-				}
-				78 = { is_owned_by = SOV }
-			}
-			ROM = {
-				transfer_state = 78
-			}
-		}
-		else_if = {
-			limit = {
-				78 = { is_owned_by = SOV }
-			}
-			GER = {
-				transfer_state = 78
-			}
-		}
-		if = {
-			limit = {
-				ROM = {
-					is_in_faction_with = GER
-				}
-				80 = { is_owned_by = SOV }
-			}
-			ROM = {
-				transfer_state = 80
-			}
-		}
-		else_if = {
-			limit = {
-				80 = { is_owned_by = SOV }
-			}
-			GER = {
-				transfer_state = 80
-			}
-		}
-		if = {
-			limit = {
-				ROM = {
-					is_in_faction_with = GER
-				}
-				766 = { is_owned_by = SOV }
-			}
-			ROM = {
-				transfer_state = 766
-			}
-		}
-		else_if = {
-			limit = {
-				766 = { is_owned_by = SOV }
-			}
-			GER = {
-				transfer_state = 766
-			}
-		}
-		if = {
-			limit = {
-				UKR = {
-					exists = no
-				}
-			}
-			GER = {
-				release_puppet = UKR
-			}
-		}
-		if = {
-			limit = {
-				137 = {
-					is_owned_by = GER
-				}
-			}
-			UKR = {
-				transfer_state = 137
-			}
-			137 = {
-				add_core_of = UKR
-			}
-		}
-		if = {
-			limit = {
-				ROM = {
-					NOT = {
-						is_in_faction_with = GER
-					}
-				}
-				766 = {
-					is_owned_by = GER
-				}
-				UKR = {
-					is_subject_of = GER
-				}
-			}
-			UKR = {
-				transfer_state = 766
-			}
-			766 = {
-				add_core_of = UKR
-			}
-		}
-		if = {
-			limit = {
-				ROM = {
-					NOT = {
-						is_in_faction_with = GER
-					}
-				}
-				80 = {
-					is_owned_by = GER
-				}
-				UKR = {
-					is_subject_of = GER
-				}
-			}
-			UKR = {
-				transfer_state = 80
-			}
-			80 = {
-				add_core_of = UKR
-			}
-		}
-		if = {
-			limit = {
-				BLR = {
-					exists = no
-				}
-			}
-			GER = {
-				release_puppet = BLR
-			}
-		}
-		if = {
-			limit = {
-				EST = {
-					exists = no
-				}
-			}
-			GER = {
-				release_puppet = EST
-			}
-		}
-		if = {
-			limit = {
-				LAT = {
-					exists = no
-				}
-			}
-			GER = {
-				release_puppet = LAT
-			}
-		}
-		if = {
-			limit = {
-				LIT = {
-					exists = no
-				}
-			}
-			GER = {
-				release_puppet = LIT
-			}
-		}
-		if = {
-			limit = {
-				146 = { is_owned_by = SOV }
-				FIN = {
-					NOT = {
-						is_in_faction_with = SOV
-						has_war_with = GER
-					}
-				}
-			}
-			FIN = {
-				transfer_state = 146
-			}
-		}
-		if = {
-			limit = {
-				147 = { is_owned_by = SOV }
-				FIN = {
-					NOT = {
-						is_in_faction_with = SOV
-						has_war_with = GER
-					}
-				}
-			}
-			FIN = {
-				transfer_state = 147
-			}
-		}
-		if = {
-			limit = {
-				722 = { is_owned_by = SOV }
-				FIN = {
-					NOT = {
-						is_in_faction_with = SOV
-						has_war_with = GER
-					}
-				}
-			}
-			FIN = {
-				transfer_state = 722
-			}
-		}
-		if = {
-			limit = {
-				215 = { is_owned_by = SOV }
-				FIN = {
-					NOT = {
-						is_in_faction_with = SOV
-						has_war_with = GER
-					}
-				}
-			}
-			FIN = {
-				transfer_state = 215
-			}
-		}
-		if = {
-			limit = {
-				213 = { is_owned_by = SOV }
-				FIN = {
-					NOT = {
-						is_in_faction_with = SOV
-						has_war_with = GER
-					}
-				}
-			}
-			FIN = {
-				transfer_state = 213
-			}
-		}
-		if = {
-			limit = {
-				216 = { is_owned_by = SOV }
-				FIN = {
-					NOT = {
-						is_in_faction_with = SOV
-						has_war_with = GER
-					}
-				}
-			}
-			FIN = {
-				transfer_state = 216
-			}
-		}
-	}
-}
-country_event = {
-	id = r56.ger.45
-	title = r56.ger.45.t
-	desc = r56.ger.45.d
-	picture = GFX_report_event_GER_anglo_german_naval_treaty
-	
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = { #Let's be historical
-		name = r56.ger.45.a
-		ai_chance = {
-			factor = 0
-			modifier = {
-				is_historical_focus_on = yes
-				add = 1000
-			}
-			modifier = {
-				has_government = fascism
-				add = 15
-			}
-			modifier = {
-				has_government = neutrality
-				add = 15
-			}			
-		}
-		complete_national_focus = GER_denounce_the_agreement
-		set_country_flag = GER_denounced_the_agreement
-	}
-	option = { #Let's do what they said
-		name = r56.ger.45.b
-		ai_chance = {
-			factor = 0
-			modifier = {
-				is_historical_focus_on = no
-				add = 10
-			}
-			modifier = {
-				has_government = democratic
-				add = 10
-			}
-			modifier = {
-				has_government = communism
-				add = 10
-			}
-			modifier = {
-				is_in_faction_with = ENG
-				add = 10
-			}
-		}
-		complete_national_focus = GER_adhere_to_the_agreement
-		set_country_flag = GER_adhere_to_the_agreement
 	}
 }

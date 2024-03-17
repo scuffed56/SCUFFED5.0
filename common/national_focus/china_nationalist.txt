@@ -1,3 +1,7 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 focus_tree = {
 	id = china_nationalist_focus
 	
@@ -36,7 +40,7 @@ focus_tree = {
 		
 		x = 2
 		y = 0
-		cost = 5
+		cost = 10
 		
 		ai_will_do = {
 			factor = 1
@@ -82,8 +86,8 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_political_power = 150
-			add_stability = -0.05
+			add_political_power = 125
+			add_war_support = 0.10
 			custom_effect_tooltip = KMT_no_united_front_unless_xian_incident_agreed_tt																			 
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
@@ -105,6 +109,7 @@ focus_tree = {
 					is_in_faction_with = CHI
 				}
 			}
+			
 		}
 		cancel = {
 			OR = {
@@ -312,7 +317,7 @@ focus_tree = {
 					OR = {
 						is_subject = no
 						is_subject_of = ROOT
-						NOT = { is_in_faction_with = ROOT }
+						is_in_faction_with = ROOT
 					}
 					NOT = { is_subject_of = JAP }
 				}
@@ -369,11 +374,11 @@ focus_tree = {
 		
 		completion_reward = {
 			add_stability = 0.05
-			add_political_power = 120
+			add_political_power = 100
 			set_global_flag = KMT_united_front_enabled
 			custom_effect_tooltip = KMT_enables_united_front_tt			 
 		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -549,7 +554,7 @@ focus_tree = {
 				}
 			}
 		}	
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
@@ -701,7 +706,7 @@ focus_tree = {
 				}
 			}
 		}	
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
@@ -743,7 +748,7 @@ focus_tree = {
 				add_ideas = KMT_propaganda
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 	}
 	
 	focus = {
@@ -800,7 +805,7 @@ focus_tree = {
 			}
 			TIB = { country_event = { id = kmt.8  days = 3 }}
 		}
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
 	
 	focus = {
@@ -1023,7 +1028,7 @@ focus_tree = {
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = KMT_krupp
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 	}
 	focus = {
 		id = KMT_improve_our_railways
@@ -1031,16 +1036,27 @@ focus_tree = {
 		icon = GFX_goal_generic_railroad
 		x = 21
 		y = 1
-		cost = 10
+		cost = 5
 		prerequisite = { focus = KMT_industrial_effort }
-		prerequisite = { focus = KMT_science_effort }
+		#prerequisite = { focus = KMT_science_effort }
 
 		completion_reward = {
 			add_ideas = r56_USA_mobilize_the_railways_idea
 			build_railway = { 
 				path = { 11913 1146 10008 7094 11916 10040 9995 7085 7025 10043 4037 1069 7189 11980 11996 9969 10068 }				
 			}
-		}
+			custom_effect_tooltip = KMT_improve_our_railways_tt
+			hidden_effect = {
+				605 = { #build a fucking depo in chongking
+					add_building_construction = {
+						type = supply_node
+						level = 1
+						instant_build = yes
+						province = 6999
+					}
+				}
+			}
+		}	
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 	}
 	
@@ -1063,75 +1079,24 @@ focus_tree = {
 				custom_trigger_tooltip = {
 					tooltip = state_is_western_china_tt
 					OR = {
-						region = 145
+						AND = {
+							region = 145
+							NOT = {
+								state = 287 # ah yes 1k people, impassable terrain, but 2 factories.
+							}
+						}
 						state = 756
-						state = 755
-						state = 604
+						region = 200
+						region = 252
 					}
 				}
 				is_controlled_by = ROOT
 			}
 		}
 		completion_reward = {
-			every_controlled_state = {
-				limit = {
-					OR = {
-						region = 145
-						state = 756
-						state = 755
-						state = 604
-					}
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-				if = {
-					limit = {
-						free_building_slots = {
-							building = infrastructure
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_full_control_of_state = 744
-					has_full_control_of_state = 283
-					has_full_control_of_state = 283
-					has_full_control_of_state = 754
-					has_full_control_of_state = 604
-				}
-				build_railway = { 
-					path = { 7481 4167 4295 531 12882 7397 4313 11448 12815 4536 1882 8018 7940 }				
-				}
-			}
+			r56rp_CHI_industrialization_NW = yes
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
@@ -1150,522 +1115,10 @@ focus_tree = {
 				}
 			}		
 		}
-		completion_reward = {
-			custom_effect_tooltip = kmt_scale_with_excav_tech
-			if = {
-				limit = {
-					618 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = oil
-						amount = 10
-						state = 618
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 13
-						state = 618
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 16
-						state = 618
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 19
-						state = 618
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 22
-						state = 618
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = oil
-						amount = 25
-						state = 618
-					}
-				}
-			}
-			if = {
-				limit = {
-					617 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = oil
-						amount = 1
-						state = 617
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 2
-						state = 617
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 3
-						state = 617
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 4
-						state = 617
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 5
-						state = 617
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = oil
-						amount = 6
-						state = 617
-					}
-				}
-			}
-			if = {
-				limit = {
-					619 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = oil
-						amount = 1
-						state = 619
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 2
-						state = 619
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 3
-						state = 619
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 4
-						state = 619
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 5
-						state = 619
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = oil
-						amount = 6
-						state = 619
-					}
-				}
-			}
-			if = {
-				limit = {
-					287 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = oil
-						amount = 2
-						state = 287
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 3
-						state = 287
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 4
-						state = 287
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 5
-						state = 287
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 6
-						state = 287
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = oil
-						amount = 7
-						state = 287
-					}
-				}
-			}
-			if = {
-				limit = {
-					616 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 2
-						state = 616
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 3
-						state = 616
-					}
-					add_resource = {
-						type = chromium
-						amount = 2
-						state = 616
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 4
-						state = 616
-					}
-					add_resource = {
-						type = chromium
-						amount = 3
-						state = 616
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 5
-						state = 616
-					}
-					add_resource = {
-						type = chromium
-						amount = 4
-						state = 616
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}
-					add_resource = {
-						type = aluminium
-						amount = 6
-						state = 616
-					}
-					add_resource = {
-						type = chromium
-						amount = 5
-						state = 616
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 7
-						state = 616
-					}
-					add_resource = {
-						type = chromium
-						amount = 6
-						state = 616
-					}
-				}
-			}
-			if = {
-				limit = {
-					604 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 1
-						state = 604
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 1
-						state = 604
-					}
-					add_resource = {
-						type = chromium
-						amount = 1
-						state = 604
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 3
-						state = 604
-					}
-					add_resource = {
-						type = chromium
-						amount = 2
-						state = 604
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 3
-						state = 604
-					}
-					add_resource = {
-						type = chromium
-						amount = 3
-						state = 604
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}
-					add_resource = {
-						type = aluminium
-						amount = 5
-						state = 604
-					}
-					add_resource = {
-						type = chromium
-						amount = 4
-						state = 604
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 5
-						state = 604
-					}
-					add_resource = {
-						type = chromium
-						amount = 5
-						state = 604
-					}
-				}
-			}
+		completion_reward = { #god these resource focuses are a bitch to redo
+			r56rp_CHI_excavation_NW = yes #moved to scripted effects, cause PRC has the exact same shite
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL FOCUS_FILTER_CHROMIUM FOCUS_FILTER_ALUMINIUM FOCUS_FILTER_HISTORICAL}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL FOCUS_FILTER_CHROMIUM FOCUS_FILTER_ALUMINIUM}
 	}
 	
 	focus = {
@@ -1685,75 +1138,21 @@ focus_tree = {
 			}
 			any_state = {
 				OR = {
-					state = 591
-					state = 594
-					state = 592
-					state = 593
-					state = 599
-					state = 326
-					state = 729
-					state = 728
+					region = 248
+					region = 249
 				}
 				is_controlled_by = ROOT
 			}
 		}
 		completion_reward = {
-			every_controlled_state = {
-				limit = {
-					OR = {
-						state = 591
-						state = 594
-						state = 592
-						state = 593
-						state = 599
-						state = 326
-						state = 729
-						state = 728
-					}
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-				if = {
-					limit = {
-						free_building_slots = {
-							building = infrastructure
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
+			r56rp_CHI_industrialization_S = yes
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
 		id = KMT_excavation_S
-		icon = GFX_focus_generic_rubber
+		icon = GFX_goal_COG_Rubber_Farming
 		x = 17
 		y = 3
 		cost = 10
@@ -1768,56 +1167,9 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			if = {
-				limit = {
-					594 = {
-						is_owned_and_controlled_by = ROOT
-					}
-				}
-				add_resource = {
-					type = rubber
-					amount = 6
-					state = 594
-				}
-			}
-			if = {
-				limit = {
-					592 = {
-						is_owned_and_controlled_by = ROOT
-					}
-				}
-				add_resource = {
-					type = rubber
-					amount = 6
-					state = 592
-				}
-			}
-			if = {
-				limit = {
-					591 = {
-						is_owned_and_controlled_by = ROOT
-					}
-				}
-				add_resource = {
-					type = rubber
-					amount = 6
-					state = 591
-				}
-			}
-			if = {
-				limit = {
-					593 = {
-						is_owned_and_controlled_by = ROOT
-					}
-				}
-				add_resource = {
-					type = rubber
-					amount = 6
-					state = 593
-				}
-			}
+			r56rp_CHI_excavation_S = yes
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RUBBER FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RUBBER}
 	}
 	
 	focus = {
@@ -1855,10 +1207,6 @@ focus_tree = {
 			unlock_decision_category_tooltip = CHI_industrial_evacuations			
 			set_variable = { var = CHI_industrial_evacuations_amount_factor value = 0.75 } #Ratio for how many building are moved. Change CHI_industrial_evacuations_add_AF and CHI_industrial_evacuations_add_IC if you change the value
 		}
-		search_filters = {
-			FOCUS_FILTER_HISTORICAL
-		}
-		
 	}
 	
 	focus = {
@@ -1878,469 +1226,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			custom_effect_tooltip = kmt_scale_with_excav_tech
-			if = {
-				limit = {
-					714 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = oil
-						amount = 10
-						state = 714
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 18
-						state = 714
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 26
-						state = 714
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 34
-						state = 714
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}		
-					add_resource = {
-						type = oil
-						amount = 42
-						state = 714
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = oil
-						amount = 50
-						state = 714
-					}
-				}
-			}
-			if = {
-				limit = {
-					609 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = steel
-						amount = 10
-						state = 609
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}			
-					add_resource = {
-						type = steel
-						amount = 15
-						state = 609
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}	
-					add_resource = {
-						type = steel
-						amount = 20
-						state = 609
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}		
-					add_resource = {
-						type = steel
-						amount = 25
-						state = 609
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}		
-					add_resource = {
-						type = steel
-						amount = 30
-						state = 609
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = steel
-						amount = 35
-						state = 609
-					}
-				}
-			}
-			if = {
-				limit = {
-					715 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = chromium
-						amount = 1
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}	
-					add_resource = {
-						type = chromium
-						amount = 2
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}		
-					add_resource = {
-						type = chromium
-						amount = 3
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}
-					add_resource = {
-						type = chromium
-						amount = 5
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}		
-					add_resource = {
-						type = chromium
-						amount = 7
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = chromium
-						amount = 9
-						state = 715
-					}
-				}
-			}
-			if = {
-				limit = {
-					328 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = chromium
-						amount = 2
-						state = 328
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}		
-					add_resource = {
-						type = chromium
-						amount = 3
-						state = 328
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}			
-					add_resource = {
-						type = chromium
-						amount = 4
-						state = 328
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}	
-					add_resource = {
-						type = chromium
-						amount = 5
-						state = 328
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}		
-					add_resource = {
-						type = chromium
-						amount = 6
-						state = 328
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = chromium
-						amount = 7
-						state = 328
-					}
-				}
-			}
-			if = {
-				limit = {
-					717 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = chromium
-						amount = 2
-						state = 717
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}	
-					add_resource = {
-						type = chromium
-						amount = 4
-						state = 717
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}		
-					add_resource = {
-						type = chromium
-						amount = 6
-						state = 717
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}	
-					add_resource = {
-						type = chromium
-						amount = 8
-						state = 717
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}	
-					add_resource = {
-						type = chromium
-						amount = 10
-						state = 717
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = chromium
-						amount = 12
-						state = 717
-					}
-				}
-			}
-			if = {
-				limit = {
-					715 = {
-						is_owned_by = ROOT
-					}
-				}
-				if = {
-					limit = {
-						NOT = {
-							has_tech = excavation1
-							has_tech = excavation2
-							has_tech = excavation3
-							has_tech = excavation4
-							has_tech = excavation5
-						}
-					}		
-					add_resource = {
-						type = aluminium
-						amount = 5
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_1 = yes
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 10
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_2 = yes
-					}		
-					add_resource = {
-						type = aluminium
-						amount = 15
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_3 = yes
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 20
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						check_for_excavation_4 = yes
-					}	
-					add_resource = {
-						type = aluminium
-						amount = 25
-						state = 715
-					}
-				}
-				if = {
-					limit = {
-						has_tech = excavation1
-						has_tech = excavation2
-						has_tech = excavation3
-						has_tech = excavation4
-						has_tech = excavation5
-					}		
-					add_resource = {
-						type = aluminium
-						amount = 30
-						state = 715
-					}
-				}
-			}
+			r56rp_CHI_excavation_NE = yes
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM}
 		
@@ -2348,7 +1234,7 @@ focus_tree = {
 	
 	focus = {
 		id = KMT_armament_effort
-		icon = GFX_goal_generic_construct_mil_factory
+		icon = GFX_goal_ammunitions
 		prerequisite = { focus = KMT_national_defense_council }
 		prerequisite = { focus = KMT_industrial_effort }
 		x = 13
@@ -2388,13 +1274,41 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
+	#focus = {
+	#	id = KMT_arms_purchases_in_the_us
+	#	text = FRA_arms_purchases_in_the_us
+	#	icon = GFX_Goal_USA_arsenal_of_democracy
+	#	x = -2
+	#	y = 1
+	#	prerequisite = {
+	#		focus = KMT_armament_effort
+	#	}
+	#	relative_position_id = KMT_armament_effort
+	#	cost = 5
+	#
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+	#
+	#	available = {
+	#		country_exists = USA
+	#		USA_can_sell_weapons_trigger = yes
+	#	}
+	#	
+	#	completion_reward = {
+	#		USA = { country_event = lar_arms_purchases.1 }
+	#		custom_effect_tooltip = if_they_accept_tt
+	#		unlock_decision_category_tooltip = CHI_weapons_purchases_category
+	#	}
+	#	
+	#}
+
 	focus = {
-		id = KMT_arms_purchases_in_the_us
-		text = FRA_arms_purchases_in_the_us
-		icon = GFX_Goal_USA_arsenal_of_democracy
+		id = KMT_arms_purchases_abroad
+		icon = GFX_goal_generic_arms_export
 		x = -2
 		y = 1
 		prerequisite = {
@@ -2408,13 +1322,38 @@ focus_tree = {
 		}
 
 		available = {
-			USA_can_sell_weapons_trigger = yes
 		}
 		
 		completion_reward = {
-			USA = { country_event = lar_arms_purchases.1 }
-			custom_effect_tooltip = if_they_accept_tt
-			unlock_decision_category_tooltip = CHI_weapons_purchases_category
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				ROOT = {
+					add_equipment_subsidy = {
+						cic = 10000
+						equipment_type = infantry_equipment
+						seller_tags = { SOV USA GER ENG ITA FRA } 
+					}
+					add_equipment_subsidy = {
+						cic = 5000
+						equipment_type = artillery_equipment
+						seller_tags = { SOV USA GER ENG ITA FRA } 
+					}
+					add_equipment_subsidy = {
+						cic = 3000
+						equipment_type = anti_air_equipment
+						seller_tags = { SOV USA GER ENG ITA FRA } 
+					}
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = r56rp_KMT_buy_guns_abroad.tt
+				add_political_power = 25
+				hidden_effect = {
+					set_country_flag = r56rp_KMT_foreign_arms_purchases_1
+				}
+			}
 		}
 	}
 	
@@ -2457,7 +1396,10 @@ focus_tree = {
 		completion_reward = {
 			navy_experience = 25
 			random_owned_controlled_state = {
+				prioritize = { 613 }
 				limit = {
+					is_coastal = yes
+					is_controlled_by = ROOT
 					is_in_home_area = yes
 					free_building_slots = {
 						building = dockyard
@@ -2474,7 +1416,10 @@ focus_tree = {
 				set_state_flag = CHI_navy_focus_2dockyards
 			}
 			random_owned_controlled_state = {
+				prioritize = { 596 }
 				limit = {
+					is_coastal = yes
+					is_controlled_by = ROOT
 					is_in_home_area = yes
 					free_building_slots = {
 						building = dockyard
@@ -2491,12 +1436,12 @@ focus_tree = {
 				set_state_flag = CHI_navy_focus_2dockyards
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}	
 	
 	focus = {
 		id = KMT_increase_funding_of_german_weaponary
-		icon = GFX_goal_generic_axis_build_infantry
+		icon = GFX_goal_generic_combined_arms_artillery_antiair_antitank
 		prerequisite = { focus = KMT_revive_hanyang_armory }
 		x = 13
 		y = 4
@@ -2518,7 +1463,7 @@ focus_tree = {
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = CHI_hanyang_arsenal_tank
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
@@ -2554,7 +1499,7 @@ focus_tree = {
 			custom_effect_tooltip = available_chief_of_airforce
 			show_ideas_tooltip = CHI_claire_lee_chennault_air_chief
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
@@ -2574,7 +1519,7 @@ focus_tree = {
 		}
 		x = 10
 		y = 5
-		cost = 10
+		cost = 5
 		
 		completion_reward = {
 			air_experience = 30
@@ -2606,7 +1551,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER }
 	}
 	
 	focus = {
@@ -2632,7 +1577,7 @@ focus_tree = {
 				category = ss_tech
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
@@ -2641,7 +1586,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_gain_control_of_the_sea }
 		x = 8
 		y = 5
-		cost = 10
+		cost = 5
         ai_will_do = {
 			factor = 8
 			modifier = {
@@ -2681,20 +1626,22 @@ focus_tree = {
 				country_event = { id = kmt.15 days = 3 }
 			}
 		}
-		search_filters = { FOCUS_FILTER_HISTORICAL }
+		
 	}
 	
 	focus = {
 		id = KMT_taiwan_fleet_hub
-		icon = GFX_goal_generic_construct_naval_dockyard
+		icon = GFX_goal_generic_naval_base
 		prerequisite = { focus = KMT_demand_taiwan }
+		mutually_exclusive = { focus = KMT_continental_shipbuilding }
 		available = {
 			524  = { 
 				is_fully_controlled_by = ROOT
 			}
 		}
-		x = 8
-		y = 6
+		relative_position_id = KMT_demand_taiwan
+		x = 1
+		y = 1
 		cost = 10
 		bypass = {
 			524 = {
@@ -2731,13 +1678,78 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = KMT_continental_shipbuilding
+		icon = GFX_focus_generic_refit_civilian_ships
+		mutually_exclusive = { focus = KMT_taiwan_fleet_hub }
+		prerequisite = { focus = KMT_demand_taiwan }
+		available = {
+		}
+		x = -1
+		y = 1
+		relative_position_id = KMT_demand_taiwan
+		cost = 15
+
+		completion_reward = {
+			navy_experience = 10
+
+			add_tech_bonus = {
+				name = SPR_navy_modernization
+				bonus = 1
+				uses = 2
+				category = naval_equipment
+			}
+
+			navy_experience = 25
+			random_owned_controlled_state = {
+				prioritize = { 613 }
+				limit = {
+					is_coastal = yes
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				prioritize = { 596 }
+				limit = {
+					is_coastal = yes
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
 		id = KMT_pacific_fleet
 		icon = GFX_goal_generic_navy_carrier
-		prerequisite = { focus = KMT_taiwan_fleet_hub }
+		prerequisite = { focus = KMT_taiwan_fleet_hub focus = KMT_continental_shipbuilding }
 		mutually_exclusive = { focus = KMT_sea_fleet }
 		x = 9
 		y = 7
@@ -2771,7 +1783,7 @@ focus_tree = {
 	focus = {
 		id = KMT_sea_fleet
 		icon = GFX_goal_generic_navy_submarine
-		prerequisite = { focus = KMT_taiwan_fleet_hub }
+		prerequisite = { focus = KMT_taiwan_fleet_hub focus = KMT_continental_shipbuilding }
 		mutually_exclusive = { focus = KMT_pacific_fleet }
 		x = 7
 		y = 7
@@ -2798,7 +1810,7 @@ focus_tree = {
 				category = cl_tech
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	focus = {
 		id = KMT_naval_equipment
@@ -2814,8 +1826,14 @@ focus_tree = {
 
 		allow_branch = {
 			has_dlc = "Man the Guns"
-			any_controlled_state = {
-				is_coastal = yes
+			OR = {
+				NOT = {
+					has_global_flag = spanish_civil_war
+				}
+				AND = {
+					NOT = { has_completed_focus = SPR_the_popular_front }
+					has_global_flag = spanish_civil_war
+				}
 			}			
 		}		
 
@@ -2849,7 +1867,7 @@ focus_tree = {
 				
 			}					
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}	
 	focus = {
 		id = KMT_pacific_expansion
@@ -2970,7 +1988,7 @@ focus_tree = {
 				category = motorized_equipment
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
@@ -3109,8 +2127,9 @@ focus_tree = {
 					tooltip = state_is_in_manchuria_tt
 					OR = {
 						region = 155
-						state = 947
-						state = 610
+						state = 609
+						state = 611
+						state = 612
 					}
 				}
 				is_controlled_by = ROOT
@@ -3121,50 +2140,7 @@ focus_tree = {
 		cost = 14.4
 		
 		completion_reward = {
-			every_controlled_state = {
-				limit = {
-					OR = {
-						region = 155
-						state = 947
-						state = 610
-					}
-					free_building_slots = {
-						building = arms_factory
-						size > 0
-						include_locked = yes
-					}
-					free_building_slots = {
-						building = industrial_complex
-						size > 0
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
-				}
-				if = {
-					limit = {
-						free_building_slots = {
-							building = infrastructure
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
+			r56rp_CHI_industrialization_NE = yes
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -3179,15 +2155,16 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = KMT_science_funding
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
 		id = KMT_extra_research_slot
 		icon = GFX_focus_research
 		prerequisite = { focus = KMT_science_effort }
-		x = 23
-		y = 2
+		relative_position_id = KMT_science_effort
+		x = 0
+		y = 3
 		cost = 10
 		available = {
 			num_of_factories > 30
@@ -3205,38 +2182,80 @@ focus_tree = {
 			}
 			add_research_slot = 1
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
-		id = KMT_national_institute
-		icon = GFX_goal_star_of_david
-		prerequisite = { focus = KMT_science_effort }
+		id = KMT_electronics_research
+		icon = GFX_goal_generic_radio_development
+		prerequisite = { focus = KMT_extra_research_slot }
 		prerequisite = { focus = KMT_industrial_effort }
-		x = 20
+		relative_position_id = KMT_science_effort
+		x = -2
 		y = 4
 		cost = 10
-		bypass = {
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = secret_bonus
+				bonus = 1
+				uses = 1
+				category = electronics
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = KMT_national_institute
+		icon = GFX_goal_star_of_david
+		prerequisite = { focus = KMT_electronics_research }
+		mutually_exclusive = { focus = KMT_create_national_institute }
+		relative_position_id = KMT_electronics_research
+		x = 1
+		y = 1
+		cost = 5
+		available = {
 			GER = {
-				NOT = {
-					has_government = fascism
-				}
+				has_government = fascism
 			}
 		}
 		
 		completion_reward = {
 			add_ideas = KMT_national_institute_ns
+			GER = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = r56rp_ROC_asylum_opinion
+				}
+			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
+
+	focus = {
+		id = KMT_create_national_institute
+		icon = GFX_goal_CAN_montreal_lab
+		prerequisite = { focus = KMT_electronics_research }
+		relative_position_id = KMT_electronics_research
+		x = -1
+		y = 1
+		cost = 10
+		mutually_exclusive = { focus = KMT_national_institute }
+		
+		completion_reward = {
+			add_ideas = r56rp_KMT_national_institute_create_idea
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
 		id = KMT_military_science 
 		icon = GFX_focus_chi_whampoa_military_academy
-		prerequisite = { focus = KMT_national_institute }
+		prerequisite = { focus = KMT_national_institute focus = KMT_create_national_institute }
 		prerequisite = { focus = KMT_modernize_army }
 		x = 17
-		y = 6
+		y = 7
 		cost = 10
 
 		completion_reward = {
@@ -3252,58 +2271,39 @@ focus_tree = {
 			navy_experience = 25
 			air_experience = 25
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
 		id = KMT_ballistic_weapon
 		icon = GFX_focus_rocketry
+		prerequisite = { focus = KMT_extra_research_slot_2 }
 		prerequisite = { focus = KMT_military_science }
-		prerequisite = { focus = KMT_bold_hypothesis }
-		x = 19
-		y = 7
+		x = 23
+		y = 8
 		cost = 10
 		
 		completion_reward = {
 			add_tech_bonus = {
 				name = secret_bonus
+				ahead_reduction = 1
 				bonus = 1
 				uses = 1
 				category = rocketry
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH  FOCUS_FILTER_HISTORICAL}
-	}
-	
-	focus = {
-		id = KMT_electronics_research
-		icon = GFX_goal_generic_consumer_goods
-		prerequisite = { focus = KMT_extra_research_slot }
-		prerequisite = { focus = KMT_industrial_effort }
-		x = 22
-		y = 3
-		cost = 10
-		
-		completion_reward = {
-			add_tech_bonus = {
-				name = secret_bonus
-				bonus = 1
-				uses = 1
-				category = electronics
-			}
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
 		id = KMT_extra_research_slot_2
-		icon = GFX_focus_research
+		icon = GFX_goal_generic_education
 		prerequisite = { focus = KMT_bold_hypothesis }
 		prerequisite = { focus = KMT_extra_research_slot }
 		available = {
 			num_of_factories > 100
 		}
-		x = 23
+		x = 22
 		y = 7
 		cost = 10
 		
@@ -3316,65 +2316,70 @@ focus_tree = {
 			}
 			add_research_slot = 1
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
 		id = KMT_bold_hypothesis
 		icon = GFX_focus_generic_military_academy
-		prerequisite = { focus = KMT_electronics_research }
-		x = 22
-		y = 6
+		prerequisite = { focus = KMT_national_institute focus = KMT_create_national_institute }
+		x = -1
+		y = 1
 		cost = 10
+		relative_position_id = KMT_national_institute
 		
 		completion_reward = {
 			add_tech_bonus = {
 				name = secret_bonus
+				ahead_reduction = 1
 				bonus = 1
 				uses = 1
 				category = electronics
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
 		id = KMT_nuclear_physics
-		icon = GFX_focus_wonderweapons
-		prerequisite = { focus = KMT_bold_hypothesis }
-		x = 21
-		y = 7
+		icon = GFX_goal_generic_nuclear_energy
+		prerequisite = { focus = KMT_extra_research_slot_2 }
+		prerequisite = { focus = KMT_military_science }
+		x = 22
+		y = 9
 		cost = 10
 		
 		completion_reward = {
 			add_tech_bonus = {
 				name = KMT_nuclear_physics
+				ahead_reduction = 1
 				bonus = 1
 				uses = 1
 				category = nuclear
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
 		id = KMT_jet
 		icon = GFX_goal_generic_air_jet_new
+		prerequisite = { focus = KMT_extra_research_slot_2 }
 		prerequisite = { focus = KMT_military_science }
-		prerequisite = { focus = KMT_air_base_expansion }
-		x = 15
-		y = 7
+		x = 21
+		y = 8
 		cost = 10
 		
 		completion_reward = {
 			add_tech_bonus = {
 				name = air_bonus
+				ahead_reduction = 1
 				bonus = 1
 				uses = 1
 				category = jet_technology
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
@@ -3393,7 +2398,7 @@ focus_tree = {
 					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
-					name = KMT_fighter_focus
+					ahead_reduction = 1
 					bonus = 1
 					uses = 1
 					category = light_air
@@ -3402,24 +2407,28 @@ focus_tree = {
 			else = {
 				add_tech_bonus = {
 					name = air_bonus
+					ahead_reduction = 1
 					bonus = 1
 					uses = 1
 					category = light_fighter
 					category = cat_heavy_fighter
 				}
 			}
-			if = {
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
-				}	
+				}
 				mio:CHI_camco_fighter_organization = {
-					add_mio_funds = 1500
+					add_mio_size = 1
+					add_mio_funds = 500
 				}
 			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = camco_bomb	  
+			}
 		}
-
-
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
@@ -3437,7 +2446,7 @@ focus_tree = {
 					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
-					name = KMT_bomber_focus
+					ahead_reduction = 1
 					bonus = 1
 					uses = 1
 					category = heavy_air
@@ -3446,28 +2455,22 @@ focus_tree = {
 			else = {
 				add_tech_bonus = {
 					name = air_bonus
+					ahead_reduction = 1
 					bonus = 1
 					uses = 1
 					category = cat_strategic_bomber
 					category = tactical_bomber
 				}
 			}
-
-
-			if = {
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
-				}	
-				mio:CHI_camco_medium_organization = {
-					add_mio_funds = 1500
+				}
+				mio:CHI_camco_bomber_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
 				}
 			}
-			else = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = camco_bomb	
-			}
-
-  
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -3487,7 +2490,6 @@ focus_tree = {
 					has_dlc = "By Blood Alone"
 				}
 				add_tech_bonus = {
-					name = KMT_cas_effort
 					technology = aa_cannon_2
 					bonus = 1
 					uses = 1
@@ -3501,21 +2503,10 @@ focus_tree = {
 					category = cas_bomber
 				}
 			}
-			IF = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}	
-				mio:CHI_camco_bomber_organization = {
-					add_mio_funds = 1500
-				}
-			}
-			else = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = camco_cas
-			}
-		 
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = camco_cas		 
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
@@ -3579,7 +2570,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 	}
 	
 	focus = {
@@ -3597,12 +2588,18 @@ focus_tree = {
 				has_completed_focus = KMT_unitary_semi_presidential_republic
 			}
 		}
-		x = 31
+		relative_position_id = KMT_political_effort
+		x = -2
 		y = 1
 		cost = 10
 		
 		completion_reward = {
-			add_ideas = KMT_into_democracy
+			add_dynamic_modifier = {
+				modifier = KMT_combined_democracy_modifier
+			}
+			add_to_variable = { KMT_combined_democracy_modifier_democratic_drift = 0.05 }
+			add_to_variable = { KMT_combined_democracy_modifier_stability_factor = 0.1 }
+			custom_effect_tooltip = KMT_democratic_republic_tt
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
@@ -3616,14 +2613,15 @@ focus_tree = {
 		available = {
 			is_puppet = no
 		}
-		x = 25
+		relative_position_id = KMT_political_effort
+		x = -8
 		y = 1
 		cost = 10
 		
 		completion_reward = {
-			add_ideas = KMT_stay_non_aligned
+			add_ideas = r56rp_KMT_auth_1
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3641,12 +2639,13 @@ focus_tree = {
 		bypass = {
 			has_government = fascism	
 		}
-		x = 39
+		relative_position_id = KMT_political_effort
+		x = 4
 		y = 1
 		cost = 10
 		
 		completion_reward = {
-			add_ideas = KMT_into_fascism
+			add_ideas = r56rp_KMT_fascism_1
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 	}
@@ -3662,9 +2661,7 @@ focus_tree = {
 			if = {
 				limit = {
 					has_dlc = "La Resistance"
-					NOT = {
-						has_intelligence_agency = yes
-					}
+					has_intelligence_agency = no
 				}
 				create_intelligence_agency = yes				
 			}			
@@ -3672,20 +2669,19 @@ focus_tree = {
 				limit = {
 					has_dlc = "La Resistance"
 				}
-				add_ideas = GER_abwehr_contacts
+				add_ideas = KMT_cbis_lar
+				custom_effect_tooltip = available_political_advisor
+				show_ideas_tooltip = CHI_dai_li_advisor_lar
 			}
 			else = {
 				add_ideas = KMT_cbis
+				custom_effect_tooltip = KMT_cbis_2_tt
+				add_to_variable = { KMT_combined_despotism_modifier_encryption_factor = 0.25 }
+				add_to_variable = { KMT_combined_despotism_modifier_decryption_factor = 0.25 }
 			}
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				custom_effect_tooltip = available_political_advisor
-				show_ideas_tooltip = CHI_dai_li_advisor_lar
-			}		
+					
 		}
-		search_filters = { FOCUS_FILTER_ESPIONAGE FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_ESPIONAGE }
 	}
 
 	focus = {
@@ -3696,9 +2692,23 @@ focus_tree = {
 		y = 3
 		cost = 10
 		completion_reward = {
-			add_ideas = KMT_cement_control_on_the_economy
+			IF = {
+				limit = {
+					has_idea = r56rp_KMT_auth_3
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_auth_3
+					add_idea = r56rp_KMT_auth_4
+				}
+			}
+			ELSE = {
+				swap_ideas = {
+					remove_idea = r56rp_KMT_auth_1
+					add_idea = r56rp_KMT_auth_2
+				}
+			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
@@ -3709,7 +2719,21 @@ focus_tree = {
 		y = 3
 		cost = 10
 		completion_reward = {
-		add_ideas = KMT_zhonghua_minzu
+			IF = {
+				limit = {
+					has_idea = r56rp_KMT_auth_2
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_auth_2
+					add_idea = r56rp_KMT_auth_4
+				}
+			}
+			ELSE = {
+				swap_ideas = {
+					remove_idea = r56rp_KMT_auth_1
+					add_idea = r56rp_KMT_auth_3
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
 	}
@@ -3717,7 +2741,8 @@ focus_tree = {
 	focus = {
 		id = KMT_centralizing_power
 		icon = GFX_goal_generic_political
-		prerequisite = { focus = KMT_zhonghua_minzu focus = KMT_cement_control_on_the_economy }
+		prerequisite = { focus = KMT_zhonghua_minzu }
+		prerequisite = { focus = KMT_cement_control_on_the_economy }
 		available = {
 			has_government = neutrality
 		}
@@ -3728,7 +2753,7 @@ focus_tree = {
 			#add_ideas = KMT_central_power
 			add_country_leader_trait = headstrong 
 		}
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3746,11 +2771,10 @@ focus_tree = {
 				can_create_factions = yes
 				can_puppet = yes
 			}
-			#swap_ideas = {
-			#	remove_idea = KMT_central_power
-			#	add_idea = KMT_despotism
-			#}
-			add_ideas = KMT_despotism
+			swap_ideas = {
+				remove_idea = r56rp_KMT_auth_4
+				add_idea = r56rp_KMT_auth_5
+			}
 			if = {
 				limit = {
 					original_tag = CHI
@@ -3775,7 +2799,7 @@ focus_tree = {
 			}
 
 		}
-		search_filters = {  FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		search_filters = {  FOCUS_FILTER_POLITICAL }
 	}
 	
 	focus = {
@@ -3793,7 +2817,7 @@ focus_tree = {
 		completion_reward = {
 			add_research_slot = 1
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
 	focus = {
@@ -3807,10 +2831,12 @@ focus_tree = {
 		y = 3
 		cost = 10
 		completion_reward = {
-			add_ideas = KMT_voting_rights
 			set_rule = {
 				can_generate_female_aces = yes
 			}
+			add_to_variable = { KMT_combined_democracy_modifier_political_power_factor = 0.15 }
+			add_to_variable = { KMT_combined_democracy_modifier_army_core_defence_factor = 0.05 }
+			custom_effect_tooltip = KMT_voting_rights_tt
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -3828,7 +2854,9 @@ focus_tree = {
 		y = 3
 		cost = 10
 		completion_reward = {
-			add_ideas = KMT_georgist_tax_reform
+			add_to_variable = { KMT_combined_democracy_modifier_production_speed_industrial_complex_factor = 0.1 }
+			add_to_variable = { KMT_combined_democracy_modifier_global_building_slots_factor = 0.15 }
+			custom_effect_tooltip = KMT_georgist_tax_reform_tt
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -3846,18 +2874,10 @@ focus_tree = {
 		y = 2
 		cost = 10
 		completion_reward = {
-			add_ideas = KMT_parliament
 			remove_ideas = CHI_communist_uprisings
-			hidden_effect = {						#if you destryed commies, maybe????
-				if = {
-					limit = {
-						PRC = {
-							exists = no
-						}
-					}
-					country_event = { id = prc.116 days = 20 random_days = 10 }
-				}
-			}
+			add_to_variable = { KMT_combined_democracy_modifier_conscription = 0.01 }
+			add_to_variable = { KMT_combined_democracy_modifier_production_factory_efficiency_gain_factor = 0.1 }
+			custom_effect_tooltip = KMT_implement_parliamentary_system_tt
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 	}
@@ -3874,7 +2894,10 @@ focus_tree = {
 		y = 4
 		cost = 10
 		completion_reward = {
-			add_ideas = KMT_universal_sufferage_ns
+			add_to_variable = { KMT_combined_democracy_modifier_stability_factor = 0.1 }
+			add_to_variable = { KMT_combined_democracy_modifier_democratic_drift = 0.1 }
+			add_to_variable = { KMT_combined_democracy_modifier_consumer_goods_factor = -0.05 }
+			custom_effect_tooltip = KMT_universal_sufferage_tt
 			if = {
 				limit = {
 					has_dlc = "La Resistance"
@@ -3972,10 +2995,8 @@ focus_tree = {
 		
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			swap_ideas = {
-				remove_idea = KMT_universal_sufferage_ns
-				add_idea = KMT_firm_belief
-			}
+			add_to_variable = { KMT_combined_democracy_modifier_drift_defence_factor = 0.65 }
+			custom_effect_tooltip = KMT_alone_in_the_east_tt
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -3987,12 +3008,13 @@ focus_tree = {
 		available = {
 			has_government = democratic
 		}
-		x = 33
+		x = 32
 		y = 6
 		cost = 10
 		
 		completion_reward = {
-			add_ideas = KMT_people_knowledge
+			add_to_variable = { KMT_combined_democracy_modifier_research_speed_factor = 0.04 }
+			custom_effect_tooltip = KMT_knowledge_of_the_citizens_tt
 			add_research_slot = 1
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -4005,7 +3027,7 @@ focus_tree = {
 		available = {
 			has_government = democratic
 		}
-		x = 29
+		x = 30
 		y = 6
 		cost = 10
 		
@@ -4024,8 +3046,9 @@ focus_tree = {
 		icon = GFX_goal_CHI_power_to_the_blueshirts
 		prerequisite = { focus = KMT_promote_nationalism }
 		mutually_exclusive = { focus = KMT_militarism_focus }
-		x = 38
-		y = 2
+		relative_position_id = KMT_promote_nationalism
+		x = -1
+		y = 1
 		cost = 10
 		available = {
 			is_puppet = no
@@ -4033,7 +3056,11 @@ focus_tree = {
 		
 		completion_reward = {
 			set_country_flag = new_life
-			add_ideas = kmt_military_youth
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_1
+				add_idea = r56rp_KMT_fascism_2
+			}
+
 			add_popularity = {
 				ideology = fascism
 				popularity = 0.1
@@ -4057,8 +3084,9 @@ focus_tree = {
 		icon = GFX_goal_military_government
 		prerequisite = { focus = KMT_promote_nationalism }
 		mutually_exclusive = { focus = KMT_fascism_focus }
-		x = 40
-		y = 2
+		relative_position_id = KMT_promote_nationalism
+		x = 1
+		y = 1
 		cost = 10
 		available = {
 			OR = {
@@ -4083,7 +3111,13 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			add_ideas = KMT_militarism
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_1
+				add_idea = r56rp_KMT_fascism_r_2
+			}
+			add_to_variable = { KMT_combined_fascism_modifier_attrition = -0.1 }
+			add_to_variable = { KMT_combined_fascism_modifier_conscription = 0.01 }
+			custom_effect_tooltip = KMT_militarism_focus_tt
 			if = {
 				limit = {
 					has_dlc = "La Resistance"
@@ -4103,15 +3137,33 @@ focus_tree = {
 				has_government = communism
 			}
 		}
-		x = 38
-		y = 3
+		relative_position_id = KMT_fascism_focus
+		x = 0
+		y = 1
 		cost = 10
 		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "La Resistance" }
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_fascism_2
+					add_idea = r56rp_KMT_fascism_4
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_fascism_2
+					add_idea = r56rp_KMT_fascism_3
+				}
+			}
 			add_popularity = {
 				ideology = fascism
 				popularity = 0.25
 			}
-			add_ideas = KMT_communism_banned
 		}
 	}
 	
@@ -4122,13 +3174,31 @@ focus_tree = {
 		available = {
 			has_government = fascism
 		}
-		x = 38
-		y = 4
-		cost = 10
+		relative_position_id = KMT_ban_communism
+		x = 0
+		y = 1
+		cost = 15
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			add_ideas = KMT_empire_plan
-			add_political_power = 200
+			if = {
+				limit = {
+					NOT = { has_dlc = "La Resistance" }
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_fascism_4
+					add_idea = r56rp_KMT_fascism_6
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				swap_ideas = {
+					remove_idea = r56rp_KMT_fascism_3
+					add_idea = r56rp_KMT_fascism_5
+				}
+			}
+			add_political_power = 100
 			add_research_slot = 1
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
@@ -4144,9 +3214,10 @@ focus_tree = {
 		bypass = {
 			is_in_faction_with = SOV
 		}
-		x = 38
-		y = 5
-		cost = 10
+		relative_position_id = KMT_planning_our_empire
+		x = 0
+		y = 1
+		cost = 5
 		
 		completion_reward = {
 			every_country = {
@@ -4207,97 +3278,21 @@ focus_tree = {
 		id = KMT_war_propaganda
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = KMT_militarism_focus }
-		x = 40
-		y = 3
+		relative_position_id = KMT_militarism_focus
+		x = 0
+		y = 1
 		cost = 10
 		
 		completion_reward = {
-			if = {
-				limit = {
-					OR = {
-						has_idea = disarmed_nation
-						has_idea = volunteer_only
-					}
-					OR = {
-						has_idea = partial_economic_mobilisation
-						has_idea = war_economy
-						has_idea = tot_economic_mobilisation
-					}
-				}
-				add_ideas = KMT_war_propaganda_idea_2
-			}
-			if = {
-				limit = {
-					OR = {
-						has_idea = partial_economic_mobilisation
-						has_idea = war_economy
-						has_idea = tot_economic_mobilisation
-					}
-					OR = {
-						has_idea = limited_conscription
-						has_idea = extensive_conscription
-						has_idea = service_by_requirement
-						has_idea = all_adults_serve
-						has_idea = scraping_the_barrel
-					}
-				}
-				add_ideas = KMT_war_propaganda_idea
-			}
-			if = {
-				limit = {
-					OR = {
-						has_idea = undisturbed_isolation
-						has_idea = isolation
-						has_idea = civilian_economy
-						has_idea = low_economic_mobilisation
-					}
-					OR = {
-						has_idea = limited_conscription
-						has_idea = extensive_conscription
-						has_idea = service_by_requirement
-						has_idea = all_adults_serve
-						has_idea = scraping_the_barrel
-					}
-				}
-				add_ideas = KMT_war_propaganda_idea_2
-			}
-			if = {
-				limit = {
-					OR = {
-						has_idea = undisturbed_isolation
-						has_idea = isolation
-						has_idea = civilian_economy
-						has_idea = low_economic_mobilisation
-					}
-					has_war = no
-				}
-				add_ideas = partial_economic_mobilisation
-			}
-			if = {
-				limit = {
-					OR = {
-						has_idea = undisturbed_isolation
-						has_idea = isolation
-						has_idea = civilian_economy
-						has_idea = low_economic_mobilisation
-					}
-					has_war = yes
-				}
-				add_ideas = war_economy
-			}
-			if = {
-				limit = {
-					OR = {
-						has_idea = disarmed_nation
-						has_idea = volunteer_only
-					}
-				}
-				add_ideas = limited_conscription
-			}
 			add_popularity = {
 				ideology = fascism
 				popularity = 0.1
 			}
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_r_2
+				add_idea = r56rp_KMT_fascism_r_3
+			}
+			custom_effect_tooltip = KMT_war_propaganda_tt
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 	}
@@ -4309,12 +3304,17 @@ focus_tree = {
 		available = {
 			has_government = fascism
 		}
-		x = 40
-		y = 4
+		relative_position_id = KMT_war_propaganda
+		x = 0
+		y = 1
 		cost = 10
 		
 		completion_reward = {
-			add_ideas = KMT_military_first_idea
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_r_3
+				add_idea = r56rp_KMT_fascism_r_4
+			}
+			custom_effect_tooltip = KMT_military_first_tt
 			add_research_slot = 1
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER }
@@ -4324,16 +3324,20 @@ focus_tree = {
 		id = KMT_war_fanaticism
 		icon = GFX_goal_generic_major_war
 		prerequisite = { focus = KMT_military_first }
-		x = 40
-		y = 5
+		relative_position_id = KMT_military_first
+		x = 0
+		y = 1
 		cost = 10
 		
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			add_ideas = KMT_war_fanaticism_idea
 			add_popularity = {
 				ideology = fascism
 				popularity = 0.25
+			}
+			swap_ideas = {
+				remove_idea = r56rp_KMT_fascism_r_4
+				add_idea = r56rp_KMT_fascism_r_5
 			}
 			custom_effect_tooltip = kamikaze_focus_tooltip
 			hidden_effect = {
@@ -4350,8 +3354,9 @@ focus_tree = {
 		available = {
 			has_government = fascism
 		}
-		x = 39
-		y = 6
+		relative_position_id = KMT_war_fanaticism
+		x = -1
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -4447,8 +3452,9 @@ focus_tree = {
 		id = KMT_demand_soviet_puppets
 		icon = GFX_focus_usa_focus_on_asia
 		prerequisite = { focus = KMT_claim_territory}
-		x = 38
-		y = 7
+		relative_position_id = KMT_claim_territory
+		x = -1
+		y = 1
 		cost = 10
 		available = {
 			is_subject = no
@@ -4521,8 +3527,9 @@ focus_tree = {
 		id = KMT_demand_indochina
 		icon = GFX_goal_attack_indochina
 		prerequisite = { focus = KMT_claim_territory}
-		x = 40
-		y = 7
+		relative_position_id = KMT_claim_territory
+		x = 1
+		y = 1
 		cost = 10
 		available = {
 			is_subject = no
@@ -4610,13 +3617,18 @@ focus_tree = {
 		}
 		
 		bypass = {
-			325 = {
-				OR = {
-					free_building_slots = {
-						building = industrial_complex
-						size < 1
-						include_locked = yes
+			OR = {
+				custom_trigger_tooltip =  {
+					tooltip = improve_burma_road_bp_tt
+					325 = {
+						free_building_slots = {
+							building = industrial_complex
+							size < 1
+							include_locked = yes
+						}
 					}
+				}
+				325 = {
 					controller = {
 						has_war_with = ROOT
 					}
@@ -4702,7 +3714,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
@@ -4873,7 +3885,7 @@ focus_tree = {
 			}
 		}
 		x = 31
-		y = 6
+		y = 7
 		cost = 10
 		bypass = {
 			728 = {
@@ -4983,8 +3995,9 @@ focus_tree = {
 				}
 			}
 		}
-		x = 39
-		y = 8
+		relative_position_id = KMT_claim_territory
+		x = 0
+		y = 2
 		cost = 10
 		bypass = {
 			all_state = {
@@ -5073,7 +4086,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
@@ -5082,7 +4095,7 @@ focus_tree = {
 		prerequisite = { focus = KMT_air_effort }
 		x = 11 
 		y = 6
-		cost = 10
+		cost = 5
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -5138,24 +4151,19 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-
 			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
-				}	
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = CHI_camco_fighter_organization
+				}
 				custom_effect_tooltip = available_mio_tt
 				show_mio_tooltip = CHI_camco_medium_organization
-				custom_effect_tooltip = available_mio_tt
-				show_mio_tooltip = CHI_camco_bomber_organization				
+				mio:CHI_camco_medium_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+				}
 			}
-			ELSE = {
-				custom_effect_tooltip = available_designer
-				show_ideas_tooltip = camco
-			}	 
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
@@ -5233,7 +4241,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM FOCUS_FILTER_STEEL FOCUS_FILTER_TUNGSTEN FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ALUMINIUM FOCUS_FILTER_STEEL FOCUS_FILTER_TUNGSTEN }
 	}
 	
 	focus = {
@@ -5253,7 +4261,6 @@ focus_tree = {
 			show_ideas_tooltip = KMT_rheinmetall
 			show_ideas_tooltip = KMT_mauser
 		}
-		search_filters = { FOCUS_FILTER_HISTORICAL }
 	}
 
 	focus = {
@@ -5268,7 +4275,7 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
-		continue_if_invalid = yes		   
+		continue_if_invalid = yes
 		completion_reward = {
 			add_ideas = kmt_dare_to_die_corps_idea
 			custom_effect_tooltip = kmt_dtdc_tt
@@ -5276,7 +4283,7 @@ focus_tree = {
 				set_technology = { dare_to_die_corps = 1 }
 			}
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH  }
 	}
 
 	focus = {
@@ -5287,11 +4294,11 @@ focus_tree = {
 		relative_position_id = KMT_dare_to_die_corps
 		x = 0
 		y = 1
-		cost = 7.2
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
-		continue_if_invalid = yes		   
+		continue_if_invalid = yes
 		completion_reward = {
 			swap_ideas = {
 				remove_idea = kmt_dare_to_die_corps_idea
@@ -5322,63 +4329,41 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			if = {
+			random_owned_controlled_state = {
+				prioritize = { 613 }
 				limit = {
-					613 = {
-						OR = {
-							NOT = {
-								is_owned_and_controlled_by = ROOT
-							}
-							AND = {
-								is_owned_by = ROOT
-								free_building_slots = {
-									building = dockyard
-									size < 1
-									include_locked = yes
-								}
-							}
-						}
+					is_coastal = yes
+					is_controlled_by = ROOT
+					is_in_home_area = yes
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
 					}
 				}
-				random_owned_controlled_state = {
-					limit = { 
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}							
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
 				}
 			}
-			613 = {
-				if = {
-					limit = { 
-						is_owned_by = ROOT
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-						is_controlled_by = ROOT
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = CHI_jiangnan_shipyard_group_organization
+				mio:CHI_jiangnan_shipyard_group_organization = {
+					add_mio_size = 1
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = jiangnan_shipyard_group
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = jiangnan_shipyard_group
+			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
@@ -5496,10 +4481,23 @@ focus_tree = {
 					}
 				}
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = CHI_hanyang_arsenal
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = CHI_hanyan_arsenal_organization
+				mio:CHI_hanyan_arsenal_organization = {
+					complete_mio_trait = CHI_mio_cheaper_guns
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = CHI_hanyang_arsenal
+			}
+
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
@@ -5510,7 +4508,8 @@ focus_tree = {
 			has_idea = KMT_jinyuanquan_inflation
 		}
 		prerequisite = { focus = KMT_political_effort }
-		x = 42
+		relative_position_id = KMT_political_effort
+		x = 6
 		y = 1
 		cost = 40
 		#cost = 50
@@ -5536,13 +4535,34 @@ focus_tree = {
 				add_ideas = partial_economic_mobilisation
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = KMT_r56rp_anti_corruption_measures
+		icon = GFX_focus_mex_privatisation
+		allow_branch = { 
+			is_debug = yes 
+		}
+		prerequisite = { focus = KMT_political_effort }
+		relative_position_id = KMT_political_effort
+		x = 8
+		y = 1
+		cost = 5
+		#cost = 50
+
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		
+		completion_reward = {
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
 		id = KMT_the_big_rear_concept
 		icon = GFX_goal_CHI_big_rear
-		x = 46
+		x = 47
 		y = 0
 		cost = 14.3
 		
@@ -5553,27 +4573,40 @@ focus_tree = {
 				has_war_with = ROOT
 			}
 		}
-		cancel = {
-		}
+		continue_if_invalid = yes
 		
 		ai_will_do = {
 			factor = 100 #DO ASAP
 		}			
 		
 		completion_reward = {
-			army_experience = 10
-			add_ideas = KMT_rear
-			effect_tooltip = {
-				custom_effect_tooltip = KMT_r56_the_rear_tt_2
-				add_dynamic_modifier = { modifier = r56_the_rear } 
-			}
+			#army_experience = 10
+			add_ideas = KMT_rear	 
 			effect_tooltip = {
 				custom_effect_tooltip = KMT_r56_big_rear_tt_1
 				add_dynamic_modifier = { modifier = r56_the_big_rear } 
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = CHI_taiyuan_arsenal		
-			show_ideas_tooltip = KMT_chongqing_steel
+			effect_tooltip = {
+				custom_effect_tooltip = KMT_r56_the_rear_tt_2
+				add_dynamic_modifier = { modifier = r56_the_rear } 
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = CHI_taiyuan_arsenal_organization
+				mio:CHI_taiyuan_arsenal_organization = {
+					add_mio_size = 3
+				}
+				custom_effect_tooltip = available_designer		
+				show_ideas_tooltip = KMT_chongqing_steel
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = CHI_taiyuan_arsenal
+				show_ideas_tooltip = KMT_chongqing_steel
+			}
 			if = { #Rewritten to be more dynamic and work. #Only does a 2 for 1 on civs once in some states. Don't want to make industrial evac totally useless. 
 				limit = { #Beijing
 					608 = {
@@ -6175,6 +5208,7 @@ focus_tree = {
 				}
 			}
 
+			
 			hidden_effect = {
 				if = {
 					limit = {
@@ -6183,7 +5217,7 @@ focus_tree = {
 						}
 					}
 					605 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
 					}
 				}
 				if = {
@@ -6193,7 +5227,7 @@ focus_tree = {
 						}
 					}
 					752 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
 					}
 				}
 				if = {
@@ -6203,7 +5237,7 @@ focus_tree = {
 						}
 					}
 					750 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
 					}
 				}
 				if = {
@@ -6213,7 +5247,7 @@ focus_tree = {
 						}
 					}
 					751 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear  } 
+						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
 					}
 				}
 				if = {
@@ -6223,7 +5257,7 @@ focus_tree = {
 						}
 					}
 					748 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
 					}
 				
 				}
@@ -6234,7 +5268,7 @@ focus_tree = {
 						}
 					}
 					603 = {
-						add_dynamic_modifier = { modifier = r56_the_big_rear } 
+						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
 					}
 				}
 				if = {
@@ -6244,7 +5278,7 @@ focus_tree = {
 						}
 					}
 					744 = {
-						add_dynamic_modifier = { modifier = r56_the_rear  } 
+						add_dynamic_modifier = { modifier = r56_the_big_rear scope = ROOT } 
 					}
 				}
 				if = {
@@ -6254,7 +5288,7 @@ focus_tree = {
 						}
 					}
 					620 = {
-						add_dynamic_modifier = { modifier = r56_the_rear } 
+						add_dynamic_modifier = { modifier = r56_the_rear scope = ROOT } 
 					}
 				}
 				if = {
@@ -6264,12 +5298,13 @@ focus_tree = {
 						}
 					}
 					602 = {
-						add_dynamic_modifier = { modifier = r56_the_rear } 
+						add_dynamic_modifier = { modifier = r56_the_rear scope = ROOT } 
 					}
 				}
 			}
+			 
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = { #Sorry japan, should had ended the war by now
@@ -6323,7 +5358,6 @@ focus_tree = {
 		
 		
 		completion_reward = {
-			army_experience = 10
 			if = {
 				limit = {
 					752 = {
@@ -6710,7 +5744,7 @@ focus_tree = {
 					}
 				}
 				build_railway = { 
-					path = { 6999 4141 10304 10822 10006 7279 7101 }				
+					path = { 6999 4431 1010 9939 1474 10006 7279 7101 10517 7097 }				
 				}
 			}
 			if = {
@@ -6730,7 +5764,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 
 	focus = {
@@ -6826,7 +5860,7 @@ focus_tree = {
 				country_event = { id = lti.5 }
 			}
 		}
-		search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
+		search_filters = {  FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
 	}
 	
 	focus = {
@@ -6843,7 +5877,7 @@ focus_tree = {
 		}
 		mutually_exclusive = { focus = KMT_placate_former_puppet_government }
 		relative_position_id = KMT_lure_them_in_strategy
-		x = -1
+		x = 0
 		y = 1
 		cost = 10
 		
@@ -6920,7 +5954,7 @@ focus_tree = {
 				idea = KMT_harsh_takeover
 			}
 		}	
-		search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_MILITARY_EQUIPMENT }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
 	
 	focus = {
@@ -7005,7 +6039,6 @@ focus_tree = {
 				country_event = { id = kmt.74 hours = 12 }
 			}
 		}
-		search_filters = { FOCUS_FILTER_HISTORICAL }
 	}
 
 	focus = {
@@ -7060,7 +6093,171 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_INDUSTRY }
+	}
+
+	focus = {
+		id = KMT_north_west_insurgence
+		icon = GFX_goal_generic_dangerous_deal
+		available = {
+			is_subject = no
+			has_war_with = PRC
+			XSM = {
+				OR = {
+					exists = no
+					is_subject = no
+				}
+				NOT = {
+					has_government = communism
+				}
+			}
+			all_state = {
+				OR = {
+					NOT = {
+						OR = {
+							state = 283
+							state = 754
+							state = 604
+						}
+					}
+					is_controlled_by = PRC
+					is_controlled_by = CHI
+					is_controlled_by = XSM
+				}
+			}
+		}
+		prerequisite = { focus = KMT_preemptive_preparation }
+		relative_position_id = KMT_preemptive_preparation
+		x = -1
+		y = 1
+		cost = 10
+		cancel = {
+			OR = {
+				NOT = {
+					has_war_with = PRC
+				}
+				is_puppet = yes
+			}
+		}
+		
+		completion_reward = {
+			if = {
+				limit = {
+					XSM = {
+						exists = no
+					}
+				}
+				set_global_flag = XSM_revived
+				custom_effect_tooltip = kmt_mbf_go_lead_xsm
+				hidden_effect = {
+					remove_unit_leader = 1005
+				}
+			}
+			add_ai_strategy = {
+				type = befriend
+				id = "XSM"
+				value = 200
+			}
+			add_opinion_modifier = {
+				target = XSM
+				modifier = war_against_communist_china
+			}
+			XSM = {
+				set_country_flag = KMT_PRC_joined
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = war_against_communist_china
+				}
+				every_state = {
+					limit = {
+						OR = {
+							state = 283
+							state = 754
+							state = 604
+						}
+						OR = {
+							is_owned_by = PRC
+							is_owned_by = CHI
+						}
+						NOT = {
+							is_owned_by = XSM
+						}
+					}
+					XSM = {
+						transfer_state = PREV
+					}
+				}
+				division_template = { #militia templates instead of multiple oob's
+					name = "Pao-an Tui"
+					priority = 1
+					is_locked = no
+					division_names_group = CHI_INF_01
+					regiments = {
+						militia = { x = 0 y = 0 }
+						militia = { x = 0 y = 1 }
+					}
+				}
+				every_state = {
+					limit = {
+						OR = {
+							state = 283
+							state = 754
+							state = 604
+						}
+					}
+					custom_effect_tooltip = kmt_xsm_militia_rising_up_tt
+					hidden_effect = {
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+						create_unit = {
+							division = "name = \"Pao-an Tui\" division_template = \"Pao-an Tui\" start_experience_factor = 0.2 start_equipment_factor = 0.8 force_equipment_variants = { infantry_equipment = { owner = CHI } }" 
+							owner = PREV
+						}
+					}
+				}
+				if = {
+					limit = {
+						ROOT = {
+							is_faction_leader = yes
+						}
+					}
+					ROOT = {
+						add_to_faction = XSM
+					}
+				}
+				add_to_war = {
+					targeted_alliance = ROOT
+					enemy = PRC
+				}
+				add_offsite_building = { type = arms_factory level = 6 }
+				add_offsite_building = { type = industrial_complex level = 2 }
+				hidden_effect = {
+					add_ideas = war_economy
+					add_ideas = service_by_requirement
+				}
+				add_ai_strategy = {
+					type = alliance
+					id = ROOT
+					value = 200
+				}
+				add_ideas = KMT_aid_to_xsm
+			}
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 	}
 	
 	focus = {
@@ -7073,8 +6270,8 @@ focus_tree = {
 		}
 		prerequisite = { focus = KMT_preemptive_preparation }
 		relative_position_id = KMT_preemptive_preparation
-		x = -1
-		y = 1
+		x = 0
+		y = 3
 		cost = 10
 		
 		completion_reward = {
@@ -7122,7 +6319,7 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
 	
 	focus = {
@@ -7161,7 +6358,7 @@ focus_tree = {
 				}
 			}
 		}	
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}		
 	
 	focus = {
@@ -7174,35 +6371,51 @@ focus_tree = {
 		cost = 10
 		
 		completion_reward = {
-			set_country_flag = kmt_wont_remove_warlord_army
 			add_ideas = KMT_focus_on_own_army
-			if = {
-				limit = {
-					NOT = {
-						has_idea = KMT_warlord_cliques_war
-					}
-				}
-				add_ideas = KMT_warlord_cliques_war
-			}
-			custom_effect_tooltip = kmt_no_remove_warlord_army_tt
 		}	
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 	}			
 	
 	focus = {
 		id = KMT_incorporate_warlord_forces
 		icon = GFX_focus_chi_proclaim_rival_government
 		available = {
-			OR = {
-				has_idea = KMT_warlord_cliques_war
-				NOT = {
+			count_triggers = {
+				amount = 4
+				SHX = {
 					OR = {
-						country_exists = SHX
-						country_exists = XSM
-						country_exists = YUN
-						country_exists = GXC
-						country_exists = SIK
-						country_exists = TNG
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				XSM = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				YUN = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				GXC = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				SIK = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
+					}
+				}
+				TNG = {
+					OR = {
+						exists = no
+						is_ally_with = ROOT
 					}
 				}
 			}
@@ -7276,7 +6489,7 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			add_tech_bonus = {
-				name = KMT_special_force_training
+				name = kmt_special_forces_bonus
 				bonus = 1
 				uses = 1
 				category = r56_desert_infantry_tech
@@ -7317,7 +6530,7 @@ focus_tree = {
 			}
 			unlock_decision_tooltip = { decision = cite_an_airborne_unit show_effect_tooltip = yes }					
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 	}	
 	
 	focus = {
@@ -7341,9 +6554,10 @@ focus_tree = {
 			}
 			is_puppet = no
 		}
-		prerequisite = { focus = KMT_fascism_focus }
-		x = 36
-		y = 3
+		prerequisite = { focus = KMT_promote_nationalism }
+		relative_position_id = KMT_promote_nationalism
+		x = 7
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -7392,9 +6606,10 @@ focus_tree = {
 				has_government = fascism
 			}
 		}
-		prerequisite = { focus = KMT_militarism_focus }
-		x = 42
-		y = 3
+		prerequisite = { focus = KMT_promote_nationalism }
+		relative_position_id = KMT_promote_nationalism
+		x = 3
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -7428,6 +6643,7 @@ focus_tree = {
 			set_party_name = { ideology = fascism long_name = KMT_wjw name = KMT_wjw }
 			create_country_leader = {
 				name = "Wang Jingwei"
+				desc = "POLITICS_WANG_JINGWEI_DESC"
 				picture = "gfx/leaders/CHI/r56_portrait_CHI_Wang_Jingwei.dds"
 				expire = "1965.1.1"
 				ideology = fascism_ideology
@@ -7455,8 +6671,9 @@ focus_tree = {
 			}
 		}
 		prerequisite = { focus = KMT_support_pro_japanese_faction }
-		x = 42
-		y = 4
+		relative_position_id = KMT_support_pro_japanese_faction
+		x = 0
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -7487,7 +6704,75 @@ focus_tree = {
 			}
 		}	
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
-	}		
+	}
+
+	#focus = { #shelved for later
+	#	id = KMT_manchurian_question
+	#	icon = GFX_focus_jap_cast_the_die
+	#	mutually_exclusive = { focus = KMT_manchurian_offer }
+	#	available = {
+	#		is_subject = no
+	#		any_other_country = {
+	#			original_tag = JAP
+	#			exists = yes
+	#			OR = {
+	#			has_government = fascism
+	#			has_government = neutrality
+	#			}
+	#			NOT = {
+	#				has_war_with = ROOT
+	#			}
+	#		}
+	#	}
+	#	prerequisite = { focus = KMT_support_pro_japanese_faction focus = KMT_increase_sino_german_cooperation }
+	#	relative_position_id = KMT_re_elaborate_hakko_ichiu
+	#	x = 2
+	#	y = 1
+	#	cost = 5
+	#	
+	#	completion_reward = {
+	#
+	#	}	
+	#	search_filters = { FOCUS_FILTER_POLITICAL }
+	#}
+
+	#focus = {
+	#	id = KMT_manchurian_offer
+	#	icon = GFX_goal_JAP_attack_manchukuo
+	#	#mutually_exclusive = { focus = KMT_manchurian_question }
+	#	available = {
+	#		is_subject = no
+	#		any_other_country = {
+	#			original_tag = MAN
+	#			exists = yes
+	#			is_subject = no
+	#			NOT = {
+	#				has_war_with = ROOT
+	#			}
+	#		}
+	#		strength_ratio = {
+	#			tag = MAN
+	#			ratio > 1.5
+	#		}
+	#		JAP = {
+	#			OR = {
+	#				has_completed_focus = JAP_pre_emptive_coup
+	#				has_completed_focus = JAP_cast_the_die
+	#			}
+	#		}
+	#	}
+	#	prerequisite = { focus = KMT_promote_nationalism  } #focus = KMT_increase_sino_german_cooperation
+	#	relative_position_id = KMT_re_elaborate_hakko_ichiu
+	#	x = 2
+	#	y = -2
+	#	cost = 5
+	#	
+	#	completion_reward = {
+	#		add_stability = -0.10
+	#		add_political_power = -150
+	#	}	
+	#	search_filters = { FOCUS_FILTER_POLITICAL }
+	#}
 	
 	focus = {
 		id = KMT_introduce_shipbuilding_technology
@@ -7501,8 +6786,9 @@ focus_tree = {
 			is_in_faction_with = JAP
 		}
 		prerequisite = { focus = KMT_re_elaborate_hakko_ichiu }
-		x = 41
-		y = 8
+		relative_position_id = KMT_re_elaborate_hakko_ichiu
+		x = 1
+		y = 2
 		cost = 10
 		
 		completion_reward = {
@@ -7560,112 +6846,176 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}	
 	
+	#focus = {
+	#	id = KMT_force_japan_to_accept_peace
+	#	icon = GFX_goal_military_agreement_germany
+	#	available = {
+	#		is_puppet = no
+	#		NOT = {
+	#			has_war_with = GER
+	#		}
+	#		GER = {
+	#			is_in_faction_with = JAP
+	#			is_faction_leader = yes
+	#		}
+	#		JAP = {
+	#			has_war_with = ROOT
+	#		}
+	#		has_government = fascism
+	#		NOT = {
+	#			has_global_flag = jap_civil_war_sf
+	#		}
+	#	}
+	#	prerequisite = { focus = KMT_increase_sino_german_cooperation }
+	#	relative_position_id = KMT_increase_sino_german_cooperation
+	#	x = 1
+	#	y = 3
+	#	cost = 10
+	#	
+	#	completion_reward = {
+	#		GER = {
+	#			country_event = { id = kmt.233 }
+	#		}
+	#	}
+	#}
+	
 	focus = {
-		id = KMT_force_japan_to_accept_peace
-		icon = GFX_goal_military_agreement_germany
+		id = KMT_trade_deal_with_germany_1
+		icon = GFX_focus_generic_tungsten
 		available = {
 			is_puppet = no
 			NOT = {
 				has_war_with = GER
 			}
 			GER = {
-				is_in_faction_with = JAP
-				is_faction_leader = yes
+				is_subject = no
 			}
-			JAP = {
-				has_war_with = ROOT
-			}
-			has_government = fascism
-			NOT = {
-				has_global_flag = jap_civil_war_sf
-			}
+			owns_state = 593 #guangdong.
+			owns_state = 592 # guangzhou
 		}
 		prerequisite = { focus = KMT_increase_sino_german_cooperation }
-		x = 37
-		y = 6
-		cost = 10
+		relative_position_id = KMT_increase_sino_german_cooperation
+		x = -1
+		y = 2
+		cost = 5
 		
 		completion_reward = {
 			GER = {
-				country_event = { id = kmt.233 }
+				country_event = { id = chinajapanese.1 }
+				custom_effect_tooltip = needs_approval
+				
 			}
-		}
-	}		
-	
-	focus = {
-		id = KMT_force_japan_to_cede_land
-		icon = GFX_focus_generic_seek_accomodation_with_germany
-		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = GER
+			custom_effect_tooltip = possible_rewardsger_tt
+			effect_tooltip = {
+				give_resource_rights = {
+					receiver = GER
+					state = 593
+					resources = { tungsten chromium }
+				}
+				give_resource_rights = {
+					receiver = GER
+					state = 592
+					resources = { Tungsten chromium }
+				}
 			}
-			GER = {
-				is_in_faction_with = JAP
-				is_faction_leader = yes
-			}
-			custom_trigger_tooltip = {
-				tooltip = KMT_any_state_chi_core_jap_own_tt
-				any_state = {
-					is_core_of = ROOT
-					OR = {
-						is_owned_by = JAP
-						owner = {
-							is_puppet_of = JAP
-						}
+			CHI = {
+				effect_tooltip = {
+					add_offsite_building = { 
+						type = arms_factory level = 2 
+					}
+					add_offsite_building = { 
+						type = industrial_complex
+						level = 5 
 					}
 				}
 			}
-			has_government = fascism
+		}
+	}
+
+	focus = {
+		id = KMT_trade_deal_with_germany_2
+		icon = GFX_focus_manufacturers_cooperation
+		available = {
+			is_puppet = no
 			NOT = {
-				has_global_flag = jap_civil_war_sf
+				has_war_with = GER
+			}
+			GER = {
+				is_subject = no
 			}
 		}
-		prerequisite = { focus = KMT_force_japan_to_accept_peace }
-		x = 37
-		y = 8
-		cost = 10
+		prerequisite = { focus = KMT_trade_deal_with_germany_1 }
+		relative_position_id = KMT_trade_deal_with_germany_1
+		x = 0
+		y = 2
+		cost = 5
 		
 		completion_reward = {
 			GER = {
-				country_event = { id = kmt.240 }
+				country_event = { id = chinajapanese.2 days = 1 }
+				custom_effect_tooltip = needs_approval
+			}
+			custom_effect_tooltip = possible_rewardsger_tt
+			if = {
+				limit = {
+					has_country_flag = chijapaccepted2
+				}
+				effect_tooltip = {
+					GER = {
+						add_to_tech_sharing_group = CHI_technological_cooperation_tech_group
+					}
+					CHI = {
+						add_to_tech_sharing_group = CHI_technological_cooperation_tech_group
+					}
+				}
 			}
 		}
-	}	
 	
-	focus = {
-		id = KMT_pincer_soviet
-		icon = GFX_goal_generic_war_with_comintern
+	}
+	
+	#focus = {
+	#	id = KMT_force_japan_to_cede_land
+	#	icon = GFX_focus_generic_seek_accomodation_with_germany
+	#	available = {
+	#		is_puppet = no
+	#		NOT = {
+	#			has_war_with = GER
+	#		}
+	#		GER = {
+	#			is_in_faction_with = JAP
+	#			is_faction_leader = yes
+	#		}
+	#		custom_trigger_tooltip = {
+	#			tooltip = KMT_any_state_chi_core_jap_own_tt
+	#			any_state = {
+	#				is_core_of = ROOT
+	#				OR = {
+	#					is_owned_by = JAP
+	#					owner = {
+	#						is_puppet_of = JAP
+	#					}
+	#				}
+	#			}
+	#		}
+	#		has_government = fascism
+	#		NOT = {
+	#			has_global_flag = jap_civil_war_sf
+	#		}
+	#	}
+	#	prerequisite = { focus = KMT_force_japan_to_accept_peace }
+	#	relative_position_id = KMT_force_japan_to_accept_peace
+	#	x = 0 
+	#	y = 2
+	#	cost = 10
+	#	
+	#	completion_reward = {
+	#		GER = {
+	#			country_event = { id = kmt.240 }
+	#		}
+	#	}
+	#}	
+	
 		
-		available = {
-			r56_script_i_am_sane = yes
-			SOV = {
-				r56_script_target_is_sane = yes
-				has_war = yes
-			}
-		}
-		
-		bypass = {
-			SOV = {
-				r56_script_standard_bypass = yes
-			}
-		}
-		
-		prerequisite = { focus = KMT_join_the_axis }
-		x = 36
-		y = 5
-		cost = 10
-		
-		completion_reward = {
-			create_wargoal = {
-				target = SOV
-				expire = 0
-				type = take_state_focus
-				generator = { 408 409 657 560 561 742 732 586 589 }
-			}
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-	}		
 	
 	focus = {
 		id = KMT_japanese_advisors
@@ -7674,8 +7024,9 @@ focus_tree = {
 			is_in_faction_with = JAP
 		}
 		prerequisite = { focus = KMT_re_elaborate_hakko_ichiu }
-		x = 42
-		y = 5
+		relative_position_id = KMT_re_elaborate_hakko_ichiu
+		x = 0
+		y = 1
 		cost = 10
 		
 		completion_reward = {
@@ -7686,10 +7037,11 @@ focus_tree = {
 	focus = {
 		id = KMT_draw_closer_to_the_empire
 		icon = GFX_goal_tfv_strengthen_commonwealth_ties
-		prerequisite = { focus = KMT_democratic_republic }
-		x = 29
-		y = 2
-		cost = 2.5
+		prerequisite = { focus = KMT_democratic_republic focus = KMT_unitary_semi_presidential_republic }
+		relative_position_id = KMT_democratic_republic
+		x = -3
+		y = 1
+		cost = 2
 		
 		completion_reward = {
 			add_opinion_modifier = {
@@ -7709,9 +7061,10 @@ focus_tree = {
 		id = KMT_trans_pacific_friendship_focus
 		icon = GFX_focus_chi_mission_to_the_us
 		prerequisite = { focus = KMT_democratic_republic }
-		x = 33
-		y = 2
-		cost = 2.5
+		relative_position_id = KMT_democratic_republic
+		x = 3
+		y = 1
+		cost = 2
 		
 		completion_reward = {
 			add_opinion_modifier = {
@@ -7730,10 +7083,11 @@ focus_tree = {
 	focus = {
 		id = KMT_oust_the_colonizers
 		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
-		prerequisite = { focus = KMT_japanese_advisors }
-		x = 0
-		y = 1
+		prerequisite = { focus = KMT_isolation_tactic focus = KMT_war_fanaticism }
 		relative_position_id = KMT_japanese_advisors
+		x = -2
+		y = 0
+		relative_position_id = KMT_claim_territory
 		cost = 10
 
 		available = {
@@ -7852,15 +7206,14 @@ focus_tree = {
 		bypass = {
 			ENG = { has_war_with = JAP }
 		}
-		prerequisite = { focus = KMT_draw_closer_to_the_empire focus = KMT_unitary_semi_presidential_republic }
+		prerequisite = { focus = KMT_draw_closer_to_the_empire  }
 		x = 28
 		y = 3
-		cost = 10
+		cost = 5
 		
 		completion_reward = {
 			ENG = { country_event = { id = kmt.249 }}
 		}
-		search_filters = { FOCUS_FILTER_HISTORICAL }
 	}
 	
 	focus = {
@@ -7950,8 +7303,9 @@ focus_tree = {
 		id = KMT_join_the_axis
 		icon = GFX_goal_generic_join_axis
 		prerequisite = { focus = KMT_increase_sino_german_cooperation }
-		x = 36
-		y = 4
+		relative_position_id = KMT_increase_sino_german_cooperation
+		x = 0
+		y = 1
 		cost = 10
 	 	available = {
 	 		is_puppet = no
@@ -7975,6 +7329,122 @@ focus_tree = {
 		completion_reward = {
 			GER = { country_event = { id = kmt.247 days = 1 } }	
 		}
+	}
+
+	focus = {
+		id = KMT_force_japan_to_accept_peace
+		icon = GFX_goal_military_agreement_germany
+
+		prerequisite = { focus = KMT_increase_sino_german_cooperation }
+
+		relative_position_id = KMT_join_the_axis
+		x = 1
+		y = 1
+		cost = 10
+
+		available = {
+			is_puppet = no
+			NOT = {
+				has_war_with = GER
+			}
+			GER = {
+				is_in_faction_with = JAP
+				is_faction_leader = yes
+			}
+			JAP = {
+				has_war_with = ROOT
+			}
+			has_government = fascism
+			NOT = {
+				has_global_flag = jap_civil_war_sf
+			}
+		}
+
+		completion_reward = {
+			GER = {
+				country_event = { id = kmt.233 }
+			}
+		}
+	}		
+	
+	focus = {
+		id = KMT_force_japan_to_cede_land
+		icon = GFX_focus_generic_seek_accomodation_with_germany
+
+		prerequisite = { focus = KMT_force_japan_to_accept_peace }
+
+		relative_position_id = KMT_force_japan_to_accept_peace
+		x = 0
+		y = 2
+		cost = 10
+
+		available = {
+			is_puppet = no
+			NOT = {
+				has_war_with = GER
+			}
+			GER = {
+				is_in_faction_with = JAP
+				is_faction_leader = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = KMT_any_state_chi_core_jap_own_tt
+				any_state = {
+					is_core_of = ROOT
+					OR = {
+						is_owned_by = JAP
+						owner = {
+							is_puppet_of = JAP
+						}
+					}
+				}
+			}
+			has_government = fascism
+			NOT = {
+				has_global_flag = jap_civil_war_sf
+			}
+		}
+
+		completion_reward = {
+			GER = {
+				country_event = { id = kmt.240 }
+			}
+		}
+	}
+
+	focus = {
+		id = KMT_pincer_soviet
+		icon = GFX_goal_generic_war_with_comintern
+		
+		available = {
+			r56_script_i_am_sane = yes
+			SOV = {
+				r56_script_target_is_sane = yes
+				has_war = yes
+			}
+		}
+		
+		bypass = {
+			SOV = {
+				r56_script_standard_bypass = yes
+			}
+		}
+		
+		prerequisite = { focus = KMT_join_the_axis }
+		relative_position_id = KMT_join_the_axis
+		x = 0
+		y = 2
+		cost = 10
+		
+		completion_reward = {
+			create_wargoal = {
+				target = SOV
+				expire = 0
+				type = take_state_focus
+				generator = { 408 409 657 560 561 742 732 586 589 }
+			}
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
 	
 	focus = {
@@ -8107,7 +7577,6 @@ focus_tree = {
 				}
 			}			
 		}
-		search_filters = { FOCUS_FILTER_HISTORICAL }
 	}
 	
 	

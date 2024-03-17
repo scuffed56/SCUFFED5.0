@@ -1,3 +1,7 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 focus_tree = {
 	id = china_warlord_focus
 	
@@ -31,7 +35,7 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-			factor = 1
+			factor = 10
 		}
 
 		completion_reward = {
@@ -64,6 +68,7 @@ focus_tree = {
 					original_tag = GXC
 					original_tag = YUN
 					original_tag = XSM
+					original_tag = TNG
 				}
 			}
 		}
@@ -142,7 +147,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = CHI_cooperation_with_the_nationalists
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -220,7 +225,15 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			remove_ideas = PRC_government_corruption
+			IF = {
+				limit = {
+					has_idea = PRC_government_corruption
+				}
+				remove_ideas = PRC_government_corruption
+			}
+			ELSE = {
+				add_political_power = 150
+			}
 		}
 	}
 
@@ -286,7 +299,15 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			remove_ideas = CHI_ineffective_bureaucracy_warlord
+			IF = {
+				limit = {
+					has_idea = CHI_ineffective_bureaucracy_warlord
+				}
+				remove_ideas = CHI_ineffective_bureaucracy_warlord
+			}
+			ELSE = {
+				add_political_power = 150
+			}
 		}
 	}
 
@@ -305,6 +326,12 @@ focus_tree = {
 		}
 
 		available = {
+			CHI = {
+				OR = {
+					exists = no
+					is_ai = yes
+				}
+			}
 			custom_trigger_tooltip = {
 				tooltip = is_not_supporting_someone_in_political_struggle
 				NOT = {
@@ -420,20 +447,12 @@ focus_tree = {
 				#	value = 100
 				#}
 			}
-			
-			if = {
-				limit = {
-					PRC = {
-						has_government = communism
-					}
-				}
+			PRC = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = CHI_cooperation_with_the_communists_positive
-				}					
+				}
 			}
-
-			
 			CHI = {
 				add_opinion_modifier = {
 					target = ROOT
@@ -531,7 +550,15 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			remove_ideas = PRC_government_corruption
+			IF = {
+				limit = {
+					has_idea = PRC_government_corruption
+				}
+				remove_ideas = PRC_government_corruption
+			}
+			ELSE = {
+				add_political_power = 150
+			}
 		}
 	}
 
@@ -552,7 +579,15 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			remove_ideas = CHI_ineffective_bureaucracy_warlord
+			IF = {
+				limit = {
+					has_idea = CHI_ineffective_bureaucracy_warlord
+				}
+				remove_ideas = CHI_ineffective_bureaucracy_warlord
+			}
+			ELSE = {
+				add_political_power = 150
+			}
 		}
 	}
 
@@ -612,8 +647,6 @@ focus_tree = {
 					event_target:WTT_communist_china = {
 						NOT = { is_in_faction_with = ROOT }
 						is_in_faction = no
-						is_subject = no
-						has_government = communism
 					}
 				}
 				event_target:WTT_communist_china = {
@@ -647,10 +680,15 @@ focus_tree = {
 		}
 
 		available = {
-			is_ai = no
+			PRC = {
+				OR = {
+					exists = no
+					is_ai = yes
+				}
+			}
 			has_opinion = {
 				target = SOV
-				value > 50
+				value > 20
 			}
 			is_subject = no
 			NOT = { has_war_with = PRC }
@@ -735,7 +773,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = CHI_opposition
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -781,7 +819,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = CHI_public_works
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -838,7 +876,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = CHI_war_taxes
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1096,7 +1134,7 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-			factor = 4
+			factor = 8
 		}
 
 		completion_reward = {
@@ -1155,14 +1193,33 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = 1500
-				producer = GER
-			}	
-			GER = {
-				army_experience = 10
-			}			
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				display_individual_scopes = yes
+				ROOT = {
+					add_equipment_subsidy = {
+						cic = 1000
+						equipment_type = infantry_equipment
+						seller_tags = { GER } 
+					}
+				}
+				GER = {
+					give_market_access = GXC
+					army_experience = 10
+				}	
+			}
+			ELSE = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 1500
+					producer = GER
+				}	
+				GER = {
+					army_experience = 10
+				}	
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -1223,7 +1280,7 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-			factor = 10
+			factor = 7
 		}
 
 		completion_reward = {
@@ -1243,7 +1300,7 @@ focus_tree = {
 		cost = 10
 
 		ai_will_do = {
-			factor = 4
+			factor = 8
 		}
 
 		completion_reward = {
@@ -1375,7 +1432,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = CHI_local_arms_production
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 2
@@ -1400,7 +1457,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = CHI_local_arms_development
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1

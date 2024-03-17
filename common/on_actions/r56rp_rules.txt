@@ -1,0 +1,540 @@
+## Warlider's ruleset calculator thingy
+## This assigns on game start initial points values to all nations. fml.
+## For now its used to simply restrict when you can go to war.
+
+#set_variable = { r56rp_rules_normalwargoaldeclaration = YYYY.MM.DD } ## Allowe to go to war
+#set_variable = { r56rp_rules_focuswargoaldeclaration = YYYY.MM.DD } ## Allowed to go to war via focus.
+#set_variable = { r56rp_rules_fp_controlled = 10 } ##currently controlled nation's points
+#set_variable = { r56rp_rules_fp_summed = 1000 } ## summmed faction's points
+#set_variable = { global.r56rp_rules_fp_maxallowed = 500 } ## max allowed faction's points
+#set_variable = { r56rp_rules_fp_free = 40 } ## free-to-use faction points
+
+#Hoi4's weird with its dates. Cant get it to work so saving integer values.
+#January 1940 = 60794.4
+#July    1939 = 60789.984
+#January 1939 = 60785.64
+#July    1938 = 60781.224
+#January 1938 = 60776.88
+#July    1937 = 60772.464
+#January 1937 = 60768.12
+#January 1936 = 60759.371
+
+## Copypastes
+# "increase points to 4"
+#if = {
+#	limit = {
+#		check_variable = {
+#			r56rp_rules_fp_controlled < 4
+#		}
+#	}
+#	custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+#	set_variable = { r56rp_rules_fp_controlled = 4 }
+#}
+
+
+
+on_actions = {
+	on_declare_war = {
+		effect = {
+			IF = {
+				limit = {
+					tag = CHI
+					FROM = {
+						OR = {
+							tag = GXC
+							tag = MEN
+							tag = SHX
+							tag = PRC
+							tag = XSM
+							tag = SIK
+							tag = TNG
+							tag = YUN
+						}
+					}
+					date < 1939.1.1
+				}
+				IF = {
+					limit = {
+						CHI = {
+							has_country_flag = r56rp_chi_declared_on_warlord_early_1
+						}
+					}
+					set_country_flag = r56rp_chi_declared_on_warlord_early_2
+				}
+				ELSE_IF = {
+					limit = {
+						CHI = {
+							NOT = {
+								AND = {
+									has_country_flag = r56rp_chi_declared_on_warlord_early_1
+									has_country_flag = r56rp_chi_declared_on_warlord_early_2
+								}
+							}
+						}
+					}
+					set_country_flag = r56rp_chi_declared_on_warlord_early_1
+				}
+			}
+		}
+	}
+
+	on_startup = {
+		effect = {
+			# make sure the same country doesent appear twice. itll be assigned the lowest value on the list if it does.
+			# (code executes from top to bottom, i refuse to change me sorting.)
+
+			# 7 pointers
+			every_possible_country = {
+				limit = {
+					OR = {
+						original_tag = GER # Germany
+						original_tag = USA # United States of America
+					}
+				}
+				set_variable = { r56rp_rules_fp_controlled = 7 }
+			}
+
+			# 5 pointers
+			every_possible_country = {
+				limit = {
+					OR = {
+						original_tag = SOV # Soviet Russia / USSR
+					}
+				}
+				set_variable = { r56rp_rules_fp_controlled = 6 }
+			}
+
+			# 5 pointers
+			every_possible_country = {
+				limit = {
+					OR = {
+						original_tag = ENG # England / Great Britan
+						original_tag = FRA # France
+						original_tag = ITA # Italy
+					}
+				}
+				set_variable = { r56rp_rules_fp_controlled = 5 }
+			}
+
+			# 4 pointers
+			every_possible_country = {
+				limit = {
+					OR = {
+						original_tag = PRC # People's Republic of China / Chineese Soviet Republic
+						original_tag = CHI # Republic of China
+						original_tag = JAP # Japan
+						original_tag = CSA # CSA / Confederated States of America
+					}
+				}
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+
+			# 4 pointers
+			every_possible_country = {
+				limit = {
+					OR = {
+						original_tag = PRC # People's Republic of China / Chineese Soviet Republic
+						original_tag = CHI # Republic of China
+						original_tag = JAP # Japan
+						original_tag = CSA # CSA / Confederated States of America
+					}
+				}
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+			}
+
+			# 3 pointers
+			every_possible_country = {
+				limit = {
+					OR = {
+						original_tag = ARG # Argentina
+						original_tag = AUS # Austria
+						original_tag = AST # Australia
+						original_tag = BRA # Brazil
+						original_tag = BEL # Belgium
+						original_tag = RAJ # British Raj / India
+						original_tag = CAN # Canada
+						original_tag = COL # Colombia
+						original_tag = CZE # Czehoslovakia
+						original_tag = GRE # Greece
+						original_tag = HON # Honduras
+						original_tag = PER # Iran
+						original_tag = HOL # Netherlands
+						original_tag = POL # Poland
+						original_tag = POR # Portugal
+						original_tag = ROM # Romania
+						original_tag = SAF # South Africa
+						original_tag = SPR # Spain
+						original_tag = SWE # Sweden
+						original_tag = TUR # Turkey
+						original_tag = VEN # Venezuela
+						original_tag = YUG # Yugoslavia
+					}
+				}
+				set_variable = { r56rp_rules_fp_controlled = 3 }
+			}
+
+			# 2 pointers
+			every_possible_country = {
+				limit = {
+					OR = {
+						original_tag = COG # Belgian Congo
+						original_tag = BOL # Bolivia
+						original_tag = MAL # British Malaysia
+						original_tag = BUL # Bulgaria
+						original_tag = CHL # Chile
+						original_tag = INS # Dutch East Indies
+						original_tag = EGY # Egypt
+						original_tag = EST # Estonia
+						original_tag = ETH # Ethiopia
+						original_tag = FIN # Finland
+						original_tag = FRI # French Indochina
+						original_tag = GXC # Guangxhi Clique / Guanxhi Clique 
+						original_tag = HUN # Hungary 
+						original_tag = IRQ # Iraq 
+						original_tag = LAT # Latvia 
+						original_tag = LIT # Lithuania
+						original_tag = MAN # Manchuria / Manchuko / Qing
+						original_tag = MEX # Mexico
+						original_tag = NZL # New Zealand
+						original_tag = NOR # Norway
+						original_tag = PRU # Peru
+						original_tag = PHI # Philippines
+						original_tag = SIA # Siam
+						original_tag = SWI # Switzerland
+					}
+				}
+				set_variable = { r56rp_rules_fp_controlled = 2 }
+			}
+
+			# 1 pointers
+			every_possible_country = {
+				limit = {
+					OR = {
+						original_tag = AFG # Afghanistan / Afganistan
+						original_tag = ALB # Albania
+						original_tag = BHU # Bhutan
+						original_tag = COS # Costa Rica
+						original_tag = CUB # Cuba
+						original_tag = DEN # Denmark
+						original_tag = DOM # Dominican Republic
+						original_tag = ECU # Ecuador
+						original_tag = ELS # El Salvador
+						original_tag = GUA # Guatemala
+						original_tag = HAI # Haiti
+						original_tag = ICE # Iceland
+						original_tag = IRE # Ireland
+						original_tag = LIB # Liberia
+						original_tag = LUX # Luxembourg / luxemburg
+						original_tag = XSM # Ma Clique
+						original_tag = MEN # Mongol Political Comiteee / Mengukuo / that shit that flips from china to japan
+						original_tag = MON # Mongolia
+						original_tag = NEP # Nepal
+						original_tag = NIC # NicaRAGUA
+						original_tag = OMA # OMAN
+						original_tag = PAN # Panama
+						original_tag = PAR # Paraguay
+						original_tag = SAU # Saudi Arabia / Oilland
+						original_tag = AFA # Aussa / Afar
+						original_tag = SHX # Shanxi
+						original_tag = TAN # Tannu Tuva
+						original_tag = TIB # Tibet
+						original_tag = TNG # Tunganistan / make it so
+						original_tag = URG # Uruguay
+						original_tag = SIK # Sinkiang / Xinjiang
+						original_tag = YEM # Yemen
+						original_tag = YUN # Yunnan
+					}
+				}
+				set_variable = { r56rp_rules_fp_controlled = 1 }
+			}
+
+			# 0 pointers
+			every_possible_country = {
+				limit = {
+					OR = {
+						original_tag = ADR # Andorra
+						original_tag = DNZ # Danzig
+						original_tag = SAN # San Marino
+						original_tag = MNC # Monaco
+						original_tag = LIE # Liechtenstein
+					}
+				}
+				set_variable = { r56rp_rules_fp_controlled = 0 }
+			}
+
+			# governs assigning of dates per country point value and assigns points to nations not on the list above.
+			every_possible_country  = {
+				set_variable = { global.r56rp_rules_fp_maxallowed = 7 }
+				set_variable = { r56rp_rules_fp_summed = 0 }
+				set_variable = { r56rp_rules_fp_free = 0 }
+
+				## If not on list, slap 1 point onto it.
+				IF = { 
+					limit = {
+						NOT = {
+							has_variable = r56rp_rules_normalwargoaldeclaration
+							has_variable = r56rp_rules_focuswargoaldeclaration
+							has_variable = r56rp_rules_fp_controlled
+						}
+					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+					set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+					set_variable = { r56rp_rules_fp_controlled = 1 }
+				}
+
+				#if has the variable, slap the corresponding wargoal date depending on the fp_controlled value
+				ELSE_IF = { 
+					limit = {
+						check_variable = {
+							var = r56rp_rules_fp_controlled
+							value = 5
+							compare = greater_than_or_equals
+						}
+					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration = 60794.4 } ## Allowe to go to war
+					set_variable = { r56rp_rules_focuswargoaldeclaration = 60789.984 } ## Allowed to go to war via focus.
+				}
+				ELSE_IF = { 
+					limit = {
+						check_variable = {
+							var = r56rp_rules_fp_controlled
+							value = 4
+							compare = equals
+						}
+					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+					set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+				}
+				ELSE_IF = { 
+					limit = {
+						check_variable = {
+							var = r56rp_rules_fp_controlled
+							value = 3
+							compare = equals
+						}
+					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration = 60781.224 }
+					set_variable = { r56rp_rules_focuswargoaldeclaration = 60776.88 }
+				}
+				ELSE_IF = { 
+					limit = {
+						check_variable = {
+							var = r56rp_rules_fp_controlled
+							value = 2
+							compare = equals
+						}
+					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration = 60772.464 }
+					set_variable = { r56rp_rules_focuswargoaldeclaration = 60768.12 }
+				}
+				ELSE_IF = { 
+					limit = {
+						check_variable = {
+							var = r56rp_rules_fp_controlled
+							value = 1
+							compare = equals
+						}
+					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+					set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+				}
+				ELSE_IF = { 
+					limit = {
+						check_variable = {
+							var = r56rp_rules_fp_controlled
+							value = 0
+							compare = equals
+						}
+					}
+					set_variable = { r56rp_rules_normalwargoaldeclaration = 60759.371 }
+					set_variable = { r56rp_rules_focuswargoaldeclaration = 60759.371 }
+				}
+			}
+		}
+	}
+
+	on_monthly = {
+		effect = {
+			if = { # 1937 FP Max
+					limit = {
+						date > 1936.12.31
+						date < 1937.12.31
+					check_variable = {
+						var = global.r56rp_rules_fp_maxallowed
+						value = 9
+						compare = not_equals
+					}
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 9 }
+			}
+			else_if = { # 1938 FP Max
+					limit = {
+						date > 1937.12.31
+						date < 1938.12.31
+					check_variable = {
+						var = global.r56rp_rules_fp_maxallowed
+						value = 11
+						compare = not_equals
+					}
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 11 }
+			}
+
+			else_if = { # 1939 FP Max
+					limit = {
+						date > 1938.12.31
+						date < 1939.12.31
+					check_variable = {
+						var = global.r56rp_rules_fp_maxallowed
+						value = 13
+						compare = not_equals
+					}
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 13 }
+			}
+
+			else_if = { # 1940 FP Max
+					limit = {
+						date > 1939.12.31
+						date < 1940.12.31
+					check_variable = {
+						var = global.r56rp_rules_fp_maxallowed
+						value = 15
+						compare = not_equals
+					}
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 15 }
+			}
+
+			else_if = { # 1941 FP Max
+					limit = {
+						date > 1940.12.31
+						date < 1941.12.31
+					check_variable = {
+						var = global.r56rp_rules_fp_maxallowed
+						value = 17
+						compare = not_equals
+					}
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 17 }
+			}
+
+			else_if = { # 1942 FP Max
+					limit = {
+						date > 1941.12.31
+						date < 1942.12.31
+					check_variable = {
+						var = global.r56rp_rules_fp_maxallowed
+						value = 19
+						compare = not_equals
+					}
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 19 }
+			}
+
+			else_if = { # 1943 FP Max
+					limit = {
+						date > 1942.12.31
+						date < 1943.12.31
+					check_variable = {
+						var = global.r56rp_rules_fp_maxallowed
+						value = 21
+						compare = not_equals
+					}
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 21 }
+			}
+
+			else_if = { # 1944 FP Max
+					limit = {
+						date > 1943.12.31
+						date < 1944.12.31
+					check_variable = {
+						var = global.r56rp_rules_fp_maxallowed
+						value = 23
+						compare = not_equals
+					}
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 23 }
+			}
+
+			else_if = { # 1945 FP Max
+				limit = {
+					date > 1944.12.31
+					date < 1945.12.31
+					NOT = { check_variable = { global.r56rp_rules_fp_maxallowed = 25 } }
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 25 }
+			}
+
+			else_if = { # 1946 FP Max
+				limit = {
+					date > 1945.12.31
+					date < 1946.12.31
+					NOT = { check_variable = { global.r56rp_rules_fp_maxallowed = 27 } }
+				}
+				set_variable = { global.r56rp_rules_fp_maxallowed = 27 }
+			}
+
+			#else = { # debug. If conditions improper sets to max.
+			#	set_variable = { global.r56rp_rules_fp_maxallowed = 30 }
+			#}
+
+		}
+	}
+
+
+	#on_create_faction = {
+	#	effect = {
+	#		FROM = {
+	#			limit = {
+	#				is_in_faction = yes
+	#				is_faction_leader = no
+	#				NOT = { is_in_array = { faction_leader.FP_list_array = THIS } }
+	#			}
+	#			set_temp_variable = { var:targetFP_1 = faction_leader }
+	#			log = "Added [?THIS.GetTag]'s [?THIS.r56rp_rules_fp_controlled] to array [?var:targetFP_1.GetTag]'s"
+	#			
+	#			add_to_array = { var:targetFP_1.FP_list_array = THIS.r56rp_rules_fp_controlled }
+	#		}
+	#		#every_country = {
+	#		#	limit = {
+	#		#		is_faction_leader = yes
+	#		#	}
+	#		#	set_temp_variable = { var:targetFP = THIS }
+	#		#	log = "Set [?var:targetFP.GetTag] as target"
+	#		#	log = "Set [?var:targetFP.r56rp_rules_fp_summed] as [?temp_fp_rules_summation]"
+	#		#	add_to_variable = { temp_fp_rules_summation = var:targetFP.FP_list_array^num }
+	#		#	log = "[?var:targetFP.r56rp_rules_fp_controlled^num] - [?var:targetFP.r56rp_rules_fp_controlled^1] [?var:targetFP.r56rp_rules_fp_controlled^2]"
+	#		#		
+	#		#}
+	#	}
+	#}
+				
+
+
+	#on_create_faction = {
+	#	effect = {
+	#		any_allied_country = {
+	#			
+	#			add_to_variable = {
+	#				add_to_variable = { var:r56rp_rules_fp_summed = var:r56rp_rules_fp_controlled }
+	#			}
+	#		}
+	#	}
+	#}
+
+	#on_faction_formed = {
+	#
+	#}
+
+	#on_join_faction = {
+	#
+	#}
+
+	#on_leave_faction = {
+	#
+	#}
+
+
+}

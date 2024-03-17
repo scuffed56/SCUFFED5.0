@@ -1,5 +1,18 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
+
 #By Narzgel
 #Edit for Rt56 by Spicyalfredo and Thinking_Waffle#
+
+### search_filters = {FOCUS_FILTER_POLITICAL}
+### search_filters = {FOCUS_FILTER_RESEARCH}
+### search_filters = {FOCUS_FILTER_INDUSTRY}
+### search_filters = {FOCUS_FILTER_STABILITY}
+### search_filters = {FOCUS_FILTER_WAR_SUPPORT}
+### search_filters = {FOCUS_FILTER_MANPOWER}
+### search_filters = {FOCUS_FILTER_ANNEXATION}
 
 	shared_focus = {
 		id = GEN_begin_industrial_buildup
@@ -20,8 +33,18 @@
 				tag = DEN
 			}
 		}
-		cost = 5
+		cost = 10
 		available_if_capitulated = yes
+
+		available = {
+			OR = {
+				AND = {
+					is_subject = no
+					is_ai = yes
+				}
+				is_ai = no
+			}
+		}
 
 		ai_will_do = {
 			factor = 3.2
@@ -42,6 +65,38 @@
 				bonus = 1
 				uses = 1
 				category = industry
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
 			}
 		}
 		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY}
@@ -89,6 +144,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 		}
 
@@ -125,27 +187,6 @@
 				random_owned_controlled_state = {
 					limit = {
 						is_core_of = ROOT
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = { #Coreless handout
-				limit = {
-					num_of_controlled_states > 0
-					any_owned_state = {
-						NOT = {
-							is_core_of = ROOT
-						}
-					}
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_fully_controlled_by = ROOT
 					}
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
@@ -194,6 +235,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			has_tech = construction1
 			num_of_controlled_states > 0
 		}
@@ -211,20 +259,9 @@
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 1
 					instant_build = yes
 				}
-			}
-			if = { #Coreless handout
-				limit = {
-					num_of_controlled_states > 0
-					any_owned_state = {
-						NOT = {
-							is_core_of = ROOT
-						}
-					}
-				}
-				add_offsite_building = { type = industrial_complex level = 1 }
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -266,6 +303,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			has_tech = construction2
 			num_of_controlled_states > 0
 		}
@@ -293,17 +337,6 @@
 				}
 				unlock_decision_category_tooltip = HUN_gyor_program_decision_category
 			}
-			if = { #Coreless handout
-				limit = {
-					num_of_controlled_states > 0
-					any_owned_state = {
-						NOT = {
-							is_core_of = ROOT
-						}
-					}
-				}
-				add_offsite_building = { type = industrial_complex level = 1 }
-			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -330,6 +363,13 @@
 			add_research_slot = 1
 		}
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 		}
 		completion_reward = {
@@ -367,6 +407,13 @@
 
 		available = {
 			OR ={
+				OR = {
+					AND = {
+					is_subject = no
+					is_ai = yes
+					}
+					is_ai = no
+				}
 				num_of_controlled_states > 1
 				AND = {
 					has_tech = excavation3
@@ -446,6 +493,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 			has_tech = synth_oil_experiments
 		}
@@ -525,7 +579,7 @@
 
 		relative_position_id = GEN_begin_industrial_buildup
 
-		cost = 10
+		cost = 5
 
 		available_if_capitulated = yes
 
@@ -555,6 +609,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 			has_tech = basic_machine_tools
 		}
@@ -595,23 +656,12 @@
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 1
 					instant_build = yes
 				}
-			}
-			if = { #Coreless handout
-				limit = {
-					num_of_controlled_states > 0
-					any_owned_state = {
-						NOT = {
-							is_core_of = ROOT
-						}
-					}
-				}
-				add_offsite_building = { type = arms_factory level = 1 }
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -662,6 +712,13 @@
 			every_other_country = {
 				limit = {
 					OR = {
+						AND = {
+						is_subject = no
+						is_ai = yes
+						}
+						is_ai = no
+					}
+					OR = {
 						original_tag = GER
 						original_tag = BAY
 						original_tag = PRE
@@ -677,15 +734,10 @@
 				add_ai_strategy = {
 					type = support
 					id = ROOT
-					value = 50
+					value = 25
 				}
 				add_ai_strategy = {
 					type = send_volunteers_desire
-					id = ROOT
-					value = 100
-				}
-				add_ai_strategy = {
-					type = equipment_market_trade_desire
 					id = ROOT
 					value = 100
 				}
@@ -698,11 +750,6 @@
 							type = befriend
 							id = PREV
 							value = 25
-						}
-						add_ai_strategy = {
-							type = equipment_market_trade_desire
-							id = PREV
-							value = 50
 						}
 					}
 				}
@@ -753,6 +800,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 			any_other_country = {
 				original_tag = SOV
@@ -779,15 +833,10 @@
 				add_ai_strategy = {
 					type = support
 					id = ROOT
-					value = 50
+					value = 25
 				}
 				add_ai_strategy = {
 					type = send_volunteers_desire
-					id = ROOT
-					value = 100
-				}
-				add_ai_strategy = {
-					type = equipment_market_trade_desire
 					id = ROOT
 					value = 100
 				}
@@ -800,11 +849,6 @@
 							type = befriend
 							id = PREV
 							value = 25
-						}
-						add_ai_strategy = {
-							type = equipment_market_trade_desire
-							id = PREV
-							value = 50
 						}
 					}
 				}
@@ -843,6 +887,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 			OR = {
 				has_tech = concentrated_industry2
@@ -874,17 +925,6 @@
 					instant_build = yes
 				}
 			}
-			if = { #Coreless handout
-				limit = {
-					num_of_controlled_states > 0
-					any_owned_state = {
-						NOT = {
-							is_core_of = ROOT
-						}
-					}
-				}
-				add_offsite_building = { type = arms_factory level = 1 }
-			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -907,6 +947,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 			OR = {
 				has_tech = concentrated_industry2
@@ -945,17 +992,6 @@
 					instant_build = yes
 				}
 			}
-			if = { #Coreless handout
-				limit = {
-					num_of_controlled_states > 0
-					any_owned_state = {
-						NOT = {
-							is_core_of = ROOT
-						}
-					}
-				}
-				add_offsite_building = { type = arms_factory level = 1 }
-			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -983,6 +1019,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 			any_other_country = {
 				original_tag = USA
@@ -1010,15 +1053,10 @@
 				add_ai_strategy = {
 					type = support
 					id = ROOT
-					value = 50
+					value = 25
 				}
 				add_ai_strategy = {
 					type = send_volunteers_desire
-					id = ROOT
-					value = 100
-				}
-				add_ai_strategy = {
-					type = equipment_market_trade_desire
 					id = ROOT
 					value = 100
 				}
@@ -1031,11 +1069,6 @@
 							type = befriend
 							id = PREV
 							value = 25
-						}
-						add_ai_strategy = {
-							type = equipment_market_trade_desire
-							id = PREV
-							value = 50
 						}
 					}
 				}
@@ -1078,6 +1111,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 			OR = {
 				has_tech = concentrated_industry2
@@ -1110,17 +1150,6 @@
 					level = 2
 					instant_build = yes
 				}
-			}
-			if = { #Coreless handout
-				limit = {
-					num_of_controlled_states > 0
-					any_owned_state = {
-						NOT = {
-							is_core_of = ROOT
-						}
-					}
-				}
-				add_offsite_building = { type = arms_factory level = 1 }
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1161,6 +1190,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 1
 			has_tech = construction3
 		}
@@ -1216,17 +1252,6 @@
 					instant_build = yes
 				}
 			}
-			if = { #Coreless handout
-				limit = {
-					num_of_controlled_states > 0
-					any_owned_state = {
-						NOT = {
-							is_core_of = ROOT
-						}
-					}
-				}
-				add_offsite_building = { type = industrial_complex level = 1 }
-			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -1248,6 +1273,13 @@
 		}
 
 		available = {
+			OR = {
+				AND = {
+				is_subject = no
+				is_ai = yes
+				}
+				is_ai = no
+			}
 			num_of_controlled_states > 0
 			has_tech = motorised_infantry
 		}
@@ -1300,7 +1332,7 @@
 		id = GEN_purchase_foreign_licenses
 		icon = GFX_focus_generic_license_production
 		prerequisite = { focus = GEN_american_air_industry_expansion focus = GEN_german_heavy_industry_expansion focus = GEN_soviet_heavy_industry}
-		x = 1
+		x = 0
 		y = 2
 		offset = {
 			x = -1
@@ -1333,6 +1365,36 @@
 			custom_effect_tooltip = GEN_Licences_EXPL
 		}
 	}
+	## TEMPORARY DISABLED - DECISION EXISTS - NEED TO THINK.
+	#shared_focus = {
+	#id =  GEN_purchase_foreign_weapons_focus
+	#icon = GFX_goal_generic_gun_purchase
+	#	prerequisite = { focus = GEN_american_air_industry_expansion focus = GEN_german_heavy_industry_expansion focus = GEN_soviet_heavy_industry}
+	#	x = 2
+	#	y = 2
+	#	offset = {
+	#		x = -1
+	#		y = 0
+	#		trigger = {
+	#			tag = SOV
+	#		}
+	#	}
+	#	relative_position_id = GEN_automobile_industry
+	#
+	#	cost = 5
+	#
+	#	available_if_capitulated = yes
+	#
+	#	ai_will_do = {
+	#		factor = 2
+	#	}
+	#
+	#	completion_reward = {
+	#		ROOT  = { country_event = gen_foreign_arms_purchases.1}
+	#		custom_effect_tooltip = if_they_accept_purchases_tt
+	#		custom_effect_tooltip =  gen_foreign_arms_accepted_tt
+	#	}
+	#}
 
 
 	shared_focus = {
@@ -1423,8 +1485,6 @@
 		}
 		cost = 10
 		available = {
-			num_of_controlled_states > 1
-			num_of_factories > 45
 			if = {
 				limit = {
 					tag = ISR
@@ -1437,6 +1497,11 @@
 
 		ai_will_do = {
 			factor = 25
+		}
+
+		available = {
+			num_of_controlled_states > 1
+			num_of_factories > 45
 		}
 
 		completion_reward = {
@@ -1793,13 +1858,11 @@
 			if = {
 				limit = { has_dlc = "By Blood Alone" }
 				add_tech_bonus = {
-					name = GEN_aircraft_england
 					bonus = 1.0
 					uses = 1
 					category = light_air
 				}
 				add_tech_bonus = {
-					name = GEN_aircraft_england
 					bonus = 1
 					uses = 1
 					category = medium_air
@@ -1911,13 +1974,11 @@
 			if = {
 				limit = { has_dlc = "By Blood Alone" }
 				add_tech_bonus = {
-					name = GEN_aircraft_american
 					bonus = 1.0
 					uses = 1
 					category = light_air
 				}
 				add_tech_bonus = {
-					name = GEN_aircraft_american
 					bonus = 1.0
 					uses = 1
 					category = medium_air
@@ -2029,13 +2090,11 @@
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
 				add_tech_bonus = {
-					name = GEN_aircraft_soviet
 					bonus = 1.0
 					uses = 1
 					category = light_air
 				}
 				add_tech_bonus = {
-					name = GEN_aircraft_soviet
 					bonus = 1.0
 					uses = 1
 					category = medium_air
@@ -2137,13 +2196,11 @@
 			if = {
 				limit = { has_dlc = "By Blood Alone" } 
 					add_tech_bonus = {
-						name = GEN_aircraft_japanese
 						bonus = 1.0
 						uses = 1
 						category = light_air
 					}
 					add_tech_bonus = {
-						name = GEN_aircraft_japanese
 						bonus = 1.0
 						uses = 1
 						category = medium_air
@@ -2255,13 +2312,11 @@
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
 				add_tech_bonus = {
-					name = GEN_aircraft_italian
 					bonus = 1.0
 					uses = 1
 					category = light_air
 				}
 				add_tech_bonus = {
-					name = GEN_aircraft_italian
 					bonus = 1.0
 					uses = 1
 					category = medium_air
@@ -2370,13 +2425,11 @@
 		if = {
 			limit = { has_dlc = "By Blood Alone" }
 				add_tech_bonus = {
-					name = GEN_aircraft_german
 					bonus = 1.0
 					uses = 1
 					category = light_air	
 				}
 				add_tech_bonus = {
-					name = GEN_aircraft_german
 					bonus = 1.0
 					uses = 1
 					category = medium_air
@@ -2655,7 +2708,6 @@
 				}
 				custom_effect_tooltip = GEN_Fighter_Competition_EXPL	
 				add_tech_bonus = {
-					name = GEN_Fighter_Competition
 					bonus = 1.0
 					uses = 1
 					category = light_fighter
@@ -2669,7 +2721,6 @@
 					NOT = { has_completed_focus = GEN_aircraft_italian }
 				}
 				add_tech_bonus = {
-					name = GEN_Fighter_Competition
 					bonus = 1.0
 					uses = 1
 					technology = fighter2
@@ -3149,6 +3200,14 @@
 		icon = GFX_focus_generic_shipbuilding
 		x = 27
 		y = 0
+		available = {
+			if = {
+				limit = {
+					tag = ISR
+				}
+				has_completed_focus = ISR_win
+			}
+		}
 		offset = {
 			x = 7
 			y = 0
@@ -3203,12 +3262,6 @@
 			any_state = {
 				is_coastal = yes
 				is_controlled_by = ROOT
-			}
-			if = {
-				limit = {
-					tag = ISR
-				}
-				has_completed_focus = ISR_win
 			}
 		}
 
@@ -3782,7 +3835,7 @@
 				category = bc_tech
 			}
 
-			#custom_effect_tooltip = GEN_Generals_Other_nav_tt
+			custom_effect_tooltip = GEN_Generals_Other_nav_tt
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -4041,10 +4094,6 @@
 			}
 			modifier = {
 				factor = 0
-				original_tag = MPL
-			}
-			modifier = {
-				factor = 0
 				has_civil_war = yes
 				OR = {
 					has_government = democratic
@@ -4238,201 +4287,6 @@
 		}
 		search_filters = {  FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 	}
-
-	shared_focus = {
-		id = SMI_sideline_the_council
-		icon = GFX_focus_generic_military_dictatorship
-		prerequisite = { focus = militarism }
-		mutually_exclusive = { focus = SMI_ideological_consensus }
-		x = -3
-		y = 1
-		relative_position_id = militarism
-
-		cost = 10
-
-		available_if_capitulated = yes
-
-		allow_branch = {
-			original_tag = SMI
-		}
-
-		available = {
-			has_government = fascism
-			has_country_leader_with_trait = SMI_fascist_anti_parlementarianism
-			fascism > 0.8
-			has_army_manpower = {
-				size > 20000
-			}			
-			any_unit_leader = {  
-				not = {
-					has_trait = JAP_communist_sympathizer
-				}
-			}			
-		}
-
-		completion_reward = {
-			
-					add_political_power = 100
-			add_command_power = 50
-			IF = {
-				limit = { 
-					any_unit_leader = { 
-						has_trait = harsh_leader 
-						not = {
-							has_trait = JAP_communist_sympathizer
-						}
-					}
-				}
-				ROOT = {
-					random_unit_leader = {
-						limit = { 
-							has_trait = harsh_leader
-							not = {
-								has_trait = JAP_communist_sympathizer
-							}
-						}
-						if = {
-							limit = {
-								is_field_marshal = no
-							}
-							promote_leader = yes
-						}
-						add_country_leader_role = {
-							country_leader = {
-								ideology = fascism_ideology
-								expire = "1965.1.1.1"
-								traits = {	
-									army_connections
-									radical_anti_communist
-								}								
-							}						
-							promote_leader = yes 
-						}	
-					}
-					
-				}
-			}
-			else_if = {
-				limit = { 
-					any_unit_leader = { 
-						has_trait = trait_reckless 
-						not = {
-							has_trait = JAP_communist_sympathizer
-						}
-					}
-				}
-				ROOT = {
-					random_unit_leader = {
-						limit = { 
-							has_trait = trait_reckless
-							not = {
-								has_trait = JAP_communist_sympathizer
-							}
-						}
-						add_country_leader_role = {
-							country_leader = {
-								ideology = fascism_ideology
-								expire = "1965.1.1.1"
-								traits = {	
-									army_connections
-									radical_anti_communist
-								}		
-							}
-							promote_leader = yes 
-						}
-						
-					}
-				}
-			}			
-			ELSE = {
-				ROOT = {
-					random_unit_leader = {
-						add_country_leader_role = {
-							country_leader = {
-								ideology = fascism_ideology
-								expire = "1965.1.1.1"
-								traits = {	
-									army_connections
-									radical_anti_communist
-								}
-							}
-							promote_leader = yes 
-						}
-					}
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_government = fascism
-					}
-				}
-				set_politics = {
-					ruling_party = fascism
-					elections_allowed = no
-				}
-			}	
-			random_list = {
-				20 = {
-					add_country_leader_trait = baron_of_terror	
-				}
-				20 = {
-					add_country_leader_trait = fascistic_paramilitarist	
-				}
-				20 = {
-					add_country_leader_trait = mobilization_specialist	
-				}
-				20 = {
-					add_country_leader_trait = POL_army_logistics	
-				}
-				20 = {
-					add_country_leader_trait = mobilization_proponent	
-				}
-				20 = {
-					add_country_leader_trait = authoritarian_centralizer	
-				}																						
-				
-			}					
-		}
-		search_filters = {  FOCUS_FILTER_POLITICAL}
-	}
-	shared_focus = {
-		id = SMI_ideological_consensus
-		icon = GFX_focus_generic_fascist_propaganda
-		prerequisite = { focus = militarism }
-		mutually_exclusive = { focus = SMI_sideline_the_council }
-		x = -5
-		y = 1
-		relative_position_id = militarism
-
-		cost = 10
-
-		available_if_capitulated = yes
-
-		allow_branch = {
-			original_tag = SMI
-		}
-
-		available = {
-			has_government = fascism
-			has_country_leader_with_trait = SMI_fascist_anti_parlementarianism
-			fascism > 0.8
-			has_army_manpower = {
-				size > 20000
-			}			
-			
-		}
-
-		completion_reward = {
-			
-			add_political_power = 100
-			add_command_power = 50
-			swap_ruler_traits = { remove = SMI_fascist_anti_parlementarianism add = great_council }
-								
-		}
-		search_filters = {  FOCUS_FILTER_POLITICAL}
-	}
-
 
 
 	shared_focus = {

@@ -12,7 +12,7 @@ operation_rescue_operative = { ### 0 1/35
 	prevent_captured_operative_to_die = yes
 
 
-	days = 30
+	days = 35
 	network_strength = 30
 	operatives = 1
 
@@ -129,9 +129,9 @@ operation_infiltrate_civilian = { ### 1 1/35
 	desc = operation_infiltrate_civilian_desc
 	priority = 1
 
-	days = 80
+	days = 90
 	network_strength = 35
-	operatives = 1 #Was 2. Let's minors have something to do
+	operatives = 2
 
 	visible = {
 		network_national_coverage = {
@@ -282,7 +282,7 @@ operation_fake_intel = { ### 2 1/40
 	desc = operation_fake_intel_desc
 	priority = 2
 
-	days = 52
+	days = 60
 	network_strength = 40
 	operatives = 2
 
@@ -328,9 +328,9 @@ operation_fake_intel = { ### 2 1/40
 
 	}
 
-	#required_tokens = {
-	#	
-	#}
+	required_tokens = {
+		
+	}
 	risk_chance = 0 #there shouldn't be any risk
 	experience = 0.5
 	outcome_execute = { # SCOPE_OPERATION
@@ -425,9 +425,10 @@ operation_capture_cipher = { ### 3 1/55
 	desc = operation_capture_cipher_desc
 	priority = 3
 
-	days = 65
+	days = 75
 	network_strength = 40
 	operatives = 2
+	is_captured_cipher = yes
 
 	visible = {
 		network_strength = {
@@ -586,7 +587,7 @@ operation_infiltrate_armed_forces_army = { ### 4 1/55
 	desc = operation_infiltrate_armed_forces_army_desc
 	priority = 4
 	
-	days = 65
+	days = 75
 	network_strength = 50
 	operatives = 2
 
@@ -744,7 +745,7 @@ operation_infiltrate_armed_forces_navy = { ### 5 1/55
 	desc = operation_infiltrate_armed_forces_navy_desc
 	priority = 5
 	
-	days = 65
+	days = 75
 	network_strength = 50
 	operatives = 2
 
@@ -912,7 +913,7 @@ operation_infiltrate_armed_forces_airforce = { ### 6 1/55
 	desc = operation_infiltrate_armed_forces_airforce_desc
 	priority = 6
 
-	days = 65
+	days = 75
 	network_strength = 50
 	operatives = 2
 
@@ -1073,7 +1074,7 @@ operation_coup_government = { ### 7 1/70
 	desc = operation_coup_government_desc
 	priority = 7
 
-	days = 160
+	days = 180
 	network_strength = 70
 	operatives = 2
 	is_staged_coup = yes
@@ -1255,10 +1256,7 @@ operation_coup_government = { ### 7 1/70
 				navy_ratio = civil_war_navy_fraction
 				air_ratio = civil_war_airforce_fraction
 			}
-		#	add_opinion_modifier = {
-		#		target = ROOT
-		#		modifier = large_increase
-		#	}
+
 			# Clear State
 			clear_variable = coup_operation_party@ROOT
 			hidden_effect = {
@@ -1345,7 +1343,7 @@ operation_boost_resistance = { ### 8 2/40
 	
 	cost_multiplier = 0.25
 	
-	days = 42
+	days = 50
 	network_strength = 35
 	operatives = 2
 
@@ -1496,7 +1494,15 @@ operation_boost_resistance = { ### 8 2/40
 		resistance_support_arms_depots = { base = 25 }
 		resistance_support_distribute_weapons = { base = 25 }
 		resistance_support_organize_training = { base = 25 }
-		resistance_support_coordinate_groups = { base = 25 }
+		resistance_support_coordinate_groups = {
+			base = 25
+			modifier = {
+				FROM.FROM = {
+					resistance < 40
+				}
+				factor = 30
+			}
+		}
 	}
 	phases = { #exfiltration
 		exfiltration_air_pickup = { 
@@ -1515,7 +1521,7 @@ operation_make_resistance_contacts = { ### 9 2/40
 	desc = operation_make_resistance_contacts_desc
 	priority = 9
 
-	days = 54
+	days = 60
 	network_strength = 40
 	operatives = 2
 
@@ -1703,7 +1709,7 @@ operation_collaboration_government = { ### 10 2/55
 	desc = operation_collaboration_government_desc
 	priority = 10
 
-	days = 80
+	days = 90
 	network_strength = 50
 	operatives = 2
 	
@@ -1735,15 +1741,20 @@ operation_collaboration_government = { ### 10 2/55
 			target = FROM
 			value < 1.0
 		}
+		has_operation_token = {
+			tag = FROM
+			token = token_civilian
+		}
 	}
-	risk_chance = 0.1
+
+	risk_chance = 0.2
 	experience = 1.5
 	outcome_extra_chance = 0.33
 	outcome_execute = { # SCOPE_OPERATION
 		ROOT = {
 			add_collaboration = {
 				target = FROM
-				value = 0.3
+				value = 0.25
 			}
 			country_event = {
 				id = lar_operative_event.13
@@ -1941,7 +1952,7 @@ operation_steal_tech_civilian = { ### 12 3/35
 	desc = operation_steal_tech_civilian_desc
 	priority = 12
 
-	days = 105
+	days = 120
 	network_strength = 35
 	operatives = 3
 	cost_multiplier = 0.05
@@ -2115,7 +2126,7 @@ operation_targeted_sabotage_industry = { ### 13 3/35
 	desc = operation_targeted_sabotage_industry_desc
 	priority = 13
 	
-	days = 78
+	days = 90
 	network_strength = 35
 	operatives = 3
 
@@ -2259,7 +2270,7 @@ operation_targeted_sabotage_infrastructure = { ### 14 3/35
 	desc = operation_targeted_sabotage_infrastructure_desc
 	priority = 14
 	
-	days = 78
+	days = 90
 	network_strength = 35
 	operatives = 3
 
@@ -2399,7 +2410,7 @@ operation_targeted_sabotage_resources = { ### 15 3/35
 	desc = operation_targeted_sabotage_resources_desc
 	priority = 15
 	
-	days = 78
+	days = 90
 	network_strength = 35
 	operatives = 3
 
@@ -2538,7 +2549,7 @@ operation_steal_tech_army = { ### 16 3/55
 	desc = operation_steal_tech_army_desc
 	priority = 16
 
-	days = 105
+	days = 120
 	network_strength = 50
 	operatives = 3
 	cost_multiplier = 0.05
@@ -2824,7 +2835,7 @@ operation_steal_tech_navy = { ### 17 3/55
 	desc = operation_steal_tech_navy_desc
 	priority = 17
 
-	days = 105
+	days = 120
 	network_strength = 50
 	operatives = 3
 	cost_multiplier = 0.05
@@ -3064,7 +3075,7 @@ operation_steal_tech_airforce = { ### 18 3/55
 	desc = operation_steal_tech_airforce_desc
 	priority = 18
 
-	days = 105
+	days = 120
 	network_strength = 50
 	operatives = 3
 	cost_multiplier = 0.05

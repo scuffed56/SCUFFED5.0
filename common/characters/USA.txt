@@ -1,3 +1,7 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 characters={
 	USA_franklin_delano_roosevelt={
 		name=USA_franklin_delano_roosevelt
@@ -23,7 +27,7 @@ characters={
 		}
 		country_leader={
 			ideology=fascism_ideology
-			traits={ r56_trait_opposed_to_communism }
+			traits={ r56_trait_opposed_to_communism champion_of_fascism }
 			expire="1965.1.1"
 			id=-1
 		}
@@ -56,8 +60,11 @@ characters={
 			}
 			cost = 150
 			visible = {
-				ROOT = {
-					has_government = democratic
+				OR = {
+					NOT = { 
+						has_completed_focus = USA_suspend_the_presecution
+						has_completed_focus = USA_america_first
+					}
 				}
 			}
 			available = {
@@ -170,6 +177,16 @@ characters={
 			allowed  = {
 				original_tag  = USA
 			}
+
+			visible = {
+				has_dlc = "Man the Guns"
+				NOT = { 
+					has_completed_focus = USA_reestablish_the_gold_standard
+					has_completed_focus = USA_limited_intervention
+					has_completed_focus = USA_neutrality_act
+				}
+			}
+
 			available  = {
 				if  = {
 					limit  = {
@@ -1744,6 +1761,12 @@ characters={
 				small="gfx/interface/ideas/idea_USA_charles_lindbergh.dds"
 			}
 		}
+		country_leader={
+			ideology=fascism_ideology
+			traits={ r56rp_famous_aviator }
+			expire="1974.11.26"
+			id=-1
+		}
 		advisor={
 			slot = air_chief
 			idea_token = USA_charles_lindbergh
@@ -1942,6 +1965,12 @@ characters={
 			allowed  = {
 				original_tag  = USA
 			}
+			visible = {
+				has_dlc = "Man the Guns"
+				NOT = { 
+					has_completed_focus = USA_reestablish_the_gold_standard
+				}
+			}
 			available  = {
 				if  = {
 					limit  = {
@@ -1953,13 +1982,13 @@ characters={
 					has_idea  = USA_henry_morgenthau
 				}
 			}
-			visible  = {
-				has_dlc = "Man the Guns"
-			}
 			traits  = {
 				financial_expert
 			}
-			cost  = 0.000
+			modifier = {
+				communism_drift = 0.01
+			}
+			cost  = 50.000
 			do_effect  = {
 			}
 			ai_will_do  = {
@@ -1984,6 +2013,14 @@ characters={
 			allowed  = {
 				original_tag  = USA
 			}
+
+			visible = {
+				has_dlc = "Man the Guns"
+				NOT = { 
+					has_completed_focus = USA_reestablish_the_gold_standard
+				}
+			}
+
 			available  = {
 				if  = {
 					limit  = {
@@ -1992,13 +2029,14 @@ characters={
 					has_completed_focus  = USA_reach_out_to_the_ware_group
 				}
 			}
-			visible  = {
-				has_dlc = "Man the Guns"
-			}
+			
 			traits  = {
 				economist
 			}
-			cost  = 0.000
+			modifier = {
+				communism_drift = 0.01
+			}
+			cost  = 25.000
 			do_effect  = {
 			}
 			ai_will_do  = {
@@ -2023,6 +2061,14 @@ characters={
 			allowed  = {
 				original_tag  = USA
 			}
+
+			visible = {
+				has_dlc = "Man the Guns"
+				NOT = { 
+					has_completed_focus = USA_reestablish_the_gold_standard
+				}
+			}
+
 			available  = {
 				if  = {
 					limit  = {
@@ -2031,13 +2077,14 @@ characters={
 					has_completed_focus  = USA_reach_out_to_the_ware_group
 				}
 			}
-			visible  = {
-				has_dlc = "Man the Guns"
-			}
+			
 			traits  = {
 				editor
 			}
-			cost  = 0.000
+			modifier = {
+				communism_drift = 0.01
+			}
+			cost  = 25.000
 			do_effect  = {
 			}
 			ai_will_do  = {
@@ -2062,6 +2109,14 @@ characters={
 			allowed  = {
 				original_tag  = USA
 			}
+
+			visible = {
+				has_dlc = "Man the Guns"
+				NOT = { 
+					has_completed_focus = USA_continue_the_new_deal
+				}
+			}
+
 			available  = {
 				if  = {
 					limit  = {
@@ -2069,9 +2124,6 @@ characters={
 					}
 					has_completed_focus  = USA_america_first
 				}
-			}
-			visible  = {
-				has_dlc = "Man the Guns"
 			}
 			traits  = {
 				editor
@@ -2103,6 +2155,16 @@ characters={
 			allowed  = {
 				original_tag  = USA
 			}
+
+			visible = {
+				if  = {
+					limit  = {
+						has_dlc = "Man the Guns"
+					}
+					NOT = { has_completed_focus  = USA_continue_the_new_deal }
+				}
+			}
+
 			available  = {
 				if  = {
 					limit  = {
@@ -2110,9 +2172,6 @@ characters={
 					}
 					has_completed_focus  = USA_america_first
 				}
-			}
-			visible  = {
-				has_dlc = "Man the Guns"
 			}
 			traits  = {
 				captain_of_industry
@@ -2180,6 +2239,14 @@ characters={
 			idea_token = charles_coughlin
 			allowed  = {
 				original_tag  = USA
+			}
+			visible = {
+				has_dlc = "Man the Guns"
+				NOT = { 
+					has_completed_focus = USA_neutrality_act
+					has_completed_focus = USA_limited_intervention
+					has_completed_focus = USA_continue_the_new_deal
+				}
 			}
 			available  = {
 				if  = {
@@ -2258,12 +2325,22 @@ characters={
 			allowed = {
 				original_tag  = USA
 			}
+
+			visible = {
+				has_dlc = "Man the Guns"
+				OR = {
+					NOT = { 
+						has_completed_focus = USA_neutrality_act
+					}
+				}
+			}
+
 			available = {
 				NOT = { has_government = communism }
 				has_completed_focus = USA_war_propaganda
 			}
 			ai_will_do = {
-				factor = 9
+				factor = 0
 				modifier = {
 					is_historical_focus_on = yes
 					has_game_rule = {
@@ -2274,16 +2351,16 @@ characters={
 				}
 				modifier = {
 					is_historical_focus_on = yes
-					NOT = { has_dlc = "Man the Guns" }
-					factor = 0
+					not = { has_dlc = "Man the Guns" }
+					factor = 0.1
 				}
 				modifier = {
 					is_historical_focus_on = no
-					NOT = { has_dlc = "Man the Guns" }
+					not = { has_dlc = "Man the Guns" }
 					factor = 10
 				}
 			}
-			cost = 75
+			cost = 125
 			traits = { intervention_advocate }
 		}
 	}
@@ -2302,6 +2379,13 @@ characters={
 				original_tag  = USA
 				has_dlc = "Man the Guns" # only because he can be obtained through the DLC path
 			}
+
+			visible = {
+				NOT = { 
+					has_completed_focus = USA_continue_the_new_deal
+				}
+			}
+
 			available = {
 				has_completed_focus = USA_collaboration_with_the_mafia
 			}
@@ -2343,6 +2427,13 @@ characters={
 			allowed  = {
 				original_tag  = USA
 			}
+
+			visible = {
+				NOT = { 
+					has_completed_focus = USA_continue_the_new_deal
+				}
+			}
+
 			available  = {
 				has_completed_focus  = USA_empower_the_huac
 			}
