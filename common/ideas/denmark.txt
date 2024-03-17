@@ -94,7 +94,12 @@ ideas = {
 			}
 
 			available = {
-				DEN_designer_can_be_improved = yes
+				if = {
+					limit = {
+						has_global_flag = DEN_use_DLC_tree
+					}
+					DEN_designer_can_be_improved = yes
+				}
 			}
 			
 			research_bonus = {
@@ -143,7 +148,20 @@ ideas = {
 			}
 
 			available = {
-				has_completed_focus = DEN_danske_stalvalsevaerket
+				if = {
+					limit = {
+						has_global_flag = DEN_use_DLC_tree
+					}
+					has_completed_focus = DEN_danske_stalvalsevaerket
+				}
+				else = {
+					OR = {
+						has_completed_focus = DEN_Nationalization_of_Key_Industries
+						has_completed_focus = DEN_Steel_Investments
+						has_completed_focus = DEN_Royal_Industries
+						has_completed_focus = DEN_Bolster_Danish_Corporations
+					}
+				}
 			}
 			
 			research_bonus = {
@@ -179,7 +197,6 @@ ideas = {
 				has_country_flag = DEN_neutrality_flag
 				is_in_faction = no
 				is_subject = no
-				has_war = no
 			}
 
 			allowed_civil_war = {
@@ -194,38 +211,6 @@ ideas = {
  				send_volunteers_tension = 0.25
 				enemy_justify_war_goal_time = 0.25
 				embargo_threshold_factor = 0.25
-				ai_badass_factor = 0.01    # Will receive 1% of the threat from others
-				ai_get_ally_desire_factor = -100
-			}
-		}
-
-		DEN_declaration_of_neutrality_no_BBA = { 
-			name = DEN_declaration_of_neutrality
-			removal_cost = -1
-			picture = neutrality_idea 
-
-			allowed = {
- 				always = no
- 			}
-
- 			available = {
-				has_country_flag = DEN_neutrality_flag
-				is_in_faction = no
-				is_subject = no
-				has_war = no
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
- 			modifier = {
- 				custom_modifier_tooltip = DEN_denmark_becomes_a_puppet_tt
-				join_faction_tension = 1
- 				justify_war_goal_time = 0.25
- 				guarantee_tension = 1.0
- 				send_volunteers_tension = 0.25
-				enemy_justify_war_goal_time = 0.25
 				ai_badass_factor = 0.01    # Will receive 1% of the threat from others
 				ai_get_ally_desire_factor = -100
 			}
@@ -268,8 +253,8 @@ ideas = {
 				supply_factor = 0.1
 				supply_combat_penalties_on_core_factor = -0.1
 				out_of_supply_factor = -0.1
-				attrition = -0.05
-				naval_attrition = -0.05
+				attrition = -0.025
+				naval_attrition = -0.025
 				supply_consumption_factor = -0.05
 			}
 		}
@@ -288,9 +273,9 @@ ideas = {
 			}
 
  			modifier = {
-				attrition = -0.05
+				attrition = -0.025
 				supply_factor = 0.05
-				supply_combat_penalties_on_core_factor = -0.075
+				supply_combat_penalties_on_core_factor = -0.05
 				out_of_supply_factor = -0.075
 				supply_node_range = 0.1
 				production_speed_supply_node_factor = 0.25
@@ -344,7 +329,7 @@ ideas = {
 				supply_factor = 0.05
 				supply_combat_penalties_on_core_factor = -0.05
 				out_of_supply_factor = -0.05
-				consumer_goods_factor = 0.1
+				consumer_goods_factor = 0.2
 			}
 		}
 
@@ -394,7 +379,7 @@ ideas = {
 				supply_combat_penalties_on_core_factor = -0.1
 				out_of_supply_factor = -0.1
 				supply_node_range = 0.1
-				consumer_goods_factor = 0.15
+				consumer_goods_factor = 0.4
 			}
 		}
 
@@ -455,11 +440,10 @@ ideas = {
  			available = {
  				OR = {
 					has_subject = DEN
-					AND = {
-						37 = {	is_controlled_by = ROOT }
-						1025 = {	is_controlled_by = ROOT } #911 was base game ~EndSieg
-						99 = {	is_controlled_by = ROOT }
-						964 = {	is_controlled_by = ROOT } #912 was base game ~EndSieg
+					DEN = {
+						all_core_state = {
+							is_owned_by = ROOT
+						}
 					}
  				}
 			}
@@ -651,15 +635,6 @@ ideas = {
 			}
 			available = {
 			}
-
-			on_remove = {
-				if = {
-					limit = {
-						has_country_flag = DEN_has_danish_influence_flag
-					}
-					clr_country_flag = DEN_has_danish_influence_flag
-				}
-			}
 		
 			modifier = { 
 				neutrality_drift = 0.15
@@ -679,17 +654,8 @@ ideas = {
 			}
 			available = {
 			}
-
-			on_remove = {
-				if = {
-					limit = {
-						has_country_flag = DEN_has_danish_influence_flag
-					}
-					clr_country_flag = DEN_has_danish_influence_flag
-				}
-			}
 		
-			targeted_modifier = { 
+			modifier = { 
 				fascism_drift = 0.15
 				drift_defence_factor = -0.3
 			}
@@ -756,92 +722,71 @@ ideas = {
 		}
 
 	#FAKE IDEAS FOR BOOKMARK
-		#1936
+		DEN_fake_motstandsbevaegelsen_ns = { 
+			name = DEN_resistance_dynamic_modifier
+			removal_cost = -1
+			picture = DEN_resistance 
+
+			allowed = {
+ 				always = no
+ 			}
+
+ 			allowed_civil_war = {
+				always = yes
+			}
+
+ 			modifier = {
+ 				weekly_manpower = 1000
+ 				mobilization_speed = 0.25
+				resistance_target_on_our_occupied_states = 0.15
+				compliance_growth_on_our_occupied_states = -0.15
+				resistance_damage_to_garrison_on_our_occupied_states = 0.1
+			}
+		}
+
 		DEN_fake_industrial_capability_ns = { 
 			name = DEN_industrial_capability_dynamic_modifier
 			removal_cost = -1
-			picture = SOV_second_five_year_plan
+			picture = generic_improved_industries 
 
 			allowed = {
  				always = no
  			}
 
  			allowed_civil_war = {
-				always = no
+				always = yes
 			}
 
  			modifier = {
- 				consumer_goods_factor = 0.3
- 				line_change_production_efficiency_factor = -0.05
- 				industrial_capacity_factory = -0.1
- 				industrial_capacity_dockyard = -0.1
- 				equipment_conversion_speed = -0.05
+ 				consumer_goods_factor = -0.4
+ 				line_change_production_efficiency_factor = 0.1
+ 				industrial_capacity_factory = 0.1
+ 				industrial_capacity_dockyard = 0.1
+ 				equipment_conversion_speed = 0.1
+ 				min_export = -0.1
 			}
 		}
 
-		DEN_fake_neglected_military_ns = { 
-			name = DEN_neglected_military_dynamic_modifier
+		DEN_fake_haeren_ns = { 
+			name = DEN_haeren_dynamic_modifier
 			removal_cost = -1
-			picture = generic_neglected_military 
+			picture = DEN_haeren_3 
 
 			allowed = {
  				always = no
  			}
 
  			allowed_civil_war = {
-				always = no
+				always = yes
 			}
 
  			modifier = {
- 				mobilization_speed = -0.2
-				surrender_limit = -0.2
-				planning_speed = -0.1
-			}
-		}
-
-		DEN_fake_economic_crisis_ns = { 
-			name = DEN_economic_crisis_dynamic_modifier
-			removal_cost = -1
-			picture = generic_economic_crisis 
-
-			allowed = {
- 				always = no
- 			}
-
- 			allowed_civil_war = {
-				always = no
-			}
-
- 			modifier = {
- 				monthly_population = -0.1
- 				stability_weekly = -0.001
- 				neutrality_drift = 0.02
- 				democratic_drift = -0.05
-			}
-		}
-
-		#1939
-		DEN_fake_industrial_capability_2_ns = { 
-			name = DEN_industrial_capability_dynamic_modifier
-			removal_cost = -1
-			picture = SOV_third_five_year_plan 
-
-			allowed = {
- 				always = no
- 			}
-
- 			allowed_civil_war = {
-				always = no
-			}
-
- 			modifier = {
- 				custom_modifier_tooltip = DEN_industrial_research_bonus_tt
- 				local_resources_factor = 0.1
- 				consumer_goods_factor = 0.2
- 				line_change_production_efficiency_factor = -0.05
- 				industrial_capacity_factory = -0.1
- 				industrial_capacity_dockyard = -0.1
- 				equipment_conversion_speed = -0.05
+ 				army_speed_factor = 0.1
+ 				org_loss_when_moving = -0.1
+ 				army_core_attack_factor = 0.05
+ 				army_core_defence_factor = 0.05
+ 				army_armor_defence_factor = 0.1
+ 				army_artillery_defence_factor = 0.1 
 			}
 		}
 	}

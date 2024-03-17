@@ -32,7 +32,7 @@ country_event = {
 				start_civil_war = {
 					ideology = fascism
 					size = civil_war_size_var
-					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 709 710 711 712 }
+					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 710 711 712 }
 					states = { 931 }
 				}
 			}
@@ -47,7 +47,7 @@ country_event = {
 				start_civil_war = {
 					ideology = neutrality
 					size = civil_war_size_var
-					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 709 710 711 712 }
+					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 710 711 712 }
 					states = { 931 }
 				}
 			}
@@ -211,6 +211,15 @@ country_event = {
 
 	option = {
 		name = mexico.2.a
+
+		trigger = {
+			NOT = {
+				has_government = communism
+				FROM = {
+					has_government = communism
+				}
+			}
+		}		
 		
 		add_political_power = -25
 		
@@ -232,6 +241,15 @@ country_event = {
 	}
 	option = {
 		name = mexico.2.b
+
+		trigger = {
+			NOT = {
+				has_government = communism
+				FROM = {
+					has_government = communism
+				}
+			}
+		}		
 		
 		send_embargo = FROM
 		custom_effect_tooltip = embargo_relation_tt
@@ -262,6 +280,15 @@ country_event = {
 	option = {
 		name = mexico.2.c
 		
+		trigger = {
+			NOT = {
+				has_government = communism
+				FROM = {
+					has_government = communism
+				}
+			}
+		}
+
 		add_stability = -0.1
 		add_war_support = -0.1
 		
@@ -307,6 +334,58 @@ country_event = {
 			}
 		}
 	}
+	option = {
+		name = mexico.2.d
+		
+		trigger = {
+			OR = {
+				has_government = communism
+				AND = {
+					is_puppet = no
+					OR = {
+						has_completed_focus = ENG_concessions_to_the_trade_unions
+						has_completed_focus = ENG_united_front_strategy
+						has_completed_focus = USA_union_representation_act
+					}
+				}
+				
+			}
+			
+			FROM = {
+				OR = {
+					has_government = communism
+					AND = {
+						has_government = neutrality
+						has_completed_focus = MEX_focus_confederation_of_mexican_workers
+						communism > 0.3
+					}					
+				}
+			}
+		}
+
+		add_political_power = -15
+		add_stability = 0.02
+		
+		add_popularity = { ideology = communism popularity = 0.03 }
+
+		reverse_add_opinion_modifier = { target = FROM modifier = large_increase }
+		
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 10
+				FROM = {
+					has_government = communism
+				}
+			}
+			modifier = {
+				factor = 0.1
+				FROM = {
+					is_enemy_ideology = yes
+				}
+			}
+		}
+	}	
 }
 
 # Mexico is informed that they are under embargo
@@ -425,10 +504,10 @@ country_event = {
 			limit = {
 				original_tag = GER
 			}
-			add_to_tech_sharing_group = MEX_solidify_the_davis_deal_tech_group
+			add_to_tech_sharing_group = MEX_GER_tech_group
 			
 			FROM = {
-				add_to_tech_sharing_group = MEX_solidify_the_davis_deal_tech_group
+				add_to_tech_sharing_group = MEX_GER_tech_group
 			}
 		}
 		
@@ -533,6 +612,14 @@ country_event = {
 						is_major = yes
 						is_ai = no
 					}
+				}
+			}
+			modifier = {	#no tiny chance of Mexico not allowed into Allies
+				factor = 0
+				is_historical_focus_on = yes
+				MEX = {
+					has_government = ROOT
+					has_war = no
 				}
 			}
 		}
@@ -897,16 +984,8 @@ country_event = {
 	picture = GFX_report_event_europe_funeral
 	
 	fire_only_once = yes
-	
-	trigger = {
-		tag = MEX
-		has_dlc = "Man the Guns"
-	}
-	
-	mean_time_to_happen = {
-		months = 6 # Historically died in May 1936
-	}
-	
+	is_triggered_only = yes
+
 	option = {
 		name = mexico.15.a # Rest in peace
 		
@@ -969,12 +1048,9 @@ country_event = {
 	picture = GFX_report_event_american_hunger_march
 	
 	fire_only_once = yes
+	is_triggered_only = yes
 	
 	trigger = {
-		tag = MEX
-		
-		date > 1937.1.1
-		
 		NOT = {
 			OR = {
 				has_completed_focus = MEX_focus_strike_breaking
@@ -994,11 +1070,6 @@ country_event = {
 				}
 			}
 		}
-		has_dlc = "Man the Guns"
-	}
-	
-	mean_time_to_happen = {
-		months = 12 # Historically started in November 1937
 	}
 	
 	option = {
@@ -1131,22 +1202,20 @@ country_event = {
 				add = 100
 				is_historical_focus_on = yes
 				NOT = {
-					OR = {
-						has_country_flag = MEX_AI_THEOCRATIC_ORDER 
-						has_game_rule = {
-							rule = MEX_ai_behavior
-							option = THEOCRATIC_ORDER
-						}
-						has_country_flag = MEX_AI_SOVIET_REPUBLIC 
-						has_game_rule = {
-							rule = MEX_ai_behavior
-							option = SOVIET_REPUBLIC
-						}
-						has_country_flag = MEX_AI_CARDENISMO 
-						has_game_rule = {
-							rule = MEX_ai_behavior
-							option = CARDENISMO
-						}
+					has_country_flag = MEX_AI_THEOCRATIC_ORDER 
+					has_game_rule = {
+						rule = MEX_ai_behavior
+						option = THEOCRATIC_ORDER
+					}
+					has_country_flag = MEX_AI_SOVIET_REPUBLIC 
+					has_game_rule = {
+						rule = MEX_ai_behavior
+						option = SOVIET_REPUBLIC
+					}
+					has_country_flag = MEX_AI_CARDENISMO 
+					has_game_rule = {
+						rule = MEX_ai_behavior
+						option = CARDENISMO
 					}
 				}
 			}
@@ -1817,6 +1886,12 @@ country_event = {
 				}
 			}
 		}
+		hidden_effect = {
+			news_event = {
+				id = r56.news_event.50
+				days = 1
+			}
+		}
 	}
 	
 	option = { # Continuity candidate: Saturnino Cedillo
@@ -2462,7 +2537,7 @@ country_event = {
 				start_civil_war = {
 					ideology = fascism
 					size = 0.35
-					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 709 710 711 712 }
+					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 710 711 712 }
 				}
 			}
 			if = {
@@ -2472,7 +2547,7 @@ country_event = {
 				start_civil_war = {
 					ideology = democratic
 					size = 0.35
-					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 709 710 711 712 }
+					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 710 711 712 }
 				}
 			}
 			if = {
@@ -2482,7 +2557,7 @@ country_event = {
 				start_civil_war = {
 					ideology = democratic
 					size = 0.35
-					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 709 710 711 712 }
+					keep_unit_leaders = { 700 701 702 703 704 705 706 707 708 710 711 712 }
 				}
 			}
 			random_other_country = {
@@ -3730,8 +3805,8 @@ country_event = {
 					}
 				}
 			}
-			give_resource_rights = { receiver = GER state = 476 }
 		}
+		give_resource_rights = { receiver = GER state = 476 }
 	}
 }
 

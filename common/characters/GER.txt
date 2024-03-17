@@ -55,19 +55,25 @@ characters={
 						has_autonomy_state = autonomy_supervised_state
 					}
 				}
+				is_country_leader = no
 				if = {
 					limit = {
-						#has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
 					has_completed_focus = GER_oppose_hitler
 				}
 				else = {
-					has_completed_focus = GER_oppose_hitler
+					has_completed_focus = GER_repeal_reichstag_fire_decree
 				}
 			}
 			visible = {
-				#NOT = { has_global_flag = ger_standard_focus_tree }
-				NOT = { has_government = fascism }
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+				NOT = { has_global_flag = ger_vanilla_focus_tree }
 			}			
 			traits = {
 				communist_revolutionary 
@@ -95,19 +101,120 @@ characters={
 		name=GER_wilhelm_ii
 		portraits={
 			civilian={
-				large="GFX_portrait_ger_wilhelm_ii"
+				large= "gfx/leaders/GER/r56_portrait_GER_King_Wilhelm.dds"
 			}	
 		}
 	}
 
 	GER_wilhelm_iii={ #Empty Wilhelm III so he doesn't become ruler automatically if the neutrals are in power
-		name=GER_wilhelm_iii
+		name="Friedrich Wilhelm"
 		portraits={
 			civilian={
-				large="GFX_portrait_ger_wilhelm_iii"
+				large= "gfx/leaders/GER/r56_portrait_GER_Prince_Wilhelm.dds"
+			}
+			army = {
+				large= "gfx/leaders/GER/r56_portrait_GER_Prince_Wilhelm.dds"
+				small="GFX_idea_GER_wilhelm_iii"
+			}
+		}
+		field_marshal={ # Prince in exile
+			traits={ old_guard politically_connected infantry_officer }
+			skill=3
+			attack_skill=4
+			defense_skill=3
+			planning_skill=1
+			logistics_skill=2
+			visible = {
+				has_country_flag = GER_monarchist_civil_war_flag
+				has_government = neutrality
+				NOT = {
+					has_country_leader = {
+						character = GER_wilhelm_iii
+						ruling_only = yes
+					}
+				}
+			}
+		}
+
+	}
+
+	GER_wilhelm_iv={ #Empty Wilhelm IV so he doesn't become ruler automatically if the neutrals are in power
+		name="Wilhelm IV"
+		portraits={
+			civilian={
+				large= "gfx/leaders/GER/r56_portrait_GER_Wilhelm_IV.dds"
 			}	
 		}
 	}
+
+	GER_eitel_friedrich_von_prussia={ 
+		name="Eitel Friedrich von Prussia"
+		portraits={
+			civilian={
+				small="gfx/interface/ideas/idea_GER_generic_land_2.dds"
+				large="gfx/leaders/GER/r56_portrait_GER_Eitel_Friedrich_von_Prussia.dds"
+			}	
+		}
+		corps_commander={ # Prince in exile
+			traits={ politically_connected }
+			skill=2
+			attack_skill=1
+			defense_skill=2
+			planning_skill=1
+			logistics_skill=2
+			visible = { 
+				has_country_flag = GER_monarchist_civil_war_flag
+				has_government = neutrality
+			}
+		}
+
+	}
+
+	GER_kurt_von_hammerstein_equord={ #He can take power through BOP
+		name="Kurt von Hammerstein-Equord"
+		portraits={
+			civilian={
+				large="gfx/leaders/GER/r56_portrait_GER_Kurt_von_Hammerstein.dds"
+			}	
+		}
+	}
+
+	GER_rupprecht_i={ 
+		name="Rupprecht I"
+		portraits={
+			civilian={
+				small="gfx/interface/ideas/idea_GER_generic_land_2.dds"
+				large="gfx/leaders/BAY/r56_portrait_BAV_Rupprecht.dds"
+			}	
+		}
+		corps_commander={ # King of Bavaria in exile
+			traits={ old_guard infantry_officer air_force_ties }
+			skill=3
+			attack_skill=4
+			defense_skill=1
+			planning_skill=3
+			logistics_skill=2
+			visible = {
+				has_country_flag = GER_monarchist_civil_war_flag
+				has_government = neutrality
+				NOT = {
+					OR = {
+						AND = {
+							country_exists = BAY
+							has_government = neutrality
+						}
+						any_other_country = {
+							has_country_leader = {
+								name = "Rupprecht I"
+								ruling_only = yes
+							}						
+						}
+					}
+				}
+			}
+		}
+	}
+
 	GER_victoria={ #Empty Vicky3 
 		name=GER_victoria
 		gender = female 
@@ -123,6 +230,70 @@ characters={
 		portraits={
 			civilian={
 				large="GFX_portrait_ger_august_von_mackensen"
+			}
+			army={
+				large="GFX_portrait_ger_august_von_mackensen"
+				small="gfx/interface/ideas/idea_GER_generic_land_3.dds"
+			}
+		}
+		field_marshal={
+			traits={ war_hero old_guard infantry_officer organizer offensive_doctrine }
+			skill=4
+			attack_skill=4
+			defense_skill=3
+			planning_skill=4
+			logistics_skill=4
+			visible = { # Monarchist civil war
+				has_country_flag = GER_monarchist_civil_war_flag
+				has_government = neutrality
+				NOT = {
+					has_country_flag = GER_mackensen_dead
+				}
+			}
+		}
+	}
+
+	GER_erich_ludendorff={ # Look who's back
+		name="Erich Ludendorff"
+		portraits={
+			army={
+				large="gfx/leaders/GER/r56_portrait_GER_Erich_Ludendorff.dds"
+				small="gfx/interface/ideas/idea_GER_generic_land_3.dds"
+			}
+			civilian = {
+				small="GFX_idea_GER_erich_ludendorff"
+			}
+		}
+		advisor={
+			slot = political_advisor
+			idea_token = GER_erich_ludendorff
+			allowed = {
+				original_tag = GER
+			}
+			available = {
+				has_government = neutrality
+			}
+			visible = {
+				has_country_flag = GER_ludendorff_political_advisor
+			}			
+			traits = {
+				silent_workhorse 
+			}
+			ai_will_do = {
+				factor = 0.000
+			}
+		}		
+		field_marshal={
+			traits={ war_hero old_guard infantry_officer thorough_planner harsh_leader }
+			skill=5
+			attack_skill=4
+			defense_skill=4
+			planning_skill=5
+			logistics_skill=4
+			visible = { # Monarchist civil war if you recruited him
+				has_completed_focus = GER_contact_ludendorff
+				has_country_flag = GER_monarchist_civil_war_flag
+				has_government = neutrality
 			}
 		}
 	}
@@ -152,7 +323,7 @@ characters={
 		}
 		
 		field_marshal={
-			traits={ old_guard urban_assault_specialist defensive_doctrine }
+			traits={ old_guard urban_assault_specialist skilled_staffer expert_delegator }
 			skill=3
 			attack_skill=3
 			defense_skill=2
@@ -170,8 +341,8 @@ characters={
 				small="gfx/interface/ideas/idea_GER_gunther_von_kluge.dds"
 			}
 		}
-		field_marshal={
-			traits={ armor_officer offensive_doctrine }
+		corps_commander={
+			traits={ armor_officer }
 			skill=3
 			attack_skill=3
 			defense_skill=2
@@ -218,9 +389,9 @@ characters={
 			available = {
 				if = {
 					limit = {
-						#has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
-					has_completed_focus = GER_mobile_warfare
+					has_completed_focus = GER_army_innovation
 				}
 				else = {
 					has_completed_focus = GER_mobile_warfare
@@ -356,13 +527,13 @@ characters={
 				small="gfx/interface/ideas/idea_GER_fedor_von_bock.dds"
 			}
 		}
-		corps_commander={
-			traits={ trait_cautious harsh_leader }
+		field_marshal={
+			traits={ homeland_connoisseur trait_cautious inspirational_leader harsh_leader }
 			skill=4
-			attack_skill=4
+			attack_skill=3
 			defense_skill=3
 			planning_skill=4
-			logistics_skill=2
+			logistics_skill=3
 			legacy_id=9
 		}
 	}
@@ -375,11 +546,11 @@ characters={
 				small="gfx/interface/ideas/idea_GER_walter_model.dds"
 			}
 		}
-		field_marshal={
-			traits={ brilliant_strategist trait_cautious politically_connected defensive_doctrine }
+		corps_commander={
+			traits={ brilliant_strategist trait_cautious career_officer organizer }
 			skill=3
-			attack_skill=2
-			defense_skill=4
+			attack_skill=3
+			defense_skill=3
 			planning_skill=2
 			logistics_skill=2
 			legacy_id=10
@@ -413,7 +584,7 @@ characters={
 				small="gfx/interface/ideas/idea_GER_wilhelm_ritter_von_leeb.dds"
 			}
 		}
-		corps_commander={
+		field_marshal={
 			traits={ old_guard infantry_officer }
 			skill=3
 			attack_skill=4
@@ -746,7 +917,7 @@ characters={
 		name=GER_felix_steiner
 		portraits={
 			army={
-				large="GFX_portrait_ger_felix_steiner"
+				large="gfx/leaders/GER/portrait_ger_felix_steiner.dds"	
 				small="gfx/interface/ideas/idea_GER_felix_steiner.dds"
 			}
 		}
@@ -817,7 +988,7 @@ characters={
 			}
 		}
 		corps_commander = {
-			traits = { war_hero infantry_officer }
+			traits = { war_hero infantry_officer artillerist career_officer }
 			skill = 2
 			attack_skill = 3
 			defense_skill = 1
@@ -847,12 +1018,27 @@ characters={
 		name="Erich Brandenberger"
 		portraits={
 			army={
-				small="gfx/interface/ideas/idea_GER_generic_land_5.dds"
+				small="GFX_idea_erich_brandenberger"
 				large="gfx/leaders/GER/r56_portrait_GER_Erich_Brandenberger.dds"
 			}
 		}
+		advisor={ #tie to Westwall focus? 
+			slot = high_command
+			idea_token = Erich_Brandenberger
+			ledger = army
+			allowed = {
+				original_tag = GER
+			}
+			traits = {
+				fort_organization_2
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
 		corps_commander = {
-			traits = { old_guard artillerist }
+			traits = { old_guard career_officer artillerist }
 			skill = 1
 			attack_skill = 1
 			defense_skill = 1
@@ -1209,7 +1395,7 @@ characters={
 			}
 		}
 		advisor={
-			cost = 75
+			cost = 100
 			slot = theorist
 			idea_token = von_braun
 			ledger = air
@@ -1217,7 +1403,7 @@ characters={
 				original_tag = GER
 			}
 			research_bonus = {
-				rocketry = 0.25
+				rocketry = 0.150
 			}
 			traits = {
 				rocket_scientist
@@ -1233,7 +1419,7 @@ characters={
 			}
 		}
 		advisor={
-			cost = 75
+			cost = 100
 			slot = theorist
 			idea_token = heisenberg
 			ledger = army
@@ -1341,7 +1527,7 @@ characters={
 
 	### ARMY CHIEFS ###
 
-	GER_ludwig_beck={
+	GER_ludwig_beck={ #July 20th plotter
 		name=GER_ludwig_beck
 		portraits={
 			army={
@@ -1363,6 +1549,17 @@ characters={
 				factor = 1.000
 			}
 		}
+		corps_commander = { #Only has field command after civil war 
+			traits = {infantry_officer career_officer }
+			skill = 2
+			attack_skill = 1
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+			visible={
+				tag = GZR
+			}
+		}	
 	}
 
 	GER_wilhelm_keitel={
@@ -1378,8 +1575,11 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
-			available = {
-				has_government = fascism
+			visible = {
+				OR = {
+					has_government = fascism
+					has_government = neutrality
+				}
 			}
 			traits = {
 				army_chief_drill_2
@@ -1417,8 +1617,9 @@ characters={
 	GER_walther_von_brauchitsch={
 		name=GER_walther_von_brauchitsch
 		portraits={
-			army={
-				small="GFX_idea_walther_von_brauchitsch"
+			army = {
+				large = "gfx/leaders/GER/r56_portrait_GER_Walther_von_Brauchitsch.dds"
+				small = "gfx/interface/ideas/GER/advisors/r56_advisor_GER_Walther_von_Brauchitsch.dds"
 			}
 		}
 		advisor={	
@@ -1430,9 +1631,9 @@ characters={
 			available = {
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
-					has_completed_focus = GER_develop_the_heer_r56
+					has_completed_focus = GER_army_innovation
 				}
 				else = {
 					has_completed_focus = GER_develop_the_heer_r56
@@ -1446,6 +1647,14 @@ characters={
 				factor = 1.000
 			}
 		}
+		field_marshal = { #
+			traits = { brilliant_strategist trait_cautious artillerist }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
+		}		
 	}
 
 
@@ -1508,12 +1717,12 @@ characters={
 			available = {
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
 					has_completed_focus = GER_air_innovation
 				}
 				else = {
-					has_completed_focus = GER_air_innovation
+					has_completed_focus = GER_modernize_CAS
 				}
 			}			
 			traits = {
@@ -1562,6 +1771,14 @@ characters={
 				factor = 1.500
 			}
 		}
+		field_marshal={
+			traits={ old_guard homeland_connoisseur trait_reckless engineer_officer }
+			skill=3
+			attack_skill=2
+			defense_skill=2
+			planning_skill=3
+			logistics_skill=3
+		}		
 	}
 
 	GER_hugo_sperrle={
@@ -1581,12 +1798,12 @@ characters={
 			available = {
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
 					has_completed_focus = GER_air_innovation
 				}
 				else = {
-					has_completed_focus = GER_air_innovation
+					has_completed_focus = GER_modernize_CAS
 				}
 			}
 			traits = {
@@ -1662,7 +1879,7 @@ characters={
 				original_tag = GER
 			}
 			traits = {
-				navy_submarine_2
+				navy_anti_submarine_1
 			}
 			cost =  50
 			ai_will_do = {
@@ -1691,9 +1908,10 @@ characters={
 			available = {
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
-					has_completed_focus = GER_west_wall
+					has_completed_focus = GER_west_wall_vanilla
+					#has_completed_focus = GER_total_war
 				}
 				else = {
 					has_completed_focus = GER_west_wall
@@ -1725,20 +1943,23 @@ characters={
 			available = {
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
-					has_completed_focus = GER_total_war
+					has_completed_focus = GER_army_innovation_2
+					#has_completed_focus = GER_total_war
 				}
 				else = {
-					has_completed_focus = GER_total_war 
+					has_completed_focus = GER_total_war #requires below now
+					#has_completed_focus = GER_military_industrial_complex
 				}
 			}
 			traits = {
-				armaments_organizer
+				#armaments_organizer
+				war_industry_miracle_worker
 			}
-			modifier = {
-				production_factory_max_efficiency_factor = 0.10
-			}
+			#modifier = {
+			#	production_factory_max_efficiency_factor = 0.05
+			#}
 		}		
 	}
 
@@ -1757,11 +1978,19 @@ characters={
 				original_tag = GER
 			}
 			available = {
-				has_completed_focus = GER_appoint_economic_positions
-				not = {
-					has_completed_focus = GER_demand_sudetenland 
+				if = {
+					limit = {
+						has_global_flag = ger_vanilla_focus_tree
+					}
+					has_completed_focus = GER_four_year_plan 
+					not = {
+						has_completed_focus = GER_demand_sudetenland_vanilla 
+					}
 				}
-			}					
+			}	
+			# visible = {
+			# 	has_global_flag = ger_vanilla_focus_tree
+			# }					
 			traits = {
 				captain_of_industry 
 			}
@@ -1788,7 +2017,7 @@ characters={
 				war_industrialist 
 			}
 			ai_will_do = {
-				factor = 1.000
+				factor = 2.000
 			}
 		}		
 	}
@@ -1805,6 +2034,14 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				if = {
 					limit = { has_dlc = "Man the Guns" }	
@@ -1813,16 +2050,16 @@ characters={
 				if = {
 					limit = {
 						has_dlc = "Waking the Tiger"
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
 					has_completed_focus = GER_reestablish_free_elections
+					#has_completed_focus = GER_total_war
 				}
 				else = {
-					has_completed_focus = GER_reestablish_free_elections
+					has_completed_focus = GER_restore_weimar
 				}
 				
 			}
-			visible =  { NOT = { has_government = fascism } }
 			traits = {
 				democratic_reformer 
 			}
@@ -1854,10 +2091,25 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
-			available = {
-					has_completed_focus = GER_repeal_the_reichstag_fire_decree
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
 			}
-			visible =  { NOT = { has_government = fascism } }
+			available = {
+				if = {
+					limit = {
+						has_global_flag = ger_vanilla_focus_tree
+					}
+					has_completed_focus = GER_repeal_the_reichstag_fire_decree
+				}
+				else = {
+					has_completed_focus = GER_repeal_reichstag_fire_decree	#note the lack of "the"
+				}
+			}
 			traits = {
 				communist_revolutionary
 			}
@@ -1892,6 +2144,9 @@ characters={
 					}
 				}
 			}
+			visible = {
+				has_government = fascism
+			}
 			traits = {
 				fascist_demagogue propaganda_expert 
 			}
@@ -1918,6 +2173,9 @@ characters={
 			idea_token = rudolf_hess
 			allowed = {
 				original_tag = GER
+			}
+			visible = {
+				has_government = fascism
 			}
 			available = {
 				NOT = {
@@ -1999,6 +2257,9 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				has_government = fascism
+			}
 			available = {
 				OR = {
 					has_government = fascism
@@ -2012,7 +2273,11 @@ characters={
 				factor = 30
 				modifier = {
 					factor = 0
+					OR = {
+						has_completed_focus = GER_kill_hitler
+						has_completed_focus = GER_rally_the_monarchists
 						has_completed_focus = GER_oppose_hitler
+					}
 					NOT = {
 						has_country_flag = GER_reinstated_nazi_leadership
 					}
@@ -2036,6 +2301,9 @@ characters={
 			idea_token = joachim_von_ribbentrop
 			allowed = {
 				original_tag = GER
+			}
+			visible = {
+				has_government = fascism
 			}
 			available = {
 				OR = {
@@ -2068,6 +2336,9 @@ characters={
 			traits = {
 				smooth_talking_charmer 
 			}
+			ai_will_do = {
+				factor = 0.000
+			}
 		}
 	}
 	GER_jacob_kaiser={
@@ -2083,10 +2354,17 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				has_government = democratic
 			}			
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 20
 			}
@@ -2108,10 +2386,17 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				has_government = democratic
 			}			
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 5
 			}
@@ -2133,6 +2418,14 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				has_government = democratic
 				if = {
@@ -2144,7 +2437,6 @@ characters={
 					}					
 				}
 			}		
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 2
 			}
@@ -2167,10 +2459,17 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				has_government = democratic
 			}		
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 3
 			}
@@ -2196,6 +2495,14 @@ characters={
 				}
 				
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				has_government = democratic
 				if = {
@@ -2207,7 +2514,6 @@ characters={
 					}					
 				}
 			}			
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 5
 			}
@@ -2230,10 +2536,17 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				has_government = communism
 			}		
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 2
 			}
@@ -2255,10 +2568,17 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				has_government = communism
 			}		
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 1
 			}
@@ -2280,11 +2600,19 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				has_government = communism
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
 					has_completed_focus = GER_bodenreform_projects
 				}
@@ -2292,7 +2620,6 @@ characters={
 					has_completed_focus = GER_collectivize_industry
 				}
 			}		
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 5
 			}
@@ -2315,10 +2642,17 @@ characters={
 			allowed = {
 				original_tag = GER
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				has_government = communism
 			}		
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 3
 			}
@@ -2342,18 +2676,25 @@ characters={
 				original_tag = GER
 				has_dlc = "Waking the Tiger"
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
 					has_completed_focus = GER_oppose_hitler
 				}
 				else = {
-					has_completed_focus = GER_oppose_hitler
+					has_completed_focus = GER_kill_hitler
 				}
 			}
-			visible =  { NOT = { has_government = fascism } }
 			traits = {
 				anti_fascist_agent 
 			}
@@ -2379,15 +2720,14 @@ characters={
 			available = {
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
 					has_completed_focus = GER_revive_the_kaiserreich
 				}
 				else = {
-					has_completed_focus = GER_revive_the_kaiserreich
+					has_completed_focus = GER_rally_the_monarchists
 				}
 			}
-			visible =  { NOT = { has_government = fascism } }
 			traits = {
 				monarchist_media_mogul 
 			}
@@ -2413,7 +2753,6 @@ characters={
 			available = {
 				has_government = neutrality
 			}
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 3
 			}
@@ -2439,7 +2778,6 @@ characters={
 			available = {
 				has_government = neutrality
 			}
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 3
 			}
@@ -2465,7 +2803,6 @@ characters={
 			available = {
 				has_government = neutrality
 			}
-			visible =  { NOT = { has_government = fascism } }
 			ai_will_do = {
 				factor = 1
 			}
@@ -2473,6 +2810,31 @@ characters={
 				POL_Foreign_Trade_Advocate
 			}
 		}
+	}
+
+	GER_theodor_duesterberg={
+		name=GER_Theodor_Duesterberg
+		portraits={
+			army={
+				small="GFX_idea_minister_GER_Theodor_Duesterberg"
+			}
+		}
+		advisor={
+			slot = political_advisor
+			idea_token = GER_Theodor_Duesterberg
+			allowed = {
+				original_tag = GER
+			}
+			available = {
+				has_government = neutrality
+			}
+			ai_will_do = {
+				factor = 3
+			}
+			traits = {
+				paramilitarist
+			}
+		}		
 	}
 
 	GER_julius_leber={
@@ -2489,18 +2851,25 @@ characters={
 				original_tag = GER
 				has_dlc = "Waking the Tiger"
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
 					has_completed_focus = GER_reestablish_free_elections
 				}
 				else = {
-					has_completed_focus = GER_reestablish_free_elections
+					has_completed_focus = GER_establish_bundesrepublik
 				}
 			}
-			visible =  { NOT = { has_government = fascism } }
 			traits = {
 				connected_citizen 
 			}
@@ -2524,18 +2893,25 @@ characters={
 				original_tag = GER
 				has_dlc = "Waking the Tiger"
 			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
 			available = {
 				if = {
 					limit = {
-					#	has_global_flag = ger_standard_focus_tree
+						has_global_flag = ger_vanilla_focus_tree
 					}
 					has_completed_focus = GER_reestablish_free_elections
 				}
 				else = {
-					has_completed_focus = GER_reestablish_free_elections
+					has_completed_focus = GER_establish_bundesrepublik
 				}
 			}
-			visible =  { NOT = { has_government = fascism } }
 			traits = {
 				liberal_journalist 
 			}
@@ -2584,7 +2960,7 @@ characters={
 			available = {
 				if = {
 					limit = {
-					#	NOT = { has_global_flag = ger_standard_focus_tree }
+						NOT = { has_global_flag = ger_vanilla_focus_tree }
 					}
 					has_completed_focus = GER_denounce_versailles
 				}
@@ -2597,8 +2973,8 @@ characters={
 				ideological_crusader
 			}
 			modifier = {
-				fascism_drift = 0.10
-				stability_factor = 0.05
+				fascism_drift = 0.01
+				stability_factor = 0.03
 			}
 			ai_will_do = {
 				factor = 0
@@ -2606,60 +2982,143 @@ characters={
 		}	
 	}
 
-	GER_theodor_duesterberg={
-		name=GER_Theodor_Duesterberg
-		portraits={
-			army={
-				small="GFX_idea_minister_GER_Theodor_Duesterberg"
+	GER_nikolaus_von_falkenhorst = { # USED IN FINLAND
+		name = GER_nikolaus_von_falkenhorst
+		portraits = {
+			army = {
+				small = GFX_portrait_GER_nikolaus_von_falkenhorst_small #TODO_Manu: Check new portrait
+			}
+		}
+		advisor = {
+			slot = high_command
+			idea_token = GER_nikolaus_von_falkenhorst
+			ledger = army
+			allowed = {
+				original_tag = FIN
+			}
+			available = {
+				has_completed_focus = FIN_german_military_advisors
+				NOT = { has_war_with = GER }
+			}
+			visible = {
+				has_global_flag = FIN_use_DLC_tree
+			}
+			traits = {
+				army_german_ground_commander
+			}
+			cost = 200
+			ai_will_do = {
+				factor = 1.000
+			}
+		}		
+	}
+
+	GER_hans_kahle = {
+		name = GER_hans_kahle
+		portraits = {
+			army = {
+				large = "gfx/leaders/GER/r56_portrait_GER_Hans_Kahle.dds"
+			}
+		}
+		corps_commander={
+			traits={  }
+			skill=1
+			attack_skill=1
+			defense_skill=1
+			planning_skill=1
+			logistics_skill=1
+			visible = { 
+				has_government = communism
+			}
+		}
+	}
+	
+	GER_hans_beimler = {
+		name = GER_hans_beimler
+		portraits = {
+			army = {
+				large = "GFX_Portrait_Europe_Generic_land_new_6"
+			}
+		}
+		corps_commander={
+			traits={  }
+			skill=1
+			attack_skill=1
+			defense_skill=1
+			planning_skill=1
+			logistics_skill=1
+			visible = { 
+				has_government = communism
+				has_country_flag = { #civil war, otherwise dies in Spain
+					flag = r56_communist_germany_aliases_set
+					#date < 1936.12.1	#if hitler dies he might already suspect some revolution coming
+				}
+			}
+		}
+	}
+
+	GER_johannes_becher = {
+		name = GER_johannes_becher
+		portraits = {
+			army = {
+				small = "gfx/interface/ideas/idea_generic_political_advisor_europe_2.dds"
 			}
 		}
 		advisor={
 			slot = political_advisor
-			idea_token = GER_Theodor_Duesterberg
+			idea_token = GER_johannes_becher
 			allowed = {
 				original_tag = GER
 			}
-			available = {
-				has_government = neutrality
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
 			}
-			visible =  { NOT = { has_government = fascism } }
+			available = {
+				has_government = communism
+			}		
 			ai_will_do = {
-				factor = 3
+				factor = 1
 			}
 			traits = {
-				paramilitarist
+				revolutionary_poet
 			}
-		}		
-	}
-	
-	GER_nikolaus_von_falkenhorst = { # USED IN FINLAND
-	name = GER_nikolaus_von_falkenhorst
-	portraits = {
-		army = {
-			small = GFX_portrait_GER_nikolaus_von_falkenhorst_small #TODO_Manu: Check new portrait
 		}
 	}
-	advisor = {
-		slot = high_command
-		idea_token = GER_nikolaus_von_falkenhorst
-		ledger = army
-		allowed = {
-			original_tag = FIN
+	GER_rudolf_hernnstadt = {
+		name = GER_rudolf_hernnstadt
+		portraits = {
+			army = {
+				small = "gfx/interface/ideas/idea_generic_political_advisor_europe_4.dds"
+			}
 		}
-		available = {
-			has_completed_focus = FIN_german_military_advisors
-			NOT = { has_war_with = GER }
+		advisor={
+			slot = political_advisor
+			idea_token = GER_rudolf_hernnstadt
+			allowed = {
+				original_tag = GER
+			}
+			visible = {
+				NOT = {
+					OR = {
+						has_completed_focus = GER_a_new_reich
+						has_completed_focus = GER_denounce_versailles
+					}
+				}
+			}
+			available = {
+				has_government = communism
+			}		
+			ai_will_do = {
+				factor = 1
+			}
+			traits = {
+				socialist_journalist 
+			}
 		}
-		visible = {
-			has_global_flag = FIN_use_DLC_tree
-		}
-		traits = {
-			army_german_ground_commander
-		}
-		cost = 200
-		ai_will_do = {
-			factor = 1.000
-		}
-	}		
-}
+	}
 }

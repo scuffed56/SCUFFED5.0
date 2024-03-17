@@ -977,12 +977,12 @@ country_event = {
 			if = {
 				limit = {
 					any_owned_state = {
-						has_state_flag = { flag = BUL_military_factory_damaged_flag value = 1 }
+						has_state_flag = { flag = BUL_damaged_military_factory_flag value = 1 }
 					}
 				}
 				random_owned_state = {
 					limit = {
-						has_state_flag = BUL_military_factory_damaged_flag
+						has_state_flag = BUL_damaged_military_factory_flag
 					}
 					damage_building = {
 						type = arms_factory
@@ -993,12 +993,12 @@ country_event = {
 			else_if = {
 				limit = {
 					any_owned_state = {
-						has_state_flag = { flag = BUL_military_factory_damaged_flag value = 2 }
+						has_state_flag = { flag = BUL_damaged_military_factory_flag value = 2 }
 					}
 				}
 				random_owned_state = {
 					limit = {
-						has_state_flag = BUL_military_factory_damaged_flag
+						has_state_flag = BUL_damaged_military_factory_flag
 					}
 					damage_building = {
 						type = arms_factory
@@ -3600,17 +3600,13 @@ country_event = {
 			}
 			modifier = {
 				factor = 2
-				AND = {
-					tag = ENG
-					BUL_has_some_sort_of_bogdan_filov = yes
-				}
+				tag = ENG
+				BUL_has_some_sort_of_bogdan_filov = yes
 			}
 			modifier = {
 				factor = 0.5
-				AND = {
-					tag = GER
-					BUL_has_some_sort_of_bogdan_filov = yes
-				}
+				tag = GER
+				BUL_has_some_sort_of_bogdan_filov = yes
 			}
 		}
 
@@ -4346,11 +4342,9 @@ country_event = {
 			}
 			modifier = {
 				factor = 5
-				AND = {
-					tag = GER
-					is_historical_focus_on = yes
-					FROM.FROM = { is_core_of = YUG }
-				}
+				tag = GER
+				is_historical_focus_on = yes
+				FROM.FROM = { is_core_of = YUG }
 			}
 			modifier = {
 				factor = 5
@@ -4368,10 +4362,8 @@ country_event = {
 			}
 			modifier = {
 				factor = 5
-				AND = {
-					tag = GER
-					BUL_has_some_sort_of_bogdan_filov = yes
-				}
+				tag = GER
+				BUL_has_some_sort_of_bogdan_filov = yes
 			}
 		}
 
@@ -5149,7 +5141,7 @@ country_event = {
 			}
 		}
 
-		set_variable = { BUL_aircraft_type = token:fighter_equipment }
+		set_variable = { BUL_aircraft_type = token:small_plane_airframe }
 		var:BUL_aircraft_seller = { set_country_flag = BUL_producing_fighters_for_bulgaria_flag }
 		custom_effect_tooltip = bftb_bulgaria_equipment_purchases.4.a_tt
 	}
@@ -5162,7 +5154,7 @@ country_event = {
 			modifier = {
 				factor = 2
 				stockpile_ratio = { 
-	  				archetype = nav_bomber_equipment
+	  				archetype = small_plane_naval_bomber_airframe
 	  				ratio < 0.76
 	  			}
 			}
@@ -5174,7 +5166,7 @@ country_event = {
 			}
 		}
 
-		set_variable = { BUL_aircraft_type = token:nav_bomber_equipment }
+		set_variable = { BUL_aircraft_type = token:small_plane_naval_bomber_airframe }
 		var:BUL_aircraft_seller = { set_country_flag = BUL_producing_naval_bombers_for_bulgaria_flag }
 		custom_effect_tooltip = bftb_bulgaria_equipment_purchases.4.b_tt
 	}
@@ -5187,7 +5179,7 @@ country_event = {
 			modifier = {
 				factor = 2
 				stockpile_ratio = { 
-	  				archetype = tac_bomber_equipment
+	  				archetype = medium_plane_airframe
 	  				ratio < 0.76
 	  			}
 			}
@@ -5196,6 +5188,7 @@ country_event = {
 		trigger = {
 			var:BUL_aircraft_seller = {
 				has_tech = early_bomber
+				has_tech = iw_medium_airframe
 			}
 		}
 
@@ -7918,15 +7911,15 @@ country_event = {
 					limit = {
 						any_country = {
 							BUL_is_balkan_nation = yes
-							country_exists = yes
-							PREV = { is_core_of = THIS }
+							exists = yes
+							PREV = { is_core_of = PREV }
 						}
 					}
 					random_country = {
 						limit = {
 							BUL_is_balkan_nation = yes
-							country_exists = yes
-							PREV = { is_core_of = THIS }
+							exists = yes
+							PREV = { is_core_of = PREV }
 						}
 						transfer_state = PREV
 					}
@@ -8798,10 +8791,8 @@ country_event = {
 			}
 			modifier = {
 				factor = 5
-				AND = {
-					tag = ENG
-					BUL_has_some_sort_of_bogdan_filov = yes
-				}
+				tag = ENG
+				BUL_has_some_sort_of_bogdan_filov = yes
 			}
 		}
 

@@ -13,43 +13,7 @@ focus_tree = {
 	
 	default = no
 
-	continuous_focus_position = { x = 50 y = 1650 }
-
-#	focus = {
-#		id = YUG_
-#		icon = GFX_
-#		prerequisite = { focus = }
-#		mutually_exclusive = { focus =  }
-#		x = -3
-#		y = 0
-#		relative_position_id = 
-#
-#		cost = 10
-#
-#		ai_will_do = {
-#			factor = 1
-#		}
-#
-#		available = {
-#
-#		}
-#		
-#		bypass = {
-#
-#		}
-#
-#		cancel_if_invalid = yes
-#		continue_if_invalid = no
-#		available_if_capitulated = no
-#
-#		complete_tooltip = {
-#
-#		}
-#
-#		completion_reward = {
-#
-#		}
-#	}
+	continuous_focus_position = { x = 50 y = 1850 }
 
 	###############################
 	##### Democratic/Fascist ######
@@ -132,7 +96,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_western_focus
 
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 40
@@ -240,7 +204,38 @@ focus_tree = {
 			add_ideas = YUG_idea_axis_capital
 		}
 	}
-	
+	focus = {
+		id = YUG_brigadistas
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = YUG_friendship_treaty_with_italy focus = YUG_reinforce_old_alliances }
+		x = 1
+		y = 1
+		relative_position_id = YUG_friendship_treaty_with_italy
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		available = {
+			has_war = no
+			SPR_scw_in_progress = yes
+		}
+
+		bypass = {
+			OR = {
+				has_global_flag = scw_over
+				has_war = yes
+			}
+		}
+
+		completion_reward = {
+			set_rule = { can_send_volunteers = yes }
+			add_ideas = YUG_brigadistas_idea
+			custom_effect_tooltip = will_be_removed_once_scw_is_over_tt
+		}
+	}	
 	focus = {
 		id = YUG_local_militias
 		icon = GFX_goal_generic_allies_build_infantry
@@ -362,7 +357,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_limited_self_government
 
-		cost = 5
+		cost = 7.2
 
 		ai_will_do = {
 			factor = 40
@@ -473,7 +468,7 @@ focus_tree = {
 		relative_position_id = YUG_limited_self_government
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 
-		cost = 5
+		cost = 7.2
 
 		ai_will_do = {
 			factor = 40
@@ -596,7 +591,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_devolved_croatia
 
-		cost = 5
+		cost = 7.2
 
 		ai_will_do = {
 			factor = 40
@@ -694,7 +689,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_united_autonomous_croatia
 
-		cost = 5
+		cost = 7.2
 
 		ai_will_do = {
 			factor = 40
@@ -801,7 +796,7 @@ focus_tree = {
 		y = 2
 		relative_position_id = YUG_limited_self_government
 
-		cost = 5
+		cost = 7.2
 
 		ai_will_do = {
 			factor = 40
@@ -1240,7 +1235,7 @@ focus_tree = {
 
 	focus = {
 		id = YUG_invite_german_military_mission
-		icon = GFX_goal_ROM_invite_german_advisors
+		icon = GFX_focus_generic_seek_accomodation_with_germany
 		prerequisite = { focus = YUG_concessions_for_macedonians focus = YUG_surrender_macedonia focus = YUG_fate_of_banat }
 		x = 0
 		y = 1
@@ -1468,8 +1463,9 @@ focus_tree = {
 					OR = {
 						state = 163
 						state = 736
-						state = 911
+						state = 852
 					}
+					is_core_of = ROOT	#logical check
 				}
 				remove_core_of = ROOT
 			}
@@ -1596,7 +1592,7 @@ focus_tree = {
 		icon = GFX_focus_YUG_greater_yugoslavia
 		prerequisite = { focus = YUG_claim_macedonia }
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = YUG_claim_macedonia
 
 		cost = 10
@@ -1657,8 +1653,8 @@ focus_tree = {
 	focus = {
 		id = YUG_all_yugoslavian_regiments
 		icon = GFX_focus_YUG_all_yugoslavian_regiments
-		prerequisite = { focus = YUG_greater_yugoslavia }
-		x = 0
+		prerequisite = { focus = YUG_greater_yugoslavia focus = YUG_defence_league }
+		x = 4
 		y = 1
 		relative_position_id = YUG_greater_yugoslavia
 
@@ -1676,6 +1672,30 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = YUG_idea_all_yugoslavian_regiments
+
+			every_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						original_tag = CRO
+						original_tag = SLV
+						original_tag = MAC
+						original_tag = SER
+						original_tag = BOS
+						original_tag = HRZ
+						original_tag = TRA
+						original_tag = MNT
+						original_tag = KOS
+						AND = {
+							original_tag = HUN
+							has_cosmetic_tag = vojvodina
+						}
+						original_tag = SER
+					}
+				}
+				add_ideas = YUG_idea_all_yugoslavian_regiments
+			}
+
 		}
 	}
 
@@ -1716,7 +1736,7 @@ focus_tree = {
 					date < 1941.09.06
 				}
 				YUG_peter_ii = {
-					promote_character = {ideology = despotism }
+					promote_character = {ideology = absolute_monarchism }
 					promote_character = {ideology = conservatism }
 				}
 			}
@@ -1978,7 +1998,20 @@ focus_tree = {
 		}
 
 		available = {
-			is_in_faction_with = ENG
+			OR = {
+				is_in_faction_with = ENG
+				is_in_faction_with = FRA
+				is_in_faction_with = USA
+			}
+			any_country = {
+				is_in_faction_with = YUG
+				is_faction_leader = yes	
+				OR = {
+					has_government = democratic
+					has_government = neutrality
+				}
+			}
+			
 		}
 
 		completion_reward = {
@@ -2116,11 +2149,11 @@ focus_tree = {
 		icon = GFX_goal_tfv_sever_ties_with_uk
 		prerequisite = { focus = YUG_fate_of_banat }
 		mutually_exclusive = { focus = YUG_united_kingdom }
-		x = 3
+		x = 1
 		y = 1
 		relative_position_id = YUG_fate_of_banat
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
@@ -2156,7 +2189,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_towards_independence
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
@@ -2203,6 +2236,7 @@ focus_tree = {
 					NOT = { original_tag = YUG }
 					is_subject_of = ROOT
 				}
+				add_command_power = 100	
 				division_template = {
 					name = "Teritorijalna Odbrana"
 					priority = 1
@@ -2243,13 +2277,13 @@ focus_tree = {
 		icon = GFX_focus_YUG_all_yugoslavian_regiments
 		prerequisite = { focus = YUG_defence_army_of_yugoslavia }
 		x = 0
-		y = 1
+		y = 3
 		relative_position_id = YUG_defence_army_of_yugoslavia
 		
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
-			factor = 40
+			factor = 500
 		}
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
@@ -2364,6 +2398,7 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
+			add_political_power = 150
 			set_division_template_lock = {
 				division_template = "Teritorijalna Odbrana"
 				is_locked = no
@@ -2383,11 +2418,16 @@ focus_tree = {
 					NOT = { original_tag = YUG }
 					is_subject_of = ROOT
 				}
+				add_stability = 0.05
+				add_war_support = 0.1
+				add_political_power = 150	
+						
 				PREV = {
 					set_autonomy = {
 						target = PREV
 						autonomy_state = autonomy_free
 					}
+
 				}
 				if = {
 					limit = { PREV = { is_faction_leader = no } }
@@ -2429,11 +2469,11 @@ focus_tree = {
 		icon = GFX_goal_tfv_strengthen_commonwealth_ties
 		prerequisite = { focus = YUG_fate_of_banat }
 		mutually_exclusive = { focus = YUG_towards_independence }
-		x = 1
+		x = 3
 		y = 1
 		relative_position_id = YUG_fate_of_banat
 
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 40
@@ -2597,7 +2637,7 @@ focus_tree = {
 			}
 			add_popularity = { ideology = communism popularity = 0.05 }
 			hidden_effect = { 
-				news_event = { id = news.329 days = 3 random = 6 }
+				news_event = { id = news.329 days = 3 random_days = 6 }
 				if = {
 					limit = {
 						GRE = {
@@ -2775,8 +2815,11 @@ focus_tree = {
 					NOT = { has_war_with = ROOT }
 					exists = yes
 					has_capitulated = no
+					#these were missing and could lead to Yugoslavia joining no faction
+					has_government = communism
+					is_faction_leader = yes
 				}
-				any_other_country = {
+				any_other_country = {	#a backup I guess
 					is_major = yes
 					has_government = communism
 					is_faction_leader = yes
@@ -3127,7 +3170,7 @@ focus_tree = {
 			swap_ideas = { remove_idea = YUG_idea_local_militias add_idea = CRO_veteran_partisans}
 			add_war_support = 0.05
 			add_tech_bonus = {
-				name = CRO_recon_focus
+				name = YUG_organized_partizans
 				bonus = 1
 				uses = 1
 				category = recon_tech
@@ -3802,20 +3845,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			if = {
-				limit = {
-					has_idea = BUL_second_national_catastrophe
-				}
-				effect_tooltip = {
-					remove_ideas = BUL_second_national_catastrophe
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = BUL_second_national_catastrophe_02
-				}
-				remove_ideas = BUL_second_national_catastrophe_02
-			}
 
 			#Core Balkan States
 			custom_effect_tooltip = BUL_the_unification_of_the_balkans_cores_tt
@@ -3925,7 +3954,7 @@ focus_tree = {
 
 	focus = {
 		id = YUG_invite_greece
-		icon = GFX_goal_generic_befriend_yugoslavia_communist
+		icon = GFX_goal_generic_befriend_greece_communist
 		prerequisite = { focus = YUG_pan_balkan_workers_congress }
 		x = 0
 		y = 1
@@ -4287,7 +4316,7 @@ focus_tree = {
 		x = 22
 		y = 0
 
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 80
@@ -4299,7 +4328,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = industry_bonus
+				name = YUG_industrialization_program
 				bonus = 1.0
 				uses = 2
 				category = industry
@@ -4364,12 +4393,24 @@ focus_tree = {
 			OR = {
 				has_full_control_of_state = 105
 				any_other_country = {
-					is_subject_of = ROOT
+					OR = {
+						is_subject_of = ROOT
+						AND = {
+							original_tag = MNT
+							is_in_faction_with = ROOT
+						}
+					}
 					has_full_control_of_state = 105
 				}
 				has_full_control_of_state = 109
 				any_other_country = {
-					is_subject_of = ROOT
+					OR = {
+						is_subject_of = ROOT
+						AND = {
+							original_tag = CRO
+							is_in_faction_with = ROOT
+						}
+					}
 					has_full_control_of_state = 109
 				}				
 			}		
@@ -4390,18 +4431,18 @@ focus_tree = {
 						amount = 8
 					}
 				}
-				105 = {
-					add_resource = {
-						type = steel
-						amount = 8
-					}
-				}
 				set_global_flag = montenegro_tungsten_exploited
 			}
 			if = {
 				limit = {
 					any_other_country = {
-						is_subject_of = ROOT
+						OR = {
+							is_subject_of = ROOT
+							AND = {
+								original_tag = MNT
+								is_in_faction_with = ROOT
+							}
+						}
 						has_full_control_of_state = 105
 						NOT = { has_global_flag = montenegro_tungsten_exploited }
 					}
@@ -4412,13 +4453,7 @@ focus_tree = {
 						type = tungsten
 						amount = 8
 					}
-				}	
-				105 = {
-					add_resource = {
-						type = steel
-						amount = 8
-					}
-				}			
+				}				
 			}
 
 			if = {
@@ -4437,7 +4472,13 @@ focus_tree = {
 			if = {
 				limit = {
 					any_other_country = {
-						is_subject_of = ROOT
+						OR = {
+							is_subject_of = ROOT
+							AND = {
+								original_tag = CRO
+								is_in_faction_with = ROOT
+							}
+						}
 						has_full_control_of_state = 109
 						NOT = { has_global_flag = croatian_chromium_exploited }
 					}
@@ -4449,7 +4490,6 @@ focus_tree = {
 						amount = 8
 					}
 				}
-
 				set_global_flag = croatian_chromium_exploited				
 			}			
 		}
@@ -4481,7 +4521,15 @@ focus_tree = {
 			OR = {
 				has_full_control_of_state = 45
 				any_other_country = {
-					is_subject_of = ROOT
+					OR = {
+						is_subject_of = ROOT
+						AND = {
+							original_tag = HUN
+							has_cosmetic_tag = vojvodina
+							is_in_faction_with = ROOT
+						}
+					}
+					
 					has_full_control_of_state = 45
 				}
 			}		
@@ -4496,7 +4544,14 @@ focus_tree = {
 					OR = {
 						has_full_control_of_state = 45
 						any_other_country = {
-							is_subject_of = ROOT
+							OR = {
+								is_subject_of = ROOT
+								AND = {
+									original_tag = HUN
+									has_cosmetic_tag = vojvodina
+									is_in_faction_with = ROOT
+								}
+							}
 							has_full_control_of_state = 45
 						}
 					}				
@@ -4515,7 +4570,7 @@ focus_tree = {
 		id = YUG_develop_civilian_industry
 		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = YUG_expand_the_mining_industry }
-		
+		mutually_exclusive = { focus = YUG_develop_military_industry }
 		x = -1
 		y = 1
 		relative_position_id = YUG_expand_the_mining_industry
@@ -4596,17 +4651,25 @@ focus_tree = {
 
 		available = {
 			NOT = {
-				has_idea = YUG_idea_croatian_opposition			
+				has_idea = YUG_idea_croatian_opposition
+				CRO = {
+					focus_progress = {
+						focus = YUG_expand_the_university_of_zagreb
+						progress > 0
+					}
+				}				
 			}
 		}
 
-		
+		bypass = {
+		  	CRO = {has_completed_focus = CRO_expand_the_university_of_zagreb}
+		}
 
 		available_if_capitulated = yes
 
 		completion_reward = {
 			add_research_slot = 1
-			
+			CRO = { add_research_slot = 1}
 		}
 	}
 
@@ -4713,10 +4776,10 @@ focus_tree = {
 				limit = {
 					ROOT = { has_full_control_of_state = PREV }
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 			}
@@ -4852,10 +4915,10 @@ focus_tree = {
 					}
 				}
 				853 = {
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -4866,10 +4929,10 @@ focus_tree = {
 					limit = {
 						ROOT = { has_full_control_of_state = PREV }
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
-						level = 2
+						level = 1
 						instant_build = yes
 					}						
 				}				
@@ -4972,7 +5035,7 @@ focus_tree = {
 		id = YUG_develop_military_industry
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = YUG_expand_the_mining_industry }
-		
+		mutually_exclusive = { focus = YUG_develop_civilian_industry }
 		x = 1
 		y = 1
 		relative_position_id = YUG_expand_the_mining_industry
@@ -5132,8 +5195,11 @@ focus_tree = {
 
 
 		completion_reward = {
-			set_technology = { steel_production_1 = 1 }	
 			108 = {
+				add_resource = {
+					type = steel
+					amount = 2
+				}
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = steel_mill
@@ -5141,7 +5207,12 @@ focus_tree = {
 					instant_build = yes
 				}				
 			}
-			
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1
+				uses = 1
+				category = steel_tech
+			}			
 		}
 	}
 
@@ -5209,7 +5280,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = YUG_local_self_management
 
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 100
@@ -5264,7 +5335,23 @@ focus_tree = {
 
 
 		completion_reward = {
-			add_ideas = HUN_indigenous_designs #emergency fix
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				add_tech_bonus = {
+					name = scout_plane
+					bonus = 1.0
+					uses = 1
+					category = cat_scout_plane
+				}				
+			}					
+			add_doctrine_cost_reduction = {
+				name = air_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
 		}
 	}
 
@@ -5272,7 +5359,7 @@ focus_tree = {
 		id = YUG_local_developers
 		icon = GFX_goal_generic_air_production
 		prerequisite = { focus = YUG_modernize_the_air_force }
-		
+		mutually_exclusive = { focus = YUG_purchase_foreign }
 		x = -2
 		y = 1
 		relative_position_id = YUG_modernize_the_air_force
@@ -5285,33 +5372,16 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
+
 		completion_reward = {
-			if = {
-				limit = {
-					has_dlc = "La Resistance"
-				}
-				add_tech_bonus = {
-					name = scout_plane
-					bonus = 1.0
-					uses = 1
-					category = light_fighter
-				}				
-			}					
-			add_doctrine_cost_reduction = {
-				name = air_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = air_doctrine
-			}
+			add_ideas = HUN_indigenous_designs #emergency fix
 		}
-		
 	}
 
 	focus = {
 		id = YUG_ikarus
 		icon = GFX_focus_YUG_ikarus
 		prerequisite = { focus = YUG_local_developers }
-		mutually_exclusive = { focus = YUG_rogozarski focus = YUG_zmaj }
 		x = -2
 		y = 1
 		relative_position_id = YUG_local_developers
@@ -5326,19 +5396,35 @@ focus_tree = {
 
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = YUG_the_ik_3
-				bonus = 0.5
-				uses = 2
-				category = air_equipment
-			}
-			custom_effect_tooltip = available_mio_tt
-			show_mio_tooltip = YUG_ikarus_organization
-			mio:YUG_ikarus_organization = {
-				add_mio_size = 1
-				add_mio_funds = 750
+
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = YUG_ikarus_organization
+				mio:YUG_ikarus_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
+				}
 			}
 
+			else = {
+				custom_effect_tooltip = YUG_designer_tt
+			}
+
+			random_owned_controlled_state = {
+				prioritize = { 107 }
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 
 		}
 	}
@@ -5347,7 +5433,6 @@ focus_tree = {
 		id = YUG_rogozarski
 		icon = GFX_focus_YUG_rogozarski
 		prerequisite = { focus = YUG_local_developers }
-		mutually_exclusive = { focus = YUG_ikarus focus = YUG_zmaj }
 		x = 0
 		y = 1
 		relative_position_id = YUG_local_developers
@@ -5361,18 +5446,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = GER_air_doc
-				cost_reduction = 0.5
-				uses = 2
-				category = air_doctrine
-			}
-			custom_effect_tooltip = available_mio_tt
-			show_mio_tooltip = YUG_rogozarski_organization
-			mio:YUG_rogozarski_organization = {
-				add_mio_size = 1
-				add_mio_funds = 1000
-			}
 
 			IF = {
 				limit = {
@@ -5389,6 +5462,19 @@ focus_tree = {
 			else = {
 				custom_effect_tooltip = YUG_designer_tt
 			}
+
+			random_owned_controlled_state = {
+				prioritize = { 107 }
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -5396,7 +5482,6 @@ focus_tree = {
 		id = YUG_zmaj
 		icon = GFX_focus_YUG_zmaj
 		prerequisite = { focus = YUG_local_developers }
-		mutually_exclusive = { focus = YUG_ikarus focus = YUG_rogozarski }
 		x = 2
 		y = 1
 		relative_position_id = YUG_local_developers
@@ -5410,20 +5495,34 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			random_owned_controlled_state = {
-				
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
+			
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = YUG_zmaj_organization
+				mio:YUG_zmaj_organization = {
+					add_mio_size = 1
+					add_mio_funds = 500
 				}
 			}
-			custom_effect_tooltip = available_mio_tt
-			show_mio_tooltip = YUG_zmaj_organization
-			mio:YUG_zmaj_organization = {
-				add_mio_size = 1
-				add_mio_funds = 1000
+
+			else = {
+				custom_effect_tooltip = YUG_designer_tt
+			}
+
+			random_owned_controlled_state = {
+				prioritize = { 107 }
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
 			}
 		}
 	}
@@ -5446,12 +5545,26 @@ focus_tree = {
 
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = YUG_the_ik_3
-				bonus = 1.0
-				ahead_reduction = 1
-				uses = 1
-				category = light_fighter
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = YUG_the_ik_3
+					bonus = 3.0
+					ahead_reduction = 2
+					uses = 1
+					category = light_air
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = YUG_the_ik_3
+					bonus = 3.0
+					ahead_reduction = 2
+					uses = 1
+					category = light_fighter
+				}
 			}
 		}
 	}
@@ -5474,11 +5587,31 @@ focus_tree = {
 
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = YUG_heavy_fighter_project
-				bonus = 1.0
-				uses = 1
-				category = cat_heavy_fighter
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = YUG_heavy_fighter_project
+					bonus = 0.5
+					uses = 1
+					category = medium_air
+					category = light_air
+				}
+				add_tech_bonus = {
+					name = YUG_heavy_fighter_project
+					technology = range_improvements
+					bonus = 1
+					uses = 1
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = YUG_heavy_fighter_project
+					bonus = 1.0
+					uses = 1
+					category = cat_heavy_fighter
+				}
 			}
 		}
 	}
@@ -5501,12 +5634,26 @@ focus_tree = {
 
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = YUG_bomber_project
-				bonus = 1.0
-				uses = 1
-				category = tactical_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = YUG_bomber_project
+					bonus = 1.0
+					uses = 1
+					category = medium_air
+				}
 			}
+			else = {
+				add_tech_bonus = {
+					name = YUG_bomber_project
+					bonus = 1.0
+					uses = 1
+					category = tactical_bomber
+				}
+			}
+			
 		}
 	}
 
@@ -5514,7 +5661,7 @@ focus_tree = {
 		id = YUG_purchase_foreign
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = YUG_modernize_the_air_force }
-		
+		mutually_exclusive = { focus = YUG_local_developers }
 		x = 5
 		y = 1
 		relative_position_id = YUG_modernize_the_air_force
@@ -5559,6 +5706,7 @@ focus_tree = {
 				FRA = { country_event = DOD_yugoslavia.20 }
 			}
 		}
+		search_filters = {FOCUS_FILTER_MILITARY_EQUIPMENT}
 	}
 
 	focus = {
@@ -5577,8 +5725,16 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = YUG_license_production
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = YUG_kraljevo_state_airlines_factory
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "Arms Against Tyranny"
+					}
+				}
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = YUG_kraljevo_state_airlines_factory				
+			}
+
 		}
 	}
 
@@ -5601,6 +5757,7 @@ focus_tree = {
 			NOT = {
 				has_tech = fighter3
 				has_tech = heavy_fighter3
+				has_tech = advanced_small_airframe
 			}
 			OR = {
 				GER = {
@@ -5654,6 +5811,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = DOD_yugoslavia.150
 		}
+		search_filters = {FOCUS_FILTER_MILITARY_EQUIPMENT}
 	}
 
 	focus = {
@@ -5676,6 +5834,7 @@ focus_tree = {
 			NOT = {
 				has_tech = CAS3
 				has_tech = tactical_bomber3
+				has_tech = advanced_medium_airframe
 			}
 			OR = {
 				GER = {
@@ -5729,6 +5888,7 @@ focus_tree = {
 		completion_reward = {
 			country_event = DOD_yugoslavia.160
 		}
+		search_filters = {FOCUS_FILTER_MILITARY_EQUIPMENT}
 	}
 	focus = {
 		id = YUG_kraljevo_state_airlines_factory
@@ -6007,6 +6167,7 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = YUG_tank_licenses
 		}
+		search_filters = {FOCUS_FILTER_MILITARY_EQUIPMENT}
 	}
 
 	focus = {
@@ -6033,8 +6194,16 @@ focus_tree = {
 				uses = 1
 				category = infantry_weapons
 			}
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = zastava_arms
+			IF = {
+				limit = {
+					NOT = {
+						has_dlc = "Arms Against Tyranny"
+					}					
+				}
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = zastava_arms				
+			}			
+
 		}
 	}
 
@@ -6358,12 +6527,7 @@ focus_tree = {
 			}
 		}
 
-		bypass = {
-
-		}
-
 		continue_if_invalid = yes
-		available_if_capitulated = no
 
 
 
@@ -6617,7 +6781,7 @@ focus_tree = {
 					has_dlc = "Man the Guns"
 				}
 				add_tech_bonus = {
-					name = ENG_asw_warfare
+					name = YUG_modern_destroyers
 					bonus = 1.0
 					uses = 1
 					category = asw_tech

@@ -91,13 +91,14 @@ political_actions = {
 
 		modifier = {
 			stability_weekly = 0.005
-			consumer_goods_factor = 0.10
+			consumer_goods_factor = 0.1
 			industrial_capacity_factory = -0.1
 		}
 
 		days_remove = 180
+		days_re_enable = 540
 
-		cost = 50
+		cost = 100
 
 		complete_effect = {
 
@@ -120,10 +121,22 @@ political_actions = {
 			modifier = {
 				original_tag = MEX
 				has_civil_war = no
-				add = 1
+				add = 5
 				has_stability < 0.8
 				has_political_power > 155 #Spend on other things first
 			}
+			modifier = {
+				original_tag = POR
+				OR = {
+					has_idea = POR_unstable_republic
+					has_idea = POR_unstable_monarchy
+				}
+				
+				has_civil_war = no
+				add = 5
+				has_stability < 0.75
+				has_political_power > 105 #Spend on other things first
+			}			
 			modifier = {
 				factor = 0
 				original_tag = SPR
@@ -157,6 +170,40 @@ political_actions = {
 
 economy_decisions = {
 
+	build_volga_don_canal = { # Mod addition
+
+		icon = generic_construction
+
+		allowed = {
+			always = yes
+		}
+
+		cost = 50
+		fire_only_once = yes
+
+		days_remove = 180
+
+		available = {
+			has_tech = construction4
+		}
+
+		visible = {
+			controls_state = 218
+			controls_state = 245
+			controls_state = 217
+			controls_state = 236
+			has_global_flag = VOLGA_DON_NOT_BUILT
+		}
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		complete_effect = {
+			clr_global_flag = VOLGA_DON_NOT_BUILT
+			custom_effect_tooltip = VOLGA_DON_BUILT_tt
+		}
+	}
 	dismantle_maginot = {
 
 		icon = generic_construction
@@ -583,6 +630,115 @@ propaganda_efforts = {
 					has_idea = limited_conscription
 					has_idea = extensive_conscription
 				}
+			}
+		}
+	}
+	
+	war_propaganda_radio_industry = { 
+
+		icon = hol_radio_oranje
+
+		available = {
+			threat > 0.25
+			has_tech = radio
+		}
+
+		visible = {
+			if = {
+				limit = {
+					tag = SPR
+					has_dlc = "La Resistance"
+				}
+				NOT = {
+					has_idea = SPR_political_violence
+				}
+			}
+			if = {
+				limit = {
+					original_tag = SPR
+					has_dlc = "La Resistance"
+				}
+				has_global_flag = scw_over
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 75
+
+		complete_effect = {
+			add_war_support = 0.05
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 201
+				has_war_support < 0.6
+			}
+		}
+	}
+	
+	war_propaganda_film_industry = { 
+
+		icon = generic_prepare_civil_war
+
+		available = { 
+			has_war_with_non_exiled_country = yes
+			OR = {
+				is_major = yes
+				any_allied_country = {
+					is_major = yes
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_government = fascism }
+				}
+				threat > 0.5
+			}
+			else = {
+				threat > 0.30
+			}
+		}
+
+		visible = {
+			if = {
+				limit = {
+					tag = SPR
+					has_dlc = "La Resistance"
+				}
+				NOT = {
+					has_idea = SPR_political_violence
+				}
+			}
+			if = {
+				limit = {
+					original_tag = SPR
+					has_dlc = "La Resistance"
+				}
+				has_global_flag = scw_over
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 100 
+
+		complete_effect = {
+			effect_tooltip = {
+				add_war_support = 0.10
+			}
+			hidden_effect = {
+				country_event = political.33
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 201
+				has_war_support < 0.6
 			}
 		}
 	}
@@ -1847,7 +2003,7 @@ war_measures = {
 		cost = GER_war_bonds_var?50
 
 		modifier = {
-			consumer_goods_factor = -0.05
+			consumer_goods_factor = -0.15
 		}
 
 		ai_will_do = {
@@ -1920,6 +2076,46 @@ war_measures = {
 			}
 		}
     }
+
+	diversify_special_forces = {
+
+		icon = GFX_decision_generic_military
+
+		allowed = {
+			has_dlc = "Arms Against Tyranny"
+		}
+
+		available = {
+			date > 1940.1.1
+		}
+
+		visible = {
+			date > 1939.1.1		#R56 addition - avoid long lists of unavailable decisions
+			# NOT = {	#R56 TOOD
+			# 	OR = {
+			# 		tag = ENG #has a focus
+			# 		tag = USA #has a focus
+			# 		tag = SOV #has a focus
+			# 		tag = JAP #has a focus
+			# 	}
+			# } 
+		}
+
+		fire_only_once = yes
+
+		cost = 50
+
+		complete_effect = {
+			add_potential_special_forces_tree = yes
+		}
+		ai_will_do = {
+			factor = 201
+			modifier = {
+				factor = 0
+				is_major = no
+			}
+		}
+	}
 }
 
 foreign_politics = {
@@ -1979,121 +2175,189 @@ foreign_politics = {
 	}
 }
 
-#economy_decisions = {
-#	infrastructure_building_slot = {
-#
-#    	icon = generic_construction
-#
-#        allowed = {
-#            always = yes
-#        }
-#
-#        cost = 200
-#        fire_only_once = no
-#
-#        available = {
-#            any_core_state = {
-#            	is_fully_controlled_by = ROOT
-#            }
-#        }
-#
-#        visible = {
-#			any_core_state = {
-#				is_fully_controlled_by = ROOT
-#			}
-#		}
-#
-#        complete_effect = {
-#			if = {
-#				limit = {
-#					any_core_state = {
-#						is_fully_controlled_by = ROOT
-#						free_building_slots = {
-#							building = industrial_complex
-#							size > 1
-#							include_locked = yes
-#						}
-#					}
-#				}
-#				random_core_state = {
-#					limit = {
-#						is_fully_controlled_by = ROOT
-#					}
-#					add_extra_state_shared_building_slots = 1
-#				}
-#				random_core_state = {
-#					limit = {
-#						is_fully_controlled_by = ROOT
-#					}
-#					add_extra_state_shared_building_slots = 1
-#				}
-#				random_core_state = {
-#					limit = {
-#						is_fully_controlled_by = ROOT
-#					}
-#					add_extra_state_shared_building_slots = 1
-#				}
-#				random_core_state = {
-#					limit = {
-#						is_fully_controlled_by = ROOT
-#					}
-#					add_extra_state_shared_building_slots = 1
-#				}
-#			}
-#		}
-#		ai_will_do = {
-#			factor = 0
-#		}
-#    }
-#
-#    war_building_slot = {
-#
-#    	icon = generic_construction
-#
-#        allowed = {
-#            always = yes
-#        }
-#
-#        cost = 50
-#        fire_only_once = no
-#
-#        available = {
-#            any_core_state = {
-#            	is_fully_controlled_by = ROOT
-#            }
-#        }
-#
-#        visible = {
-#			any_core_state = {
-#				is_fully_controlled_by = ROOT
-#			}
-#		}
-#
-#        complete_effect = {
-#			if = {
-#				limit = {
-#					any_core_state = {
-#						is_fully_controlled_by = ROOT
-#						free_building_slots = {
-#							building = industrial_complex
-#							size > 1
-#							include_locked = yes
-#						}
-#					}
-#				}
-#				random_core_state = {
-#					limit = {
-#						is_fully_controlled_by = ROOT
-#					}
-#					add_extra_state_shared_building_slots = 1
-#				}
-#			}
-#		}
-#		ai_will_do = {
-#			factor = 0
-#		}
-#    }
-#}
+economy_decisions = {
+	infrastructure_building_slot = {
+
+		icon = generic_construction
+
+        allowed = {
+            always = yes
+        }
+
+        cost = 100
+        fire_only_once = no
+
+        days_re_enable = 30
+
+		available = {
+			any_owned_state = {
+				NOT = { has_state_flag = infrastructure_building_slot_flag }
+				is_fully_controlled_by = ROOT
+				free_building_slots = {
+					building = infrastructure
+					size < 1
+				}
+			}
+		}
+
+		visible = {
+			any_owned_state = {
+				NOT = { has_state_flag = infrastructure_building_slot_flag }
+				is_fully_controlled_by = ROOT
+				free_building_slots = {
+					building = infrastructure
+					size < 1
+				}
+			}
+		}
+
+        complete_effect = {
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+            		free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+					}
+					NOT = { has_state_flag = infrastructure_building_slot_flag }
+				}
+				add_extra_state_shared_building_slots = 1
+				set_state_flag = infrastructure_building_slot_flag
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				any_owned_state = { free_building_slots = { building = industrial_complex size < 1 include_locked = no } }
+			}
+		}
+    }
+
+    war_building_slot = {
+
+    	icon = generic_construction
+
+        allowed = {
+            always = yes
+        }
+
+        cost = 50
+        fire_only_once = no
+
+        available = {
+            has_war = yes
+            any_owned_state = {
+            	NOT = { has_state_flag = war_building_slot_flag }
+            	is_fully_controlled_by = ROOT
+            }
+        }
+
+        visible = {
+			has_war = yes
+			any_owned_state = {
+				NOT = { has_state_flag = war_building_slot_flag }
+				is_fully_controlled_by = ROOT
+			}
+		}
+
+        complete_effect = {
+        	add_war_support = -0.025
+			add_stability = -0.025
+			if = {
+				limit = {
+					any_owned_state = {
+						is_fully_controlled_by = ROOT
+            			free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+						NOT = { has_state_flag = war_building_slot_flag }
+						infrastructure > 4
+					}
+				}
+				random_owned_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+            			free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+						NOT = { has_state_flag = war_building_slot_flag }
+						infrastructure > 4
+					}
+					add_extra_state_shared_building_slots = 1
+					set_state_flag = war_building_slot_flag
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_state = {
+						is_fully_controlled_by = ROOT
+            			free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+						NOT = { has_state_flag = war_building_slot_flag }
+						infrastructure > 2
+					}
+				}
+				random_owned_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+            			free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+						NOT = { has_state_flag = war_building_slot_flag }
+						infrastructure > 2
+					}
+					add_extra_state_shared_building_slots = 1
+					set_state_flag = war_building_slot_flag
+				}
+			}
+			else = {
+				random_owned_state = {
+					limit = {
+						is_fully_controlled_by = ROOT
+            			free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+						NOT = { has_state_flag = war_building_slot_flag }
+						infrastructure > 4
+					}
+					add_extra_state_shared_building_slots = 1
+					set_state_flag = war_building_slot_flag
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				all_owned_state = { free_building_slots = { building = industrial_complex size < 1 include_locked = no } }
+			}
+			modifier = {
+				any_owned_state = {
+					infrastructure > 3
+					free_building_slots = { building = industrial_complex size > 0 include_locked = no }
+				}
+				factor = 0
+			}
+		}
+    }
+}
 
 foreign_support = {
 
@@ -3215,6 +3479,169 @@ foreign_support = {
 	}
 }
 
+generic_purchase_old_ships_category = {
+	purchase_ships_eng = {
+		cost = 50
+		icon = GFX_decision_generic_naval
+		fire_only_once = no
+		visible = {
+			has_country_flag = generic_purchase_old_ships_flag
+			ENG = { 
+				NOT = { 
+					has_country_flag = sold_ships_to_us@ROOT
+					has_country_flag = negotiating_ship_purchase_flag@ROOT 
+				}
+			}
+			NOT = { has_war_with = ENG}
+		}
+		available = {
+			NOT = {
+				ENG = {
+					OR = {
+						has_civil_war = yes
+						has_capitulated = yes
+						has_opinion = {
+							target = FROM
+							value < 30
+						}
+					}					
+				}
+			}
+			
+		}
+		days_remove = 14
+		remove_effect = {
+			ENG = {
+				country_event = {
+					id = generic_purchase_ships_events.01
+					hours = 1
+				}
+				set_country_flag = negotiating_ship_purchase_flag@ROOT
+			}			
+		}
+	}
+	purchase_ships_sov = {
+		cost = 50
+		icon = GFX_decision_generic_naval
+		fire_only_once = no
+		visible = {
+			has_country_flag = generic_purchase_old_ships_flag
+			SOV = { 
+					has_country_flag = sold_ships_to_us@ROOT
+					has_country_flag = negotiating_ship_purchase_flag@ROOT 
+			}
+
+			NOT = { has_war_with = SOV}
+		}
+		available = {
+			NOT = {
+				SOV = {
+					OR = {
+						has_civil_war = yes
+						has_capitulated = yes
+						has_opinion = {
+							target = FROM
+							value < 30
+						}
+					}					
+				}
+			}
+			
+		}
+		days_remove = 14
+		remove_effect = {
+			SOV = {
+				country_event = {
+					id = generic_purchase_ships_events.01
+					hours = 1
+				}
+				set_country_flag = negotiating_ship_purchase_flag@ROOT
+			}
+		}
+	}
+	purchase_ships_ger = {
+		cost = 50
+		icon = GFX_decision_generic_naval
+		fire_only_once = no
+		visible = {
+			has_country_flag = generic_purchase_old_ships_flag
+			GER = { 
+				NOT = { 
+					has_country_flag = sold_ships_to_us@ROOT
+					has_country_flag = negotiating_ship_purchase_flag@ROOT
+				}
+
+			}
+			NOT = { has_war_with = GER}
+		}
+		available = {
+			NOT = {
+				GER = {
+					OR = {
+						has_civil_war = yes
+						has_capitulated = yes
+						has_opinion = {
+							target = FROM
+							value < 30
+						}
+					}					
+				}
+			}
+			
+		}
+		days_remove = 14
+		remove_effect = {
+			GER = {
+				country_event = {
+					id = generic_purchase_ships_events.01
+					hours = 1
+				}
+				set_country_flag = negotiating_ship_purchase_flag@ROOT
+			}
+		}
+	}
+	purchase_ships_usa = {
+		cost = 50
+		icon = GFX_decision_generic_naval
+		fire_only_once = no
+		visible = {
+			has_country_flag = generic_purchase_old_ships_flag
+			USA = { 
+				NOT = { 
+					has_country_flag = sold_ships_to_us@ROOT
+					has_country_flag = negotiating_ship_purchase_flag@ROOT  
+				}
+			}
+			NOT = { has_war_with = USA}
+		}
+		available = {
+			NOT = {
+				USA = {
+					OR = {
+						has_civil_war = yes
+						has_capitulated = yes
+						has_opinion = {
+							target = FROM
+							value < 30
+						}
+					}					
+				}
+			}
+			
+		}
+		days_remove = 14
+		remove_effect = {
+			USA = {
+				country_event = {
+					id = generic_purchase_ships_events.01
+					hours = 1
+				}
+				set_country_flag = negotiating_ship_purchase_flag@ROOT
+			}
+		}
+	}
+}
+
 generic_refit_civilian_ships_category = {
 	refit_to_destroyer = {
 		cost = 15
@@ -3225,7 +3652,7 @@ generic_refit_civilian_ships_category = {
 		}
 		available = {	
 			has_equipment = {
-   				convoy > 4
+   				convoy > 9
 	  		}	
 	  		if = {
 				limit = {
@@ -3237,12 +3664,12 @@ generic_refit_civilian_ships_category = {
 				has_tech = early_destroyer
 			}
 		}
-		days_remove = 20
+		days_remove = 50
 
 		complete_effect = {
 			add_equipment_to_stockpile = { 
 				type = convoy_1
-				amount = -5
+				amount = -10 
 
 			}
 		}
@@ -3320,7 +3747,7 @@ generic_refit_civilian_ships_category = {
 		}
 		available = {	
 			has_equipment = {
-   				convoy > 9
+   				convoy > 19
 	  		}
 	  		if = {
 				limit = {
@@ -3332,12 +3759,12 @@ generic_refit_civilian_ships_category = {
 				has_tech = early_light_cruiser
 			}
 		}
-		days_remove = 45
+		days_remove = 100
 
 		complete_effect = {
 			add_equipment_to_stockpile = { 
 				type = convoy_1
-				amount = -10 
+				amount = -25 
 			}
 		}
 		remove_effect = {

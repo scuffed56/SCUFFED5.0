@@ -8,9 +8,7 @@ add_namespace = SAF_event
 country_event = {
 	id = SAF_event.1
 	title = SAF_event.1.t
-	desc = {
-		text = SAF_event.1.desc
-	}
+	desc = SAF_event.1.desc
 	picture = GFX_report_event_saf_soldiers
 
 	fire_only_once = yes
@@ -19,7 +17,7 @@ country_event = {
 		is_in_faction_with = ENG
 		has_war_together_with = ENG
 		has_government = neutrality
-		has_country_leader = { ruling_only = yes name = "J. B. M. Hertzog" }
+		has_country_leader = { ruling_only = yes character = SAF_j_b_m_hertzog }
 	}
 	mean_time_to_happen = {
 		days = 2
@@ -78,12 +76,9 @@ country_event = {
 		name = SAF_event.2.a
 		create_country_leader = {
 			name = "Thabo Edwin Mofutsanyana"
-			desc = "POLITICS_EDWIN_MOFUTSANYANNA_DESC"
 			picture = "r56_portrait_SAF_Thabo_Edwin_Mufutsanyana.dds"
 			expire = "1965.1.1"
 			ideology = leninism
-			traits = {
-			}
 		}
 	}
 
@@ -91,13 +86,9 @@ country_event = {
 		name = SAF_event.2.b
 		create_country_leader = {
 			name = "Moses Kotane"
-			desc = "POLITICS_MOSES_KOTANE_DESC"
 			picture = "r56_portrait_SAF_moses_kotane.dds"
 			expire = "1965.1.1"
 			ideology = marxism
-			traits = {
-				#
-			}
 		}
 	}
 }
@@ -143,7 +134,14 @@ country_event = {
 	option = {
 		name = SAF_event.4.a
 		set_politics = { ruling_party = fascism elections_allowed = no }
-		ENG = { remove_from_faction = ROOT }
+		if = {
+			limit ={
+				is_in_faction = yes
+			}
+			faction_leader = {
+				remove_from_faction = ROOT
+			}
+		}
 		add_ideas = ideological_fanaticism_focus
 	set_rule = {
 		can_create_factions = yes
@@ -154,18 +152,26 @@ country_event = {
 				autonomy_state = autonomy_free
 			}
 		}
-		GER = {
-			add_opinion_modifier = {
-				target = ROOT
-				modifier = small_increase
+		if = {
+			limit = {
+				GER = {
+					has_government = fascism
+				}
 			}
-		}
-			ROOT = {
+			GER = {
 				add_opinion_modifier = {
-					target = GER
+					target = ROOT
 					modifier = small_increase
 				}
+			}
+				ROOT = {
+					add_opinion_modifier = {
+						target = GER
+						modifier = small_increase
+					}
+			}			
 		}
+
 		set_party_name = {
 			ideology = neutrality
 			long_name = SAF_anc_long
@@ -236,12 +242,9 @@ country_event = {
 	 	ENG = { remove_from_faction = ROOT }
 		create_country_leader = {
 		 	name = "J. B. M. Hertzog"
-		 	desc = "POLITICS_J_B_M_HERTZOG_DESC"
 		 	picture = "r56_portrait_SAF_jbm_hertzog.dds"
 		 	expire = "1965.1.1"
 		 	ideology = conservatism
-		 	traits = {
-		 	}
 	 	}
  	}
 }

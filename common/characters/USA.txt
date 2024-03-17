@@ -41,7 +41,7 @@ characters={
 				small="gfx/interface/ideas/usa/advisors/r56_idea_John_Edgar_Hoovercivilianpng.dds"
 			}
 		}
-		country_leader={ #So the anti-commies have a non generic guy to lead them or in werid game set ups a non generic
+		country_leader={ #So the anti-commies have a non generic guy to lead them or werid game start cases. Bit of an Easter Egg
 			ideology=despotism
 			traits={ prince_of_terror
 			r56_trait_opposed_to_communism }
@@ -54,13 +54,14 @@ characters={
 			allowed = {
 				original_tag = "USA"
 			}
-			cost = 175
+			cost = 150
 			visible = {
 				ROOT = {
 					has_government = democratic
 				}
 			}
 			available = {
+				has_completed_focus = USA_homeland_security
 				if = {
 					limit = {
 						NOT = { has_dlc = "Man the Guns" }
@@ -93,7 +94,7 @@ characters={
 						has_dlc = "Man the Guns"
 					}
 					NOT = { has_government = communism }
-				#	has_country_flag = r56_j_edgar_hoover_given_army_command
+					has_country_flag = r56_j_edgar_hoover_given_army_command
 				}
 				if = {
 					limit = {
@@ -223,10 +224,17 @@ characters={
 					}
 					factor  = 0.000
 				}
+				modifier  = {
+					NOT  = {
+						has_dlc = "Man the Guns"
+					}
+					has_idea_with_trait = fascist_demagogue
+					factor  = 0.000
+				}
 			}
 		}
 		country_leader={
-			ideology=marxism
+			ideology= democratic_socialism #USA communist path is a democratic socialist path so makes sense
 			traits = {
 				r56_trait_opposed_to_fascism
 			}
@@ -234,6 +242,50 @@ characters={
 			id=-1
 		}
 	}
+	#other US president candidates
+	USA_alf_landon={
+		name=USA_alf_landon
+		portraits={
+			civilian={
+				large="gfx/leaders/USA/r56_portrait_USA_Alf_Landon.dds"
+			}
+		}
+		country_leader={
+			ideology=conservatism
+			traits={ staunch_constitutionalist }
+			expire="1965.1.1.1"
+			id=-1
+		}
+	}
+	USA_wendell_willkie={
+		name=USA_wendell_willkie
+		portraits={
+			civilian={
+				large="gfx/leaders/USA/Portrait_USA_Wendell_Willkie.dds"
+			}
+		}
+		country_leader={
+			ideology=liberalism
+			traits={ intervention_advocate }
+			expire="1965.1.1.1"
+			id=-1
+		}
+	}
+	USA_harry_truman={
+		name=USA_harry_truman
+		portraits={
+			civilian={
+				large="gfx/leaders/USA/Portrait_USA_Harry_Truman.dds"
+			}
+		}
+		country_leader={
+			ideology=liberalism
+			traits={ POL_Foreign_Affairs }
+			expire="1965.1.1.1"
+			id=-1
+		}
+	}
+
 	#Stats and traits are bloated because of how late USA joins the war not beacuse of my basis I swear -SpicyAflredo
 	USA_george_s_patton={
 		name=USA_george_s_patton
@@ -261,7 +313,7 @@ characters={
 		}
 
 		corps_commander={
-			traits={ trait_reckless armor_officer war_hero trickster panzer_leader unpopular }
+			traits={ trait_reckless lucky armor_officer war_hero trickster panzer_leader unpopular }
 			skill=5
 			attack_skill=8
 			defense_skill=3
@@ -465,11 +517,12 @@ characters={
 	USA_douglas_macarthur={
 		name=USA_douglas_macarthur
 		portraits={
-			army={
-				small="GFX_idea_douglas_macarthur"
+			civilian={
+				large="gfx/leaders/USA/r56_portrait_USA_Douglas_Mac_Arthur_civilian.dds"
 			}
 			army={
 				large="gfx/leaders/USA/Portrait_USA_Douglas_MacArthur.dds"
+				small="GFX_idea_douglas_macarthur"
 			}
 		}
 		advisor={
@@ -560,9 +613,9 @@ characters={
 				original_tag = USA
 			}
 			traits = {
-				army_chief_planning_3
+				army_chief_planning_1
 			}
-			cost = 100
+			cost = 75
 			ai_will_do = {
 				factor = 1.000
 			}
@@ -616,6 +669,7 @@ characters={
 			}
 		}
 		corps_commander={
+			traits={ vigorous caring_leader }
 			skill=1
 			attack_skill=1
 			defense_skill=1
@@ -625,7 +679,7 @@ characters={
 		}
 	}
 
-	USA_russell_hartle={
+	USA_russell_hartle={ #Failed upward. People openly wondered how he got this fair in his life. Decent at training younger officers/NCO's was his only saving grace. Those who can't coach type of guy. 
 		name=USA_russell_hartle
 		portraits={
 			army={
@@ -651,8 +705,8 @@ characters={
 			}
 		}
 
-		corps_commander={
-			traits={ infantry_officer unpopular }
+		corps_commander={ 
+			traits={ infantry_officer unpopular lucky }
 			skill=1
 			attack_skill=1
 			defense_skill=1
@@ -1704,18 +1758,18 @@ characters={
 			}
 			cost = 200
 			# TODO [AB] add support for equipment bonuses
-			# equipment_bonus = {
-			# 	small_plane_airframe = {
-			# 		instant = yes
-			# 		fuel_consumption = -0.100
-			# 	}
-			# 	medium_plane_fighter_airframe = {
-			# 		instant = yes
-			# 		fuel_consumption = -0.100
-			# 	}
-			# }
+			#equipment_bonus = {
+			#	fighter_equipment = {
+			#		instant = yes
+			#		fuel_consumption = -0.100
+			#	}
+			#	heavy_fighter_equipment = {
+			#		instant = yes
+			#		fuel_consumption = -0.100
+			#	}
+			#}
 			traits = {
-				air_pilot_training_3 
+				air_chief_all_weather_3
 			}
 			ai_will_do = {
 				factor = 1.000
@@ -1723,6 +1777,45 @@ characters={
 		}
 	}
 
+	USA_bert_acosta={
+		name=USA_bert_acosta
+		portraits={
+			army={
+				small="gfx/interface/ideas/idea_generic_air_south_america_1.dds"
+			}
+		}
+		advisor={
+			slot = high_command
+			idea_token = USA_bert_acosta
+			allowed = {
+				original_tag = USA
+			}
+			available = {
+				has_government = communism
+			}
+			visible = {
+				
+			}
+			cost = 150
+			# TODO [AB] add support for equipment bonuses
+			#equipment_bonus = {
+			#	fighter_equipment = {
+			#		instant = yes
+			#		fuel_consumption = -0.100
+			#	}
+			#	heavy_fighter_equipment = {
+			#		instant = yes
+			#		fuel_consumption = -0.100
+			#	}
+			#}
+			traits = {
+				air_air_superiority_3
+			}
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
+	}
 
 	### MILITARY HIGH COMMAND ###
 
@@ -2141,6 +2234,13 @@ characters={
 					}
 					factor  = 0.000
 				}
+				modifier  = {
+					NOT  = {
+						has_dlc = "Man the Guns"
+					}
+					has_idea_with_trait = communist_revolutionary
+					factor  = 0.000
+				}
 			}
 		}
 	}
@@ -2163,7 +2263,7 @@ characters={
 				has_completed_focus = USA_war_propaganda
 			}
 			ai_will_do = {
-				factor = 0
+				factor = 9
 				modifier = {
 					is_historical_focus_on = yes
 					has_game_rule = {
@@ -2174,17 +2274,40 @@ characters={
 				}
 				modifier = {
 					is_historical_focus_on = yes
-					not = { has_dlc = "Man the Guns" }
-					factor = 0.1
+					NOT = { has_dlc = "Man the Guns" }
+					factor = 0
 				}
 				modifier = {
 					is_historical_focus_on = no
-					not = { has_dlc = "Man the Guns" }
+					NOT = { has_dlc = "Man the Guns" }
 					factor = 10
 				}
 			}
-			cost = 125
+			cost = 75
 			traits = { intervention_advocate }
+		}
+	}
+
+	USA_frank_nitti={ # Succeeded Al Capone in the Chicago South Club
+		name="Frank Nitti"
+		portraits={
+			army={
+				small="GFX_idea_generic_political_advisor_europe_5"
+			}
+		}
+		advisor={
+			slot = political_advisor
+			idea_token = USA_frank_nitti
+			allowed  = {
+				original_tag  = USA
+				has_dlc = "Man the Guns" # only because he can be obtained through the DLC path
+			}
+			available = {
+				has_completed_focus = USA_collaboration_with_the_mafia
+			}
+			traits  = {
+				criminal_connexions
+			}
 		}
 	}
 
@@ -2262,6 +2385,7 @@ characters={
 				original_tag  = USA
 			}
 			traits  = {
+				secretary_of_state
 				smooth_talking_charmer
 			}
 		}

@@ -198,6 +198,17 @@ focus_tree = {
 				ideology = communism
 				popularity = 0.1
 			}
+            RAJ = {
+				mark_focus_tree_layout_dirty = yes
+            }
+            if = {
+                limit = {
+                    RAJ = {
+                        has_government = democratic
+                    }
+                }
+                custom_effect_tooltip = RAJ_possible_indian_intervention
+            }
 		}
 
     }
@@ -346,15 +357,6 @@ focus_tree = {
         relative_position_id = PAK_General_Election
         ai_will_do = { factor = 30 }
 		completion_reward = {
-            if = {
-                limit = {
-                    NOT = {
-                        AND = {
-                            is_ai = yes
-                            is_puppet = yes
-                        }
-                    }
-                }
 			every_country = {
 				limit = {
 					OR = {
@@ -367,7 +369,6 @@ focus_tree = {
 				capital_scope = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes } }
 				PAK = { random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes } } }
 			}
-        }
         }
 
     }
@@ -454,6 +455,17 @@ focus_tree = {
 				ideology = fascism
 				popularity = 0.1
 			}
+            RAJ = {
+				mark_focus_tree_layout_dirty = yes
+            }
+            if = {
+                limit = {
+                    RAJ = {
+                        has_government = democratic
+                    }
+                }
+                custom_effect_tooltip = RAJ_possible_indian_intervention
+            }
 		}
 
     }
@@ -501,18 +513,9 @@ focus_tree = {
         relative_position_id = PAK_Birth_of_a_Nation
         ai_will_do = { factor = 30 }
 		completion_reward = {
-            if = {
-                limit = {
-                    NOT = {
-                        AND = {
-                            is_ai = yes
-                            is_puppet = yes
-                        }
-                    }
-                }
-			PAK = { random_owned_controlled_state = {add_extra_state_shared_building_slots = 2 add_building_construction = { type = arms_factory level = 2 instant_build = yes}  } }
-			PAK = { random_owned_controlled_state = {add_extra_state_shared_building_slots = 2 add_building_construction = { type = arms_factory level = 2 instant_build = yes}  } }
-            }}
+			PAK = { random_owned_controlled_state = {add_extra_state_shared_building_slots = 1 add_building_construction = { type = arms_factory level = 1 instant_build = yes}  } }
+			PAK = { random_owned_controlled_state = {add_extra_state_shared_building_slots = 1 add_building_construction = { type = arms_factory level = 2 instant_build = yes}  } }
+        }
 
     }
     focus = {
@@ -645,7 +648,10 @@ focus_tree = {
 				}
 			}
 			else_if = {
-				limit = { NOT = { is_in_faction = yes } }
+				limit = { 
+					NOT = { is_in_faction = yes }
+					is_subject = no
+				}
 				create_faction = "Pan Muslim Pact"
 				every_country = {
 					limit = {
@@ -686,7 +692,7 @@ focus_tree = {
     }
     focus = {
         id = PAK_Centralise_Power
-        icon = GFX_goal_generic_generic_political
+        icon = GFX_goal_generic_political
         cost = 10.00
         prerequisite = {
             focus = PAK_Increase_Police_Budget
@@ -699,7 +705,7 @@ focus_tree = {
 		}
 
     }
-    focus = {
+   focus = {
         id = PAK_Our_Own_Path
         icon = GFX_goal_morale_bonus
         cost = 10.00
@@ -713,6 +719,7 @@ focus_tree = {
         }
 		available = {
 			is_in_faction = no
+            is_subject = no
 		}
         x = 7
         y = 5
@@ -786,8 +793,7 @@ focus_tree = {
 			}
 		}
         search_filters = { FOCUS_FILTER_ALLIANCE }
-
-    }
+	}
     focus = {
         id = PAK_Increase_Police_Budget
         icon = GFX_goal_generic_seperation
@@ -803,7 +809,6 @@ focus_tree = {
         y = 5
 		completion_reward = {
 			add_ideas = GER_purge_political_opponents_idea
-            remove_ideas = RAJ_Caste_Debuff_1
 		}
 
     }
@@ -813,12 +818,25 @@ focus_tree = {
         cost = 10.00
 		available = {
 			is_in_faction = no
+			OR = {
+				is_subject = no
+				is_subject_of = JAP
+			}
+			
 			JAP = {
-				has_government = fascism
+				OR = {
+					has_government = fascism
+					has_government = neutrality
+				}
+
 				is_faction_leader = yes
 				NOT = { has_war_with = PAK }
 			}
 		}
+        bypass = {
+            is_in_faction_with = JAP
+        }
+
         prerequisite = {
             focus = PAK_Militarism
         }
@@ -942,26 +960,33 @@ focus_tree = {
         id = PAK_Into_the_Steppes
         icon = GFX_focus_generic_manpower
         cost = 10.00
-		 allow_branch = {
-            always = no
-        #     OR = {
-        #         has_game_rule = {
-        #             rule = SOV_FRAGMENTATION_STATUS
-        #             option = SOV_FRAGMENTED
-        #         }
-        #         has_game_rule = {
-        #             rule = SOV_FRAGMENTATION_STATUS
-        #             option = SOV_UTTERLY_FRAGMENTED
-        #         }
-        #     }		
+		allow_branch = {
+            OR = {
+                has_game_rule = {
+                    rule = SOV_FRAGMENTATION_STATUS
+                    option = SOV_FRAGMENTED
+                }
+                has_game_rule = {
+                    rule = SOV_FRAGMENTATION_STATUS
+                    option = SOV_UTTERLY_FRAGMENTED
+                }
+            }		
 		}
 		available = {
 			surrender_progress < 0.1
 			OR = {
-				ROOT = { controls_state = 267 }
+				ROOT = { 
+                    OR = {
+                        controls_state = 267
+                        controls_state = 1010
+                    }
+                }
 				AND = {
 					any_country = {
-						controls_state = 267
+                        OR = {
+                            controls_state = 267
+                            controls_state = 1010
+                        }
 						OR = {
 							is_subject_of = ROOT
 							is_in_faction_with = ROOT
@@ -1025,15 +1050,6 @@ focus_tree = {
         y = 6
 		ai_will_do = { factor = 5 }
 		completion_reward = {
-            if = {
-                limit = {
-                    NOT = {
-                        AND = {
-                            is_ai = yes
-                            is_puppet = yes
-                        }
-                    }
-                }
 			if = {
 				limit = {
 					is_faction_leader = yes
@@ -1063,7 +1079,6 @@ focus_tree = {
 				limit = { tag = PAK }
 				custom_effect_tooltip = "Both you and your faction leader will receive 2 Civilian Factories"
 			}
-        }
 		}
 
     }
@@ -1117,18 +1132,9 @@ focus_tree = {
         y = 4
 		 ai_will_do = { factor = 35 }
 		completion_reward = {
-            if = {
-                limit = {
-                    NOT = {
-                        AND = {
-                            is_ai = yes
-                            is_puppet = yes
-                        }
-                    }
-                }
 			random_owned_controlled_state = {add_extra_state_shared_building_slots = 2 add_building_construction = { type = industrial_complex level = 2 instant_build = yes}  }
-			random_owned_controlled_state = {add_extra_state_shared_building_slots = 2 add_building_construction = { type = industrial_complex level = 2 instant_build = yes}  }
-            }
+			random_owned_controlled_state = {add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes}  }
+
 		}
 
     }
@@ -1165,7 +1171,6 @@ focus_tree = {
 		 ai_will_do = { factor = 30 }
 		completion_reward = {
 			add_ideas = workers_culture
-            remove_ideas = RAJ_Caste_Debuff_1
 		}
 
     }
@@ -1175,11 +1180,18 @@ focus_tree = {
         cost = 10.00
 		available = {
 			is_in_faction = no
+            is_subject = no
 			SOV = {
 				has_government = communism
 				is_faction_leader = yes
 				NOT = { has_war_with = PAK }
 			}
+        }
+        bypass = {
+            OR = {
+                is_subject_of = SOV
+                is_in_faction_with = SOV
+            }
         }
         ai_will_do = {
             factor = 160
@@ -1200,6 +1212,7 @@ focus_tree = {
 		}
         search_filters = { FOCUS_FILTER_ALLIANCE }
     }
+
     focus = {
         id = PAK_Ministry_of_Truth
         icon = GFX_goal_generic_communist_government2
@@ -1233,14 +1246,13 @@ focus_tree = {
 		 ai_will_do = { factor = 30 }
 		completion_reward = {
 			add_ideas = PAK_Curb_Extremist_Influence
-            remove_ideas = RAJ_Caste_Debuff_1
 		}
 
     }
     focus = {
         id = PAK_Muslim_Unity
         icon = GFX_focus_GRE_state_expansion
-        cost = 10
+        cost = 20.00
         prerequisite = {
             focus = PAK_Work_for_Pakistan
         }
@@ -1257,7 +1269,6 @@ focus_tree = {
         y = 6
 		 ai_will_do = { factor = 15 }
 		completion_reward = {
-            remove_ideas = RAJ_Caste_Debuff_1
 			custom_effect_tooltip = pak_mus_unity
 		}
 
@@ -1477,15 +1488,6 @@ focus_tree = {
         y = 2
         ai_will_do = { factor = 3 }
 		completion_reward = {
-            if = {
-                limit = {
-                    NOT = {
-                        AND = {
-                            is_ai = yes
-                            is_puppet = yes
-                        }
-                    }
-                }
             random_owned_controlled_state = {
 				add_building_construction = {
 					type = air_base
@@ -1500,7 +1502,6 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-        }
         }
 
     }
@@ -1515,15 +1516,6 @@ focus_tree = {
         y = 3
         ai_will_do = { factor = 3 }
 		completion_reward = {
-            if = {
-                limit = {
-                    NOT = {
-                        AND = {
-                            is_ai = yes
-                            is_puppet = yes
-                        }
-                    }
-                }
 			random_owned_controlled_state = {
 				add_building_construction = {
 					type = anti_air_building
@@ -1545,7 +1537,6 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-        }
 		}
 
     }
@@ -1756,7 +1747,7 @@ focus_tree = {
     }
     focus = {
         id = PAK_Steel_Mines
-        icon = GFX_goal_tblra_steel
+        icon = GFX_goal_BEL_steel
         cost = 10.00
         prerequisite = {
             focus = PAK_Local_Arms_Developement
@@ -1876,10 +1867,10 @@ focus_tree = {
                     }
 					is_in_home_area = yes
                 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }
@@ -1892,10 +1883,10 @@ focus_tree = {
                     }
 					is_in_home_area = yes
                 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }
@@ -2065,15 +2056,6 @@ focus_tree = {
 			factor = 20
 		}
 		completion_reward = {
-            if = {
-                limit = {
-                    NOT = {
-                        AND = {
-                            is_ai = yes
-                            is_puppet = yes
-                        }
-                    }
-                }
 			 random_owned_state = {
                 limit = {
                     free_building_slots = {
@@ -2083,10 +2065,10 @@ focus_tree = {
                     }
 					is_in_home_area = yes
                 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }
@@ -2099,14 +2081,13 @@ focus_tree = {
                     }
 					is_in_home_area = yes
                 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }
-        }
 		}
 
     }
@@ -2133,15 +2114,6 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-            if = {
-                limit = {
-                    NOT = {
-                        AND = {
-                            is_ai = yes
-                            is_puppet = yes
-                        }
-                    }
-                }
 			 random_owned_state = {
                 limit = {
                     free_building_slots = {
@@ -2173,7 +2145,6 @@ focus_tree = {
                 }
             }
 		}
-    }
 
     }
     focus = {
@@ -2199,7 +2170,7 @@ focus_tree = {
 			 random_owned_state = {
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
-                    type = synthetic_refinery 
+                    type = rubber_refinery 
                     level = 1
                     instant_build = yes
                 }

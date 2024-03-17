@@ -58,7 +58,6 @@ focus_tree = {
 				limit = {
 					328 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 					}
 				}
 				328 = {
@@ -73,7 +72,6 @@ focus_tree = {
 				limit = {
 					716 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 					}
 				}
 				716 = {
@@ -88,7 +86,6 @@ focus_tree = {
 				limit = {
 					717 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 					}
 				}
 				717 = {
@@ -103,7 +100,6 @@ focus_tree = {
 				limit = {
 					714 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 					}
 				}
 				714 = {
@@ -118,7 +114,6 @@ focus_tree = {
 				limit = {
 					943 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 					}
 				}
 				943 = {
@@ -133,7 +128,6 @@ focus_tree = {
 				limit = {
 					944 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 					}
 				}
 				944 = {
@@ -148,7 +142,6 @@ focus_tree = {
 				limit = {
 					761 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 					}
 				}
 				761 = {
@@ -163,7 +156,6 @@ focus_tree = {
 				limit = {
 					945 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 					}
 				}
 				945 = {
@@ -182,7 +174,7 @@ focus_tree = {
 		icon = GFX_focus_jap_manchurian_project
 		x = 14
 		y = 0
-		cost = 5
+		cost = 10
 		completion_reward = {
 			add_stability = 0.2
 			add_political_power = 50
@@ -197,7 +189,7 @@ focus_tree = {
 		}
 		x = 0
 		y = 1
-		cost = 5	
+		cost = 10
 		bypass = {
 			716 = {
 				NOT = {
@@ -210,7 +202,6 @@ focus_tree = {
 				limit = {
 					716 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 						is_controlled_by = ROOT
 						free_building_slots = {
 							building = industrial_complex
@@ -232,7 +223,6 @@ focus_tree = {
 				limit = {
 					716 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 						is_controlled_by = ROOT
 						free_building_slots = {
 							building = industrial_complex
@@ -283,13 +273,12 @@ focus_tree = {
 			focus = MAN_support_naoki_hoshino
 		}
 		available = {
-			is_puppet_of = JAP
+			is_subject_of = JAP
 		}
 		x = 3
 		y = 2
-		cost = 5
+		cost = 10
 		completion_reward = {
-			set_country_flag = MAN_civilian
 			random_owned_controlled_state = {
 				limit = {
 					is_core_of = ROOT
@@ -304,6 +293,34 @@ focus_tree = {
 					type = industrial_complex
 					level = 2
 					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = available_political_advisor
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "Together for Victory"
+					}
+				}
+				show_ideas_tooltip = MAN_yoshisuke_aikawa
+				else = {
+					show_ideas_tooltip = MAN_yoshisuke_aikawa_tfv
+				}
+			}
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_dlc = "Together for Victory"
+						}
+					}
+					add_ideas = MAN_yoshisuke_aikawa
+					else = {
+						add_ideas = MAN_yoshisuke_aikawa_tfv
+					}
 				}
 			}
 		}
@@ -322,16 +339,17 @@ focus_tree = {
 			focus = MAN_support_aikawa_yoshisuke
 		}
 		available = {
-			OR = {
-				has_completed_focus = MAN_exile_takeover
-				is_puppet_of = JAP
+			JAP = {
+				has_opinion = {
+					target = MAN
+					value > 69
+				}
 			}
 		}
 		x = 5
 		y = 2
-		cost = 5
+		cost = 10
 		completion_reward = {
-			set_country_flag = MAN_military
 			random_owned_controlled_state = {
 				limit = {
 					is_core_of = ROOT
@@ -348,7 +366,37 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			
+			custom_effect_tooltip = available_political_advisor
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "Together for Victory"
+					}
+				}
+				show_ideas_tooltip = MAN_naoki_hoshino
+				else = {
+					show_ideas_tooltip = MAN_naoki_hoshino_tfv
+				}
+			}
+			if = {
+				limit = {
+					is_ai = yes
+					# NOT = {	#then what is the point of the check below?
+					# 	has_dlc = "Together for Victory"
+					# }
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_dlc = "Together for Victory"
+						}
+					}
+					add_ideas = MAN_naoki_hoshino
+					else = {
+						add_ideas = MAN_naoki_hoshino_tfv
+					}
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
@@ -370,7 +418,6 @@ focus_tree = {
 				limit = {
 					716 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 						is_controlled_by = ROOT
 						free_building_slots = {
 							building = industrial_complex
@@ -392,7 +439,6 @@ focus_tree = {
 				limit = {
 					716 = {
 						is_owned_by = ROOT
-						is_core_of = ROOT
 						is_controlled_by = ROOT
 						free_building_slots = {
 							building = industrial_complex
@@ -426,9 +472,8 @@ focus_tree = {
 		icon = GFX_goal_generic_build_tank
 		x = 4
 		y = 1
-		cost = 5
+		cost = 10
 		completion_reward = {
-			country_event = wtt_manchukou.11
 			random_owned_controlled_state = {
 				limit = {
 					is_core_of = ROOT
@@ -489,7 +534,19 @@ focus_tree = {
 			716 = {
 				oil > 3
 			}	
-					
+			NOT = {
+				JAP = {
+					focus_progress = {
+						focus = JAP_manchu_oil
+						progress > 0
+					}
+				}
+			}		
+		}
+		bypass = {
+			any_other_country = {
+				has_completed_focus = JAP_manchu_oil
+			}
 		}
 
 		completion_reward = {
@@ -554,9 +611,11 @@ focus_tree = {
 			focus = MAN_expand_military_district
 		}
 		available = {
-			OR = {
-				has_completed_focus = MAN_exile_takeover
-				is_puppet_of = JAP
+			JAP = {
+				has_opinion = {
+					target = MAN
+					value > 69
+				}
 			}
 		}
 		x = 7
@@ -746,7 +805,7 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_request_zaibatsu_investment_on_military_industry
 		}
-		x = 6
+		x = 7
 		y = 4
 		cost = 10
 		completion_reward = {
@@ -775,16 +834,9 @@ focus_tree = {
 				}
 				add_ideas = war_economy
 			}
-			if = {
-				limit = {
-					has_idea = war_economy
-				}
-				add_political_power = 150
-			}
-			
 			add_timed_idea = {
 				idea = MAN_increased_factory_output
-				days = 200
+				days = 150
 			}
 			if = {
 				limit = {
@@ -801,7 +853,7 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_prepare_for_war
 		}
-		x = 6
+		x = 7
 		y = 5
 		cost = 10
 		available = {
@@ -824,33 +876,12 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-				add_ideas = for_the_emperor_idea
+			add_timed_idea = {
+				idea = for_the_emperor_idea
+				days = 365
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
-	}
-	focus = {
-		id = MAN_national_defense_state1
-		icon = GFX_goal_generic_build_tank
-		
-		prerequisite = { focus = MAN_request_zaibatsu_investment_on_industry focus = MAN_manchu_society_for_light_metal focus = MAN_for_the_emperor }
-		x = 0
-		y = 5
-		relative_position_id = MAN_finish_the_five_year_plan
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 5
-		}
-		available = {
-			
-		}
-		available_if_capitulated = yes
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		completion_reward = {
-			add_ideas = MAN_national_defense_state
-		}
 	}
 	focus = {
 		id = MAN_expand_military_district
@@ -860,7 +891,7 @@ focus_tree = {
 		}
 		x = 8
 		y = 1
-		cost = 5
+		cost = 10
 		completion_reward = {
 			army_experience = 10
 			add_tech_bonus = {
@@ -880,14 +911,23 @@ focus_tree = {
 			focus = MAN_expand_military_district
 		}
 		available = {
-			is_puppet_of = JAP
+			is_ally_with = JAP
 		}
 		x = 8
 		y = 2
-		cost = 2
+		cost = 10
 		completion_reward = {
-			army_experience = 25
-			add_ideas = MAN_mukden_military_academy
+			army_experience = 10
+			custom_effect_tooltip = available_political_advisor
+			if = {
+				limit = {
+					has_dlc = "Together for Victory"
+				}
+				show_ideas_tooltip = itagaki_seishiro
+			}
+			else = {
+				show_ideas_tooltip = itagaki_seishiro_tfv
+			}
 		}
 	}
 	focus = {
@@ -898,14 +938,22 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = MAN_an_alternative
-			focus = MAN_exile_takeover
 		}
 		x = 11
 		y = 1
 		available = {
-			is_puppet_of = JAP
+			OR = {
+				is_ally_with = JAP
+				JAP = {
+					has_government = communism
+				}
+				JAP = {
+					has_government = democratic
+				}
+			}
+			
 		}
-		cost = 5
+		cost = 10
 		completion_reward = {
 			if = {
 				limit = {
@@ -934,16 +982,24 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = MAN_enhance_local_policing
-			focus = MAN_exile_takeover
 		}
-		relative_position_id = MAN_five_race_under_one_union
-		x = 8
-		y = 1	
+		x = 17
+		y = 1
 		available = {
-			is_puppet_of = JAP
 		}
-		cost = 5
+		cost = 10
 		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Waking the Tiger"
+				}
+				unlock_decision_category_tooltip = MAN_banditry_category
+				set_variable = {
+					MAN_maintain_control_timer = 180
+				}
+				custom_effect_tooltip = MAN_pacify_the_countryside_effect_tooltip
+			}
+			
 			add_ai_strategy = {
 				type = antagonize
 				id = "JAP"
@@ -960,58 +1016,12 @@ focus_tree = {
 				value = -100
 			}
 			add_political_power = 75
-			unlock_decision_tooltip = MAN_divert_machine_tools
-			if = {
-				limit = { 716 = { is_fully_controlled_by = ROOT is_core_of = ROOT } }
-				716 = {
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-					add_extra_state_shared_building_slots = 1
-				}
-			}
-			if = {
-				limit = { 717 = { is_fully_controlled_by = ROOT is_core_of = ROOT } }
-				717 = {
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-					add_extra_state_shared_building_slots = 1
-				}
-			}
-			if = {
-				limit = { 715 = { is_fully_controlled_by = ROOT is_core_of = ROOT } }
-				715 = {
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-					add_extra_state_shared_building_slots = 1
-				}
-			}
-			if = {
-				limit = { 328 = { is_fully_controlled_by = ROOT is_core_of = ROOT } }
-				328 = {
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-					add_extra_state_shared_building_slots = 1
-				} 
-			}
 			hidden_effect = {
 				create_country_leader = {
 					name = "Aisin Gioro Puyi"
-					desc = "POLITICS_PU_YI_DESC"
 					picture = "gfx/leaders/MAN/Portrait_Manchuria_Henry_Pu_Yi.dds"
 					expire = "1965.1.1"
-					ideology = despotism
+					ideology = absolute_monarchism
 					traits = {
 						popular_figurehead
 						emperors_ambition
@@ -1019,7 +1029,6 @@ focus_tree = {
 				}
 				create_country_leader = {
 					name = "Aisin Gioro Puyi"
-					desc = "POLITICS_PU_YI_DESC"
 					picture = "gfx/leaders/MAN/Portrait_Manchuria_Henry_Pu_Yi.dds"
 					expire = "1965.1.1"
 					ideology = conservatism
@@ -1029,7 +1038,6 @@ focus_tree = {
 				}
 				create_country_leader = {
 					name = "Aisin Gioro Puyi"
-					desc = "POLITICS_PU_YI_DESC"
 					picture = "gfx/leaders/MAN/Portrait_Manchuria_Henry_Pu_Yi.dds"
 					expire = "1965.1.1"
 					ideology = marxism
@@ -1041,98 +1049,20 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
-
-
-	focus = {
-		id = MAN_local_arms_procurement1
-		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = {
-			focus = MAN_an_alternative
-		}
-		x = 0
-		y = 1
-		relative_position_id = MAN_an_alternative
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 6
-		}
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		complete_tooltip = {
-			unlock_decision_tooltip = MAN_fund_underground_gun_shops
-			every_state = {
-				limit = {
-					has_state_flag = MAN_local_arms_procurement_AF
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-
-		completion_reward = {
-			unlock_decision_tooltip = MAN_fund_underground_gun_shops
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT 	
-					is_fully_controlled_by = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-				set_state_flag = MAN_local_arms_procurement_AF
-			}
-			random_owned_controlled_state = {
-				limit = {
-					is_core_of = ROOT 	
-					is_fully_controlled_by = ROOT
-					free_building_slots = {
-						building = arms_factory
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-				set_state_flag = MAN_local_arms_procurement_AF
-			}
-		}
-	}
-
-
 	focus = {
 		id = MAN_contact_qing_restorationists
 		icon = GFX_goal_flag_qing
 		prerequisite = {
-			focus = MAN_local_arms_procurement1
+			focus = MAN_an_alternative
 		}
 		mutually_exclusive = {
 			focus = MAN_turn_to_the_bolshelviks
 			focus = MAN_contact_russian_fascists
 			focus = MAN_head_towards_democracy
 		}		
-		relative_position_id = MAN_an_alternative
-		x = -3
+		x = 14
 		y = 2
 		available = {
-			is_puppet_of = JAP
 			NOT = {
 				has_country_flag = independence_supported
 			}
@@ -1149,35 +1079,30 @@ focus_tree = {
 		id = MAN_contact_russian_fascists
 		icon = GFX_goal_MAN_contact_rfp
 		prerequisite = {
-			focus = MAN_local_arms_procurement1
+			focus = MAN_an_alternative
 		}
+
 		mutually_exclusive = {
 			focus = MAN_contact_qing_restorationists
 			focus = MAN_turn_to_the_bolshelviks
 			focus = MAN_head_towards_democracy
-		}
-		relative_position_id = MAN_an_alternative 
-		x = -1
+		}		
+		x = 16
 		y = 2
 		available = {
-			is_puppet_of = JAP
-			SOV = {
-				NOT = {
-					OR = {
-						has_government = fascism
-						has_idea_with_trait = fascist_demagogue
-					}
-				}
-			}
 			NOT = {
 				has_country_flag = independence_supported
 			}
 		}
-		cost = 5
+		cost = 10
 		completion_reward = {
-			add_ideas = MAN_secret_recruitment_idea
 			add_political_power = 75
-			custom_effect_tooltip = MAN_contact_white_tt
+			if = {
+				limit = {
+					SOV = { has_government = communism }
+				}
+				custom_effect_tooltip = MAN_contact_white_tt
+			}
 			set_country_flag = rfp_path
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -1190,11 +1115,24 @@ focus_tree = {
 		}
 		x = 12
 		y = 2
-
-		cost = 5
+		bypass = {
+			OR = {
+				has_idea = service_by_requirement
+				has_idea = all_adults_serve
+				has_idea = scraping_the_barrel
+			}
+		}
+		cost = 10
 		completion_reward = {
 			if = {
-				add_ideas = PUP_mobilizing_for_war1
+				limit = {
+					NOT = {
+						has_idea = service_by_requirement
+						has_idea = all_adults_serve
+						has_idea = scraping_the_barrel
+					}
+				}
+				add_ideas = service_by_requirement
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
@@ -1207,17 +1145,16 @@ focus_tree = {
 		}
 		x = 12
 		y = 3
-		cost = 5
+		cost = 10
 		completion_reward = {
 			add_ideas = MAN_labour_service_corps_idea
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
-
 	focus = {
 		id = MAN_manchukuo_imperial_air_force
 		icon = GFX_goal_MAN_coa_air_force
-		x = 39
+		x = 34
 		y = 0
 		cost = 10
 		completion_reward = {
@@ -1245,6 +1182,21 @@ focus_tree = {
 				limit = {
 					is_puppet_of = JAP
 				}
+				add_equipment_to_stockpile = {
+					type = fighter_equipment_0
+					amount = 100
+					producer = JAP
+				}
+				add_equipment_to_stockpile = {
+					type = fighter_equipment_1
+					amount = 100
+					producer = JAP
+				}
+				add_equipment_to_stockpile = {
+					type = fighter_equipment_2
+					amount = 100
+					producer = JAP
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_MILITARY_EQUIPMENT }
@@ -1257,7 +1209,7 @@ focus_tree = {
 		}
 		x = 10
 		y = 3
-		cost = 5
+		cost = 10
 		completion_reward = {
 			army_experience = 15
 			navy_experience = 5
@@ -1327,7 +1279,7 @@ focus_tree = {
 			}
 		}
 		continue_if_invalid = yes
-		x = 10
+		x = 11
 		y = 4
 		cost = 10
 		completion_reward = {
@@ -1339,13 +1291,6 @@ focus_tree = {
 					has_idea = MAN_reliant_idea
 				}
 				remove_ideas = MAN_reliant_idea
-				clr_country_flag = MAN_reliant_flag
-			}
-			if = {
-				limit = {
-					has_idea = MAN_reliant_idea2
-				}
-				remove_ideas = MAN_reliant_idea2
 				clr_country_flag = MAN_reliant_flag
 			}
 			add_doctrine_cost_reduction = {
@@ -1473,10 +1418,9 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_contact_qing_restorationists
 		}
-		relative_position_id = MAN_contact_qing_restorationists
-		x = 0
-		y = 1
-		cost = 5
+		x = 14
+		y = 3
+		cost = 10
 		completion_reward = {
 			add_ideas = MAN_restoration_propaganda
 			set_country_flag = MAN_rest_propa_flag
@@ -1489,10 +1433,9 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_spread_restoration_propaganda
 		}
-		relative_position_id = MAN_contact_qing_restorationists
-		x = 0
-		y = 2
-		cost = 5
+		x = 14
+		y = 4
+		cost = 10
 		completion_reward = {
 			add_popularity = {
 				ideology = fascism
@@ -1511,9 +1454,8 @@ focus_tree = {
 		available = {
 			neutrality > 0.35
 		}
-		relative_position_id = MAN_contact_qing_restorationists
-		x = 0
-		y = 3
+		x = 14
+		y = 5
 		cost = 10
 		completion_reward = {
 			if = {
@@ -1541,9 +1483,8 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_strengthen_the_royal_guard
 		}
-		relative_position_id = MAN_contact_qing_restorationists
-		x = 0
-		y = 4
+		x = 14
+		y = 6
 		cost = 10
 		available = {
 			original_tag = MAN
@@ -1619,17 +1560,12 @@ focus_tree = {
 	focus = {
 		id = MAN_destroy_opium_plantations
 		icon = GFX_goal_MAN_destroy_opium
-		x = 31
+		x = 26
 		y = 0
-		cost = 5
+		cost = 10
 		available = {
-			OR = {
-				NOT = {
-					is_puppet_of = JAP
-				}
-				JAP = {
-					has_government = neutrality
-				}
+			NOT = {
+				is_puppet_of = JAP
 			}
 		}
 		completion_reward = {
@@ -1655,20 +1591,10 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_contact_russian_fascists
 		}
-		relative_position_id = MAN_contact_russian_fascists
-		x = 0
-		y = 1
-		cost = 5
+		x = 16
+		y = 3
+		cost = 10
 		available = {
-			is_puppet_of = JAP
-			SOV = {
-				NOT = {
-					OR = {
-						has_government = fascism
-						has_idea_with_trait = fascist_demagogue
-					}
-				}
-			}
 		}
 		completion_reward = {
 			add_stability = -0.05
@@ -1686,22 +1612,12 @@ focus_tree = {
 		id = MAN_arm_the_rfr
 		icon = GFX_goal_extensive_conscription_fascism
 		prerequisite = {
-			focus = MAN_assassination_of_japanese_officials
+			focus = MAN_secret_recuitment
 		}
-		relative_position_id = MAN_contact_russian_fascists
-		x = 0
-		y = 2
-		cost = 5
+		x = 16
+		y = 5
+		cost = 10
 		available = {
-			is_puppet_of = JAP
-			SOV = {
-				NOT = {
-					OR = {
-						has_government = fascism
-						has_idea_with_trait = fascist_demagogue
-					}
-				}
-			}
 		}
 		completion_reward = {
 			if = {
@@ -1712,7 +1628,6 @@ focus_tree = {
 				clr_country_flag = MAN_reliant_flag
 			}
 			army_experience = 50
-			add_ideas = MAN_white_russian_advisers
 			add_ideas = MAN_rfr_supporters
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
@@ -1730,12 +1645,10 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_arm_the_rfr
 		}
-		relative_position_id = MAN_contact_russian_fascists
-		x = 0
-		y = 3
+		x = 16
+		y = 6
 		cost = 10
 		available = {
-			is_puppet_of = JAP
 			has_army_manpower = {
 				size > 299999
 			}
@@ -1843,17 +1756,16 @@ focus_tree = {
 		id = MAN_turn_to_the_bolshelviks
 		icon = GFX_focus_chi_mission_to_the_soviet_union
 		prerequisite = {
-			focus = MAN_local_arms_procurement1
+			focus = MAN_an_alternative
 		}
 		mutually_exclusive = {
 			focus = MAN_contact_qing_restorationists
 			focus = MAN_contact_russian_fascists
 			focus = MAN_head_towards_democracy
 		}
-		relative_position_id = MAN_an_alternative
-		x = 1
+		x = 18
 		y = 2
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 0
 		}
@@ -1861,7 +1773,6 @@ focus_tree = {
 			NOT = {
 				has_country_flag = anti_comintern_member
 			}
-			is_puppet_of = JAP
 			SOV = {
 				exists = yes
 				has_government = communism
@@ -1884,23 +1795,17 @@ focus_tree = {
 		id = MAN_head_towards_democracy
 		icon = GFX_focus_chi_mission_to_the_us
 		prerequisite = {
-			focus = MAN_local_arms_procurement1
+			focus = MAN_an_alternative
 		}
 		mutually_exclusive = {
 			focus = MAN_contact_qing_restorationists
 			focus = MAN_contact_russian_fascists
 			focus = MAN_turn_to_the_bolshelviks
 		}		
-		relative_position_id = MAN_an_alternative
-		x = 3
+		x = 20
 		y = 2
-		cost = 5
+		cost = 10
 		available = {
-			is_puppet_of = JAP
-			USA = {
-				exists = yes
-				has_government = democratic
-			}
 			NOT = {
 				has_idea = MAN_communist_influence
 				has_country_flag = independence_supported
@@ -1933,30 +1838,14 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_turn_to_the_bolshelviks
 		}
-		relative_position_id = MAN_an_alternative
-		x = 1
+		x = 18
 		y = 3
-		cost = 5
+		cost = 10
 		available = {
 			has_idea = MAN_communist_influence
 			has_country_flag = independence_supported
-			SOV = {
-				exists = yes
-				has_government = communism
-			}
 		}
 		completion_reward = {
-			create_corps_commander = {
-				name = "Aleksandr Cherepanov"
-				gfx = GFX_portrait_sov_aleksandr_cherepanov 
-				traits = { politically_connected infantry_officer }
-				skill = 3
-				attack_skill = 3
-				defense_skill = 3
-				planning_skill = 2
-				logistics_skill = 2
-				id = 600
-			}
 			add_stability = -0.05
 			add_popularity = {
 				ideology = fascism
@@ -1986,15 +1875,10 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_turn_over_the_rfr
 		}
-		relative_position_id = MAN_an_alternative
-		x = 1
+		x = 18
 		y = 4
-		cost = 5
+		cost = 10
 		available = {
-			SOV = {
-				exists = yes
-				has_government = communism
-			}
 		}
 		completion_reward = {
 			add_popularity = {
@@ -2035,23 +1919,25 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_manzhouli_secret_meeting
 		}
-		relative_position_id = MAN_an_alternative
-		x = 1
+		x = 18
 		y = 5
-		cost = 5
+		cost = 10
 		available = {
 			r56_script_i_am_sane = yes
 			OR = {
 				has_government = communism
 				communism > 0.6
 			}
-			SOV = {
-				exists = yes
-				has_government = communism
-			}
 		}
 		completion_reward = {
-			give_military_access = SOV
+			if = {
+				limit = {
+					SOV = {
+						has_government = communism
+					}
+				}
+				give_military_access = SOV
+			}
 			hidden_effect = {
 				SOV = {
 					load_oob = "SOV_mck_occupation_force"
@@ -2096,21 +1982,16 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_head_towards_democracy
 		}
-		relative_position_id = MAN_head_towards_democracy
-		x = 0
-		y = 1
-		cost = 5
+		x = 20
+		y = 3
+		cost = 10
 		available = {
 			has_idea = MAN_democratic_influence
 			has_country_flag = independence_supported
-			USA = {
-				exists = yes
-				has_government = democratic
-			}
 		}
 		completion_reward = {
-			add_offsite_building = { type = arms_factory level = 3 }
 			add_tech_bonus = {
+				name = MAN_secret_aid_from_usa
 				uses = 5
 				bonus = 1
 				category = electronics
@@ -2134,10 +2015,9 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_secret_protocol
 		}
-		relative_position_id = MAN_head_towards_democracy
-		x = 0
-		y = 3
-		cost = 5
+		x = 20
+		y = 6
+		cost = 10
 		available = {
 			OR = {
 				has_government = democratic
@@ -2171,15 +2051,10 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_secret_aid_from_usa
 		}
-		relative_position_id = MAN_head_towards_democracy
-		x = 0
-		y = 2
-		cost = 5
+		x = 20
+		y = 4
+		cost = 10
 		available = {
-			USA = {
-				exists = yes
-				has_government = democratic
-			}
 		}
 		completion_reward = {
 			add_stability = 0.1
@@ -2259,17 +2134,17 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MAN_bomber_focus
 		}
-		relative_position_id = MAN_manchukuo_imperial_air_force
-		x = 1
+		x = 33
 		y = 1
 		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
-				name = air_plane_models
+				name = fighter_bonus
 				bonus = 1
 				uses = 2
-				category = light_air
+				category = light_fighter
+				category = cat_heavy_fighter
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2283,17 +2158,17 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MAN_fighter_focus
 		}
-		relative_position_id = MAN_manchukuo_imperial_air_force
-		x = -1
+		x = 35
 		y = 1
 		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
-				name = air_plane_models
+				name = bomber_bonus
 				bonus = 1
-				uses = 1
+				uses = 2
 				category = heavy_air
+				category = tactical_bomber
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2305,8 +2180,7 @@ focus_tree = {
 			focus = MAN_bomber_focus
 			focus = MAN_fighter_focus
 		}
-		relative_position_id = MAN_manchukuo_imperial_air_force
-		x = 0
+		x = 34
 		y = 2
 		cost = 10
 		available_if_capitulated = yes
@@ -2353,7 +2227,6 @@ focus_tree = {
 							building = air_base
 							size > 1
 						}
-						is_core_of = ROOT
 					}
 					add_building_construction = {
 						type = air_base
@@ -2401,17 +2274,17 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_aviation_effort_2
 		}
-		relative_position_id = MAN_manchukuo_imperial_air_force
-		x = -1
+		x = 33
 		y = 3
 		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
-				name = air_plane_models
+				name = CAS_bonus
 				bonus = 1
+				ahead_reduction = 1
 				uses = 1
-				category = light_air
+				category = cas_bomber
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2425,17 +2298,17 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_flexible_navy
 		}
-		relative_position_id = MAN_manchukuo_imperial_air_force
-		x = 1
+		x = 35
 		y = 3
 		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
 			add_tech_bonus = {
-				name = air_plane_models
+				name = nav_bomber_bonus
 				bonus = 1
+				ahead_reduction = 1
 				uses = 1
-				category = medium_air
+				category = naval_bomber
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2443,7 +2316,7 @@ focus_tree = {
 	focus = {
 		id = MAN_naval_effort
 		icon = GFX_goal_MAN_coa_navy
-		x = 43
+		x = 38
 		y = 0
 		cost = 10
 		available_if_capitulated = yes
@@ -2494,7 +2367,6 @@ focus_tree = {
 							size > 2
 							include_locked = yes
 						}
-						is_core_of = ROOT
 					}
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
@@ -2527,7 +2399,6 @@ focus_tree = {
 							size > 2
 							include_locked = yes
 						}
-						is_core_of = ROOT
 					}
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
@@ -2563,7 +2434,6 @@ focus_tree = {
 							size > 2
 							include_locked = yes
 						}
-						is_core_of = ROOT
 					}
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
@@ -2585,8 +2455,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MAN_large_navy
 		}
-		relative_position_id = MAN_naval_effort
-		x = -1
+		x = 37
 		y = 1
 		cost = 10
 		available_if_capitulated = yes
@@ -2603,9 +2472,9 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			add_tech_bonus = {
+			add_doctrine_cost_reduction = {
 				name = sub_op_bonus
-				bonus = 1
+				cost_reduction = 0.5
 				uses = 2
 				category = submarine_doctrine
 			}
@@ -2621,8 +2490,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MAN_flexible_navy
 		}
-		relative_position_id = MAN_naval_effort
-		x = 1
+		x = 39
 		y = 1
 		cost = 10
 		available_if_capitulated = yes
@@ -2655,8 +2523,7 @@ focus_tree = {
 			focus = MAN_flexible_navy
 			focus = MAN_large_navy
 		}
-		relative_position_id = MAN_naval_effort
-		x = -1
+		x = 37
 		y = 2
 		cost = 10
 		available_if_capitulated = yes
@@ -2690,8 +2557,7 @@ focus_tree = {
 			focus = MAN_flexible_navy
 			focus = MAN_large_navy
 		}
-		relative_position_id = MAN_naval_effort
-		x = 1
+		x = 39
 		y = 2
 		cost = 10
 		available_if_capitulated = yes
@@ -2725,8 +2591,7 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_submarine_effort
 		}
-		relative_position_id = MAN_naval_effort
-		x = -1
+		x = 37
 		y = 3
 		cost = 10
 		available_if_capitulated = yes
@@ -2759,8 +2624,7 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_cruiser_effort
 		}
-		relative_position_id = MAN_naval_effort
-		x = 1
+		x = 39
 		y = 3
 		cost = 10
 		available_if_capitulated = yes
@@ -2799,8 +2663,7 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MAN_peking_agreement
 		}
-		relative_position_id = MAN_destroy_opium_plantations
-		x = -2
+		x = 25
 		y = 1
 		cost = 10
 		available = {
@@ -2810,83 +2673,13 @@ focus_tree = {
 		completion_reward = {
 			every_state = {
 				limit = {
-					OR = {
-						state = 283
-						state = 287
-						state = 322
-						state = 325
-						state = 326
-						state = 329
-						state = 330
-						state = 921
-						state = 922
-						state = 923
-						state = 408
-						state = 409
-						state = 434
-						state = 441
-						state = 524
-						state = 537
-						state = 560
-						state = 561
-						state = 586
-						state = 589
-						state = 591
-						state = 592
-						state = 593
-						state = 594
-						state = 595
-						state = 596
-						state = 597
-						state = 598
-						state = 599
-						state = 600
-						state = 601
-						state = 602
-						state = 603
-						state = 604
-						state = 605
-						state = 606
-						state = 607
-						state = 608
-						state = 609
-						state = 611
-						state = 612
-						state = 613
-						state = 614
-						state = 615
-						state = 616
-						state = 617
-						state = 618
-						state = 619
-						state = 620
-						state = 621
-						state = 622
-						state = 655
-						state = 657
-						state = 729
-						state = 728
-						state = 732
-						state = 743
-						state = 744
-						state = 746
-						state = 747
-						state = 748
-						state = 749
-						state = 750
-						state = 751
-						state = 752
-						state = 753
-						state = 754
-						state = 755
-						state = 756
-						state = 757
-						state = 758
-						state = 759
-						state = 760
-					}
+					is_core_of = CHI	#easier to check
 				}
-				add_core_of = MAN
+				add_claim_by = MAN
+				add_resistance_target = {		#to balance things out just a bit
+					amount = -10
+					tooltip = MAN_restore_the_empire
+				}
 			}
 			add_stability = 0.1
 		}
@@ -2901,13 +2694,11 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = MAN_restore_the_empire
 		}
-		relative_position_id = MAN_destroy_opium_plantations
-		x = 2
+		x = 27
 		y = 1
-		cost = 5
+		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
-			add_political_power = 50
 			every_state = {
 				limit = {
 					is_owned_by = ROOT
@@ -2953,9 +2744,8 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_restore_the_empire
 		}
-		relative_position_id = MAN_restore_the_empire
-		x = -2
-		y = 1
+		x = 23
+		y = 2
 		cost = 10
 
 		available = {
@@ -3043,19 +2833,16 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_reclaim_the_central_plain
 		}
-		relative_position_id = MAN_restore_the_empire
-		x = -1
-		y = 2
+		x = 22
+		y = 3
 		cost = 10
+
 		available = {
 			has_government = neutrality
 			custom_trigger_tooltip = {
 				tooltip = MAN_vassal_tt
 				own_china_proper = yes
 			}
-		}
-
-		available = {
 			any_state = {
 				custom_trigger_tooltip = {
 					tooltip = state_in_soviet_far_east_mongolia_sinkiang_tibet_tt
@@ -3132,9 +2919,8 @@ focus_tree = {
 				own_china_proper = yes
 			}
 		}
-		relative_position_id = MAN_restore_the_empire
-		x = -2
-		y = 3
+		x = 23
+		y = 4
 		cost = 10
 		completion_reward = {
 			every_country = {
@@ -3181,11 +2967,10 @@ focus_tree = {
 		id = MAN_revive_zongli_yamen
 		icon = GFX_goal_research_silver
 		prerequisite = {
-			focus = MAN_restore_the_empire
+			focus = MAN_revive_the_grand_council
 		}
-		relative_position_id = MAN_restore_the_empire
-		x = 2
-		y = 1
+		x = 25
+		y = 4
 		cost = 10
 		available = {
 			has_government = neutrality
@@ -3207,9 +2992,8 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_restore_the_empire
 		}
-		relative_position_id = MAN_restore_the_empire
-		x = 0
-		y = 1
+		x = 25
+		y = 2
 		cost = 10
 		available = {
 			has_government = neutrality
@@ -3228,9 +3012,8 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_revive_the_grand_council
 		}
-		relative_position_id = MAN_restore_the_empire
-		x = 1
-		y = 2
+		x = 24
+		y = 3
 		cost = 30
 		cancel_if_invalid = no
 		available = {
@@ -3262,9 +3045,8 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_revive_zongli_yamen
 		}
-		relative_position_id = MAN_restore_the_empire
-		x = 0
-		y = 3
+		x = 24
+		y = 5
 		cost = 10
 		available = {
 			r56_script_i_am_sane = yes
@@ -3285,15 +3067,14 @@ focus_tree = {
 	}
 	focus = {
 		id = MAN_industrial_effort
-		icon = GFX_goal_MAN_civilian_factory
+		icon = GFX_focus_generic_industry_1
 		prerequisite = {
 			focus = MAN_peking_agreement
 			focus = MAN_infrastructure_effort
 		}
-		relative_position_id = MAN_destroy_opium_plantations
-		x = 2
+		x = 27
 		y = 2
-		cost = 5
+		cost = 10
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -3302,7 +3083,6 @@ focus_tree = {
 						size > 0
 						include_locked = yes
 					}
-					is_core_of = ROOT
 				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -3323,7 +3103,7 @@ focus_tree = {
 			hidden_effect = {
 				if = {
 					limit = {
-						has_country_flag = MAN_civilian
+						has_idea = MAN_yoshisuke_aikawa
 					}
 					random_owned_controlled_state = {
 						limit = {
@@ -3332,7 +3112,6 @@ focus_tree = {
 								size > 0
 								include_locked = yes
 							}
-							is_core_of = ROOT
 						}
 						add_extra_state_shared_building_slots = 1
 						add_building_construction = {
@@ -3354,8 +3133,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = MAN_industrial_effort
-		x = -1
-		y = 1
+
 		cost = 10
 
 		ai_will_do = {
@@ -3375,12 +3153,11 @@ focus_tree = {
 	}	
 	focus = {
 		id = MAN_armament_effort
-		icon = GFX_goal_MAN_military_factory_tank
+		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = {
 			focus = MAN_national_defence_forces
 		}
-		relative_position_id = MAN_destroy_opium_plantations
-		x = 4
+		x = 29
 		y = 4
 		cost = 10
 		completion_reward = {
@@ -3391,7 +3168,6 @@ focus_tree = {
 						size > 1
 						include_locked = yes
 					}
-					is_core_of = ROOT
 				}
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -3415,27 +3191,11 @@ focus_tree = {
 					uses = 1
 					category = armor
 				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
-						is_core_of = ROOT
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
 			}
 			hidden_effect = {
 				if = {
 					limit = {
-						has_country_flag = MAN_military
+						has_idea = MAN_naoki_hoshino
 					}
 					add_tech_bonus = {
 						name = MAN_armament_effort
@@ -3443,23 +3203,6 @@ focus_tree = {
 						uses = 1
 						category = armor
 					}
-					random_owned_controlled_state = {
-						limit = {
-							free_building_slots = {
-								building = arms_factory
-								size > 1
-								include_locked = yes
-							}
-							is_core_of = ROOT
-						}
-						add_extra_state_shared_building_slots = 1
-						add_building_construction = {
-							type = arms_factory
-							level = 1
-							instant_build = yes
-						}
-					}
-					
 				}
 			}
 		}
@@ -3467,10 +3210,9 @@ focus_tree = {
 	}
 	focus = {
 		id = MAN_prospect_for_resources
-		icon = GFX_goal_MAN_resource_extract
-		relative_position_id = MAN_industrial_effort
-		x = 1
-		y = 1
+		icon = GFX_goal_excavation
+		x = 28
+		y = 3
 		cost = 10
 		prerequisite = {
 			focus = MAN_industrial_effort
@@ -3484,7 +3226,7 @@ focus_tree = {
 			if = {
 				limit = {
 					NOT = {
-						has_country_flag = MAN_civilian
+						has_idea = MAN_yoshisuke_aikawa
 					}
 				}
 				if = {
@@ -4267,44 +4009,75 @@ focus_tree = {
 	}
 	focus = {
 		id = MAN_national_defence_forces
-		icon = GFX_goal_MAN_military_factory
+		icon = GFX_goal_generic_build_tank
 		prerequisite = {
 			focus = MAN_peking_agreement
 			focus = MAN_infrastructure_effort
 		}
-		relative_position_id = MAN_destroy_opium_plantations
-		x = 4
+		x = 29
 		y = 2
 		cost = 10
 		completion_reward = {
-			add_ideas = MAN_national_defence_forces_idea
-			custom_effect_tooltip = MAN_if_naoki
-			effect_tooltip = {
-				add_ideas = MAN_national_defence_forces_idea_plus
-			}
-				if = {
-					limit = {
-						has_country_flag = MAN_military
+			if = {
+				limit = {
+					NOT = {
+						has_idea = MAN_naoki_hoshino
 					}
+				}
+				add_ideas = MAN_national_defence_forces_idea
+				custom_effect_tooltip = MAN_if_naoki
+				effect_tooltip = {
 					swap_ideas = {
 						remove_idea = MAN_national_defence_forces_idea
 						add_idea = MAN_national_defence_forces_idea_plus
 					}
 				}
-			
+				else = {
+					add_ideas = MAN_national_defence_forces_idea_plus
+				}
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 	}
-
+	focus = {
+		id = r56_MAN_winter_training
+		icon = GFX_goal_generic_cold_war
+		cost = 10
+		prerequisite = {
+			focus = MAN_national_defence_forces
+		}
+		relative_position_id = MAN_national_defence_forces
+		x = 1
+		y = 1
+		text = MAN_winter_training
+		available_if_capitulated = yes
+			
+		completion_reward = {
+			#add_ideas = NOR_winter_training	
+			add_tech_bonus = {
+				name = special_forces_bonus
+				bonus = 1.0
+				uses = 1
+				category = r56_special_forces_training_tech 
+			}			
+			add_tech_bonus = {
+				name = special_forces_bonus
+				bonus = 1
+				uses = 2
+				category = winter_clothing_tech
+			}				
+		}	
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+	}	
 	focus = {
 		id = MAN_industrial_effort_2
-		icon = GFX_goal_MAN_civilian_factory2
+		icon = GFX_focus_generic_industry_2
 		prerequisite = {
 			focus = MAN_industrial_effort
 		}
-		relative_position_id = MAN_industrial_effort
-		x = 0
-		y = 2
+		x = 27
+		y = 4
 		cost = 10
 		completion_reward = {
 			random_owned_controlled_state = {
@@ -4314,7 +4087,6 @@ focus_tree = {
 						size > 1
 						include_locked = yes
 					}
-					is_core_of = ROOT
 				}
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -4327,7 +4099,7 @@ focus_tree = {
 			custom_effect_tooltip = MAN_if_aikawa_random_ic_in_state
 			if = {
 				limit = {
-					has_country_flag = MAN_civilian
+					has_idea = MAN_yoshisuke_aikawa
 				}
 				random_owned_controlled_state = {
 					limit = {
@@ -4336,7 +4108,6 @@ focus_tree = {
 							size > 0
 							include_locked = yes
 						}
-						is_core_of = ROOT
 					}
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
@@ -4351,13 +4122,12 @@ focus_tree = {
 	}
 	focus = {
 		id = MAN_armament_effort_2
-		icon = GFX_goal_MAN_military_factory_arty
+		icon = GFX_goal_generic_war_factory
 		prerequisite = {
 			focus = MAN_armament_effort
 		}
-		relative_position_id = MAN_national_defence_forces
-		x = 0
-		y = 3
+		x = 29
+		y = 5
 		cost = 10
 		completion_reward = {
 			random_owned_controlled_state = {
@@ -4367,7 +4137,6 @@ focus_tree = {
 						size > 0
 						include_locked = yes
 					}
-					is_core_of = ROOT
 				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -4383,7 +4152,6 @@ focus_tree = {
 						size > 1
 						include_locked = yes
 					}
-					is_core_of = ROOT
 				}
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -4396,20 +4164,19 @@ focus_tree = {
 			custom_effect_tooltip = MAN_if_naoki_random_af_in_state
 			if = {
 				limit = {
-					has_country_flag = MAN_military
+					has_idea = MAN_naoki_hoshino
 				}
 				random_owned_controlled_state = {
 					limit = {
 						free_building_slots = {
-							building = arms_factory
+							building = industrial_complex
 							size > 0
 							include_locked = yes
 						}
-						is_core_of = ROOT
 					}
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
-						type = arms_factory
+						type = industrial_complex
 						level = 1
 						instant_build = yes
 					}
@@ -4421,7 +4188,7 @@ focus_tree = {
 			hidden_effect = {
 				if = {
 					limit = {
-						has_country_flag = MAN_military
+						has_idea = MAN_naoki_hoshino
 					}
 					add_ideas = MAN_more_production_idea
 				}
@@ -4436,8 +4203,7 @@ focus_tree = {
 			focus = MAN_industrial_effort_3
 			focus = MAN_armament_effort_2
 		}
-		relative_position_id = MAN_destroy_opium_plantations
-		x = 3
+		x = 28
 		y = 6
 		cost = 10
 		available = {
@@ -4450,17 +4216,16 @@ focus_tree = {
 	}
 	focus = {
 		id = MAN_infrastructure_effort
-		icon = GFX_goal_MAN_infrastructure
+		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = {
 			focus = MAN_industrial_developement
 		}
 		available = {
 			is_subject_of = JAP
 		}
-		relative_position_id = MAN_destroy_opium_plantations
-		x = 4
+		x = 29
 		y = 1
-		cost = 5
+		cost = 10
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -4552,9 +4317,8 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_extra_research_slot
 		}
-		relative_position_id = MAN_extra_research_slot
-		x = 1
-		y = 1
+		x = 29
+		y = 7
 		cost = 10
 		available_if_capitulated = yes
 		completion_reward = {
@@ -4588,9 +4352,8 @@ focus_tree = {
 			amount_research_slots < 6
 						
 		}
-		relative_position_id = MAN_extra_research_slot
-		x = -1
-		y = 1
+		x = 27
+		y = 7
 		cost = 10
 		completion_reward = {
 			add_research_slot = 1
@@ -4599,19 +4362,16 @@ focus_tree = {
 	}
 	focus = {
 		id = MAN_acquire_kanto_shu
-		icon = GFX_goal_MAN_kanto_shu
+		icon = GFX_goal_CHI_retake_manchuria #GFX_goal_MAN_kanto_shu doesn't seem to work
 		prerequisite = {
 			focus = MAN_a_self_sufficient_army
 		}
 		available = {
 			is_puppet_of = JAP
 		}
-		bypass = {
-			owns_state = 745
-		}
 		x = 10
 		y = 5
-		cost = 2.5
+		cost = 10
 		completion_reward = {
 			JAP = {
 				country_event = {
@@ -4642,80 +4402,6 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
-
-	focus = {
-		id = MAN_national_defense_state_jap
-		icon = GFX_goal_JAP_defence
-		prerequisite = { focus = MAN_send_cadets_to_japan }
-        relative_position_id = MAN_acquire_kanto_shu
-		x = -2
-		y = 2
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available_if_capitulated = yes
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		completion_reward = {
-			add_ideas = extensive_conscription
-			add_ideas = japanese_war_economy
-		}
-	}
-
-	focus = {
-		id = MAN_national_defense_state_jap
-		icon = GFX_goal_JAP_defence
-		prerequisite = { focus = MAN_send_cadets_to_japan }
-        relative_position_id = MAN_acquire_kanto_shu
-		x = -2
-		y = 2
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available_if_capitulated = yes
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		completion_reward = {
-			add_ideas = extensive_conscription
-			add_ideas = japanese_war_economy
-		}
-	}
-
-	focus = {
-		id = MAN_national_cooperation_government1
-		icon = GFX_goal_generic_improve_relations
-		prerequisite = { focus = MAN_a_self_sufficient_army }
-		x = -2
-		y = 1
-		relative_position_id = MAN_a_self_sufficient_army
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			every_state = {
-				limit = { is_core_of = CHI }
-				add_core_of = ROOT
-			}
-			MAN_low_legitimacy_level_down = yes
-		}
-	}
-
-
-
-
 	focus = {
 		id = MAN_reform_command_structure
 		icon = GFX_goal_generic_army_doctrines
@@ -4760,10 +4446,9 @@ focus_tree = {
 		prerequisite = {
 			focus = MAN_soviet_intervention
 		}
-		relative_position_id = MAN_an_alternative
-		x = 1
+		x = 18
 		y = 6
-		cost = 5
+		cost = 10
 		available = {
 			has_government = communism
 			NOT = {
@@ -4779,16 +4464,36 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = MAN_resist
+		icon = GFX_goal_attack_communists
+		prerequisite = {
+			focus = MAN_secret_protocol
+		}
+		x = 21
+		y = 5
+		cost = 10
+		available = {
+			NOT = {
+				has_government = communism
+			}
+		}
+		completion_reward = {
+			add_ideas = KMT_resist_the_reds
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+	focus = {
 		id = MAN_industrial_developement
-		icon = GFX_goal_MAN_infrastructure_development
-		x = 35
+		icon = GFX_goal_generic_construct_civilian
+		x = 29
 		y = 0
-		cost = 5
+		cost = 10
 		available = {
 			has_completed_focus = MAN_enhance_local_policing
 		}
 		completion_reward = {
 			add_tech_bonus = {
+				name = MAN_industrial_developement
 				bonus = 1
 				uses = 1
 				category = industry
@@ -4796,6 +4501,7 @@ focus_tree = {
 			custom_effect_tooltip = MAN_if_aikawa
 			effect_tooltip = {
 				add_tech_bonus = {
+					name = MAN_industrial_developement
 					bonus = 1
 					uses = 1
 					category = construction_tech
@@ -4804,6 +4510,7 @@ focus_tree = {
 			custom_effect_tooltip = MAN_if_naoki
 			effect_tooltip = {
 				add_tech_bonus = {
+					name = MAN_industrial_developement
 					bonus = 1
 					uses = 1
 					category = synth_resources
@@ -4812,9 +4519,10 @@ focus_tree = {
 			hidden_effect = {
 				if = {
 					limit = {
-						has_country_flag = MAN_civilian
+						has_idea = MAN_yoshisuke_aikawa
 					}
 					add_tech_bonus = {
+						name = MAN_industrial_developement
 						bonus = 1
 						uses = 1
 						category = construction_tech
@@ -4822,9 +4530,10 @@ focus_tree = {
 				}
 				if = {
 					limit = {
-						has_country_flag = MAN_military
+						has_idea = MAN_naoki_hoshino
 					}
 					add_tech_bonus = {
+						name = MAN_industrial_developement
 						bonus = 1
 						uses = 1
 						category = synth_resources
@@ -4836,13 +4545,12 @@ focus_tree = {
 	}
 	focus = {
 		id = MAN_industrial_effort_3
-		icon = GFX_goal_MAN_city_planning
+		icon = GFX_focus_generic_industry_3
 		prerequisite = {
 			focus = MAN_industrial_effort_2
 		}
-		relative_position_id = MAN_industrial_effort
-		x = 0
-		y = 3
+		x = 27
+		y = 5
 		cost = 10
 		completion_reward = {
 			random_owned_controlled_state = {
@@ -4852,7 +4560,6 @@ focus_tree = {
 						size > 1
 						include_locked = yes
 					}
-					is_core_of = ROOT
 				}
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -4868,7 +4575,6 @@ focus_tree = {
 						size > 0
 						include_locked = yes
 					}
-					is_core_of = ROOT
 				}
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -4881,7 +4587,7 @@ focus_tree = {
 			custom_effect_tooltip = MAN_if_aikawa_random_ic_infra_in_state
 			if = {
 				limit = {
-					has_country_flag = MAN_civilian
+					has_idea = MAN_yoshisuke_aikawa
 				}
 				random_owned_controlled_state = {
 					limit = {
@@ -4890,7 +4596,6 @@ focus_tree = {
 							size > 0
 							include_locked = yes
 						}
-						is_core_of = ROOT
 					}
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
@@ -4900,7 +4605,7 @@ focus_tree = {
 					}
 					add_building_construction = {
 						type = infrastructure
-						level = 3
+						level = 10
 						instant_build = yes
 					}
 				}
@@ -4908,710 +4613,18 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}
-
 	focus = {
-		id = MAN_exile_takeover
-		icon = GFX_goal_MAN_kwantung_takeover
+		id = MAN_secret_recuitment
+		icon = GFX_goal_generic_army_elite
 		prerequisite = {
-			focus = MAN_five_race_under_one_union
+			focus = MAN_assassination_of_japanese_officials
 		}
-		mutually_exclusive = {
-			focus = MAN_an_alternative
-			focus = MAN_enhance_local_policing
-		}	
-		x = 1
-		y = 1
-		relative_position_id = MAN_five_race_under_one_union
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		available = {
-			OR = {
-				JAP = { has_completed_focus = JAP_cast_the_die has_completed_focus = JAP_pre_emptive_coup }	
-				is_in_faction = no
-			}
-			
-		}
-
-
-		available_if_capitulated = no
-
-		completion_reward = {
-			add_political_power = 50
-			unlock_decision_category_tooltip = MAN_banditry_category
-				set_variable = {
-					MAN_maintain_control_timer = 180
-				}
-				custom_effect_tooltip = MAN_pacify_the_countryside_effect_tooltip
-			add_opinion_modifier = {
-				target = SOV
-				modifier = hostile_status
-			}
-			add_opinion_modifier = {
-				target = CHI
-				modifier = hostile_status
-			}
-			add_opinion_modifier = {
-				target = JAP
-				modifier = hostile_status
-			}
-			remove_ideas = MAN_dongbei_partisan
-			country_event = japan.21
-			hidden_effect = {
-				every_state = {
-					limit = {
-						is_core_of = JAP
-					}
-					add_claim_by = MAN
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = MAN_reorganize_the_nation
-		icon = GFX_focus_jap_spiritual_mobilization
-		prerequisite = { focus = MAN_exile_takeover }
-		x = -1
-		y = 1
-		relative_position_id = MAN_exile_takeover
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 50
-		}
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_corps_commander_role = {
-				character = MAN_yasuji_okamura
-				traits={ infantry_expert brilliant_strategist fortress_buster }
-				skill = 3
-				attack_skill = 4
-				defense_skill = 1
-				planning_skill = 2
-				logistics_skill = 2
-			}
-			add_corps_commander_role = {
-				character = MAN_hatazo_adachi
-				traits={ trait_reckless infantry_officer JAP_samurai_lineage trickster }
-				skill = 1
-				attack_skill = 2
-				defense_skill = 2
-				planning_skill = 3
-				logistics_skill = 3
-			}
-			add_corps_commander_role = {
-				character = MAN_itagaki_seishiro
-				traits={ inflexible_strategist trait_reckless JAP_samurai_lineage }
-				skill = 4
-				attack_skill = 3
-				defense_skill = 3
-				planning_skill = 3
-				logistics_skill = 3
-			}
-			add_field_marshal_role = {
-				character = MAN_shunroku_hata
-				skill = 4
-				traits = {JAP_samurai_lineage offensive_doctrine}
-				attack_skill = 3
-				defense_skill = 4
-				planning_skill = 2
-				logistics_skill = 4
-			}
-			add_stability = -0.2
-			remove_ideas = MAN_reliant_idea
-			add_ideas = state_shintoism
-			add_ideas = limited_exports
-			add_timed_idea = {
-				idea = MAN_new_regime
-				days = 365
-			}
-			if = { limit = { OR = { has_idea = disarmed_nation has_idea = volunteer_only } }
-				add_ideas = extensive_conscription
-			}
-			if = { limit = { OR = { has_idea = civilian_economy has_idea = low_economic_mobilisation } }
-				add_ideas = partial_economic_mobilisation
-			}
-			if = { limit = { owns_state = 609 }
-				add_state_core = 609
-			}
-			if = { limit = { owns_state = 524 }
-				add_state_core = 524
-			}
-			if = { 
-					limit = { 
-						MEN = { 
-						exists = yes 
-						NOT = { 
-						is_subject_of = MAN 
-				} 
-								} 
-							}
-				add_state_core = 611
-				add_state_core = 612
-				create_wargoal = {
-					type = annex_everything
-					target = MEN
-				}
-			}
-			if = { 
-				limit = { 
-					KOR = { 
-					exists = yes 
-					NOT = { 
-					is_subject_of = MAN 
-			} 
-							} 
-						}
-
-			create_wargoal = {
-				type = annex_everything
-				target = KOR
-			}
-		}
-		}
-	}
-
-	focus = {
-		id = MAN_dockyard_conversion
-		icon = GFX_goal_MAN_kwantung_dock_focus
-		prerequisite = { focus = MAN_exile_takeover}
-		x = 1
-		y = 1
-		relative_position_id = MAN_exile_takeover
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 19
-		}
-
-		available = {
-			any_state = {
-				is_coastal = yes
-				is_core_of = ROOT
-				is_controlled_by = ROOT
-			}
-		}
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_political_power = 25
-			745 = {
-			add_building_construction = {
-				type = naval_base
-				province = 1150
-				level = 4
-				instant_build = yes
-			}
-			}
-			random_state = {
-				limit = {
-					is_owned_by = MAN
-					is_core_of = MAN
-					is_coastal = yes
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_state = {
-				limit = {
-					is_owned_by = MAN
-					is_core_of = MAN
-					is_coastal = yes
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = dockyard
-					level = 1
-					instant_build = yes
-				}
-			}
-			if = { limit = { NOT = { has_tech = transport } }
-				set_technology = { transport = 1 }
-			}
-		}
-	}
-
-	
-
-	focus = {
-		id = MAN_prepare_for_the_strike
-		icon = GFX_goal_MAN_kwantung_factory
-		prerequisite = { focus = MAN_a_bleak_outlook }
-		x = -1
-		y = 3
-		relative_position_id = MAN_exile_takeover
-
-		cost = 10
-
-		ai_will_do = {
-
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_ideas = FRA_alliance_with_industrialists
-			add_offsite_building = { type = arms_factory level = 5 }
-		}
-	}
-
-
-	focus = {
-		id = r56_MAN_winter_training
-		icon = GFX_goal_generic_cold_war
-		cost = 10
-		prerequisite = {
-			focus = MAN_national_defence_forces
-		}
-		relative_position_id = MAN_national_defence_forces
-		x = 1
-		y = 1
-		text = MAN_winter_training
-		available_if_capitulated = yes
-			
-		completion_reward = {
-			add_ideas = MAN_winter_training
-			add_tech_bonus = {
-				name = special_forces_bonus
-				bonus = 1.0
-				uses = 1
-				category = r56_special_forces_training_tech 
-			}			
-			add_tech_bonus = {
-				name = special_forces_bonus
-				bonus = 1
-				uses = 2
-				category = winter_clothing_tech
-			}				
-		}	
-		search_filters = { FOCUS_FILTER_RESEARCH }
-		
-	}	
-
-	focus = {
-		id = MAN_a_bleak_outlook
-		icon = GFX_goal_MAN_kwantung_burden_focus
-		prerequisite = { focus = MAN_dockyard_conversion}
-		prerequisite = { focus = MAN_reorganize_the_nation}
-		x = 0
-		y = 2
-		relative_position_id = MAN_exile_takeover
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_equipment_to_stockpile = {
-				type = small_plane_airframe_0
-				amount = 100
-				producer = JAP
-			}
-			add_equipment_to_stockpile = {
-				type = small_plane_cas_airframe_1
-				amount = 50
-				producer = JAP
-			}
-			add_equipment_to_stockpile = {
-			    type = infantry_equipment_0
-			    amount = 3000
-			    producer = JAP
-			}
-			add_equipment_to_stockpile = {
-			    type = artillery_equipment_1
-			    amount = 100
-			    producer = JAP
-			}
-			add_equipment_to_stockpile = {
-			    type = support_equipment
-			    amount = 100
-			    producer = JAP
-			}
-			if = { 
-				limit = { 
-				has_government = fascism 
-			}
-				add_ideas = JAP_militarism
-			}
-			else = {
-				add_ideas = JAP_militarism_showa
-			}
-			random_state = {
-				limit = {
-					is_owned_by = MAN
-					is_core_of = MAN
-					is_coastal = yes
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_state = {
-				limit = {
-					is_owned_by = MAN
-					is_core_of = MAN
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			random_state = {
-				limit = {
-					is_owned_by = MAN
-					is_core_of = MAN
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
-			unlock_decision_category_tooltip = MAN_the_greatest_struggle
-		}
-	}
-
-	focus = {
-		id = MAN_guard_the_skies
-		icon = GFX_goal_generic_air_fighter2
-		prerequisite = { focus = MAN_a_bleak_outlook}
-		x = 1
-		y = 1
-		relative_position_id = MAN_a_bleak_outlook
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			
-			if = { limit = { owns_state = 609 }
-				609 = { add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-			   	    }
-		  	  	}
-			}
-			if = { limit = { owns_state = 716 }
-				716 = { add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-			   	    }
-		  	  	}
-			}
-			if = { limit = { owns_state = 745 }
-				745 = { add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-			   	    }
-		  	  	}
-			}
-		}
-	}
-
-	focus = {
-		id = MAN_supply_our_air_force
-		icon = GFX_goal_generic_oil_refinery
-		prerequisite = { focus = MAN_prepare_for_the_strike focus = MAN_guard_the_skies}
-		x = 1
+		x = 16
 		y = 4
-		relative_position_id = MAN_exile_takeover
-
 		cost = 10
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		available_if_capitulated = yes
-
 		completion_reward = {
-			if = { limit = { has_tech = fuel_silos }
-			add_tech_bonus = {
-				bonus = 2.0
-				uses = 1
-				category = synth_resources
-				}
-			}
-			else = {
-				set_technology = { fuel_silos = 1 }
-			}
-
-			if = { limit = { has_tech = synth_oil_experiments }
-			add_tech_bonus = {
-				bonus = 2.0
-				uses = 1
-				category = synth_resources
-				}
-			}
-			else = {
-				set_technology = { synth_oil_experiments = 1 }
-			}
-
-			random_state = {
-				limit = {
-					is_owned_by = MAN
-					is_core_of = MAN
-				}
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = synthetic_refinery
-					level = 3
-					instant_build = yes
-				}
-			}
+			add_ideas = MAN_secret_recruitment_idea
 		}
+		search_filters = { FOCUS_FILTER_MANPOWER }
 	}
-	focus = {
-		id = MAN_embracing_the_kodoha
-		icon = GFX_focus_generic_japanese_imperial_glory
-		prerequisite = { focus = MAN_prepare_for_the_strike focus = MAN_guard_the_skies}
-		x = 0
-		y = 1
-		relative_position_id = MAN_prepare_for_the_strike
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_war_support = 0.10
-			add_ideas = JAP_superior_will
-		}
-	}
-
-	focus = {
-		id = MAN_kwantung_military_advisors
-		icon = GFX_goal_CHI_support_pro_japanese_faction
-		prerequisite = { focus = MAN_embracing_the_kodoha focus = MAN_supply_our_air_force }
-		x = -1
-		y = 1
-		relative_position_id = MAN_embracing_the_kodoha
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_ideas = MAN_kwantung_advisors
-			every_army_leader = {
-				add_planning = 1
-				add_attack = 1
-			}
-			add_tech_bonus = {
-				name = Manchurian_doctrine
-				bonus = 1.0
-				uses = 3
-				category = land_doctrine
-			}
-		}
-	}
-
-	focus = {
-		id = MAN_begin_the_nanshin_ron
-		icon = GFX_goal_MAN_china_or_soviet
-		prerequisite = { focus = MAN_embracing_the_kodoha focus = MAN_supply_our_air_force }
-		x = 3
-		y = 1
-		relative_position_id = MAN_embracing_the_kodoha
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		available_if_capitulated = yes
-		will_lead_to_war_with = CHI
-		will_lead_to_war_with = SOV
-
-		completion_reward = {
-			country_event = {
-				id = nippon_events.222
-			}
-		}
-	}
-
-	focus = {
-		id = MAN_consolidate_the_chinese_holdings
-		icon = GFX_goal_MAN_the_empire_returns
-		prerequisite = { focus = MAN_supply_our_air_force }
-		prerequisite = { focus = MAN_embracing_the_kodoha}
-		x = 1
-		y = 2
-		relative_position_id = MAN_prepare_for_the_strike
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 10
-		}
-
-		available = {
-			owns_state = 605
-			NOT = {
-				AND = {
-					country_exists = PRC
-					country_exists = CHI
-				}
-			}
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_ideas = JAP_imperial_ambitions_met
-			every_state = {
-				limit = {
-					is_core_of = CHI
-				}
-				add_core_of = MAN
-			}
-			if = { limit = { has_idea = MAN_exiled_imperial_family }
-				create_country_leader = {
-					name = "Hirohito"
-					desc = "POLITICS_Hirohito_DESC"
-					picture = "gfx/leaders/JAP/Portrait_Japan_Hirohito.dds"
-					expire = "1989.1.1"
-					ideology = rexism
-					traits = {
-						warrior_code
-						emperor_showa
-					}
-				}
-				create_country_leader = {
-					name = "Hirohito"
-					desc = "POLITICS_Hirohito_DESC"
-					picture = "gfx/leaders/JAP/Portrait_Japan_Hirohito.dds"
-					expire = "1989.1.1"
-					ideology = despotism
-					traits = {
-						warrior_code
-						emperor_showa
-					}
-				}
-			}
-			hidden_effect = {
-				every_state = {
-					limit = {
-						is_core_of = JAP
-						is_claimed_by = MAN
-					}
-					remove_claim_by = MAN
-				}
-			}
-		}
-	}
-	focus = {
-		id = MAN_retake_japan
-		icon = GFX_focus_AST_war_japan
-		prerequisite = { focus = MAN_consolidate_the_chinese_holdings }
-		prerequisite = { focus = MAN_begin_the_nanshin_ron }
-		prerequisite = { focus = MAN_kwantung_military_advisors }
-		x = 1
-		y = 2
-		relative_position_id = MAN_embracing_the_kodoha
-
-		cost = 5
-
-		ai_will_do = {
-			factor = 10
-		}
-		will_lead_to_war_with = JAP
-		available_if_capitulated = yes
-
-		completion_reward = {
-			JAP = {
-			country_event = {
-				id = japan.22
-			}
-		}
-		}
-	}
-	focus = {
-		id = MAN_get_japan_tree
-		icon = GFX_goal_manpower
-		prerequisite = { focus = MAN_retake_japan}
-		x = 1
-		y = 3
-		relative_position_id = MAN_embracing_the_kodoha
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 10
-		}
-		allow_branch = {
-			has_completed_focus = MAN_consolidate_the_chinese_holdings
-		}
-		available = {
-			NOT = {
-				country_exists = JAP
-			}
-		}
-		
-		completion_reward = {
-
-			load_focus_tree = japan_wtt_focus
-			if = {
-				limit = { 
-					has_completed_focus = MAN_prepare_for_the_strike 
-				}
-				custom_effect_tooltip = loadfocusjapfasc
-			hidden_effect = {
-				if = {
-					limit = { 
-						has_completed_focus = MAN_prepare_for_the_strike 
-					}
-					unlock_national_focus = JAP_purge_the_kodoha_faction
-					complete_national_focus = JAP_liaison_conference
-					complete_national_focus = JAP_greater_east_asian_co_prosperity_sphere
-					unlock_national_focus = JAP_sign_tripartite_pact
-					unlock_national_focus = JAP_army_expansion_law
-					unlock_national_focus = JAP_army_expansion
-					complete_national_focus = JAP_supremacy_of_will
-				}
-			}
-		}
-	}
-}
 }

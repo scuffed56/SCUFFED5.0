@@ -16,48 +16,20 @@ characters={
 			id=-1
 		}
 	}
-	#LUX_gustave_lebeau={
-	#	name="Gustave Lebeau"
-	#	portraits={
-	#		civilian={
-	#			large="gfx/leaders/Europe/portrait_europe_generic_4.dds"
-	#		}
-	#	}
-	#	country_leader={
-	#		ideology=stalinism
-	#		traits={ reluctant_interventionist }
-	#		expire="1951.1.1.12"
-	#		id=-1
-	#	}
-	#}
-	#LUX_frédéric_nagelmackers={
-	#	name="Frédéric Nagelmackers"
-	#	portraits={
-	#		civilian={
-	#			large="gfx/leaders/Europe/Portrait_Europe_Generic_3.dds"
-	#		}
-	#	}
-	#	country_leader={
-	#		ideology=fascism_ideology
-	#		traits={ editor }
-	#		expire="1954.1.1.12"
-	#		id=-1
-	#	}
-	#}
-	#LUX_jean_pirson={
-	#	name="Jean Pirson"
-	#	portraits={
-	#		civilian={
-	#			large="gfx/leaders/Europe/Portrait_europe_generic_7.dds"
-	#		}
-	#	}
-	#	country_leader={
-	#		ideology=oligarchism
-	#		traits={ quartermaster_general }
-	#		expire="1942.1.1.12"
-	#		id=-1
-	#	}
-	#}
+	LUX_duchess_charlotte={
+		name="Duchess Charlotte"
+		portraits={
+			civilian={
+				large="gfx/leaders/LUX/r56_portrait_LUX_Duchess_Charlotte.dds"
+			}
+		}
+		country_leader={
+			ideology=absolute_monarchism
+			traits = { lawyer }
+			expire="1965.1.1"
+			id=-1
+		}
+	}
 	LUX_zenon_bernard={
 		name=LUX_zenon_bernard
 		portraits={
@@ -267,7 +239,10 @@ characters={
 			}
 			available = {
 				NOT = {
-					has_country_leader = { ruling_only = yes name = "Charles Marx"}
+					has_country_leader = { 
+						character = LUX_charles_marx
+						ruling_only = yes
+					}
 					has_government = fascism
 				}
 			}			
@@ -303,7 +278,10 @@ characters={
 			}
 			available = {
 				NOT = {
-					has_country_leader = { ruling_only = yes name = "Pierre Dupong"}
+					has_country_leader = { 
+						character = LUX_pierre_dupong
+						ruling_only = yes
+					}
 				}
 				OR = {
 					has_government = democratic
@@ -343,7 +321,6 @@ characters={
 					factor = 1.000
 				}
 		}
-# TODO[ PORTRAIT LARGE ]: Missing large portrait please check!
 		name="Damien Roeser"
 		portraits={
 			army={
@@ -356,8 +333,6 @@ characters={
 
 	LUX_emile_speller={
 		advisor={
-			
-			
 			slot = army_chief
 			idea_token = LUX_emile_speller
 			allowed = {
@@ -375,12 +350,12 @@ characters={
 		portraits={
 			army={
 				small="GFX_idea_LUX_emile_speller"
-				large="gfx/leaders/SWI/Portrait_SWI_Generic_land_3.dds"
+				large="gfx/leaders/SWI/Portrait_SWI_Generic_land_2.dds"
 				#"gfx/leaders/LUX/r56_portrait_LUX_Emile_Speller.dds"
 			}
 		}
 		field_marshal = {
-			traits = { trait_cautious infantry_officer }
+			traits = { trait_cautious caring_leader career_officer }
 			skill = 2
 			attack_skill = 1
 			defense_skill = 2
@@ -675,4 +650,33 @@ characters={
 			}
 		}
 	}
+	LUX_navy_chief={ #there might be a commander of the fluvial police to find, good luck finding his name though.
+		name="Admiral in Chief"
+			portraits={
+			army={
+				small="GFX_idea_generic_navy_europe_1"
+			}
+		}
+		advisor={
+			slot = navy_chief
+			idea_token = LUX_navy_chief
+			allowed = {
+				original_tag = LUX
+			}
+			traits = {
+				navy_chief_maneuver_2
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+				modifier = {
+					factor = 0
+					date < 1941.01.01
+					NOT = {
+						has_cosmetic_tag = UNL_UNIFIED
+					}
+				}			
+			}
+		}
+	}	
 }

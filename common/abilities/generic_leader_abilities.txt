@@ -127,7 +127,7 @@ ability = {
 		
 		unit_modifiers = {
 			planning_speed = 4.0
-			#land_reinforce_rate = 0.1
+			land_reinforce_rate = 1
 		}
 		
 		
@@ -199,8 +199,7 @@ ability = {
 		}
 		
 		unit_modifiers = {
-		#	paratrooper_count_per_plane = 1.0
-		 	paratrooper_weight_factor = -0.10
+			paratrooper_weight_factor = -0.10
 			paradrop_organization_factor = 2.0
 			paratrooper_aa_defense = 0.5
 		}
@@ -208,6 +207,7 @@ ability = {
 		cost = 0.1
 		duration = 168
 	}
+	
 	faster_naval_invasion_planning = {
 		name = ABILITY_FASTER_NAVAL_PLANNING
 		desc = ABILITY_FASTER_NAVAL_PLANNING_DESC
@@ -234,7 +234,16 @@ ability = {
 		type = army_leader
 		
 		allowed = {
-			has_ability = probing_attack
+			OR = {
+				AND = {
+					defense_skill_level > 7
+					has_trait = inflexible_strategist
+				}
+				
+				has_ability = probing_attack
+			}
+			
+
 			is_border_war = no
 		}
 		
@@ -261,9 +270,9 @@ ability = {
 		
 		
 		unit_modifiers = {
-			river_crossing_factor = -0.4
+			river_crossing_factor = -0.5
 			river = {
-				attack = 0.2
+				attack = 0.4
 			}
 		}
 		
@@ -289,8 +298,22 @@ ability = {
 		
 		type = army_leader
 		
-		allowed = {				
-			has_ability = extra_suplies
+		allowed = {
+			OR = {
+				OR = {
+					AND = {
+						logistics_skill_level > 7
+						OR = {
+							has_trait = inflexible_strategist
+							has_trait = brilliant_strategist
+						}
+						
+					}
+				}
+							
+				has_ability = extra_suplies
+			}
+			
 			is_border_war = no
 		}
 		
@@ -314,7 +337,21 @@ ability = {
 		type = army_leader
 		
 		allowed = {
-			has_ability = requisition_winter_gear
+			OR = {
+				OR = {
+					AND = {
+						logistics_skill_level > 7
+						OR = {
+							has_trait = inflexible_strategist
+							has_trait = brilliant_strategist
+						}
+						
+					}
+				}
+							
+				has_ability = requisition_winter_gear
+			}			
+			
 			is_border_war = no
 		}
 		

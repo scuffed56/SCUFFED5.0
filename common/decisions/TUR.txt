@@ -1,55 +1,46 @@
 political_actions = {
-	TUR_recall_ataturk_to_active_service = {
-
-		icon = generic_army_support
-
-		allowed = {
-			original_tag = TUR
-		}
-		available = {
-			has_country_leader = { ruling_only = yes name = "Mustafa Kemal Atatürk" }
-			has_defensive_war = yes			
-		}
-		visible = {
-			has_country_leader = { ruling_only = yes name = "Mustafa Kemal Atatürk" }
-		}
-		cost = 0
-		fire_only_once = yes
-		ai_will_do = {
-			factor = 1
-		}
-		complete_effect = {
-			if = {
-				limit = {
-					has_dlc = "Battle for the Bosporus"
-				}
-				add_field_marshal_role = {
-					character = TUR_mustafa_kemal_ataturk
-					traits = { trait_TUR_kemalist_champion brilliant_strategist war_hero infantry_officer trickster desert_fox hill_fighter }
-					skill = 4
-					attack_skill = 4
-					defense_skill = 3
-					planning_skill = 4
-					logistics_skill = 2
-					legacy_id = 59
-				}
-			}
-			else = {
-				add_field_marshal_role = {
-					character = TUR_mustafa_kemal_ataturk
-					traits = { brilliant_strategist war_hero infantry_officer trickster desert_fox hill_fighter }
-					skill = 4
-					attack_skill = 4
-					defense_skill = 3
-					planning_skill = 4
-					logistics_skill = 2
-					legacy_id = 59
-				}
-			}
-			add_war_support = 0.1
-			add_stability = -0.05
-		}
-	}
+#	TUR_recall_ataturk_to_active_service = {
+#
+#		icon = generic_army_support
+#
+#		allowed = {
+#			original_tag = TUR
+#		}
+#		available = {
+#			has_country_leader = { 
+#				character = TUR_mustafa_kemal_ataturk
+#				ruling_only = yes
+#			}
+#			has_defensive_war = yes			
+#		}
+#		visible = {
+#			date < 1938.11.10
+#			has_country_leader = { 
+#				character = TUR_mustafa_kemal_ataturk
+#				ruling_only = yes
+#			}
+#		}
+#		cost = 0
+#		fire_only_once = yes
+#		ai_will_do = {
+#			factor = 1
+#		}
+#		complete_effect = {
+#			create_field_marshal = {
+#				name = "Mustafa Kemal Atatürk"
+#				picture = "Portrait_Turkey_Mustafa_Kemal_Ataturk_Military.dds"
+#				traits = { brilliant_strategist war_hero infantry_officer trickster desert_fox hill_fighter }
+#				skill = 4
+#				id = 59
+#				attack_skill = 4
+#				defense_skill = 3
+#				planning_skill = 4
+#				logistics_skill = 2
+#			}
+#			add_war_support = 0.1
+#			add_stability = -0.05
+#		}
+#	}
 	TUR_alter_the_royal_laws_of_succession = {
 
 		icon = eng_trade_unions_support
@@ -355,115 +346,6 @@ TUR_the_constitutional_arrows_category = {
 		}
 	}
 
-	TUR_etatism_decision = {
-	
-		icon = tur_the_constitutional_arrows
-
-		allowed = { 
-			original_tag = TUR
-		}
-		
-		fire_only_once = no
-		
-		visible = {
-			AND = {
-				has_completed_focus = TUR_continue_the_policy_of_etatism
-				has_completed_focus = TUR_ratify_the_six_arrows
-			}
-			NOT = { has_country_flag = TUR_etatism_abolished }
-		}
-		
-		available = {
-			OR = {
-				has_active_mission = TUR_etatism_crisis_1
-				has_active_mission = TUR_etatism_crisis_2
-				has_active_mission = TUR_etatism_crisis_3
-				has_active_mission = TUR_etatism_crisis_4
-			}
-		}
-
-		cancel_trigger = {
-			custom_trigger_tooltip = {
-				tooltip = TUR_no_longer_has_etatism_tt
-				OR = {
-					NOT = {
-						has_idea = TUR_etatism
-						has_idea = TUR_etatism_2
-						has_idea = TUR_etatism_3
-						has_idea = TUR_etatism_4
-					}
-				}
-			}
-		}
-
-		days_remove = 14
-
-		cost = 75
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
-		}
-
-		complete_effect = {
-			add_ideas = TUR_etatism_stabilisation
-		}
-
-		remove_effect = {
-			if = {
-				limit = {
-					has_active_mission = TUR_etatism_crisis_1
-				}
-				add_days_mission_timeout = {
-					mission = TUR_etatism_crisis_1
-					days = 120
-				}
-			}
-			else_if = {
-				limit = {
-					has_active_mission = TUR_etatism_crisis_2
-				}
-				add_days_mission_timeout = {
-					mission = TUR_etatism_crisis_2
-					days = 100
-				}
-			}
-			else_if = {
-				limit = {
-					has_active_mission = TUR_etatism_crisis_3
-				}
-				add_days_mission_timeout = {
-					mission = TUR_etatism_crisis_3
-					days = 80
-				}
-			}
-			else_if = {
-				limit = {
-					has_active_mission = TUR_etatism_crisis_4
-				}
-				add_days_mission_timeout = {
-					mission = TUR_etatism_crisis_4
-					days = 60
-				}
-			}
-			hidden_effect = {
-				remove_ideas = TUR_etatism_stabilisation
-			}
-		}
-
-		cancel_effect = {
-			if = {
-				limit = {
-					has_idea = TUR_etatism_stabilisation
-				}
-				remove_ideas = TUR_etatism_stabilisation
-			}
-		}
-	}
-
 	TUR_reformism_decision = {
 	
 		icon = tur_the_constitutional_arrows
@@ -617,7 +499,7 @@ TUR_the_constitutional_arrows_category = {
 		}
 
 		modifier = {
-			consumer_goods_factor = 0.03
+			consumer_goods_factor = 0.06
 			production_speed_buildings_factor = 0.15
 		}
 
@@ -829,7 +711,7 @@ TUR_the_constitutional_arrows_category = {
 
 		days_remove = 80
 
-		days_re_enable =  200	#was 200
+		days_re_enable =  210	#was 200
 
 		cost = 100
 
@@ -880,15 +762,17 @@ TUR_the_constitutional_arrows_category = {
 					}
 					has_completed_focus = TUR_kemalist_socialist_theory
 				}
-				has_country_flag = TUR_etatism_abolished
+				NOT = {
+					has_idea = TUR_etatism_economy_law_idea
+				}
 			}
 		}
 
-		days_remove = 70
+		days_remove = 90
 
 		days_re_enable =  210
 
-		cost = 50
+		cost = 75
 
 		ai_will_do = {
 			factor = 5
@@ -961,7 +845,7 @@ TUR_industrial_projects_category = {
 			} 
 		}
 
-		days_remove = 70
+		days_remove = 180
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1040,7 +924,7 @@ TUR_industrial_projects_category = {
 		}
 
 
-		days_remove = 70
+		days_remove = 180
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1119,7 +1003,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 70
+		days_remove = 180
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1199,7 +1083,7 @@ TUR_industrial_projects_category = {
 			has_tech = synth_oil_experiments
 		}
 
-		days_remove = 70
+		days_remove = 240
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1290,9 +1174,9 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 70
+		days_remove = 200
 
-		cost = 200
+		cost = 300
 
 		ai_will_do = {
 			factor = 5
@@ -1386,7 +1270,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 70
+		days_remove = 180
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1473,7 +1357,7 @@ TUR_industrial_projects_category = {
 			has_idea = TUR_nuri_demirag
 		}
 
-		days_remove = 70
+		days_remove = 240
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1502,7 +1386,15 @@ TUR_industrial_projects_category = {
 					instant_build = yes
 				}
 			}
-			add_equipment_to_stockpile = { type = fighter_equipment amount = 50 }
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				add_equipment_to_stockpile = { type = fighter_equipment_1 amount = 50 }
+			}
+			else = {
+				add_equipment_to_stockpile = { type = small_plane_cas_airframe_0 amount = 50 producer = "FRA" variant_name = "Br. 19"}
+			}
 			clr_country_flag = TUR_financing_private_enterprise_flag
 		}
 	}
@@ -1552,7 +1444,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 70
+		days_remove = 180
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1630,7 +1522,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		days_remove = 70
+		days_remove = 180
 
 		cost = TUR_etatism_cost_penalty_var?50
 
@@ -1695,10 +1587,9 @@ TUR_industrial_projects_category = {
 			has_tech = steel_production_1
 		}
 
-		days_remove = 90
+		days_remove = 280
 
 		cost = TUR_etatism_cost_penalty_var?50
-		#TUR_etatism_cost_penalty_var
 
 		ai_will_do = {
 			factor = 5
@@ -1717,11 +1608,11 @@ TUR_industrial_projects_category = {
 		}
 
 		remove_effect = {
-			add_resource = {
-				type = steel
-				amount = 4
-				state = 347
-			}
+			#add_resource = {
+			#	type = steel
+			#	amount = 4
+			#	state = 347
+			#}
 			347 = {
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -1757,7 +1648,7 @@ TUR_industrial_projects_category = {
 			}
 		}
 
-		cost = 50
+		cost = 75
 
 		ai_will_do = {
 			factor = 5
@@ -1862,81 +1753,6 @@ economy_decisions = {
 		}
 	}
 
-	TUR_abolish_etatism = {
-	
-		icon = generic_break_treaty
-
-		allowed = { 
-			original_tag = TUR
-		}
-		
-		fire_only_once = yes
-		
-		visible = {
-			OR = {
-				has_active_mission = TUR_etatism_crisis_1
-				has_active_mission = TUR_etatism_crisis_2
-				has_active_mission = TUR_etatism_crisis_3
-				has_active_mission = TUR_etatism_crisis_4
-				has_idea = TUR_etatism_3
-				has_idea = TUR_etatism_4
-			}
-		}
-		
-		available = {
-			has_completed_focus = TUR_continue_the_policy_of_etatism
-			has_completed_focus = TUR_ratify_the_six_arrows
-		}
-
-		cost = 100
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				AND = {
-					is_historical_focus_on = yes
-					date > 1946.1.1
-				}
-				factor = 5
-			}
-			modifier = {
-				is_historical_focus_on = no
-				factor = 3
-			}
-		}
-
-		complete_effect = {
-			if = {
-				limit = {
-					has_idea = TUR_etatism
-				}
-				remove_ideas = TUR_etatism
-			}
-			else_if = {
-				limit = {
-					has_idea = TUR_etatism_2
-				}
-				remove_ideas = TUR_etatism_2
-			}
-			else_if = {
-				limit = {
-					has_idea = TUR_etatism_3
-				}
-				remove_ideas = TUR_etatism_3
-			}
-			else_if = {
-				limit = {
-					has_idea = TUR_etatism_4
-				}
-				remove_ideas = TUR_etatism_4
-			}
-			hidden_effect = {
-				set_country_flag = TUR_etatism_abolished
-				clear_variable = TUR_etatism_cost_penalty_var
-			}
-		}
-	}
-
 	TUR_absorb_the_tpda = {
 	
 		icon = eng_trade_unions_support
@@ -1955,7 +1771,7 @@ economy_decisions = {
 			has_idea = TUR_tpda
 		}
 
-		cost = 100
+		cost = 120
 
 		ai_will_do = {
 			factor = 5
@@ -1990,9 +1806,9 @@ economy_decisions = {
 			has_idea = TUR_tpda_absorbed
 		}
 
-		days_remove = 90
+		days_remove = 180
 
-		cost = 100
+		cost = 120
 
 		ai_will_do = {
 			factor = 5
@@ -2627,6 +2443,10 @@ TUR_kurdish_state_management_category = {
 			original_tag = TUR
 		}
 
+		visible = {
+			has_global_flag = tur_bftb_focus_tree
+		}
+
 		available = {
 			AND = {
 				350 = { is_core_of = TUR }
@@ -2757,6 +2577,7 @@ TUR_kurdish_state_management_category = {
 				has_full_control_of_state = 350
 			}
 			NOT = {
+				has_focus_tree = turkish_focus_r56
 				AND = { 
 					OR = {
 						has_completed_focus = TUR_permit_regional_elections
@@ -2932,6 +2753,7 @@ TUR_kurdish_state_management_category = {
 				has_full_control_of_state = 353
 			}
 			NOT = {
+				has_focus_tree = turkish_focus_r56
 				AND = { 
 					OR = {
 						has_completed_focus = TUR_permit_regional_elections
@@ -3105,6 +2927,7 @@ TUR_kurdish_state_management_category = {
 				has_full_control_of_state = 800
 			}
 			NOT = {
+				has_focus_tree = turkish_focus_r56
 				AND = { 
 					OR = {
 						has_completed_focus = TUR_permit_regional_elections
@@ -3300,6 +3123,7 @@ TUR_kurdish_state_management_category = {
 				has_full_control_of_state = 352
 			}
 			NOT = {
+				has_focus_tree = turkish_focus_r56
 				AND = { 
 					OR = {
 						has_completed_focus = TUR_permit_regional_elections
@@ -3505,7 +3329,7 @@ TUR_kurdish_state_management_category = {
 			}
 			effect_tooltip = { 
 				event_target:TUR_kurdish_state_event_target = {
-					add_ideas = conscription_exemptions_granted
+					add_dynamic_modifier = { modifier = conscription_exemptions_granted }
 					TUR_integrate_kurdish_state_forced_effect = yes
 				}
 			}
@@ -4533,6 +4357,7 @@ TUR_the_enemy_within = {
 }
 
 TUR_reforming_our_armed_forces_category = {
+
 	TUR_modernize_our_tactics = {
 	
 		icon = generic_military
@@ -4544,23 +4369,7 @@ TUR_reforming_our_armed_forces_category = {
 		fire_only_once = yes
 		
 		visible = {
-			OR = {
-				has_idea = TUR_disorganised_armed_forces
-				has_idea = TUR_disorganised_armed_forces_2
-				has_idea = TUR_disorganised_armed_forces_4
-				has_idea = TUR_disorganised_armed_forces_6
-				has_idea = TUR_disorganised_armed_forces_9
-				has_idea = TUR_disorganised_armed_forces_11
-				has_idea = TUR_disorganised_armed_forces_13
-				has_idea = TUR_disorganised_armed_forces_14
-				has_idea = TUR_disorganised_armed_forces_16
-				has_idea = TUR_disorganised_armed_forces_18
-				has_idea = TUR_disorganised_armed_forces_20
-				has_idea = TUR_disorganised_armed_forces_21
-				has_idea = TUR_disorganised_armed_forces_22
-				has_idea = TUR_disorganised_armed_forces_23
-				has_idea = TUR_disorganised_armed_forces_29
-			}
+			has_dynamic_modifier = { modifier = TUR_disorganized_armed_forces_dynamic_modifier }
 			OR = {
 				has_completed_focus = TUR_learning_from_the_great_war
 				has_completed_focus = TUR_hava_okulu
@@ -4579,146 +4388,11 @@ TUR_reforming_our_armed_forces_category = {
 		}
 
 		complete_effect = {
-			if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces
-					add_idea = TUR_disorganised_armed_forces_1
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_2
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_2
-					add_idea = TUR_disorganised_armed_forces_3
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_4
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_4
-					add_idea = TUR_disorganised_armed_forces_5
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_6
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_6
-					add_idea = TUR_disorganised_armed_forces_7
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_9
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_9
-					add_idea = TUR_disorganised_armed_forces_10
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_11
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_11
-					add_idea = TUR_disorganised_armed_forces_12
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_13
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_13
-					add_idea = TUR_disorganised_armed_forces_27
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_14
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_14
-					add_idea = TUR_disorganised_armed_forces_8
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_16
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_16
-					add_idea = TUR_disorganised_armed_forces_17
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_18
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_18
-					add_idea = TUR_disorganised_armed_forces_19
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_20
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_20
-					add_idea = TUR_disorganised_armed_forces_26
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_21
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_21
-					add_idea = TUR_disorganised_armed_forces_15
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_22
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_22
-					add_idea = TUR_disorganised_armed_forces_28
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_29
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_29
-					add_idea = TUR_disorganised_armed_forces_25
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_30
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_30
-					add_idea = TUR_disorganised_armed_forces_24
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_23
-				}
-				remove_ideas = TUR_disorganised_armed_forces_23
+			army_experience = -5
+			custom_effect_tooltip = TUR_modernize_our_tactics_effect_tt
+			add_to_variable = {
+				var = TUR_armed_forces_army_org_factor_var
+				value = 0.1
 			}
 		}
 	}
@@ -4726,7 +4400,7 @@ TUR_reforming_our_armed_forces_category = {
 
 	TUR_teach_the_proper_use_of_modern_infrastructure = {
 	
-		icon = generic_military
+		icon = GFX_decision_generic_operation
 
 		allowed = { 
 			original_tag = TUR
@@ -4735,23 +4409,7 @@ TUR_reforming_our_armed_forces_category = {
 		fire_only_once = yes
 		
 		visible = {
-			OR = {
-				has_idea = TUR_disorganised_armed_forces
-				has_idea = TUR_disorganised_armed_forces_1
-				has_idea = TUR_disorganised_armed_forces_4
-				has_idea = TUR_disorganised_armed_forces_5
-				has_idea = TUR_disorganised_armed_forces_8
-				has_idea = TUR_disorganised_armed_forces_11
-				has_idea = TUR_disorganised_armed_forces_12
-				has_idea = TUR_disorganised_armed_forces_14
-				has_idea = TUR_disorganised_armed_forces_15
-				has_idea = TUR_disorganised_armed_forces_19
-				has_idea = TUR_disorganised_armed_forces_21
-				has_idea = TUR_disorganised_armed_forces_22
-				has_idea = TUR_disorganised_armed_forces_24
-				has_idea = TUR_disorganised_armed_forces_28
-				has_idea = TUR_disorganised_armed_forces_30
-			}
+			has_dynamic_modifier = { modifier = TUR_disorganized_armed_forces_dynamic_modifier }
 			OR = {
 				has_completed_focus = TUR_learning_from_the_great_war
 				has_completed_focus = TUR_hava_okulu
@@ -4771,153 +4429,17 @@ TUR_reforming_our_armed_forces_category = {
 
 		complete_effect = {
 			army_experience = -5
-			if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces
-					add_idea = TUR_disorganised_armed_forces_2
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_1
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_1
-					add_idea = TUR_disorganised_armed_forces_3
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_4
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_4
-					add_idea = TUR_disorganised_armed_forces_6
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_5
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_5
-					add_idea = TUR_disorganised_armed_forces_7
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_8
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_8
-					add_idea = TUR_disorganised_armed_forces_13
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_11
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_11
-					add_idea = TUR_disorganised_armed_forces_13
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_12
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_12
-					add_idea = TUR_disorganised_armed_forces_27
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_14
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_14
-					add_idea = TUR_disorganised_armed_forces_9
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_15
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_15
-					add_idea = TUR_disorganised_armed_forces_17
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_18
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_18
-					add_idea = TUR_disorganised_armed_forces_20
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_19
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_19
-					add_idea = TUR_disorganised_armed_forces_26
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_21
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_21
-					add_idea = TUR_disorganised_armed_forces_16
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_22
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_22
-					add_idea = TUR_disorganised_armed_forces_29
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_28
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_28
-					add_idea = TUR_disorganised_armed_forces_25
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_30
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_30
-					add_idea = TUR_disorganised_armed_forces_23
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_24
-				}
-				remove_ideas = TUR_disorganised_armed_forces_24
+			custom_effect_tooltip = TUR_use_modern_infrastructure_effect_tt
+			add_to_variable = {
+				var = TUR_armed_forces_army_speed_factor_var
+				value = 0.1
 			}
 		}
 	}
 
 	TUR_commence_an_overhaul_of_our_training_methods = {
 	
-		icon = generic_military
+		icon = GFX_decision_eng_trade_unions_demand
 
 		allowed = { 
 			original_tag = TUR
@@ -4926,24 +4448,7 @@ TUR_reforming_our_armed_forces_category = {
 		fire_only_once = yes
 		
 		visible = {
-			OR = {
-				has_idea = TUR_disorganised_armed_forces
-				has_idea = TUR_disorganised_armed_forces_1
-				has_idea = TUR_disorganised_armed_forces_2
-				has_idea = TUR_disorganised_armed_forces_3
-				has_idea = TUR_disorganised_armed_forces_8
-				has_idea = TUR_disorganised_armed_forces_9
-				has_idea = TUR_disorganised_armed_forces_10
-				has_idea = TUR_disorganised_armed_forces_14
-				has_idea = TUR_disorganised_armed_forces_15
-				has_idea = TUR_disorganised_armed_forces_16
-				has_idea = TUR_disorganised_armed_forces_17
-				has_idea = TUR_disorganised_armed_forces_21
-				has_idea = TUR_disorganised_armed_forces_22
-				has_idea = TUR_disorganised_armed_forces_25
-				has_idea = TUR_disorganised_armed_forces_28
-				has_idea = TUR_disorganised_armed_forces_29
-			}
+			has_dynamic_modifier = { modifier = TUR_disorganized_armed_forces_dynamic_modifier }
 			OR = {
 				has_completed_focus = TUR_learning_from_the_great_war
 				has_completed_focus = TUR_hava_okulu
@@ -4962,147 +4467,15 @@ TUR_reforming_our_armed_forces_category = {
 		}
 
 		complete_effect = {
-			army_experience = -5
-			if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces
-					add_idea = TUR_disorganised_armed_forces_4
-				}
+			army_experience = -10
+			custom_effect_tooltip = TUR_overhaul_training_methods_effect_tt
+			add_to_variable = {
+				var = TUR_armed_forces_training_time_var
+				value = -0.25
 			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_1
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_1
-					add_idea = TUR_disorganised_armed_forces_5
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_2
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_2
-					add_idea = TUR_disorganised_armed_forces_6
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_3
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_3
-					add_idea = TUR_disorganised_armed_forces_7
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_8
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_8
-					add_idea = TUR_disorganised_armed_forces_12
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_9
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_9
-					add_idea = TUR_disorganised_armed_forces_13
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_10
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_10
-					add_idea = TUR_disorganised_armed_forces_27
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_14
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_14
-					add_idea = TUR_disorganised_armed_forces_11
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_15
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_15
-					add_idea = TUR_disorganised_armed_forces_17
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_16
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_16
-					add_idea = TUR_disorganised_armed_forces_20
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_17
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_17
-					add_idea = TUR_disorganised_armed_forces_26
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_21
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_21
-					add_idea = TUR_disorganised_armed_forces_18
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_22
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_22
-					add_idea = TUR_disorganised_armed_forces_30
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_28
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_28
-					add_idea = TUR_disorganised_armed_forces_24
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_29
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_29
-					add_idea = TUR_disorganised_armed_forces_23
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_25
-				}
-				remove_ideas = TUR_disorganised_armed_forces_25
+			add_to_variable = {
+				var = TUR_armed_forces_minimum_training_level_var
+				value = 0.1
 			}
 		}
 	}
@@ -5118,24 +4491,7 @@ TUR_streamline_communication_methods_between_ships = {
 		fire_only_once = yes
 		
 		visible = {
-			OR = {
-				has_idea = TUR_disorganised_armed_forces
-				has_idea = TUR_disorganised_armed_forces_1
-				has_idea = TUR_disorganised_armed_forces_2
-				has_idea = TUR_disorganised_armed_forces_3
-				has_idea = TUR_disorganised_armed_forces_4
-				has_idea = TUR_disorganised_armed_forces_5
-				has_idea = TUR_disorganised_armed_forces_6
-				has_idea = TUR_disorganised_armed_forces_7
-				has_idea = TUR_disorganised_armed_forces_15
-				has_idea = TUR_disorganised_armed_forces_16
-				has_idea = TUR_disorganised_armed_forces_17
-				has_idea = TUR_disorganised_armed_forces_18
-				has_idea = TUR_disorganised_armed_forces_19
-				has_idea = TUR_disorganised_armed_forces_20
-				has_idea = TUR_disorganised_armed_forces_21
-				has_idea = TUR_disorganised_armed_forces_26
-			}
+			has_dynamic_modifier = { modifier = TUR_disorganized_armed_forces_dynamic_modifier }
 			OR = {
 				has_completed_focus = TUR_learning_from_the_great_war
 				has_completed_focus = TUR_hava_okulu
@@ -5154,147 +4510,11 @@ TUR_streamline_communication_methods_between_ships = {
 		}
 
 		complete_effect = {
-			navy_experience = -5
-			if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces
-					add_idea = TUR_disorganised_armed_forces_14
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_1
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_1
-					add_idea = TUR_disorganised_armed_forces_8
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_2
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_2
-					add_idea = TUR_disorganised_armed_forces_9
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_3
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_3
-					add_idea = TUR_disorganised_armed_forces_10
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_4
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_4
-					add_idea = TUR_disorganised_armed_forces_11
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_5
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_5
-					add_idea = TUR_disorganised_armed_forces_12
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_6
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_6
-					add_idea = TUR_disorganised_armed_forces_13
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_7
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_7
-					add_idea = TUR_disorganised_armed_forces_27
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_15
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_15
-					add_idea = TUR_disorganised_armed_forces_28
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_16
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_16
-					add_idea = TUR_disorganised_armed_forces_29
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_17
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_17
-					add_idea = TUR_disorganised_armed_forces_25
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_18
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_18
-					add_idea = TUR_disorganised_armed_forces_30
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_19
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_19
-					add_idea = TUR_disorganised_armed_forces_24
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_20
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_20
-					add_idea = TUR_disorganised_armed_forces_23
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_21
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_21
-					add_idea = TUR_disorganised_armed_forces_22
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_26
-				}
-				remove_ideas = TUR_disorganised_armed_forces_26
+			navy_experience = -10
+			custom_effect_tooltip = TUR_streamline_communication_methods_effect_tt
+			add_to_variable = {
+				var = TUR_armed_forces_naval_coordination_var
+				value = 0.15
 			}
 		}
 	}
@@ -5310,24 +4530,7 @@ TUR_streamline_communication_methods_between_ships = {
 		fire_only_once = yes
 		
 		visible = {
-			OR = {
-				has_idea = TUR_disorganised_armed_forces
-				has_idea = TUR_disorganised_armed_forces_1
-				has_idea = TUR_disorganised_armed_forces_2
-				has_idea = TUR_disorganised_armed_forces_3
-				has_idea = TUR_disorganised_armed_forces_4
-				has_idea = TUR_disorganised_armed_forces_5
-				has_idea = TUR_disorganised_armed_forces_6
-				has_idea = TUR_disorganised_armed_forces_7
-				has_idea = TUR_disorganised_armed_forces_15
-				has_idea = TUR_disorganised_armed_forces_16
-				has_idea = TUR_disorganised_armed_forces_17
-				has_idea = TUR_disorganised_armed_forces_18
-				has_idea = TUR_disorganised_armed_forces_19
-				has_idea = TUR_disorganised_armed_forces_20
-				has_idea = TUR_disorganised_armed_forces_21
-				has_idea = TUR_disorganised_armed_forces_26
-			}
+			has_dynamic_modifier = { modifier = TUR_disorganized_armed_forces_dynamic_modifier }
 			OR = {
 				has_completed_focus = TUR_learning_from_the_great_war
 				has_completed_focus = TUR_hava_okulu
@@ -5346,147 +4549,11 @@ TUR_streamline_communication_methods_between_ships = {
 		}
 
 		complete_effect = {
-			air_experience = -5
-			if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces
-					add_idea = TUR_disorganised_armed_forces_21
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_1
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_1
-					add_idea = TUR_disorganised_armed_forces_15
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_2
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_2
-					add_idea = TUR_disorganised_armed_forces_16
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_3
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_3
-					add_idea = TUR_disorganised_armed_forces_17
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_4
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_4
-					add_idea = TUR_disorganised_armed_forces_18
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_5
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_5
-					add_idea = TUR_disorganised_armed_forces_19
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_6
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_6
-					add_idea = TUR_disorganised_armed_forces_20
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_7
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_7
-					add_idea = TUR_disorganised_armed_forces_26
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_8
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_8
-					add_idea = TUR_disorganised_armed_forces_28
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_9
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_9
-					add_idea = TUR_disorganised_armed_forces_29
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_10
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_10
-					add_idea = TUR_disorganised_armed_forces_25
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_11
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_11
-					add_idea = TUR_disorganised_armed_forces_30
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_12
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_12
-					add_idea = TUR_disorganised_armed_forces_24
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_13
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_13
-					add_idea = TUR_disorganised_armed_forces_23
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_14
-				}
-				swap_ideas = {
-					remove_idea = TUR_disorganised_armed_forces_14
-					add_idea = TUR_disorganised_armed_forces_22
-				}
-			}
-			else_if = {
-				limit = { 
-					has_idea = TUR_disorganised_armed_forces_26
-				}
-				remove_ideas = TUR_disorganised_armed_forces_26
+			air_experience = -10
+			custom_effect_tooltip = TUR_air_safety_regulations_effect_tt
+			add_to_variable = {
+				var = TUR_armed_forces_air_accidents_var
+				value = -0.15
 			}
 		}
 	}
@@ -5538,7 +4605,10 @@ TUR_the_fading_father_category = {
 		timeout_effect = {
 			if = {
 				limit = {
-					check_variable = { var = TUR_ataturk_health_bar value = 2 }
+					AND = {
+						has_global_flag = tur_bftb_focus_tree
+						check_variable = { var = TUR_ataturk_health_bar value = 2 }
+					}
 				}
 				add_stability = -0.1
 				custom_effect_tooltip = TUR_ataturk_health_terminal_tt
@@ -5546,10 +4616,35 @@ TUR_the_fading_father_category = {
 			}
 			else_if = {
 				limit = {
-					check_variable = { var = TUR_ataturk_health_bar value = 3 }
+					NOT = {
+						has_global_flag = tur_bftb_focus_tree
+					}
+					check_variable = { var = TUR_ataturk_health_bar value = 2 }
+				}
+				add_stability = -0.04
+				custom_effect_tooltip = TUR_ataturk_health_terminal_tt
+				subtract_from_variable = { var = TUR_ataturk_health_bar value = 1 }
+			}
+			else_if = {
+				limit = {
+					AND = {
+						check_variable = { var = TUR_ataturk_health_bar value = 3 }
+						has_global_flag = tur_bftb_focus_tree
+					}
 				}
 				add_stability = -0.05
 				custom_effect_tooltip = TUR_ataturk_health_poor_tt
+				subtract_from_variable = { var = TUR_ataturk_health_bar value = 1 }
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						has_global_flag = tur_bftb_focus_tree
+					}
+					check_variable = { var = TUR_ataturk_health_bar value = 3 }
+				}
+				add_stability = -0.02
+				custom_effect_tooltip = TUR_ataturk_health_terminal_tt
 				subtract_from_variable = { var = TUR_ataturk_health_bar value = 1 }
 			}
 			else = {
@@ -5661,7 +4756,16 @@ TUR_the_fading_father_category = {
 
 
 		complete_effect = {
-			add_stability = -0.1
+			if = {
+				limit = {
+					has_global_flag = tur_bftb_focus_tree
+				}
+				add_stability = -0.1
+			}
+			else = {
+				add_political_power = -100		#Ataturk Figurehead is OP with Road tree due to the lack of good Ataturk traits
+				add_stability = -0.15
+			}
 			country_event = { id = bftb_turkey.24 }
 			add_ideas = TUR_mustafa_kemal_ataturk_figurehead
 			hidden_effect = { 
@@ -5676,272 +4780,6 @@ TUR_the_fading_father_category = {
 			}
 		}
 	}
-}
-
-crisis = { 
-	TUR_etatism_crisis_1 = {
-	
-		icon = generic_political_rally
-
-		allowed = { 
-			original_tag = TUR
-		}
-
-		available = {
-			OR = {
-				has_idea = civilian_economy
-				has_country_flag = TUR_etatism_abolished
-			}
-		}
-
-		days_mission_timeout = 60
-
-		fire_only_once = no
-
-		activation = {
-			AND = {
-				has_idea = low_economic_mobilisation
-				has_idea = TUR_etatism
-			}
-		}
-
-		cancel_trigger = {
-			OR = {
-				has_active_mission = TUR_etatism_crisis_2
-				has_active_mission = TUR_etatism_crisis_3
-				has_active_mission = TUR_etatism_crisis_4
-			}
-		}
-
-		is_good = no
-
-		complete_effect = {
-			add_stability = 0.05
-			add_political_power = 75
-		}
-
-		timeout_effect = {
-			swap_ideas = {
-				remove_idea = TUR_etatism
-				add_idea = TUR_etatism_2
-			}
-		}
-	}
-
-	TUR_etatism_crisis_2 = {
-	
-		icon = generic_political_rally
-
-		allowed = { 
-			original_tag = TUR
-		}
-
-		available = {
-			OR = { 
-				has_idea = civilian_economy
-				has_country_flag = TUR_etatism_abolished
-			}
-		}
-
-		days_mission_timeout = 60
-
-		fire_only_once = no
-
-		activation = {
-			AND = {
-				has_idea = partial_economic_mobilisation
-				OR = {
-					has_idea = TUR_etatism
-					has_idea = TUR_etatism_2
-				}
-			}
-		}
-
-		cancel_trigger = {
-			OR = {
-				has_active_mission = TUR_etatism_crisis_3
-				has_active_mission = TUR_etatism_crisis_4
-			}
-		}
-
-		is_good = no
-
-		complete_effect = {
-			add_stability = 0.05
-			add_political_power = 50
-		}
-
-		timeout_effect = {
-			if = {
-				limit = {
-					has_idea = TUR_etatism
-				}
-				swap_ideas = {
-					remove_idea = TUR_etatism
-					add_idea = TUR_etatism_3
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = TUR_etatism_2
-				}
-				swap_ideas = {
-					remove_idea = TUR_etatism_2
-					add_idea = TUR_etatism_3
-				}
-			}
-		}
-	}
-
-	TUR_etatism_crisis_3 = {
-	
-		icon = generic_political_rally
-
-		allowed = { 
-			original_tag = TUR
-		}
-
-		available = {
-			OR = { 
-				has_idea = civilian_economy
-				has_country_flag = TUR_etatism_abolished
-			}
-		}
-
-		days_mission_timeout = 60
-
-		fire_only_once = no
-
-		activation = {
-			AND = {
-				has_idea = war_economy
-				OR = {
-					has_idea = TUR_etatism
-					has_idea = TUR_etatism_2
-					has_idea = TUR_etatism_3
-				}
-			}
-		}
-
-		cancel_trigger = {
-			has_active_mission = TUR_etatism_crisis_4
-		}
-
-		is_good = no
-
-		complete_effect = {
-			add_stability = 0.05
-			add_political_power = 25
-		}
-
-		timeout_effect = {
-			if = {
-				limit = {
-					has_idea = TUR_etatism
-				}
-				swap_ideas = {
-					remove_idea = TUR_etatism
-					add_idea = TUR_etatism_4
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = TUR_etatism_2
-				}
-				swap_ideas = {
-					remove_idea = TUR_etatism_2
-					add_idea = TUR_etatism_4
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = TUR_etatism_3
-				}
-				swap_ideas = {
-					remove_idea = TUR_etatism_3
-					add_idea = TUR_etatism_4
-				}
-			}
-		}
-	}
-
-	TUR_etatism_crisis_4 = {
-	
-		icon = generic_political_rally
-
-		allowed = { 
-			original_tag = TUR
-		}
-
-		available = {
-			OR = { 
-				has_idea = civilian_economy
-				has_country_flag = TUR_etatism_abolished
-			}
-		}
-
-		days_mission_timeout = 60
-
-		fire_only_once = no
-
-		activation = {
-			AND = {
-				has_idea = tot_economic_mobilisation
-				OR = {
-					has_idea = TUR_etatism
-					has_idea = TUR_etatism_2
-					has_idea = TUR_etatism_3
-					has_idea = TUR_etatism_4
-				}
-			}
-		}
-
-		is_good = no
-
-		complete_effect = {
-			add_stability = -0.1
-		}
-
-		timeout_effect = {
-			if = {
-				limit = {
-					has_idea = TUR_etatism
-				}
-				country_event = { id = bftb_turkey.94 }
-				hidden_effect = {
-					remove_ideas = TUR_etatism
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = TUR_etatism_2
-				}
-				country_event = { id = bftb_turkey.94 }
-				hidden_effect = {
-					remove_ideas = TUR_etatism_2
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = TUR_etatism_3
-				}
-				country_event = { id = bftb_turkey.94 }
-				hidden_effect = {
-					remove_ideas = TUR_etatism_3
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = TUR_etatism_4
-				}
-				country_event = { id = bftb_turkey.94 }
-				hidden_effect = {
-					remove_ideas = TUR_etatism_4
-				}
-			}
-		}
-	}
-
 }
 
 category_faction_debug_decisions = {

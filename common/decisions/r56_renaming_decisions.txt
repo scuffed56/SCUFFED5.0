@@ -64,6 +64,44 @@ rename_cities_category = {
 			}
 		}		
 	}
+	AFG_rename_peshawar = {
+
+		icon = generic_form_nation
+  
+		ai_will_do = {
+			factor = 100
+		}
+
+		available = {
+			has_full_control_of_state = 442
+		}
+
+		visible = {
+			has_full_control_of_state = 442
+			442 = {
+				NOT = {
+					has_state_flag = AFG_peshawar_renamed
+				}
+			}
+			original_tag = AFG
+		}
+
+		fire_only_once = yes
+
+		cost = 25
+
+		days_remove = 30
+
+		remove_effect = {
+			442 = {
+				set_state_name = "Khyber Pakhtunkhwa"
+			}
+			add_stability = 0.01
+			442 = {
+				set_state_flag = AFG_peshawar_renamed
+			}
+		}
+	}
     ALB_reintegrate_gjirokaster = {
 
       icon = GFX_decision_generic_decision
@@ -371,7 +409,7 @@ rename_cities_category = {
 			set_province_name = { id = 6332 name = "Kaliningrad"}
 			763 = {
 				set_state_name = "Kaliningrad"
-				set_state_flag = renamed_konigsberg_pol
+				set_state_flag = renamed_konigsberg_sov
 			
 				clr_state_flag = renamed_konigsberg_communism
 				clr_state_flag = renamed_konigsberg_pol
@@ -516,7 +554,7 @@ rename_cities_category = {
                 original_tag = IRE
 				original_tag = SCO
 				original_tag = WLS
-				original_tag = BRZ
+				original_tag = NIR
             }
 			
 		}
@@ -567,6 +605,9 @@ rename_cities_category = {
 					has_state_flag = renamed_stalinabad
 				}
 			}
+			NOT = {
+				has_government = communism
+			}
 		}
 		cost = 5
 
@@ -580,26 +621,33 @@ rename_cities_category = {
 			NOT = {
 				OR = {
 					has_country_leader = {
-						name = "Iosif Stalin"
+						character = SOV_iosif_stalin
 						ruling_only = yes
 					}
 					has_country_leader = {
-						name = "Georgy Malenkov"
+						character = SOV_georgy_malenkow
 						ruling_only = yes
 					}	
 					has_country_leader = {
-						name = "Lavrentiy Beria"
+						character = SOV_lavrenty_beriya
 						ruling_only = yes
 					}										
 				}
-
+				AND = {
+					original_tag = AFG
+					AFG = {
+						has_completed_focus = AFG_incorporate_tajikistan
+					}
+				}
 			}
 		}
 
 		ai_will_do = {
 			factor = 1
 		}
+
 		days_remove = 30
+
 		remove_effect = {
 			set_province_name = { id = 1384 name = "Dushanbe"}
 			742 = {
@@ -619,6 +667,10 @@ rename_cities_category = {
 
 		cost = 5
 
+		available = {
+			has_government = communism
+		}
+
 		visible = {
 			742 = {
 				has_state_flag = renamed_stalinabad
@@ -627,14 +679,31 @@ rename_cities_category = {
 			controls_state = 742		
 		}
 		ai_will_do = {
-			factor = 1
+			factor = 0
+			modifier = {
+				add = 1
+				OR = {
+					has_country_leader = {
+						character = SOV_iosif_stalin
+						ruling_only = yes
+					}
+					has_country_leader = {
+						character = SOV_georgy_malenkow
+						ruling_only = yes
+					}	
+					has_country_leader = {
+						character = SOV_lavrenty_beriya
+						ruling_only = yes
+					}										
+				}
+			}
 		}
 		days_remove = 30
 		remove_effect = {
 			reset_province_name = 1384
 			742 = {
 				reset_state_name = yes
-				clr_state_flag = renamed_ndjamena
+				clr_state_flag = renamed_stalinabad
 			}
 		}		
 	}

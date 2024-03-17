@@ -10,78 +10,6 @@
 # protect
 # influence
 
-POL_smort_ai = {
-	allowed = {
-		original_tag = POL
-	}
-	enable = {
-		any_country = {
-			and = {
-				NOT = { original_tag = SOV }
-				NOT = { original_tag = GER }
-				or = {
-					is_justifying_wargoal_against = POL
-					has_wargoal_against = POL
-					has_war_with = POL
-				}
-			}
-		}
-	}
-	abort = {
-		or = {
-			GER = {
-				or = {
-					is_justifying_wargoal_against = POL
-					has_wargoal_against = POL
-					has_war_with = POL
-				}
-			}
-			SOV = {
-				or = {
-					is_justifying_wargoal_against = POL
-					has_wargoal_against = POL
-					has_war_with = POL
-				}
-			}
-		}
-	}
-	
-	ai_strategy = {
-		type = front_unit_request
-		tag = GER
-		value = -100
-	}
-	ai_strategy = {
-		type = front_unit_request
-		tag = SOV
-		value = -100
-	}
-	ai_strategy = {
-		type = garrison
-		value = -100
-	}
-
-}
-
-POL_build_army = {
-	allowed = {
-		original_tag = POL
-	}
-	enable = {
-		always = yes
-	}
-	abort = {
-		OR = {
-			has_war = yes
-			date > 1937.6.1
-		}
-	}
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -20
-	}
-}
-
 british_help_against_germany = {
 	allowed = {
 		original_tag = POL
@@ -96,149 +24,16 @@ british_help_against_germany = {
 	abort = {
 		NOT = { country_exists = ENG }
 	}
-	
+
 	ai_strategy = {
 		type = befriend
-		id = "ENG"			
+		id = "ENG"
 		value = 200
 	}
 	ai_strategy = {
 		type = alliance
-		id = "ENG"			
+		id = "ENG"
 		value = 200
-	}	
-}
-
-pol_unit_production = { #If adding country-unique ones, bear in mind that they STACK
-	enable = {
-		always = yes
-		original_tag = POL
-	}
-		
-	abort = {
-		always = no
-	}
-
-	ai_strategy = {
-		type = garrison
-		value = 1
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = 80
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = paratroopers
-		value = 0
-	}
-	
-
-	ai_strategy = {
-		type = role_ratio
-		id = mountaineers
-		value = 4
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = marines
-		value = 0
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = armor
-		value = 0
-	}
-
-	#Air unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = -100
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = heavy_fighter
-		value = -100
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = cas
-		value = -100
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = -100
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = strategic_bomber
-		value = -100
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = naval_bomber
-		value = -100
-	}
-	
-	ai_strategy = {
-		type = equipment_production_factor
-		id = heavy_fighter
-		value = -100
-	}	
-
-	# Naval unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = capital_ship
-		value = 10
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = submarine
-		value = 10
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = screen_ship
-		value = 40
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = convoy
-		value = 15
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = -100
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry
-		value = 40
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = 25
 	}
 }
 
@@ -247,54 +42,10 @@ POL_template_design = {
 		original_tag = POL
 	}
 	enable = {
-		always = yes
+		date < 1940.1.1
 	}
-	abort_when_not_enabled = yes
-	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = -100
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = cas
-		value = -100
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = naval_bomber
-		value = -100
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = tactical_bomber
-		value = -100
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = strategic_bomber
-		value = -100
-	}
-
-	ai_strategy = {
-		type = air_factory_balance
-		value = 0
-	}
-
-	ai_strategy = {
-        type = building_target
-        id = arms_factory
-        value = 2000
-    }
-
-	ai_strategy = {
-		type = build_army
-		id = infantry
-		value = 20000
+	abort = {
+		date > 1940.1.1
 	}
 
 	ai_strategy = {
@@ -308,11 +59,11 @@ POL_template_design = {
 		id = cavalry
 		value = -100
 	}
-	
+
 	ai_strategy = {
 		type = template_prio
 		id = light_armor
-		value = -40
+		value = 40
 	}
 
 	ai_strategy = {
@@ -332,7 +83,7 @@ POL_template_design = {
 		id = paratroopers
 		value = -50
 	}
-	
+
 	ai_strategy = {
 		type = template_prio
 		id = infantry
@@ -347,20 +98,21 @@ dont_ally_germany_pls = {
 	enable = {
 		NOT = { has_government = fascism }
 	}
-	abort = { always = no }
+	abort_when_not_enabled = yes
+
 	ai_strategy = {
 		type = alliance
-		id = "GER"			
+		id = "GER"
 		value = -10001
 	}
 }
 
 POL_dont_be_afk = {
 	enable = {
-		original_tag = POL	
+		original_tag = POL
 	}
 
-	abort = {	
+	abort = {
 		date > 1938.6.6
 	}
 
@@ -372,5 +124,5 @@ POL_dont_be_afk = {
 	ai_strategy = {
 		type = force_build_armies
 		value = 150
-	}	
+	}
 }

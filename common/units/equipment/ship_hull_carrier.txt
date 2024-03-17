@@ -6,6 +6,10 @@ equipments = {
 		can_be_produced = {
 			NOT = {
 				has_idea = BUL_army_restrictions
+				has_idea = MPL_mandate
+				has_idea = GER_treaty_of_versailles
+				has_idea = GER_treaty_of_versailles_2
+				has_idea = GER_treaty_of_versailles_3
 			}
 		}
 
@@ -15,20 +19,20 @@ equipments = {
 		sprite = carrier
 		group_by = archetype
 		priority = 1000
-		
+
 		interface_category = interface_category_capital_ships
-		
+
 		upgrades = {
 			ship_deckspace_upgrade
 			carrier_armor_upgrade
 			ship_engine_upgrade
-			ship_reliability_upgrade			
+			ship_reliability_upgrade
 		}
 
 		module_slots = {
 			fixed_ship_deck_slot_1 = {
 				required = yes
-				allowed_module_categories = { ship_deck_space }
+				allowed_module_categories = { ship_deck_space ship_airplane_launcher } #added ship_airplane_launcher as a test.
 				gfx = ship_deck_space_slot
 			}
 			fixed_ship_deck_slot_2 = {
@@ -52,23 +56,38 @@ equipments = {
 				required = no
 				allowed_module_categories = { ship_secondaries ship_dp_secondaries}
 			}
-			
+			fixed_ship_armor_slot = {
+				required = no
+				allowed_module_categories = { ship_cruiser_armor }	
+			}
 			front_1_custom_slot = {
 				required = no
 				allowed_module_categories = {
+					ship_anti_air
 					ship_deck_space
 					ship_carrier_armor
+				}
+			}
+			mid_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
 					ship_secondaries
 					ship_dp_secondaries
+					ship_deck_space
+					ship_carrier_armor
 				}
 			}
 		}
-		
+
 		module_count_limit = {
 			category = ship_radar
 			count < 2
 		}
-		
+
+		module_count_limit = {
+			category = ship_carrier_armor
+			count < 2
+		}
 		default_modules = {
 			fixed_ship_deck_slot_1 = empty
 			fixed_ship_deck_slot_2 = empty
@@ -78,49 +97,46 @@ equipments = {
 			fixed_ship_secondaries_slot = empty
 			front_1_custom_slot = empty
 		}
-		
+
 		lg_armor_piercing = 0
 		lg_attack = 0
-		
+
 		hg_armor_piercing = 0
 		hg_attack = 0
-		
+
 		torpedo_attack = 0
 		sub_attack = 0
-		
+
 		anti_air_attack = 0
-		
+
 		armor_value = 0
 
-		
+
 		surface_detection = 26
 		sub_detection = 5
 		surface_visibility = 30
 		naval_speed = 26
 		reliability = 0.70
-		
+
 		naval_range = 3000
-		
+
 		max_strength = 250
-		
+
 
 		fuel_consumption = 87
 
 		# (Describes combat behaviour - hidden stat)
 		offensive_weapons = no
-		
+
 		build_cost_ic = 2094
 		resources = {
-			steel = 1
-			#chromium = 1
+			steel = 3
+			chromium = 1
 		}
-		
-		manpower = 2500
+
+		manpower = 4500
 
 		naval_supremacy_factor = 2.4
-		naval_weather_penalty_factor = 1 #this value gets -1 before its used so 1.5 will increase the effects of weather penalties by 0.5. this is base value is required for MIO stat modifiers
-		#MIO stat modifers will factory by the unmodified stat value so here a 0.5 mio stat modifier would make this ships naval_weather_penalty_factor stat 1.5.
-		# change this from 1 at your own risk
 	}
 
 	ship_hull_carrier_1 = {
@@ -130,7 +146,7 @@ equipments = {
 		visual_tech_level_addition = 2
 		archetype = ship_hull_carrier
 		priority = 1000
-		
+
 		module_slots = inherit
 
 		default_modules = {
@@ -152,6 +168,7 @@ equipments = {
 			fixed_ship_radar_slot = inherit
 			fixed_ship_engine_slot = inherit
 			fixed_ship_secondaries_slot = inherit
+			fixed_ship_armor_slot = inherit
 			front_1_custom_slot = {
 				required = no
 				allowed_module_categories = {
@@ -161,6 +178,15 @@ equipments = {
 				}
 			}
 			mid_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_secondaries
+					ship_dp_secondaries
+					ship_deck_space
+					ship_carrier_armor
+				}
+			}
+			mid_2_custom_slot = {
 				required = no
 				allowed_module_categories = {
 					ship_secondaries
@@ -179,15 +205,15 @@ equipments = {
 		naval_range = 4000
 		reliability = 0.75
 		max_strength = 325
-		
+
 
 
 		build_cost_ic = 2600
 		resources = {
-			steel = 2
-		#	chromium = 1
+			steel = 4
+			chromium = 1
 		}
-		manpower = 3000
+		manpower = 5000
 	}
 
 	ship_hull_carrier_3 = {
@@ -204,6 +230,7 @@ equipments = {
 			fixed_ship_radar_slot = inherit
 			fixed_ship_engine_slot = inherit
 			fixed_ship_secondaries_slot = inherit
+			fixed_ship_armor_slot = inherit
 			front_1_custom_slot = {
 				required = no
 				allowed_module_categories = {
@@ -230,30 +257,39 @@ equipments = {
 					ship_carrier_armor
 				}
 			}
+			rear_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_secondaries
+					ship_dp_secondaries
+					ship_deck_space
+					ship_carrier_armor
+				}
+			}		
 		}
 		default_modules = {
 			front_1_custom_slot = empty
 			mid_1_custom_slot = empty
 			mid_2_custom_slot = empty
 		}
-		
+
 		naval_range = 5000
 		reliability = 0.8
 		max_strength = 350
-		
+
 
 
 		build_cost_ic = 3250
 		resources = {
-			steel = 3
-			#chromium = 1
+			steel = 4
+			chromium = 2
 		}
-		manpower = 3500
+		manpower = 5500
 	}
 
 	ship_hull_carrier_4 = {
-		abbreviation = "hbc"
-		year = 1944
+		abbreviation = "haf"
+		year = 1948
 		visual_level = 1
 		archetype = ship_hull_carrier
 		priority = 1000
@@ -265,6 +301,7 @@ equipments = {
 			fixed_ship_radar_slot = inherit
 			fixed_ship_engine_slot = inherit
 			fixed_ship_secondaries_slot = inherit
+			fixed_ship_armor_slot = inherit			
 			front_1_custom_slot = {
 				required = no
 				allowed_module_categories = {
@@ -277,37 +314,51 @@ equipments = {
 				required = no
 				allowed_module_categories = {
 					ship_secondaries
+					ship_dp_secondaries
 					ship_deck_space
 					ship_carrier_armor
 				}
 			}
+			
 			mid_2_custom_slot = {
 				required = no
 				allowed_module_categories = {
 					ship_secondaries
+					ship_dp_secondaries
 					ship_deck_space
 					ship_carrier_armor
 				}
 			}
+			mid_3_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_secondaries
+					ship_dp_secondaries
+					ship_deck_space
+					ship_anti_air
+				}
+			}			
 		}
+		
 		default_modules = {
 			front_1_custom_slot = empty
 			mid_1_custom_slot = empty
 			mid_2_custom_slot = empty
+			mid_3_custom_slot = empty
 		}
 		
 		naval_range = 6000
-		reliability = 0.9
-		max_strength = 400
+		reliability = 0.8
+		max_strength = 375
 		
 
 
-		build_cost_ic = 3500
+		build_cost_ic = 3800
 		resources = {
-			steel = 3
-			chromium = 1
+			steel = 4
+			chromium = 2
 		}
-		manpower = 4000
+		manpower = 5600
 	}
 
 	ship_hull_carrier_conversion_bb = {
@@ -327,10 +378,12 @@ equipments = {
 				allowed_module_categories = { heavy_ship_engine carrier_ship_engine }
 			}
 			fixed_ship_secondaries_slot = inherit
+			fixed_ship_armor_slot = inherit
 			mid_1_custom_slot = {
 				required = no
 				allowed_module_categories = {
 					ship_secondaries
+					ship_dp_secondaries
 					ship_deck_space
 					ship_carrier_armor
 				}
@@ -343,16 +396,16 @@ equipments = {
 		}
 		naval_range = 4000
 		reliability = 0.65
-		max_strength = 350
+		max_strength = 325
 		naval_speed = 25
 
 
 		build_cost_ic = 2700
 		resources = {
 			steel = 4
-		#	chromium = 1
+			chromium = 1
 		}
-		manpower = 2000
+		manpower = 5000
 	}
 
 	ship_hull_carrier_conversion_ca = {
@@ -383,12 +436,12 @@ equipments = {
 			fixed_ship_secondaries_slot = empty
 		}
 		naval_range = 4000
-		
-		max_strength = 150
-		
+
+		max_strength = 125
+
 		reliability = 0.65
 		naval_speed = 22.5
-		build_cost_ic = 2500
+		build_cost_ic = 2700
 		resources = {
 			steel = 3
 		}
@@ -429,7 +482,10 @@ equipments = {
 				required = no
 				allowed_module_categories = { ship_secondaries ship_dp_secondaries}
 			}
-			
+			fixed_ship_armor_slot = {
+				required = no
+				allowed_module_categories = { ship_cruiser_armor }	
+			}
 			front_1_custom_slot = {
 				required = no
 				allowed_module_categories = {
@@ -451,38 +507,38 @@ equipments = {
 		}
 		lg_armor_piercing = 0
 		lg_attack = 0
-		
+
 		torpedo_attack = 0
 		carrier_size = 4
 
 		anti_air_attack = 0
-		
+
 		armor_value = 7
 
-		
+
 		surface_detection = 10
 		sub_detection = 5
 		surface_visibility = 30
-		naval_speed = 26
+		naval_speed = 25.5
 		reliability = 0.70
-		
+
 		naval_range = 3000
-		
+
 		max_strength = 250
-		
+
 
 		fuel_consumption = 87
 
 		# (Describes combat behaviour - hidden stat)
 		offensive_weapons = no
-		
+
 		build_cost_ic = 3750
 		resources = {
 			#oil = 1
 			steel = 3
 			chromium = 1
 		}
-		
+
 		manpower = 4500
 	}
 
@@ -519,7 +575,10 @@ equipments = {
 				required = no
 				allowed_module_categories = { ship_secondaries ship_dp_secondaries }
 			}
-			
+			fixed_ship_armor_slot = {
+				required = no
+				allowed_module_categories = { ship_cruiser_armor }	
+			}			
 			front_1_custom_slot = {
 				required = no
 				allowed_module_categories = {
@@ -546,20 +605,20 @@ equipments = {
 		carrier_size = 6
 
 		anti_air_attack = 2
-		
+
 		armor_value = 9
 
-		
+
 		surface_detection = 10
 		sub_detection = 5
 		surface_visibility = 30
-		naval_speed = 28
+		naval_speed = 26
 		reliability = 0.80
 
 		naval_range = 4000
-		
+
 		max_strength = 325
-		
+
 
 
 		build_cost_ic = 4500
@@ -593,20 +652,20 @@ equipments = {
 		carrier_size = 8
 
 		anti_air_attack = 8
-		
+
 		armor_value = 11
 
-		
+
 		surface_detection = 20
 		sub_detection = 5
 		surface_visibility = 30
-		naval_speed = 30
+		naval_speed = 27
 		reliability = 0.85
 
 		naval_range = 5000
-		
+
 		max_strength = 350
-		
+
 
 
 		build_cost_ic = 5250
@@ -640,20 +699,20 @@ equipments = {
 		carrier_size = 10
 
 		anti_air_attack = 10
-		
+
 		armor_value = 13
 
-		
+
 		surface_detection = 30
 		sub_detection = 5
 		surface_visibility = 30
-		naval_speed = 32
+		naval_speed = 28.5
 		reliability = 0.90
 
 		naval_range = 6000
-		
+
 		max_strength = 400
-		
+
 
 
 		build_cost_ic = 6000
@@ -661,9 +720,10 @@ equipments = {
 			#oil = 2
 			steel = 5
 			chromium = 2
-		}		
+		}
 		manpower = 6000
 	}
+	
 	carrier_5 = {
 		year = 1948
 		visual_level = 1

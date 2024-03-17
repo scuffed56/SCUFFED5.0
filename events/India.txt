@@ -7,7 +7,6 @@
 
 add_namespace = india
 add_namespace = r56_raj
-add_namespace = raj
 
 country_event = {#Linlithgow takes office
 	id = r56_raj.1
@@ -25,16 +24,20 @@ country_event = {#Linlithgow takes office
 	option = {
 	    name = r56_raj.1.a
 		retire_country_leader = yes
+		add_country_leader_role = {
+			character = RAJ_lord_linlithgow
+			promote_leader = yes
+			country_leader = {
+				ideology = colonial_government
+				expire = "1965.1.1.1"
+			}
+		}
 		effect_tooltip = {
 			create_country_leader = {
 				name = "Lord Linlithgow"
-				desc = "POLITICS_LORD_LINLITHGOW_DESC"
 				picture = "gfx/leaders/RAJ/Portrait_British_Raj_Lord_Linlithgow.dds"
 				expire = "1965.1.1"
 				ideology = despotism
-				traits = {
-					
-				}
 			}
 		}
 	}
@@ -70,7 +73,7 @@ country_event = {#Wavell takes office
 		date > 1943.1.1
 		OR = {
 			has_country_leader = {
-				name = "Lord Linlithgow"
+				character = RAJ_lord_linlithgow
 				ruling_only = yes
 			}
 			has_idea = RAJ_Governor_General_Lord_Linlithgow
@@ -82,11 +85,19 @@ country_event = {#Wavell takes office
 		if = {
 			limit = {
 				has_country_leader = {
-					name = "Lord Linlithgow"
+					character = RAJ_lord_linlithgow
 					ruling_only = yes
 				}
 			}
 			retire_country_leader = yes
+			add_country_leader_role = {
+				character = RAJ_archibald_wavell
+				promote_leader = yes
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+				}
+			}
 			#create_country_leader = {
 			#	name = "Archibald Wavell"
 			#	desc = "POLITICS_WAVELL_DESC"
@@ -116,7 +127,7 @@ country_event = {#Mountbatten takes office
 	desc = {
 		trigger = {
 			has_country_leader = {
-				name = "Archibald Wavell"
+				character = RAJ_archibald_wavell
 				ruling_only = yes
 			}
 		}
@@ -126,7 +137,7 @@ country_event = {#Mountbatten takes office
 		trigger = {
 			NOT = {
 				has_country_leader = {
-					name = "Archibald Wavell"
+					character = RAJ_archibald_wavell
 					ruling_only = yes
 				}
 			}
@@ -146,7 +157,7 @@ country_event = {#Mountbatten takes office
 		date > 1945.1.1
 		OR = {
 			has_country_leader = {
-				name = "Archibald Wavell"
+				character = RAJ_archibald_wavell
 				ruling_only = yes
 			}
 			has_idea = RAJ_Governor_General_Archibald_Wavell
@@ -161,11 +172,19 @@ country_event = {#Mountbatten takes office
 		if = {
 			limit = {
 				has_country_leader = {
-					name = "Archibald Wavell"
+					character = RAJ_archibald_wavell
 					ruling_only = yes
 				}
 			}
 			retire_country_leader = yes
+			add_country_leader_role = {
+				character = RAJ_louis_mountbatten
+				promote_leader = yes
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+				}
+			}
 			#create_country_leader = {
 			#	name = "Louis Mountbatten"
 			#	desc = "POLITICS_WAVELL_DESC"
@@ -730,20 +749,6 @@ country_event = {#Cabinet - Social
 	}
 }
 
-
-country_event = {
-    id = india.debug
-	title = "DEBUG"
-	desc = ""
-    fire_only_once = yes
-
-    is_triggered_only = yes
-
-    option = {
-		name = placeholder
-		puppet = RAJ
-    }
-}
 country_event = {#ADEN HANDOVER
     id = india.100
 	title = india.1.t
@@ -931,7 +936,7 @@ country_event = {#PROVINCIAL ELECTIONS
 				set_state_name = "Central Provinces"
 			}
 			442 = {
-				set_state_name = "North-West Frontier Province"
+				set_state_name = "NW Frontier Province"
 			}
 			430 = {
 				set_state_name = "Bengal"
@@ -1785,7 +1790,6 @@ country_event = {#Choice between British Raj and Azad Hind
 			factor = 1
 		}
 		name = india.9.a
-		effect_tooltip = { unlock_national_focus = RAJ_Attend_the_Imperial_Conference }
 		set_country_flag = lin_election_over
 	}
 	option = {	#Encourage them
@@ -1811,7 +1815,6 @@ country_event = {#Choice between British Raj and Azad Hind
 		add_ideas = RAJ_subhas_chanda_bose
 		custom_effect_tooltip = raj_election_uprising
 		unlock_decision_category_tooltip = azad_hind
-		effect_tooltip = { unlock_national_focus = RAJ_Attend_the_Imperial_Conference }
 		set_country_flag = lin_election_over
 		set_country_flag = RAJ_subhas_chanda_bose_enable
 	}
@@ -2810,7 +2813,7 @@ country_event = {
 	option = {
 		name = india.411.a
 		var:current_prince_state = {
-			add_manpower = -2000
+			add_manpower = -500
 		}
 		add_manpower = -30
 		if = { 
@@ -2839,16 +2842,16 @@ country_event = {
 	option = {
 		name = india.412.a
 		var:current_prince_state = {
-			add_manpower = -3500
+			add_manpower = -1500
 		}
-		add_manpower = -500
+		add_manpower = -200
 		if = { 
 			limit = { 
 				is_ai = no
 			}
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
-				amount = -250
+				amount = -100
 				producer = RAJ
 			}
 		}
@@ -2867,20 +2870,20 @@ country_event = {
 	option = {#how disappointing
 		name = india.413.a
 		var:current_prince_state = {
-			add_manpower = -6000
+			add_manpower = -3000
 		}
-		add_manpower = -2500
+		add_manpower = -750
 		if = { 
 			limit = { 
 				is_ai = no
 			}
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
-				amount = -1250
+				amount = -300
 				producer = RAJ
 			}
 		}
-		army_experience = 15
+		army_experience = 10
 		add_stability = -0.01
 	}
 }
@@ -2897,21 +2900,21 @@ country_event = {
 	option = {#how disappointing
 		name = india.414.a
 		var:current_prince_state = {
-			add_manpower = -2500
+			add_manpower = -5000
 		}
-		add_manpower = -5000
+		add_manpower = -1000
 		if = { 
 			limit = { 
 				is_ai = no
 			}
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
-				amount = -2500
+				amount = -500
 				producer = RAJ
 			}
 		}
 		army_experience = 30
-		add_stability = -0.03
+		add_stability = -0.02
 	}
 }
 country_event = {	#British Departure
@@ -3006,15 +3009,16 @@ country_event = {	#UP Elections 5 Years after Independence
 
 	
 	trigger = {
+		tag = RAJ
 		has_government = neutrality
 		has_country_leader = {
-			name = "Sir Sikander Hayat Khan"
+			character = RAJ_sir_sikander_hayat_khan
 			ruling_only = yes
 		}
-		date > 1942.6.1
+		date > 1942.1.1
 	}
 	mean_time_to_happen = {
-		days = 150
+		days = 400
 	}
 	option = {
 		name = india.418.a
@@ -3109,6 +3113,39 @@ country_event = {	#so many funny numbers I cant stop laughing
 	}
 }
 
+country_event = {	#so many funny numbers I cant stop laughing
+	id = india.430
+	title = india.430.t
+	desc = india.430.desc
+	picture = GFX_report_event_picture_RAJ_Hyderabad_Palace
+	trigger = {
+		any_owned_state = {
+			is_core_of = SKM
+			has_state_flag = princely_state_independence
+		}
+	}
+	mean_time_to_happen = {
+		days = 200
+	}
+	option = {	
+		name = india.430.a
+		1013 = {
+			clr_state_flag = princely_state_independence
+			princely_state_annexation = yes
+		}
+		SKM = {
+			transfer_state = 1013
+		}
+		SKM = {
+			hidden_effect = {
+				add_offsite_building = {
+					type = arms_factory
+					level = 1
+				}
+			}
+		}
+	}
+}
 
 country_event = {	#Indian Transition Period over, revoke guarantee?
 	id = india.421
@@ -3336,8 +3373,6 @@ country_event = {	#India seeks to join our alliance
 			}
 		}
 	}
-
-	is_triggered_only = yes
 	
 	option = { #Agree
 		name = india.423.a
@@ -3465,6 +3500,10 @@ country_event = {	#getname takes over the government
 		}
 	}
 
+	mean_time_to_happen = {
+		days = 100
+		
+	}
 	option = {	#President Nehru
 		name = india.424.a
 		trigger = {
@@ -3521,7 +3560,6 @@ country_event = {	#getname takes over the government
 		}
 		create_country_leader = {	#TODO: what do i do with the tfv ambedkar and this one?
 			name = "B. R. Ambedkar"
-			desc = "POLITICS_AMBEDKAR_DESC"
 			picture = "gfx/leaders/RAJ/r56_portrait_RAJ_bhimrao_ambedkar.dds"
 			expire = "1965.1.1"
 			ideology = marxism
@@ -3539,13 +3577,7 @@ country_event = {
 	picture = GFX_report_event_picture_RAJ_Government_Formation
 
 	mean_time_to_happen = {
-		days = 30
-		
-	}
-
-	mean_time_to_happen = {
-		days = 30
-		
+		days = 30	
 	}
 
 	trigger = {
@@ -3573,11 +3605,210 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = india.426
+	title = india.426.t
+	desc = india.426.d
+	picture = GFX_report_event_picture_RAJ_Government_Formation
+	
+	is_triggered_only = yes
+
+	option = {	#ok
+		name = india.426.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = 50
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 2
+		}
+		give_military_access = SOV
+		give_military_access = RAJ
+		build_railway = {
+			level = 1
+			fallback = yes
+			start_province = 12763
+			target_province = 10737
+			path = {
+				12763 12717 12831 10737
+			}
+		}
+		build_railway = {
+			level = 1
+			fallback = yes
+			start_state = 267
+			target_state = 405
+		}
+	}
+	option = {	#nay
+		name = india.426.b
+		add_political_power = -75
+		set_temp_variable = {
+			com_sup = party_popularity@communism 
+		}
+		multiply_temp_variable = {
+			com_sup = -0.5
+		}
+		add_stability = var:com_sup
+		add_opinion_modifier = {
+			target = RAJ
+			modifier = hostile_status
+		}
+		add_opinion_modifier = {
+			target = SOV
+			modifier = hostile_status
+		}
+	}
+}
+
+country_event = {
+	id = india.427
+	title = india.427.t
+	desc = india.427.d
+	picture = GFX_report_event_picture_RAJ_Government_Formation
+	
+	is_triggered_only = yes
+
+	immediate = {
+		set_variable = {
+			projected_factories = num_of_civilian_factories
+		}
+	}
+
+	option = {	#ok
+		name = india.427.a
+		ai_chance = {
+			factor = 1
+		}
+		set_temp_variable = {
+			projected_factories_calc = projected_factories
+		}
+		multiply_temp_variable = {
+			projected_factories_calc = 1.25
+		}
+		round_temp_variable = projected_factories_calc	#doesnt work?????
+		custom_effect_tooltip = raj_five_year_goal_tt
+		show_ideas_tooltip = RAJ_full_speed_ahead_1
+		set_variable = {
+			projected_factories	= projected_factories_calc
+		}
+		round_variable = projected_factories
+		activate_mission = raj_first_five_year_plan
+		set_country_flag = raj_five_year_plan_moderate
+	}
+	option = {	#ok
+		name = india.427.b
+		ai_chance = {
+			factor = 1
+		}
+		set_temp_variable = {
+			projected_factories_calc = projected_factories
+		}
+		multiply_temp_variable = {
+			projected_factories_calc = 1.4
+		}
+		round_temp_variable = projected_factories_calc
+		custom_effect_tooltip = raj_five_year_goal_tt
+		show_ideas_tooltip = RAJ_full_speed_ahead
+		set_variable = {
+			projected_factories	= projected_factories_calc
+		}
+		round_variable = projected_factories
+		activate_mission = raj_first_five_year_plan
+	}
+}
+
+country_event = {	#Princely Economic Integration
+	id = india.428
+	title = india.428.t
+	desc = india.428.d
+	picture = GFX_report_event_picture_RAJ_Government_Formation
+	
+	is_triggered_only = yes
+
+	option = {	#hindu
+		name = india.428.a
+		ai_chance = {
+			factor = 1
+		}
+		random_owned_state = {
+			limit = {
+				OR = {
+					state = 444
+					state = 441
+				}
+			}
+			add_dynamic_modifier = {
+				modifier = recent_economic_integration
+				days = 365
+			}
+			set_state_flag = prince_improved
+		}
+		every_owned_state = {
+			limit = {
+				has_state_flag = princely_state
+				NOT = { has_state_flag = prince_improved }
+			}
+			add_dynamic_modifier = {
+				modifier = recent_economic_integration
+				days = 240
+			}
+		}
+		add_power_balance_value = {
+			id = r56_south_asia_religious_bop
+			value = 0.05
+		}
+	}
+	option = {	#muslim
+		name = india.428.b
+		ai_chance = {
+			factor = 1
+		}
+		
+		random_owned_state = {
+			limit = {
+				OR = {
+					state = 425
+					state = 426
+					state = 433
+					state = 437
+				}
+			}
+			add_dynamic_modifier = {
+				modifier = recent_economic_integration
+				days = 400
+			}
+			set_state_flag = prince_improved
+		}
+
+		every_owned_state = {
+			limit = {
+				has_state_flag = princely_state
+				NOT = { has_state_flag = prince_improved}
+			}
+			add_dynamic_modifier = {
+				modifier = recent_economic_integration
+				days = 240
+			}
+		}
+		add_power_balance_value = {
+			id = r56_south_asia_religious_bop
+			value = -0.05
+		}
+	}
+}
+
+
 country_event = {	#Warning signs of an incoming famine
 	id = india.440
 	title = india.440.t
 	desc = india.440.desc
-	picture = GFX_event_picture_RAJ_Government_Formation
+	picture = GFX_report_event_picture_RAJ_Government_Formation
 
 	trigger = {
 		tag = RAJ
@@ -3617,7 +3848,7 @@ country_event = {	#Warning signs of an incoming famine
 			factor = 10
 			modifier = {
 				factor = 5
-				has_completed_focus = RAJ_Soviet_Assistance
+				has_completed_focus = RAJ_Indo_Soviet_Friendship_Treaty
 			}
 			modifier = {
 				factor = 10
@@ -3794,9 +4025,9 @@ country_event = {	#Warning signs of an incoming famine
 		ai_chance = {
 			base = 10
 			modifier = {
-				factor = 3
+				factor = 5
 				RAJ = {
-					has_completed_focus = RAJ_Soviet_Assistance
+					has_completed_focus = RAJ_Indo_Soviet_Friendship_Treaty
 				}
 			}
 			modifier = {
@@ -3898,7 +4129,7 @@ country_event = {	#Warning signs of an incoming famine
 			modifier = {
 				factor = 0.3
 				has_country_leader = {
-					name = "Winston Churchill"
+					character = ENG_winston_churchill
 					ruling_only = yes
 				}
 			}
@@ -4722,7 +4953,7 @@ country_event = {#demanding oaths of loyalty
 	picture = GFX_report_event_picture_RAJ_Railway
 
 	is_triggered_only = yes
-	immediate = { set_variable = { current_state = 425 } }
+	immediate = { set_variable = { current_state = 1013 } }
 immediate = {
 		var:current_state = {
 			set_variable = {
@@ -4742,12 +4973,12 @@ immediate = {
 		427 = {
 			prince_independence_effect = yes
 		}
-		hidden_effect = {
-			country_event = {
-				id = india.420
-				days = 256
-			}
-		}
+		#hidden_effect = {
+		#country_event = {
+		#		id = india.420
+		#		days = 256
+		#	}
+		#}
 		var:current_state = {
 			random_list = {
 				0 = {
@@ -4757,7 +4988,7 @@ immediate = {
 						always = yes
 					}
 					RAJ = { country_event = {
-						id = india.4250 #StateID + Integration Binary
+						id = india.10130 #StateID + Integration Binary
 						hours = 48
 					}
 					}
@@ -4769,7 +5000,7 @@ immediate = {
 						always = yes
 					}
 					RAJ = { country_event = {
-						id = india.4251
+						id = india.10131
 						hours = 48
 					}
 					}
@@ -4842,6 +5073,129 @@ immediate = {
 		}
 	}
 }
+
+country_event = {#demanding oaths of loyalty
+id = india.10130
+title = india.10130.t
+desc = india.10130.desc
+picture = GFX_report_event_elections_cambodia
+
+is_triggered_only = yes
+immediate = { set_variable = { current_state = 425 } }
+immediate = {
+	var:current_state = {
+		set_variable = {
+			temp_calc_chance = 100
+		}
+		subtract_from_variable = {
+			temp_calc_chance = voting_chance
+		}
+	}
+}
+
+option = {#Gujarat
+	ai_chance = {
+		factor = 20
+	}
+	name = india.10130.a
+	1013 = {
+		prince_independence_effect = yes
+	}
+	var:current_state = {
+		random_list = {
+			0 = {
+				#Moves for Independence
+				modifier = {
+					add = var:temp_calc_chance
+					always = yes
+				}
+				RAJ = { country_event = {
+					id = india.4250 #StateID + Integration Binary
+					hours = 48
+				}
+				}
+			}
+			0 = {
+				#Integrates into India
+				modifier = {
+					add = var:voting_chance
+					always = yes
+				}
+				RAJ = { country_event = {
+					id = india.4251
+					hours = 48
+				}
+				}
+			}
+		}	
+	}
+}
+}
+
+country_event = {#demanding oaths of loyalty
+id = india.10131
+title = india.10131.t
+desc = india.10131.desc
+picture = GFX_report_event_elections_cambodia
+
+is_triggered_only = yes
+immediate = { set_variable = { current_state = 425 } }
+immediate = {
+	var:current_state = {
+		set_variable = {
+			temp_calc_chance = 100
+		}
+		subtract_from_variable = {
+			temp_calc_chance = voting_chance
+		}
+	}
+}
+
+option = {#Gujarat
+	ai_chance = {
+		factor = 20
+	}
+	name = india.10131.a
+	1013 = {
+		prince_integration = yes
+		add_extra_state_shared_building_slots = 1
+		add_building_construction = {
+			type = industrial_complex
+			level = 1
+			instant_build = yes
+		}
+	}
+	var:current_state = {
+		random_list = {
+			0 = {
+				#Moves for Independence
+				modifier = {
+					add = var:temp_calc_chance
+					always = yes
+				}
+				RAJ = { country_event = {
+					id = india.4250 #StateID + Integration Binary
+					hours = 48
+				}
+				}
+			}
+			0 = {
+				#Integrates into India
+				modifier = {
+					add = var:voting_chance
+					always = yes
+				}
+				RAJ = { country_event = {
+					id = india.4251
+					hours = 48
+				}
+				}
+			}
+		}	
+	}
+}
+}
+
 country_event = {#demanding oaths of loyalty
 	id = india.4250
 	title = india.4250.t
@@ -4903,6 +5257,9 @@ immediate = {
 					}
 				}	
 			}
+		}
+		else = {
+			set_country_flag = concession_disable
 		}
 	}
 }
@@ -4975,6 +5332,9 @@ immediate = {
 				}	
 			}
 		}
+		else = {
+			set_country_flag = concession_disable
+		}
 	}
 }
 country_event = {#demanding oaths of loyalty
@@ -5004,33 +5364,43 @@ immediate = {
 		441 = {
 			prince_independence_effect = yes
 		}
-		var:current_state = {
-			random_list = {
-				0 = {
-					#Moves for Independence
-					modifier = {
-						add = var:temp_calc_chance
-						always = yes
-					}
-					RAJ = { country_event = {
-						id = india.4440 #StateID + Integration Binary
-						hours = 48
-					}
-					}
+		if = {
+			limit = {
+				var:current_state = {
+					is_owned_by = RAJ
 				}
-				0 = {
-					#Integrates into India
-					modifier = {
-						add = var:voting_chance
-						always = yes
+			}
+			var:current_state = {
+				random_list = {
+					0 = {
+						#Moves for Independence
+						modifier = {
+							add = var:temp_calc_chance
+							always = yes
+						}
+						RAJ = { country_event = {
+							id = india.4440 #StateID + Integration Binary
+							hours = 48
+						}
+						}
 					}
-					RAJ = { country_event = {
-						id = india.4441
-						hours = 48
+					0 = {
+						#Integrates into India
+						modifier = {
+							add = var:voting_chance
+							always = yes
+						}
+						RAJ = { country_event = {
+							id = india.4441
+							hours = 48
+						}
+						}
 					}
-					}
-				}
-			}	
+				}	
+			}
+		}
+		else = {
+			set_country_flag = concession_disable
 		}
 	}
 }
@@ -5155,656 +5525,3 @@ immediate = {
 		set_country_flag = concession_disable
 	}
 }
-
-#hindu hammer
-
-# Soviet Military Mission
-country_event = {
-	id = raj.1
-	title = raj.1.t
-	desc = raj.1.d
-	picture = GFX_report_event_physics_lab_01
-
-	is_triggered_only = yes
-
-	option = {
-		name = raj.1.a	#sounds good
-		RAJ = {
-		# REVISIT Balance research bonus
-		add_tech_bonus = {
-			name = med_armor_bonus
-			ahead_reduction = 1
-			category = cat_medium_armor
-		}
-		add_tech_bonus = {
-			name = armor_bonus
-			bonus = 0.5
-			uses = 1
-			category = armor
-		 }
-	 }
-	}
-
-	option = {
-		name = raj.1.b	#industrial
-		ai_chance = { factor = 50 }
-		439 = {
-			add_extra_state_shared_building_slots = 2
-		 add_building_construction = {
-			 type = industrial_complex
-			 level = 2
-			 instant_build = yes
-			}
-		 }
-		 439 = {
- 			add_extra_state_shared_building_slots = 2
- 		 add_building_construction = {
- 			 type = arms_factory
- 			 level = 2
- 			 instant_build = yes
- 			}
- 		 }
-	}
-}
-
-country_event = {
-	id = raj.2
-	title = raj.2.t
-	desc = raj.2.d
-	picture = GFX_report_event_election_roosevelt_wilkie
-
-	fire_only_once = yes
-
-
-	is_triggered_only = yes
-
-	option = {
-		name = raj.2.a
-		ai_chance = {
-			factor = 99
-			}
-		ENG = { end_puppet = RAJ
-		}
-    RAJ = {
-		country_event = { id = raj.3 days = 1 }
-		}
-	}
-	option = {
-		name = raj.2.b
-		ai_chance = {
-			factor = 1
-			}
-			ENG = { end_puppet = RAJ
-			}
-			create_wargoal = {
-				type = take_state
-				target = RAJ
-				generator = { 439 }
-			}
-		}
-	}
-
-		country_event = {
-			id = raj.3
-			title = raj.3.t
-			desc = raj.3.d
-			picture = GFX_news_event_treaty_signed
-
-			is_triggered_only = yes
-
-			option = {
-				name = raj.3.a
-			}
-		}
-
-#Return Goa
-country_event = {
-	id = raj.4
-	title = raj.4.t
-	desc = raj.4.d
-	picture = GFX_report_event_election_vote
-
-	is_triggered_only = yes
-
-	option = { # Accept
-		name = raj.4.a
-		ai_chance = { factor = 80 }
-		RAJ = {
-			country_event = { id = raj.6 }
-		}
-	}
-	option = { # Refuse
-		name = raj.4.b
-	  ai_chance = { factor = 15 }
-		RAJ = {
-			country_event = { id = raj.5 }
-		}
-	}
-}
-
-# POR declines
-country_event = {
-	id = raj.5
-	title = raj.5.t
-	desc = raj.5.d
-	picture = GFX_report_event_nra_march
-
-	is_triggered_only = yes
-
-	option = {
-		name = raj.5.a
-		create_wargoal = {
-			type = take_state
-			target = POR
-			generator = { 321 }
-		}
-		add_state_core = 321
-	}
-}
-
-# POR Accepts
-country_event = {
-	id = raj.6
-	title = raj.6.t
-	desc = raj.6.d
-	picture = GFX_report_event_generic_read_write
-
-	is_triggered_only = yes
-
-	option = {
-		name = raj.6.a
-		transfer_state = 321
-		add_state_core = 321
-			}
-		}
-
-	# return ceylon,maldives,adrawan
-country_event = {
-	id = raj.8
-	title = raj.8.t
-	desc = raj.8.d
-	picture = GFX_report_event_korean_war_march
-
-	is_triggered_only = yes
-
-	option = { # Accept
-		name = raj.8.a
-		ai_chance = { factor = 97 }
-		RAJ = {
-			country_event = { id = raj.9 }
-		}
-	}
-	option = { # Refuse
-		name = raj.8.b
-    ai_chance = { factor = 3 }
-		RAJ = {
-			country_event = { id = raj.10 }
-			}
-		}
-	}
-
-# ENG Declines
-country_event = {
-	id = raj.10
-	title = raj.10.t
-	desc = raj.10.d
-	picture = GFX_report_event_nra_march
-
-	is_triggered_only = yes
-
-		option = {
-			name = raj.10.a
-			create_wargoal = {
-				type = take_state
-				target = ENG
-				generator = { 422 281 733 }
-			}
-		}
-	}
-
-# ENG Accepts
-country_event = {
-		id = raj.9
-		title = raj.9.t
-		desc = raj.9.d
-		picture = GFX_report_event_generic_read_write
-
-		is_triggered_only = yes
-
-		option = {
-			name = raj.9.a
-			transfer_state = 422
-			transfer_state = 281
-			transfer_state = 733
-			add_state_core = 422
-			add_state_core = 281
-			add_state_core = 733
-				}
-			}
-
-			# France india
-		country_event = {
-			id = raj.11
-			title = raj.11.t
-			desc = raj.11.d
-			picture = GFX_report_event_korean_war_march
-
-			is_triggered_only = yes
-
-			option = { # Accept
-				name = raj.11.a
-				ai_chance = { factor = 99 }
-				RAJ = {
-					country_event = { id = raj.13 }
-				}
-			}
-			option = { # Refuse
-				name = raj.11.b
-		    ai_chance = { factor = 1 }
-				RAJ = {
-					country_event = { id = raj.12 }
-					}
-				}
-			}
-
-		# FRA Declines
-		country_event = {
-			id = raj.12
-			title = raj.12.t
-			desc = raj.12.d
-			picture = GFX_report_event_nra_march
-
-			is_triggered_only = yes
-
-				option = {
-					name = raj.12.a
-					create_wargoal = {
-						type = take_state
-						target = ENG
-						generator = { 320 }
-				}
-				add_state_core = 320
-			}
-		}
-
-		# FRA Accepts
-		country_event = {
-				id = raj.13
-				title = raj.13.t
-				desc = raj.13.d
-				picture = GFX_report_event_generic_read_write
-
-				is_triggered_only = yes
-
-				option = {
-					name = raj.13.a
-					transfer_state = 320
-					add_state_core = 320
-						}
-					}
-
-
-								# Demand lesser India FRA
-							country_event = {
-								id = raj.14
-								title = raj.14.t
-								desc = raj.14.d
-								picture = GFX_report_event_korean_war_march
-
-								is_triggered_only = yes
-
-								option = { # Accept
-									name = raj.14.a
-									ai_chance = { factor = 75 }
-								  RAJ = {
-										country_event = { id = raj.16 }
-									}
-								}
-								option = { # Refuse
-									name = raj.14.b
-									ai_chance = { factor = 25 }
-									RAJ = {
-										country_event = { id = raj.15 }
-										}
-									}
-								}
-
-								# FRA Declines
-								country_event = {
-									id = raj.15
-									title = raj.15.t
-									desc = raj.15.d
-									picture = GFX_report_event_nra_march
-
-									is_triggered_only = yes
-
-										option = {
-											name = raj.15.a
-											create_wargoal = {
-												type = take_state
-												target = FRA
-												generator = { 741 286 671 670 }
-											}
-										}
-									}
-
-							# FRA Accepts
-							country_event = {
-									id = raj.16
-									title = raj.16.t
-									desc = raj.16.d
-									picture = GFX_report_event_generic_read_write
-
-									is_triggered_only = yes
-
-									option = {
-										name = raj.16.a
-										transfer_state = 741
-										transfer_state = 286
-										transfer_state = 671
-										transfer_state = 670
-										add_state_core = 741
-										add_state_core = 286
-										add_state_core = 671
-										add_state_core = 670
-											}
-										}
-
-										# Demand Lesser India ENG
-									country_event = {
-										id = raj.17
-										title = raj.17.t
-										desc = raj.17.d
-										picture = GFX_report_event_korean_war_march
-
-										is_triggered_only = yes
-
-										option = { # Accept
-											name = raj.17.a
-											ai_chance = { factor = 95 }
-											RAJ = {
-												country_event = { id = raj.19 }
-											}
-										}
-										option = { # Refuse
-											name = raj.17.b
-											ai_chance = { factor = 5 }
-											RAJ = {
-												country_event = { id = raj.18 }
-												}
-											}
-										}
-
-									# ENG Declines
-									country_event = {
-										id = raj.18
-										title = raj.18.t
-										desc = raj.18.d
-										picture = GFX_report_event_nra_march
-
-										is_triggered_only = yes
-
-											option = {
-												name = raj.18.a
-												create_wargoal = {
-													type = take_state
-													target = ENG
-													generator = { 333 336 }
-												}
-											}
-										}
-
-									# ENG Accepts
-									country_event = {
-											id = raj.19
-											title = raj.19.t
-											desc = raj.19.d
-											picture = GFX_report_event_generic_read_write
-
-											is_triggered_only = yes
-
-											option = {
-												name = raj.19.a
-												transfer_state = 333
-												transfer_state = 336
-												add_state_core = 333
-												add_state_core = 336
-													}
-												}
-
-												# Demand Lesser India HOL
-											country_event = {
-												id = raj.20
-												title = raj.20.t
-												desc = raj.20.d
-												picture = GFX_report_event_korean_war_march
-
-												is_triggered_only = yes
-
-												option = { # Accept
-													name = raj.20.a
-													ai_chance = { factor = 95 }
-													RAJ = {
-														country_event = { id = raj.22 }
-													}
-												}
-												option = { # Refuse
-													name = raj.20.b
-													ai_chance = { factor = 5 }
-													RAJ = {
-														country_event = { id = raj.21 }
-														}
-													}
-												}
-
-											# HOL Declines
-											country_event = {
-												id = raj.21
-												title = raj.21.t
-												desc = raj.21.d
-												picture = GFX_report_event_nra_march
-
-												is_triggered_only = yes
-
-													option = {
-														name = raj.21.a
-														create_wargoal = {
-															type = take_state
-															target = HOL
-															generator = { 334 672 335 667 673 668 }
-														}
-													}
-												}
-
-											# HOL Accepts
-											country_event = {
-													id = raj.22
-													title = raj.22.t
-													desc = raj.22.d
-													picture = GFX_report_event_generic_read_write
-
-													is_triggered_only = yes
-
-													option = {
-														name = raj.22.a
-														transfer_state = 334
-														transfer_state = 672
-														transfer_state = 335
-														transfer_state = 667
-														transfer_state = 673
-														transfer_state = 668
-														add_state_core = 334
-														add_state_core = 672
-														add_state_core = 335
-														add_state_core = 667
-														add_state_core = 673
-														add_state_core = 668
-															}
-														}
-
-														# JAPGER Military Mission
-														country_event = {
-															id = raj.23
-															title = raj.23.t
-															desc = raj.23.d
-															picture = GFX_report_event_physics_lab_01
-
-															is_triggered_only = yes
-
-															option = {
-																name = raj.23.a	#sounds good
-																RAJ = {
-																# REVISIT Balance research bonus
-																add_tech_bonus = {
-																	name = med_armor_bonus
-																	ahead_reduction = 1
-																	category = cat_medium_armor
-																}
-																add_tech_bonus = {
-																	name = armor_bonus
-																	bonus = 0.5
-																	uses = 1
-																	category = armor
-																 }
-															 }
-															}
-
-															option = {
-																name = raj.23.b	#industrial
-																ai_chance = { factor = 50 }
-																439 = {
-																	add_extra_state_shared_building_slots = 2
-																 add_building_construction = {
-																	 type = industrial_complex
-																	 level = 2
-																	 instant_build = yes
-																	}
-																 }
-																 439 = {
-														 			add_extra_state_shared_building_slots = 2
-														 		 add_building_construction = {
-														 			 type = arms_factory
-														 			 level = 2
-														 			 instant_build = yes
-														 			}
-														 		 }
-															 }
-															}
-
-															# CHI
-														country_event = {
-															id = raj.24
-															title = raj.24.t
-															desc = raj.24.d
-															picture = GFX_report_event_korean_war_march
-
-															is_triggered_only = yes
-
-															option = { # Accept
-																name = raj.24.a
-																ai_chance = { factor = 95 }
-																RAJ = {
-																	country_event = { id = raj.26 }
-																}
-															}
-															option = { # Refuse
-																name = raj.24.b
-																ai_chance = { factor = 5 }
-																RAJ = {
-																	country_event = { id = raj.25 }
-																	}
-																}
-															}
-
-														# CHI Declines
-														country_event = {
-															id = raj.25
-															title = raj.25.t
-															desc = raj.25.d
-															picture = GFX_report_event_nra_march
-
-															is_triggered_only = yes
-
-																option = {
-																	name = raj.25.a
-																	create_wargoal = {
-																		type = take_state
-																		target = CHI
-																		generator = { 325 601 }
-																	}
-																}
-															}
-
-														# CHI Accepts
-														country_event = {
-																id = raj.26
-																title = raj.26.t
-																desc = raj.26.d
-																picture = GFX_report_event_generic_read_write
-
-																is_triggered_only = yes
-
-																option = {
-																	name = raj.26.a
-																	transfer_state = 325
-																	transfer_state = 601
-																	add_state_core = 325
-																	add_state_core = 601
-																		}
-																	}
-
-                                  #commonwealth ties
-																	country_event = {
-																		id = raj.27
-																		title = raj.27.t
-																		desc = raj.27.d
-																		picture = GFX_report_event_japan_europe_pact
-
-																		is_triggered_only = yes
-
-																		option = { # Accept
-																			name = raj.27.a
-																			ai_chance = { factor = 50 }
-																			ENG = {
-																				country_event = { id = raj.29 }
-																			}
-																			add_ideas = RAJ_commonwealth_ties_strengthened
-																		}
-																		option = { # Refuse
-																			name = raj.27.b
-																			ai_chance = { factor = 50 }
-																			ENG = {
-																				country_event = { id = raj.28 }
-																				remove_from_faction = RAJ
-																				}
-																				add_ideas = RAJ_india_indpendent
-																			}
-																		}
-
-																		# left
-																		country_event = {
-																				id = raj.28
-																				title = raj.28.t
-																				desc = raj.28.d
-																				picture = GFX_report_event_generic_read_write
-
-																				is_triggered_only = yes
-
-																				option = {
-																					name = raj.28.a
-																						}
-																					}
-
-																					# stayed
-																					country_event = {
-																							id = raj.29
-																							title = raj.29.t
-																							desc = raj.29.d
-																							picture = GFX_report_event_generic_read_write
-
-																							is_triggered_only = yes
-
-																							option = {
-																								name = raj.29.a
-																									}
-																								}

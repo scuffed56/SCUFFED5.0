@@ -48,11 +48,15 @@ shared_focus = {
 		}
 	}
 	offset = {
-		x = -16
+		x = -8
 		y = 0
 		trigger = {
 			 tag = MAN 
 		}
+	}
+
+	allow_branch = {
+		always = no
 	}
 
 	cost = 10
@@ -439,6 +443,7 @@ shared_focus = {
 			uses = 1
 			category = armor
 		}
+
 		IF = {
 			limit = {
 				has_dlc = "Arms Against Tyranny"
@@ -454,7 +459,7 @@ shared_focus = {
 		ELSE = {
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = german_chinese_tank_designer
-		}
+		}		
 	}
 }
 
@@ -1592,12 +1597,24 @@ shared_focus = {
 shared_focus = {
 	id = CHI_renegotiate_the_unequal_treaties
 	icon = GFX_focus_renounce_the_treaty_of_trianon
-	prerequisite = { focus = CHI_modern_logistics focus = CHI_combined_arms_warfare focus = CHI_naval_aviation } 
+	prerequisite = { focus = MAN_claim_the_mandate_of_heaven focus = CHI_modern_logistics focus = CHI_combined_arms_warfare focus = CHI_naval_aviation } 
 	x = 0
 	y = 1
 	relative_position_id = CHI_modern_logistics
 
+	offset = {
+		x = -9
+		y = 6
+		trigger = {
+			tag = MAN
+		}
+	}
+
 	cost = 5
+
+	allow_branch = {
+		tag = MAN
+	}
 
 	ai_will_do = {
 		factor = 1
@@ -1948,6 +1965,15 @@ shared_focus = {
 				target = MON				
 				expire = 0
 			}
+		}
+		if = {
+			limit = { original_tag = MAN }
+			add_state_claim = 329
+			add_state_claim = 330
+			add_state_claim = 820
+			add_state_claim = 819
+			add_state_claim = 818
+			add_state_claim = 817
 		}
 	}
 }
@@ -2844,8 +2870,22 @@ shared_focus = {
 	available_if_capitulated = yes
 
 	completion_reward = {
-		custom_effect_tooltip = available_designer
-		show_ideas_tooltip = CHI_camco_2
+		IF = {
+			limit = {
+				has_dlc = "Arms Against Tyranny"
+			}
+			custom_effect_tooltip = available_mio_tt
+			show_mio_tooltip = CHI_camco_fighter_organization
+			mio:CHI_camco_fighter_organization = {
+				add_mio_size = 1
+				add_mio_funds = 500
+			}
+		}
+
+		ELSE = {
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = CHI_camco_2
+		}
 	}
 }
 
@@ -2864,21 +2904,16 @@ shared_focus = {
 	}
 
 	available = {
-		IF = {
+		if = {
 			limit = {
 				has_dlc = "Arms Against Tyranny"
 			}
-			custom_effect_tooltip = available_mio_tt
-			show_mio_tooltip = CHI_camco_fighter_organization
 			mio:CHI_camco_fighter_organization = {
-				add_mio_size = 1
-				add_mio_funds = 500
+				has_mio_size > 3
 			}
 		}
-
-		ELSE = {
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = CHI_camco_2
+		else = {
+			has_idea = CHI_camco_2
 		}
 	}
 
@@ -2889,6 +2924,7 @@ shared_focus = {
 	available_if_capitulated = yes
 
 	completion_reward = {
+
 		IF = {
 			limit = {
 				has_dlc = "Arms Against Tyranny"

@@ -108,7 +108,12 @@ country_event = {
 		
 		385 = {
 			owner = { 
-				tag = ROOT 
+				OR = {
+					tag = ROOT 
+					ROOT = {
+						has_country_flag = r56_cflg_patreon_ee	#already blocks in MP
+					}
+				}
 			}
 		}
 	}
@@ -366,7 +371,8 @@ country_event = {
 		}
 		GER = {
 			has_country_leader = {
-				name = "Adolf Hitler"
+				character = GER_adolf_hitler
+				ruling_only = yes
 			}
 		}
 	}
@@ -415,17 +421,15 @@ country_event = {
 	
 	immediate = {
 		hidden_effect = {
-			GER = {
-				kill_country_leader = yes
-				create_country_leader = {
-					name = "Sad Hitler"
-					desc = "POLITICS_ADOLF_HITLER_DESC"
-					picture = "gfx/leaders/WHY/r56w_portrait_WHY_sad_hitler.dds"
-					expire = "1965.1.1"
-					ideology = nazism
-					traits = { dictator r56w_trait_leader_shaved }
-				}
-			}
+            GER = {
+                set_country_leader_portrait = {
+                    portrait = "gfx/leaders/WHY/r56w_portrait_WHY_sad_hitler.dds"
+                }
+                set_country_leader_name = {
+                    name = "Sad Hitler"
+                }
+                add_country_leader_trait = r56w_trait_leader_shaved
+            }
 			set_country_flag = r56w_flag_got_shaved
 			news_event = { id = r56w.event.40 days = 7 }	
 		}
@@ -529,7 +533,6 @@ country_event = {
 				kill_country_leader = yes
 				create_country_leader = {
 					name = "Thinking Waffle"
-					desc = "POLITICS_W_WAFFLE_DESC"
 					picture = "gfx/leaders/WHY/r56w_portrait_WHY_w_waffle.dds"
 					expire = "1965.1.1"
 					ideology = liberalism
@@ -537,7 +540,6 @@ country_event = {
 				}
 				create_country_leader = {
 					name = "Thinking Waffle"
-					desc = "POLITICS_W_WAFFLE_DESC"
 					picture = "gfx/leaders/WHY/r56w_portrait_WHY_w_waffle.dds"
 					expire = "1965.1.1"
 					ideology = despotism
@@ -545,7 +547,6 @@ country_event = {
 				}
 				create_country_leader = {
 					name = "Thinking Waffle"
-					desc = "POLITICS_W_WAFFLE_DESC"
 					picture = "gfx/leaders/WHY/r56w_portrait_WHY_w_waffle.dds"
 					expire = "1965.1.1"
 					ideology = anarchist_communism
@@ -553,7 +554,6 @@ country_event = {
 				}
 				create_country_leader = {
 					name = "Thinking Waffle"
-					desc = "POLITICS_W_WAFFLE_DESC"
 					picture = "gfx/leaders/WHY/r56w_portrait_WHY_w_waffle.dds"
 					expire = "1965.1.1"
 					ideology = rexism
@@ -745,7 +745,6 @@ country_event = {
 				kill_country_leader = yes
 				create_country_leader = {
 					name = "Daniel Craig"
-					desc = "POLITICS_W_CRAIG_DESC"
 					picture = "gfx/leaders/WHY/r56w_portrait_WHY_daniel_craig.dds"
 					expire = "1965.1.1"
 					ideology = despotism
@@ -811,7 +810,6 @@ country_event = {
 				kill_country_leader = yes
 				create_country_leader = {
 					name = "Sooty Sooty Sooty"
-					desc = "POLITICS_W_SOOTY"
 					picture = "gfx/leaders/WHY/r56w_portrait_WHY_sooty.dds"
 					expire = "1965.1.1"
 					ideology = liberalism
@@ -876,7 +874,7 @@ country_event = {
 				create_corps_commander = {
 					name = "CTomic"
 					picture = "gfx/leaders/WHY/r56w_portrait_PTR_ctomic.dds"
-					traits = {  combined_arms_expert }
+					traits = {  r56w_trait_army_packed_lunch }
 					skill = 5
 					attack_skill = 3
 					defense_skill = 3
@@ -902,7 +900,6 @@ country_event = {
 				kill_country_leader = yes
 				create_country_leader = {
 					name = "James Michael Smith"
-					desc = "POLITICS_JAMESMICHAELSMITH_DESC"
 					picture = "gfx/leaders/WHY/r56w_portrait_PTR_jamesmichaelsmith.dds"
 					expire = "5183.5.1"
 					ideology = anarchist_communism
@@ -945,7 +942,10 @@ country_event = {
 	}	
 	trigger = {
 		original_tag = GER
-		has_country_leader = { name = "Adolf Hitler" }
+		has_country_leader = { 
+			character = GER_adolf_hitler
+			ruling_only = yes
+		}
 		has_government = fascism
 		has_war = no
 		date < 1943.01.01

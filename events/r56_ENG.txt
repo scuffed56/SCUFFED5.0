@@ -71,15 +71,11 @@ country_event = {
 	desc = r56_eng.5.desc
 	picture = GFX_report_event_europe_funeral
 	
+	fire_only_once = yes
+	is_triggered_only = yes
 	trigger = {
-		tag = ENG
-		date > 1951.12.6
 		has_idea = ENG_george_vi
 	}
-	
-	fire_only_once = yes
-
-	mean_time_to_happen = { days = 60 }
 	
 	immediate = {
 		hidden_effect = {
@@ -95,6 +91,70 @@ country_event = {
 			add_ideas = ENG_elisabeth_ii	
 		}
 	}
+}
+
+country_event = { #return to responsible Government or federation with Canada?
+	id = r56_eng.6
+	title = r56_eng.6.t
+	desc = r56_eng.6.desc
+	picture = GFX_report_event_canadian_soldiers
+
+	trigger = {
+		tag = ENG
+		date > 1947.06.6
+		331 = { is_owned_and_controlled_by = ROOT }
+		NOT = {
+			country_exists = NFL
+		}
+		OR = {
+			has_government = communism
+			has_government = democratic #check for the British Union of Fascists?
+		}
+	}
+	
+	fire_only_once = yes
+
+	mean_time_to_happen = { days = 60 }
+
+	#maybe add Joey Smallwood (but pro unification with Canada-, Peter John Cashin, against unification
+	# send it to Canada
+	option = { 
+		name = r56_eng.6.a
+		ai_chance = {
+			base = 75
+		}
+		trigger = {
+			CAN = {
+				OR = {
+					is_puppet_of = ROOT
+					is_in_faction_with = ROOT
+				}
+				682 = { is_owned_and_controlled_by = ROOT }
+			}
+		}
+		effect_tooltip = {
+			CAN = {
+				transfer_state = 331
+				transfer_state = 332
+			}
+		}
+		hidden_effect = {
+			CAN = { country_event = { id =  r56_canada.10 days = 2 } }
+			news_event = { id = r56.news_event.47 days = 3 }
+		}			
+	}
+	option = { 
+		name = r56_eng.6.b
+		ai_chance = {
+			base = 25
+		}
+		add_political_power = -300
+		release_puppet_on_controlled = NFL
+		NFL = {
+			add_political_power = 500
+		}
+		news_event = { id = r56.news_event.48 days = 3 }
+	}	
 }
 
 #There's a limit to how many events can fit in a namespace.  To play it safe, I'm working with around 100.
@@ -144,128 +204,5 @@ country_event = {
 	}
 }
 
-
-
-country_event = {
-    id = r56_eng.11
-    title = r56_eng.11.t
-    desc = r56_eng.11.d
-    picture = GFX_report_event_finnish_letter
-    
-    is_triggered_only = yes
-
-
-    #balanced economy
-    option = {
-        name = r56_eng.11.a
-
-		ENG = {
-			add_ideas = ENG_Balanced_Economy	
-        }
-		
-    }
-	#full civilian economy
-	option = {
-        name = r56_eng.11.b
-
-		ENG = {
-			add_ideas = ENG_Full_Civilian_Integration
-		}
-		
-    }
-	
-}
-
-country_event = {
-    id = r56_eng.12
-    title = r56_eng.12.t
-    desc = r56_eng.12.d
-    picture = GFX_report_event_finnish_letter
-    
-    is_triggered_only = yes
-
-
-    #balanced economy
-    option = {
-        name = r56_eng.12.a
-
-		ENG = {
-			swap_ideas = { remove_idea = ENG_Balanced_Economy  add_idea = ENG_Balanced_Economy_2  }
-			
-        }
-		hidden_effect  = { ROOT = {remove_ideas = ENG_Full_Civilian_Integration} }
-    }
-	#full civilian economy
-	option = {
-        name = r56_eng.12.b
-		
-		ENG = {
-			swap_ideas = { remove_idea = ENG_Full_Civilian_Integration  add_idea = ENG_Full_Civilian_Integration_2 }
-			
-        }
-		hidden_effect  = { ROOT = {remove_ideas = ENG_Balanced_Economy} }
-    }
-	
-}
-country_event = {
-    id = r56_eng.13
-    title = r56_eng.13.t
-    desc = r56_eng.13.d
-    picture = GFX_report_event_finnish_letter
-    
-    is_triggered_only = yes
-
-
-    #balanced economy
-    option = {
-        name = r56_eng.13.a
-
-		ENG = {
-			add_ideas = ENG_Balanced_Economy	
-        }
-		
-    }
-	#full military economy
-	option = {
-        name = r56_eng.13.b
-
-		ENG = {
-			add_ideas = ENG_Full_Military_Integration
-		}
-		
-    }
-	
-}
-country_event = {
-    id = r56_eng.14
-    title = r56_eng.14.t
-    desc = r56_eng.14.d
-    picture = GFX_report_event_finnish_letter
-    
-    is_triggered_only = yes
-
-
-    #balanced economy
-    option = {
-        name = r56_eng.14.a
-
-		ENG = {
-			swap_ideas = { remove_idea = ENG_Balanced_Economy  add_idea = ENG_Balanced_Economy_2  }
-			
-        }
-		hidden_effect  = { ROOT = {remove_ideas = ENG_Full_Military_Integration} }
-    }
-	#full civilian economy
-	option = {
-        name = r56_eng.14.b
-		
-		ENG = {
-			swap_ideas = { remove_idea = ENG_Full_Military_Integration  add_idea = ENG_Full_Military_Integration_2 }
-			
-        }
-		hidden_effect  = { ROOT = {remove_ideas = ENG_Balanced_Economy} }
-    }
-	
-}
 #From navaldesign:
 #Events removed. Events are broken as the ideas do not exist, and would conflict with base game navel designers. If you want to add these navel desginers please use TWAS mod and import all the ideas. Cause I aint doing all that work for flavor. -Spicy  

@@ -554,82 +554,39 @@ DEN_the_king_takes_over = {
 		limit = {
 			NOT = { has_government = neutrality }
 		}
-		if = {
-			limit = {
-				NOT = { has_character = DEN_christian_x } #He be dead
-			}
-			set_politics = {
-				ruling_party = neutrality
-				long_name = DEN_neutrality_monarchist_party_long
-				name = DEN_neutrality_monarchist_party
-			}
-			DEN_frederik_ix = {
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = despotism
-						expire = "1965.1.1.1"
-						traits = { DEN_the_king }
-					}
-				}
-			}
+		set_politics = {
+			ruling_party = neutrality
+			long_name = DEN_neutrality_monarchist_party_long
+			name = DEN_neutrality_monarchist_party
 		}
-		else = {
-			set_politics = {
-				ruling_party = neutrality
-				long_name = DEN_neutrality_monarchist_party_long
-				name = DEN_neutrality_monarchist_party
-			}
-			DEN_christian_x = {
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = despotism
-						expire = "1965.1.1.1"
-						traits = { DEN_the_king }
-					}
+		DEN_christian_x = {
+			add_country_leader_role = {
+				promote_leader = yes
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+					traits = { DEN_the_king }
 				}
 			}
 		}
 	}
 	else_if = {
-		if = {
-			limit = {
-				NOT = { has_character = DEN_christian_x } #He be dead
-				#DEN_frederik_ix = { is_country_leader = no }
-			}
-			DEN_remove_neutral_leader = yes
-			set_politics = {
-				ruling_party = neutrality
-				long_name = DEN_neutrality_monarchist_party_long
-				name = DEN_neutrality_monarchist_party
-			}
-			DEN_frederik_ix = {
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = despotism
-						expire = "1965.1.1.1"
-						traits = { DEN_the_king }
-					}
-				}
-			}
+		limit = {
+			DEN_christian_x = { is_country_leader = no }
 		}
-		else = {
-			DEN_remove_neutral_leader = yes
-			set_party_name = {
-				ideology = neutrality
-				name = DEN_neutrality_monarchist_party_long
-				long_name = DEN_neutrality_monarchist_party
-			}
-			DEN_christian_x = {
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = despotism
-						expire = "1965.1.1.1"
-						traits = { DEN_the_king }
-					}
+		DEN_remove_neutral_leader = yes
+		set_party_name = {
+			ideology = neutrality
+			name = DEN_neutrality_monarchist_party_long
+			long_name = DEN_neutrality_monarchist_party
+		}
+		DEN_christian_x = {
+			add_country_leader_role = {
+				promote_leader = yes
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+					traits = { DEN_the_king }
 				}
 			}
 		}
@@ -1585,13 +1542,26 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {			#was not defined in vanilla so was broken? 			- Fantom
+					name = "Örnen Class"
 					type = destroyer_1
-					creator = "SWE"
+					parent_version = 0
+					upgrades = {
+						ship_torpedo_upgrade = 0
+						destroyer_engine_upgrade = 0
+						ship_ASW_upgrade = 0
+						ship_anti_air_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "SWE"
+					equipment_variant = "Örnen Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "SWE"
+					equipment_variant = "Örnen Class"
 				}
 			}	
 		}
@@ -1619,13 +1589,26 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {
+					name = "Draug Class"
 					type = destroyer_1
-					creator = "NOR"
+					parent_version = 0
+					upgrades = {
+						ship_reliability_upgrade = 0
+						ship_engine_upgrade = 0
+						ship_armor_upgrade = 0
+						ship_gun_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "NOR"
+					equipment_variant = "Draug Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "NOR"
+					equipment_variant = "Draug Class"
 				}
 			}	
 		}
@@ -1653,13 +1636,26 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {
+					name = "Van Galen Class"
 					type = destroyer_1
-					creator = "HOL"
+					parent_version = 0
+					upgrades = {
+						ship_reliability_upgrade = 0
+						ship_engine_upgrade = 0
+						ship_armor_upgrade = 0
+						ship_gun_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "HOL"
+					equipment_variant = "Van Galen Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "HOL"
+					equipment_variant = "Van Galen Class"
 				}
 			}	
 		}
@@ -1699,21 +1695,36 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {
+					name = "S Class"
 					type = destroyer_1
-					creator = "ENG"
+					parent_version = 0
+					upgrades = {
+						ship_reliability_upgrade = 0
+						ship_engine_upgrade = 0
+						ship_armor_upgrade = 0
+						ship_gun_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "ENG"
+					equipment_variant = "S Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "ENG"
+					equipment_variant = "S Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "ENG"
+					equipment_variant = "S Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "ENG"
+					equipment_variant = "S Class"
 				}
 			}	
 		}
@@ -1753,21 +1764,36 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {
+					name = "Clemson Class"
 					type = destroyer_1
-					creator = "USA"
+					parent_version = 0
+					upgrades = {
+						ship_reliability_upgrade = 0
+						ship_engine_upgrade = 0
+						ship_armor_upgrade = 0
+						ship_gun_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "USA"
+					equipment_variant = "Clemson Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "USA"
+					equipment_variant = "Clemson Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "USA"
+					equipment_variant = "Clemson Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "USA"
+					equipment_variant = "Clemson Class"
 				}
 			}	
 		}
@@ -1807,21 +1833,36 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {
+					name = "Bourrasque Class"
 					type = destroyer_1
-					creator = "FRA"
+					parent_version = 0
+					upgrades = {
+						ship_reliability_upgrade = 0
+						ship_engine_upgrade = 0
+						ship_armor_upgrade = 0
+						ship_gun_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "FRA"
+					equipment_variant = "Bourrasque Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "FRA"
+					equipment_variant = "Bourrasque Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "FRA"
+					equipment_variant = "Bourrasque Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "FRA"
+					equipment_variant = "Bourrasque Class"
 				}
 			}	
 		}
@@ -1861,21 +1902,36 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {
+					name = "Orfey Class"
 					type = destroyer_1
-					creator = "SOV"
+					parent_version = 0
+					upgrades = {
+						ship_reliability_upgrade = 0
+						ship_engine_upgrade = 0
+						ship_armor_upgrade = 0
+						ship_gun_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "SOV"
+					equipment_variant = "Orfey Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "SOV"
+					equipment_variant = "Orfey Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "SOV"
+					equipment_variant = "Orfey Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "SOV"
+					equipment_variant = "Orfey Class"
 				}
 			}	
 		}
@@ -1915,21 +1971,36 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {
+					name = "Zerstörer 1934 Class"
 					type = destroyer_1
-					creator = "GER"
+					parent_version = 0
+					upgrades = {
+						ship_reliability_upgrade = 0
+						ship_engine_upgrade = 0
+						ship_armor_upgrade = 0
+						ship_gun_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "GER"
+					equipment_variant = "Zerstörer 1934 Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "GER"
+					equipment_variant = "Zerstörer 1934 Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "GER"
+					equipment_variant = "Zerstörer 1934 Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "GER"
+					equipment_variant = "Zerstörer 1934 Class"
 				}
 			}	
 		}
@@ -1969,21 +2040,36 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {
+					name = "Curtatone Class"
 					type = destroyer_1
-					creator = "ITA"
+					parent_version = 0
+					upgrades = {
+						ship_reliability_upgrade = 0
+						ship_engine_upgrade = 0
+						ship_armor_upgrade = 0
+						ship_gun_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "ITA"
+					equipment_variant = "Curtatone Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "ITA"
+					equipment_variant = "Curtatone Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "ITA"
+					equipment_variant = "Curtatone Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "ITA"
+					equipment_variant = "Curtatone Class"
 				}
 			}	
 		}
@@ -2023,21 +2109,36 @@ DEN_activate_bought_ships = {
 				}
 			}
 			else = {
-				create_ship = {
+				create_equipment_variant = {
+					name = "Mutsuki Class"
 					type = destroyer_1
-					creator = "JAP"
+					parent_version = 0
+					upgrades = {
+						ship_reliability_upgrade = 0
+						ship_engine_upgrade = 0
+						ship_armor_upgrade = 0
+						ship_gun_upgrade = 0
+					}
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "JAP"
+					equipment_variant = "Mutsuki Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "JAP"
+					equipment_variant = "Mutsuki Class"
 				}
 				create_ship = {
 					type = destroyer_1
 					creator = "JAP"
+					equipment_variant = "Mutsuki Class"
+				}
+				create_ship = {
+					type = destroyer_1
+					creator = "JAP"
+					equipment_variant = "Mutsuki Class"
 				}
 			}	
 		}
@@ -2102,8 +2203,6 @@ DEN_upgrade_resistance_militia = { #this is meant to upgrade the militia divisio
 				militia = { x = 0 y = 1 }
 				militia = { x = 1 y = 0 }
 				militia = { x = 1 y = 1 }
-			}
-			support = {
 			}
 			override_model = DEN_militia_entity
 		}
@@ -2989,7 +3088,7 @@ DEN_sell_territory_for_guarantees = {
 				check_variable = { DEN.DEN_guaranteeing_nation = GER }
 			}
 		}
-		964 = { transfer_state_to = GER } #912 was base game ~EndSieg
+		912 = { transfer_state_to = GER }
 	}
 	else_if = {
 		limit = {
@@ -3000,7 +3099,7 @@ DEN_sell_territory_for_guarantees = {
 				check_variable = { DEN.DEN_guaranteeing_nation = SOV }
 			}
 		}
-		1024 = { transfer_state_to = SOV } #910 was base game ~EndSieg #Bornholm
+		910 = { transfer_state_to = SOV }
 	}
 }
 
@@ -3971,33 +4070,29 @@ DEN_norwegian_territory_wargoals = { #Set in an event
 	}
 }
 
-DEN_create_the_plenipotentiary = { #This is set up in an event and will create a new country leader in the Overlord country, but retires that character immediately so that character doesn't assume power 
+DEN_install_a_plenipotentiary = { #This is set in an event
 	if = {
 		limit = {
-			FROM = { #Overlord Scope
+			FROM = {
 				original_tag = GER
 				has_government = fascism
 			}
 		}
+		set_politics = {
+			ruling_party = fascism
+		}
 		DEN_werner_best = {
-			add_country_leader_role = {
-				country_leader = {
-					ideology = nazism
-					expire = "1965.1.1.1"
-					id = -1
-					traits = {
-						DEN_plenipotentiary
-					}
-				}
-			}
+			promote_character = yes
 		}
 	}
 	else_if = {
 		limit = {
-			FROM = { #Overlord Scope
-				NOT = { original_tag = GER }
+			FROM = {
 				has_government = fascism
 			}
+		}
+		set_politics = {
+			ruling_party = fascism
 		}
 		FROM = {
 			create_country_leader = {
@@ -4008,14 +4103,16 @@ DEN_create_the_plenipotentiary = { #This is set up in an event and will create a
 					DEN_plenipotentiary
 				}	
 			}
-			retire_country_leader = yes #Necessary to not install this character as the Overlord's new country leader
 		}
 	}
 	else_if = {
 		limit = {
-			FROM = { #Overlord Scope
+			FROM = {
 				has_government = communism
 			}
+		}
+		set_politics = {
+			ruling_party = communism
 		}
 		FROM = {
 			create_country_leader = {
@@ -4026,14 +4123,16 @@ DEN_create_the_plenipotentiary = { #This is set up in an event and will create a
 					DEN_plenipotentiary
 				}	
 			}
-			retire_country_leader = yes #Necessary to not install this character as the Overlord's new country leader
 		}
 	}
 	else_if = {
 		limit = {
-			FROM = { #Overlord Scope
+			FROM = {
 				has_government = neutrality
 			}
+		}
+		set_politics = {
+			ruling_party = neutrality
 		}
 		FROM = {
 			create_country_leader = {
@@ -4044,14 +4143,16 @@ DEN_create_the_plenipotentiary = { #This is set up in an event and will create a
 					DEN_plenipotentiary
 				}	
 			}
-			retire_country_leader = yes #Necessary to not install this character as the Overlord's new country leader
 		}
 	}
 	else_if = {
 		limit = {
-			FROM = { #Overlord Scope
+			FROM = {
 				has_government = democratic
 			}
+		}
+		set_politics = {
+			ruling_party = democratic
 		}
 		FROM = {
 			create_country_leader = {
@@ -4062,68 +4163,8 @@ DEN_create_the_plenipotentiary = { #This is set up in an event and will create a
 					DEN_plenipotentiary
 				}	
 			}
-			retire_country_leader = yes #Necessary to not install this character as the Overlord's new country leader
 		}
 	}
-}
-
-DEN_install_a_plenipotentiary = {
-	get_current_ruling_party = yes
-	if = {
-		limit = {
-			FROM = { #Overlord Scope
-				has_government = fascism
-			}
-		}
-		set_politics = { #Denmark Scope
-			ruling_party = fascism
-		}
-	}
-	else_if = {
-		limit = {
-			FROM = { #Overlord Scope
-				has_government = communism
-			}
-		}
-		set_politics = { #Denmark Scope
-			ruling_party = communism
-		}
-	}
-	else_if = {
-		limit = {
-			FROM = { #Overlord Scope
-				has_government = neutrality
-			}
-		}
-		set_politics = { #Denmark Scope
-			ruling_party = neutrality
-		}
-	}
-	else_if = {
-		limit = {
-			FROM = { #Overlord Scope
-				has_government = democratic
-			}
-		}
-		set_politics = { #Denmark Scope
-			ruling_party = democratic
-		}
-	}
-	FROM = { #Overlord Scope. Transfer the newly created character to Denmark
-		random_character = {
-			limit = {
-				has_trait = DEN_plenipotentiary
-			}
-			set_nationality = DEN
-		}
-	}
-	every_character = { #Promote the newly created country leader to become the actual country leader of Denmark
-		limit = {
-			has_trait = DEN_plenipotentiary
-		}
-		promote_character = yes
-	}
-
 }
 
 DEN_drop_occupation_tag = {
@@ -4139,43 +4180,27 @@ DEN_independence_war_effects = {
 	hidden_effect = { #Necessary to declare war, but helps TT readability if it's not seen
 		if = {
 			limit = {  #Necessary in case Overlord already declared war
-				is_subject_of = DEN.DEN_overlord_nation
+				is_subject_of = var:DEN.DEN_overlord_nation
 			}
-			ROOT = { end_puppet = DEN.DEN_overlord_nation }
+			ROOT = { end_puppet = var:DEN.DEN_overlord_nation }
 			IF = {
 				limit = {
-					is_in_faction_with = DEN.DEN_overlord_nation
+					is_in_faction_with = var:DEN.DEN_overlord_nation
 				}
 				ROOT = { leave_faction = yes }
 			}
 		}
 		DEN_drop_occupation_tag = yes
 	}
-
-	if = {
-		limit = {	
-			has_country_flag = DEN_cannot_join_factions_flag
-		}
-		set_rule = { can_join_factions = yes }
-		set_rule = { can_decline_call_to_war = no }
-		clr_country_flag = DEN_cannot_join_factions_flag
-	}
-
-	if = {
-		limit = {
-			has_country_flag = DEN_is_protectorate_flag
-		}
-		clr_country_flag = DEN_is_protectorate_flag
-	}
 	
 	if = {
 		limit = {
 			NOT = { #Necessary in case Overlord already declared war
-				has_war_with = DEN.DEN_overlord_natio
+				has_war_with = var:DEN.DEN_overlord_natio
 			}
 		}
 		declare_war_on = {
-			target = DEN.DEN_overlord_nation
+			target = var:DEN.DEN_overlord_nation
 			type = independence_wargoal 
 		}
 	}
@@ -4291,6 +4316,7 @@ DEN_independence_war_effects = {
 
 	mark_focus_tree_layout_dirty = yes
 }
+
 
 DEN_puppet_on_action_effects = { #This is triggered when Denmark is set free or otherwise called through on_action, like peace conferences or being set free through other means than through the focus tree
 	if = {

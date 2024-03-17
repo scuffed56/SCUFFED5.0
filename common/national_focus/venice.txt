@@ -10,7 +10,7 @@ focus_tree = {
         }
     }
 	continuous_focus_position = { x = 0 y = 700 }
-	shared_focus = GEN_Industrial_Boom
+	shared_focus = GEN_industrial_boom
 	default = no
 	reset_on_civilwar = no
 
@@ -34,12 +34,6 @@ focus_tree = {
 				cost_reduction = 0.5
 				uses = 1
 				category = land_doctrine
-			}
-			if = {
-				limit = {
-					num_divisions < 4
-				}
-				load_oob = VNZ_home_guard
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER }
@@ -170,8 +164,6 @@ focus_tree = {
 			has_tech = motorised_infantry
 		}
 
-		cancel_if_invalid = yes
-
 		complete_tooltip = {
 			add_tech_bonus = {
                 name = motorized_bonus
@@ -207,7 +199,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			army_experience = 5
+			army_experience = 10
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
@@ -332,11 +324,11 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			army_experience = 5
+			army_experience = 15
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
-				uses = 1
+				uses = 2
 				category = land_doctrine
 			}
 		}
@@ -509,17 +501,25 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = fighter_bonus
-				bonus = 1
-				uses = 2
-				technology = early_fighter
-				technology = fighter1
-				technology = fighter2
-				technology = fighter3
-				technology = heavy_fighter1
-				technology = heavy_fighter2
-				technology = heavy_fighter3
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = fighter_bonus
+					bonus = 1
+					uses = 2
+					category = light_air
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = fighter_bonus
+					bonus = 1
+					uses = 2
+					category = light_fighter
+					category = cat_heavy_fighter
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -711,7 +711,7 @@ focus_tree = {
 		icon = GFX_goal_generic_air_jet_new
 		x = 3
 		y = 1
-		relative_position_id = BRI_aviation_effort_2
+		relative_position_id = VNZ_aviation_effort_2
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -765,12 +765,33 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = nav_bomber_bonus
-				bonus = 1
-				ahead_reduction = 1
-				uses = 1
-				category = naval_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = nav_bomber_bonus
+					bonus = 1
+					ahead_reduction = 1
+					uses = 1
+					category = cat_torpedoes
+				}
+				add_tech_bonus = {
+					name = nav_bomber_bonus
+					bonus = 1
+					ahead_reduction = 1
+					uses = 1
+					category = light_air
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = nav_bomber_bonus
+					bonus = 1
+					ahead_reduction = 1
+					uses = 1
+					category = naval_bomber
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -789,15 +810,32 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = bomber_bonus
-				bonus = 1
-				uses = 2
-				technology = strategic_bomber1
-				technology = strategic_bomber2
-				technology = strategic_bomber3
-				category = tactical_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 2
+					technology = basic_large_airframe
+					technology = improved_large_airframe
+					technology = advanced_large_airframe
+					category = medium_air
+				}
 			}
+			else = {
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 2
+					technology = strategic_bomber1
+					technology = strategic_bomber2
+					technology = strategic_bomber3
+					category = tactical_bomber
+				}
+			}
+			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -814,11 +852,30 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = bomber_bonus
-				bonus = 1
-				uses = 2
-				category = maritime
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 1
+					category = medium_air
+				}
+				add_tech_bonus = {
+					name = bomber_bonus
+					technology = range_improvements
+					bonus = 1
+					uses = 1
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 2
+					category = maritime
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -854,6 +911,21 @@ focus_tree = {
 		completion_reward = {
 			navy_experience = 25
 			add_ideas = SCO_idea_shipbuilding_contacts
+
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:VNZ_IENPV_battlefleet_organization = {
+					add_mio_size = 1
+				}
+
+				mio:VNZ_porto_industriale_di_venezia_organization = {
+					add_mio_size = 1
+				}				
+			}
+
+
 			if = {
 				limit = {
 					NOT = {
@@ -969,6 +1041,13 @@ focus_tree = {
 				bonus = 1
 				uses = 2
 				category = r56_marines_infantry_tech
+			}
+
+			add_doctrine_cost_reduction = {
+				name = special_forces_bonus
+				cost_reduction = 0.25
+				uses = 2
+				category = marine_tech
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -1100,9 +1179,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_tech_bonus = {
+			add_doctrine_cost_reduction = {
 				name = sub_op_bonus
-				bonus = 1
+				cost_reduction = 0.5
 				uses = 2
 				category = submarine_doctrine
 			}
@@ -1276,6 +1355,19 @@ focus_tree = {
 		}
 		
 		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				mio:VNZ_IENPV_battlefleet_organization = {
+					add_mio_funds = 2000
+				}
+
+				mio:VNZ_porto_industriale_di_venezia_organization = {
+					add_mio_funds = 2000
+				}				
+			}
+
 			navy_experience = 25
 			every_navy_leader = { 
 				add_defense = 1
@@ -1752,7 +1844,7 @@ focus_tree = {
 	focus = {
 		id = VNZ_Invite_German
 		icon = GFX_focus_chi_mission_to_germany
-		text = GEN_Invite_German
+		text = GEN_invite_german_investors
 		prerequisite = { focus = VNZ_construction_effort_2 }
 		mutually_exclusive = { focus = VNZ_Invite_American }
 		mutually_exclusive = { focus = VNZ_Invite_Soviets }
@@ -1915,7 +2007,7 @@ focus_tree = {
 	
 	focus = {
 		id = VNZ_Invite_Soviets
-		text = GEN_Invite_Soviets
+		text = GEN_invite_soviet_planners
 		icon = GFX_focus_chi_mission_to_the_soviet_union
 		prerequisite = { focus = VNZ_construction_effort_2 }
 		mutually_exclusive = { focus = VNZ_Invite_German }
@@ -1990,7 +2082,7 @@ focus_tree = {
 	
 	focus = {
 		id = VNZ_Soviet_Heavy_Industry
-		text = GEN_Soviet_Heavy_Industry
+		text = GEN_soviet_heavy_industry
 		icon = GFX_goal_generic_commie_investments
 		prerequisite = { focus = VNZ_Invite_Soviets }
 		
@@ -2047,7 +2139,7 @@ focus_tree = {
 	
 	focus = {
 		id = VNZ_German_Heavy
-		text = GEN_German_Heavy
+		text = GEN_german_heavy_industry_expansion
 		icon = GFX_goal_generic_build_tank
 		prerequisite = { focus = VNZ_Invite_German }
 		
@@ -2151,7 +2243,7 @@ focus_tree = {
 	
 	focus = {
 		id = VNZ_Invite_American
-		text = GEN_Invite_American
+		text = GEN_invite_american_investors
 		icon = GFX_focus_chi_mission_to_the_us
 		prerequisite = { focus = VNZ_construction_effort_2 }
 	
@@ -2226,7 +2318,7 @@ focus_tree = {
 	
 	focus = {
 		id = VNZ_American_Air
-		text = GEN_American_Air
+		text = GEN_american_air_industry_expansion
 		icon = GFX_goal_generic_build_airforce
 		prerequisite = { focus = VNZ_Invite_American }
 		
@@ -2292,7 +2384,7 @@ focus_tree = {
 	
 	focus = {
 		id = VNZ_Futher_Investments #Encourage Foreign Investments
-		text = GEN_Futher_Investments
+		text = GEN_encorage_foreign_investors
 		icon = GFX_goal_generic_construction
 		prerequisite = { focus = VNZ_Invite_American focus = VNZ_Invite_German focus = VNZ_Invite_Soviets }
 		
@@ -2431,7 +2523,7 @@ focus_tree = {
 	}
 	focus = {
 		id = VNZ_Automobile
-		text = GEN_Automobile
+		text = GEN_automobile_industry
 		icon = GFX_goal_generic_army_motorized
 		prerequisite = { focus = VNZ_Invite_American focus = VNZ_Invite_German focus = VNZ_Invite_Soviets}
 		
@@ -2479,20 +2571,20 @@ focus_tree = {
 			
 			if = {
 				limit = {
-					has_completed_focus = GEN_Invite_German
+					has_completed_focus = GEN_invite_german_investors
 				}
 				add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 125 producer = GER }
 			}
 			if = {
 				limit = {
-					has_completed_focus = GEN_Invite_American
+					has_completed_focus = GEN_invite_american_investors
 				}
 				add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 125 producer = USA }
 			}
 	
 			if = {
 				limit = {
-					has_completed_focus = GEN_Invite_Soviets
+					has_completed_focus = GEN_invite_soviet_planners
 				}
 				add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 125 producer = SOV }
 			}
@@ -2505,7 +2597,7 @@ focus_tree = {
 	
 	focus = {
 		id = VNZ_Licences
-		text = GEN_Licences
+		text = GEN_purchase_foreign_licenses
 		icon = GFX_focus_generic_license_production
 		prerequisite = { focus = VNZ_American_Air focus = VNZ_German_Heavy focus = VNZ_Soviet_Heavy_Industry}
 		
@@ -2585,7 +2677,7 @@ focus_tree = {
 
 	focus = {
 		id = VNZ_construction_effort_3
-		icon = GFX_goal_generic_construct_civ_factory
+		icon = GFX_focus_ITA_northern_industry
 		prerequisite = { focus = VNZ_construction_effort_2 }
 		relative_position_id = VNZ_construction_effort_2
 		x = 0
@@ -3017,7 +3109,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = ADU_united_front_tt
-				check_variable = { ADU_popular_front_var > 0.5 }
+				check_variable = { VNZ_popular_front_var > 0.5 }
 			}						
 		#	OR = {
 		#		communism > 0.3
@@ -3070,12 +3162,34 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL}
 	}	
+	focus = {
+		id = VNZ_republic_army
+		icon = GFX_goal_generic_democratic_army
+		text = AlB_republic_army
+		available = {
+			has_government = democratic
+		}
+		prerequisite = { 
+		focus = VNZ_representative_grand_council
+		}
+		relative_position_id = VNZ_representative_grand_council
+		x = -1
+		y = 2	
+		cost = 10
+
+		available_if_capitulated = yes
+		search_filters = {FOCUS_FILTER_MANPOWER}
+
+		completion_reward = {
+			add_ideas = democratic_army_focus
+		}
+	}
 	focus = { 
 		id = VNZ_secure_international_protection
 		icon = GFX_ENG_alliance
 		prerequisite = { focus = VNZ_representative_grand_council }		
 		relative_position_id = VNZ_representative_grand_council
-		x = -1
+		x = -2
 		y = 1
 		cost = 10
 		available = {
@@ -3911,12 +4025,12 @@ focus_tree = {
 			if = {
 				limit = {
 					NOT = {
-						911 = {
+						852 = {
 							is_core_of = ROOT
 						}
 					}
 				}
-				add_state_core = 911
+				add_state_core = 852
 			}
 			if = {
 				limit = {
@@ -3945,7 +4059,7 @@ focus_tree = {
                     any_owned_state = {
                         OR = {
 							state = 736
-							state = 911
+							state = 852
 							state = 159
                             state = 163
                         }
@@ -3964,7 +4078,7 @@ focus_tree = {
 			#		OR = {
 			#			state = 163
 			#			state = 736
-			#			state = 911
+			#			state = 852
 			#			state = 159
 			#		}
 			#		NOT = {

@@ -13,7 +13,6 @@ equipment_modules = {
 			build_cost_ic = 1
 			fuel_consumption = 2
 			maximum_speed = 0.5
-			#reliability = -0.1
 		}
 		multiply_stats = {
 			maximum_speed = 0.15
@@ -28,7 +27,7 @@ equipment_modules = {
 
 		add_stats = {
 			build_cost_ic = 1 
-			fuel_consumption = 1.5
+			fuel_consumption = 2
 			reliability = 0.25
 		}
 		multiply_stats = {  }
@@ -40,7 +39,7 @@ equipment_modules = {
 		sfx = sfx_ui_sd_module_engine
 
 		add_stats = {
-			fuel_consumption = 1
+			fuel_consumption = 2
 			build_cost_ic = 2
 			reliability = -0.5
 			breakthrough = 2
@@ -79,14 +78,13 @@ equipment_modules = {
 
 		add_stats = {
 			#soft_attack = 1 # that's when rivets shoot back because they got dislodged by the shock. That was in fact the first reactive armor.
-			reliability = -0.2
-			defense = 1
-			breakthrough = 1
-			armor_value = -0.4
+			
+			defense = 2
+			breakthrough = 2
 		}
-		xp_cost = 0
+		xp_cost = 8
 		multiply_stats = {
-			build_cost_ic = -0.15
+			build_cost_ic = -0.2
 
 		}
 	}
@@ -97,15 +95,15 @@ equipment_modules = {
 		sfx = sfx_ui_sd_module_sonar
 
 		add_stats = {
-			defense = 6
-			breakthrough = 6	
+			defense = 3
+			breakthrough = 3
 			hardness = 0.02	
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 8
 		multiply_stats = {
-			build_cost_ic = 0.25
-			armor_value = 0.5
+			build_cost_ic = 0.15
+			armor_value = 0.3
 		}
 	}
 
@@ -113,19 +111,22 @@ equipment_modules = {
 		abbreviation = "wel"
 		category = tank_armor_type
 		sfx = sfx_ui_sd_module_sonar
-		xp_cost = 0
 
 		add_stats = {
 			defense = 4
 			breakthrough = 4
 		}
 		dismantle_cost_ic = 1
+		xp_cost = 8
 		multiply_stats = {
-			armor_value = 0.3
+			armor_value = 0.15
+		}
 
+		build_cost_resources = {
+			chromium = 1
 		}
 	}
-	
+
 	NOR_tank_rikstanken_armor = { # Rikstanken Armor
 		abbreviation = "msa"
 		category = tank_armor_type
@@ -137,7 +138,7 @@ equipment_modules = {
 			breakthrough = 0
 			hardness = -0.3
 		}
-		xp_cost = 0
+		xp_cost = 8
 		multiply_stats = {
 			build_cost_ic = -0.3
 		}
@@ -256,7 +257,7 @@ equipment_modules = {
 			
 		}
 		dismantle_cost_ic = 0.5
-		xp_cost = 0
+		xp_cost = 2
 		multiply_stats = {
 			
 		}
@@ -273,7 +274,7 @@ equipment_modules = {
 			breakthrough = 10
 			
 		}
-		xp_cost = 0
+		xp_cost = 2
 		dismantle_cost_ic = 0.5
 		multiply_stats = {
 			
@@ -292,31 +293,36 @@ equipment_modules = {
 			breakthrough = 14
 		}
 		dismantle_cost_ic = 0.5
-		xp_cost = 0
+		xp_cost = 2
 		multiply_stats = {
 			
 		}
 
 	}
 
-	tank_light_fixed_superstructure_turret = {
+	tank_light_fixed_superstructure_turret = { #overriding base superstructure to fix this
 		abbreviation = "lfs"
 		category = tank_light_turret_type
 		sfx = sfx_ui_sd_module_turret
-		forbid_equipment_type = anti_air
-
 		allowed_module_categories = {
 			main_armament_slot = {
+				tank_small_main_armament
 				tank_medium_main_armament
 			}
 		}
+		#forbid_equipment_type_exact_match = armor #Like the Gun Platform, the Turret Shield and Fixed Superstructure are meant to be used to install larger guns that are only forward facing, and as such should not fit into normal Light Tank roles but rather Self-Propelled Anti Tank and Artillery 
+		#The problem is a lot of non turret light tank would suffer from this and can't do anything. - Abbus
+		forbid_equipment_type = {
+			anti_air
+		}
+		
 		forbid_equipment_type_exact_match_for_category = {
 			tank_medium_main_armament = armor
 			tank_heavy_main_armament = armor
 			tank_super_heavy_main_armament = armor
 		}
 
-		xp_cost = 0
+		xp_cost = 6 #radical redesign
 		dismantle_cost_ic = 0.5
 		add_stats = {
 			build_cost_ic = 0.75
@@ -351,7 +357,7 @@ equipment_modules = {
 			
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 2
 		multiply_stats = {
 			
 			hard_attack = -0.10
@@ -375,7 +381,7 @@ equipment_modules = {
 			breakthrough = 16
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 2
 		multiply_stats = {
 		}
 
@@ -394,10 +400,10 @@ equipment_modules = {
 		add_stats = {
 			build_cost_ic = 2
 			maximum_speed = -0.25
-			breakthrough = 24
+			breakthrough = 22
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 2
 		multiply_stats = {
 	
 		}
@@ -421,7 +427,7 @@ equipment_modules = {
 			tank_super_heavy_main_armament = armor
 		}
 
-		xp_cost = 0
+		xp_cost = 2
 		dismantle_cost_ic = 1
 		add_stats = {
 			build_cost_ic = 1.5
@@ -434,7 +440,7 @@ equipment_modules = {
 		}
 
 		can_convert_from = {
-			module = tank_medium_turret_type
+			module_category = tank_medium_turret_type
 			convert_cost_ic = 1.5
 		}
 
@@ -451,16 +457,11 @@ equipment_modules = {
 				tank_heavy_main_armament
 			}
 		}
-		allowed_module_categories = {
-			main_armament_slot = {
-				tank_heavy_main_armament
-			}
-		}
-		xp_cost = 0
+		xp_cost = 2
 		dismantle_cost_ic = 1
 
 		add_stats = {
-			build_cost_ic = 2
+			build_cost_ic = 4.5
 			breakthrough = 18
 		}
 
@@ -483,15 +484,16 @@ equipment_modules = {
 		}
 
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 2
 		add_stats = {
-			build_cost_ic = 3
-			maximum_speed = -0.2
-			breakthrough = 22
+			build_cost_ic = 4.5
+			maximum_speed = -0.25
+			breakthrough = 24
 		}
 
 		multiply_stats = {
-			
+			hard_attack = 0.05
+			soft_attack = 0.05			
 		}
 
 	}
@@ -513,9 +515,9 @@ equipment_modules = {
 			tank_super_heavy_main_armament = armor
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 2
 		add_stats = {
-			build_cost_ic = 3
+			build_cost_ic = 4
 			reliability = 0.2
 			defense = 3
 		}
@@ -525,7 +527,7 @@ equipment_modules = {
 		}
 
 		can_convert_from = {
-			module = tank_heavy_turret_type
+			module_category = tank_heavy_turret_type
 			convert_cost_ic = 5
 		}
 
@@ -549,8 +551,11 @@ equipment_modules = {
 			maximum_speed = -0.2
 			breakthrough = 24
 		}
+		multiply_stats = {
+			build_cost_ic = 0.50
+		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 2
 		multiply_stats = {
 			hard_attack = -0.1
 		}
@@ -575,8 +580,11 @@ equipment_modules = {
 			maximum_speed = -0.5
 			breakthrough = 35
 		}
+		multiply_stats = {
+			build_cost_ic = 0.50
+		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 2
 		multiply_stats = {
 			
 		}
@@ -594,12 +602,13 @@ equipment_modules = {
 				tank_heavy_main_armament
 			}
 		}
+
 		add_stats = {
-			build_cost_ic = 8
-			breakthrough = 24
+			build_cost_ic = 6
+			breakthrough = 28
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 2
 		multiply_stats = {
 		}
 
@@ -626,7 +635,7 @@ equipment_modules = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 0.5
 		}
-		xp_cost = 0
+		xp_cost = 1
 	}
 
 	flamethrower = { #Hans, hol den Flammenwerfer!
@@ -646,7 +655,7 @@ equipment_modules = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 0.5
 		}
-		xp_cost = 0
+		xp_cost = 1
 	}
 
 	tank_auto_cannon = {
@@ -663,7 +672,7 @@ equipment_modules = {
 			reliability = -0.1
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 1.5
@@ -684,7 +693,7 @@ equipment_modules = {
 			reliability = -0.1
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 2
@@ -707,7 +716,7 @@ equipment_modules = {
 			reliability = -0.1
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 2
@@ -730,7 +739,7 @@ equipment_modules = {
 			reliability = -0.1
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 3
@@ -757,7 +766,7 @@ equipment_modules = {
 			reliability = -0.1
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_medium_main_armament
 			convert_cost_ic = 4
@@ -782,7 +791,7 @@ equipment_modules = {
 			reliability = -0.1
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 1.5
@@ -803,7 +812,7 @@ equipment_modules = {
 			reliability = -0.1
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 3
@@ -824,7 +833,7 @@ equipment_modules = {
 			reliability = -0.1
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 4
@@ -850,7 +859,7 @@ equipment_modules = {
 			breakthrough = 2
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_medium_main_armament
 			convert_cost_ic = 3
@@ -868,7 +877,6 @@ equipment_modules = {
 		sfx = sfx_ui_sd_module_turret
 		allow_equipment_type = anti_tank
 		parent = tank_medium_cannon
-		dismantle_cost_ic = 1
 		add_stats = {
 			soft_attack = 32
 			hard_attack = 20
@@ -879,10 +887,10 @@ equipment_modules = {
 			breakthrough = 4
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_medium_main_armament
-			convert_cost_ic = 1
+			convert_cost_ic = 4
 		}
 		build_cost_resources = {
 			tungsten = 1
@@ -907,7 +915,7 @@ equipment_modules = {
 			breakthrough = -2
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_medium_main_armament
 			convert_cost_ic = 4
@@ -934,7 +942,7 @@ equipment_modules = {
 			breakthrough = -2
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_medium_main_armament
 			convert_cost_ic = 5.5
@@ -954,19 +962,19 @@ equipment_modules = {
 		forbid_equipment_type_exact_match = armor
 
 		add_stats = {
-			soft_attack = 30
+			soft_attack = 25
 			hard_attack = 1
 			ap_attack = 2
 			build_cost_ic = 4
 			maximum_speed = -0.1
 			reliability = -0.1
-			breakthrough = 2
+			breakthrough = -4
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_medium_main_armament
-			convert_cost_ic = 1
+			convert_cost_ic = 4
 		}
 
 		build_cost_resources = {
@@ -983,19 +991,19 @@ equipment_modules = {
 		parent = tank_rocket_launcher
 		forbid_equipment_type_exact_match = armor
 		add_stats = {
-			soft_attack = 40
+			soft_attack = 35
 			hard_attack = 1
 			ap_attack = 2
 			build_cost_ic = 5
 			maximum_speed = -0.2
 			reliability = -0.1
-			breakthrough = 4
+			breakthrough = -4
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_medium_main_armament
-			convert_cost_ic = 1
+			convert_cost_ic = 5
 		}
 		build_cost_resources = {
 			tungsten = 2
@@ -1018,7 +1026,7 @@ equipment_modules = {
 			reliability = -0.05
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_small_main_armament
 			convert_cost_ic = 3
@@ -1044,7 +1052,7 @@ equipment_modules = {
 			reliability = -0.175
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_medium_main_armament
 			convert_cost_ic = 5
@@ -1070,7 +1078,7 @@ equipment_modules = {
 			reliability = -0.2
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_heavy_main_armament
 			convert_cost_ic = 7
@@ -1092,15 +1100,15 @@ equipment_modules = {
 			soft_attack = 25
 			hard_attack = 25
 			ap_attack = 90
-			build_cost_ic = 6
+			build_cost_ic = 5.5
 			maximum_speed = -0.3
-			reliability = -0.15
+			reliability = -0.25
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_heavy_main_armament
-			convert_cost_ic = 1
+			convert_cost_ic = 6
 		}
 		build_cost_resources = {
 			tungsten = 1
@@ -1117,17 +1125,17 @@ equipment_modules = {
 		parent = tank_heavy_cannon
 		add_stats = {
 			soft_attack = 30
-			hard_attack = 35
+			hard_attack = 40
 			ap_attack = 125
-			build_cost_ic = 7
+			build_cost_ic = 6.5
 			maximum_speed = -0.4
-			reliability = -0.2
+			reliability = -0.25
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_heavy_main_armament
-			convert_cost_ic = 4
+			convert_cost_ic = 7
 		}
 		build_cost_resources = {
 			tungsten = 2
@@ -1146,12 +1154,12 @@ equipment_modules = {
 			soft_attack = 35
 			hard_attack = 40
 			ap_attack = 170
-			build_cost_ic = 8
-			maximum_speed = -0.4
-			reliability = -0.25
+			build_cost_ic = 7.5
+			maximum_speed = -0.5
+			reliability = -0.3
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_heavy_main_armament
 			convert_cost_ic = 8
@@ -1179,7 +1187,7 @@ equipment_modules = {
 			breakthrough = -4
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		can_convert_from = {
 			module_category = tank_heavy_main_armament
 			convert_cost_ic = 7
@@ -1199,20 +1207,21 @@ equipment_modules = {
 		allow_equipment_type = anti_tank
 
 		add_stats = {
-			soft_attack = 45
+			soft_attack = 35
 			hard_attack = 45
 			ap_attack = 225
 			build_cost_ic = 12.5
-			maximum_speed = -0.3
-			reliability = -0.3
+			maximum_speed = -0.6
+			reliability = -0.35
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 0
+		xp_cost = 1
 		build_cost_resources = {
-			tungsten = 3
+			tungsten = 5
 			chromium = 2
 		}
 	}
+
 
 	NOR_rikstanken_turret = {
 		abbreviation = "mst"
@@ -1225,7 +1234,7 @@ equipment_modules = {
 			reliability = -0.25
 		}
 		dismantle_cost_ic = 0.5
-		xp_cost = 0
+		xp_cost = 2
 		multiply_stats = {
 			
 		}
@@ -1243,7 +1252,7 @@ equipment_modules = {
 		add_stats = {
 			build_cost_ic = 0.5
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 			defense = 0.20
 			breakthrough = 0.15
@@ -1259,7 +1268,7 @@ equipment_modules = {
 		add_stats = {
 			build_cost_ic = 1.5
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 			defense = 0.40
 			breakthrough = 0.25
@@ -1275,7 +1284,7 @@ equipment_modules = {
 		add_stats = {
 			build_cost_ic = 2.5
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 			defense = 0.60
 			breakthrough = 0.40
@@ -1299,7 +1308,7 @@ equipment_modules = {
 			build_cost_ic = 2
 			reliability = -0.15
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 			build_cost_ic = 0.1
 		}
@@ -1311,10 +1320,12 @@ equipment_modules = {
 		sfx = sfx_ui_sd_module_turret
 
 		add_stats = {
-			build_cost_ic = 1.5
-			soft_attack = 4
+			build_cost_ic = 2
+			soft_attack = 2
+			hardness = -0.15
+			reliability = -0.1
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 		}
 	}
@@ -1325,13 +1336,14 @@ equipment_modules = {
 		sfx = sfx_ui_sd_module_turret
 
 		add_stats = {
-			soft_attack = 5
-			hard_attack = 3
-			build_cost_ic = 3
+			soft_attack = 3
+			hard_attack = 1
+			build_cost_ic = 5
 			reliability = -0.1
-			breakthrough = 2
+			breakthrough = 1
+			hardness = -0.15
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 		}
 	}
@@ -1344,7 +1356,7 @@ equipment_modules = {
 		add_stats = {
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 00
+		xp_cost = 10
 		multiply_stats = {
 			armor_value = 0.25
 			build_cost_ic = 0.1
@@ -1360,7 +1372,7 @@ equipment_modules = {
 			build_cost_ic = 2
 			breakthrough = 5
 		}
-		xp_cost = 0
+		xp_cost = 1
 
 	}
 
@@ -1371,10 +1383,10 @@ equipment_modules = {
 
 		add_stats = {
 			build_cost_ic = 0.5
-			defense = 3
-			breakthrough = 2
+			defense = 2
+			breakthrough = 1
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 
 		}
@@ -1390,7 +1402,7 @@ equipment_modules = {
 			breakthrough = 2
 			defense = 4
 		}
-		xp_cost = 0
+		xp_cost = 1
 	}
 
 	wet_ammo_storage = {
@@ -1402,7 +1414,7 @@ equipment_modules = {
 			reliability = 0.15
 			build_cost_ic = 1
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 			
 		}
@@ -1416,7 +1428,7 @@ equipment_modules = {
 		add_stats = {
 			
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 			ap_attack = 0.1
 		}
@@ -1432,11 +1444,11 @@ equipment_modules = {
 		sfx = sfx_ui_sd_module_turret
 
 		add_stats = {
-			armor_value = 10
-			breakthrough = 4
-			build_cost_ic = 1
+			armor_value = 3
+			breakthrough = 3
+			build_cost_ic = 0.5
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 			
 		}
@@ -1449,9 +1461,9 @@ equipment_modules = {
 
 		add_stats = {
 			entrenchment = 1
-			build_cost_ic = 2
+			build_cost_ic = 1
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 			
 		}
@@ -1467,7 +1479,7 @@ equipment_modules = {
 			breakthrough = 4
 			defense = 4
 		}
-		xp_cost = 0
+		xp_cost = 1
 		
 	}
 
@@ -1477,12 +1489,12 @@ equipment_modules = {
 		sfx = sfx_ui_sd_module_turret
 
 		add_stats = {
-			reliability = 0.15
+			reliability = 0.08
 		}
 		dismantle_cost_ic = 1
-		xp_cost = 00
+		xp_cost = 4
 		multiply_stats = {
-			#build_cost_ic = -0.075
+			build_cost_ic = -0.05
 		}
 	}
 
@@ -1492,11 +1504,11 @@ equipment_modules = {
 		sfx = sfx_ui_sd_module_turret
 
 		add_stats = {
-			soft_attack = 2
+			soft_attack = 1
 			defense = 2
 			build_cost_ic = 0.5
 		}
-		xp_cost = 0
+		xp_cost = 1
 		multiply_stats = {
 			
 		}
@@ -1512,7 +1524,7 @@ equipment_modules = {
 			build_cost_ic = 1
 			maximum_speed = -0.25
 		}
-		xp_cost = 0
+		xp_cost = 3
 		multiply_stats = {
 			
 		}
