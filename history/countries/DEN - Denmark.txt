@@ -1,5 +1,6 @@
 ﻿capital = 37
 oob = "DEN_1936"
+load_focus_tree = { tree = danish_focus keep_completed = no }
 if = {
 	limit = { has_dlc = "Man the Guns" }
 		set_naval_oob = "DEN_1936_naval_mtg"
@@ -8,16 +9,15 @@ if = {
 	}
 }
 
-# set_power_balance = {	#I assume this itself requires DLC and therefore isnt in any of the other blocks, moved to on_action
-# 	id = DEN_balance_of_power
-# 	set_default = no  # whether or not to reset the power balance to the initial value, default = no
-# 	set_value = -0.1
-# }
-
-# if = {	moved to on_action
-# 	limit = { has_dlc = "Arms Against Tyranny" }
-# 	set_country_flag = DEN_danish_election_flag
-# }
+ set_power_balance = {	#I assume this itself requires DLC and therefore isnt in any of the other blocks, moved to on_action
+ 	id = DEN_balance_of_power
+ 	set_default = no  # whether or not to reset the power balance to the initial value, default = no
+ 	set_value = -0.1
+ }
+ if = {	#moved to on_action
+ 	limit = { has_dlc = "Arms Against Tyranny" }
+ 	set_country_flag = DEN_danish_election_flag
+ }
 
 set_variable = {
 	den_upper_loyalty = 55
@@ -61,11 +61,9 @@ add_dynamic_modifier = {
 	modifier = r56_danish_upper_strata
 }
 add_ideas = {	#replaced by on_action for DLC tree
-	DEN_King_Christian_X
-	DEN_stagnant_economy
-	DEN_Disarmed_Military
+
 }
-den_calculate_stratas = yes
+
 
 set_variable = {
 	mil_factory_production = -0.2
@@ -94,9 +92,7 @@ set_variable = {
 set_variable = {
 	refit_cost_factor = 0
 }
-add_dynamic_modifier = {	#replaced by on_action
-	modifier = r56_army_disorginization
-}
+
 set_variable = {
 	den_vio_days = 90
 }
@@ -112,20 +108,6 @@ set_stability = 0.70
 set_war_support = 0.1
 set_country_flag = socialdemokratiet_dominating
 
-country_event = {
-	id = danish_elections.1
-	days = 400
-	random_days = 200
-}
-country_event = {
-	id = denmark.1
-	days = 20
-}
-964 = {
-	add_dynamic_modifier = {
-		modifier = r56_german_minority
-	}
-}
 set_technology = {
 
 	# Extended Technologies
@@ -474,13 +456,14 @@ if = {
 	set_variable = { DEN_neglected_military_mobilization_speed = -0.2 }
 	set_variable = { DEN_neglected_military_surrender_limit = -0.2}
 	set_variable = { DEN_neglected_military_planning_speed = -0.1 }
-	
+	add_dynamic_modifier = { modifier = DEN_neglected_military_dynamic_modifier }
 
 	#ECONOMIC CRISIS
 	set_variable = { DEN_economic_crisis_monthly_population = -0.1 }
 	set_variable = { DEN_economic_crisis_stability_weekly = -0.001 }
 	set_variable = { DEN_economic_crisis_neutrality_drift = 0.02 }
 	set_variable = { DEN_economic_crisis_democratic_drift = -0.05 }
+	add_dynamic_modifier = { modifier = DEN_economic_crisis_dynamic_modifier }
 
 	#INDUSTRIAL CAPABILITIES
 	set_variable = { DEN_industrial_capability_resources_to_market = 0 }
@@ -494,7 +477,7 @@ if = {
 	set_variable = { DEN_industrial_capabilities_refit_speed = 0 }
 	set_variable = { DEN_industrial_capabilities_ship_repair = 0 }
 	set_variable = { DEN_industrial_capability_local_resources = 0 }
-
+	add_dynamic_modifier = { modifier = DEN_industrial_capability_dynamic_modifier }
 
 	#WAR PREPARATIONS
 	set_variable = { DEN_war_preparations_lack_of_resource_penalty = 0 }
