@@ -1,19 +1,119 @@
-#####################################################################
-### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
-#####################################################################
+#####---------------------------------------------------------------------> Road to '56, Gender Laws
+#####---------------------------------------------------------------------> by GreatExperiment
 
-## Edited by Comrade Warlider
 ideas = {
 
 	r56i_laws_category_gender = { 
 
 		use_list_view = yes
+	
 		law = yes
+		
+		# Traditional Roles
+		r56i_laws_gender_traditional = {
 
+			available = {
+				NOT = {
+					has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+					has_country_leader = {
+						name = "Anarchist Commune"
+						ruling_only = yes
+					}
+					has_idea_with_trait = womens_figurehead
+				}	
+			}
+			
+			modifier = {
+				industrial_capacity_factory = 0.05
+				industrial_capacity_dockyard = 0.05
+				#production_factory_max_efficiency_factor = 0.05
+				conscription_factor = -0.05
+				female_random_operative_chance = -1
+			}
+
+			cost = 75
+			
+			cancel_if_invalid = no
+			
+			ai_will_do = {
+   				factor = 0.5
+   			}
+			
+		}
+		
+		# Limited Rights
+		r56i_laws_gender_limited = {
+
+			available = {
+				NOT = {
+					has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+					has_country_leader = {
+						name = "Anarchist Commune"
+						ruling_only = yes
+					}
+				}
+			}
+
+			modifier = {
+				industrial_capacity_factory = -0.05
+				industrial_capacity_dockyard = -0.05
+				weekly_manpower = 100 #Silly, but better for small nations who need the raw MP
+				conscription_factor = 0.05
+				female_random_operative_chance = 3
+			}
+
+			cost = 75
+			
+			cancel_if_invalid = no
+
+			ai_will_do = {
+   				factor = 0.5
+
+   				modifier = {
+					has_government = democratic
+					factor = 2
+				}
+   			}
+		}
+		
+		# Enforced Patriarchy
+		r56i_laws_gender_patriarchy = {
+		
+			available = {
+				NOT = {
+					has_government = communism
+					has_global_flag = NATIONAL_CHARACTERS_BLOCKED
+					has_country_leader = {
+						name = "Anarchist Commune"
+						ruling_only = yes
+					}	
+					has_idea_with_trait = womens_figurehead				
+				}
+			}
+			
+			modifier = {
+				industrial_capacity_factory = 0.1
+				industrial_capacity_dockyard = 0.1
+				#production_factory_max_efficiency_factor = 0.1
+				conscription_factor = -0.15
+				female_random_operative_chance = -2
+			}
+			
+			cancel_if_invalid = yes
+
+			ai_will_do = {
+   				factor = 0.5
+
+   				modifier = {
+					has_government = fascism
+					factor = 2
+				}
+   			}
+		}
+		
 		# Total Equality
 		r56i_laws_gender_equality = {
-			cost = 200
-
+		
 			available = {
 				if = {
 					limit = {
@@ -48,141 +148,30 @@ ideas = {
 				}
 				NOT = {
 					has_government = fascism
-					hidden_trigger = {
-						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
-					}
+					has_global_flag = NATIONAL_CHARACTERS_BLOCKED
 				}
 			}
 			
 			modifier = {
+				industrial_capacity_factory = -0.10
+				industrial_capacity_dockyard = -0.10
 				conscription_factor = 0.15 #from 0.10
-				weekly_manpower = 150 #Silly, but better for small nations who need the raw MP
-				female_random_operative_chance = 6
-				production_factory_max_efficiency_factor = 0.075
-				political_power_gain = -0.20
+				weekly_manpower = 200 #Silly, but better for small nations who need the raw MP
+				female_random_operative_chance = 5
 			}
 
 			
 			cancel_if_invalid = Yes
 
 			ai_will_do = {
-					factor = 0
-			}
+   				factor = 0.5
 
-			on_add = {
-				set_rule = {
-					can_generate_female_aces = yes
-				}
-			}
-		}
-		
-
-		
-		# Limited Rights
-		r56i_laws_gender_limited = {
-
-			available = {
-				NOT = {
-					hidden_trigger = {
-						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
-					}
-					has_country_leader = {
-						name = "Anarchist Commune"
-						ruling_only = yes
-					}
-				}
-			}
-
-			modifier = {
-				weekly_manpower = 75 #Silly, but better for small nations who need the raw MP
-				conscription_factor = 0.05
-				female_random_operative_chance = 3
-				production_factory_max_efficiency_factor = 0.025
-				political_power_gain = -0.10
-			}
-
-			cost = 150
-			
-			cancel_if_invalid = no
-
-			ai_will_do = {
-   				factor = 0
-   			}
-		}
-
-		# Traditional Roles
-		r56i_laws_gender_traditional = {
-
-			available = {
-				NOT = {
-					hidden_trigger = {
-						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
-					}
-					has_country_leader = {
-						name = "Anarchist Commune"
-						ruling_only = yes
-					}
-					has_idea_with_trait = womens_figurehead
-				}	
-			}
-			
-			modifier = {
-				conscription_factor = -0.05
-				female_random_operative_chance = -1
-				production_factory_max_efficiency_factor = -0.05
-				political_power_gain = 0.15
-			}
-
-			cost = 75
-			
-			cancel_if_invalid = no
-			
-			ai_will_do = {
-					factor = 0
-				}
-			
-		}
-		
-		# Enforced Patriarchy
-		r56i_laws_gender_patriarchy = {
-		
-			available = {
-				NOT = {
+   				modifier = {
 					has_government = communism
-					has_government = democratic
-					has_country_leader = {
-						name = "Anarchist Commune"
-						ruling_only = yes
-					}	
-					has_idea_with_trait = womens_figurehead
-
-					hidden_trigger = {
-						has_global_flag = NATIONAL_CHARACTERS_BLOCKED
-					}
+					factor = 2
 				}
-			}
-			
-			modifier = {
-				conscription_factor = -0.10
-				female_random_operative_chance = -2
-				production_factory_max_efficiency_factor = -0.10
-				political_power_gain = 0.3
-			}
-			
-			cancel_if_invalid = yes
-			cost = 125
-			ai_will_do = {
-   				factor = 0
    			}
-
-			on_add = {
-				set_rule = {
-					can_generate_female_aces = no
-				}
-			}
 		}
-		
-
 	}
 }
 

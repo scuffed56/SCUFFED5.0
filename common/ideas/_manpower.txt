@@ -50,15 +50,7 @@ ideas = {
 						original_tag = HUN
 						has_dlc = "Death or Dishonor"
 					}
-					if = {
-						limit = {
-							has_dlc = "Arms Against Tyranny"
-						}
-						NOT = { has_idea = HUN_treaty_of_triannon_aat }
-					}
-					else = {
-						NOT = { has_idea = HUN_treaty_of_triannon }
-					}
+					NOT = { has_idea = HUN_treaty_of_triannon }
 				}
 				if = { 
 					limit = {
@@ -85,33 +77,6 @@ ideas = {
 						NOT = { has_global_flag = can_tfv_focus_tree }
 					 }
 					has_completed_focus = r56_CAN_conscription_crisis
-				}
-				if = {
-					limit = {
-						original_tag = GER
-						OR = {
-							has_idea = GER_treaty_of_versailles
-							has_idea = GER_treaty_of_versailles_2
-							has_idea = GER_treaty_of_versailles_3
-						}
-					}
-					NOT = {
-						has_idea = GER_treaty_of_versailles
-						has_idea = GER_treaty_of_versailles_2
-						has_idea = GER_treaty_of_versailles_3
-					}
-				}
-				if = { 
-					limit = {
-					 	original_tag = LIE
-					}
-					OR = {
-						has_completed_focus = LIE_economic_mobilization
-						has_completed_focus = LIE_armed_neutrality
-						has_completed_focus = LIE_raise_the_black_guard
-						has_completed_focus = LIE_the_liechtensteiner_volunteer_force
-						has_completed_focus = LIE_introduce_political_commissars
-					}
 				}
 			}
 
@@ -158,15 +123,15 @@ ideas = {
 					}
 					NOT = { has_idea = r56_idea_capitalism_anarchist_society  }
 				}
-				if = {
-					limit = {
-						original_tag = SWE
-					}
-					NOT = { 
-						has_idea = SWE_swedish_disarmament_idea 
-						has_idea = SWE_swedish_disarmament_1_idea
-					} 
-				}				
+				# if = {
+				# 	limit = {
+				# 		original_tag = SWE
+				# 	}
+				# 	NOT = { 
+				# 		has_idea = SWE_swedish_disarmament_idea 
+				# 		has_idea = SWE_swedish_disarmament_1_idea
+				# 	} 
+				# }				
 				if = { 
 					limit = {
 						original_tag = SWI
@@ -184,7 +149,7 @@ ideas = {
 					limit = {
 						original_tag = SAU
 					}
-					NOT = { has_idea = isolation }
+				NOT = { has_idea = isolation }
 				}
 				if = {
 					limit = {
@@ -204,7 +169,6 @@ ideas = {
 						has_completed_focus = AST_R56_australian_internationalism
 						has_completed_focus = AST_R56_socalist_paridice
 						has_completed_focus = AST_R56_young_australian_league
-						has_completed_focus = AST_R56_everyone_does_their_duty
 					}
 					
 				}
@@ -214,7 +178,6 @@ ideas = {
 						has_dlc = "Together for Victory"
 						has_global_flag = can_tfv_focus_tree
 					}
-					has_completed_focus = CAN_commit_to_the_war
 				}
 				if = { 
 					limit = {
@@ -249,15 +212,7 @@ ideas = {
 						original_tag = HUN
 						has_dlc = "Death or Dishonor"
 					}
-					if = {
-						limit = {
-							has_dlc = "Arms Against Tyranny"
-						}
-						NOT = { has_idea = HUN_treaty_of_triannon_aat }
-					}
-					else = {
-						NOT = { has_idea = HUN_treaty_of_triannon }
-					}
+					NOT = { has_idea = HUN_treaty_of_triannon }
 				}
 				if = {
 					limit = {
@@ -287,46 +242,7 @@ ideas = {
 					}
 					NOT = { has_completed_focus = MON_changes_within }
 				}
-				if = { 
-					limit = {
-					 	original_tag = QBC
-					}
-					has_completed_focus = QBC_a_standing_army
-				if = {
-					limit = {
-						original_tag = GER
-						OR = {
-							has_idea = GER_treaty_of_versailles
-							has_idea = GER_treaty_of_versailles_2
-							has_idea = GER_treaty_of_versailles_3
-						}
-					}
-					NOT = {
-						has_idea = GER_treaty_of_versailles
-						has_idea = GER_treaty_of_versailles_2
-						has_idea = GER_treaty_of_versailles_3
-					}
-				}
-				if = {
-					limit = {
-						original_tag = MPL
-						has_idea = MPL_mandate
-					}
-					NOT = {
-						has_idea = MPL_mandate
-					}
-				}
-				if = { 
-					limit = {
-					 	original_tag = LIE
-					}
-					has_completed_focus = LIE_economic_mobilization
-				}
 			}
-		}
-		
-
-
 
 			on_add = {
 				if = {
@@ -345,37 +261,21 @@ ideas = {
 			}
 			
 			ai_will_do = {
-   				factor = 2
-				   modifier = {
-					# Ignore if high on manpower
-					factor = 0.7
-					manpower_per_military_factory > 2000
-				}
+   				factor = 1
 				modifier = {
 					#Prio if low on manpower
-					factor = 50
-					manpower_per_military_factory < 1000
+					factor = 20
+					manpower_per_military_factory <  1000
 				}
 				modifier = {
 					tag = ENG
 					has_idea_with_trait = military_theorist
 					factor = 20
 				}
-				modifier = {
-					factor = 30
-
-					original_tag = SOV
-					has_manpower < 1000000
-				}
-				modifier = {
-					factor = 0
-					NOT = { has_idea = volunteer_only }
-				}
 			}
 			
 			cancel_if_invalid = no
 		}
-	
 		
 		extensive_conscription = {
 			
@@ -391,6 +291,20 @@ ideas = {
 				OR = {
 					has_government = fascism
 					has_government = communism
+					SWE_rapid_mob_manpower_law_trigger = yes 
+					if = {
+						limit = {
+							original_tag = DEN
+							has_dlc = "Arms Against Tyranny"
+						}
+						has_country_leader = {
+							ruling_only = yes
+							character = DEN_christian_x
+						}
+					}
+					else = {
+						hidden_trigger = { always = no } #NEED TO HAVE AN ALWAYS AS AN END STATEMENT IF URE USING AN IF ELSE IN AN OR STATEMENT OTHERWISE THE EVALUATION BREAKS!!
+					}
 					AND = {
 						has_war = yes
 						enemies_strength_ratio > 0.5
@@ -400,7 +314,17 @@ ideas = {
 						#		ratio > 0.5
 						#	}
 						#}
-					}					
+					}	
+					if = {
+						limit = {
+							has_dlc = "Arms Against Tyranny"
+							has_autonomy_state = autonomy_aat_defense_council_member
+							is_subject_of = SWE
+						}
+					}		
+					else = {
+						hidden_trigger = { always = no }  #NEED TO HAVE AN ALWAYS AS AN END STATEMENT IF URE USING AN IF ELSE IN AN OR STATEMENT OTHERWISE THE EVALUATION BREAKS!!
+					}		
 				}
 				has_war_support > 0.2
 				#Special rules AST in TFV
@@ -430,7 +354,6 @@ ideas = {
 						has_completed_focus = AST_R56_australian_internationalism
 						has_completed_focus = AST_R56_socalist_paridice
 						has_completed_focus = AST_R56_young_australian_league
-						has_completed_focus = AST_R56_everyone_does_their_duty
 					}
 				}
 				if = {
@@ -438,8 +361,6 @@ ideas = {
 						original_tag = CAN
 						has_global_flag = can_tfv_focus_tree
 					}
-					has_completed_focus = CAN_commit_to_the_war
-					has_completed_focus = CAN_if_day
 				}
 				else_if = { 
 					limit = {
@@ -469,25 +390,17 @@ ideas = {
 						original_tag = HUN
 						has_dlc = "Death or Dishonor"
 					}
-					if = {
-						limit = {
-							has_dlc = "Arms Against Tyranny"
-						}
-						NOT = { has_idea = HUN_treaty_of_triannon_aat }
-					}
-					else = {
-						NOT = { has_idea = HUN_treaty_of_triannon }
-					}
+					NOT = { has_idea = HUN_treaty_of_triannon }
 				}
-				if = {
-					limit = {
-						original_tag = SWE
-					}
-					NOT = { 
-						has_idea = SWE_swedish_disarmament_idea 
-						has_idea = SWE_swedish_disarmament_1_idea
-					} 
-				}				
+				# if = {
+				# 	limit = {
+				# 		original_tag = SWE
+				# 	}
+				# 	NOT = { 
+				# 		has_idea = SWE_swedish_disarmament_idea 
+				# 		has_idea = SWE_swedish_disarmament_1_idea
+				# 	} 
+				# }				
 				if = {
 					limit = {
 						original_tag = SWI
@@ -505,7 +418,7 @@ ideas = {
 					limit = {
 						original_tag = SAU
 					}
-					NOT = { has_idea = isolation }
+				NOT = { has_idea = isolation }
 				}
 				if = {
 					limit = {
@@ -522,13 +435,6 @@ ideas = {
 					}
 					NOT = { has_completed_focus = SPR_all_must_bear_the_torch }
 				}
-				if = { 
-					limit = {
-					 	original_tag = QBC
-					 }
-					has_completed_focus = QBC_a_standing_army
-				}
-
 				if = {
 					limit = {
 						original_tag = BUL
@@ -542,79 +448,21 @@ ideas = {
 					}
 					NOT = { has_completed_focus = MON_changes_within }
 				}
-				if = {
-					limit = {
-						original_tag = GER
-						OR = {
-							has_idea = GER_treaty_of_versailles
-							has_idea = GER_treaty_of_versailles_2
-							has_idea = GER_treaty_of_versailles_3
-						}
-					}
-					NOT = {
-						has_idea = GER_treaty_of_versailles
-						has_idea = GER_treaty_of_versailles_2
-						has_idea = GER_treaty_of_versailles_3
-					}
-				}
-				
-				if = {
-					limit = {
-						original_tag = MPL
-						has_idea = MPL_mandate
-					}
-					NOT = {
-						has_idea = MPL_mandate
-					}
-				}
-				if = { 
-					limit = {
-					 	original_tag = LIE
-					}
-					has_completed_focus = LIE_economic_mobilization
-				}
 			}
 
 			ai_will_do = {
-   				factor = 2
-				   modifier = {
+   				factor = 1
+				modifier = {
 					#Prio if low on manpower
 					factor = 20
-					manpower_per_military_factory <  700
-				}
-				modifier = {
-					#Lower chance if has decent amount
-					factor = 0.5
-					manpower_per_military_factory >  1000
-				}
-				modifier = {
-					#Block has plenty manpower
-					factor = 0
-					NOT = { tag = CHI }
-					NOT = { tag = SOV }
-					NOT = { tag = GER }
-					manpower_per_military_factory >  3000
+					manpower_per_military_factory <  800
 				}
 
 				modifier = { # china relies a lot on throwing bodies at the enemy
-					factor = 5
+					factor = 3
 
-					original_tag = CHI
+					tag = CHI
 					has_manpower < 200000
-				}
-
-				modifier = {
-					factor = 5
-
-					original_tag = SOV
-					has_manpower < 400000
-				}
-
-				modifier = { # germany needs this before russia, badly
-					factor = 75
-
-					original_tag = GER
-					has_manpower < 2000000
 				}
 			}
 			
@@ -632,11 +480,12 @@ ideas = {
 			
 			cancel_if_invalid = no
 		}
-	
+		
 		service_by_requirement = {
 			
 			
 			available = {
+				
 				#has_manpower_for_recruit_change_to =  { value = 0.1 group = mobilization_laws }
 				if = {
 					limit = {
@@ -648,6 +497,7 @@ ideas = {
 				OR = {
 					has_government = fascism
 					has_government = communism
+					SWE_rapid_mob_manpower_law_trigger = yes
 					AND = {
 						has_war = yes
 						enemies_strength_ratio > 0.6
@@ -689,7 +539,6 @@ ideas = {
 						has_completed_focus = AST_R56_australian_internationalism
 						has_completed_focus = AST_R56_socalist_paridice
 						has_completed_focus = AST_R56_young_australian_league
-						has_completed_focus = AST_R56_everyone_does_their_duty
 					}
 				}
 				if = {
@@ -699,8 +548,6 @@ ideas = {
 						has_global_flag = can_tfv_focus_tree
 					}
 					OR = {
-						has_completed_focus = CAN_compromise_with_quebec
-						has_completed_focus = CAN_forced_quebec_conscription
 					}
 				}
 				if = { 
@@ -734,15 +581,7 @@ ideas = {
 						original_tag = HUN
 						has_dlc = "Death or Dishonor"
 					}
-					if = {
-						limit = {
-							has_dlc = "Arms Against Tyranny"
-						}
-						NOT = { has_idea = HUN_treaty_of_triannon_aat }
-					}
-					else = {
-						NOT = { has_idea = HUN_treaty_of_triannon }
-					}
+					NOT = { has_idea = HUN_treaty_of_triannon }
 				}
 				if = {
 					limit = {
@@ -759,15 +598,15 @@ ideas = {
 					}
 					NOT = { has_completed_focus = SPR_all_must_bear_the_torch }
 				}
-				if = {
-					limit = {
-						original_tag = SWE
-					}
-					NOT = { 
-						has_idea = SWE_swedish_disarmament_idea 
-						has_idea = SWE_swedish_disarmament_1_idea
-					}
-				}				
+				# if = {
+				# 	limit = {
+				# 		original_tag = SWE
+				# 	}
+				# 	NOT = { 
+				# 		has_idea = SWE_swedish_disarmament_idea 
+				# 		has_idea = SWE_swedish_disarmament_1_idea
+				# 	}
+				# }				
 				if = {
 					limit = {
 						original_tag = SWI
@@ -800,44 +639,7 @@ ideas = {
 					}
 					NOT = { has_completed_focus = MON_changes_within }
 				}
-				if = { 
-					limit = {
-					 	original_tag = QBC
-					}
-					has_completed_focus = QBC_a_standing_army
-				if = {
-					limit = {
-						original_tag = GER
-						OR = {
-							has_idea = GER_treaty_of_versailles
-							has_idea = GER_treaty_of_versailles_2
-							has_idea = GER_treaty_of_versailles_3
-						}
-					}
-					NOT = {
-						has_idea = GER_treaty_of_versailles
-						has_idea = GER_treaty_of_versailles_2
-						has_idea = GER_treaty_of_versailles_3
-					}
-				}
-				if = {
-					limit = {
-						original_tag = MPL
-						has_idea = MPL_mandate
-					}
-					NOT = {
-						has_idea = MPL_mandate
-					}
-				}
-				if = { 
-					limit = {
-					 	original_tag = LIE
-					}
-					has_completed_focus = LIE_economic_mobilization
-				}
 			}
-		}
-
 
 			ai_will_do = {
    				factor = 1
@@ -949,7 +751,6 @@ ideas = {
 						has_completed_focus = AST_R56_australian_internationalism
 						has_completed_focus = AST_R56_socalist_paridice
 						has_completed_focus = AST_R56_young_australian_league
-						has_completed_focus = AST_R56_everyone_does_their_duty
 					}
 				}
 
@@ -960,8 +761,6 @@ ideas = {
 						has_global_flag = can_tfv_focus_tree
 					}
 					OR = {
-						has_completed_focus = CAN_compromise_with_quebec
-						has_completed_focus = CAN_forced_quebec_conscription
 					}					
 				}
 				if = { 
@@ -994,25 +793,17 @@ ideas = {
 						original_tag = HUN
 						has_dlc = "Death or Dishonor"
 					}
-					if = {
-						limit = {
-							has_dlc = "Arms Against Tyranny"
-						}
-						NOT = { has_idea = HUN_treaty_of_triannon_aat }
-					}
-					else = {
-						NOT = { has_idea = HUN_treaty_of_triannon }
-					}
+					NOT = { has_idea = HUN_treaty_of_triannon }
 				}
-				if = {
-					limit = {
-						original_tag = SWE
-					}
-					NOT = { 
-						has_idea = SWE_swedish_disarmament_idea 
-						has_idea = SWE_swedish_disarmament_1_idea
-					} 
-				}				
+				# if = {
+				# 	limit = {
+				# 		original_tag = SWE
+				# 	}
+				# 	NOT = { 
+				# 		has_idea = SWE_swedish_disarmament_idea 
+				# 		has_idea = SWE_swedish_disarmament_1_idea
+				# 	} 
+				# }				
 				if = {
 					limit = {
 						original_tag = SWI
@@ -1054,89 +845,45 @@ ideas = {
 					}
 					NOT = { has_idea = BUL_army_restrictions }
 				}
-				if = { 
-					limit = {
-					 	original_tag = QBC
-					}
-					has_completed_focus = QBC_a_standing_army
-				}
-					
 				if = {
 					limit = {
 						original_tag = MON
 					}
 					NOT = { has_completed_focus = MON_changes_within }
 				}
-				if = {
-					limit = {
-						original_tag = GER
-						OR = {
-							has_idea = GER_treaty_of_versailles
-							has_idea = GER_treaty_of_versailles_2
-							has_idea = GER_treaty_of_versailles_3
-						}
-					}
-					NOT = {
-						has_idea = GER_treaty_of_versailles
-						has_idea = GER_treaty_of_versailles_2
-						has_idea = GER_treaty_of_versailles_3
-					}
-				}
-				if = {
-					limit = {
-						original_tag = MPL
-						has_idea = MPL_mandate
-					}
-					NOT = {
-						has_idea = MPL_mandate
-					}
-				}
-				if = { 
-					limit = {
-					 	original_tag = LIE
-					}
-					has_completed_focus = LIE_economic_mobilization
-				}
 			}
 
 			ai_will_do = {
-				factor = 1
+   				factor = 1
 				modifier = {
-				 	#Prio if low on manpower
-					 factor = 20
-					 manpower_per_military_factory <  600
+					#Prio if low on manpower
+					factor = 20
+					manpower_per_military_factory <  600
 				}
-				 modifier = {
-					 #Lower chance if has decent amount
-					 factor = 0.5
-					 manpower_per_military_factory >  1000
+				modifier = {
+					#Lower chance if has decent amount
+					factor = 0.5
+					manpower_per_military_factory >  1000
 				}
-			 	modifier = {
-				 #Block has plenty manpower
-					 factor = 0
-					 NOT = { tag = CHI }
-					 manpower_per_military_factory >  2800
-			 	}
+				modifier = {
+					#Block has plenty manpower
+					factor = 0
+					NOT = { tag = CHI }
+					manpower_per_military_factory >  5000
+				}
 
-			 	modifier = { # china relies a lot on throwing bodies at the enemy
+				modifier = { # china relies a lot on throwing bodies at the enemy
 					factor = 3
 
-				 	tag = CHI
+					tag = CHI
 					has_manpower < 200000
 				}
-
 				modifier = {
 					factor = 10
 					original_tag = SOV
 					date > 1943.1.1
-			 		has_manpower < 2000000
+					has_manpower < 2000000	
 				}
-
-				modifier = {
-					factor = 0
-			 		NOT = { has_idea = service_by_requirement }
-		 		}	
-
 			}
 		
 			cost = 150
@@ -1210,7 +957,6 @@ ideas = {
 						has_completed_focus = AST_R56_australian_internationalism
 						has_completed_focus = AST_R56_socalist_paridice
 						has_completed_focus = AST_R56_young_australian_league
-						has_completed_focus = AST_R56_everyone_does_their_duty
 					}
 				}
 
@@ -1220,8 +966,6 @@ ideas = {
 						has_global_flag = can_tfv_focus_tree
 					}
 					OR = {
-						has_completed_focus = CAN_compromise_with_quebec
-						has_completed_focus = CAN_forced_quebec_conscription
 					}
 				}
 				else_if = { 
@@ -1243,25 +987,17 @@ ideas = {
 						original_tag = HUN
 						has_dlc = "Death or Dishonor"
 					}
-					if = {
-						limit = {
-							has_dlc = "Arms Against Tyranny"
-						}
-						NOT = { has_idea = HUN_treaty_of_triannon_aat }
-					}
-					else = {
-						NOT = { has_idea = HUN_treaty_of_triannon }
-					}
+					NOT = { has_idea = HUN_treaty_of_triannon }
 				}
-				if = {
-					limit = {
-						original_tag = SWE
-					}
-					NOT = { 
-						has_idea = SWE_swedish_disarmament_idea 
-						has_idea = SWE_swedish_disarmament_1_idea
-					} 
-				}				
+				# if = {
+				# 	limit = {
+				# 		original_tag = SWE
+				# 	}
+				# 	NOT = { 
+				# 		has_idea = SWE_swedish_disarmament_idea 
+				# 		has_idea = SWE_swedish_disarmament_1_idea
+				# 	} 
+				# }				
 				if = {
 					limit = {
 						original_tag = SWI
@@ -1296,12 +1032,6 @@ ideas = {
 					}
 					NOT = { has_completed_focus = SPR_all_must_bear_the_torch }
 				}
-				if = { 
-					limit = {
-					 	original_tag = QBC
-					}
-					has_completed_focus = QBC_a_standing_army
-				}
 				if = {
 					limit = {
 						original_tag = BUL
@@ -1314,36 +1044,6 @@ ideas = {
 						original_tag = MON
 					}
 					NOT = { has_completed_focus = MON_changes_within }
-				}
-				if = {
-					limit = {
-						original_tag = GER
-						OR = {
-							has_idea = GER_treaty_of_versailles
-							has_idea = GER_treaty_of_versailles_2
-							has_idea = GER_treaty_of_versailles_3
-						}
-					}
-					NOT = {
-						has_idea = GER_treaty_of_versailles
-						has_idea = GER_treaty_of_versailles_2
-						has_idea = GER_treaty_of_versailles_3
-					}
-				}
-				if = {
-					limit = {
-						original_tag = MPL
-						has_idea = MPL_mandate
-					}
-					NOT = {
-						has_idea = MPL_mandate
-					}
-				}
-				if = { 
-					limit = {
-					 	original_tag = LIE
-					}
-					has_completed_focus = LIE_economic_mobilization
 				}
 			}
 
@@ -1381,7 +1081,6 @@ ideas = {
 			
 			cancel_if_invalid = no
 		}
-		
 
 		### Ethiopian National Levy
 		ETH_chitet_law = {
