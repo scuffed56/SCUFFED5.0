@@ -33,7 +33,7 @@ on_actions = {
 				clear_variable = global.unlock_date_for_idea_group_26
 
 				set_variable = { global.unlock_date_for_idea_group_1 = global.date }
-				add_to_variable = { global.unlock_date_for_idea_group_1 = @TIME_BETWEEN_RELATIVE_UNLOCK_DATES }
+				#add_to_variable = { global.unlock_date_for_idea_group_1 = @TIME_BETWEEN_RELATIVE_UNLOCK_DATES }
 				set_variable = { global.unlock_date_for_idea_group_2 = global.unlock_date_for_idea_group_1 }
 				add_to_variable = { global.unlock_date_for_idea_group_2 = @TIME_BETWEEN_RELATIVE_UNLOCK_DATES }
 				set_variable = { global.num_of_unlockable_idea_groups = 2 }
@@ -483,11 +483,137 @@ on_actions = {
 					add_to_variable = { global.unlock_date_for_idea_group_26 = @TIME_BETWEEN_RELATIVE_UNLOCK_DATES }
 					set_variable = { global.num_of_unlockable_idea_groups = 26 }
 				}
-				
-				set_variable = { global.eu4_like_ideas_policy_cost = 0.2 }
-
-				set_variable = { global.idea_cost_constant = 100 } # cost
-
+				# if = {
+				# 	limit = {
+				# 		has_game_rule = {
+				# 			rule = eu4_like_ideas_national_idea_groups_rule
+				# 			option = FREE_CHOICE
+				# 		}
+				# 	}
+				# 	clear_array = global.national_idea_group_selection_array
+				# 	add_to_array = { global.national_idea_group_selection_array = 1000 }
+				# 	for_loop_effect = {
+				# 		start = 0
+				# 		end = @NUM_OF_UNIQUE_NATIONAL_IDEA_GROUPS
+				# 		value = v
+				# 		set_temp_variable = { j = v }
+				# 		add_to_temp_variable = { j = 1 }
+				# 		add_to_array = { global.national_idea_group_selection_array = j }
+				# 	}
+				# 	every_country = {
+				# 		limit = {
+				# 			is_ai = no
+				# 		}
+				# 		set_variable = { show_eu4_like_ideas_custom_national_ideas_window = 1 }
+				# 	}
+				# }
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_show_introduction
+							option = YES
+						}
+					}
+					every_country = {
+						limit = {
+							is_ai = no
+						}
+						set_variable = { show_eu4_like_ideas_startup_window = 1 }
+					}
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_limited_idea_groups_from_same_type
+							option = NO_TIME_AND_TYPE_LIMIT
+						}
+					}
+					set_global_flag = eu4_like_ideas_test_flag
+				}
+				else_if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_limited_idea_groups_from_same_type
+							option = DISABLED
+						}
+					}
+					set_global_flag = eu4_like_ideas_limit_for_idea_groups_from_same_type_disabled
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_policy_cost
+							option = RULE_0_1_PP_POLICY_COST
+						}
+					}
+					set_variable = { global.eu4_like_ideas_policy_cost = 0.1 }
+				}
+				else_if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_policy_cost
+							option = RULE_0_15_PP_POLICY_COST
+						}
+					}
+					set_variable = { global.eu4_like_ideas_policy_cost = 0.15 }
+				}
+				else = {
+					set_variable = { global.eu4_like_ideas_policy_cost = 0.2 }
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_idea_cost_modifier
+							option = RULE_100_PP
+						}
+					}
+					set_variable = { global.idea_cost_constant = 100 }
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_AI
+							option = ONLY_MAJORS
+						}
+					}
+					set_global_flag = eu4_like_ideas_ai_only_majors
+				}
+				else_if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_AI
+							option = ONLY_MINORS
+						}
+					}
+					set_global_flag = eu4_like_ideas_ai_only_minors
+				}
+				else_if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_AI
+							option = DISABLED
+						}
+					}
+					set_global_flag = eu4_like_ideas_ai_disabled
+				}
+				else_if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_AI
+							option = DISALLOW_IDEAS_THAT_ALLOW_COLLAB_GOVS
+						}
+					}
+					set_global_flag = eu4_like_ideas_ai_disabled_collab_govs
+				}
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = eu4_like_ideas_rule_formables
+							option = ENABLED
+						}
+					}
+					set_global_flag = eu4_like_ideas_formables_enabled
+				}
 				if = {
 					limit = {
 						has_game_rule = {
@@ -537,6 +663,7 @@ on_actions = {
 					set_variable = { global.max_amount_of_policies_constant = 0 }
 				}
 				set_AI_pp_cost_reduction = yes
+				set_eu4_like_ideas_AI_idea_usage_delay = yes
 			}
 			every_country = {
 				country_event = { id = eu4_like_ideas_events.1 }
