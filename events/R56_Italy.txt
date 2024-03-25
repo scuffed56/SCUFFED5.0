@@ -157,13 +157,6 @@ country_event = {
 			}
 			has_government = fascism
 		}
-		ROM = {
-			exists = yes
-			NOT = {
-				is_in_faction_with = ITA
-				is_subject_of = ITA
-			}
-		}
 	}
 
 	option = {
@@ -388,12 +381,12 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		name = r56_italy.15.a
-		ai_chance = { factor = 100 }
-		FROM = { add_to_faction = ROOT }
+	name = r56_italy.15.a
+	ai_chance = { factor = 100 }
+	ITA = { add_to_faction = ROOT }
 	}
 	option = {
-		name = r56_italy.15.b
+	name = r56_italy.15.b
 	}
 }
 
@@ -582,7 +575,7 @@ country_event = {
 
 	option = {
 		name = r56_italy.21.a
-		FROM = {
+		ITA = {
 			country_event = {
 				id = r56_italy.22
 				days = 1
@@ -599,16 +592,16 @@ country_event = {
 					has_dlc = "Man the Guns"
 				}
 			}
-			FROM = {
+			ITA = {
 				set_autonomy = {
-					target = ROOT
+					target = ALB
 					autonomous_state = autonomy_dominion
 					freedom_level = 0.4
 				}
 			}
 			else = {
-				FROM = {
-					puppet = FROM
+				ITA = {
+					puppet = ALB
 				}	
 			}
 		}
@@ -625,25 +618,13 @@ country_event = {
 
 	option = {
 		name = r56_italy.22.a
-		if = {
-			limit = {
-				is_in_faction_with = FROM
-				is_faction_leader = yes
-			}
-			ROOT = {
-				remove_from_faction = FROM
-			}
-		}
-		create_wargoal = {
-			target = FROM
-			type = annex_everything
-			expire = 0
+		declare_war_on = {
+		    target = ALB
+		    type = annex_everything
 		}
 	}
 	option = {
 		name = r56_italy.22.b
-		add_political_power = -25
-		add_stability = -0.05
 	}
 }
 
@@ -1135,12 +1116,12 @@ country_event = {
 					has_completed_focus = ITA_royal_intervention
 				}
 				add_country_leader_role = {
-					character = ITA_vittorio_emanuele_iii
+					character = ITA_victor_emmanuel_iii
 					promote_leader = yes
 					country_leader = {
 						ideology = absolute_monarchism
 						expire = "1965.1.1"
-						traits = { the_soldier_king r56_trait_opposed_to_communism }
+						traits = { soldier_king r56_trait_opposed_to_communism }
 					}
 				}
 			}
@@ -1150,7 +1131,7 @@ country_event = {
 		name = r56_italy.108.d # Keep the monarchy (Should only be if post WW2 referendum)
 		trigger = {
 			has_country_leader = {
-				character = ITA_prince_umberto
+				name = "Umberto II"
 				ruling_only = yes
 			}
 		}
