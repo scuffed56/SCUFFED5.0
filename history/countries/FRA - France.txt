@@ -1,8 +1,4 @@
-﻿#####################################################################
-### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
-#####################################################################
-
-capital = 16
+﻿capital = 16
 
 if = {
 	limit = {
@@ -25,7 +21,6 @@ if = {
 		set_naval_oob = "FRA_1936_naval_legacy"
 	}
 }
-add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 10000 producer = FRA }	#from on_actions, might need to revisit
 
 if = {
 	limit = { has_dlc = "By Blood Alone" }
@@ -46,7 +41,6 @@ if = {
 		set_technology = {
 			early_fighter = 1
 			naval_bomber1 = 1
-			cv_naval_bomber1 = 1
 			cv_early_fighter = 1
 			early_bomber = 1
 			tactical_bomber1 = 1
@@ -148,17 +142,13 @@ recruit_character = FRA_louis_kahn
 recruit_character = FRA_victor_denain
 recruit_character = FRA_frederic_irene_joliot_curie
 recruit_character = FRA_jean_marie_bergeret
-#recruit_character = FRA_roger_vitrac
+recruit_character = FRA_roger_vitrac
 #recruit_character = FRA_edmond_barrachin #related branch currently hidden
 recruit_character = FRA_eugene_bridoux
 
 set_research_slots = 4
 set_stability = 0.5
 set_war_support = 0.1
-
-country_event = { id = france.103 days = 15 random_days = 5 }		#deflation starts
-country_event = { id = france.103 days = 947 random_days = 30 }		#communists remove support from Popular Front
-
 
 if = {
 	limit = {
@@ -207,7 +197,6 @@ set_technology = {
 	tech_engineers = 1
 	tech_recon = 1
 	tech_mountaineers = 1
-	tech_trucks = 1
 	motorised_infantry = 1
 	gw_artillery = 1
 	interwar_antiair = 1
@@ -220,7 +209,6 @@ set_technology = {
 if = {
 	limit = {
 		has_dlc = "La Resistance"
-		FRA = { is_ai = no }
 	}
 	set_technology = {
 		armored_car1 = 1
@@ -281,7 +269,14 @@ if = {
 	}
 	add_ideas = MTG_naval_treaty_adherent
 }
-
+if = {
+	limit = {
+		has_dlc = "La Resistance"
+	}
+	set_technology = {
+		armored_car1 = 1
+	}
+}
 if = {
 	limit = {
 		NOT = { has_dlc = "No Step Back" }
@@ -351,18 +346,7 @@ add_ideas = {
 	FRA_outdated_airforce
 }
 
-give_guarantee = ADR
-give_guarantee = MNC
-give_guarantee = CZE
-give_guarantee = YUG
-give_guarantee = ROM
-give_guarantee = BEL	#Instead of a an event which is meant to always fire - Fantom
-
-diplomatic_relation = {
-    country = MNC
-    relation = docking_rights
-    active = yes
-}
+	#Instead of a an event which is meant to always fire - Fantom
 
 if = {
 	limit = { has_dlc = "La Resistance" }
@@ -476,11 +460,10 @@ if = {
 			tank_nsb_armor_upgrade = 4
 		}
 		icon = "gfx/interface/technologies/FRA_basic_heavy_tank.dds"
-		model = FRA_heavy_armor_entity
 	}
 
 	create_equipment_variant = {
-		name = "SOMUA S35" 
+		name = "SOUMUA S35" 
 		type = medium_tank_chassis_0
 		parent_version = 0
 		modules = {
@@ -504,25 +487,57 @@ if = {
 		has_dlc = "By Blood Alone"
 	}
 	create_equipment_variant = {
-		name = "NiD 62"
+		name = "Br. 19" #
+		type = small_plane_cas_airframe_0
+		modules = {
+			fixed_main_weapon_slot = bomb_locks
+			engine_type_slot = engine_1_1x
+			special_type_slot_1 = lmg_defense_turret
+		}
+		icon = "GFX_FRA_CAS1_medium"
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "NiD 62" #
 		type = small_plane_airframe_0
 		modules = {
 			fixed_main_weapon_slot = light_mg_2x
 			engine_type_slot = engine_1_1x
 			special_type_slot_1 = empty
 		}
-		icon = "GFX_FRA_early_fighter_medium"
 		obsolete = yes
 	}
 	create_equipment_variant = {
-		name = "D.500"
+		name = "D.500" #
 		type = small_plane_airframe_0
 		modules = {
 			fixed_main_weapon_slot = light_mg_4x
 			engine_type_slot = engine_1_1x
 			special_type_slot_1 = empty
 		}
-		icon = "GFX_FRA_cv_fighter1_medium"
+		icon = "GFX_FRA_light_plane_2_medium"
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "D.371" #
+		type = cv_small_plane_airframe_0
+		modules = {
+			fixed_main_weapon_slot = light_mg_4x
+			engine_type_slot = engine_1_1x
+			special_type_slot_1 = empty
+		}
+		icon = "GFX_FRA_light_plane_2_medium"
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "PL.7" #
+		type = cv_small_plane_naval_bomber_airframe_0
+		modules = {
+			fixed_main_weapon_slot = torpedo_mounting
+			engine_type_slot = engine_1_1x
+			special_type_slot_1 = lmg_defense_turret
+		}
+		icon = "GFX_FRA_naval_bomber1_medium"
 		obsolete = yes
 	}
 	create_equipment_variant = {
@@ -534,61 +549,39 @@ if = {
 			engine_type_slot = engine_2_1x
 			special_type_slot_1 = empty
 		}
-		icon = "GFX_FRA_cv_fighter1_medium"
-	}	
-	create_equipment_variant = {
-		name = "D.371"
-		type = cv_small_plane_airframe_0
-		modules = {
-			fixed_main_weapon_slot = light_mg_4x
-			engine_type_slot = engine_1_1x
-			special_type_slot_1 = empty
-		}
-		icon = "GFX_FRA_cv_early_fighter_medium"
-		obsolete = yes
+		icon = "GFX_FRA_light_plane_2_medium"
 	}
 	create_equipment_variant = {
-		name = "Br. 19" #
-		type = small_plane_cas_airframe_0
-		modules = {
-			fixed_main_weapon_slot = bomb_locks
-			engine_type_slot = engine_1_1x
-			special_type_slot_1 = lmg_defense_turret
-		}
-		icon = "GFX_TUR_early_bomber_medium"
-		obsolete = yes
-	}
-	create_equipment_variant = {
-		name = "Potez 25" #
-		type = small_plane_cas_airframe_0
-		modules = {
-			fixed_main_weapon_slot = bomb_locks
-			engine_type_slot = engine_1_1x
-			special_type_slot_1 = lmg_defense_turret
-		}
-		icon = "GFX_GEN_bomber_P25_medium"
-		obsolete = yes
-	}
-	create_equipment_variant = {
-		name = "PL.7" #
-		type = cv_small_plane_naval_bomber_airframe_0
-		modules = {
-			fixed_main_weapon_slot = torpedo_mounting
-			engine_type_slot = engine_1_1x
-			special_type_slot_1 = lmg_defense_turret
-		}
-		icon = "GFX_SWE_early_bomber_medium"
-		obsolete = yes
-	}
-	create_equipment_variant = {
-		name = "Latécoère 290" #
+		name = "Latécoère 296" #
 		type = small_plane_naval_bomber_airframe_0
 		modules = {
 			fixed_main_weapon_slot = torpedo_mounting
 			engine_type_slot = engine_1_1x
 			special_type_slot_1 = floats
 		}
-		icon = "GFX_FRA_flying_boat_medium"
+		icon = "GFX_FRA_naval_bomber1_medium"
+	}
+	create_equipment_variant = {
+		name = "Amiot 143" #
+		type = medium_plane_airframe_0
+		modules = {
+			fixed_main_weapon_slot = medium_bomb_bay
+			fixed_auxiliary_weapon_slot_1 = bomb_locks
+			engine_type_slot = engine_2_2x
+			special_type_slot_1 = lmg_defense_turret
+		}
+		icon = "GFX_FRA_early_bomber_medium"
+	}
+	create_equipment_variant = {
+		name = "F.222" #
+		type = large_plane_airframe_0
+		modules = {
+			fixed_main_weapon_slot = large_bomb_bay
+			fixed_auxiliary_weapon_slot_1 = empty
+			engine_type_slot = engine_2_4x
+			special_type_slot_1 = lmg_defense_turret
+		}
+		icon = "GFX_FRA_strategic_bomber1_medium"
 	}
 	create_equipment_variant = {
 		name = "M.B. 200" #
@@ -599,113 +592,14 @@ if = {
 			engine_type_slot = engine_1_2x
 			special_type_slot_1 = lmg_defense_turret
 		}
-		icon = "GFX_FRA_early_bomber_medium"
 		obsolete = yes
-	}	
-	create_equipment_variant = {
-		name = "Amiot 143" #
-		type = medium_plane_airframe_0
-		modules = {
-			fixed_main_weapon_slot = medium_bomb_bay
-			fixed_auxiliary_weapon_slot_1 = bomb_locks
-			engine_type_slot = engine_2_2x
-			special_type_slot_1 = lmg_defense_turret
-		}
-		icon = "GFX_FRA_tactical_bomber1_medium"
 	}
 }
-
 if = {
-	limit = { NOT = { has_dlc = "By Blood Alone" } }
-	create_equipment_variant = {
-			name = "D.500"
-			type = fighter_equipment_0
-			upgrades = {
-				plane_gun_upgrade = 2
-				plane_range_upgrade = 0
-				plane_engine_upgrade = 3
-				plane_reliability_upgrade = 2
-		}
-			obsolete = yes
-			icon = "GFX_FRA_cv_fighter1_medium"
+	limit = {
+		NOT = { has_dlc = "By Blood Alone"}
 	}
-	
-		create_equipment_variant = {
-			name = "D.510"
-			type = fighter_equipment_0
-			upgrades = {
-				plane_gun_upgrade = 4
-				plane_range_upgrade = 0
-				plane_engine_upgrade = 4
-				plane_reliability_upgrade = 3
-			}
-			icon = "GFX_FRA_cv_fighter1_medium"
-		}
-		
-	create_equipment_variant = {
-			name = "Br. 19" 
-			type = cas_equipment_0
-			upgrades = {
-				plane_cas_upgrade = 0
-				plane_range_upgrade = 0
-				plane_engine_upgrade = 0
-				plane_reliability_upgrade = 0
-		}
-		obsolete = yes
-			icon = "GFX_TUR_early_bomber_medium"
-		}
-
-		create_equipment_variant = {
-			name = "Potez 25" 
-			type = cas_equipment_0
-			upgrades = {
-				plane_cas_upgrade = 2
-				plane_range_upgrade = 1
-				plane_engine_upgrade = 1
-				plane_reliability_upgrade = 1
-			}
-			obsolete = yes
-			icon = "GFX_GEN_bomber_P25_medium"
-		}
-		
-		create_equipment_variant = {
-			name = "Latécoère 290"
-			type = nav_bomber_equipment_0
-			upgrades = {
-				plane_naval_upgrade = 1
-				plane_range_upgrade = 0
-				plane_engine_upgrade = 2
-				plane_reliability_upgrade = 3
-			}
-			icon = "GFX_FRA_flying_boat_medium"
-		}		
-		
-		create_equipment_variant = {
-			name = "PL.7"
-			type = cv_nav_bomber_equipment_0
-			upgrades = {
-				cv_plane_naval_upgrade = 0
-				cv_plane_range_upgrade = 0
-				plane_engine_upgrade = 0
-				plane_reliability_upgrade = 0
-			}
-			icon = "GFX_SWE_early_bomber_medium"
-		}
-		
-		
-		create_equipment_variant = {
-			name = "Amiot 143" 
-			type = tac_bomber_equipment_0
-			upgrades = {
-				plane_tac_bomb_upgrade = 1
-				plane_range_upgrade = 2
-				plane_engine_upgrade = 2
-				plane_reliability_upgrade = 3
-			}
-			icon = "GFX_FRA_tactical_bomber1_medium"
-		}
 }
-		
 ### Ship Variants ###
 # 1936 Start #
 if = {
@@ -1181,7 +1075,7 @@ if = {
 			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
 			fixed_ship_radar_slot = empty
 			fixed_ship_engine_slot = cruiser_ship_engine_1
-			fixed_ship_armor_slot = ship_armor_cruiser_1
+			fixed_ship_armor_slot = empty
 			mid_1_custom_slot = ship_mine_layer_1
 			mid_2_custom_slot = ship_mine_layer_1
 			rear_1_custom_slot = ship_mine_layer_1
@@ -1235,7 +1129,7 @@ if = {
 			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
 			fixed_ship_radar_slot = empty
 			fixed_ship_engine_slot = cruiser_ship_engine_2
-			fixed_ship_armor_slot = ship_armor_cruiser_1
+			fixed_ship_armor_slot = empty
 			front_1_custom_slot = ship_light_medium_battery_2
 			mid_1_custom_slot = ship_anti_air_1
 			mid_2_custom_slot = ship_airplane_launcher_1
@@ -1290,7 +1184,7 @@ if = {
 			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
 			fixed_ship_radar_slot = empty
 			fixed_ship_engine_slot = cruiser_ship_engine_2
-			fixed_ship_armor_slot = ship_armor_cruiser_1
+			fixed_ship_armor_slot = empty
 			mid_1_custom_slot = ship_medium_battery_1
 			mid_2_custom_slot = ship_torpedo_1
 			rear_1_custom_slot = ship_airplane_launcher_1
