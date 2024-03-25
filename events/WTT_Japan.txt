@@ -390,6 +390,13 @@ country_event = {
 		ai_chance = {
 			base = 0
 		}
+	ROOT = {
+		create_wargoal = {
+			target = FROM
+			type = annex_everything
+			expire = 120
+		}
+	}
 	}
 }
 
@@ -484,27 +491,30 @@ country_event = {
 
 #Japan propse all samurai generals go to MAN
 country_event = {
-	id = wtt_japan.21
-	title = wtt_japan.21.t
-	desc = wtt_japan.21.desc
-	picture = GFX_report_event_japanese_officers
+    id = wtt_japan.21
+    title = wtt_japan.21.t
+    desc = wtt_japan.21.desc
+    picture = GFX_report_event_japanese_officers
 
-	is_triggered_only = yes
-	
-	#Accept generals
-	option = {
-		name = wtt_japan.21.a
-		ai_chance = {
-			base = 10
-		}
-		FROM = {		
-			every_army_leader = {
-				limit = { has_trait = JAP_samurai_lineage }
-				set_nationality = ROOT
-			}
-		}		
-		FROM = { country_event = { id = wtt_japan.22 } }
-	}
+    is_triggered_only = yes
+    
+    #Accept generals
+    option = {
+        name = wtt_japan.21.a
+        ai_chance = {
+            base = 10
+        }
+        FROM = {        
+            every_army_leader = {
+                limit = { has_trait = JAP_samurai_lineage }
+                set_nationality = ROOT
+            }
+            every_navy_leader = {
+                set_nationality = ROOT
+            }
+        }    
+        FROM = { country_event = { id = wtt_japan.22 } }
+    }
 }
 
 #MAN Answers Japan yes
@@ -541,12 +551,13 @@ country_event = {
 	
 	#Exile them
 	option = {
+		add_political_power = 150
 		name = wtt_japan.31.a
 		trigger = {
 			country_exists = MAN
 		}
 		ai_chance = {
-			base = 5
+			base = 10
 		}
 		MAN = {
 			country_event = { id = wtt_japan.32 }
@@ -562,7 +573,7 @@ country_event = {
 		ai_chance = {
 			base = 5
 		}
-		add_stability = -0.1
+		add_stability = -0.20
 	}
 }
 
@@ -581,6 +592,10 @@ country_event = {
 			base = 10
 		}
 		add_ideas = MAN_exiled_imperial_family
+		add_timed_idea = {
+			idea = MAN_production
+			days = 270
+		}
 	}
 }
 
@@ -1244,32 +1259,15 @@ country_event = {
 			}
 			MAN = {
 				set_cosmetic_tag = MAN_kwantung_army
-				inherit_technology = JAP
-				hidden_effect = {
-					add_equipment_to_stockpile = {
-						type = infantry_equipment
-						amount = 6000
-						producer = JAP
-					}
-					add_equipment_to_stockpile = {
-						type = artillery_equipment
-						amount = 1000
-						producer = JAP
-					}
-					add_equipment_to_stockpile = {
-						type = support_equipment
-						amount = 2000
-						producer = JAP
-					}
-					add_equipment_to_stockpile = {
-						type = train_equipment
-						amount = 10
-						producer = JAP
-					}
+			}
+		}
+		if = {
+			limit = {
+				MAN = {
+					is_subject_of = ROOT
 				}
 			}
 			set_autonomy = { target = MAN autonomy_state = autonomy_free }
-			
 		}
 		if = {
 			limit = {
@@ -1287,143 +1285,7 @@ country_event = {
 				transfer_state = 919
 				transfer_state = 920
 			}			
-			set_autonomy = { target = KOR autonomy_state = autonomy_free }
-			hidden_effect = {
-				KOR = {
-					add_ideas = KOR_r56rp_no_more_calm
-
-					inherit_technology = JAP
-
-					set_politics = {
-						ruling_party = neutrality
-						elections_allowed = no
-					}
-
-					if = {
-						limit = {
-							NOT =  { has_tech = r56_militia_tech }
-						}
-						set_technology = { r56_militia_tech = 1 }
-						hidden_effect = {
-							load_oob = "r56_unlock_militia"
-						}
-					}
-					add_equipment_to_stockpile = {
-						type = infantry_equipment
-						amount = 3500
-						producer = JAP
-					}
-					add_equipment_to_stockpile = {
-						type = artillery_equipment
-						amount = 500
-						producer = JAP
-					}
-					add_equipment_to_stockpile = {
-						type = support_equipment
-						amount = 1000
-						producer = JAP
-					}
-					add_equipment_to_stockpile = {
-						type = train_equipment
-						amount = 5
-						producer = JAP
-					}
-
-					random_state = {
-						limit = {
-							region = 186
-							is_controlled_by_ROOT_or_ally = yes
-							free_building_slots = {
-								building = industrial_complex
-								size > 2
-								include_locked = yes
-							}
-						}
-						prioritize = { 525 }
-		
-						add_extra_state_shared_building_slots = 3
-						add_building_construction = {
-							type = industrial_complex
-							level = 3
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
-						}
-					}
-					random_state = {
-						limit = {
-							region = 186
-							is_controlled_by_ROOT_or_ally = yes
-							free_building_slots = {
-								building = arms_factory
-								size > 4
-								include_locked = yes
-							}
-						}
-						prioritize = { 525 }
-		
-						add_extra_state_shared_building_slots = 5
-						add_building_construction = {
-							type = arms_factory
-							level = 5
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
-						}
-					}
-		
-					division_template = {
-						name = "Uibyeong"
-						is_locked = no
-						division_names_group = KOR_INF_01
-						priority = 0
-						template_counter = 0
-						regiments = {
-							militia = { x = 0 y = 0 }
-							militia = { x = 0 y = 1 }
-							militia = { x = 0 y = 2 }
-							militia = { x = 0 y = 3 }
-							militia = { x = 1 y = 0 }
-						}
-						support = {
-							engineer = { x = 0 y = 0 }
-							artillery = { x = 0 y = 1 }
-						}
-					}
-					for_loop_effect = {
-						end = 40
-						value = temp
-						random_core_state = {
-							limit = {
-								is_controlled_by = KOR
-								is_in_home_area = yes
-							}
-							create_unit = {
-								division = "name = \"Uibyeong\" division_template = \"Uibyeong\" start_experience_factor = 1 start_equipment_factor = 1"
-								owner = KOR
-							}
-						}
-					}
-				}
-			}			
-		}
-		# cause lmao, no you dont get to keep all your navy and air.
-		transfer_units_fraction= {
-			target = MAN
-			size = 0
-			stockpile_ratio = 0.2
-			army_ratio = 0.2
-			navy_ratio = 0.3
-			air_ratio = 0.3
-			keep_unit_leaders_trigger = {
-				always = yes
-			}
+			set_autonomy = { target = KOR autonomy_state = autonomy_free }			
 		}
 		add_popularity = { ideology = democratic popularity = 0.1 }
 		set_politics = { ruling_party = democratic elections_allowed = yes }
@@ -1801,14 +1663,13 @@ country_event = {
 	option = {
 		name = excellent
 		effect_tooltip = {
-			transfer_state = 328
 			transfer_state = 609
 			transfer_state = 610
-			transfer_state = 714
-			transfer_state = 715
 			transfer_state = 716
+			transfer_state = 715
+			transfer_state = 328
 			transfer_state = 717
-			transfer_state = 761
+			transfer_state = 714
 			transfer_state = 941
 			transfer_state = 942
 			transfer_state = 943
@@ -2489,3 +2350,4 @@ country_event = {
 	}
 	
 }
+
