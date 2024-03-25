@@ -12,9 +12,9 @@ set_research_slots = 3 #Why was it four???
 oob = "MAN_1936"
 
 add_ideas = {
-	MAN_banditry
-	MAN_kwantung_veto
-	MAN_low_legitimacy_5
+	MAN_dongbei_partisan
+	MAN_reliant_idea
+	MAN_opium_plantation
 }
 
 set_country_flag = MAN_reliant_flag
@@ -44,14 +44,21 @@ set_technology = {
 }
 if = {
 	limit = { has_dlc = "By Blood Alone" }
-	set_technology = {
-		iw_small_airframe = 1
-		engines_1 = 1
-		aa_lmg = 1
-	}
+		set_technology = {
+			aa_lmg = 1
+			engines_1 = 1
+			engines_2 = 1
+			early_bombs = 1
+			aircraft_construction = 1
+			iw_small_airframe = 1
+			iw_medium_airframe = 1
+			basic_small_airframe = 1
+		}
 	else = {
 		set_technology = {
+
 			early_fighter = 1
+			
 		}
 	}
 }
@@ -106,9 +113,11 @@ recruit_character = MAN_xiqia
 recruit_character = MAN_urzhin_garmaev
 recruit_character = MAN_grigory_semyonov
 recruit_character = MAN_konstantin_nechayev
-
-recruit_character = MAN_yoshisuke_aikawa	#merged together with instances
-recruit_character = MAN_naoki_hoshino 		#merged together with instances
+recruit_character = MAN_yasuji_okamura
+recruit_character = MAN_hatazo_adachi
+recruit_character = MAN_itagaki_seishiro
+recruit_character = MAN_shunroku_hata
+recruit_character = MAN_yoshisuke_aikawa	#merged together in an instance
 
 if = {
 	limit = {
@@ -116,61 +125,26 @@ if = {
 	}
 	recruit_character = MAN_puyi_tfv
 	recruit_character = MAN_megata_toshiro_tfv
-	recruit_character = MAN_itagaki_seishiro_tfv
+	recruit_character = MAN_naoki_hoshino_tfv
 	recruit_character = MAN_doihara_kenji_tfv
 	recruit_character = MAN_muto_nobuyoshi_tfv
 	recruit_character = MAN_kasahara_yukio_tfv
 	recruit_character = MAN_kimura_heitaro_tfv
-	recruit_character = MAN_kishi_nobosuke_tfv
-	recruit_character = MAN_kenkichi_ueda_tfv
-	recruit_character = MAN_toshizo_nishio_tfv
-	recruit_character = MAN_qi_xieyuan_tfv
-	recruit_character = MAN_aisin_gioro_pujie_tfv
 	else = {
 		recruit_character = MAN_puyi
 		recruit_character = MAN_megata_toshiro
-		recruit_character = MAN_itagaki_seishiro
+		
 		recruit_character = MAN_doihara_kenji
 		recruit_character = MAN_muto_nobuyoshi
 		recruit_character = MAN_kasahara_yukio
 		recruit_character = MAN_kimura_heitaro
 	}
 }
-
-# adding these because they are critically missing from the character list
-generate_character = {
-	token_base = generic_navy_anti_submarine # token will be TAG_token_base
-	advisor = {
-		slot = navy_chief
-		traits = { navy_anti_submarine_2 }
-		cost = 50
-	}
-	portraits = {
-		army = { small = GFX_idea_generic_navy_anti_submarine }
-	}
-}
-generate_character = {
-	token_base = generic_navy_fleet_log # token will be TAG_token_base
-	advisor = {
-		slot = high_command
-		traits = { navy_fleet_logistics_1 }
-		ledger = navy
-		cost = 50
-	}
-	portraits = {
-		army = { small = GFX_idea_generic_navy_fleet_log }
-	}
-}
-generate_character = {
-	token_base = generic_military_theorist # token will be TAG_token_base
-	advisor = {
-		slot = theorist
-		traits = { military_theorist }
-		ledger = army
-		cost = 50
-	}
-	portraits = {
-		army = { small = GFX_idea_generic_military_theorist }
+if = {
+	limit = { has_dlc = "No Step Back" }
+	recruit_character = SOV_grigory_semyonov
+	SOV_grigory_semyonov = { 
+		set_character_flag = SOV_exiled_army_leader
 	}
 }
 
@@ -194,7 +168,7 @@ if = {
 715 = { #Liaoning
 	add_dynamic_modifier = { modifier = dense_rural_infrastructure }
 }
-714 = { #East Hulunbuir
+714 = { #Heilungkiang
 	add_dynamic_modifier = { modifier = dense_rural_infrastructure }
 }
 717 = { #Hungkiang
