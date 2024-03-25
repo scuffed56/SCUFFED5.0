@@ -25,7 +25,6 @@ characters={
 			}
 			available = {
 				has_completed_focus = JAP_national_mobilization_law
-				is_country_leader = no
 			}
 			traits = {
 				mobilization_proponent
@@ -78,39 +77,43 @@ characters={
 		}
 	}
 
-	JAP_machida_chuji={		#can become a democratic leader later
-		name=JAP_machida_chuji
-		portraits={
-			civilian={
-				large="gfx/leaders/JAP/Portrait_Japan_Machida_Chuji.dds"
-			}
-			army={
-				small="GFX_idea_advisor_JAP_Chuji_Machida"
+	
+	JAP_mikhail_tukhachevsky = {
+		name = JAP_mikhail_tukhachevsky
+		portraits = {
+			army = {
+				small = "GFX_idea_mikhail_tukhachevsky"
+				large = "gfx/leaders/SOV/Portrait_Soviet_Mikhail_Tukhachevsky.dds"
 			}
 		}
-		advisor={
+		advisor = {
+			cost = 100
+			slot = theorist
+			idea_token = mikhail_tukhachevsky
+			ledger = army
 			allowed = {
 				original_tag = JAP
 			}
-			available = {
-				has_government = democratic
-			}			
-			idea_token = JAP_machida_chuji
-			slot = political_advisor
-			traits = {
-				mediator 
+			visible = {
+				has_completed_focus = JAP_alliance_with_the_devil
 			}
-			ai_will_do = {
-				factor = 1.500
+			available = {
+			}
+			traits = {
+				army_armored_2
+				mass_assault_expert
 			}
 		}
-	}
 
-	JAP_ichiro_hatoyama={	#can become a democratic leader later
-		name=JAP_ichiro_hatoyama
-		portraits={
-			civilian={
-				large="gfx/leaders/JAP/Portrait_Japan_Ichiro_Hatoyama.dds"
+		field_marshal = {
+			traits = { brilliant_strategist trait_reckless armor_officer offensive_doctrine }
+			skill = 4
+			attack_skill = 3
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 2
+			visible = {
+				has_completed_focus = JAP_alliance_with_the_devil
 			}
 		}
 	}
@@ -269,20 +272,6 @@ characters={
 			logistics_skill=4
 			legacy_id=0
 		}
-
-		advisor={ # because Tojo combined the position of prime minister with the ministry of war and the ministry of the interior (making him the leader of the Kempetai at home and abroad), he would have too many roles like multi-trait Mussolini. Tanaka here commanded the kempetai in Manchuria for two years. B
-			slot = political_advisor
-			idea_token = JAP_shizuichi_tanaka
-			allowed = {
-				original_tag = JAP
-			}
-			traits = {
-				prince_of_terror 
-			}
-			ai_will_do = {
-				factor = 2.300
-			}
-		}
 	}
 
 	JAP_yasuji_okamura={
@@ -375,7 +364,7 @@ characters={
 			}
 		}
 		corps_commander={
-			traits={ politically_connected JAP_samurai_lineage air_force_ties }
+			traits={ politically_connected JAP_samurai_lineage }
 			skill=3
 			attack_skill=3
 			defense_skill=3
@@ -388,6 +377,10 @@ characters={
 	JAP_seishiro_itagaki={
 		name=JAP_seishiro_itagaki
 		portraits={
+			civilian = {
+				large = "GFX_portrait_MAN_Itagaki"
+				small = "GFX_portrait_MAN_Itagaki"
+			}
 			army={
 				large="gfx/leaders/JAP/Portrait_Japan_Seishiro_Itagaki.dds"
 				small="gfx/interface/ideas/idea_JAP_seishiro_itagaki.dds"
@@ -485,7 +478,7 @@ characters={
 			}
 		}
 		corps_commander={
-			traits={ old_guard war_hero JAP_samurai_lineage } #added samurai lineage because he would never work with dirty commies
+			traits={ old_guard war_hero }
 			skill=1
 			attack_skill=1
 			defense_skill=1
@@ -580,11 +573,11 @@ characters={
 			}
 		}
 		corps_commander={
-			traits={ harsh_leader career_officer war_hero JAP_samurai_lineage infantry_expert winter_specialist }
-			skill=3
-			attack_skill=2
-			defense_skill=3
-			planning_skill=3
+			traits={ JAP_samurai_lineage }
+			skill=2
+			attack_skill=1
+			defense_skill=2
+			planning_skill=2
 			logistics_skill=2
 			legacy_id=0
 		}
@@ -684,26 +677,6 @@ characters={
 			legacy_id=0
 		}
 	}
-
-	JAP_Heisuke_Yanagawa={ # retired but then recalled for the war, could, should be promoted to prince of terror as minister of justice and leader of the association for the support of imperial authority (the unified party in historicla path)
-		name="Heisuke Yanagawa"
-		portraits={
-			army={
-				large="gfx/leaders/JAP/r56_portrait_JAP_Heisuke_Yanagawa.dds"
-				small="GFX_idea_advisor_JAP_Heisuke_Yanagawa"
-			}
-		}
-		corps_commander={
-			traits={ cavalry_leader harsh_leader promising }
-			skill=2
-			attack_skill=3
-			defense_skill=1
-			planning_skill=1
-			logistics_skill=2
-			legacy_id=0
-		}
-	}
-
 
 	JAP_hitoshi_imamura={
 		name=JAP_hitoshi_imamura
@@ -1125,12 +1098,6 @@ characters={
 			allowed = {
 				original_tag = JAP
 			}
-			available = {
-				OR = {
-					has_completed_focus = JAP_ultimate_deterrence
-					has_completed_focus = JAP_nishina_okochi_directive
-				}
-			}
 			research_bonus = {
 				nuclear = 0.150
 			}
@@ -1179,11 +1146,8 @@ characters={
 			idea_token = kanin_kotohito
 			available = {
 				OR = {
-					has_country_leader = {
-						character = JAP_emperor_hirohito
-						ruling_only = yes
-					}
-					has_idea = JAP_hirohito
+					has_country_leader = { ruling_only = yes name = "Michinomiya Hirohito" }
+					
 				}
 				
 			}			
@@ -1245,10 +1209,7 @@ characters={
 					OR = {
 						has_government = communism
 						any_other_country = {
-							has_country_leader = { 
-								character = JAP_hideki_tojo
-								ruling_only = yes 
-							}
+							has_country_leader = {  ruling_only = yes name = "Hideki Tojo" }
 						}
 						has_completed_focus = JAP_strengthen_civilian_government
 						has_completed_focus = JAP_the_unthinkable_option
@@ -1271,34 +1232,6 @@ characters={
 			}
 		}
 	}
-
-	JAP_jinzaburo_masaki={
-		name="Jinzaburo Masaki"
-		portraits={
-			army={
-				small="GFX_portrait_kr_generic_asia_land_4_small"
-				large="GFX_portrait_kr_generic_asia_land_4"
-			}
-		}
-		advisor={
-			slot = army_chief
-			idea_token = JAP_jinzaburo_masaki
-			allowed = {
-				original_tag = JAP
-			}
-			available = {
-				has_completed_focus = JAP_support_the_kodoha_faction
-			}			
-			traits = {
-				army_chief_planning_2
-			}
-			cost = 50
-			ai_will_do = {
-				factor = 5.000
-			}
-		}
-	}
-
 
 	### NAVY CHIEFS ###
 
@@ -1416,37 +1349,6 @@ characters={
 				air_chief_ground_support_1
 			}
 			cost =  50
-			ai_will_do = {
-				factor = 1.000
-			}
-		}
-	}
-
-	JAP_takeo_yasuda={ # inspector of the air force in 1944. Another solution could be to actually create the ministry of aviation in 1936 and maybe even recall Yoshitoshi Tokugawa
-		# another problem is that the first inspector of the air force is Tojo while he was also vice minister of war. That's what purging the unreliable officers does to a mf.
-		name="Takeo Yasuda"
-		#given air reformer because it wasn't used.
-		portraits={
-			army={
-				small="GFX_idea_JAP_generic_land_5"
-			}
-		}
-		advisor={
-			slot = air_chief
-			idea_token = JAP_takeo_yasuda
-			allowed = {
-				original_tag = JAP
-			}
-			traits = {
-				air_chief_reform_2
-			}
-			available = {
-				OR = {
-					has_completed_focus = JAP_strategic_bomber_effort
-					has_completed_focus = JAP_unified_fighter_development
-				}
-
-			}
 			ai_will_do = {
 				factor = 1.000
 			}
@@ -1738,7 +1640,7 @@ characters={
 	}
 
 	JAP_hiroshi_oshima={
-		name=JAP_hiroshi_oshima # ambassador to Nazi germany
+		name=JAP_hiroshi_oshima
 		portraits={
 			army={
 				small="GFX_idea_generic_political_advisor_asia_1"
@@ -1751,14 +1653,10 @@ characters={
 				original_tag = JAP
 			}
 			traits = {
-				ideological_crusader 
-			}
-			available = {
-				has_completed_focus = JAP_purge_the_kodoha_faction # could also fit Kodoha if they are changed to fascist
-				has_government = fascism
+				prince_of_terror 
 			}
 			ai_will_do = {
-				factor = 0
+				factor = 2.300
 			}
 		}
 	}
@@ -1811,7 +1709,7 @@ characters={
 		name=JAP_koyata_iwasaki
 		portraits={
 			army={
-				small="GFX_idea_advisor_advisor_JAP_Koyata_Iwasaki"
+				small="GFX_idea_generic_political_advisor_asia_1"
 			}
 		}
 		advisor={
@@ -1833,41 +1731,11 @@ characters={
 			}
 		}
 	}
-	JAP_seigo_nakano={
-		name="Seigo Nakano"
-		portraits={
-			civilian={
-				small="GFX_idea_generic_political_advisor_asia_1"
-			}
-		}
-		advisor={
-			cost = 150
-			slot = political_advisor
-			idea_token = JAP_seigo_nakano
-			allowed = {
-				original_tag = JAP
-			}
-			available = {
-				has_completed_focus = JAP_challenge_the_zaibatsus
-				NOT = {
-					has_government = communism
-				}
-			}
-			
-			visible = {
-				has_completed_focus = JAP_support_the_kodoha_faction
-			}
-			traits = {
-				JAP_national_socialst_showa_statist
-			}
-		}
-	}
-
 	JAP_minoru_takano={
 		name=JAP_minoru_takano
 		portraits={
 			army={
-				small="GFX_idea_advisor_JAP_Minoru_Takano"
+				small="GFX_idea_asia_generic_1"
 			}
 		}
 		advisor={
@@ -1902,11 +1770,47 @@ characters={
 			}
 		}
 	}
+	JAP_machida_chuji={		#can become a democratic leader later
+		name=JAP_machida_chuji
+		portraits={
+			civilian={
+				large="gfx/leaders/JAP/Portrait_Japan_Machida_Chuji.dds"
+			}
+			army={
+				small="GFX_idea_generic_political_advisor_asia_3"
+			}
+		}
+		advisor={
+			allowed = {
+				original_tag = JAP
+			}
+			available = {
+				has_government = democratic
+			}			
+			idea_token = JAP_machida_chuji
+			slot = political_advisor
+			traits = {
+				mediator 
+			}
+			ai_will_do = {
+				factor = 1.500
+			}
+		}
+	}
+	JAP_ichiro_hatoyama={	#can become a democratic leader later
+		name=JAP_ichiro_hatoyama
+		portraits={
+			civilian={
+				large="gfx/leaders/JAP/Portrait_Japan_Ichiro_Hatoyama.dds"
+			}
+		}
+	}
+
 	JAP_kenji_miyamoto={
 		name="Kenji Miyamoto"
 		portraits={
 			army={
-				small="GFX_idea_advisor_JAP_Kenji_Miyamoto"
+				small="GFX_idea_generic_political_advisor_asia_2"
 			}
 		}
 		advisor={
@@ -1961,7 +1865,7 @@ characters={
 		name="Miyamoto Yuriko"
 		portraits={
 			army={
-				small="GFX_idea_advisor_JAP_Yuriko_Miyamoto"
+				small="GFX_idea_generic_political_advisor_female_asia" #small="GFX_idea_generic_political_advisor_europe_1"
 			}
 		}
 		advisor={
@@ -1972,15 +1876,14 @@ characters={
 			}
 
 			visible = {
-
+				
 			}			
 			
 			available = {
 				has_government = communism
 			}
 			traits = {
-				revolutionary_writer
-				#womens_figurehead 
+				womens_figurehead 
 			}
 		}	
 	}		
