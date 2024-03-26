@@ -169,7 +169,7 @@ foreign_influence = {
 
 		visible = {
 			is_ai = no
-			has_country_leader = { character = HUN_miklos_horthy Ruling_only = yes }
+			has_country_leader = { name = "Miklós Horthy" Ruling_only = yes }
 			has_government = fascism
 			GER = {
 				is_puppet_of = HUN
@@ -222,7 +222,7 @@ foreign_influence = {
 
 		visible = {
 			is_ai = no
-			has_country_leader = { character = HUN_miklos_horthy Ruling_only = yes }
+			has_country_leader = { name = "Miklós Horthy" Ruling_only = yes }
 			has_government = fascism
 			FRA = {
 				is_puppet_of = HUN
@@ -513,6 +513,90 @@ aftermath_of_the_munich_agreement = {
 }
 
 HUN_gyor_program_decision_category = {
+	HUN_open_new_factories = {
+        icon = GFX_decision_generic_merge_plant_tank
+        
+        fire_only_once = yes
+        
+        days_remove = 90
+        
+        cost = 50
+        
+        visible = {
+            has_completed_focus = HUN_domestic_arms_industry
+        }
+        
+        available = {
+            has_idea = HUN_idea_support_armament_manufacturers
+        }
+        
+        complete_effect = {
+        }
+        modifier = {
+            civilian_factory_use = 1
+        }
+        
+        remove_effect = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 1
+                        include_locked = yes
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+    }
+	HUN_invest_in_agriculture = {
+    
+        icon = generic_factory
+        
+        fire_only_once = yes
+        
+        days_remove = 180
+
+        cost = 50
+
+        visible = {
+        }
+        
+        available = {
+            has_idea = HUN_idea_support_armament_manufacturers
+            
+        }
+        
+        complete_effect = {
+            
+        }
+        modifier = {
+            civilian_factory_use = 1
+        }
+        remove_effect = {
+            
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size > 1
+                        include_locked = yes
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }
+    }
 	HUN_support_manufacturers_coordination = {
 		
 		icon = generic_factory
@@ -534,7 +618,7 @@ HUN_gyor_program_decision_category = {
 			}
 		}
 
-		days_remove = 260
+		days_remove = 90
 
 		cost = 50
 
@@ -545,17 +629,17 @@ HUN_gyor_program_decision_category = {
 
 		complete_effect = {
 			hidden_effect = {
-				set_country_flag = { flag = HUN_gyor_program_flag value = 1 days = 260 }
+				set_country_flag = { flag = HUN_gyor_program_flag value = 1 days = 90 }
 			}
 			add_ideas = HUN_gyor_program_investment
 		}
 
 		remove_effect = {
 			capital_scope = {
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
-					level = 1
+					level = 2
 					instant_build = yes
 				}
 			}
