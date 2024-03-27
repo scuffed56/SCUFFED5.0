@@ -2,6 +2,7 @@
 # Portugal Events
 ###########################
 
+add_namespace = lar_portugal_industrial
 add_namespace = lar_portugal_iberian_summit
 add_namespace = lar_portugal_navy_mutiny
 add_namespace = lar_portugal_iberian_workers_united
@@ -12,6 +13,85 @@ add_namespace = lar_portugal_spanish_civil_war
 add_namespace = lar_portugal_royal_iberian_alliance
 add_namespace = lar_portugal_overseas_provinces
 
+
+country_event = {
+	id = lar_portugal_industrial.1
+	title = "Portugal Industrial Focus"
+	desc = "Portugal must decide what industry to focus its output on"
+	picture = GFX_report_event_generic_factory
+
+	is_triggered_only = yes
+
+	option = {
+		name = "Tool Industry for Infantry Equiptment"
+
+		ai_chance = {
+			base = 0
+		}
+		mio:POR_fma_organization = {
+			complete_mio_trait = portugal_industrial_focus_material
+		}
+		mio:POR_ogme_organization = {
+			complete_mio_trait = portugal_industrial_focus_material
+		}
+		mio:POR_fabrica_material_guerra_organization = {
+			complete_mio_trait = portugal_industrial_focus_material
+		}
+		mio:POR_fnmal_organization = {
+			complete_mio_trait = portugal_industrial_focus_material
+		}
+	}
+
+	option = {
+		name = "Tool Industry for Aircraft"
+
+		ai_chance = {
+			base = 0
+		}
+		mio:POR_ogma_organization = {
+			complete_mio_trait = portugal_industrial_focus_material
+		}
+	}
+
+	option = {
+		name = "Tool Industry for Ships"
+
+		ai_chance = {
+			base = 0
+		}
+		mio:POR_nautiber = {
+			complete_mio_trait = portugal_industrial_focus_material
+		}
+		mio:POR_lisnave = {
+			complete_mio_trait = portugal_industrial_focus_material
+		}
+		mio:POR_arsenal_alfeite_organization = {
+			complete_mio_trait = portugal_industrial_focus_material
+		}
+	}
+
+	option = {
+		name = "Tool Industry for Construction"
+
+		ai_chance = {
+			base = 0
+		}
+
+		if = {
+			limit = {
+				has_idea = POR_a_new_industry
+			}
+			swap_ideas = {
+				remove_idea = POR_a_new_industry
+				add_idea = POR_a_new_industry_2
+			}
+		}
+		else = {
+			add_ideas = POR_a_new_industry
+		}
+	}
+
+}
 
 ######## IBERIAN SUMMIT ########
 # Iberian summit - country suggests joining axis
@@ -2414,7 +2494,7 @@ country_event = {
 
 	option = {
 		name = lar_portugal_overseas_provinces.1.a
-		add_stability = -0.1
+		add_stability = 0.05
 		every_state = {
 			limit = {
 				is_core_of = ANG
@@ -2470,6 +2550,7 @@ country_event = {
 
 	option = {
 		name = lar_portugal_overseas_provinces.2.a
+		add_stability = 0.05
 		every_state = {		#easier and less troublesome than generic
 			limit = {
 				is_core_of = MZB
