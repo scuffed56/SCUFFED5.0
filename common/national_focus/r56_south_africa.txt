@@ -23,9 +23,9 @@ focus_tree = {
         icon = GFX_goal_generic_construct_infrastructure
         x = 1
         y = 0
-        cost = 10
+        cost = 5
 		ai_will_do = {
-			factor = 40
+			factor = 10
 			}
 		available_if_capitulated = yes
         completion_reward = {
@@ -62,8 +62,11 @@ focus_tree = {
                 }
             }
             build_railway = {
-                level = 1
+                level = 5
                 build_only_on_allied = yes
+                controller_priority = {
+                  base = 1
+                }
                 fallback = yes
                 start_state = 275
                 target_state = 681
@@ -78,9 +81,9 @@ focus_tree = {
         relative_position_id = SAF_railway_development
         x = 0
         y = 1
-        cost = 10
+        cost = 5
 		ai_will_do = {
-			factor = 40
+			factor = 10
 			}
 		available_if_capitulated = yes
         completion_reward = {
@@ -106,9 +109,9 @@ focus_tree = {
         relative_position_id = SAF_mining_development
         x = 2
         y = 1
-        cost = 10
+        cost = 5
 		ai_will_do = {
-			factor = 40
+			factor = 10
 			}
 		available_if_capitulated = yes
 		completion_reward = {
@@ -131,19 +134,19 @@ focus_tree = {
         completion_reward = {
             random_owned_controlled_state = {
                 prioritize = { 681 }
-                add_extra_state_shared_building_slots = 1
+                add_extra_state_shared_building_slots = 2
                 add_building_construction = {
                     type = industrial_complex
-                    level = 1
+                    level = 2
                     instant_build = yes
                 }
             }
             random_owned_controlled_state = {
                 prioritize = { 719 }
-                add_extra_state_shared_building_slots = 1
+                add_extra_state_shared_building_slots = 2
                 add_building_construction = {
                     type = industrial_complex
-                    level = 1
+                    level = 2
                     instant_build = yes
                 }
             }
@@ -160,7 +163,7 @@ focus_tree = {
         y = 1
         cost = 10
 		ai_will_do = {
-			factor = 40
+			factor = 10
 		}
         available = {
             controls_state = 275
@@ -174,10 +177,10 @@ focus_tree = {
                 category = construction_tech
             }
             275 ={
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 3
                 add_building_construction = {
                     type = industrial_complex
-                    level = 1
+                    level = 2
                     instant_build = yes
                 }
             }
@@ -188,13 +191,13 @@ focus_tree = {
 	focus = {
         id = SAF_expand_iscor_pretoria_works
         icon = GFX_focus_generic_steel
-        prerequisite = { focus = SAF_transvaal_urbanization focus = SAF_economic_expansion }
-        relative_position_id = SAF_transvaal_urbanization
+        prerequisite = { focus = SAF_amcor_thabazimbi_iron_mine }
+        relative_position_id = SAF_amcor_thabazimbi_iron_mine
         x = 1
         y = 1
         cost = 10
 		ai_will_do = {
-			factor = 20
+			factor = 10
 			}
 		available_if_capitulated = yes
 		#early steel boost
@@ -226,9 +229,9 @@ focus_tree = {
         icon = GFX_focus_generic_steel
         prerequisite = { focus = SAF_mining_development }
         relative_position_id = SAF_mining_development
-        x = -1
+        x = -2
         y = 1
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 10
 		}
@@ -245,7 +248,7 @@ focus_tree = {
             }
             add_resource = {
                 type = steel
-                amount = 4
+                amount = 8
                 state = 275
             }
         }
@@ -256,9 +259,9 @@ focus_tree = {
         icon = GFX_focus_generic_steel
         prerequisite = { focus = SAF_amcor_thabazimbi_iron_mine }
         relative_position_id = SAF_amcor_thabazimbi_iron_mine
-        x = 0
+        x = -1
         y = 1
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 10
 			}
@@ -293,22 +296,22 @@ focus_tree = {
 	focus = {
         id = SAF_magazine_hill_ammunition_plant
         icon = GFX_goal_ammunitions
-        prerequisite = { focus = SAF_economic_expansion }
+        prerequisite = { focus = SAF_economic_expansion focus = SAF_transvaal_urbanization }
         relative_position_id = SAF_economic_expansion
-        x = 1
+        x = -1
         y = 1
         cost = 10
 		ai_will_do = {
-			factor = 60
+			factor = 10
 			}
 		available_if_capitulated = yes
         completion_reward = {
             random_owned_controlled_state = {
                 prioritize = { 275 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 3
                 add_building_construction = {
                     type = arms_factory
-                     level = 2
+                     level = 3
                      instant_build = yes
                 }
             }
@@ -318,22 +321,22 @@ focus_tree = {
 	focus = {
         id = SAF_industrial_innovations
         icon = GFX_focus_research
-        prerequisite = { focus = SAF_expand_iscor_pretoria_works focus = SAF_magazine_hill_ammunition_plant }
+        prerequisite = { focus = SAF_magazine_hill_ammunition_plant focus = SAF_sasol_synthetic_fuel_researches  }
         relative_position_id = SAF_magazine_hill_ammunition_plant
-        x = -1
+        x = -2
         y = 1
         cost = 10
 		ai_will_do = {
-			factor = 40
+			factor = 10
 			}
 		available_if_capitulated = yes
         completion_reward = {
-        #    add_tech_bonus = {
-        #        name = industrial_bonus
-        #        bonus = 1
-        #        uses = 1
-        #        category = industry
-        #    }
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1
+                uses = 1
+                category = industry
+            }
             add_research_slot = 1
         }
         search_filters = { FOCUS_FILTER_RESEARCH }
@@ -341,9 +344,9 @@ focus_tree = {
 	focus = {
         id = SAF_sasol_synthetic_fuel_researches
         icon = GFX_goal_generic_oil_refinery
-        prerequisite = { focus = SAF_industrial_innovations }
-        relative_position_id = SAF_industrial_innovations
-        x = -2
+        prerequisite = { focus = SAF_expand_iscor_pretoria_works focus = SAF_amcor_plate_mill }
+        relative_position_id = SAF_expand_iscor_pretoria_works
+        x = -1
         y = 1
         cost = 10
 		ai_will_do = {
@@ -357,6 +360,15 @@ focus_tree = {
                 uses = 1
                 category = synth_resources
             }
+            random_owned_controlled_state = {
+                prioritize = { 940 }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = synthetic_refinery
+                     level = 2
+                     instant_build = yes
+                }
+            }
         }
         search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_OIL}
     }    
@@ -365,20 +377,29 @@ focus_tree = {
         icon = GFX_focus_generic_industry_2
         prerequisite = { focus = SAF_industrial_innovations }
         relative_position_id = SAF_industrial_innovations
-        x = -1
-        y = 2
+        x = -2
+        y = 1
         cost = 10
 		ai_will_do = {
-			factor = 30
+			factor = 10
 			}
 		available_if_capitulated = yes
         completion_reward = {
             random_owned_controlled_state = {
                 prioritize = { 681 }
-                add_extra_state_shared_building_slots = 1
+                add_extra_state_shared_building_slots = 2
                 add_building_construction = {
                     type = industrial_complex
-                    level = 1
+                    level = 2
+                    instant_build = yes
+                }
+            }
+            random_owned_controlled_state = {
+                prioritize = { 719 }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 2
                     instant_build = yes
                 }
             }
@@ -396,20 +417,20 @@ focus_tree = {
         icon = GFX_goal_generic_construct_mil_factory
         prerequisite = { focus = SAF_industrial_innovations }
         relative_position_id = SAF_industrial_innovations
-        x = 1
+        x = 0
         y = 1
         cost = 10
 		ai_will_do = {
-			factor = 30
+			factor = 10
 			}
 		available_if_capitulated = yes
         completion_reward = {
             random_owned_controlled_state = {
                 prioritize = { 275 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 3
                 add_building_construction = {
                     type = arms_factory
-                     level = 2
+                     level = 3
                      instant_build = yes
                 }
             }
@@ -419,22 +440,22 @@ focus_tree = {
 	focus = {
         id = SAF_lenz_bomb_factory
         icon = GFX_goal_proving_grounds
-        prerequisite = { focus = SAF_expand_around_magazine_hill }
-        relative_position_id = SAF_expand_around_magazine_hill
-        x = 0
+        prerequisite = { focus = SAF_industrial_innovations }
+        relative_position_id = SAF_industrial_innovations
+        x = 2
         y = 1
         cost = 10
 		ai_will_do = {
-			factor = 30
+			factor = 10
 			}
 		available_if_capitulated = yes
         completion_reward = {
             random_owned_controlled_state = {
                 prioritize = { 275 }
-                add_extra_state_shared_building_slots = 1
+                add_extra_state_shared_building_slots = 3
                 add_building_construction = {
                     type = arms_factory
-                     level = 1
+                     level = 3
                      instant_build = yes
                 }
             }
@@ -447,10 +468,9 @@ focus_tree = {
     focus = {
         id = SAF_atomic_energy_board
         icon = GFX_focus_wonderweapons
-        prerequisite = { focus = SAF_lenz_bomb_factory }
-         prerequisite = { focus = SAF_local_manufacturing_industry }
+        prerequisite = { focus = SAF_lenz_bomb_factory focus = SAF_local_manufacturing_industry focus = SAF_expand_around_magazine_hill }
         relative_position_id = SAF_local_manufacturing_industry
-        x = 0
+        x = 1
         y = 1
         cost = 10
         ai_will_do = {
@@ -470,14 +490,13 @@ focus_tree = {
     focus = {
         id = SAF_war_technologies
         icon = GFX_focus_research2
-        prerequisite = { focus = SAF_lenz_bomb_factory }
-        prerequisite = { focus = SAF_local_manufacturing_industry }
+        prerequisite = { focus = SAF_lenz_bomb_factory focus = SAF_local_manufacturing_industry focus = SAF_expand_around_magazine_hill }
         relative_position_id = SAF_local_manufacturing_industry
-        x = 2
+        x = 3
         y = 1
         cost = 10
         ai_will_do = {
-            factor = 500
+            factor = 50
         }
         available = {
             num_of_factories > 50
@@ -493,21 +512,15 @@ focus_tree = {
         icon = GFX_focus_generic_commonwealth_build_infantry
         prerequisite = {  }
         relative_position_id = SAF_railway_development
-        x = 15
+        x = 13
         y = 0
-        cost = 10
+        cost = 5
         ai_will_do = {
             factor = 10
             }
         available_if_capitulated = yes
         completion_reward = {
             army_experience = 30
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-			}            
         }
     }
     focus = {
@@ -517,7 +530,7 @@ focus_tree = {
         relative_position_id = SAF_organize_district_commands
         x = -3
         y = 1
-        cost = 10
+        cost = 5
         ai_will_do = {
             factor = 10
             }
@@ -533,7 +546,6 @@ focus_tree = {
                 limit = { has_id = 5600 }
                 add_skill_level = 1
             }
-            army_experience = 10
         }
         search_filters = { FOCUS_FILTER_RESEARCH }
     }
@@ -690,7 +702,7 @@ focus_tree = {
         prerequisite = { focus = SAF_desert_specialization focus = SAF_jungle_specialization }
         prerequisite = { focus = SAF_reform_staff_officers_training }
         relative_position_id = SAF_jungle_specialization
-        x = -2
+        x = -1
         y = 1
         cost = 10
         ai_will_do = {
@@ -736,11 +748,10 @@ focus_tree = {
         id = SAF_modernize_infantry_equipment
         icon = GFX_focus_secret_rearmament
         prerequisite = { focus = SAF_reform_staff_officers_training }
-        prerequisite = { focus = SAF_magazine_hill_ammunition_plant }
         relative_position_id = SAF_reform_staff_officers_training
-        x = 0
-        y = 2
-        cost = 10
+        x = 1
+        y = 1
+        cost = 5
         ai_will_do = {
             factor = 10
             }
@@ -759,11 +770,11 @@ focus_tree = {
     focus = {
         id = SAF_reorganize_the_artillery
         icon = GFX_goal_generic_army_artillery2
-        prerequisite = { focus = SAF_magazine_hill_ammunition_plant }
+        prerequisite = { focus = SAF_reform_staff_officers_training }
         relative_position_id = SAF_reform_staff_officers_training
-        x = -2
-        y = 2
-        cost = 10
+        x = -1
+        y = 1
+        cost = 5
         ai_will_do = {
             factor = 10
         }
@@ -844,18 +855,11 @@ focus_tree = {
         relative_position_id = SAF_prioritize_q_service_corps
         x = 1
         y = 2
-        cost = 10
+        cost = 5
         ai_will_do = {
             factor = 10
         }
         available = {
-            has_war = yes
-            any_state = {
-                NOT = {
-                    is_core_of = SAF
-                }
-                is_controlled_by = SAF
-            }
         }
         available_if_capitulated = yes
         completion_reward = {
@@ -917,6 +921,7 @@ focus_tree = {
         completion_reward = {
             add_tech_bonus = {
                 name = armor_bonus
+                ahead_reduction = 1.0
                 bonus = 1.0
                 uses = 1
                 category = armor
@@ -937,7 +942,7 @@ focus_tree = {
         relative_position_id = SAF_organize_district_commands
         x = 6
         y = 0
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 10
 		}
@@ -968,7 +973,7 @@ focus_tree = {
         prerequisite = { focus = SAF_organize_district_commands }
         x = 0
         y = 1
-        cost = 10
+        cost = 5
 		ai_will_do = {
 			factor = 10
 			}
@@ -980,6 +985,7 @@ focus_tree = {
             show_ideas_tooltip = SAF_hector_daniel
             show_ideas_tooltip = SAF_john_holthouse
             show_ideas_tooltip = SAF_christoffel_venter
+            add_war_support = 0.05
         }
     }
 
@@ -1081,24 +1087,11 @@ focus_tree = {
         }
         available_if_capitulated = yes
         completion_reward = {
-            if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-                add_equipment_to_stockpile = {
-                    type =  large_plane_airframe_0
-                    amount = 18
-                    producer = GER
-                    variant_name = "Do 17"
-                }
-			}
-			else = {
-				add_equipment_to_stockpile = {
-                    type = tac_bomber_equipment_1
-                    amount = 18
-                    producer = GER
-                }
-			}
+            add_equipment_to_stockpile = {
+                type = tac_bomber_equipment_1
+                amount = 18
+                producer = GER
+            }
         }
         search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
         ##get 18 Ju86 bombers
@@ -1110,7 +1103,7 @@ focus_tree = {
         x = -3
         y = 1
         relative_position_id = SAF_appoint_new_commander
-        cost = 10
+        cost = 5
 
         ai_will_do = {
             factor = 1
@@ -1132,13 +1125,7 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
 				cost_reduction = 0.5
-				uses = 1
-				category = air_doctrine
-			}
-			add_doctrine_cost_reduction = {
-				name = air_doc_bonus
-				cost_reduction = 0.35
-				uses = 1
+				uses = 2
 				category = air_doctrine
 			}
         }
@@ -1158,29 +1145,14 @@ focus_tree = {
             }
         available_if_capitulated = yes
         completion_reward = {
-            if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-                add_tech_bonus = {
-                    name = SAF_aircraft_modernization
-                    bonus = 1
-                    uses = 1
-                    category = light_air
-                    category = medium_air
-                    category =  heavy_air
-                }
-			}
-			else = {
-                add_tech_bonus = {
-                    name = SAF_aircraft_modernization
-                    bonus = 1
-                    uses = 1
-                    category = light_fighter
-                    category = cas_bomber
-                    category = cat_heavy_fighter
-                    category = tactical_bomber
-                }
+            add_tech_bonus = {
+                name = fighter_bonus
+                bonus = 1
+                uses = 1
+                category = light_fighter
+                category = cas_bomber
+                category = cat_heavy_fighter
+                category = tactical_bomber
             }
         }
         search_filters = { FOCUS_FILTER_RESEARCH }
@@ -1256,17 +1228,13 @@ focus_tree = {
         x = 1
         y = 1
         relative_position_id = SAF_national_air_training
-        cost = 10
+        cost = 5
 
         ai_will_do = {
             factor = 1
         }
 
         available = {
-            has_deployed_air_force_size = {
-                size > 79
-                type = fighter
-            }
         }
 
         bypass = {
@@ -1299,40 +1267,18 @@ focus_tree = {
             }
         available_if_capitulated = yes
         completion_reward = {
-            if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-                add_tech_bonus = {
-                    name = SAF_patrol_the_sea
-                    technology = range_improvements
-                    bonus = 0.75
-                    uses = 1
-                }
-                add_tech_bonus = {
-                    name = SAF_patrol_the_sea
-                    bonus = 1
-                    uses = 1
-                    category = medium_air
-                }
-
-			}
-			else = {
-                add_tech_bonus = {
-                    name = nav_bomber_bonus
-                    bonus = 3
-                    uses = 1
-                    technology = med_maritime1
-                    technology = med_maritime2
-                    technology = med_maritime3
-                }
-                add_tech_bonus = {
-                    name = USA_escort_fighters
-                    bonus = 1
-                    uses = 1
-                    category = cat_heavy_fighter
-                }
-			}
+            add_tech_bonus = {
+                name = SAF_patrol_the_sea
+                bonus = 3
+                uses = 1
+                category = medium_air
+            }
+            add_tech_bonus = {
+                name = SAF_patrol_the_sea
+                bonus = 1
+                uses = 1
+                category = air_equipment
+            }
         }
         search_filters = { FOCUS_FILTER_RESEARCH }
     }
@@ -1343,7 +1289,7 @@ focus_tree = {
         relative_position_id = SAF_patrol_the_sea
         x = 0
         y = 1
-        cost = 10
+        cost = 5
         ai_will_do = {
             factor = 10
             }
@@ -1367,13 +1313,19 @@ focus_tree = {
         relative_position_id = SAF_air_expansion_plan
         x = 5
         y = 0
-        cost = 10
+        cost = 5
         ai_will_do = {
             factor = 1
         }
         available_if_capitulated = yes
         completion_reward = {
             navy_experience = 50
+            add_doctrine_cost_reduction = {
+                name = SAF_cadets_of_the_general_botha
+                cost_reduction = 0.5
+                uses = 2
+                category = naval_doctrine
+            }
         }
     }
     focus = {
@@ -1400,10 +1352,10 @@ focus_tree = {
                         include_locked = yes
                     }
                 }
-                add_extra_state_shared_building_slots = 1
+                add_extra_state_shared_building_slots = 3
                 add_building_construction = {
                     type = dockyard
-                    level = 1
+                    level = 3
                     instant_build = yes
                 }
                 set_state_flag = SAF_seaward_defence_force_DY
@@ -1520,10 +1472,10 @@ focus_tree = {
                 prioritize = { 681 }
                 add_building_construction = {
                     type = dockyard
-                    level = 2
+                    level = 3
                     instant_build = yes
                 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 3
             }
         }
         search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1546,10 +1498,10 @@ focus_tree = {
                 prioritize = { 719 }
                 add_building_construction = {
                     type = dockyard
-                    level = 2
+                    level = 3
                     instant_build = yes
                 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 3
             }
         }
         search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1569,37 +1521,13 @@ focus_tree = {
         }
         available_if_capitulated = yes
         completion_reward = {
-            if = {
-				limit = {
-					has_dlc = "By Blood Alone"
-				}
-                create_equipment_variant = {
-                    name = "Blackburn Shark" 
-                    type = cv_small_plane_naval_bomber_airframe_0
-                    modules = {
-                        fixed_main_weapon_slot = torpedo_mounting
-                        engine_type_slot = engine_1_1x
-                        special_type_slot_1 = empty
-                    }
-                    icon = "GFX_ENG_naval_bomber1_medium"
-                }
-                add_tech_bonus = {
-                    name = SAF_naval_aviation
-                    bonus = 1.0
-                    ahead_reduction = 2
-                    uses = 1
-                    category = cat_torpedoes
-                }
-			}
-			else = {
-                add_tech_bonus = {
-                    name = SAF_naval_aviation
-                    bonus = 1.0
-                    ahead_reduction = 2
-                    uses = 1
-                    category = naval_bomber
-                }
-			}
+            add_tech_bonus = {
+                name = nav_bomber_bonus
+                bonus = 1.0
+                ahead_reduction = 2
+                uses = 1
+                category = naval_bomber
+            }
         }
         search_filters = { FOCUS_FILTER_RESEARCH }
     }
@@ -1611,7 +1539,7 @@ focus_tree = {
         relative_position_id = SAF_expand_cape_town_yards
         x = 1
         y = 1
-        cost = 10
+        cost = 5
         ai_will_do = {
             factor = 10
             }
@@ -1620,7 +1548,7 @@ focus_tree = {
             add_doctrine_cost_reduction = {
                 name = SAF_seaward_defence_force
                 cost_reduction = 0.5
-                uses = 2
+                uses = 3
                 category = naval_doctrine
             }
         }
@@ -1643,10 +1571,10 @@ focus_tree = {
                 prioritize = { 719 }
                 add_building_construction = {
                     type = dockyard
-                    level = 1
+                    level = 3
                     instant_build = yes
                 }
-                add_extra_state_shared_building_slots = 1
+                add_extra_state_shared_building_slots = 3
             }
             if = {
                 limit = {
@@ -1657,7 +1585,7 @@ focus_tree = {
                 719 = {
                     add_building_construction = {
                         type = naval_base
-                        level = 1
+                        level = 3
                         province = 1468
                         instant_build = yes
                     }
@@ -1714,7 +1642,7 @@ focus_tree = {
         relative_position_id = SAF_cadets_of_the_general_botha
         x = 10
         y = 0
-        cost = 10
+        cost = 5
         ai_will_do = {
             factor = 50
         }
@@ -2138,7 +2066,7 @@ focus_tree = {
         relative_position_id = SAF_policy_of_cooperation
         x = -1
         y = 1
-        cost = 10
+        cost = 5
 
         ai_will_do = {
         factor = 10
@@ -2199,7 +2127,7 @@ focus_tree = {
     	}
 
         completion_reward = {
-            add_offsite_building = { type = industrial_complex level = 1 }
+            add_offsite_building = { type = industrial_complex level = 2 }
             add_tech_bonus = {
                 name = industrial_bonus
                 bonus = 1
@@ -2208,7 +2136,7 @@ focus_tree = {
                 category = electronics
             }
             ENG = {
-                add_offsite_building = { type = industrial_complex level = 1 }
+                add_offsite_building = { type = industrial_complex level = 2 }
                 add_tech_bonus = {
                     name = industrial_bonus
                     bonus = 1
@@ -2235,10 +2163,10 @@ focus_tree = {
         available_if_capitulated = yes
         completion_reward = {
    		    681 = {
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 3
                 add_building_construction = {
        			    type = industrial_complex
-       			    level = 1
+       			    level = 3
        				instant_build = yes
        			}
                 add_building_construction = {
@@ -2334,7 +2262,7 @@ focus_tree = {
             relative_position_id = SAF_guard_the_cape
             x = 1
             y = 1
-            cost = 10
+            cost = 5
 
             ai_will_do = {
             factor = 10
@@ -2360,7 +2288,7 @@ focus_tree = {
               relative_position_id = SAF_guard_the_cape
               x = -1
               y = 1
-              cost = 7.15
+              cost = 5
 
               ai_will_do = {
               factor = 10
@@ -2386,7 +2314,7 @@ focus_tree = {
           		y = 1
           		relative_position_id = SAF_remobilize_the_cape_corps
 
-          		cost = 10
+          		cost = 5
 
           		ai_will_do = {
               factor = 10
@@ -2476,7 +2404,7 @@ focus_tree = {
         }
         available_if_capitulated = yes
         completion_reward = {
-            add_timed_idea = { idea = nationalism days = 900 }
+            add_timed_idea = { idea = nationalism days = 90 }
             add_popularity = {
                 ideology = fascism
                 popularity = 0.05
@@ -2552,7 +2480,7 @@ focus_tree = {
         cost = 10
 
         ai_will_do = {
-            factor = 100
+            factor = 10
         }
 
         available = {
@@ -2576,7 +2504,7 @@ focus_tree = {
         cost = 5
 
         ai_will_do = {
-            factor = 70
+            factor = 10
         }
 
         available = {
@@ -2747,8 +2675,8 @@ focus_tree = {
         y = 1
         cost = 7.15
 
-        ai_will_do = { #deactivated for AI because it can't really handle it.
-            factor = 0
+        ai_will_do = {
+            factor = 10
             modifier = {
                 factor = 0
                 ENG = {
@@ -2757,15 +2685,10 @@ focus_tree = {
             }
         }
 
-        bypass = {
-            has_war_with = ENG
-        }
-
         available = {
           NOT = {
             is_in_faction_with = ENG
           }
-          has_army_manpower = { size > 200000 }
         }
 
         available_if_capitulated = yes
@@ -2785,7 +2708,7 @@ focus_tree = {
         cost = 10
 
         ai_will_do = {
-            factor = 100
+            factor = 10
         }
 
         available = {
@@ -2846,7 +2769,7 @@ focus_tree = {
         cost = 10
 
         ai_will_do = {
-        factor = 200
+        factor = 10
         }
 
         available = {
