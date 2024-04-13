@@ -1,0 +1,1302 @@
+r56rp_officer_training = {
+	r56rp_purchase_foreign_weaponry = {
+		icon = GFX_decision_hol_attract_foreign_investors
+		fire_only_once = no
+		ai_will_do = {
+			factor = 0
+		}
+		visible = {
+			OR = {
+				is_major = no
+				has_country_flag = r56rp_KMT_foreign_arms_purchases_1
+			}
+			NOT = { 
+				has_country_flag = r56rp_gen_foreign_arms_purchases_1
+				# this is to make sure fucking czechoslovakia cannot import from itself.
+				
+			}
+		}
+		allowed = {
+			NOT = { has_dlc = "Arms Against Tyranny" }
+		}
+		cost = 25
+		available = {
+			IF = {
+				limit = {
+					TAG = HUN
+				}
+				NOT = { has_idea = HUN_treaty_of_triannon }
+			}
+			IF = {
+				limit = {
+					TAG = BUL
+				}
+				NOT = { has_idea = BUL_army_restrictions }
+			}
+			num_of_military_factories < 40
+			custom_trigger_tooltip = {
+				tooltip = r56rp_gen_foreign_arms_purchases_1.tt
+				NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_1 }
+			}
+			#custom_trigger_tooltip = {
+			#	tooltip = r56rp_gen_foreign_arms_purchases_2.tt
+			#	NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_2 }
+			#}
+			custom_trigger_tooltip = { #this is to make sure you don fucking export guns and import at the same time.
+				tooltip = r56rp_gen_foreign_arms_purchases_5.tt
+				NOT = {
+					OR = {
+						TAG = JAP
+						TAG = USA
+						TAG = ENG
+						TAG = GER
+						TAG = FRA
+						TAG = SOV
+						TAG = ITA
+						TAG = POL
+						TAG = CZE
+					}
+				}
+			}
+		}
+		complete_effect = {
+			set_country_flag = r56rp_gen_foreign_arms_purchases_1
+		}
+	}
+
+	r56rp_ask_to_buy_guns_FROM = {
+		icon = GFX_decision_generic_industry
+		fire_only_once = no
+		visible = {
+			num_of_military_factories < 40
+			has_country_flag = r56rp_gen_foreign_arms_purchases_1
+			NOT = {
+				has_country_flag = r56rp_gen_foreign_arms_purchases_3
+				# this is to make sure fucking czechoslovakia cannot import from itself.
+				TAG = JAP
+				TAG = USA
+				TAG = ENG
+				TAG = GER
+				TAG = FRA
+				TAG = SOV
+				TAG = ITA
+				TAG = POL
+				TAG = CZE
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		#days_remove = 2
+		cost = 0
+		target_trigger = {
+			FROM = {
+				NOT = {
+					has_war_with = FROM
+				}
+				OR = {
+					num_of_military_factories > 40
+					TAG = JAP
+					TAG = USA
+					TAG = ENG
+					TAG = GER
+					TAG = FRA
+					TAG = SOV
+					TAG = ITA
+					TAG = POL
+					TAG = CZE
+				}
+				NOT = {
+					is_in_array = {
+						array = FROM.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+				NOT = {
+					is_in_array = {
+						array = FROM.r56rp_gun_export_ban_array
+						value = ROOT.id
+					}
+				}
+
+			}
+		}
+		available = {
+			num_of_military_factories < 40
+			custom_trigger_tooltip = {
+				tooltip = r56rp_gen_foreign_arms_purchases_2.tt
+				NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_2 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = r56rp_gen_foreign_arms_purchases_3.tt
+				NOT = { has_country_flag = r56rp_gen_foreign_arms_purchases_3 }
+			}
+		}
+		complete_effect = {
+			set_country_flag = r56rp_gen_foreign_arms_purchases_2
+			FROM = {
+				country_event = r56rp_foreign_arms_purchases.1
+			}
+		}
+		#remove_effect = {
+		#}
+	}
+
+	r56rp_stop_buying_guns_FROM = {
+		icon = GFX_decision_generic_break_treaty
+		fire_only_once = no
+		visible = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		cost = 20
+		target_trigger = {
+			FROM = {
+				is_in_array = {
+					array = THIS.r56rp_gun_export_permission_array
+					value = ROOT.id
+				}
+			}
+		}
+		available = {
+			#always = yes
+		}
+		complete_effect = {
+			remove_from_array = {
+				FROM.r56rp_gun_export_permission_array = ROOT.id
+			}
+			set_country_flag = r56rp_gen_foreign_arms_purchases_1
+			clr_country_flag = r56rp_gen_foreign_arms_purchases_3
+		}
+	}
+
+	r56rp_stop_selling_guns_TO = {
+		icon = GFX_decision_generic_break_treaty
+		fire_only_once = no
+		visible = {
+			always = yes
+		}
+		cost = 10
+		target_trigger = {
+			any_country = {
+				if = {
+					limit = {
+						NOT = { TAG = ROOT }
+					}
+				}
+				is_in_array = {
+					array = ROOT.r56rp_gun_export_permission_array
+					value = FROM.id
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		available = { # r56rp_gen_foreign_arms_purchases_4.tt
+		}
+		complete_effect = {
+			FROM = {
+				country_event = r56rp_foreign_arms_purchases.4
+				remove_from_array = {
+					ROOT.r56rp_gun_export_permission_array = FROM.id
+				}
+				set_country_flag = r56rp_gen_foreign_arms_purchases_1
+				clr_country_flag = r56rp_gen_foreign_arms_purchases_3
+			}
+			#this is for debugging 
+			#log = "Stop seeling guns - ROOT: [ROOT.GetName], FROM: [FROM.GetName], THIS: [THIS.GetName]"
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_1 = { # infantry small arms
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_1.tt
+				FROM = {
+					has_design_based_on = infantry_equipment
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				producer = FROM
+				amount = 2500
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+	
+	r56rp_order_weapons_in_FROM_2 = { # support equipment
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_2.tt
+				FROM = {
+					has_design_based_on = support_equipment
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					support_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = FROM
+				amount = 250
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_3 = { # artillery
+		icon = GFX_decision_ger_military_buildup
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_3.tt
+				FROM = {
+					has_design_based_on = artillery_equipment
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					artillery_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				producer = FROM
+				amount = 300
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_4 = { # anti-tank
+		icon = GFX_decision_ger_military_buildup
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_4.tt
+				FROM = {
+					has_design_based_on = anti_tank_equipment
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					anti_tank_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = anti_tank_equipment
+				producer = FROM
+				amount = 250
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_5 = { # anti-air
+		icon = GFX_decision_ger_military_buildup
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_5.tt
+				FROM = {
+					has_design_based_on = anti_air_equipment
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					anti_air_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = anti_air_equipment
+				producer = FROM
+				amount = 250
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_6 = { # light tank
+		icon = GFX_decision_generic_tank
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_6.tt
+				FROM = {
+					has_design_based_on = light_tank_chassis
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = light_tank_chassis
+				producer = FROM
+				amount = 75
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_7 = { # medium tank
+		icon = GFX_decision_generic_tank
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_7.tt
+				FROM = {
+					has_design_based_on = medium_tank_chassis
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					medium_tank_chassis < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = medium_tank_chassis
+				producer = FROM
+				amount = 50
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_8 = { # motorized
+		icon = GFX_decision_generic_trucks
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_8.tt
+				FROM = {
+					has_design_based_on = motorized_equipment
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					motorized_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				producer = FROM
+				amount = 400
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_9 = { # trains
+		icon = GFX_decision_railroads #r56 icon
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 2
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_9.tt
+				FROM = {
+					has_design_based_on = train_equipment
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					train_equipment < 5
+				}
+				factor = 50
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = train_equipment
+				producer = FROM
+				amount = 10
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_10 = { # fighters
+		icon = GFX_decision_generic_air
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_10.tt
+				FROM = {
+					has_design_based_on = small_plane_airframe
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					small_plane_airframe < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				producer = FROM
+				amount = 50
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_11 = { # cas
+		icon = GFX_decision_generic_air
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_11.tt
+				FROM = {
+					has_design_based_on = small_plane_cas_airframe
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					small_plane_cas_airframe < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_cas_airframe
+				producer = FROM
+				amount = 50
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+	r56rp_order_weapons_in_FROM_12 = { # medium bomber
+		icon = GFX_decision_generic_air
+		available = {
+			NOT = {
+				has_war_with = FROM
+			}
+			num_of_civilian_factories_available_for_projects > 5
+			custom_trigger_tooltip = {
+				tooltip = r56rp_order_weapons_in_FROM_12.tt
+				FROM = {
+					has_design_based_on = medium_plane_airframe
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip =  r56rp_purchase_active.tt
+				NOT = { has_country_flag = r56rp_purchase_active }
+			}
+			
+		}
+		visible = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					is_in_array = {
+						array = THIS.r56rp_gun_export_ongoing_array
+						value = ROOT.id
+					}
+					is_in_array = {
+						array = THIS.r56rp_gun_export_permission_array
+						value = ROOT.id
+					}
+				}
+			}
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				has_equipment = {
+					medium_plane_airframe < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+		complete_effect = {
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = 5 }
+				add_to_array = {
+					array = THIS.r56rp_gun_export_ongoing_array
+					value = ROOT.id
+				}
+			}
+			set_country_flag = r56rp_purchase_active
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe
+				producer = FROM
+				amount = 30
+			}
+			FROM = {
+				add_offsite_building = { type = industrial_complex level = -5 }
+				remove_from_array = {
+					THIS.r56rp_gun_export_ongoing_array = ROOT.id
+				}
+			}
+			clr_country_flag = r56rp_purchase_active
+		}
+	}
+
+}

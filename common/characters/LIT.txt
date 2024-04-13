@@ -465,7 +465,7 @@ characters={
 
 	### THEORISTS ###
 
-	LIT_jonas_cernius={
+	LIT_jonas_chernius={
 		name=LIT_jonas_Cernius
 		portraits={
 			army={
@@ -483,6 +483,18 @@ characters={
 			}
 			traits = {
 				military_theorist
+			}
+		}
+		field_marshal = {
+			traits = { JAP_communist_sympathizer career_officer politically_connected }
+			attack_skill = 1
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 4
+			skill = 2
+			legacy_id=-1
+			visible = { 
+				has_completed_focus = LIT_rastikis_military_reforms
 			}
 		}
 	}
@@ -551,6 +563,10 @@ characters={
 	### NAVY CHIEFS ###
 
 	LIT_antanas_kaskelis={
+		instance = {
+			allowed = {
+				has_global_flag = LIT_vanilla_focus_tree
+			}
 			name=LIT_antanas_kaskelis
 			portraits={
 				army={
@@ -571,6 +587,32 @@ characters={
 					factor = 1.000
 				}
 			}
+		}
+		instance = {
+			allowed = {
+				NOT = { has_global_flag = LIT_vanilla_focus_tree }
+			}
+			name=LIT_antanas_kaskelis
+			portraits={
+				army={
+					large="gfx/leaders/FRA/Portrait_France_Jean-Pierre_Esteva.dds"
+					small="gfx/interface/ideas/idea_FRA_jean-pierre_esteva.dds"
+				}
+			}
+			advisor={
+				slot = navy_chief
+				idea_token = LIT_antanas_kaskelis
+				allowed = {
+					original_tag = LIT
+				}
+				traits = {
+					navy_chief_reform_2
+				}
+				cost = 100
+				ai_will_do = {
+					factor = 1.000
+				}
+			}
 			navy_leader={
 				traits={ old_guard_navy gentlemanly }
 				skill=2
@@ -580,9 +622,14 @@ characters={
 				coordination_skill=2
 				legacy_id=0
 			}
+		}
 	}
 
 	LIT_vladas_karvelis={
+		instance = {
+			allowed = {
+				has_dlc = "No Step Back" 
+			}
 			name=LIT_vladas_karvelis
 			portraits={
 				army={
@@ -607,6 +654,20 @@ characters={
 					has_global_flag = LIT_vanilla_focus_tree
 				}
 			}
+		}
+		instance = {
+			allowed = {
+				NOT = {
+					has_dlc = "No Step Back"
+				} 
+			}
+			name=LIT_vladas_karvelis
+			portraits={
+				army={
+					small="GFX_idea_generic_navy_europe_1"
+					large="GFX_generic_navy_europe_1"
+				}
+			}
 			corps_commander={
 				traits={ infantry_officer }
 				skill=2
@@ -619,6 +680,7 @@ characters={
 					has_global_flag = LIT_vanilla_focus_tree
 				}
 			}
+		}
 	}
 
 	LIT_juozas_tamosauskas={
@@ -633,6 +695,9 @@ characters={
 			idea_token = LIT_juozas_tamosauskas
 			allowed = {
 				original_tag = LIT
+			}
+			visible={
+				NOT = { has_global_flag = LIT_vanilla_focus_tree }
 			}
 			traits = {
 				navy_chief_maneuver_1
@@ -690,6 +755,18 @@ characters={
 			cost = 200
 			ai_will_do = {
 				factor = 1.000
+			}
+		}
+		corps_commander = {
+			traits = { trait_mountaineer infantry_officer }
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 2
+			skill = 2
+			legacy_id=-1
+			visible = { 
+				has_completed_focus = LIT_rastikis_military_reforms
 			}
 		}
 	}
@@ -1220,12 +1297,13 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
-				
+				has_completed_focus = LIT_voldemarininkai_coup
 			}
 
 			available = {	
+				has_completed_focus = LIT_reform_the_iron_wolf
 				has_country_leader = {
-					name = "Algirdas Sliesoraitis"
+					character = LIT_algirdas_sliesoraitis
 					ruling_only = no
 				}
 			}
@@ -1257,6 +1335,7 @@ characters={
 			}
 
 			available = {
+				has_completed_focus = LIT_rehabilitate_organisers_of_the_1934_coup
 			}
 			traits = {
 				air_air_combat_training_2
@@ -1289,6 +1368,8 @@ characters={
 			}
 			available = {
 				OR = {
+					has_completed_focus = LIT_rehabilitate_organisers_of_the_1934_coup
+					has_completed_focus = LIT_amnesty_to_political_prisoners
 				}
 			}
 			traits = {
@@ -1338,6 +1419,7 @@ characters={
 				has_government = fascism
 			}
 			available = {
+				has_completed_focus = LIT_rehabilitate_organisers_of_the_1934_coup
 			}
 			traits = {
 				air_chief_all_weather_2
@@ -1379,8 +1461,9 @@ characters={
 				original_tag = LIT
 			}
 			visible = {
-			}
-			available = {	
+				NOT = {
+					has_global_flag = LIT_vanilla_focus_tree
+				}
 			}
 			traits = { war_industrialist }
 		}
@@ -1440,7 +1523,7 @@ characters={
 				OR = {
 					has_government = democratic
 					has_government = fascism
-					
+					has_completed_focus = LIT_accept_opposition_in_the_government
 					AND = {
 						has_government = neutrality
 						NOT = {
@@ -1480,7 +1563,7 @@ characters={
 					has_global_flag = LIT_vanilla_focus_tree
 				}
 				has_government = neutrality
-				
+				NOT = { has_completed_focus = LIT_solicit_ratikiss_support }
 			}
 
 			available = {	
@@ -1510,10 +1593,11 @@ characters={
 					has_global_flag = LIT_vanilla_focus_tree
 				}
 				has_government = neutrality
-				
+				NOT = { has_completed_focus = LIT_adopt_a_new_constitution }
 			}
 
 			available = {
+				NOT = { has_completed_focus = LIT_adopt_a_new_constitution }
 			}
 
 			traits = { smooth_talking_charmer }
@@ -1538,9 +1622,11 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				has_completed_focus = LIT_force_parties_to_reregister
 			}
 
 			available = {
+				has_completed_focus = LIT_adopt_a_new_constitution
 			}
 
 			traits = { ideological_crusader }
@@ -1574,12 +1660,12 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
-				
-				
+				has_completed_focus = LIT_solicit_ratikiss_support
+				NOT = { has_completed_focus = LIT_reconvene_the_council_of_lithuania }
 			}
 
 			available = {
-				
+				NOT = { has_completed_focus = LIT_reconvene_the_council_of_lithuania }
 			}
 
 			traits = { compassionate_gentleman }
@@ -1604,9 +1690,11 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				NOT = { has_completed_focus = LIT_voldemarininkai_coup }
 			}
 
 			available = {	
+				NOT = { has_completed_focus = LIT_voldemarininkai_coup }
 			}
 
 			traits = { backroom_backstabber }
@@ -1635,9 +1723,13 @@ characters={
 					has_government = neutrality
 					has_government = democratic
 				}
+				NOT = { has_completed_focus = LIT_accept_opposition_in_the_government }
 			}
 
 			available = {	
+				NOT = { has_completed_focus = LIT_voldemarininkai_coup }
+				NOT = { has_completed_focus = LIT_lcp_resurgence }
+				NOT = { has_completed_focus = LIT_accept_opposition_in_the_government }
 			}
 
 			traits = { prince_of_terror }
@@ -1662,6 +1754,7 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				has_completed_focus = LIT_dissolve_the_klaipda_directorate
 			}
 
 			available = {
@@ -1691,10 +1784,11 @@ characters={
 					has_global_flag = LIT_vanilla_focus_tree
 				}
 				has_government = democratic
-				
+				NOT = { has_completed_focus = LIT_the_4th_president }
 			}
 
 			available = {	
+				has_completed_focus = LIT_contact_the_aurininkai 
 			}
 
 			traits = { economist }
@@ -1722,10 +1816,11 @@ characters={
 					has_global_flag = LIT_vanilla_focus_tree
 				}
 				has_government = democratic
-				
+				NOT = { has_completed_focus = LIT_the_4th_president }
 			}
 
 			available = {	
+				has_completed_focus = LIT_contact_the_aurininkai 
 			}
 
 			traits = { sharp_tongued_lawyer }
@@ -1753,13 +1848,14 @@ characters={
 					has_global_flag = LIT_vanilla_focus_tree
 				}
 				has_government = democratic
-				
+				NOT = { has_completed_focus = LIT_the_4th_president }
 			}
 
 			available = {	
+				has_completed_focus = LIT_contact_the_aurininkai
 				NOT = { 
 					has_country_leader = {
-						name = "Felicija Bortkevičienė"
+						character = LIT_felicija_bortkeviciene
 						ruling_only = yes
 					}
 				}
@@ -1790,10 +1886,11 @@ characters={
 					has_global_flag = LIT_vanilla_focus_tree
 				}
 				has_government = democratic
-				
+				NOT = { has_completed_focus = LIT_the_4th_president }
 			}
 
 			available = {	
+				has_completed_focus = LIT_contact_the_aurininkai 
 			}
 
 			traits = { liberal_journalist }
@@ -1819,12 +1916,14 @@ characters={
 			visible = {
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
-					
+					has_completed_focus = LIT_adopt_a_new_constitution
+					has_completed_focus = LIT_solicit_ratikiss_support 
 				}
 				has_government = neutrality
 			}
 
 			available = {
+				NOT = { has_completed_focus = LIT_adopt_a_new_constitution }
 			}
 
 			traits = { popular_figurehead }
@@ -1909,6 +2008,7 @@ characters={
 			}
 
 			available = {
+				has_completed_focus = LIT_empower_litvak_community
 			}
 
 			traits = { nkvd_rezident }
@@ -1933,9 +2033,11 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				has_completed_focus = LIT_voldemarininkai_coup
 			}
 
 			available = {
+				NOT = { has_completed_focus = LIT_empower_radicals }
 			}
 
 			traits = { fascist_figurehead }
@@ -1960,9 +2062,11 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				has_completed_focus = LIT_voldemarininkai_coup
 			}
 
 			available = {	
+				NOT = { has_completed_focus = LIT_empower_radicals }
 			}
 
 			on_add = {
@@ -1990,9 +2094,12 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				has_completed_focus = LIT_voldemarininkai_coup
+				NOT = { has_completed_focus = LIT_empower_patriots }
 			}
 
 			available = {
+				has_completed_focus = LIT_empower_radicals	
 			}
 
 			traits = { silent_workhorse }
@@ -2016,9 +2123,11 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				has_completed_focus = LIT_hold_the_lnp_commission
 			}
 
 			available = {	
+				NOT = { has_completed_focus = LIT_empower_radicals }
 			}
 
 			traits = { party_appeaser }
@@ -2041,6 +2150,7 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				has_completed_focus = LIT_voldemarininkai_coup
 			}
 			traits = { prince_of_terror }
 		}
@@ -2062,11 +2172,14 @@ characters={
 				NOT = {
 						has_global_flag = LIT_vanilla_focus_tree
 						has_government = communism
+						has_completed_focus = LIT_empower_radicals 
 				}
 			}
 			available = {	
 				NOT = {
 					OR = { 
+						has_completed_focus = LIT_lcp_resurgence
+						has_completed_focus = LIT_empower_radicals 
 					}
 				}
 			}
@@ -2090,31 +2203,35 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				has_completed_focus = LIT_voldemarininkai_coup
 			}
 
 			available = {	
+				NOT = { has_completed_focus = LIT_empower_patriots }
 			}
 			traits = { fascist_writer } 
 		}
 	}
 	LIT_r56_edvardas_adamkavicius={
-			name=LIT_edvardas_adamkavicius
-			portraits={
-				army={
-					small="GFX_idea_LIT_edvardas_adamkavicius"
-					large="GFX_portrait_LIT_edvardas_adamkavicius"
-				}
+		name=LIT_edvardas_adamkavicius
+		portraits={
+			army={
+				small="GFX_idea_LIT_edvardas_adamkavicius"
+				large="GFX_portrait_LIT_edvardas_adamkavicius"
 			}
-			corps_commander={
-				traits = { infantry_officer brilliant_strategist meticulous }
-				skill = 2
-				attack_skill = 2
-				defense_skill = 2
-				planning_skill = 1
-				logistics_skill = 2
-				legacy_id=-1
+		}
+		corps_commander={
+			traits = { infantry_officer brilliant_strategist meticulous }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 2
+			legacy_id=-1
+			visible = {
+				NOT = { has_global_flag = LIT_vanilla_focus_tree }
 			}
-
+		}
 	}
 
 	LIT_stasys_pundzevichius={
@@ -2193,12 +2310,13 @@ characters={
 		corps_commander={
 			traits={ artillerist trait_cautious politically_connected }
 			skill=2
-			attack_skill=2
+			attack_skill=1
 			defense_skill=2
 			planning_skill=2
 			logistics_skill=2
 			legacy_id=-1
 			visible = {
+				has_completed_focus = LIT_new_noble_class
 			}
 		}
 	}
@@ -2209,10 +2327,11 @@ characters={
 			skill=2
 			attack_skill=2
 			defense_skill=2
-			planning_skill=2
+			planning_skill=1
 			logistics_skill=2
 			legacy_id=-1
 			visible = {
+				has_completed_focus = LIT_new_noble_class
 			}
 		}
 	}
@@ -2241,11 +2360,11 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
-				
-				
+				has_completed_focus = LIT_solicit_ratikiss_support
+				NOT = { has_completed_focus = LIT_continue_griniuss_presidency }
 			}
 			available = {
-				
+				has_completed_focus = LIT_the_4th_president
 			}
 			traits = {
 				champion_of_laissez_faire
@@ -2276,16 +2395,17 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 					has_country_leader = {
-						name = "Antanas Snieckus"
+						character = LIT_r56_antanas_snieckus
 						ruling_only = yes
 					}
 				}
+				has_completed_focus = LIT_lcp_resurgence
 			}
 			available = {	
-				#has_country_flag = LIT_lithuanian_expatriates_contaced_flag
+				has_country_flag = LIT_lithuanian_expatriates_contaced_flag
 				NOT = { 
 					has_country_leader = {
-						name = "Antanas Snieckus"
+						character = LIT_r56_antanas_snieckus
 						ruling_only = yes
 					}
 				}
@@ -2353,11 +2473,12 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
+				has_completed_focus = LIT_hold_fair_elections
 			}
 			available = {	
 				NOT = { 
 					has_country_leader = {
-						name = "Kazys Grinius"
+						character = LIT_r56_kazys_grinius
 						ruling_only = yes
 					}
 				}
@@ -2389,7 +2510,7 @@ characters={
 			visible = {
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
-					
+					has_completed_focus = LIT_continue_griniuss_presidency
 				}
 				OR = {
 					has_government = neutrality
@@ -2400,7 +2521,8 @@ characters={
 
 			available = {	
 				OR = {
-					
+					has_completed_focus = LIT_the_4th_president
+					has_completed_focus = LIT_accept_opposition_in_the_government
 					has_idea = LIT_independant_central_bank
 				}
 				NOT = { has_idea = LIT_juozas_tubelis }
@@ -2430,19 +2552,20 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 					has_country_leader = {
-						name = "Leonas Bistras"
+						character = LIT_r56_leonas_bistras
 						ruling_only = yes
 					}
 				}
 				OR = {
-					
+					has_completed_focus = LIT_solicit_ratikiss_support
+					has_completed_focus = LIT_force_parties_to_reregister
 				}
 			}
 
 			available = {
 				OR = {
-					
-					
+					has_completed_focus = LIT_accept_opposition_in_the_government
+					has_completed_focus = LIT_solicit_ratikiss_support
 				}
 			}
 			traits = {
@@ -2475,11 +2598,11 @@ characters={
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
 				}
-				
+				has_completed_focus = LIT_solicit_ratikiss_support
 			}
 		
 			available = {
-				
+				NOT = { has_completed_focus = LIT_reconvene_the_council_of_lithuania }
 			}
 			traits = {
 				silent_workhorse
@@ -2504,11 +2627,12 @@ characters={
 					has_global_flag = LIT_vanilla_focus_tree
 				}
 				has_government = neutrality
-				
+				NOT = { has_completed_focus = LIT_accept_opposition_in_the_government }
 			}
 			available = {
-				
-				
+				has_completed_focus = LIT_adopt_a_new_constitution
+				NOT = { has_completed_focus = LIT_accept_opposition_in_the_government }
+				#NOT = { has_completed_focus = LIT_reconvene_the_council_of_lithuania }         #######make him available post fate of smetona events
 			}
 			traits = { puppet_prime_minister }
 			ai_will_do = {
@@ -2533,13 +2657,13 @@ characters={
 			visible = {
 				NOT = {
 					has_global_flag = LIT_vanilla_focus_tree
-					
+					has_completed_focus = LIT_the_4th_president
 				}
-				
+				has_completed_focus = LIT_solicit_ratikiss_support
 			}
 			available = {	
-				
-				
+				NOT = { has_completed_focus = LIT_reconvene_the_council_of_lithuania }
+				has_completed_focus = LIT_continue_griniuss_presidency
 			}
 			traits = { captain_of_industry }
 			ai_will_do = {

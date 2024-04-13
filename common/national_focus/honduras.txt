@@ -22,7 +22,7 @@ focus = {
 		icon = GFX_goal_generic_small_arms
 		x = 41
 		y = 0
-		cost = 5
+		cost = 10
 		
 		ai_will_do = {
 			factor = 10
@@ -36,7 +36,7 @@ focus = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			army_experience = 25
+			army_experience = 30
 		}
 }
 	
@@ -62,6 +62,7 @@ focus = {
 			}
 		}
 		completion_reward = {
+			army_experience = 20
 			if = {
 				limit = { 
 				has_idea = neutrality_idea 
@@ -70,12 +71,22 @@ focus = {
 			}
 			if = {
 				limit = { 
-				has_idea = limited_conscription
+					OR = {
+						has_idea = limited_conscription
+						has_idea = extensive_conscription
+						has_idea = service_by_requirement
+						has_idea = all_adults_serve
+						has_idea = scraping_the_barrel							
+					}
+				
 				}
 				add_political_power = 150
-			}			
-			add_ideas = limited_conscription
-			army_experience = 20
+			}	
+			else = {
+				add_ideas = limited_conscription
+			}		
+			
+			
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 }	
@@ -105,7 +116,7 @@ focus = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = infantry_weapons_bonus
-				bonus = 1
+				bonus = 0.75
 				uses = 2
 				category = infantry_weapons
 			}
@@ -162,11 +173,11 @@ focus = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			army_experience = 25
+			army_experience = 20
 			add_tech_bonus = {
 				name = infantry_artillery_bonus
-				bonus = 1
-				uses = 2
+				bonus = 0.3
+				uses = 3
 				category = support_tech
 			}
 		}
@@ -301,7 +312,7 @@ focus = {
 		prerequisite = { focus = HON_special_forces }
 		x = 40
 		y = 3
-		cost = 5
+		cost = 10
 		
 		ai_will_do = {
 			factor = 10
@@ -419,11 +430,10 @@ focus = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			army_experience = 25
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = land_doctrine
 			}
 		}
@@ -448,7 +458,7 @@ focus = {
 			add_tech_bonus = {
 				name = land_doc_bonus
 				bonus = 1
-				uses = 2
+				uses = 1
 				technology = etax_army_focus
 				technology = etax_army_firepower
 				technology = etax_army_defense
@@ -474,7 +484,7 @@ focus = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			army_experience = 25
+			army_experience = 5
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
@@ -820,12 +830,27 @@ focus = {
 			}
 		}
 		completion_reward = {
-			add_tech_bonus = {
-				name = CAS_bonus
-				bonus = 1
-				ahead_reduction = 1
-				uses = 2
-				category = cas_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = HON_army_aviation
+					technology = aa_cannon_1
+					technology = aa_cannon_2
+					bonus = 1
+					ahead_reduction = 0.5
+					uses = 1
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = CAS_bonus
+					bonus = 1
+					ahead_reduction = 1
+					uses = 2
+					category = cas_bomber
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -846,17 +871,32 @@ focus = {
 			modifier = {
 				factor = 4
 				NOT = {
+					has_tech = basic_medium_airframe
 					has_tech = naval_bomber1
 				}
 			}
 		}
 		completion_reward = {
-			add_tech_bonus = {
-				name = nav_bomber_bonus
-				bonus = 1
-				ahead_reduction = 1
-				uses = 2
-				category = naval_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = HON_naval_aviation
+					bonus = 1
+					ahead_reduction = 0.5
+					uses = 1
+					category = medium_air
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = nav_bomber_bonus
+					bonus = 1
+					ahead_reduction = 1
+					uses = 2
+					category = naval_bomber
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -877,16 +917,30 @@ focus = {
 				factor = 4
 				NOT = {
 					has_tech = fighter1
+					has_tech = basic_small_airframe
 				}
 			}
 		}
 		completion_reward = {
-			add_tech_bonus = {
-				name = fighter_bonus
-				bonus = 0.5
-				uses = 2
-				category = air_equipment
-				
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = fighter_bonus
+					bonus = 1
+					uses = 2
+					category = light_air
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = fighter_bonus
+					bonus = 1
+					uses = 2
+					category = light_fighter
+					category = cat_heavy_fighter
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -907,16 +961,35 @@ focus = {
 				factor = 2
 				NOT = {
 					has_tech = strategic_bomber1
+					has_tech = basic_large_airframe
 				}
 			}
 		}
 		completion_reward = {
-			add_tech_bonus = {
-				name = bomber_bonus
-				bonus = 1
-				uses = 1
-				
-				category = tactical_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 2
+					technology = basic_large_airframe
+					technology = improved_large_airframe
+					technology =  advanced_large_airframe
+					category = medium_air
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 2
+					technology = strategic_bomber1
+					technology = strategic_bomber2
+					technology = strategic_bomber3
+					category = tactical_bomber
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -935,11 +1008,10 @@ focus = {
 		available_if_capitulated = yes
 		
 		completion_reward = {
-			air_experience = 45
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
 				cost_reduction = 0.5
-				uses = 1
+				uses = 3
 				category = air_doctrine
 			}
 		}
@@ -989,7 +1061,7 @@ focus = {
 			}
 		}
 		completion_reward = {
-			add_political_power = 150
+			add_political_power = 100
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -1004,7 +1076,7 @@ focus = {
 		relative_position_id = HON_politics
 		x = -10
 		y = 1
-		cost = 7
+		cost = 10
 		ai_will_do = {
 			factor = 10
 			modifier = {
@@ -1097,12 +1169,12 @@ focus = {
 		}
 		x = 1
 		y = 1
-		cost = 7
+		cost = 10
 		ai_will_do = {
 			factor = 9.9
 		}
 		completion_reward = {
-			army_experience = 25
+			army_experience = 5
 			add_ideas = GEN_Organise_Youth_Fas_I
 		}
 		search_filters = {  FOCUS_FILTER_MANPOWER }
@@ -1205,12 +1277,12 @@ focus = {
 		relative_position_id = HON_united_fruit_coup
 		x = -1
 		y = 1
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 15
 		}
 		completion_reward = {
-			add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 2500 producer = USA }
+			add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = USA }
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
@@ -1226,7 +1298,7 @@ focus = {
 			factor = 15
 		}
 		completion_reward = {
-			army_experience = 25
+			army_experience = 10
 			add_ideas = militarism_focus
 		}
 		search_filters = {  FOCUS_FILTER_MANPOWER }
@@ -1254,33 +1326,12 @@ focus = {
 		relative_position_id = HON_american_arms
 		x = 1
 		y = 1
-		cost = 8
+		cost = 5
 		ai_will_do = {
 			factor = 15
 		}
 		completion_reward = {
 		clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
 		add_war_support = 0.15
 		}
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
@@ -1305,7 +1356,7 @@ focus = {
 			factor = 10
 			modifier = {
 				factor = 2
-				strength_ratio = { tag = ELS ratio > 0.5 }
+				strength_ratio = { tag = ELS ratio > 1.5 }
 			}
 			modifier = {
 				factor = 0.1
@@ -1320,28 +1371,7 @@ focus = {
 		}
 		
 		completion_reward = {
-			ELS = {clr_country_flag = monroe_doctrine
-				if = { limit = { has_idea = american_protection_defence_democratic}
-					remove_ideas = american_protection_defence_democratic 
-					}
-				if = { limit = { has_idea = american_protection_drift_democratic}
-					remove_ideas = american_protection_drift_democratic
-					}
-				if = { limit = { has_idea = american_protection_defence_communism}
-					remove_ideas = american_protection_defence_communism
-					}
-				if = { limit = { has_idea = american_protection_drift_communism}
-					remove_ideas = american_protection_drift_communism
-					}
-				if = { limit = { has_idea = american_protection_defence_fascism}
-					remove_ideas = american_protection_defence_fascism
-					}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-					}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-					} }
+			ELS = {clr_country_flag = monroe_doctrine }
 			USA = {
 					diplomatic_relation = { country = ELS relation = guarantee active = no }
 					}
@@ -1362,7 +1392,7 @@ focus = {
 			factor = 10
 			modifier = {
 				factor = 2
-				strength_ratio = { tag = NIC ratio > 0.5 }
+				strength_ratio = { tag = NIC ratio > 1.5 }
 			}
 			modifier = {
 				factor = 0.1
@@ -1387,27 +1417,6 @@ focus = {
 		completion_reward = {
 			NIC = {
 				clr_country_flag = monroe_doctrine
-				if = { limit = { has_idea = american_protection_defence_democratic}
-					remove_ideas = american_protection_defence_democratic 
-					}
-				if = { limit = { has_idea = american_protection_drift_democratic}
-					remove_ideas = american_protection_drift_democratic
-					}
-				if = { limit = { has_idea = american_protection_defence_communism}
-					remove_ideas = american_protection_defence_communism
-					}
-				if = { limit = { has_idea = american_protection_drift_communism}
-					remove_ideas = american_protection_drift_communism
-					}
-				if = { limit = { has_idea = american_protection_defence_fascism}
-					remove_ideas = american_protection_defence_fascism
-					}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-				}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-				} 
 			}
 			NIC = { country_event = { id = hon.7 } }
 		}
@@ -1428,7 +1437,7 @@ focus = {
 			factor = 10
 			modifier = {
 				factor = 2
-				strength_ratio = { tag = GUA ratio > 0.5 }
+				strength_ratio = { tag = GUA ratio > 1.5 }
 			}
 			modifier = {
 				factor = 0.1
@@ -1453,30 +1462,6 @@ focus = {
 		completion_reward = {
 			GUA = {
 				clr_country_flag = monroe_doctrine
-				if = { limit = { has_idea = american_protection_defence_democratic}
-					remove_ideas = american_protection_defence_democratic 
-				}
-				if = { limit = { has_idea = american_protection_drift_democratic}
-					remove_ideas = american_protection_drift_democratic
-				}
-				if = { limit = { has_idea = american_protection_defence_communism}
-					remove_ideas = american_protection_defence_communism
-				}
-				if = { limit = { has_idea = american_protection_drift_communism}
-					remove_ideas = american_protection_drift_communism
-				}
-				if = { limit = { has_idea = american_protection_defence_fascism}
-					remove_ideas = american_protection_defence_fascism
-				}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-				}
-				if = {
-					limit = { 
-						has_idea = american_protection_drift_fascism
-					}
-					remove_ideas = american_protection_drift_fascism
-				} 
 			}
 			GUA = { country_event = { id = hon.1 } }
 		}
@@ -1496,7 +1481,7 @@ focus = {
 			factor = 10
 			modifier = {
 				factor = 2
-				strength_ratio = { tag = COS ratio > 0.5 }
+				strength_ratio = { tag = COS ratio > 1.5 }
 			}
 			modifier = {
 				factor = .1
@@ -1519,28 +1504,7 @@ focus = {
 		}
 		
 		completion_reward = {
-			COS = {clr_country_flag = monroe_doctrine
-				if = { limit = { has_idea = american_protection_defence_democratic}
-					remove_ideas = american_protection_defence_democratic 
-					}
-				if = { limit = { has_idea = american_protection_drift_democratic}
-					remove_ideas = american_protection_drift_democratic
-					}
-				if = { limit = { has_idea = american_protection_defence_communism}
-					remove_ideas = american_protection_defence_communism
-					}
-				if = { limit = { has_idea = american_protection_drift_communism}
-					remove_ideas = american_protection_drift_communism
-					}
-				if = { limit = { has_idea = american_protection_defence_fascism}
-					remove_ideas = american_protection_defence_fascism
-					}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-					}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-					} 
+			COS = {clr_country_flag = monroe_doctrine 
 			}
 			COS = { country_event = { id = hon.10 } }
 		}
@@ -1558,7 +1522,7 @@ focus = {
 						controls_state = 311 
 					}
 				}
-				ENG = { has_opinion = { target = ROOT value > 49 }  controls_state = 311  }
+				ENG = { has_opinion = { target = ROOT value > 59 }  controls_state = 311  }
 			}
 			if = {
 				limit = {
@@ -1566,10 +1530,10 @@ focus = {
 						controls_state = 311 
 					}
 				}
-				MEX = { has_opinion = { target = ROOT value > 49 }  controls_state = 311 }
+				MEX = { has_opinion = { target = ROOT value > 59 }  controls_state = 311 }
 			}
 			ROOT = {
-				has_equipment = { convoy > 49 }
+				has_equipment = { convoy > 99 }
 			}
 		}
 		prerequisite = { focus = HON_take_guatemala }
@@ -1619,7 +1583,7 @@ focus = {
 			factor = 10
 			modifier = {
 				factor = 4
-				strength_ratio = { tag = "PAN" ratio > 0.5 }
+				strength_ratio = { tag = "PAN" ratio > 1.5 }
 			}
 			modifier = {
 				factor = .1
@@ -1646,27 +1610,6 @@ focus = {
 		completion_reward = {
 			PAN = {
 				clr_country_flag = monroe_doctrine
-				if = { limit = { has_idea = american_protection_defence_democratic}
-					remove_ideas = american_protection_defence_democratic 
-					}
-				if = { limit = { has_idea = american_protection_drift_democratic}
-					remove_ideas = american_protection_drift_democratic
-					}
-				if = { limit = { has_idea = american_protection_defence_communism}
-					remove_ideas = american_protection_defence_communism
-					}
-				if = { limit = { has_idea = american_protection_drift_communism}
-					remove_ideas = american_protection_drift_communism
-					}
-				if = { limit = { has_idea = american_protection_defence_fascism}
-					remove_ideas = american_protection_defence_fascism
-					}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-					}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-				} 
 			}
 			USA = {
 				diplomatic_relation = { country = "PAN" relation = guarantee active = no }
@@ -1683,10 +1626,10 @@ focus = {
 			ROOT = {
 				controls_state = 316
 			}
-			USA = { has_opinion = { target = ROOT value > 49 } 
+			USA = { has_opinion = { target = ROOT value > 59 } 
 			controls_state = 685
 			}
-			 has_equipment = { convoy > 49 }
+			 has_equipment = { convoy > 100 }
 		}
 		prerequisite = { focus = HON_take_costa_rica }
 		relative_position_id = HON_take_costa_rica
@@ -1725,8 +1668,8 @@ focus = {
 		}
 		completion_reward = {
 			swap_ideas = { remove_idea = HON_better_banana_republic add_idea = HON_best_banana_republic }
-			random_owned_controlled_state = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
-			random_owned_controlled_state = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
+			random_owned_controlled_state = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			random_owned_controlled_state = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
 			build_railway = {
 				path = { 8017 12865 2031 }
 			}
@@ -1789,10 +1732,10 @@ focus = {
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = dockyard
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -1841,10 +1784,10 @@ focus = {
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = dockyard
-						level = 2
+						level = 1
 						instant_build = yes
 					}
 				}
@@ -2293,50 +2236,8 @@ focus = {
 		}
 		
 		completion_reward = {
-		ECU = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
-		COL = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+		ECU = {clr_country_flag = monroe_doctrine }
+		COL = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = ECU relation = guarantee active = no }
 				diplomatic_relation = { country = COL relation = guarantee active = no }
@@ -2344,6 +2245,7 @@ focus = {
 		add_state_claim = 486
 		add_state_claim = 306
 		add_state_claim = 493
+		add_state_claim = 1051
 		add_state_claim = 305
 		add_state_claim = 649
 		create_wargoal = { type = annex_everything target = ECU 
@@ -2483,7 +2385,7 @@ focus = {
 			factor = 15
 		}
 		completion_reward = {
-		add_political_power = 100
+		add_political_power = 25
 		SOV = {
 				add_opinion_modifier = { target = HON modifier = HON_soviet_assist }
 				}
@@ -2519,10 +2421,10 @@ focus = {
 		completion_reward = {
 		
 		random_owned_controlled_state = { 
-		add_extra_state_shared_building_slots = 3
+		add_extra_state_shared_building_slots = 2
 		add_building_construction = {
 					type = industrial_complex
-					level = 3
+					level = 2
 					instant_build = yes
 				}} 
 			}
@@ -2593,27 +2495,6 @@ focus = {
 		}
 		completion_reward = {
 		clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
 		add_war_support = .10
 		USA = {
 				diplomatic_relation = { country = HON relation = guarantee active = no }
@@ -2655,28 +2536,7 @@ focus = {
 		}
 		
 		completion_reward = {
-		GUA = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} 
+		GUA = {clr_country_flag = monroe_doctrine 
 		}
 		USA = {
 				diplomatic_relation = { country = GUA relation = guarantee active = no }
@@ -2722,28 +2582,7 @@ focus = {
 			}
 		}
 		completion_reward = {
-		ELS = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+		ELS = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = ELS relation = guarantee active = no }
 				}
@@ -2790,28 +2629,7 @@ focus = {
 		}
 		
 		completion_reward = {
-		NIC = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+		NIC = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = NIC relation = guarantee active = no }
 				}
@@ -2858,28 +2676,7 @@ focus = {
 		}
 		
 		completion_reward = {
-		COS = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+		COS = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = COS relation = guarantee active = no }
 				}
@@ -2926,28 +2723,7 @@ focus = {
 		}
 		completion_reward = {
 			"PAN" = {
-				clr_country_flag = monroe_doctrine
-				if = { limit = { has_idea = american_protection_defence_democratic}
-					remove_ideas = american_protection_defence_democratic 
-					}
-				if = { limit = { has_idea = american_protection_drift_democratic}
-					remove_ideas = american_protection_drift_democratic
-					}
-				if = { limit = { has_idea = american_protection_defence_communism}
-					remove_ideas = american_protection_defence_communism
-					}
-				if = { limit = { has_idea = american_protection_drift_communism}
-					remove_ideas = american_protection_drift_communism
-					}
-				if = { limit = { has_idea = american_protection_defence_fascism}
-					remove_ideas = american_protection_defence_fascism
-					}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-					}
-				if = { limit = { has_idea = american_protection_drift_fascism}
-					remove_ideas = american_protection_drift_fascism
-					} }
+				clr_country_flag = monroe_doctrine }
 			USA = {
 					diplomatic_relation = { country = "PAN" relation = guarantee active = no }
 					}
@@ -2981,7 +2757,7 @@ focus = {
 		prerequisite = { focus = HON_land_reform}
 		x = 14
 		y = 6
-		cost = 7
+		cost = 10
 		ai_will_do = {
 			factor = 10
 		}
@@ -3021,7 +2797,7 @@ focus = {
 		prerequisite = { focus = HON_collective_agriculture }
 		x = 14
 		y = 7
-		cost = 7
+		cost = 10
 		ai_will_do = {
 			factor = 10
 		}
@@ -3072,7 +2848,7 @@ focus = {
 		}
 		x = 13
 		y = 8
-		cost = 5
+		cost = 10
 		
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
@@ -3095,7 +2871,7 @@ focus = {
 		}
 		x = 15
 		y = 8
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			factor = 10
 			modifier = {
@@ -3162,28 +2938,7 @@ focus = {
 		}
 		
 		completion_reward = {
-				COL = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+				COL = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = COL relation = guarantee active = no }
 				}
@@ -3229,28 +2984,7 @@ focus = {
 		}
 		
 		completion_reward = {
-				MEX = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} 
+				MEX = {clr_country_flag = monroe_doctrine 
 				}
 
 			hidden_effect = {
@@ -3318,28 +3052,7 @@ focus = {
 			}
 		}
 		completion_reward = {
-				BRA = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+				BRA = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = BRA relation = guarantee active = no }
 				}
@@ -3384,50 +3097,8 @@ focus = {
 		}
 		
 		completion_reward = {
-				ECU = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
-				VEN = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+				ECU = {clr_country_flag = monroe_doctrine }
+				VEN = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = VEN relation = guarantee active = no }
 				diplomatic_relation = { country = ECU relation = guarantee active = no }
@@ -3475,28 +3146,7 @@ focus = {
 		}
 		
 		completion_reward = {
-				CUB = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+				CUB = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = CUB relation = guarantee active = no }
 				}
@@ -3508,7 +3158,7 @@ focus = {
 	}
 	focus = {
 		id = HON_fullcaribfed
-		icon = GFX_goal_cuba_attack_dominican_republic
+		icon = GFX_goal_generic_attack_dominica
 
 		prerequisite = { focus = HON_caribfed}
 		ai_will_do = {
@@ -3541,50 +3191,8 @@ focus = {
 		}
 		
 		completion_reward = {
-				DOM = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
-				HAI = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+				DOM = {clr_country_flag = monroe_doctrine }
+				HAI = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = DOM relation = guarantee active = no }
 				diplomatic_relation = { country = HAI relation = guarantee active = no }
@@ -3638,28 +3246,7 @@ focus = {
 			}
 		}
 		completion_reward = {
-				PRU = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+				PRU = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = PRU relation = guarantee active = no }
 				}
@@ -3705,28 +3292,7 @@ focus = {
 		}
 		
 		completion_reward = {
-				BOL = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+				BOL = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = BOL relation = guarantee active = no }
 				}
@@ -3776,28 +3342,7 @@ focus = {
 		}
 		
 		completion_reward = {
-				ARG = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+				ARG = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = ARG relation = guarantee active = no }
 				}
@@ -3842,72 +3387,9 @@ focus = {
 		}
 		
 		completion_reward = {
-				URG = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
-				PAR = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
-				CHL = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+				URG = {clr_country_flag = monroe_doctrine }
+				PAR = {clr_country_flag = monroe_doctrine }
+				CHL = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = URG relation = guarantee active = no }
 				diplomatic_relation = { country = PAR relation = guarantee active = no }
@@ -3944,7 +3426,7 @@ focus = {
 			}
 		}
 		completion_reward = {
-		add_political_power = 150
+		add_political_power = 120
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
@@ -3954,12 +3436,11 @@ focus = {
 		prerequisite = { focus =  HON_status_quo}
 		x = 20
 		y = 2
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			base = 10	
 		}
 		completion_reward = {
-			army_experience = 25
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
 				cost_reduction = 0.5
@@ -3989,7 +3470,7 @@ focus = {
 		prerequisite = {focus = HON_stabilize_economy}
 		x = 20
 		y = 4
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			base = 10	
 		}
@@ -4023,13 +3504,6 @@ focus = {
 			base = 10	
 		}
 		completion_reward = {
-			random_owned_controlled_state = { 
-				add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					} }
 				add_tech_bonus = {
 					name = industrial_bonus
 					bonus = 1
@@ -4083,7 +3557,7 @@ focus = {
 		}		
 		x = 20
 		y = 7
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			base = 10	
 		}
@@ -4098,7 +3572,7 @@ focus = {
 		prerequisite = {focus = HON_join_allies}
 		x = 19
 		y = 8
-		cost = 5
+		cost = 7.2
 		ai_will_do = {
 			base = 10	
 		}
@@ -4188,11 +3662,11 @@ focus = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = HON_build_infra1
-				bonus = 1
+				bonus = 0.5
 				uses = 1
 				category = construction_tech
 			}
-			random_owned_controlled_state = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
+			random_owned_controlled_state = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
 		}
 	}
 	focus = {
@@ -4603,12 +4077,12 @@ focus = {
 		prerequisite = { focus = HON_monarchist_coup}
 		x = 24
 		y = 4
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 2500 producer = SPR }
+			add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = SPR }
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_EQUIPMENT }
 	}
@@ -4624,7 +4098,7 @@ focus = {
 		}
 		completion_reward = {
 			add_ideas = militarism_focus
-			army_experience = 25
+			army_experience = 10
 		}
 		search_filters = {  FOCUS_FILTER_MANPOWER }
 	}
@@ -4972,7 +4446,6 @@ focus = {
 			}
 			create_country_leader = {
 				name = "Javier I"
-				desc = "POLITICS_JAVIER_I_DESC"
 				picture = "GFX_portrait_SPA_xavier_of_bourbon_parma"
 				expire = "1965.1.1"
 				ideology = despotism
@@ -5010,27 +4483,6 @@ focus = {
 		}
 		completion_reward = {
 		clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
 		add_war_support = .10
 		USA = {
 				diplomatic_relation = { country = HON relation = guarantee active = no }
@@ -5072,28 +4524,7 @@ focus = {
 		}
 		
 		completion_reward = {
-		ELS = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+		ELS = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = ELS relation = guarantee active = no }
 				}
@@ -5140,28 +4571,7 @@ focus = {
 		}
 		
 		completion_reward = {
-		NIC = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+		NIC = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = NIC relation = guarantee active = no }
 				}
@@ -5210,27 +4620,6 @@ focus = {
 		completion_reward = {
 		GUA = {
 		clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
 		}
 		USA = {
 				diplomatic_relation = { country = GUA relation = guarantee active = no }
@@ -5281,28 +4670,7 @@ focus = {
 		}
 		
 		completion_reward = {
-		COS = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+		COS = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = COS relation = guarantee active = no }
 				}
@@ -5355,43 +4723,22 @@ focus = {
 		}
 		
 		completion_reward = {
-		CUB = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
-		USA = {
+		CUB = {clr_country_flag = monroe_doctrine }
+			USA = {
 				diplomatic_relation = { country = CUB relation = guarantee active = no }
 				}
-		315 = { add_core_of = HON }
-		declare_war_on = {
-			target = CUB
-			type = take_core_state
-			generator = { 315 }
-		}
+		
+			declare_war_on = {
+				target = CUB
+				type = annex_everything
+			}
+			unlock_decision_tooltip = { decision = HON_assimilate_cuba show_effect_tooltip = yes }				
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 	}
 	focus = {
 		id = HON_reclaim_hispanola
-		icon = GFX_goal_cuba_attack_dominican_republic
+		icon = GFX_goal_generic_attack_dominica
 		prerequisite = { focus = HON_reclaim_cuba}
 		prerequisite = { focus = HON_reclaim_costarica}
 		x = 24
@@ -5429,50 +4776,8 @@ focus = {
 		}
 		
 		completion_reward = {
-		DOM = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
-		HAI = {clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} }
+		DOM = {clr_country_flag = monroe_doctrine }
+		HAI = {clr_country_flag = monroe_doctrine }
 		USA = {
 				diplomatic_relation = { country = HAI relation = guarantee active = no }
 				}
@@ -5530,28 +4835,7 @@ focus = {
 		
 		completion_reward = {
 		MEX = {
-			clr_country_flag = monroe_doctrine
-			if = { limit = { has_idea = american_protection_defence_democratic}
-				remove_ideas = american_protection_defence_democratic 
-				}
-			if = { limit = { has_idea = american_protection_drift_democratic}
-				remove_ideas = american_protection_drift_democratic
-				}
-			if = { limit = { has_idea = american_protection_defence_communism}
-				remove_ideas = american_protection_defence_communism
-				}
-			if = { limit = { has_idea = american_protection_drift_communism}
-				remove_ideas = american_protection_drift_communism
-				}
-			if = { limit = { has_idea = american_protection_defence_fascism}
-				remove_ideas = american_protection_defence_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				}
-			if = { limit = { has_idea = american_protection_drift_fascism}
-				remove_ideas = american_protection_drift_fascism
-				} 
+			clr_country_flag = monroe_doctrine 
 			}
 		MEX = {
 				every_owned_state = {

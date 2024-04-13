@@ -246,14 +246,36 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = fighter_bonus
-				bonus = 1
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = fighter_bonus
+					bonus = 1
+					uses = 1
+					technology = iw_small_airframe
+					technology = basic_small_airframe
+					technology = improved_small_airframe
+					technology = advanced_small_airframe
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = fighter_bonus
+					bonus = 1
+					uses = 1
+					technology = early_fighter
+					technology = fighter1
+					technology = fighter2
+					technology = fighter3
+				}
+			}
+			add_doctrine_cost_reduction = {
+				name = air_doc_bonus
+				cost_reduction = 0.5
 				uses = 1
-				technology = early_fighter
-				technology = fighter1
-				technology = fighter2
-				technology = fighter3
+				category = air_doctrine
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -277,17 +299,33 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = bomber_bonus
-				bonus = 1
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 1
+					category = heavy_air
+					category = medium_air			
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 1
+					category = heavy_air
+					category = tactical_bomber
+					category = cat_heavy_fighter				
+				}
+			}
+			add_doctrine_cost_reduction = {
+				name = air_doc_bonus
+				cost_reduction = 0.5
 				uses = 1
-				technology = strategic_bomber1
-				technology = strategic_bomber2
-				technology = strategic_bomber3
-				category = tactical_bomber
-				technology = heavy_fighter1
-				technology = heavy_fighter2
-				technology = heavy_fighter3				
+				category = air_doctrine
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -513,6 +551,20 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = deterrence		
+			if = {
+				limit = {
+					CHI = {
+						has_war_with = JAP
+					}
+					ROOT = {
+						NOT = {
+							is_in_faction_with = JAP
+							has_war_with = CHI
+						}
+					}
+				}
+				add_ideas = GEN_Intervene_I
+			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 	}	
@@ -541,7 +593,6 @@ focus_tree = {
 		completion_reward = {
 			create_country_leader = {
 				name = "Ngawang Sungrab Thutob"
-				desc = "POLITICS_NGAWANG_SUNGRAB_THUTOB_DESC"
 				picture = "r56_portrait_TIB_Ngawang_Sungrab_Thutob.dds"
 				expire = "1965.1.1"
 				ideology = despotism
@@ -676,7 +727,6 @@ focus_tree = {
 			add_stability = -0.1
 			create_country_leader = {
 				name = "Namgang Dazang Damdu"
-				desc = "POLITICS_JAMPHEL_YESHE_GYALTSEN_DESC"
 				picture = "r56_portrait_TIB_Tsarong_Tsaza.dds" #tsarong tsaza = title before rise to power, change his in government when he is HoS
 				expire = "1965.1.1"
 				ideology = moderatism
@@ -1884,7 +1934,7 @@ focus_tree = {
 		id = TIB_spare_parts_recycling
 		icon = GFX_goal_generic_production
 		prerequisite = { focus = TIB_improve_logistics }
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = TIB_improve_logistics
 
@@ -1964,7 +2014,7 @@ focus_tree = {
 		prerequisite = { focus = TIB_mountain_artillery_training focus = TIB_improve_logistics focus = TIB_flexible_navy focus = TIB_large_navy}
 		prerequisite = { focus = TIB_modern_army_structure }
 		relative_position_id = TIB_mountain_artillery_training		
-		x = 1
+		x = -1
 		y = 1
 		cost = 10
 
@@ -2310,9 +2360,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_tech_bonus = {
+			add_doctrine_cost_reduction = {
 				name = sub_op_bonus
-				bonus = 1
+				cost_reduction = 0.5
 				uses = 2
 				category = submarine_doctrine
 			}

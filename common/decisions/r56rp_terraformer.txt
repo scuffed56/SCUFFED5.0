@@ -2,52 +2,43 @@ economy_decisions = {
 
 	#terraform tools decision by warlider
 
-	r56rp_hide_terraform_decisions = {
+	r56rp_toggle_terraform_decisions = {
         #priority = 100
         visible = { 
 			always = yes
 			is_ai = no
-			has_country_flag = r56rp_show_terraform
+			#has_country_flag = r56rp_show_terraform
 		}
 		ai_will_do = {
 			base = 0
 		}
 		available = {
-			has_country_flag = r56rp_show_terraform 
 		}
         complete_effect = { 
-            clr_country_flag = r56rp_show_terraform  
-        }
-    }
-
-	r56rp_show_terraform_decisions = {
-        #priority = 99
-        visible = { 
-			always = yes
-			is_ai = no
-			NOT = {
-				has_country_flag = r56rp_show_terraform
+			if = {
+				limit = {
+					has_country_flag = r56rp_show_terraform
+				}
+				clr_country_flag = r56rp_show_terraform  
 			}
-		}
-		ai_will_do = {
-			base = 0
-		}	
-		available = {
-			NOT = { has_country_flag = r56rp_show_terraform }
-		}
-        complete_effect = { 
-			set_country_flag = r56rp_show_terraform
+			else = {
+				set_country_flag = r56rp_show_terraform
+			}
         }
     }
 
-	r56rp_terraformer_pastoral_rural = {  #pastoral to rural terraform which is 1 building slot
+	r56rp_terraformer_pastoral_rural = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
-		cost = 25
+		icon = generic_construction
+		#cost = 25
+		custom_cost_text = r56rp_terraformer_pastoral_rural_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 2
+        }
 
 		on_map_mode = map_only
-		state_target = yes 
-		target_array = controlled_states
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
 		
 		ai_will_do = {
 			base = 0
@@ -55,26 +46,24 @@ economy_decisions = {
 
 		target_trigger = {
 			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
-				is_fully_controlled_by = ROOT
-				is_core_of = ROOT
-				state_population_k > 50 #juuuust to not have a massive megapolis in bumfuck nowhere syberia.
+				is_fully_controlled_by = ROOT				
 				NOT = { has_state_flag = r56rp_being_terraformed }
 				has_state_category = pastoral
 			}
 		}
 
 		available = {
-			num_of_civilian_factories_available_for_projects > 1
-			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
-				
+			num_of_civilian_factories_available_for_projects > 2
+			FROM = {
+				infrastructure > 1
 			}
-			
+			has_tech = construction1
 		}
 
 		visible = {
 			has_country_flag = r56rp_show_terraform
 			FROM = { 
-				is_core_of = ROOT
+
 			}
 			is_ai = no #incase ai spams.
 		}
@@ -82,35 +71,44 @@ economy_decisions = {
 		days_remove = 90
 
 		modifier = {
-			civilian_factory_use = 1
+			civilian_factory_use = 2
 		}
 
 		remove_effect = {
 			FROM = {
 				set_state_category = rural
+				custom_effect_tooltip = r56rp_terraformer_pastoral_rural_effect_tt
+
+				#set_temp_variable = { r56rp_temp_math_terraformer_1 = state_population_k }
+				#multiply_temp_variable = { r56rp_temp_math_terraformer_1 = 10 }
+				#round_temp_variable = r56rp_temp_math_terraformer_1
+				#add_manpower = r56rp_temp_math_terraformer_1
 			}
-			#clr_state_flag = r56rp_being_terraformed
+
 		}
 
 	}
 
-	r56rp_terraformer_rural_town = {  #rural to town terraform which is 2 building slots
+	r56rp_terraformer_rural_town = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
-		cost = 50
+		icon = generic_construction
+		#cost = 25
+		custom_cost_text = r56rp_terraformer_rural_town_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 2
+        }
 
 		on_map_mode = map_only
-		state_target = yes 
-		target_array = controlled_states
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
 		
 		ai_will_do = {
 			base = 0
 		}
 
 		target_trigger = {
-			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
+			FROM = { # valid target if state is controlled, has more than x thousand people and is the correct type
 				is_fully_controlled_by = ROOT
-				is_core_of = ROOT
 				state_population_k > 50
 				NOT = { has_state_flag = r56rp_being_terraformed }
 				has_state_category = rural
@@ -120,15 +118,15 @@ economy_decisions = {
 		available = {
 			num_of_civilian_factories_available_for_projects > 2
 			FROM = { # can take decision once inf is at level 5. Not in target to not make confusing.
-				
+				infrastructure > 2
 			}
-			
+			has_tech = construction2
 		}
 
 		visible = {
 			has_country_flag = r56rp_show_terraform
 			FROM = { 
-				is_core_of = ROOT
+
 			}
 			is_ai = no #incase ai spams.
 		}
@@ -142,20 +140,25 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = town
+				custom_effect_tooltip = r56rp_terraformer_rural_town_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
 
 	}
 
-	r56rp_terraformer_town_largetown = {  #town to large-town terraform which is 1 building slot
+	r56rp_terraformer_town_largetown = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
-		cost = 50
+		icon = generic_construction
+		#cost = 50
+		custom_cost_text = r56rp_terraformer_town_largetown_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
 
 		on_map_mode = map_only
-		state_target = yes 
-		target_array = controlled_states
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
 		
 		ai_will_do = {
 			base = 0
@@ -164,7 +167,6 @@ economy_decisions = {
 		target_trigger = {
 			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
 				is_fully_controlled_by = ROOT
-				is_core_of = ROOT
 				state_population_k > 50
 				NOT = { has_state_flag = r56rp_being_terraformed }
 				has_state_category = town
@@ -182,7 +184,7 @@ economy_decisions = {
 		visible = {
 			has_country_flag = r56rp_show_terraform
 			FROM = { 
-				is_core_of = ROOT
+
 			}
 			is_ai = no #incase ai spams.
 		}
@@ -196,20 +198,25 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = large_town
+				custom_effect_tooltip = r56rp_terraformer_town_largetown_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
 
 	}
 
-	r56rp_terraformer_largetown_city = {  #large-town to city terraform which is 1 building slot 
+	r56rp_terraformer_largetown_city = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
-		cost = 75
+		icon = generic_construction
+		#cost = 75
+		custom_cost_text = r56rp_terraformer_largetown_city_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
 
 		on_map_mode = map_only
-		state_target = yes 
-		target_array = controlled_states
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
 		
 		ai_will_do = {
 			base = 0
@@ -218,7 +225,6 @@ economy_decisions = {
 		target_trigger = {
 			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
 				is_fully_controlled_by = ROOT
-				is_core_of = ROOT
 				state_population_k > 50
 				NOT = { has_state_flag = r56rp_being_terraformed }
 				has_state_category = large_town
@@ -236,7 +242,7 @@ economy_decisions = {
 		visible = {
 			has_country_flag = r56rp_show_terraform
 			FROM = { 
-				is_core_of = ROOT
+
 			}
 			is_ai = no #incase ai spams.
 		}
@@ -250,20 +256,25 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = city
+				custom_effect_tooltip = r56rp_terraformer_largetown_city_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
 
 	}
 
-	r56rp_terraformer_city_largecity = {  #city to large-city terraform which is 2 building slots
+	r56rp_terraformer_city_largecity = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
-		cost = 75
+		icon = generic_construction
+		#cost = 75
+		custom_cost_text = r56rp_terraformer_city_largecity_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 5
+        }
 
 		on_map_mode = map_only
-		state_target = yes 
-		target_array = controlled_states
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
 		
 		ai_will_do = {
 			base = 0
@@ -272,7 +283,6 @@ economy_decisions = {
 		target_trigger = {
 			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
 				is_fully_controlled_by = ROOT
-				is_core_of = ROOT
 				state_population_k > 50
 				NOT = { has_state_flag = r56rp_being_terraformed }
 				has_state_category = city
@@ -290,7 +300,7 @@ economy_decisions = {
 		visible = {
 			has_country_flag = r56rp_show_terraform
 			FROM = { 
-				is_core_of = ROOT
+
 			}
 			is_ai = no #incase ai spams.
 		}
@@ -304,20 +314,25 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = large_city
+				custom_effect_tooltip = r56rp_terraformer_city_largecity_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
 
 	}
 
-	r56rp_terraformer_largecity_metropolis = {  #large-city to metropolis terraform which is 2 building slots
+	r56rp_terraformer_largecity_metropolis = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
-		cost = 100
+		icon = generic_construction
+		#cost = 100
+		custom_cost_text = r56rp_terraformer_largecity_metropolis_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 10
+        }
 
 		on_map_mode = map_only
-		state_target = yes 
-		target_array = controlled_states
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
 		
 		ai_will_do = {
 			base = 0
@@ -326,7 +341,6 @@ economy_decisions = {
 		target_trigger = {
 			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
 				is_fully_controlled_by = ROOT
-				is_core_of = ROOT
 				state_population_k > 50
 				NOT = { has_state_flag = r56rp_being_terraformed }
 				has_state_category = large_city
@@ -344,7 +358,7 @@ economy_decisions = {
 		visible = {
 			has_country_flag = r56rp_show_terraform
 			FROM = { 
-				is_core_of = ROOT
+
 			}
 			is_ai = no #incase ai spams.
 		}
@@ -358,20 +372,25 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = metropolis
+				custom_effect_tooltip = r56rp_terraformer_largecity_metropolis_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}
 
 	}
 
-	r56rp_terraformer_metropolis_megalopolis = {  #metropolis to megalopolis terraform which is 2 building slots
+	r56rp_terraformer_metropolis_megalopolis = {  #pastoral to rural terraform
 
-		icon = decision_generic_operation
-		cost = 150
+		icon = generic_construction
+		#cost = 150
+		custom_cost_text = r56rp_terraformer_metropolis_megalopolis_cost
+		custom_cost_trigger = {
+            num_of_civilian_factories_available_for_projects > 15
+        }
 
 		on_map_mode = map_only
-		state_target = yes 
-		target_array = controlled_states
+		state_target = any_controlled_state 
+		target_array = ROOT.core_states
 		
 		ai_will_do = {
 			base = 0
@@ -380,7 +399,6 @@ economy_decisions = {
 		target_trigger = {
 			FROM = { # valid target if state is controlled, cored, has more than x thousand people and is the correct type
 				is_fully_controlled_by = ROOT
-				is_core_of = ROOT
 				state_population_k > 50
 				NOT = { has_state_flag = r56rp_being_terraformed }
 				has_state_category = metropolis
@@ -393,13 +411,12 @@ economy_decisions = {
 				infrastructure > 4
 			}
 			has_tech = construction4
-			
 		}
 
 		visible = {
 			has_country_flag = r56rp_show_terraform
 			FROM = { 
-				is_core_of = ROOT
+
 			}
 			is_ai = no #incase ai spams.
 		}
@@ -413,6 +430,7 @@ economy_decisions = {
 		remove_effect = {
 			FROM = {
 				set_state_category = megalopolis
+				custom_effect_tooltip = r56rp_terraformer_metropolis_megalopolis_effect_tt
 			}
 			#clr_state_flag = r56rp_being_terraformed
 		}

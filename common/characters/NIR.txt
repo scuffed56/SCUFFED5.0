@@ -1,23 +1,25 @@
 characters={
-	NIR_James_Craig={
-		name="James Craig"
+	NIR_maxwell_ward={
+		name="Maxwell Ward"
 		portraits={
 			civilian={
-				large="gfx/leaders/NIR/Portrait_Ulster_James_Craig.tga"
+				large="gfx/leaders/kr_generic/Portrait_Europe_Generic_land_new_2.dds"
 			}
 		}
 		country_leader={
-			ideology=conservatism
+			ideology=moderatism
+			traits={ 
+				
+			}
 			expire="1965.1.1.1"
 			id=-1
 		}
 	}
-	NIR_Wilfred_Spender={
-		name="Wilfred Spender"
+	NIR_henry_mulholland={
+		name="Henry Mulholland"
 		portraits={
-			army={
-				small="gfx/interface/ideas/idea_Ulster_Wilfred_Spender.dds"
-				large="gfx/leaders/NIR/Portrait_Ulster_Wilfred_Spender.tga"
+			civilian={
+				large="gfx/leaders/kr_generic/Portrait_Europe_Generic_land_new_4.dds"
 			}
 		}
 		country_leader={
@@ -25,7 +27,35 @@ characters={
 			expire="1965.1.1.1"
 			id=-1
 		}
-	}
+	}	
+	NIR_william_allen={
+		name="William Allen"
+
+		portraits={
+			civilian={
+				large="gfx/leaders/kr_generic/Portrait_Europe_Generic_land_new_6.dds"
+			}
+		}
+		country_leader={
+			ideology=fascism_ideology
+			expire="1965.1.1.1"
+			id=-1
+		}
+	}	
+	NIR_william_mccullough={
+		name="William McCullough"
+		portraits={
+			civilian={
+				large="gfx/leaders/kr_generic/Portrait_Europe_Generic_land_new_7.dds"
+			}
+		}
+		country_leader={
+			ideology=marxism
+			expire="1965.1.1.1"
+			id=-1
+		}
+	}	
+
 	NIR_aa2={
 		advisor={
 			slot = high_command
@@ -124,26 +154,27 @@ characters={
 			}
 		}
 	}
-	NIR_nccr={
+	NIR_harold_kinahan={
 		advisor={
+			name = "Harold Kinahan"
 			slot = navy_chief
-			idea_token = NIR_nccr
+			idea_token = SCO_william_scott_chalmers
 			allowed  = {
-					original_tag  = NIR
+					original_tag  = SCO
 				}
 				traits  = {
-					navy_chief_commerce_raiding_2 
+					navy_chief_decisive_battle_2
 				}
 				ai_will_do  = {
 					factor  = 1.000
 				}
 		}
-# TODO[ PORTRAIT LARGE ]: Missing large portrait please check!
 		portraits={
 			army={
 				small="GFX_idea_generic_navy_europe_2"
+				large="gfx/leaders/r56_generic/r56_portrait_generic_navy_europe_1.dds"
 			}
-		}
+		}		
 	}
 	NIR_ncs={
 		advisor={
@@ -186,9 +217,10 @@ characters={
 			}
 		}
 	}
-	NIR_communist_guy={
+	NIR_sean_murray={
 		advisor={
 			slot = political_advisor
+			name = "Sean Murray"
 			idea_token = NIR_communist_guy
 			allowed  = {
 					original_tag  = NIR
@@ -201,8 +233,24 @@ characters={
 						has_government  = communism 
 					}
 				}
-				ai_will_do  = {
-					factor  = 0.000
+				ai_will_do = {
+					factor = 0
+					modifier = {
+						has_idea = internationalism
+						NOT = {
+							OR = {
+								AND = {
+									is_puppet = yes
+									NOT = {
+										has_government = communism
+									}
+								}
+								communism > 0.7
+								communism < 0.15
+							}
+						}
+						add = 20
+					}
 				}
 		}
 # TODO[ PORTRAIT LARGE ]: Missing large portrait please check!

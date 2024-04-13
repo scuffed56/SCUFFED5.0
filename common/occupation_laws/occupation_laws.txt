@@ -70,7 +70,6 @@ no_garrison = {
 	state_modifier = {
 		resistance_target = 0.4
 		no_compliance_gain = 1
-		#compliance_gain = -0.2
 		required_garrison_factor = -1
 	}
 
@@ -88,20 +87,20 @@ no_garrison = {
 				has_government = democratic
 			}
 			has_active_resistance = no
-			add = 0
+			add = 200
 		}
 		# if losing, get manpower & equipment back
 		modifier = {
 			FROM = {
 				surrender_progress > 0.15
 			}
-			add = 0
+			add = 100
 		}
 		modifier = {
 			FROM = {
 				surrender_progress > 0.4
 			}
-			add = 0
+			add = 500
 		}
 
 		modifier = {
@@ -120,15 +119,10 @@ autonomous_occupation = {
 	}
 
 	state_modifier = {
-		resistance_target 				=  0.1
+		resistance_target 				= +0.10
 		compliance_gain 				= 0.02
-		required_garrison_factor 		= -0.40
+		required_garrison_factor 		= -0.3
 		resistance_damage_to_garrison 	= -0.25
-		local_factories 				= -0.25
-		local_resources 				= -0.25
-		local_manpower 					= -0.25
-		resistance_decay 				= 0.25
-		resistance_growth 				= -0.25
 	}
 
 	ai_will_do = {
@@ -151,17 +145,13 @@ foreign_civilian_oversight = {
 	sound_effect = "Martial_Law_Interface_Foreign_Cvilian_Oversight"
 
 	state_modifier = {
-		#resistance_target 				= -0.1
-		required_garrison_factor 		= -0.25
+		#resistance_target 				= 0.0
+		required_garrison_factor 		= -0.20
 		resistance_damage_to_garrison 	= -0.25
-		compliance_gain 				= 0.0
-		local_factories 				= -0.1
-		local_resources 				= -0.1
-		local_manpower 					= -0.1
-		#resistance_decay 				= 0.5
-		#resistance_growth 				= -0.5
+		compliance_gain 				= 0.000
+		local_factories 				= 0.00
+		local_resources 				= 0.00
 	}
-	starting_law = yes
 
 	ai_will_do = {
 		base = 120
@@ -180,16 +170,12 @@ local_police_force_garrison = {
 	state_modifier = {
 		resistance_target 				= -0.15
 		compliance_gain 				= -0.025
-		required_garrison_factor 		= -0.35
+		required_garrison_factor 		= -0.30
 		resistance_damage_to_garrison	= -0.5
-		local_factories 				= 0.0
-		local_resources 				= 0.0
-		#enemy_operative_detection_chance_over_occupied_tag = 10 # offset detection chance by +1%
-	#	enemy_intel_network_gain_factor_over_occupied_tag = -0.25 # -25% scaled by the number of occupied states and the ratio of the network covering those occupied states
-		# todo + spy defense
-		#resistance_decay 				= 0.5
-		#resistance_growth 				= -0.5
+		local_factories 				= 0.00
+		local_resources 				= 0.00
 	}
+	starting_law = yes			#vanilla has military governor, but police seems rather more fitting
 
 
 	ai_will_do = {
@@ -203,15 +189,165 @@ local_police_force_garrison = {
 		modifier = {
 			check_variable  = { resistance_target_without_law > 0.34}
 
-			set_temp_variable = { requirement_limit = 0.25 }
+			set_temp_variable = { requirement_limit = 0.35 }
 			if = {
 				limit = { occupation_law = local_police_force_garrison }
-				set_temp_variable = { requirement_limit = 0.45 }
+				set_temp_variable = { requirement_limit = 0.55 }
 			}
 			check_variable = { garrison_min_support_ratio < requirement_limit }
 
 			add = 350
 		}
+	}
+}
+
+compulsory_jizya = {
+	icon = 14
+	sound_effect = "Martial_Law_Interface_Autonomous_Occupation_Unique_DEM"
+
+	fallback_law = local_police_force_garrison
+
+	visible = {
+		OR = {
+			AND = {
+				original_tag = AFG
+				has_completed_focus = AFG_pillars_of_islam
+				FROM = {
+					NOT = {
+						original_tag = PAK
+						original_tag = PER
+						original_tag = ALG
+						original_tag = SAU
+						original_tag = IRQ
+						original_tag = TUN
+						original_tag = JOR
+						original_tag = LBA
+						original_tag = YEM
+						original_tag = SOM
+						original_tag = SUD
+						original_tag = UZB
+						original_tag = TAJ
+						original_tag = EGY
+						original_tag = OMA
+						original_tag = TMS
+						original_tag = KYR
+						original_tag = KAZ
+						original_tag = PAL
+						original_tag = QAT
+						original_tag = BHR
+						original_tag = UAE
+						original_tag = SYR
+						original_tag = KUR
+						original_tag = TUR
+						original_tag = ALB
+						original_tag = MOR
+						original_tag = HAZ
+						original_tag = LEB
+						original_tag = INS
+						original_tag = MAL
+						original_tag = BRN
+						original_tag = SWK
+						original_tag = SGP
+						original_tag = BAN
+						original_tag = KHI
+						original_tag = BUK
+						original_tag = KKP
+						original_tag = AZR
+						original_tag = KUW
+						original_tag = SMA
+						original_tag = DJI
+						original_tag = AFA
+						original_tag = CHA
+						original_tag = NGR
+						original_tag = MLI
+						original_tag = GNA
+						original_tag = SIE
+						original_tag = GNB
+						original_tag = SEN
+						original_tag = GAM
+						original_tag = MRT
+						original_tag = WES
+						original_tag = KOS
+					}
+				}
+			}	
+			AND = {
+				original_tag = PAL
+				has_completed_focus = PAL_jizya
+				FROM = {
+					NOT = {
+						original_tag = PAK
+						original_tag = PER
+						original_tag = ALG
+						original_tag = SAU
+						original_tag = IRQ
+						original_tag = TUN
+						original_tag = JOR
+						original_tag = LBA
+						original_tag = YEM
+						original_tag = SOM
+						original_tag = SUD
+						original_tag = UZB
+						original_tag = TAJ
+						original_tag = EGY
+						original_tag = OMA
+						original_tag = TMS
+						original_tag = KYR
+						original_tag = KAZ
+						original_tag = PAL
+						original_tag = QAT
+						original_tag = BHR
+						original_tag = UAE
+						original_tag = SYR
+						original_tag = KUR
+						original_tag = TUR
+						original_tag = ALB
+						original_tag = MOR
+						original_tag = HAZ
+						original_tag = LEB
+						original_tag = INS
+						original_tag = MAL
+						original_tag = BRN
+						original_tag = SWK
+						original_tag = SGP
+						original_tag = BAN
+						original_tag = KHI
+						original_tag = BUK
+						original_tag = KKP
+						original_tag = AZR
+						original_tag = KUW
+						original_tag = SMA
+						original_tag = DJI
+						original_tag = AFA
+						original_tag = CHA
+						original_tag = NGR
+						original_tag = MLI
+						original_tag = GNA
+						original_tag = SIE
+						original_tag = GNB
+						original_tag = SEN
+						original_tag = GAM
+						original_tag = MRT
+						original_tag = WES
+						original_tag = KOS
+					}
+				}
+			}	
+		}
+	}
+
+	state_modifier = {
+		resistance_target 			= -0.1
+		compliance_gain 			= -0.03
+		local_factories 			= 0.15
+		local_resources 			= 0.1
+		local_manpower 				= -0.05
+		required_garrison_factor    = -0.15
+		resistance_damage_to_garrison = 0.15
+	}
+
+	ai_will_do = {
+		base = 200
 	}
 }
 
@@ -222,15 +358,13 @@ secret_police_oversight = {
 	state_modifier = {
 		resistance_target 				= -0.30
 		compliance_gain 				= -0.04
-		required_garrison_factor 		= -0.15
+		required_garrison_factor 		= -0.1
 		resistance_damage_to_garrison 	= -0.15
 		local_factories 				= 0.05
 		local_resources 				= 0.05
 		enemy_operative_detection_chance_over_occupied_tag = 1 # offset detection chance by +1%
 		enemy_intel_network_gain_factor_over_occupied_tag = -0.25 # -25% scaled by the number of occupied states and the ratio of the network covering those occupied states
 		# todo + spy defense
-		#resistance_decay 			= 1.0
-		#resistance_growth 			= -1.0
 	}
 }
 
@@ -245,12 +379,10 @@ liberate_workers_occupation = {
 	state_modifier = {
 		resistance_target 				= -0.15
 		compliance_gain 				= -0.025
-		required_garrison_factor 		= -0.15
+		required_garrison_factor 		= -0.05
 		resistance_damage_to_garrison 	= 0.25
 		local_factories 				= 0.2
 		local_resources 				= 0.3
-		#resistance_decay 				= 2.0
-		#resistance_growth 				= -2.0
 	}
 
 	ai_will_do = {
@@ -265,12 +397,10 @@ military_governor_occupation = {
 	state_modifier = {
 		resistance_target 			= -0.35
 		compliance_gain 			= -0.045
-		required_garrison_factor 	= 0.
-		#local_factories 			= 0.10
+		required_garrison_factor 	= 0.0
+		#local_factories 			= 0.00
 		local_resources 			= 0.10
 		local_manpower 				= 0.08
-	#	resistance_decay 			= 1.0
-		#resistance_growth 			= -1.0
 	}
 	ai_will_do = {
 		base = 0
@@ -291,6 +421,7 @@ military_governor_occupation = {
 			check_variable  = { resistance_target_without_law > 0.24}
 			add = 400
 		}
+		
 		modifier = {
 			check_variable  = { resistance_target_without_law > 0.34}
 
@@ -313,12 +444,10 @@ martial_law_occupation = {
 	state_modifier = {
 		resistance_target 				= -0.60
 		compliance_gain 				= -0.055
-		#required_garrison_factor 		= 0.10
-		#resistance_damage_to_garrison 	= 0.5
-		#local_factories 				= 0.1
+		#required_garrison_factor 		= 0.0
+		#resistance_damage_to_garrison 	= 0.0
+		#local_factories 				= 0.0
 		local_resources 				= 0.1
-		#resistance_decay 				= 1.0
-		#resistance_growth 				= -1.0
 	}
 
 	ai_will_do = {
@@ -354,9 +483,6 @@ forced_labor_occupation = {
 		local_resources 					= 0.40
 		local_factories 					= 0.05
 		repair_speed_infrastructure_factor 	= 0.25
-
-	#	resistance_decay 				= 2.0
-	#	resistance_growth 				= -2.0
 
 		custom_modifier_tooltip = "resource_sabotage_decrease_tooltip"
 	}
@@ -448,9 +574,6 @@ harsh_quotas_occupation = {
 		repair_speed_arms_factory_factor = 0.25
 		repair_speed_industrial_complex_factor = 0.25
 
-	#	resistance_decay 				= 2.0
-	#	resistance_growth 				= -2.0
-
 		custom_modifier_tooltip = "factory_sabotage_decrease_tooltip"
 	}
 
@@ -526,9 +649,9 @@ reconciliation = {
 	}
 
 	state_modifier = {
-		compliance_gain 				= 0.0.
+		compliance_gain 				= 0.03
 		required_garrison_factor 		= -0.5
-		resistance_damage_to_garrison 	= -0.5
+		resistance_damage_to_garrison 	= -0.3
 		resistance_decay 				= 0.5
 	}
 
@@ -578,7 +701,7 @@ colonial_police = {
 
 	state_modifier = { #CHANGES HERE NEED TO BE APPLIED ALSO IN ITA_fake_colonial_police_law idea
 		resistance_target 				= -0.3
-		compliance_gain 				= 0.02
+		compliance_gain 				= -0.02
 		required_garrison_factor 		= -0.30
 		resistance_damage_to_garrison	= -0.4
 	}
@@ -639,7 +762,7 @@ colonial_police_improved = {
 
 	state_modifier = {
 		resistance_target 				= -0.35
-		compliance_gain 				= 0.015
+		compliance_gain 				= -0.015
 		required_garrison_factor 		= -0.35
 		resistance_damage_to_garrison	= -0.45
 		local_factories 				= 0.25
@@ -700,7 +823,7 @@ colonial_police_final = {
 
 	state_modifier = {
 		resistance_target 				= -0.45
-		compliance_gain 				= 0.01
+		compliance_gain 				= -0.01
 		required_garrison_factor 		= -0.4
 		resistance_damage_to_garrison	= -0.55
 		local_factories 				= 0.25

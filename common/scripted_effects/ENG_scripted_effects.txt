@@ -244,13 +244,13 @@ ENG_imperial_conference_clear_in_progress_flags = {
 	}
 	if = {
 		limit = {
-			
+			has_country_flag = ENG_imperial_federation_flag
 			check_variable = { var = ENG_imperial_conference_federation_answers value = ENG_imperial_conference_number_of_subjects compare = equals }
 		}
 		clr_country_flag = ENG_imperial_conference_discussion_in_progress
 		clr_country_flag = ENG_diplomatic_pressure_flag
 		clr_country_flag = ENG_extensive_diplomatic_pressure_flag
-		
+		clr_country_flag = ENG_imperial_federation_flag
 	}
 }
 
@@ -297,7 +297,9 @@ ENG_request_trade_union_support_cost_level_down = {
 CAN_enforce_loyalty = {
 	set_country_flag = britain_enforced_our_loyalty
 	if = {
-		
+		limit = {
+			has_completed_focus = CAN_patriation
+		}
 		complete_national_focus = CAN_strengthen_the_commonwealth_ties
 	}
 	if = {
@@ -446,6 +448,30 @@ SAF_enforce_loyalty = {
 
 RAJ_enforce_loyalty = {
 	set_country_flag = britain_enforced_our_loyalty
+#	if = {
+#		limit = {
+#			has_completed_focus = RAJ_swaraj
+#		}
+#		complete_national_focus = RAJ_indian_national_congress
+#	}
+#	if = {
+#		limit = {
+#			has_idea = RAJ_all_india_forward_bloc
+#		}
+#		remove_ideas = RAJ_all_india_forward_bloc
+#	}
+#	if = {
+#		limit = {
+#			has_idea = RAJ_all_india_forward_bloc_fascism
+#		}
+#		remove_ideas = RAJ_all_india_forward_bloc_fascism
+#	}
+#	if = {
+#		limit = {
+#			has_idea = RAJ_all_india_forward_bloc_communism
+#		}
+#		remove_ideas = RAJ_all_india_forward_bloc_communism
+#	}
 	if = {
 		limit = {
 			is_in_tech_sharing_group = comintern_research
@@ -458,24 +484,24 @@ RAJ_enforce_loyalty = {
 		}
 		remove_from_tech_sharing_group = axis_research
 	}
-	if = {
-		limit = {
-			has_idea = CAN_communist_ideals
-		}
-		remove_ideas = CAN_communist_ideals
-	}
-	if = {
-		limit = {
-			has_idea = CAN_communist_ideals_2
-		}
-		remove_ideas = CAN_communist_ideals_2
-	}
-	if = {
-		limit = {
-			has_idea = CAN_communist_ideals_3
-		}
-		remove_ideas = CAN_communist_ideals_3
-	}
+#	if = {
+#		limit = {
+#			has_idea = CAN_communist_ideals
+#		}
+#		remove_ideas = CAN_communist_ideals
+#	}
+#	if = {
+#		limit = {
+#			has_idea = CAN_communist_ideals_2
+#		}
+#		remove_ideas = CAN_communist_ideals_2
+#	}
+#	if = {
+#		limit = {
+#			has_idea = CAN_communist_ideals_3
+#		}
+#		remove_ideas = CAN_communist_ideals_3
+#	}
 	
 }
 
@@ -594,4 +620,22 @@ NZL_enforce_loyalty = {
 		}
 		remove_ideas = NZL_the_workers_party_2
 	}	
+}
+
+ENG_viceroy_reduce_autonomy_effect = {
+	if = {
+		limit = {
+			ROOT = { has_country_leader_with_trait = viceroy_emeritus }
+		}
+		add_autonomy_ratio = {
+			value = -0.10
+			localization = uk_india_focus
+		}
+	}
+	else = {
+		add_autonomy_ratio = {
+			value = -0.05
+			localization = uk_india_focus
+		}
+	}
 }

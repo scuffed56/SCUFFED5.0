@@ -22,17 +22,18 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_political_power = 75
+            add_political_power = 50
 
         }
     }
 
-    #fascist (maybe, why has south american politics got to be so confusing somtimes D:)
+    #fascist (maybe, why has south american politics got to be so confusing somtimes D:) # nah not really
 
     focus = {
         id = VEN_1935_elections
         icon = GFX_goal_generic_election
-        x = 35
+        relative_position_id = VEN_congress
+        x = -18
         y = 1
         cost = 5
 
@@ -337,7 +338,7 @@ focus_tree = {
         x = -3
         y = 1
         relative_position_id = VEN_eleazar_contreras
-        cost = 6
+        cost = 7.2
 
         prerequisite = {
             focus = VEN_eleazar_contreras
@@ -362,7 +363,7 @@ focus_tree = {
         x = -1
         y = 1
         relative_position_id = VEN_health_and_social_assistance
-        cost = 7
+        cost = 7.2
 
         prerequisite = {
             focus = VEN_health_and_social_assistance
@@ -382,7 +383,7 @@ focus_tree = {
         x = 1
         y = 1
         relative_position_id = VEN_health_and_social_assistance
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         prerequisite = {
             focus = VEN_health_and_social_assistance
@@ -525,9 +526,10 @@ focus_tree = {
     focus = {
         id = VEN_oil_protection
         icon = GFX_focus_generic_coastal_fort
-        x = 34
-        y = 7
-        cost = 5
+        relative_position_id = VEN_neutrality_focus
+        x = 0
+        y = 1
+        cost = 10
 
         prerequisite = {
             focus = VEN_neutrality_focus
@@ -564,9 +566,10 @@ focus_tree = {
     focus = {
         id = VEN_zulia_line
         icon = GFX_goal_generic_fortify_city
-        x = 35
-        y = 8
-        cost = 5
+        relative_position_id = VEN_oil_protection
+        x = 1
+        y = 1
+        cost = 10
 
         prerequisite = {
             focus = VEN_oil_protection
@@ -649,10 +652,16 @@ focus_tree = {
     focus = {
         id = VEN_non_agression_colombia
         icon = GFX_goal_COL_political_effort
-        x = 33
-        y = 8
-        cost = 5
-
+        relative_position_id = VEN_oil_protection
+        x = -1
+        y = 1
+        cost = 10
+        available = {
+            country_exists = COL
+            NOT = {
+                has_war_with = COL
+            }
+        }
         prerequisite = {
             focus = VEN_oil_protection
         }
@@ -702,8 +711,9 @@ focus_tree = {
     focus = {
         id = VEN_arms_protect_the_nation
         icon = GFX_goal_generic_construct_mil_factory
-        x = 34
-        y = 9
+        relative_position_id = VEN_oil_protection
+        x = 0
+        y = 2
         cost = 10
 
         prerequisite = {
@@ -716,28 +726,28 @@ focus_tree = {
         }
         completion_reward = {
             random_owned_controlled_state = {
-							add_extra_state_shared_building_slots = 3
-							add_building_construction = {
-									type = industrial_complex
-									level = 3
-									instant_build = yes
-								}
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 1
+                        include_locked = yes
                     }
-                    random_owned_controlled_state = {
-							limit = {
-									free_building_slots = {
-											building = arms_factory
-											size > 1
-											include_locked = yes
-										}
-								}
-							add_extra_state_shared_building_slots = 3
-							add_building_construction = {
-									type = arms_factory
-									level = 3
-									instant_build = yes
-								}
-                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
         }
     }
     focus = {
@@ -752,7 +762,7 @@ focus_tree = {
 			has_army_manpower = { size > 75000 }
 		}
         bypass = {
-			VEN = { owns_state = 695 }
+			owns_state = 695
 		}
         prerequisite = {
             focus = VEN_gran_colombia
@@ -822,6 +832,7 @@ focus_tree = {
             COL = {
                 controls_state = 486
                 controls_state = 493
+                controls_state = 1051
                 controls_state = 306
             }
 		}
@@ -849,7 +860,7 @@ focus_tree = {
                     type = annex_everything
                     target = COL
                     expire = 0
-                    generator = { 486 493 306 }
+                    generator = { 486 493 1051 306 }
                 }
             }
             else = {
@@ -1009,12 +1020,19 @@ focus_tree = {
         }
 
         bypass = {
-            has_full_control_of_state = 687
-            687 = {
-                OWNER = {
-                    is_in_faction_with = ROOT
-                }
-            }
+			OR = {
+				controls_state = 687
+				687 = {
+					OWNER = {
+						is_in_faction_with = ROOT
+					}
+				}
+				687 = {
+					OWNER = {
+						has_war_with = VEN
+					}
+				}
+			}
         }
         ai_will_do = {
             factor = 10
@@ -1099,6 +1117,7 @@ focus_tree = {
             has_full_control_of_state = 488
             has_full_control_of_state = 948
             has_full_control_of_state = 493
+            has_full_control_of_state = 1051
             has_full_control_of_state = 306
             has_full_control_of_state = 486
             has_full_control_of_state = 305
@@ -1112,6 +1131,7 @@ focus_tree = {
         }
         completion_reward = {
             add_state_core = 493
+            add_state_core = 1051
             add_state_core = 306
             add_state_core = 486
             add_state_core = 305
@@ -1164,10 +1184,6 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            if = {
-                limit = { has_idea = generic_recent_economic_unification }
-                remove_ideas = generic_recent_economic_unification
-            }
             304 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -1291,10 +1307,6 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            if = {
-                limit = { has_idea = generic_recent_army_unification }
-                remove_ideas = generic_recent_army_unification
-            }
             custom_effect_tooltip = VEN_recruit_gran_generals
             hidden_effect = {
                 create_corps_commander = {
@@ -1388,6 +1400,7 @@ focus_tree = {
         available = {
             is_puppet = no
             has_full_control_of_state = 493
+            has_full_control_of_state = 1051
             has_full_control_of_state = 304
             has_full_control_of_state = 937
         }
@@ -1853,7 +1866,7 @@ focus_tree = {
                 uses = 1
                 category = tp_tech
             }
-            random_unit_leader = {
+            random_army_leader = {
                 limit = {
                     NOT = {
                         has_trait = naval_invader
@@ -1945,7 +1958,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_attack_hispaniola
-        icon = GFX_goal_cuba_attack_dominican_republic
+        icon = GFX_goal_generic_attack_dominica
         x = 54
         y = 9
         cost = 7.2
@@ -2523,7 +2536,10 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_ideas = VEN_western_agreements
+            add_timed_idea = {
+                idea = VEN_western_agreements
+                days = 90
+            }
 
         }
     }
@@ -2617,7 +2633,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_protect_workers_rights
-        icon = GFX_tblra_union_agreement
+        icon = GFX_BEL_union_agreement
         x = -2
         y = 1
         relative_position_id = VEN_isaias_angarita
@@ -2653,19 +2669,19 @@ focus_tree = {
         completion_reward = {
             random_owned_controlled_state = {
                 prioritize = { 307 }
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
             }
             random_owned_controlled_state = {
                 prioritize = { 489 }
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
             }
             random_owned_controlled_state = {
                 prioritize = { 488 }
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
             }
             random_owned_controlled_state = {
                 prioritize = { 948 }
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
             }
         }
     }
@@ -2713,7 +2729,14 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_stability = 0.1
+            if = {
+                limit = {
+                    NOT = {
+                        has_idea = r56i_laws_gender_equality
+                    }
+                }
+                add_ideas = r56i_laws_gender_equality
+            }
             swap_ideas = {
                 remove_idea = VEN_corruption_3
                 add_idea = VEN_corruption_6
@@ -3100,7 +3123,7 @@ focus_tree = {
         x = 1
         y = 1
         relative_position_id = VEN_new_republic
-        cost = 10
+        cost = 5
 
         search_filters = {FOCUS_FILTER_INDUSTRY}
         prerequisite = {
@@ -3144,7 +3167,7 @@ focus_tree = {
         cost = 10
 
         available = {
-           
+            has_government = democratic
         }
         search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY}
         prerequisite = {
@@ -3166,7 +3189,7 @@ focus_tree = {
         x = 1
         y = 1
         relative_position_id = VEN_labour_reforms
-        cost = 10
+        cost = 5
 
         search_filters = {FOCUS_FILTER_INDUSTRY}
         prerequisite = {
@@ -3216,6 +3239,7 @@ focus_tree = {
 
         search_filters = {FOCUS_FILTER_POLITICAL}
         available = {
+            is_subject = no
             NOT = {
                 has_country_flag = VEN_rebellion_failed
             }
@@ -4454,7 +4478,7 @@ focus_tree = {
                 limit = { capital_scope = { is_on_continent = south_america } NOT = { has_government = communism } }
                 add_timed_idea = {
                     idea = VEN_spread_communism
-                    days = 730
+                    days = 365
                 }
             }
 
@@ -4808,9 +4832,18 @@ focus_tree = {
             focus = VEN_allow_new_elections
         }
         available = {
-			
-			
-			
+			is_in_faction = no
+			is_puppet = no
+			any_other_country = {
+				is_major = yes
+				has_government = democratic
+				is_faction_leader = yes
+				NOT = { has_war_with = ROOT }
+				has_opinion = {
+					target = ROOT
+					value > 0
+				}
+			}
         }
         search_filters = {FOCUS_FILTER_ALLIANCE}
         ai_will_do = {
@@ -4852,7 +4885,7 @@ focus_tree = {
 					}
 				}
 				ENG = {
-                    add_opinion_modifier = { target = VEN modifier = medium_increase }
+                    add_opinion_modifier = { target = ROOT modifier = medium_increase }
 					country_event = { id = generic.2 }
 				}
 			}
@@ -4891,7 +4924,8 @@ focus_tree = {
         cost = 10
         available_if_capitulated = yes
         available = {
-            
+            is_in_faction = yes
+            has_war = yes
         }
         prerequisite = {
             focus = VEN_embargo_japan
@@ -4953,13 +4987,13 @@ focus_tree = {
         completion_reward = {
             add_tech_bonus = {
                 name = industrial_bonus
-					bonus = 1
+					bonus = 0.5
 					uses = 1
 					category = refining_tech
 				}
             add_resource = {
                 type = oil
-                amount = 10
+                amount = 8
                 state = 307
             }
 
@@ -4970,7 +5004,7 @@ focus_tree = {
         icon = GFX_goal_fighters_uk
         x = 23
         y = 8
-        cost = 5
+        cost = 7.2
         available_if_capitulated = yes
         prerequisite = {
             focus = VEN_assisted_oil_development
@@ -5404,7 +5438,6 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            army_experience = 25
             division_template = {
                 name = "Guardia Civil"
                 priority = 0
@@ -5439,7 +5472,10 @@ focus_tree = {
 
         available = {
             has_completed_focus = VEN_reform_GNB
-            
+            OR = {
+                has_war = yes
+                threat > 0.8
+            }
         }
         ai_will_do = {
             factor = 0
@@ -5513,7 +5549,7 @@ focus_tree = {
         icon = GFX_goal_generic_army_doctrines
         x = -30
         y = 1
-        cost = 5
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         prerequisite = {
@@ -5523,7 +5559,7 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            army_experience = 25
+            army_experience = 20
             add_doctrine_cost_reduction = {
                 name = VEN_modernize_army
                 uses = 2
@@ -5537,7 +5573,7 @@ focus_tree = {
         icon = GFX_goal_VEN_fortress
         x = -27
         y = 2
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         prerequisite = {
@@ -5562,7 +5598,7 @@ focus_tree = {
         icon = GFX_goal_tank_hunt
         x = -28
         y = 3
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         prerequisite = {
@@ -5588,7 +5624,7 @@ focus_tree = {
         icon = GFX_goal_airplane_hunt
         x = -26
         y = 3
-        cost = 7
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         prerequisite = {
@@ -5604,7 +5640,7 @@ focus_tree = {
             add_tech_bonus = {
                 name = secret_bonus
                 bonus = 1
-                uses = 2
+                uses = 1
                 category = radar_tech
             }
             489 = {
@@ -5628,7 +5664,7 @@ focus_tree = {
         icon = GFX_goal_ammunitions
         x = -27
         y = 4
-        cost = 7
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         prerequisite = {
@@ -5654,7 +5690,7 @@ focus_tree = {
         icon = GFX_goal_generic_modernizing_the_cavalry
         x = -33
         y = 2
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         prerequisite = {
@@ -5682,7 +5718,7 @@ focus_tree = {
         icon = GFX_goal_mechanized_offensive
         x = -34
         y = 3
-        cost = 8
+        cost = 7.2
         available_if_capitulated = yes
         prerequisite = {
             focus = VEN_modernize_calvary
@@ -5695,7 +5731,7 @@ focus_tree = {
             add_tech_bonus = {
                 name = VEN_mechanised
                 bonus = 1
-                uses = 2
+                uses = 1
                 category = cat_mechanized_equipment
             }
 
@@ -5707,7 +5743,7 @@ focus_tree = {
         icon = GFX_goal_generic_radio_development
         x = -32
         y = 3
-        cost = 7
+        cost = 7.2
         available_if_capitulated = yes
         prerequisite = {
             focus = VEN_modernize_calvary
@@ -5719,8 +5755,8 @@ focus_tree = {
         completion_reward = {
             add_tech_bonus = {
                 name = VEN_signal_companies
-                bonus = 1
-                uses = 2
+                bonus = 1.5
+                uses = 1
                 category = signal_company_tech
                 }
 
@@ -5732,7 +5768,7 @@ focus_tree = {
         icon = GFX_goal_tank_offensive
         x = -33
         y = 4
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         prerequisite = {
@@ -5748,7 +5784,7 @@ focus_tree = {
             add_tech_bonus = {
                 name = VEN_tanks
                 bonus = 1
-                uses = 2
+                uses = 1
                 category = armor
             }
 
@@ -5760,7 +5796,7 @@ focus_tree = {
         icon = GFX_focus_generic_combined_arms
         x = -30
         y = 3
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         prerequisite = {
@@ -5774,13 +5810,13 @@ focus_tree = {
             add_tech_bonus = {
                 name = VEN_modernize_weapons
                 bonus = 1
-                uses = 2
+                uses = 1
                 category = infantry_weapons
                 }
             add_tech_bonus = {
                 name = VEN_modernize_weapons
                 bonus = 1
-                uses = 2
+                uses = 1
                 category = artillery
             }
 
@@ -5812,17 +5848,17 @@ focus_tree = {
         completion_reward = {
             add_equipment_to_stockpile = {
                 type = infantry_equipment
-                amount = 200
+                amount = 1500
                 producer = CZE
             }
             add_equipment_to_stockpile = {
 				type = artillery_equipment
-				amount = 250
+				amount = 150
 				producer = CZE
 			}
             add_equipment_to_stockpile = {
 				type = light_tank_chassis
-				amount = 100
+				amount = 75
 				producer = CZE
 			}
 
@@ -5834,7 +5870,7 @@ focus_tree = {
         icon = GFX_goal_generic_jungle_warfare
         x = -30
         y = 5
-        cost = 5
+        cost = 10
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         prerequisite = {
@@ -5940,7 +5976,7 @@ focus_tree = {
         icon = GFX_goal_sea_navy
         x = -17
         y = 1
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         ai_will_do = {
@@ -5970,7 +6006,7 @@ focus_tree = {
         icon = GFX_goal_generic_navy_anti_submarine
         x = -17
         y = 2
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         ai_will_do = {
@@ -6006,7 +6042,7 @@ focus_tree = {
         icon = GFX_goal_generic_navy_battleship
         x = -18
         y = 3
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         ai_will_do = {
@@ -6023,7 +6059,7 @@ focus_tree = {
                 name = VEN_battleship
                 ahead_reduction = 1
                 bonus = 1
-                uses = 2
+                uses = 1
                 category = bb_tech
             }
 
@@ -6035,7 +6071,7 @@ focus_tree = {
         icon = GFX_goal_generic_navy_carrier
         x = -16
         y = 3
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         ai_will_do = {
@@ -6052,7 +6088,7 @@ focus_tree = {
                 name = VEN_carrier
                 ahead_reduction = 1
                 bonus = 1
-                uses = 2
+                uses = 1
                 category = cv_tech
             }
 
@@ -6065,7 +6101,7 @@ focus_tree = {
         x = -1
         y = 1
         relative_position_id = VEN_carrier
-        cost = 10
+        cost = 5
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         ai_will_do = {
@@ -6082,13 +6118,13 @@ focus_tree = {
             add_tech_bonus = {
                 name = VEN_naval_gunnery
                 bonus = 1
-                uses = 2
+                uses = 1
                 category = naval_gunnery_tech
                 }
             add_tech_bonus = {
                 name = VEN_naval_gunnery
                 bonus = 1
-                uses = 2
+                uses = 1
 				category = naval_shell_tech
             }
 
@@ -6100,7 +6136,7 @@ focus_tree = {
         icon = GFX_goal_generic_wolf_pack
         x = -23
         y = 1
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         ai_will_do = {
@@ -6130,7 +6166,7 @@ focus_tree = {
         icon = GFX_goal_generic_navy_submarine
         x = -23
         y = 2
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         ai_will_do = {
@@ -6155,7 +6191,7 @@ focus_tree = {
         icon = GFX_goal_navy_funding
         x = -23
         y = 3
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         search_filters = {FOCUS_FILTER_RESEARCH}
         ai_will_do = {
@@ -6175,10 +6211,10 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = dockyard
-					level = 2
+					level = 1
 				    instant_build = yes
 			    }
             }
@@ -6221,7 +6257,7 @@ focus_tree = {
         icon = GFX_goal_generic_admirality
         x = -20
         y = 4
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         ai_will_do = {
             factor = 10
@@ -6232,7 +6268,7 @@ focus_tree = {
             focus = VEN_battleship
         }
         completion_reward = {
-            navy_experience = 25
+            navy_experience = 10
 
 			add_ideas = SCO_idea_national_admiralty
 
@@ -6248,28 +6284,13 @@ focus_tree = {
         icon = GFX_goal_generic_bills
         x = 3
         y = 0
-        cost = 10
+        cost = 2.9
 
         ai_will_do = {
             factor = 10
         }
         completion_reward = {
-            random_owned_controlled_state = {
-                add_extra_state_shared_building_slots = 2
-                add_building_construction = {
-                        type = industrial_complex
-                        level = 2
-                        instant_build = yes
-                }
-            }
-            random_owned_controlled_state = {
-                add_extra_state_shared_building_slots = 2
-                add_building_construction = {
-                        type = industrial_complex
-                        level = 2
-                        instant_build = yes
-                }
-            }
+            add_political_power = 25
 
 
 
@@ -6284,7 +6305,8 @@ focus_tree = {
 
         search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_OIL}
         available = {
-           
+            has_war = no
+            num_of_factories > 25
         }
         prerequisite = {
             focus = VEN_expand_oil_industry
@@ -6353,7 +6375,7 @@ focus_tree = {
             }
             random_owned_controlled_state = {
                 prioritize = { 307 }
-				add_extra_state_shared_building_slots = 4
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = steel_mill
 					level = 2
@@ -6361,7 +6383,7 @@ focus_tree = {
 				}
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }
@@ -6369,7 +6391,7 @@ focus_tree = {
     }
     focus = {
         id = VEN_invest_mining_industry
-        icon = GFX_goal_tblra_steel
+        icon = GFX_goal_BEL_steel
         x = 7
         y = 3
         cost = 10
@@ -6425,14 +6447,6 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            random_owned_controlled_state = {
-                add_extra_state_shared_building_slots = 2
-                add_building_construction = {
-                    type = industrial_complex
-                    level = 2
-                    instant_build = yes
-                }
-            }
             add_tech_bonus = {
                 name = VEN_improve_living_standards
                 bonus = 1
@@ -6457,15 +6471,6 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            random_owned_controlled_state = {
-                
-                add_extra_state_shared_building_slots = 1
-                add_building_construction = {
-                    type = industrial_complex
-                    level = 1
-                    instant_build = yes
-                }
-            }
             add_tech_bonus = {
                 name = VEN_industrial_development
                 bonus = 1
@@ -6555,7 +6560,7 @@ focus_tree = {
             }
             add_resource = {
                 type = oil
-                amount = 5
+                amount = 2
                 state = 948
             }
 
@@ -6579,14 +6584,6 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            random_owned_controlled_state = {
-                add_extra_state_shared_building_slots = 2
-                add_building_construction = {
-                        type = industrial_complex
-                        level = 2
-                        instant_build = yes
-                }
-            }
             swap_ideas = {
                 remove_idea = VEN_oil_7
                 add_idea = VEN_oil_8
@@ -6684,7 +6681,7 @@ focus_tree = {
         icon = GFX_goal_generic_positive_trade_relations
         x = 0
         y = 4
-        cost = 5
+        cost = 7.2
 
         search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY}
         prerequisite = {
@@ -6717,7 +6714,8 @@ focus_tree = {
         icon = GFX_goal_generic_construct_infrastructure
         x = -2
         y = 4
-        cost = 5
+        cost = 7.2
+
         search_filters = {FOCUS_FILTER_INDUSTRY}
         prerequisite = {
             focus = VEN_open_rubber_plantations
@@ -6733,19 +6731,10 @@ focus_tree = {
 			}
             random_owned_controlled_state = {
                 prioritize = { 489 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = infrastructure
-                    level = 2
-                    instant_build = yes
-                }
-            }
-            random_owned_controlled_state = {
-                prioritize = { 307 }
-                add_extra_state_shared_building_slots = 2
-                add_building_construction = {
-                    type = infrastructure
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }
@@ -6769,14 +6758,6 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            random_owned_controlled_state = {
-                add_extra_state_shared_building_slots = 2
-                add_building_construction = {
-                        type = industrial_complex
-                        level = 2
-                        instant_build = yes
-                }
-            }
             swap_ideas = {
                 remove_idea = VEN_oil_9
                 add_idea = VEN_oil_10
@@ -6853,19 +6834,19 @@ focus_tree = {
         completion_reward = {
             random_owned_controlled_state = {
                 prioritize = { 489 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = arms_factory
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }
             random_owned_controlled_state = {
                 prioritize = { 488 }
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = arms_factory
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }
@@ -6902,12 +6883,12 @@ focus_tree = {
 
     #air
 
-    focus = {
+    focus = { # - Gave More Air Doctrine Costs Bonuses (You're Argentina For Christ Sake - Not the best of nations and you only recieve 2)
         id = VEN_a_seprate_branch
         icon = GFX_goal_VEN_air_force
         x = -9
         y = 0
-        cost = 10
+        cost = 5
         available_if_capitulated = yes
         ai_will_do = {
             factor = 10
@@ -6941,11 +6922,30 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_tech_bonus = {
-                name = VEN_fighters
-                bonus = 1
-                uses = 2
-                category = light_fighter
+            if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+                add_tech_bonus = {
+                    name = VEN_fighters
+                    bonus = 0.5
+                    uses = 2
+                    category = light_air
+                }
+			}
+			else = {
+                add_tech_bonus = {
+                    name = VEN_fighters
+                    bonus = 0.5
+                    uses = 2
+                    category = light_fighter
+                }
+			}
+            add_doctrine_cost_reduction = {
+                name = air_doc_bonus
+                cost_reduction = 0.5
+                uses = 1
+                category = air_doctrine
             }
         }
     }
@@ -6965,12 +6965,26 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_tech_bonus = {
-                name = VEN_cas
-                bonus = 1
-                uses = 1
-                category = cas_bomber
+            if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+                add_tech_bonus = {
+                    name = VEN_cas
+                    technology = aa_cannon_1
+                    technology = aa_cannon_2
+                    bonus = 1
+                    uses = 1
                 }
+			}
+			else = {
+                add_tech_bonus = {
+                    name = VEN_cas
+                    bonus = 1
+                    uses = 1
+                    category = cas_bomber
+                }
+			}
         }
     }
 
@@ -6989,12 +7003,31 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_tech_bonus = {
-                name = VEN_tatical_bombers
-                bonus = 1
-                uses = 1
-                category = tactical_bomber
+            if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+                add_tech_bonus = {
+                    name = VEN_tatical_bombers
+                    bonus = 1
+                    uses = 1
+                    category = medium_air
                 }
+			}
+			else = {
+                add_tech_bonus = {
+                    name = VEN_tatical_bombers
+                    bonus = 1
+                    uses = 1
+                    category = tactical_bomber
+                }
+			}
+            add_doctrine_cost_reduction = {
+                name = air_doc_bonus
+                cost_reduction = 0.5
+                uses = 1
+                category = air_doctrine
+            }
         }
     }
 
@@ -7003,7 +7036,7 @@ focus_tree = {
         icon = GFX_goal_generic_airport
         x = -9
         y = 2
-        cost = 10
+        cost = 7.2
         available_if_capitulated = yes
         prerequisite = {
             focus = VEN_fighters
@@ -7013,12 +7046,6 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_tech_bonus = {
-                name = VEN_fighters
-                bonus = 1
-                uses = 1
-                category = air_equipment
-            }
             random_owned_controlled_state = {
                 prioritize = { 307 }
 				add_building_construction = {
@@ -7053,16 +7080,28 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-			if = {
+            if = {
 				limit = {
-					has_dlc = "La Resistance"
+					has_dlc = "By Blood Alone"
 				}
-				add_tech_bonus = {
-					name = scout_plane
-					bonus = 1.0
-					uses = 1
-					category = cat_scout_plane
-				}
+                add_tech_bonus = {
+                    technology = photo_reconnaisance
+                    bonus = 1.0
+                    uses = 1
+                }
+			}
+			else_if = {
+				if = {
+                    limit = {
+                        has_dlc = "La Resistance"
+                    }
+                    add_tech_bonus = {
+                        name = scout_plane
+                        bonus = 1.0
+                        uses = 1
+                        category = cat_scout_plane
+                    }
+                }
 			}
             add_doctrine_cost_reduction = {
                 name = air_doc_bonus
@@ -7090,13 +7129,31 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_tech_bonus = {
-                name = VEN_bombers
-                bonus = 1
-                uses = 1
-                category = cat_strategic_bomber
+            if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+                add_tech_bonus = {
+                    name = VEN_bombers
+                    bonus = 1
+                    uses = 1
+                    category = heavy_air
                 }
-
+			}
+			else = {
+				add_tech_bonus = {
+                    name = VEN_bombers
+                    bonus = 1
+                    uses = 1
+                    category = cat_strategic_bomber
+                } #Fixed Brit Indent Mistake ;DDD
+			}
+            add_doctrine_cost_reduction = {
+                name = air_doc_bonus
+                cost_reduction = 0.5
+                uses = 1
+                category = air_doctrine
+            }
         }
     }
     focus = {
@@ -7122,11 +7179,24 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_equipment_to_stockpile = {
-                type = tac_bomber_equipment
-                amount = 25
-                producer = ITA
-            }
+            if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+                add_equipment_to_stockpile = {
+                    type = medium_plane_airframe_1
+                    amount = 25
+                    producer = ITA
+                    variant_name = "SM.79"
+                }
+			}
+			else = {
+                add_equipment_to_stockpile = {
+                    type = tac_bomber_equipment
+                    amount = 25
+                    producer = ITA
+                }
+			}
 
         }
     }
@@ -7145,12 +7215,31 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_tech_bonus = {
-                name = VEN_heavy_fighters
-                bonus = 1
-                uses = 1
-                category = cat_heavy_fighter
+            if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+                add_tech_bonus = {
+                    name = VEN_heavy_fighters
+                    bonus = 1
+                    uses = 1
+                    category = medium_air
                 }
+			}
+			else = {
+                add_tech_bonus = {
+                    name = VEN_heavy_fighters
+                    bonus = 1
+                    uses = 1
+                    category = cat_heavy_fighter
+                }
+			}
+            add_doctrine_cost_reduction = {
+                name = air_doc_bonus
+                cost_reduction = 0.5
+                uses = 1
+                category = air_doctrine
+            }
 
         }
     }
@@ -7170,13 +7259,32 @@ focus_tree = {
             factor = 10
         }
         completion_reward = {
-            add_tech_bonus = {
-                name = VEN_naval_bomber
-                bonus = 1
-                uses = 1
-                category = naval_bomber
+            if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+                add_tech_bonus = {
+                    name = VEN_naval_bomber
+                    bonus = 1
+                    uses = 1
+                    category = cat_torpedoes
                 }
-
+                add_tech_bonus = {
+                    name = VEN_naval_bomber
+                    bonus = 1
+                    uses = 1
+                    category = medium_air
+                    category = light_air
+                }
+			}
+			else = {
+                add_tech_bonus = {
+                    name = VEN_naval_bomber
+                    bonus = 1
+                    uses = 1
+                    category = naval_bomber
+                }
+			}
         }
     }
     focus = {

@@ -1,0 +1,84 @@
+r56rp_state_integration_calculate_cost = {
+
+	# coring cost for population
+	set_variable = { THIS.r56rp_core_cost = 250 } #base gun cost.
+	set_variable = { THIS.r56rp_core_cost = state_population_k  }
+	divide_variable = {
+		var = THIS.r56rp_core_cost
+		value = 1.5
+	}
+	#log = "[This.GetName] - [?THIS.r56rp_core_cost] Population Cost"
+
+	# coring cost for industry
+	set_variable = {
+		var = THIS.r56rp_core_cost_math_1
+		value = arms_factory_level
+	}
+	add_to_variable = {
+		var = r56rp_core_cost_math_1
+		value = industrial_complex_level
+	}
+	add_to_variable = {
+		var = r56rp_core_cost_math_1
+		value = dockyard_level
+	}
+	multiply_variable = {
+		var = r56rp_core_cost_math_1
+		value = 150
+	}
+	add_to_variable = {
+		var = r56rp_core_cost
+		value = r56rp_core_cost_math_1
+	}
+	clear_variable = r56rp_core_cost_math_1
+
+	# coring cost for resources
+	set_variable = {
+		var = r56rp_core_cost_math_2
+		value = resource@steel
+	}
+	add_to_variable = {
+		var = r56rp_core_cost_math_2
+		value = resource@rubber
+	}
+	add_to_variable = {
+		var = r56rp_core_cost_math_2
+		value = resource@oil
+	}
+	add_to_variable = {
+		var = r56rp_core_cost_math_2
+		value = resource@chromium
+	}
+	add_to_variable = {
+		var = r56rp_core_cost_math_2
+		value = resource@tungsten
+	}
+	add_to_variable = {
+		var = r56rp_core_cost_math_2
+		value = resource@aluminium
+	}
+	multiply_variable = {
+		var = r56rp_core_cost_math_2
+		value = 30
+	}
+	add_to_variable = { #sum total and resource cost
+		var = r56rp_core_cost
+		value = r56rp_core_cost_math_2
+	}
+	log = "[This.GetName] - [?r56rp_core_cost_math_2] Added resource cost"
+	clear_variable = r56rp_core_cost_math_2
+	
+	round_variable = r56rp_core_cost #dont want a .5 gun cost for a core now do we
+	
+	# second reduced core cost for minor nations.
+	set_variable = { THIS.r56rp_core_cost_minor = THIS.r56rp_core_cost }
+	divide_variable = { 
+		var = THIS.r56rp_core_cost_minor
+		value = 5
+	}
+	round_variable = THIS.r56rp_core_cost_minor
+	
+	#log = "[This.GetName] - [?THIS.r56rp_core_cost] Final Cost"
+
+	
+}

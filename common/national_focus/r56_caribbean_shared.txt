@@ -1,54 +1,12 @@
 #
 #Edit for Rt56 by Thinking_Waffle#
-#	shared_focus = {
-#		id = GEN_
-#		icon = GFX_
-#		prerequisite = { focus = }
-#		mutually_exclusive = { focus =  }
-#		x = -3
-#		y = 0
-#		relative_position_id = 
-#
-#		cost = 10
-#
-#		ai_will_do = {
-#			factor = 1
-#		}
-#
-#		available = {
-#
-#		}
-#		
-#		bypass = {
-#
-#		}
-#
-#		cancel_if_invalid = yes
-#		continue_if_invalid = no
-#		available_if_capitulated = no
-#
-#		complete_tooltip = {
-#
-#		}
-#
-#		completion_reward = {
-#
-#		}
-#	}
-
-### search_filters = {FOCUS_FILTER_POLITICAL}
-### search_filters = {FOCUS_FILTER_RESEARCH}
-### search_filters = {FOCUS_FILTER_INDUSTRY}
-### search_filters = {FOCUS_FILTER_STABILITY}
-### search_filters = {FOCUS_FILTER_WAR_SUPPORT}
-### search_filters = {FOCUS_FILTER_MANPOWER}
-### search_filters = {FOCUS_FILTER_ANNEXATION}
 	shared_focus = {
 		id = CARIB_caribbean_unification
 		icon = GFX_goal_generic_befriend_united_caribbean
 		cost = 5
 		prerequisite = {
-
+			focus = CUB_island_development_plan
+			focus = CUB_industrialize_the_islands
 		}
 		allow_branch = {
             OR = {
@@ -69,7 +27,7 @@
 		y = 0
 		offset = {
 			x = 6
-			y = 0
+			y = 12
 			trigger = {
 				has_focus_tree = cuban_focus
 			}
@@ -105,9 +63,6 @@
 					has_completed_focus = GCO_UNIFIED_gran_colombian_unification
 				}
 			}			
-			NOT = {
-				has_idea = generic_recent_political_unification
-			}
 			custom_trigger_tooltip = {
 				tooltip = is_caribbean_tt
 				OR = {
@@ -140,15 +95,12 @@
 			focus = CARIB_caribbean_unification
 		}
 		relative_position_id = CARIB_caribbean_unification
-		x = -2
+		x = -3
 		y = 1
 		ai_will_do = {
 			factor = 10
 		}
 		available = {
-			NOT = {
-				has_idea = generic_recent_economic_unification
-			}
 			num_of_controlled_states > 3	
 		}
 
@@ -216,9 +168,6 @@
 		x = -1
 		y = 1
 		available = {
-			NOT = {
-				has_idea = generic_recent_economic_unification
-			}
 			num_of_controlled_states > 2
 			has_tech = construction3	
 		}
@@ -270,9 +219,6 @@
 		x = 0
 		y = 1
 		available = {
-			NOT = {
-				has_idea = generic_recent_economic_unification
-			}
 			num_of_controlled_states > 2
 			has_tech = construction3	
 		}
@@ -347,10 +293,35 @@
 		ai_will_do = {
 			factor = 10
 		}
+
+		bypass = {
+		
+		}
+		allow_branch = {
+
+		}
+		completion_reward = {
+			add_ideas = YUG_idea_expanded_mining_industry					
+		}
+	}
+	shared_focus = {
+		id = CARIB_antilles_gold_deposits
+		icon = GFX_goal_generic_extraction_gold
+		cost = 10
+		prerequisite = {
+			focus = CARIB_develop_mining
+		}
+		relative_position_id = CARIB_develop_mining
+		x = 0
+		y = 1
+		ai_will_do = {
+			factor = 10
+		}
 		available = {
-			NOT = {
-				has_idea = generic_recent_economic_unification
-			}	
+			controls_state = 692
+			controls_state = 694
+			controls_state = 308
+			has_tech = excavation2
 		}
 
 		bypass = {
@@ -360,16 +331,7 @@
 
 		}
 		completion_reward = {
-			add_ideas = YUG_idea_expanded_mining_industry	
-			random_owned_controlled_state = {
-
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}				
+			add_ideas = ROM_gold_extraction_idea	#no clue what antilles_gold_extraction represents			
 		}
 	}
 	shared_focus = {
@@ -400,11 +362,6 @@
 		cost = 10
 		prerequisite = {
 			focus = CARIB_defend_the_new_union
-		}
-		available = {
-			NOT = {
-				has_idea = generic_recent_army_unification
-			}
 		}
 		relative_position_id = CARIB_defend_the_new_union
 		x = 0

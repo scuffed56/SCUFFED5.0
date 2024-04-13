@@ -7,10 +7,20 @@ country_event = {
 	picture = GFX_report_event_estalliance
 	
 	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = r56_greenland_handover_happened
+	}
 	
 	option = {
 		name = grl.1.a
-		ai_chance = { factor = 1 }
+		ai_chance = { 
+			base = 75
+			modifier = {
+				GRL = { is_ai = no }
+				factor = 0 #don't eat a player
+			}
+		}
 		USA = { transfer_state = 101 }
 		hidden_effect = {
 			if = {
@@ -20,26 +30,27 @@ country_event = {
 				GRL = {
 					add_popularity = {
 						ideology = democratic
-						popularity = 0.31
+						popularity = 0.32
 					}
 					set_politics = {
 						ruling_party = democratic
 					}
 				}
 			}
-			every_country = { 
+			every_country = {
 				if = {
 					limit = {
 						exists = yes
-						has_capitulated = no
 						OR = {
 							is_subject_of = DEN
 							is_subject_of = USA
 							original_tag = CAN
+							original_tag = DEN
+							original_tag = ICE
 							original_tag = QBC
 							original_tag = USA
-							has_war_with = DEN
-							any_owned_state = {
+							has_subject = DEN	
+							any_controlled_state = {
 								is_on_continent = europe
 							} 
 						}
@@ -55,26 +66,42 @@ country_event = {
 
 	option = {
 		name = grl.1.b
+		#add_political_power = 5
 		ai_chance = { 
-			factor = 0 
-				modifier = {
-					GRL = { is_ai = no }
-					factor = 10 #don't eat a player
-				}
-				modifier = {
-					is_historical_focus_on = no
-					add = 0.1
+			base = 1
+			modifier = {
+				GRL = { is_ai = no }
+				factor = 10 #don't eat a player
+			}
+			modifier = {
+				is_historical_focus_on = no
+				factor = 2
+			}
+		}
+		if = {
+			limit = {
+				GRL = {
+					exists = no
 				}
 			}
+			effect_tooltip = { #Not a true release
+				release = GRL
+			}
+		}
+		hidden_effect = { #We already checked for werid stuff right? 
+			GRL = { transfer_state = 101 }
+		}
 		USA = { give_guarantee = GRL }
 		USA = { 
 			diplomatic_relation = { country = GRL relation = non_aggression_pact }
-			give_military_access = GRL
 			add_ai_strategy = {
 				type = protect
 				id = GRL
 				value = 200
 			}
+		}
+		GRL = {
+			give_military_access = USA
 		}
 		if = {
 			limit = {
@@ -91,6 +118,31 @@ country_event = {
 				set_politics = {
 					ruling_party = democratic
 				}
+			}
+		}
+	}
+
+	option = { #do nothing
+		name = grl.1.c
+		ai_chance = { 
+			base = 1
+			modifier = {
+				GRL = { is_ai = no }
+				add = 99 #don't eat a player
+			}
+			modifier = {
+				is_historical_focus_on = no
+				factor = 5
+			}
+		}
+		if = {
+			limit = {
+				DEN ={
+					exists = yes
+				}
+			}
+			DEN = {
+				add_opinion_modifier = { target = ROOT modifier = small_decrease }
 			}
 		}
 	}

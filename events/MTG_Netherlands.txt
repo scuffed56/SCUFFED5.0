@@ -2718,61 +2718,6 @@ country_event = {
 	}
 }
 
-# Hidden event removing Shell-shocked spectator spirit
-country_event = {
-	id = mtg_netherlands.68
-
-	hidden = yes
-
-	fire_only_once = yes
-	
-	trigger = {
-		original_tag = HOL
-		OR = {
-			has_idea = HOL_shell_shocked_spectator_1
-			has_idea = HOL_shell_shocked_spectator_2
-			has_idea = HOL_shell_shocked_spectator_3
-			has_idea = HOL_shell_shocked_spectator_4
-			has_idea = HOL_shell_shocked_spectator_5
-			has_idea = HOL_aloof_neutrality
-		}
-		has_defensive_war = yes
-	}
-
-	mean_time_to_happen = {
-		days = 2
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				OR = {
-					has_idea = HOL_shell_shocked_spectator_1
-					has_idea = HOL_shell_shocked_spectator_2
-					has_idea = HOL_shell_shocked_spectator_3
-					has_idea = HOL_shell_shocked_spectator_4
-					has_idea = HOL_shell_shocked_spectator_5
-				}
-			}
-			hidden_effect = {
-				remove_ideas = HOL_shell_shocked_spectator_1
-				remove_ideas = HOL_shell_shocked_spectator_2
-				remove_ideas = HOL_shell_shocked_spectator_3
-				remove_ideas = HOL_shell_shocked_spectator_4
-				remove_ideas = HOL_shell_shocked_spectator_5
-			}
-		}
-		if = {
-			limit = {
-				has_idea = HOL_aloof_neutrality
-			}
-			hidden_effect = {
-				remove_ideas = HOL_aloof_neutrality
-			}
-		}
-	}
-}
-
 # Event complaining about unneeded flooding
 country_event = {
 	id = mtg_netherlands.69
@@ -2991,7 +2936,7 @@ country_event = {
 			any_country = {
 				original_tag = GER
 				has_country_leader = {
-					name = "Wilhelm II"
+					character = GER_wilhelm_ii
 					ruling_only = yes
 				}
 			}
@@ -3209,9 +3154,8 @@ country_event = {
 					load_focus_tree = { tree = german_focus keep_completed = no }
 					unlock_national_focus = GER_rally_the_monarchists
 					unlock_national_focus = GER_a_new_reich
-					unlock_national_focus = GER_consolidate_new_reich
 					unlock_national_focus = GER_restore_the_empire
-					unlock_national_focus = GER_draft_new_constitution
+					unlock_national_focus = GER_restore_the_empire
 					unlock_national_focus = GER_begin_depression_recovery
 					unlock_national_focus = GER_appoint_economic_positions
 					unlock_national_focus = GER_volksgemeinschaft 
@@ -3225,10 +3169,8 @@ country_event = {
 					unlock_national_focus = GER_nationalize_aviation_industry
 					unlock_national_focus = GER_gott_mit_uns
 					unlock_national_focus = GER_establish_imperial_german_army
-					complete_national_focus = GER_kaiser_wilhelm_society
 					unlock_national_focus = GER_european_claims
 					unlock_national_focus = GER_african_claims
-					unlock_national_focus = GER_asian_claims
 				}
 			}
 		}
@@ -3247,13 +3189,10 @@ country_event = {
 	# Sounds good
 	option = {
 		name = mtg_netherlands.77.a
-		ai_chance = {
-			factor = 100
-		}
 		custom_effect_tooltip = GAME_OVER_TT
 		FROM = {
 			country_event = { id = mtg_netherlands.78 }
-			set_global_flag = HOL_benelux_flag@ROOT
+			set_country_flag = HOL_benelux_flag@ROOT
 		}
 	}
 
@@ -3281,8 +3220,8 @@ country_event = {
 		name = excellent
 		if = {
 			limit = {
-				has_global_flag = HOL_benelux_flagBEL
-				has_global_flag = HOL_benelux_flagLUX
+				has_country_flag = HOL_benelux_flagBEL
+				has_country_flag = HOL_benelux_flagLUX
 			}
 			set_global_flag = HOL_benelux_formed
 			set_cosmetic_tag = HOL_benelux_unified
@@ -3296,15 +3235,13 @@ country_event = {
 					set_nationality = ROOT
 				}
 			}
-			ROOT = {
-				annex_country = {
-					target = BEL
-					transfer_troops = yes
-				}
-				annex_country = {
-					target = LUX
-					transfer_troops = yes
-				}
+			annex_country = {
+			    target = BEL
+			    transfer_troops = yes
+			}
+			annex_country = {
+			    target = LUX
+			    transfer_troops = yes
 			}
 			every_state = {
 				limit = {
@@ -3313,7 +3250,7 @@ country_event = {
 						is_core_of = LUX
 					}
 				}
-				add_core_of = HOL
+				add_core_of = ROOT
 			}
 			hidden_effect = { news_event = { id = mtg_news.64 days = 1 } }
 		}

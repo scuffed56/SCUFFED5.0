@@ -11,7 +11,6 @@ scripted_gui = {
 			ROOT = {
 				is_ai = no
 			}
-			
 		}
 	}
 
@@ -22,10 +21,7 @@ scripted_gui = {
 		parent_window_token = politics_tab
 
 		visible = {
-			has_game_rule = {
-				rule = eu4_disable_enable_ideas 
-				option = YES
-			}
+			always = yes
 		}
 
 		effects = {
@@ -111,61 +107,6 @@ scripted_gui = {
 					modifier = {
 						factor = 0
 						has_global_flag = eu4_like_ideas_ai_disabled
-					}
-					modifier = {
-						factor = 0
-						NOT = {
-							OR = {
-								AND = {
-									NOT = { has_global_flag = eu4_like_ideas_ai_only_majors }
-									NOT = { has_global_flag = eu4_like_ideas_ai_only_minors }
-									OR = {
-										NOT = { has_global_flag = eu4_like_ideas_ai_idea_usage_delayed }
-										AND = {
-											has_global_flag = eu4_like_ideas_ai_idea_usage_delayed
-											meta_trigger = {
-												text = {
-													date > [DATE]
-												}
-												DATE = "[?global.eu4_like_ideas_AI_idea_usage_delay.GetDateStringNoHour]"
-											}
-										}
-									}
-								}
-								AND = {
-									is_major = yes
-									has_global_flag = eu4_like_ideas_ai_only_majors
-									OR = {
-										NOT = { has_global_flag = eu4_like_ideas_ai_idea_usage_delayed }
-										AND = {
-											has_global_flag = eu4_like_ideas_ai_idea_usage_delayed
-											meta_trigger = {
-												text = {
-													date > [DATE]
-												}
-												DATE = "[?global.eu4_like_ideas_AI_idea_usage_delay.GetDateStringNoHour]"
-											}
-										}
-									}
-								}
-								AND = {
-									is_major = no
-									has_global_flag = eu4_like_ideas_ai_only_minors
-									OR = {
-										NOT = { has_global_flag = eu4_like_ideas_ai_idea_usage_delayed }
-										AND = {
-											has_global_flag = eu4_like_ideas_ai_idea_usage_delayed
-											meta_trigger = {
-												text = {
-													date > [DATE]
-												}
-												DATE = "[?global.eu4_like_ideas_AI_idea_usage_delay.GetDateStringNoHour]"
-											}
-										}
-									}
-								}
-							}
-						}
 					}
 				}
 			}
@@ -1367,21 +1308,16 @@ scripted_gui = {
 										OR = {
 											AND = {
 												NOT = { has_government = communism }
-												NOT = { AI_is_set_to_become_communist = yes }
 												communism < 0.2
 											}
 											OR = {
-												AI_is_set_to_become_democratic = yes
 												democratic > 0.5
 											}
 											OR = {
-												AI_is_set_to_become_fascist = yes
 												fascism > 0.5
 											}
 											OR = {
-												AI_is_set_to_become_neutral = yes
 												AND = {
-													is_neutral_monarchy = yes
 													neutrality > 0.5
 												}
 											}
@@ -1392,21 +1328,16 @@ scripted_gui = {
 										OR = {
 											AND = {
 												NOT = { has_government = democratic }
-												NOT = { AI_is_set_to_become_democratic = yes }
 												democratic < 0.2
 											}
 											OR = {
-												AI_is_set_to_become_communist = yes
 												communism > 0.5
 											}
 											OR = {
-												AI_is_set_to_become_fascist = yes
 												fascism > 0.5
 											}
 											OR = {
-												AI_is_set_to_become_neutral = yes
 												AND = {
-													is_neutral_monarchy = yes
 													neutrality > 0.5
 												}
 											}
@@ -1417,21 +1348,16 @@ scripted_gui = {
 										OR = {
 											AND = {
 												NOT = { has_government = fascism }
-												NOT = { AI_is_set_to_become_fascist = yes }
 												fascism < 0.2
 											}
 											OR = {
-												AI_is_set_to_become_communist = yes
 												communism > 0.5
 											}
 											OR = {
-												AI_is_set_to_become_democratic = yes
 												democratic > 0.5
 											}
 											OR = {
-												AI_is_set_to_become_neutral = yes
 												AND = {
-													is_neutral_monarchy = yes
 													neutrality > 0.5
 												}
 											}
@@ -1442,20 +1368,15 @@ scripted_gui = {
 										OR = {
 											AND = {
 												NOT = { has_government = neutrality }
-												NOT = { is_neutral_monarchy = yes }
-												NOT = { AI_is_set_to_become_neutral = yes }
 												neutrality < 0.2
 											}
 											OR = {
-												AI_is_set_to_become_communist = yes
 												communism > 0.5
 											}
 											OR = {
-												AI_is_set_to_become_democratic = yes
 												democratic > 0.5
 											}
 											OR = {
-												AI_is_set_to_become_fascist = yes
 												fascism > 0.5
 											}
 										}
@@ -1823,11 +1744,6 @@ scripted_gui = {
 								tag = GER
 							}
 							modifier = {
-								add = 200
-								check_variable = { v = 2 }
-								tag = POL
-							}
-							modifier = {
 								add = 2
 								check_variable = { v = 3 }
 								OR = {
@@ -1887,9 +1803,6 @@ scripted_gui = {
 								NOT = { has_selected_idea_group = yes }
 								set_temp_variable = { idea_group_out_of_context = 19 }
 								NOT = { has_selected_idea_group = yes }
-								NOT = { AI_is_set_to_become_democratic = yes }
-								NOT = { AI_is_set_to_become_fascist = yes }
-								NOT = { AI_is_set_to_become_neutral = yes }
 								OR = {
 									AND = {
 										communism > 0.25
@@ -1898,7 +1811,6 @@ scripted_gui = {
 										neutrality < 0.25
 									}
 									has_government = communism
-									AI_is_set_to_become_communist = yes
 								}
 							}
 							modifier = {
@@ -1910,9 +1822,6 @@ scripted_gui = {
 								NOT = { has_selected_idea_group = yes }
 								set_temp_variable = { idea_group_out_of_context = 19 }
 								NOT = { has_selected_idea_group = yes }
-								NOT = { AI_is_set_to_become_communist = yes }
-								NOT = { AI_is_set_to_become_fascist = yes }
-								NOT = { AI_is_set_to_become_neutral = yes }
 								OR = {
 									AND = {
 										democratic > 0.25
@@ -1921,7 +1830,6 @@ scripted_gui = {
 										neutrality < 0.25
 									}
 									has_government = democratic
-									AI_is_set_to_become_democratic = yes
 								}
 							}
 							modifier = {
@@ -1933,9 +1841,6 @@ scripted_gui = {
 								NOT = { has_selected_idea_group = yes }
 								set_temp_variable = { idea_group_out_of_context = 19 }
 								NOT = { has_selected_idea_group = yes }
-								NOT = { AI_is_set_to_become_communist = yes }
-								NOT = { AI_is_set_to_become_democratic = yes }
-								NOT = { AI_is_set_to_become_neutral = yes }
 								OR = {
 									AND = {
 										fascism > 0.25
@@ -1944,7 +1849,6 @@ scripted_gui = {
 										neutrality < 0.25
 									}
 									has_government = fascism
-									AI_is_set_to_become_fascist = yes
 								}
 							}
 							modifier = {
@@ -1956,13 +1860,6 @@ scripted_gui = {
 								NOT = { has_selected_idea_group = yes }
 								set_temp_variable = { idea_group_out_of_context = 19 }
 								NOT = { has_selected_idea_group = yes }
-								NOT = { AI_is_set_to_become_communist = yes }
-								NOT = { AI_is_set_to_become_democratic = yes }
-								NOT = { AI_is_set_to_become_fascist = yes }
-								OR = {
-									is_neutral_monarchy = yes
-									AI_is_set_to_become_neutral = yes
-								}
 								OR = {
 									AND = {
 										neutrality > 0.25
@@ -1971,7 +1868,6 @@ scripted_gui = {
 										communism < 0.25
 									}
 									has_government = neutrality
-									AI_is_set_to_become_neutral = yes
 								}
 							}
 							modifier = {
@@ -2431,13 +2327,6 @@ scripted_gui = {
 								has_government = democratic
 							}
 							modifier = {
-								add = 1000
-								check_variable = { v = 17 }
-								set_temp_variable = { idea_group_out_of_context = 16 }
-								NOT = { has_selected_idea_group = yes }
-								tag = POL
-							}
-							modifier = {
 								add = 2
 								check_variable = { v = 18 }
 								OR = {
@@ -2701,10 +2590,6 @@ scripted_gui = {
 		visible = {
 			is_ai = no
 			has_dlc = "La Resistance"
-			has_game_rule = {
-				rule = eu4_disable_enable_ideas 
-				option = YES
-			}
 			OR = {
 				NOT = { check_variable = { eu4_like_ideas_alerts^0 = 0 } }
 				can_remove_flags_for_available_dismissed_alerts = yes
@@ -2875,10 +2760,6 @@ scripted_gui = {
 		visible = {
 			is_ai = no
 			NOT = { has_dlc = "La Resistance" }
-			has_game_rule = {
-				rule = eu4_disable_enable_ideas 
-				option = YES
-			}
 			OR = {
 				NOT = { check_variable = { eu4_like_ideas_alerts^0 = 0 } }
 				can_remove_flags_for_available_dismissed_alerts = yes

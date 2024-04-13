@@ -28,7 +28,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			army_experience = 25
+			army_experience = 15
 			if = {
 				limit = {date > 1937.06.01}
 				add_doctrine_cost_reduction = {
@@ -63,9 +63,6 @@ focus_tree = {
 						infantry = { x = 0 y = 2 }
 						infantry = { x = 1 y = 0 }
 						infantry = { x = 1 y = 1 }
-
-					}
-					support = {  
 					}
 				}
 				division_template = {
@@ -76,8 +73,6 @@ focus_tree = {
 						cavalry = { x = 0 y = 1 }
 						cavalry = { x = 1 y = 0 }
 						cavalry = { x = 1 y = 1 }
-					}
-					support = {
 					}
 				}			
 				load_oob = RUT_militias 
@@ -111,6 +106,7 @@ focus_tree = {
 		id = RUT_offensive_weapons_focus
 		icon = GFX_focus_secret_rearmament
 		prerequisite = { focus = RUT_equipment_effort }
+		mutually_exclusive = { focus = RUT_support_bonus }
 		relative_position_id = RUT_carpathian_sich
 		x = -6
 		y = 2
@@ -121,11 +117,30 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = RUT_offensive_weapons_focus
-				bonus = 1
-				uses = 2
-				category = infantry_weapons			
+				bonus = 3
+				uses = 1
+				technology = infantry_weapons1
+				technology = infantry_weapons2
+				technology = improved_infantry_weapons
+				technology = improved_infantry_weapons_2
+				technology = infantry_at
+				technology = infantry_at2
+				technology = advanced_infantry_weapons
+				technology = advanced_infantry_weapons2				
 			}
-		
+			add_tech_bonus = {
+				name = RUT_offensive_weapons_focus
+				bonus = 0.15
+				uses = 1
+				technology = infantry_weapons1
+				technology = infantry_weapons2
+				technology = improved_infantry_weapons
+				technology = improved_infantry_weapons_2
+				technology = infantry_at
+				technology = infantry_at2
+				technology = advanced_infantry_weapons
+				technology = advanced_infantry_weapons2				
+			}			
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}	
@@ -191,7 +206,7 @@ focus_tree = {
 		available_if_capitulated = yes		
         completion_reward = {
             add_tech_bonus = {  
-                name = engineer_bonus
+                name = RUT_engineer_effort
                 bonus = 3
                 uses = 1
 				category = engineers_tech
@@ -204,6 +219,7 @@ focus_tree = {
 		icon = GFX_goal_machine_gun
 		prerequisite = { focus = RUT_equipment_effort }
 		prerequisite = { focus = RUT_mountain_brigades }
+		mutually_exclusive = { focus = RUT_offensive_weapons_focus }
 		x = -4
 		y = 2
 		relative_position_id = RUT_carpathian_sich
@@ -216,17 +232,18 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = cze_army_upgrades2
+				name = RUT_support_bonus
 				bonus = 1
 				uses = 1
 				category = logistics_tech
 				category = engineers_tech
 			}
 			add_tech_bonus = {
-				name = cze_army_upgrades3
+				name = RUT_support_bonus
 				bonus = 1
 				uses = 1
-				category = support_tech
+				technology = support_weapons2
+				technology = support_weapons3
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -247,7 +264,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = motorized_bonus
 				bonus = 3
-				category = cat_mechanized_equipment
+				technology = motorised_infantry
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -260,7 +277,7 @@ focus_tree = {
 		relative_position_id = RUT_carpathian_sich
 		x = 4
 		y = 1
-		cost = 5
+		cost = 10
 
 		available_if_capitulated = yes
 
@@ -269,7 +286,7 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = land_doctrine
 			}
 		}
@@ -289,7 +306,7 @@ focus_tree = {
 		completion_reward = {
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 0.5
+				cost_reduction = 0.35
 				uses = 1
 				category = land_doctrine
 			}
@@ -305,7 +322,7 @@ focus_tree = {
 		relative_position_id = RUT_carpathian_sich
 		x = 4
 		y = 3
-		cost = 5
+		cost = 10
 
 		available_if_capitulated = yes
 
@@ -314,7 +331,7 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = land_doctrine
 			}
 		}
@@ -354,13 +371,13 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = FRA_mechanized_focus
+				name = RUT_mechanization_effort
 				bonus = 1
 				uses = 1
 				category = cat_mechanized_equipment
 			}
 			add_tech_bonus = {
-				name = cze_army_upgrades2
+				name = RUT_mechanization_effort
 				bonus = 1
 				uses = 1
 				category = maintenance_company_tech	
@@ -407,8 +424,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = YUG_anti_tank_defenses
-				ahead_reduction = 1
-				bonus = 1
+				bonus = 3
 				uses = 1
 				category = cat_anti_tank
 			}
@@ -497,7 +513,10 @@ focus_tree = {
 				name = fighter_bonus
 				bonus = 1
 				uses = 1
-				category = air_equipment
+				technology = early_fighter
+				technology = fighter1
+				technology = fighter2
+				technology = fighter3
 			}
 			random_owned_controlled_state = {
 				prioritize = { 996 }
@@ -546,7 +565,7 @@ focus_tree = {
 				name = fighter_bonus
 				bonus = 1
 				uses = 1
-				category = air_equipment
+				category = cat_heavy_fighter
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -596,11 +615,11 @@ focus_tree = {
 		}
 		completion_reward = {
 			air_experience = 25
-			add_doctrine_cost_reduction = {
+			add_tech_bonus = {
 				name = air_doc_bonus
-				cost_reduction = 0.5
-				uses = 2
-				category = air_doctrine
+				bonus = 1
+				uses = 1
+				category = battlefield_support_tree
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -623,10 +642,10 @@ focus_tree = {
 		}
 		completion_reward = {
 			air_experience = 25
-			add_doctrine_cost_reduction = {
+			add_tech_bonus = {
 				name = air_doc_bonus
-				cost_reduction = 0.5
-				uses = 2
+				bonus = 1
+				uses = 1
 				category = operational_integrity_tree
 			}
 		}
@@ -649,10 +668,10 @@ focus_tree = {
 		}
 		completion_reward = {
 			air_experience = 25
-			add_doctrine_cost_reduction = {
+			add_tech_bonus = {
 				name = air_doc_bonus
-				cost_reduction = 0.5
-				uses = 2
+				bonus = 1
+				uses = 1
 				category = strategic_destruction_tree
 			}
 		}
@@ -695,6 +714,9 @@ focus_tree = {
 				name = bomber_bonus
 				bonus = 1
 				uses = 1
+				technology = strategic_bomber1
+				technology = strategic_bomber2
+				technology = strategic_bomber3
 				category = tactical_bomber
 			}
 		}
@@ -708,7 +730,7 @@ focus_tree = {
 		relative_position_id = RUT_CAS_effort 
 		x = 1
 		y = 1
-		cost = 5
+		cost = 10
 
 		available_if_capitulated = yes
 
@@ -725,7 +747,7 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = air_doctrine
 			}
 		}
@@ -782,7 +804,7 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = air_doctrine
 			}
 		}
@@ -1187,9 +1209,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_doctrine_cost_reduction = {
+			add_tech_bonus = {
 				name = fleet_in_being_bonus
-				cost_reduction = 0.5
+				bonus = 1
 				uses = 2
 				category = fleet_in_being_tree
 			}
@@ -1365,10 +1387,10 @@ focus_tree = {
         }
 		completion_reward = {		
             73 = {
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }
@@ -1399,7 +1421,7 @@ focus_tree = {
 		relative_position_id = RUT_food_processing_plant
 		x = 2
 		y = 0
-		cost = 5
+		cost = 10
 
 		available_if_capitulated = yes
         available = {
@@ -1417,7 +1439,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = industrial_bonus
-				bonus = 1
+				bonus = 0.5
 				uses = 1
 				category = construction_tech
 			}
@@ -1449,7 +1471,7 @@ focus_tree = {
 		relative_position_id = RUT_food_processing_plant
 		x = 0
 		y = 1
-		cost = 5
+		cost = 10
 
 		available_if_capitulated = yes
         available = {
@@ -1469,7 +1491,7 @@ focus_tree = {
 			}
             add_resource = {
                 type = steel
-                amount = 10
+                amount = 2
                 state = 73
             }			
 		}
@@ -1486,7 +1508,7 @@ focus_tree = {
 		relative_position_id = RUT_food_processing_plant
 		x = 2
 		y = 1
-		cost = 5
+		cost = 10
 
 		available_if_capitulated = yes
         available = {
@@ -1516,7 +1538,7 @@ focus_tree = {
 		relative_position_id = RUT_food_processing_plant
 		x = 1
 		y = 2
-		cost = 5
+		cost = 10
 
 		available_if_capitulated = yes
         available = {
@@ -1562,7 +1584,7 @@ focus_tree = {
                 add_extra_state_shared_building_slots = 2
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }			
@@ -1592,7 +1614,7 @@ focus_tree = {
                 add_extra_state_shared_building_slots = 2
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }			
@@ -1618,10 +1640,10 @@ focus_tree = {
         completion_reward = {
 
             73 = {
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = arms_factory
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }			
@@ -1647,10 +1669,10 @@ focus_tree = {
         completion_reward = {
 
             996 = {
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = arms_factory
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }			
@@ -1697,7 +1719,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 150
+			add_political_power = 120
 			set_country_flag = RUT_a_free_ukrainian_state
 			if = {
 				limit = {
@@ -1954,7 +1976,7 @@ focus_tree = {
 		
 		x = 1
 		y = 1
-		cost = 5
+		cost = 10
 
 		available_if_capitulated = yes
 
@@ -2084,7 +2106,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 50
+			add_political_power = 10
 			add_ideas = RUT_economic_ties_hungary
 			add_opinion_modifier = { target = HUN modifier = RUT_trade_treaty_with_hungary }
 			HUN = { add_opinion_modifier = { target = ROOT modifier = RUT_trade_treaty_with_hungary } }
@@ -2171,7 +2193,6 @@ focus_tree = {
 			NOT = {
 				country_exists = UKR 
 			}
-			is_ai = yes
 			OR = {
 				AND = {
 					SOV = {
@@ -2188,6 +2209,10 @@ focus_tree = {
 					is_in_faction_with = SOV
 				}
 			}
+		}
+
+		allow_branch = {
+			is_ai = yes
 		}
 		
 		x = 3
@@ -2309,7 +2334,7 @@ focus_tree = {
                 add_extra_state_shared_building_slots = 2
             }
             73 = {
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
             }
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -2569,7 +2594,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 100
+			add_political_power = 50
 			RUT = { add_state_core = 89 }
 			RUT = { add_state_core = 91 }
 			RUT = { add_state_core = 93 }
@@ -2708,7 +2733,6 @@ focus_tree = {
 		relative_position_id = RUT_contact_galician_ukrainians
 		available = {
 			is_neighbor_of = UKR
-			is_ai = yes
 			OR = {
 				AND = {
 					UKR = {
@@ -2757,6 +2781,10 @@ focus_tree = {
 		x = -4
 		y = 1
 		cost = 10
+
+		allow_branch = {
+			is_ai = yes
+		}
 
 
 		ai_will_do = {
@@ -2921,18 +2949,18 @@ focus_tree = {
 		available_if_capitulated = yes
         completion_reward = {
 			192 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = dockyard
-					level = 2
+					level = 1
 					instant_build = yes
             }
         }
             192 = {
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }		
@@ -3007,10 +3035,10 @@ focus_tree = {
 		available_if_capitulated = yes
         completion_reward = {
             202 = {
-                add_extra_state_shared_building_slots = 2
+                add_extra_state_shared_building_slots = 1
                 add_building_construction = {
                     type = industrial_complex
-                    level = 2
+                    level = 1
                     instant_build = yes
                 }
             }		
@@ -3299,15 +3327,24 @@ focus_tree = {
 				popularity = 0.25
 			}
 			set_party_name = { ideology = fascism long_name = RUT_oun_radicals_party_long name = RUT_oun_radicals_party }
-			create_country_leader = {
-				name = "Stepan Bandera"
-				desc = ""
-				picture = "gfx/leaders/RUT/r56_portrait_UKR_Stepan_Bandera.dds"
-				expire = "1953.3.1"
-				ideology = fascism_ideology
-				traits = {
+			if = {
+				limit = {
+					NOT = {
+						any_other_country = {
+							has_country_leader = {
+								character = UKR_stepan_bandera ruling_only = yes
+							}
+						}
+					}
+				}
+				create_country_leader = {
+					name = "Stepan Bandera"
+					picture = "gfx/leaders/RUT/r56_portrait_UKR_Stepan_Bandera.dds"
+					expire = "1953.3.1"
+					ideology = fascism_ideology
 				}
 			}
+
 			add_ideas = RUT_idea_oun_militias
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
@@ -3652,10 +3689,13 @@ focus_tree = {
 				RUT = { is_subject_of = SOV } 
 				has_government = communism
 				has_war = no
-				is_ai = yes
 				is_neighbor_of = SOV
 			}
 
+		}
+
+		allow_branch = {
+			is_ai = yes
 		}
 		
 		x = 1
@@ -3696,10 +3736,11 @@ focus_tree = {
 			UKR = { has_government = communism }
 			has_government = communism
 			has_war = no
-			is_ai = yes
 			is_neighbor_of = UKR
-			
+		}
 
+		allow_branch = {
+			is_ai = yes
 		}
 		
 		x = 3

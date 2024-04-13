@@ -77,148 +77,7 @@ country_event = {
 	}
 }
 
-#more skilled people
-country_event = {
-	id = prc.4
-	title = prc.4.t
-	desc = prc.4.d
-	picture = GFX_report_event_physics_lab_02
-
-	is_triggered_only = yes
-
-	option = {
-		name = prc.4.a
-		custom_effect_tooltip = prc_msp_tt
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_10
-			}
-			remove_ideas = PRC_lack_skilled_personnel_10
-			add_research_slot = 1
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_9
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel_9
-				add_idea = PRC_lack_skilled_personnel_10
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_8
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel_8
-				add_idea = PRC_lack_skilled_personnel_9
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_7
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel_7
-				add_idea = PRC_lack_skilled_personnel_8
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_6
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel_6
-				add_idea = PRC_lack_skilled_personnel_7
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_5
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel_5
-				add_idea = PRC_lack_skilled_personnel_6
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_4
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel_4
-				add_idea = PRC_lack_skilled_personnel_5
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_3
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel_3
-				add_idea = PRC_lack_skilled_personnel_4
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_2
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel_2
-				add_idea = PRC_lack_skilled_personnel_3
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel_1
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel_1
-				add_idea = PRC_lack_skilled_personnel_2
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-		if = {
-			limit = {
-				has_idea = PRC_lack_skilled_personnel
-			}
-			swap_ideas = {
-				remove_idea = PRC_lack_skilled_personnel
-				add_idea = PRC_lack_skilled_personnel_1
-			}
-			hidden_effect = {
-				country_event = { id = prc.4 days = 30 }
-			}
-		}
-	}
-}
-
+#more skilled people - r56rp - turned into a less obstructive mission.
 #Stalin pass away
 country_event = {
 	id = prc.5
@@ -264,25 +123,34 @@ country_event = {
 
 	immediate = {
 		hidden_effect = {
-			kill_country_leader = yes
 			news_event = { id = kns.4 hours = 5 }
-			create_country_leader = {
-				name = "Georgy Malenkov"
-				desc = " "
-				picture = "gfx/leaders/SOV/r56_portrait_SOV_Georgy_Malenkov.dds"
-				expire = "1965.1.1"
-				ideology = marxism
-				traits = {
-					sov_power_truggle
-				}
-			}
 			set_global_flag = stalin_dead
+			add_country_leader_role = {
+				character = SOV_georgy_malenkow
+				country_leader = {
+					ideology = marxism
+					traits = { sov_power_truggle }
+					expire = "1965.3.1.1"
+				}
+				promote_leader = yes 
+			}
 		}
 	}
 
 	option = {
 		name = prc.5.a
 		custom_effect_tooltip = sov_power_struggle_begins
+		effect_tooltip = {
+			add_country_leader_role = {
+				character = SOV_georgy_malenkow
+				country_leader = {
+					ideology = marxism
+					traits = { sov_power_truggle }
+					expire = "1965.3.1.1"
+				}
+				promote_leader = yes 
+			}
+		}
 	}
 }
 
@@ -299,7 +167,6 @@ country_event = {
 
 	option = {
 		name = prc.6.a
-		set_global_flag = PRC_hairuibaguan
 	}
 }
 
@@ -316,7 +183,6 @@ country_event = {
 
 	option = {
 		name = prc.7.a
-		set_country_flag = cultural_revolution
 		add_ideas = PRC_cultural_revolution
 		set_global_flag = PRC_cr_started
 	}
@@ -1037,43 +903,6 @@ country_event = {
 		set_country_flag = lin_biao
 	}
 }
-#peace with xsm?
-country_event = {
-	id = prc.24
-	title = prc.24.t
-	desc = prc.24.d
-	picture = GFX_report_event_dead_soldiers
-
-	trigger = {
-		has_global_flag = west_expedition_started
-		NOT = {
-			has_global_flag = no_more_failed_event
-		}
-		tag = PRC
-		has_offensive_war_with = XSM
-		NOT = {
-			CHI = {
-				has_completed_focus = KMT_north_west_insurgence
-			}
-		}
-		XSM = {
-			surrender_progress < 0.25
-		}
-	}
-
-	mean_time_to_happen = { days = 120 }
-
-	option = {
-		ai_chance = { factor = 50 }
-		name = prc.24.a
-		white_peace = XSM
-	}
-
-	option = {
-		ai_chance = { factor = 50 }
-		name = prc.24.b
-	}
-}
 
 #baiqiuen
 country_event = {
@@ -1236,94 +1065,6 @@ country_event = {
 		hidden_effect = {
 			remove_unit_leader = 1073
 			set_country_flag = nie_arrested
-		}
-	}
-}
-
-#sov power struggle ended
-country_event = {
-	id = prc.30
-	title = prc.30.t
-	desc = prc.30.d
-	picture = GFX_report_event_gathering_protest
-
-	is_triggered_only = yes
-
-	#add possibility to save Malenkov and give him captain of industry trait
-	immediate = {
-		hidden_effect = {
-			kill_country_leader = yes
-			if = {
-				limit = {
-					NOT = {
-						has_country_flag = purged_khrushchev
-					}
-				}
-				create_country_leader = {
-					name = "Nikita Khrushchev"
-					desc = " "
-					picture = "gfx/leaders/SOV/r56_portrait_SOV_Nikita_Khrushchev.dds"
-					expire = "1965.1.1"
-					ideology = marxism
-					traits = {
-						economic_reformer
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_country_flag = purged_khrushchev
-				}
-				create_country_leader = {
-					name = "Lavrentiy Beria"
-					desc = " "
-					picture = "gfx/leaders/SOV/r56_portrait_SOV_Lavrenti_Beria.dds"
-					expire = "1965.1.1"
-					ideology = marxism
-					traits = {
-						prince_of_terror
-					}
-				}
-			}
-		}
-	}
-
-	option = {
-		name = prc.30.a
-		custom_effect_tooltip = sov_power_struggle_ends
-		effect_tooltip = {
-			if = {
-				limit = {
-					NOT = {
-						has_country_flag = purged_khrushchev
-					}
-				}
-				create_country_leader = {
-					name = "Nikita Khrushchev"
-					desc = " "
-					picture = "gfx/leaders/SOV/Portrait_Soviet_Generic_1.dds"
-					expire = "1965.1.1"
-					ideology = marxism
-					traits = {
-						economic_reformer
-					}
-				}
-			}
-			if = {
-				limit = {
-					has_country_flag = purged_khrushchev
-				}
-				create_country_leader = {
-					name = "Lavrentiy Beria"
-					desc = " "
-					picture = "gfx/leaders/SOV/r56_portrait_SOV_Lavrenti_Beria.dds"
-					expire = "1965.1.1"
-					ideology = marxism
-					traits = {
-						prince_of_terror
-					}
-				}
-			}
 		}
 	}
 }
@@ -1732,68 +1473,18 @@ country_event = {
 		tag = PRC
 		has_war_with = CHI
 		has_global_flag = PRC_civil_war_started
-		717 = {
-			owner = {
-				OR = {
-					tag = CHI
-					tag = PRC
-				}
+		any_state =  {
+			OR = {
+				is_owned_by = CHI
+				is_controlled_by = CHI
 			}
-		}
-		328 = {
-			owner = {
-				OR = {
-					tag = CHI
-					tag = PRC
-				}
-			}
-		}
-		716 = {
-			owner = {
-				OR = {
-					tag = CHI
-					tag = PRC
-				}
-			}
-		}
-		714 = {
-			owner = {
-				OR = {
-					tag = CHI
-					tag = PRC
-				}
-			}
-		}
-		715 = {
-			owner = {
-				OR = {
-					tag = CHI
-					tag = PRC
-				}
-			}
-		}
-		610 = {
-			owner = {
-				OR = {
-					tag = CHI
-					tag = PRC
-				}
-			}
-		}
-		611 = {
-			owner = {
-				OR = {
-					tag = CHI
-					tag = PRC
-				}
-			}
-		}
-		612 = {
-			owner = {
-				OR = {
-					tag = CHI
-					tag = PRC
-				}
+			OR = {
+				region = 155
+				region = 242
+				region = 243
+				state = 612
+				state = 611
+				state = 610
 			}
 		}
 	}
@@ -1804,32 +1495,51 @@ country_event = {
 
 	option = {
 		name = prc.49.a
-		set_technology = { tech_support = 1}
 		every_state = {
 			limit = {
 				OR = {
 					is_owned_by = CHI
 					is_controlled_by = CHI
+					owner = {
+						is_puppet_of = CHI
+					}
 				}
 				OR = {
 					region = 155
+					region = 242
+					region = 243
 					state = 612
 					state = 611
 					state = 610
 				}
 			}
-			PRC = {
-				set_state_controller = PREV
+			teleport_armies = {
+				limit = {
+					has_war_together_with = ROOT
+				}
+				to_state_array = owned_controlled_states
 			}
+			transfer_state_to = PRC
 		}
-		load_oob = "PRC_dongbei_partisans"
+		IF = {
+			limit = {
+				NOT = { has_tech = tech_support }
+			}
+			set_technology = { tech_support = 1 }
+		}
+		ELSE = {
+			army_experience = 100
+		}
+		
 		CHI = {
 			add_popularity = {
 				popularity = 0.2
 				ideology = communism
 			}
 		}
+
 		custom_effect_tooltip = PRC_dongbei_partisans_tt
+		load_oob = "PRC_dongbei_partisans"
 	}
 }
 
@@ -1917,7 +1627,6 @@ country_event = {
 			}
 			is_core_of = ROOT
 		}
-		has_idea = PRC_create_partisan
 		tag = PRC
 	}
 
@@ -1951,55 +1660,6 @@ country_event = {
 			}
 		}
 		country_event = { id = prc.52 days = 30 }
-	}
-
-	option = {
-	}
-}
-
-#set flag no more fail west expedition
-country_event = {
-	id = prc.53
-	hidden = yes
-
-	trigger = {
-		has_global_flag = west_expedition_started
-		OR = {
-			PRC = {
-				NOT = {
-					has_war_with = XSM
-				}
-			}
-			AND = {
-				PRC = {
-					is_in_faction = yes
-				}
-				any_country = {
-					is_in_faction_with = PRC
-					has_war_with = XSM
-					has_war_together_with = PRC
-				}
-			}
-			AND = {
-				XSM = {
-					is_in_faction = yes
-				}
-				any_country = {
-					is_in_faction_with = XSM
-					has_war_with = PRC
-					has_war_together_with = XSM
-				}
-			}
-		}
-
-		original_tag = PRC
-
-	}
-
-	mean_time_to_happen = { days = 120 }
-
-	immediate = {
-		set_global_flag = no_more_failed_event
 	}
 
 	option = {
@@ -4318,27 +3978,6 @@ country_event = {
 	}
 }
 
-#prc burn bridge
-country_event = {
-	id = prc.107
-	hidden = yes
-
-	trigger = {
-		NOT = {
-			has_idea = PRC_revanchism
-		}
-		has_idea = PRC_anti_jap_sentiment
-		has_war_with = JAP
-	}
-
-	mean_time_to_happen = { days = 2 }
-
-	immediate = {
-		add_ideas = PRC_revanchism
-	}
-	option = {}
-}
-
 #rescue zxl?
 country_event = {
 	id = prc.108
@@ -4766,18 +4405,18 @@ country_event = {
 		custom_effect_tooltip = KMT_commie_generals_join_tt
 		if = {
 			limit = {
-				has_idea = KMT_weak_army_lesser
-			}
-			remove_ideas = KMT_weak_army_lesser
-		}
-		if = {
-			limit = {
 				has_idea = KMT_weak_army
 			}
 			swap_ideas = {
 				remove_idea = KMT_weak_army
 				add_idea = KMT_weak_army_lesser
 			}
+		}
+		if = {
+			limit = {
+				has_idea = KMT_weak_army_lesser
+			}
+			remove_ideas = KMT_weak_army_lesser
 		}
 	}
 }

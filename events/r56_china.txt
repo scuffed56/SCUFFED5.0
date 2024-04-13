@@ -50,7 +50,11 @@ country_event = {
 			}
 			modifier = {
 				is_in_faction_with = PRC
-				factor = -100
+				factor = 0
+			}
+			modifier = {
+				has_war_with = PRC
+				factor = 0
 			}
 		}
 		effect_tooltip = {
@@ -227,19 +231,7 @@ country_event = {
 
 	fire_only_once = yes
 
-	trigger = {
-		original_tag = CHI
-		has_idea = KMT_propaganda
-		OR = {
-			has_offensive_war_with = PRC
-			has_offensive_war_with = SHX
-			has_offensive_war_with = GXC
-			has_offensive_war_with = XSM
-			has_offensive_war_with = YUN
-		}
-	}
-
-	mean_time_to_happen = { days = 3 }
+	is_triggered_only = yes
 
 	option = {
 		name = kmt.6.a	
@@ -247,26 +239,6 @@ country_event = {
 		add_timed_idea = {
 			idea = KMT_propaganda_busted
 			days = 600
-		}
-	}
-}
-
-#Japan invades remove busted
-country_event = {
-	id = kmt.7
-	hidden = yes
-
-	fire_only_once = yes
-
-	trigger = {
-		original_tag = CHI
-		has_idea = KMT_propaganda_busted
-		has_defensive_war_with = JAP
-	}
-
-	immediate = {
-		CHI = {
-			remove_ideas = KMT_propaganda_busted
 		}
 	}
 }
@@ -288,14 +260,14 @@ country_event = {
 			modifier = {
 				FROM = {
 					strength_ratio = {
-						tag = TIB
+						tag = ROOT
 						ratio > 0.5
 					}
 				}
 				add = 60
 			}
 			modifier = {
-				CHI = {
+				FROM = {
 					has_war = yes
 					surrender_progress > 0.1
 				}
@@ -303,22 +275,22 @@ country_event = {
 			}
 		}
 		name = kmt.8.a
-		CHI = { annex_country = { target = TIB transfer_troops = no } }
-		CHI = { country_event = { id = kmt.9 }}
+		FROM = { annex_country = { target = ROOT transfer_troops = no } }
+		FROM = { country_event = { id = kmt.9 }}
 	}
 
 	option = {
 		ai_chance = { factor = 80 }
 		name = kmt.8.b
 		effect_tooltip = {
-			CHI = {
+			FROM = {
 				create_wargoal = {
 					type = annex_everything
-					target = TIB
+					target = ROOT
 				}
 			}
 		}
-		CHI = { country_event = { id = kmt.10 days = 1 } }
+		FROM = { country_event = { id = kmt.10 days = 1 } }
 	}
 }
 
@@ -352,11 +324,9 @@ country_event = {
 
 	option = {
 		name = kmt.10.a
-		CHI = {
-			create_wargoal = {
-				type = annex_everything
-				target = TIB
-			}
+		create_wargoal = {
+			type = annex_everything
+			target = FROM
 		}
 	}
 }
@@ -373,7 +343,7 @@ country_event = {
 	option = {
 		ai_chance = { factor = 5 }
 		name = kmt.11.a
-		CHI = {
+		FROM = {
 			transfer_state = 434
 			country_event = { id = kmt.12 }
 		}
@@ -384,10 +354,10 @@ country_event = {
 		ai_chance = { factor = 80 }
 		name = kmt.11.b
 		trigger = {
-			is_puppet_of = ENG
+			is_subject_of = ENG
 		}
 		ENG = { country_event = { id = kmt.13 days = 3 }}
-		CHI = {
+		FROM = {
 			set_country_flag = mcmahon_case_to_ENG
 		}
 		add_political_power = -500
@@ -396,7 +366,7 @@ country_event = {
 	option = {
 		ai_chance = { factor = 15 }
 		name = kmt.11.c
-		CHI = { country_event = { id = kmt.14 days = 1 } }
+		FROM = { country_event = { id = kmt.14 days = 1 } }
 		custom_effect_tooltip = kmt.11.c_tt
 	}
 }
@@ -408,7 +378,7 @@ country_event = {
 	desc = {
 		text = kmt.12.d_1
 		trigger = {
-			CHI = {
+			FROM.FROM = {
 				NOT = {
 					has_country_flag = mcmahon_case_to_ENG
 				}
@@ -418,7 +388,7 @@ country_event = {
 	desc = {
 		text = kmt.12.d_2
 		trigger = {
-			CHI = {
+			FROM.FROM = {
 				has_country_flag = mcmahon_case_to_ENG
 			}
 		}
@@ -449,7 +419,7 @@ country_event = {
 		ai_chance = { factor = 30 }
 		name = kmt.13.a
 		add_political_power = -250
-		CHI = {
+		FROM.FROM = {
 			transfer_state = 434
 			country_event = { id = kmt.12 }
 		}
@@ -458,7 +428,7 @@ country_event = {
 	option = {
 		ai_chance = { factor = 70 }
 		name = kmt.13.b
-		CHI = { country_event = { id = kmt.14 days = 1 } }
+		FROM.FROM = { country_event = { id = kmt.14 days = 1 } }
 		custom_effect_tooltip = kmt.13.b_tt
 	}
 }
@@ -1659,7 +1629,7 @@ country_event = {
 				}
 			}
 			modifier = {
-				add = 95
+				add = 100
 				ROOT = {
 					tag = FRA
 				}
@@ -1686,10 +1656,9 @@ country_event = {
 		effect_tooltip = {
 			every_controlled_state = {
 				limit = {
-					region = 142
-					NOT = {
-						state = 724
-						state = 289
+					OR = {
+						region = 142
+						region = 228
 					}
 				}
 				FROM = {
@@ -1702,11 +1671,6 @@ country_event = {
 	option = {
 		ai_chance = {
 			factor = 80
-			modifier = {
-				factor = 5
-				tag = FRA
-				16 = { NOT = { is_controlled_by = FRA } } #Paris
-			}
 		}
 		name = kmt.56.b
 		effect_tooltip = {
@@ -1740,10 +1704,9 @@ country_event = {
 		FROM = {
 			every_controlled_state = {
 				limit = {
-					region = 142
-					NOT = {
-						state = 724
-						state = 289
+					OR = {
+						region = 142
+						region = 228
 					}
 				}
 				ROOT = {
@@ -2143,6 +2106,14 @@ country_event = {
 				}
 			}
 			modifier = {
+				add = 20
+				has_completed_focus = CHI_cooperation_with_the_nationalists
+			}
+			modifier = {
+				add = 20
+				has_completed_focus = MEN_accept_chinese_suzerainty
+			}
+			modifier = {
 				add = 7
 				tag = GXC
 				FROM = {
@@ -2212,10 +2183,6 @@ country_event = {
 			modifier = {
 				is_puppet_of = FROM
 				factor = 100
-			}
-			modifier = {
-				add = -50
-				tag = MEN
 			}
 		}
 		if = {
@@ -2382,8 +2349,23 @@ country_event = {
 		ai_chance = {
 			factor = 85
 			modifier = {
-				add = 50
-				tag = MEN
+				factor = 0
+				AND = {
+					tag = MEN
+					OR = {
+						is_subject_of = JAP
+						is_subject_of = MAN
+						has_completed_focus = men_jap
+						has_completed_focus = men_own
+					}
+				}
+			}
+			modifier = {
+				add = 10
+				OR = {
+					has_completed_focus = CHI_cooperation_with_the_communists
+					has_completed_focus = CHI_opposition
+				}
 			}
 		}
 		if = {
@@ -2510,7 +2492,7 @@ country_event = {
 		set_country_flag = kmt_yxs_flag
 		hidden_effect = {
 			SHX = {
-				every_unit_leader = {
+				every_character = {
 					set_nationality = CHI
 				}
 			}
@@ -2562,38 +2544,12 @@ country_event = {
 		custom_effect_tooltip = kmt_lzr_join
 		set_country_flag = kmt_lzr_flag
 		hidden_effect = {
-			if = {
-				limit = {
-					GXC = {
-						has_unit_leader = 1006
-					}							
+			GXC = {
+				every_character = {
+					set_nationality = CHI
 				}
-				GXC = {
-					every_unit_leader = {
-						set_nationality = CHI
-					}						
-				}
-				set_country_flag = gxc_sumitted
-										
-			}		
-			else = {
-				GXC = {
-					every_unit_leader = {
-						set_nationality = CHI
-					}
-				}
-				create_field_marshal = {
-					id = 1006
-					name = "Li Zongren"
-					portrait_path = "gfx/leaders/GXC/Portrait_Guanxi_Clique_Li_Zongren.dds"
-					traits = { defensive_doctrine fast_planner }
-					skill = 4
-					attack_skill = 3
-					defense_skill = 4
-					planning_skill = 3
-					logistics_skill = 3							
-				}											
 			}
+			set_country_flag = gxc_sumitted
 		}
 	}
 
@@ -2644,7 +2600,7 @@ country_event = {
 		hidden_effect = {
 			CHI = {
 				YUN = {
-					every_unit_leader = {
+					every_character = {
 						set_nationality = CHI
 					}
 				}
@@ -2663,223 +2619,6 @@ country_event = {
 		name = kmt.78.b
 		add_stability = 0.01
 		add_political_power = 100
-	}
-}
-
-## 15/7/2016 ##
-
-#ask sov to integrate sik
-country_event = {
-	id = kmt.84
-	title = kmt.84.t
-	desc = kmt.84.d
-	picture = GFX_report_event_soviet_japanese_pact
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = {
-		ai_chance = { factor = 100 }
-		name = kmt.84.a
-		SIK = {
-			country_event = { id = kmt.85 hours = 8 }
-		}
-		set_global_flag = SOV_allowed
-	}
-
-	option = {
-		ai_chance = { factor = 0 }
-		name = kmt.84.b
-		CHI = {
-			country_event = { id = kmt.86 days = 2 }
-		}
-	}
-}
-
-#sov allow
-country_event = {
-	id = kmt.85
-	title = kmt.85.t
-	desc = kmt.85.d
-	picture = GFX_report_event_stalin_02
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = {
-		ai_chance = { factor = 85 }
-		name = kmt.85.a
-		CHI = {
-			country_event = { id = kmt.87 }
-			annex_country = { target = ROOT transfer_troops = yes }
-		}
-	}
-
-	option = {
-		ai_chance = { factor = 15 }
-		name = kmt.85.b
-		SOV = {
-			country_event = { id = kmt.88 days = 3 }
-			remove_from_faction = SIK
-		}
-		CHI = {
-			country_event = { id = kmt.88 }
-		}
-		declare_war_on = {
-			target = CHI
-			type = annex_everything
-		}
-	}
-}
-
-#sov says no
-country_event = {
-	id = kmt.86
-	title = kmt.86.t
-	desc = kmt.86.d
-	picture = GFX_report_event_stalin_02
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = {
-		ai_chance = { factor = 99 }
-		name = kmt.86.a
-	}
-
-	option = {
-		ai_chance = { factor = 1 }
-		name = kmt.86.b
-		SOV = {
-			remove_from_faction = CHI
-		}
-		create_wargoal = {
-			target = SIK
-			type = annex_everything
-		}
-	}
-}
-
-#sik annexed
-country_event = {
-	id = kmt.87
-	title = kmt.87.t
-	desc = kmt.87.d
-	picture = GFX_report_event_soviet_finnish_pact
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = {
-		name = kmt.87.a
-	}
-}
-
-#sik refused, war
-country_event = {
-	id = kmt.88
-	title = kmt.88.t
-	desc = kmt.88.d
-	picture = GFX_report_event_spain_civil_war_volunteers_02
-
-	is_triggered_only = yes
-
-	option = {
-		name = kmt.88.a
-		trigger = {
-			tag = SOV
-		}
-		CHI = {
-			country_event = { id = kmt.89 }
-		}
-		add_to_war = {
-			targeted_alliance = CHI
-			enemy = SIK
-		}
-	}
-
-	option = {
-		name = kmt.88.b
-		trigger = {
-			tag = CHI
-		}
-	}
-}
-
-#sov join war against sik
-country_event = {
-	id = kmt.89
-	title = kmt.89.t
-	desc = kmt.89.d
-	picture = GFX_report_event_stalin_propaganda
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = {
-		name = kmt.89.a
-	}
-}
-
-#invite sik
-country_event = {
-	id = kmt.90
-	title = kmt.90.t
-	desc = kmt.90.d
-	picture = GFX_report_event_generic_read_write
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = {
-		name = kmt.90.a
-		CHI = {
-			country_event = { id = kmt.91 }
-			add_to_faction = SIK
-		}
-	}
-
-	option = {
-		name = kmt.90.b
-		CHI = { country_event = { id = kmt.92 days = 2 }}
-	}
-}
-
-#sik joined
-country_event = {
-	id = kmt.91
-	title = kmt.91.t
-	desc = kmt.91.d
-	picture = GFX_report_event_generic_sign_treaty1
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = {
-		name = kmt.91.a
-	}
-}
-
-#sik refused
-country_event = {
-	id = kmt.92
-	title = kmt.92.t
-	desc = kmt.92.d
-	picture = GFX_report_event_generic_sign_treaty1
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-
-	option = {
-		name = kmt.92.a
 	}
 }
 
@@ -3186,7 +2925,10 @@ country_event = {
 		text = kmt.100.t
 		trigger = {
 			CHI = {
-				has_government = neutrality
+				NOT = {
+					has_government = communism
+				}
+				#has_government = neutrality
 			}
 		}
 	}
@@ -6371,28 +6113,6 @@ country_event = {
 				value = 250
 			}
 			news_event = { id = kns.6 hours = 3 }
-			if = {
-				limit = {
-					JAP = {
-						has_idea = JAP_kodoha_idea
-					}
-				}
-				JAP = {
-					remove_country_leader_trait = JAP_kodoha_trait
-					add_country_leader_trait = JAP_kodoha_trait_chi_ally
-				}
-			}
-			if = {
-				limit = {
-					JAP = {
-						has_idea = JAP_toseiha_idea
-					}
-				}
-				JAP = {
-					remove_country_leader_trait = JAP_toseiha_trait
-					add_country_leader_trait = JAP_toseiha_trait_chi_ally
-				}
-			}
 			#PRC = {
 			#	country_event = { id = chi_jap.1 hours = 5 }
 			#}
@@ -6706,10 +6426,6 @@ country_event = {
 
 	option = {
 		name = kmt.226.a
-		add_opinion_modifier = {
-			target = FROM
-			modifier = selfish
-		}
 	}
 }
 
@@ -7449,20 +7165,42 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {				#made this immediate, otherwise if event is held, can softlock in bad/good economy law
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea = KMT_corrupted_government_wartime_lesser
+				}
+				swap_ideas = {
+					remove_idea = KMT_corrupted_government_wartime_lesser
+					add_idea = KMT_corrupted_government_lesser
+				}
+				else = {
+					swap_ideas = {
+						remove_idea = KMT_corrupted_government_wartime
+						add_idea = KMT_corrupted_government
+					}
+				}
+			}
+		}
+	}
+
 	option = {
 		name = kmt.272.a
-		if = {
-			limit = {
-				has_idea = KMT_corrupted_government_wartime_lesser
-			}
-			swap_ideas = {
-				remove_idea = KMT_corrupted_government_wartime_lesser
-				add_idea = KMT_corrupted_government_lesser
-			}
-			else = {
+		effect_tooltip = {
+			if = {
+				limit = {
+					has_idea = KMT_corrupted_government_wartime_lesser
+				}
 				swap_ideas = {
-					remove_idea = KMT_corrupted_government_wartime
-					add_idea = KMT_corrupted_government
+					remove_idea = KMT_corrupted_government_wartime_lesser
+					add_idea = KMT_corrupted_government_lesser
+				}
+				else = {
+					swap_ideas = {
+						remove_idea = KMT_corrupted_government_wartime
+						add_idea = KMT_corrupted_government
+					}
 				}
 			}
 		}
@@ -7479,16 +7217,16 @@ country_event = {
 
 	is_triggered_only = yes
 
-	#option = {
-	#	name = kmt.275.a
-	#	ai_chance = {
-	#		factor = 90
-	#	}
-	#	create_wargoal = {
-	#		target = MAN
-	#		type = annex_everything
-	#	}
-	#}
+	option = {
+		name = kmt.275.a
+		ai_chance = {
+			factor = 90
+		}
+		create_wargoal = {
+			target = MAN
+			type = annex_everything
+		}
+	}
 
 	option = {
 		name = kmt.275.b
@@ -7588,66 +7326,42 @@ country_event = {
 	option = {
 		name = kmt.279.a
 		ai_chance = {
-			factor = 90
+			factor = 50
 		}
-		add_political_power = 300
+		
 		if = {
 			limit = {
 				NOT = {
 					has_government = democratic
 				}
 			}
-			if = {
-				limit = {
-					NOT = {
-						has_completed_focus = KMT_implement_parliamentary_system
-					}
-					any_state = {
-						is_core_of = ROOT
-						NOT = {
-							is_owned_by = ROOT
-						}
-					}
-					OR = {
-						has_idea = KMT_corrupted_government
-						has_idea = KMT_corrupted_government_lesser
-						has_idea = KMT_corrupted_government_wartime
-						has_idea = KMT_corrupted_government_wartime_lesser
-					}
-				}
-				add_stability = -0.05
-			}
 			add_popularity = {
 				ideology = democratic
-				popularity = 0.75
+				popularity = 0.50
 			}
 			set_politics = {
 				ruling_party = democratic
-			}
-			else = {
-				if = {
-					limit = {
-						NOT = {
-							has_completed_focus = KMT_implement_parliamentary_system
-						}
-						any_state = {
-							is_core_of = ROOT
-							NOT = {
-								is_owned_by = ROOT
-							}
-						}
-						OR = {
-							has_idea = KMT_corrupted_government
-							has_idea = KMT_corrupted_government_lesser
-							has_idea = KMT_corrupted_government_wartime
-							has_idea = KMT_corrupted_government_wartime_lesser
-						}
-					}
-					add_stability = -0.1
-				}
+				elections_allowed = yes
+				election_frequency = 48
 			}
 		}
-		set_party_name = { ideology = democratic long_name = KMT_kmt_party_name name = KMT_kmt_party_name }
+		if = {
+			limit = {
+				OR = {
+					has_idea = KMT_corrupted_government
+					has_idea = KMT_corrupted_government_lesser
+					has_idea = KMT_corrupted_government_wartime
+					has_idea = KMT_corrupted_government_wartime_lesser
+				}
+			}
+			add_stability = -0.05
+			add_political_power = -50
+		}
+		set_party_name = { 
+			ideology = democratic 
+			long_name = KMT_kmt_party_name 
+			name = KMT_kmt_party_name 
+		}
 		CHI_chiang_kai_shek = {
 			remove_country_leader_role = {
 				ideology = the_peoples_tutelage
@@ -7666,10 +7380,10 @@ country_event = {
 		set_country_flag = KMT_party_chosen
 	}
 
-	option = {
+	option = { #fucking brit told me this shit was removed. this is what i get for trusting r56 devs i guess.
 		name = kmt.279.b
 		ai_chance = {
-			factor = 10
+			factor = 50
 		}
 		if = {
 			limit = {
@@ -7683,6 +7397,8 @@ country_event = {
 			}
 			set_politics = {
 				ruling_party = democratic
+				elections_allowed = yes
+				election_frequency = 48
 			}
 		}
 		if = {
@@ -7690,18 +7406,12 @@ country_event = {
 				OR = {
 					has_idea = KMT_corrupted_government
 					has_idea = KMT_corrupted_government_lesser
-				}
-			}
-			add_ideas = civilian_economy
-		}
-		if = {
-			limit = {
-				OR = {
 					has_idea = KMT_corrupted_government_wartime
 					has_idea = KMT_corrupted_government_wartime_lesser
 				}
 			}
-			add_ideas = partial_economic_mobilisation
+			add_stability = 0.05
+			add_political_power = 75
 		}
 		set_country_flag = KMT_party_chosen
 	}
@@ -7726,7 +7436,7 @@ country_event = {
 
 	option = {
 		name = kmt.286.b
-		add_political_power = -150
+		add_political_power = -100
 		set_party_name = { ideology = fascism long_name = CKS_regime name = CKS_regime}
 		add_country_leader_role = {
 			character = CHI_chiang_kai_shek
@@ -8238,18 +7948,10 @@ country_event = {
 	id = kmt.299
 	title = kmt.299.t
 	desc = kmt.299.d
-
 	picture = GFX_report_event_dead_soldiers
 
-	trigger = {
-		tag = event_target:KMT_central_gov_tag
-		date > 1936.2.25
-		date < 1938.1.1
-	}
-
+	is_triggered_only = yes
 	fire_only_once = yes
-
-	mean_time_to_happen = { days = 10 }
 
 	option = {
 		name = kmt.299.a
@@ -8501,82 +8203,6 @@ country_event = {
 	}
 }
 
-
-#country_event = {
-#	id = kmt.329
-#	title = kmt.300.t
-#	desc = kmt.300.d
-#
-#	picture = GFX_report_event_chinese_soldiers_fighting
-#
-#	is_triggered_only = yes
-#
-#	immediate = {
-#		hidden_effect = {
-#			annex_country = {
-#				target = FROM
-#				transfer_troops = yes
-#			}
-#			if = {
-#				limit = {
-#					JAP = {
-#						divisions_in_state = {
-#							state = 614
-#							size < 5
-#						}
-#					}
-#				}
-#				CHI = {
-#					transfer_state = 614
-#				}
-#			}
-#			if = {
-#				limit = {
-#					MEN = {
-#						is_puppet_of = JAP
-#					}
-#				}
-#				MEN = {
-#					transfer_state = 611
-#				}
-#			}
-#		}
-#	}
-#
-#	option = {
-#		name = kmt.300.a
-#		effect_tooltip = {
-#			annex_country = {
-#				target = FROM
-#				transfer_troops = yes
-#			}
-#			if = {
-#				limit = {
-#					JAP = {
-#						divisions_in_state = {
-#							state = 614
-#							size < 3
-#						}
-#					}
-#				}
-#				CHI = {
-#					transfer_state = 614
-#				}
-#			}
-#			if = {
-#				limit = {
-#					MEN = {
-#						is_puppet_of = JAP
-#					}
-#				}
-#				MEN = {
-#					transfer_state = 611
-#				}
-#			}
-#		}
-#	}
-#}
-
 #remove german assist
 country_event = {
 	id = kmt.330
@@ -8657,10 +8283,10 @@ country_event = {
 	option = {
 		name = kmt.332.a
 		add_opinion_modifier = {
-			target = CHI
+			target = FROM
 			modifier = more_sino_german_coop
 		}
-		CHI = {
+		FROM = {
 			add_opinion_modifier = {
 				target = GER
 				modifier = more_sino_german_coop
@@ -8686,7 +8312,7 @@ country_event = {
 
 	option = {
 		name = kmt.332.b
-		CHI = {
+		FROM = {
 			country_event = {
 				id = kmt.334
 			}
@@ -8709,7 +8335,7 @@ country_event = {
 		effect_tooltip = {
 			GER = {
 				add_opinion_modifier = {
-					target = CHI
+					target = ROOT
 					modifier = more_sino_german_coop
 				}
 			}
@@ -8914,14 +8540,6 @@ country_event = {
 				remove_from_faction = ROOT
 			}
 		}
-		if = {
-			limit = {
-				has_war_together_with = CHI
-			}
-			hidden_effect = {
-				country_event = { id = wd.1 }
-			}
-		}
 		declare_war_on = {
 			target = CHI
 			type = annex_everything
@@ -9036,14 +8654,6 @@ country_event = {
 			army_experience = 1
 			else = {
 				FROM = {
-					hidden_effect = {
-						if = {
-							limit = {
-								has_war_together_with = ROOT
-							}
-							country_event = { id = wd.1 }
-						}
-					}
 					declare_war_on = {
 						target = ROOT
 						type = annex_everything
@@ -9057,16 +8667,6 @@ country_event = {
 					}
 				}
 				remove_from_faction = FROM
-				FROM = {
-					hidden_effect = {
-						if = {
-							limit = {
-								has_war_together_with = ROOT
-							}
-							country_event = { id = wd.1 }
-						}
-					}
-				}
 				declare_war_on = {
 					target = FROM
 					type = annex_everything
@@ -9128,16 +8728,6 @@ country_event = {
 				limit = {
 					NOT = {
 						has_war_with = FROM
-					}
-				}
-				FROM = {
-					hidden_effect = {
-						if = {
-							limit = {
-								has_war_together_with = ROOT
-							}
-							country_event = { id = wd.1 }
-						}
 					}
 				}
 				declare_war_on = {
@@ -9282,14 +8872,6 @@ country_event = {
 				remove_from_faction = ROOT
 			}
 		}
-		if = {
-			limit = {
-				has_war_together_with = FROM
-			}
-			hidden_effect = {
-				country_event = { id = wd.1 }
-			}
-		}
 		declare_war_on = {
 			target = FROM
 			type = annex_everything
@@ -9431,7 +9013,7 @@ country_event = {
 		has_global_flag = PRC_restart_chinese_civil_war
 	}
 
-	mean_time_to_happen = { days = 0 }
+	mean_time_to_happen = { days = 10 }
 
 	option = {
 		ai_chance = {

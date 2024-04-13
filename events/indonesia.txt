@@ -34,7 +34,7 @@ country_event = {
 	id = indonesia.2
 	title = indonesia.2.t
 	desc = indonesia.2.desc
-	picture = GFX_report_degaulle_churchill
+	picture = GFX_report_event_degaulle_churchill
 	
 	is_triggered_only = yes
 
@@ -110,7 +110,6 @@ country_event = {
 				limit = { has_id = 900 }
 				set_nationality = INS	
 			}
-			set_country_flag = helfrich_transferred_indonesia
 			transfer_ship = {
 				prefer_name = "HrMs Java"
 				type = light_cruiser
@@ -132,14 +131,13 @@ country_event = {
 				target = INS
 			}
 		}
-		#set_country_flag = helfrich_transferred_indonesia
-		# if = { 
-		# 	limit = { 
-		# 		HOL = { has_idea = advisor_helfrich}
-		# 	} 
-		# 	add_ideas = krap 
-		# 	else = { add_ideas = advisor_helfrich }
-		# }
+		#if = { 
+			#limit = { 
+			#	HOL = { has_idea = advisor_helfrich} #wasnt available there even before NSB
+			#} 
+			# add_ideas = krap 
+			#else = { add_ideas = advisor_helfrich } #if you think it is desirable, use the new nationality change command, but this guy is pretty good, idk if the Dutch would like to lose him
+		#}
 	}
 }
 
@@ -171,10 +169,10 @@ news_event = {
 		name = indonesia.7.a
 		trigger = {
 			NOT = {
-				OR = { tag = INS
-					   tag = JAP
-					   tag = HOL }	
-									}
+				tag = INS
+				tag = JAP
+				tag = HOL
+			} 
 		} 
 	}
     option = { 
@@ -236,27 +234,28 @@ country_event = {
 
 	option = { #cool
 		name = indonesia.9.a
-
-		HOL = {  
-			if = { 
-				limit = { has_dlc = "Together for Victory" } 
-					
-				set_autonomy = { target = INS autonomous_state = autonomy_colony }
-														}
-													}
-		INS = { if = { 
-					limit = {
-						has_dlc = "Together for Victory"
-						}
-					
-						add_autonomy_ratio = {
-							value = 0.5
-							localization = INS_limited_autonomy_reforms
-						}
-					}
-
+		if = {
+			limit = { has_dlc = "Together for Victory" }
+			if = {	#starts out like this from game start
+				limit = {
+					has_autonomy_state = autonomy_integrated_puppet
 				}
+				overlord = {
+					set_autonomy = {
+						target = INS
+						autonomous_state = autonomy_colony
+						freedom_level = 0.75
+					}
+				}
+			}
+			else = {	#in case autonomy is progressed or someone else puppets the east indies
+				add_autonomy_score = {
+					value = 1000
+					localization = INS_limited_autonomy
+				}
+			}
 		}
+	}
 }
 
 #indonesia democratic autonomy
@@ -1476,7 +1475,6 @@ country_event = {
 		retire_ideology_leader = neutrality
 		create_country_leader = {
 			name = "A. T. van Starkenborgh Stachouwer"
-			desc = ""
 			picture = "GFX_portrait_indonesia_at_van_starkenborgh"
 			expire = "1953.3.1"
 			ideology = despotism
@@ -1558,17 +1556,12 @@ country_event = {
 					}
 		create_country_leader = {
 			name = "Sutan Sjahrir"
-			desc = ""
 			picture = "gfx/leaders/INS/r56_portrait_INS_Sutan_Sjahrir.dds"
 			expire = "1966.4.9"
 			ideology = socialism
-			traits = {
-		
-				}
 			}
 		create_country_leader = {
 			name = "Hasjim Asy'ari"
-			desc = ""
 			picture = "gfx/leaders/INS/r56_portrait_INS_Hasyim_Asyari.dds"
 			expire = "1965.1.1"
 			ideology = centrism
@@ -1592,7 +1585,6 @@ country_event = {
 		retire_ideology_leader = democratic
 		create_country_leader = {
 			name = "Hasjim Asy'ari"
-			desc = ""
 			picture = "gfx/leaders/INS/r56_portrait_INS_Hasyim_Asyari.dds"
 			expire = "1965.1.1"
 			ideology = centrism
@@ -1616,13 +1608,9 @@ country_event = {
 		retire_ideology_leader = neutrality
 		create_country_leader = {
 			name = "Hamengkubuwono VIII"
-			desc = ""
 			picture = "gfx/leaders/r56_generic/r56_portrait_generic_politician_asia_1_fascism.dds"
 			expire = "1970.6.6"
 			ideology = absolute_monarchism
-			traits = {
-
-				}
 			}
 		}
 	
@@ -1639,7 +1627,6 @@ country_event = {
 		retire_ideology_leader = neutrality
 		create_country_leader = {
 			name = "Sukarno"
-			desc = ""
 			picture = "gfx/leaders/INS/r56_portrait_INS_Sukarno.dds"
 			expire = "1970.6.6"
 			ideology = marhaenism
@@ -1648,7 +1635,5 @@ country_event = {
 				}
 			}
 		}
-	}		
-
-
+	}
 

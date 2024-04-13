@@ -97,9 +97,12 @@ scripted_gui = {
 						if={limit={check_variable={Root.selected_cheat=4}} add_offsite_building = { type = industrial_complex level = -1 }}
 						if={limit={check_variable={Root.selected_cheat=5}} add_political_power = 50 }
 						if={limit={check_variable={Root.selected_cheat=6}} add_political_power = -50 }
+						if={limit={check_variable={Root.selected_cheat=7}} army_experience = 50 }
+						if={limit={check_variable={Root.selected_cheat=8}} air_experience = 50 }
+						if={limit={check_variable={Root.selected_cheat=9}} navy_experience = 50 }
+						if={limit={check_variable={Root.selected_cheat=10}} add_timed_idea = { idea = hosttool_efficency days = 10 }}
 						}}
 				GER={
-
 					set_variable={this.target_country=Root.target_country}
 					set_variable={this.selected_cheat=Root.selected_cheat}
 					news_event={id=hosttool.1}}
@@ -127,6 +130,40 @@ scripted_gui = {
 					}
 				}
 			}
+			remove_cores_click = {
+				owner={
+					set_temp_variable = { ROOT.taker = this}
+					for_each_loop={
+						array=ROOT.host_marked_states
+						value=state
+						var:state={remove_core_of=var:taker}
+					}
+					GER = {
+						news_event={id=hosttool.8}
+					}
+					ROOT = {
+						for_each_scope_loop={
+							array=host_marked_states
+							clear_variable=host_mark_status
+						}
+						clear_array=host_marked_states
+						clear_variable=first_marked_state
+					}
+				}
+			}
+
+			transfer_hostool_click = {
+				GER = {
+					news_event={id=hosttool.9}
+				}
+				ROOT = {
+					clr_country_flag = host
+				}
+				owner = {
+					set_country_flag = host
+				}
+			}
+
 			annex_country_click = {
 
 				owner={
@@ -143,7 +180,7 @@ scripted_gui = {
 							}
 							annex_country={
 								target=PREV
-								transfer_troops=yes
+								transfer_troops=no
 								}}}}	
 
 				ROOT = {
@@ -211,6 +248,10 @@ scripted_gui = {
 			cheat4_click={set_variable={Root.selected_cheat=4} ROOT={clr_country_flag=cheating}}
 			cheat5_click={set_variable={Root.selected_cheat=5} ROOT={clr_country_flag=cheating}}
 			cheat6_click={set_variable={Root.selected_cheat=6} ROOT={clr_country_flag=cheating}}
+			cheat7_click={set_variable={Root.selected_cheat=7} ROOT={clr_country_flag=cheating}}
+			cheat8_click={set_variable={Root.selected_cheat=8} ROOT={clr_country_flag=cheating}}
+			cheat9_click={set_variable={Root.selected_cheat=9} ROOT={clr_country_flag=cheating}}
+			cheat10_click={set_variable={Root.selected_cheat=10} ROOT={clr_country_flag=cheating}}
 		}
 		properties = {
 
@@ -230,6 +271,11 @@ scripted_gui = {
 					is_subject = yes
 				}
 			}
+			transfer_hostool_click_enabled = {
+				owner = {
+					is_ai = no
+				}
+			}
 
 
 			add_cheat_click_enabled = {check_variable={Root.selected_cheat>0}}
@@ -240,11 +286,19 @@ scripted_gui = {
 			cheat4_visible={ROOT={has_country_flag=cheating}}
 			cheat5_visible={ROOT={has_country_flag=cheating}}
 			cheat6_visible={ROOT={has_country_flag=cheating}}
+			cheat7_visible={ROOT={has_country_flag=cheating}}
+			cheat8_visible={ROOT={has_country_flag=cheating}}
+			cheat9_visible={ROOT={has_country_flag=cheating}}
+			cheat10_visible={ROOT={has_country_flag=cheating}}
 			cheat2_text_visible={ROOT={has_country_flag=cheating}}
 			cheat3_text_visible={ROOT={has_country_flag=cheating}}
 			cheat4_text_visible={ROOT={has_country_flag=cheating}}
 			cheat5_text_visible={ROOT={has_country_flag=cheating}}
 			cheat6_text_visible={ROOT={has_country_flag=cheating}}
+			cheat7_text_visible={ROOT={has_country_flag=cheating}}
+			cheat8_text_visible={ROOT={has_country_flag=cheating}}
+			cheat9_text_visible={ROOT={has_country_flag=cheating}}
+			cheat10_text_visible={ROOT={has_country_flag=cheating}}
 			clear_all_markings_click_enabled = {
 				check_variable = { ROOT.host_marked_states^num > 0 }
 			}
@@ -260,7 +314,9 @@ scripted_gui = {
 			add_cores_click_enabled = {
 				check_variable = { ROOT.host_marked_states^num > 0 }
 			}
-
+			remove_cores_click_enabled = {
+				check_variable = { ROOT.host_marked_states^num > 0 }
+			}
 		}
 
 	}

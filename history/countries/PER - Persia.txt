@@ -5,7 +5,7 @@ oob = "PER_1936"
 set_convoys = 30
 set_stability = 0.65
 set_war_support = 0.3
-set_research_slots = 4
+set_research_slots = 3
 
 add_ideas = {
 	PER_anglo_iranian_oil_company
@@ -13,25 +13,43 @@ add_ideas = {
 	limited_conscription
 }
 
+#### CHARACTERS ####
+
+# recruit political leaders #
+
 recruit_character = PER_reza_shah_pahlavi
+recruit_character = PER_mohammad_shah_pahlavi
+recruit_character = PER_mohammad_mosaddegh
+recruit_character = PER_mohammad_ali_foroughi
+recruit_character = PER_davud_monshizadeh
+recruit_character = PER_Hassan_Modarres
+recruit_character = PER_soleiman_mirza_eskandari
+
+# recruit unit leaders #
+
 recruit_character = PER_hasan_arfa
 recruit_character = PER_Gholamali_Bayandor
 recruit_character = PER_Abdollah_Zelli
-recruit_character = PER_Mohammad_Hossein_Firooz
-recruit_character = PER_Ahmad_Khosravani
-recruit_character = PER_Mohammad_Nakhjavan
-recruit_character = PER_Mahmoud_Afshartous
-recruit_character = PER_mohammad_reza_pahlavi
-#recruit_character = PER_hassan_majid_firooz - not defined
-recruit_character = PER_mohammad_ali_foroughi
-recruit_character = PER_mohammad_mosaddegh
-recruit_character = PER_iraj_eskandari
-recruit_character = PER_davud_monshizadeh
 recruit_character = PER_karim_agha_khan_buzarjomehri
 recruit_character = PER_amanullah_jahanbani
 recruit_character = PER_ahmad_amirahmadi
 recruit_character = PER_feridum_jam
+recruit_character = PER_Mohammad_Hosayn_Ayrom
+recruit_character = PER_Ahmad_Khan_Nakhjavan
+#recruit_character = PER_Azizollah_Zarghami	#does not appear as unit leader (at start at least), also duplicate with later entry
+recruit_character = PER_Fazlollah_Zahedi
+recruit_character = PER_haj_ali_razmara
+recruit_character = PER_assadollah_hosseinpour
+
+# recruit military advisors #
+
+recruit_character = PER_Mohammad_Hossein_Firooz
+recruit_character = PER_Ahmad_Khosravani
+recruit_character = PER_Mohammad_Nakhjavan
+recruit_character = PER_Mahmoud_Afshartous
 recruit_character = PER_Mir_Mohammad_Mohanna
+recruit_character = PER_azizollah_zarghami
+# recruit civilian advisors #
 
 recruit_character = PER_Hassan_Taqizadeh
 recruit_character = PER_Ja_Far_Pishevari
@@ -42,15 +60,10 @@ recruit_character = PER_Ahmad_Qavam
 recruit_character = PER_Mohsen_Sadr
 recruit_character = PER_Mohammad_Tadayyon
 
-if = {
-	limit = { has_dlc = "Man the Guns" }
-		set_naval_oob = "PER_1936_naval_mtg"
-	else = {
-		set_naval_oob = "PER_1936_naval_legacy"
-	}
-}
-
 add_offsite_building = { type = industrial_complex level = 1 } #oil payment
+
+country_event = { id = r56_persia.1 days = 3086 }		#Mohammed Shah dies of natural causes-> son succeeds
+
 if = {
 	limit = {
 		has_dlc = "Battle for the Bosporus"
@@ -58,52 +71,31 @@ if = {
 	set_technology = { camelry = 1 }
 	load_oob = camel_template
 }
+
 # Starting tech
 set_technology = {
-	
-	# Extended Technologies
 	etax_doctrine = 1
 	camo = 1
-	
-	
+
 	infantry_weapons = 1
 	infantry_weapons1 = 1
+	tech_support = 1
 	tech_mountaineers = 1
 	gw_artillery = 1
+	tech_military_police = 1
 
 }
-if = {
-	limit = { has_dlc = "By Blood Alone" }
-		set_technology = {
-			aa_lmg = 1
-			engines_1 = 1
-			engines_2 = 1
-			early_bombs = 1
-			aircraft_construction = 1
-			iw_small_airframe = 1
-			iw_medium_airframe = 1
-			basic_small_airframe = 1
-		}
-	else = {
-		set_technology = {
-	
-	early_fighter = 1
-	CAS1 = 1
-	early_bomber = 1
-		
 
-
-		}
-	}
-}
 if = {
 	limit = {
 		has_dlc = "La Resistance"
+		PER = { is_ai = no }
 	}
 	set_technology = {
 		armored_car1 = 1
 	}
 }
+
 if = {
 	limit = { not = { has_dlc = "Man the Guns" } }
 	set_technology = {
@@ -116,7 +108,6 @@ if = {
 	set_technology = {
 		early_ship_hull_light = 1
 		basic_battery = 1
-		coastal_defense_ships = 1
 	}
 }
 if = {
@@ -136,36 +127,20 @@ if = {
 	}
 }
 
-set_politics = {
-	ruling_party = neutrality
-	last_election = "1936.1.1"
-	election_frequency = 48
-	elections_allowed = no
-}
-set_popularities = {
-	democratic = 9
-	fascism = 4
-	communism = 9
-	neutrality = 78
-}
-
-set_party_name = { 
-    ideology = democratic 
-    long_name = "Hezb-E Tajaddod" 
-    name = "Hezb-E Tajaddod"
-}
-
-set_party_name = { 
-    ideology = fascism
-    long_name = "Hezb-E Kabud" 
-    name = "Hezb-E Kabud" 
+if = {
+	limit = { has_dlc = "Man the Guns" }
+		set_naval_oob = "PER_1936_naval_mtg"
+	else = {
+		set_naval_oob = "PER_1936_naval_legacy"
+	}
 }
 
 if = {
 	limit = { has_dlc = "Man the Guns" }
 	# Destroyers #
 	create_equipment_variant = {
-		name = "Babr Class"					
+		name = "Babr Class"
+		name_group = PER_SHIP_NAMES_ANIMALS_IMPERIAL			
 		type = ship_hull_light_1
 		parent_version = 0
 		modules = {
@@ -179,4 +154,75 @@ if = {
 			rear_1_custom_slot = empty
 		}
 	}
+}
+
+if = {
+	limit = { has_dlc = "By Blood Alone" }
+	set_air_oob = "PER_1936_air_bba"
+	set_technology = {
+		aa_lmg = 1
+		engines_1 = 1
+		early_bombs = 1
+		iw_small_airframe = 1
+	}
+	else = {
+		set_air_oob = "PER_1936_air_legacy"
+		set_technology = {
+			early_fighter = 1
+			CAS1 = 1
+		}
+	}
+}
+
+if = {
+	limit = {
+		has_dlc = "By Blood Alone"
+	}
+	create_equipment_variant = {
+		name = "DH.82 Tiger Moth" 
+		type = small_plane_airframe_0
+		modules = {
+			fixed_main_weapon_slot = light_mg_2x
+			engine_type_slot = engine_1_1x
+			special_type_slot_1 = empty
+		}
+		obsolete = yes
+	}
+}
+
+set_politics = {
+	ruling_party = neutrality
+	last_election = "1936.1.1"
+	election_frequency = 48
+	elections_allowed = no
+}
+set_popularities = {
+	democratic = 6
+	fascism = 10
+	communism = 4
+	neutrality = 80
+}
+
+set_party_name = { 
+    ideology = democratic 
+    long_name = "Hezb-e Tajaddod" 
+    name = "Hezb-e Tajaddod"
+}
+
+set_party_name = { 
+    ideology = neutrality
+    long_name = "Dudmân-e Pahlavi"
+    name = "Dudmân-e Pahlavi"
+}
+
+set_party_name = { 
+    ideology = communism
+    long_name = "Hezb-e Komūnīst-e Iran" 
+    name = "H.K.P."
+}
+
+set_party_name = { 
+    ideology = fascism
+    long_name = "Hezb-e Taraqqi" 
+    name = "Hezb-e Taraqqi" 
 }

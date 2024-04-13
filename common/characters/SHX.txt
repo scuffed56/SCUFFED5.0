@@ -1,3 +1,7 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 characters={
 	SHX_yan_xishan={
 		name=SHX_yan_xishan
@@ -13,8 +17,11 @@ characters={
 		advisor={
 			slot = army_chief
 			idea_token = SHX_yan_xishan
-			allowed = {
-				original_tag = SHX
+			#allowed = {
+			#	original_tag = SHX
+			#}
+			available = {
+				not_already_hired_except_as = army_chief
 			}
 			traits = {
 				army_chief_morale_2
@@ -22,6 +29,53 @@ characters={
 			cost = 100
 			ai_will_do = {
 				factor = 1.000
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = SHX_yan_xishan_advisor
+			#allowed = {
+			#	original_tag = SHX
+			#}
+			available = {
+				is_country_leader = no
+				not_already_hired_except_as = political_advisor
+			}
+			visible = {
+			}  
+            on_add = {
+				if = {
+					limit = {
+						owner = {
+							tag = CHI
+						}
+					}
+					owner = {
+						add_stability = -0.05
+					}
+					
+				}
+            }
+            on_remove = {
+				if = {
+					limit = {
+						owner = {
+							tag = CHI
+						}
+					}
+					owner = {
+						add_stability = 0.05
+					}
+				}
+            }
+			cost = 75
+			
+			ai_will_do = {
+				factor = 1
+			}
+	
+			traits = { 
+				yan_xishan_thought
 			}
 		}
 		field_marshal = {
@@ -73,7 +127,7 @@ characters={
 			}
 				cost = 100
 			ai_will_do = {
-				factor = 1000
+				factor = 1.000
 			}
 		}		
 		corps_commander={
@@ -315,7 +369,7 @@ characters={
 			}
 			cost = 100
 			ai_will_do = {
-				factor = 999999
+				factor = 1.000
 			}
 		}
 		advisor={

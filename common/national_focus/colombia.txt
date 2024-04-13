@@ -27,16 +27,14 @@
 		x = 1
 		y = 0
 		cost = 10
-		available = {
-			COL = { controls_state = 306 }
-		}
 		completion_reward = {
-			army_experience = 25
-			306 = {
-				add_extra_state_shared_building_slots = 2
+			army_experience = 5
+			random_owned_controlled_state = {
+				prioritize = { 306 }
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 			}
@@ -54,11 +52,11 @@
 		prerequisite = { focus = COL_army_production }
 		x = 0
 		y = 1
-		cost = 5
+		cost = 10
 		completion_reward = {
 			add_tech_bonus = {
 				name = infantry_weapons_bonus
-				bonus = 1
+				bonus = 0.75
 				uses = 2
 				category = infantry_weapons
 			}
@@ -72,12 +70,12 @@
 		prerequisite = { focus = COL_equipment_effort }
 		x = 0
 		y = 2
-		cost = 5
+		cost = 10
 		completion_reward = {
 			add_tech_bonus = {
 				name = infantry_artillery_bonus
 				bonus = 1				
-				uses = 2				
+				uses = 1				
 				category = artillery
 			}
 		}
@@ -91,7 +89,7 @@
 		prerequisite = { focus = COL_equipment_effort_2 }
 		x = 0
 		y = 3
-		cost = 5
+		cost = 10
 		completion_reward = {
 			add_tech_bonus = {
 				name = infantry_artillery_bonus
@@ -119,12 +117,11 @@
 		bypass = { has_tech = motorised_infantry }
 		x = 2
 		y = 1
-		cost = 5
+		cost = 10
 		completion_reward = {
 			add_tech_bonus = {
 				name = motorized_bonus
 				bonus = 1
-				uses = 2
 				technology = motorised_infantry
 			}
 		}
@@ -144,7 +141,7 @@
 			add_tech_bonus = {
 				name = armor_bonus
 				bonus = 1				
-				uses = 2
+				uses = 1
 				category = cat_light_armor
 			}
 		}
@@ -208,11 +205,11 @@
 		y = 0
 		cost = 10
 		completion_reward = {
-			army_experience = 25
+			army_experience = 10
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = land_doctrine
 			}
 		}
@@ -229,13 +226,13 @@
 		prerequisite = { focus = COL_war_with_peru_experience }
 		x = 4
 		y = 1
-		cost = 5
+		cost = 10
 		completion_reward = {
-			army_experience = 25
+			army_experience = 5
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = land_doctrine
 			}
 
@@ -252,13 +249,13 @@
 		prerequisite = { focus = COL_doctrine_effort }
 		x = 4
 		y = 3
-		cost = 5
+		cost = 10
 		completion_reward = {
-			army_experience = 25
+			army_experience = 5
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = land_doctrine
 			}
 		}
@@ -277,7 +274,7 @@
 		y = 1
 		cost = 10
 		completion_reward = {
-			army_experience = 25
+			army_experience = 5
 			add_tech_bonus = {
 				name = infantry_artillery_bonus
 				bonus = 1
@@ -296,10 +293,6 @@
                 uses = 1
                 category = r56_special_forces_training_tech 
             }
-			hidden_effect = {
-			#	set_technology = { adapte_montana = 1 }
-			}
-			custom_effect_tooltip = COL_adapte_montana	
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = {
@@ -321,7 +314,7 @@
 		y = 2
 		cost = 10
 		completion_reward = {
-			army_experience = 25	
+			army_experience = 5	
 			
 			hidden_effect = {
 				division_template = { 
@@ -359,10 +352,6 @@
 				category = hospital_tech			
 			}
 			custom_effect_tooltip = COL_montana_oob
-			hidden_effect = {
-			#	set_technology = { awaite = 1 }
-			}
-			custom_effect_tooltip = COL_awaite_tech
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER }
 	}
@@ -373,7 +362,7 @@
 		prerequisite = { focus = COL_awaite }
 		prerequisite = { focus = COL_explore_amazonia }
 		available = {
-						
+			has_tech = tech_field_hospital			
 		}
 	
 		x = 6
@@ -412,20 +401,13 @@
 						owner = ROOT
 					}
 				}
-				create_corps_commander = { 
-					name = "Gullermo Padilla Manrique" #real
-					portrait_path = "gfx/leaders/COL/Portrait_Guillermo_Padilla_Manrique.dds"
-					traits = { jungle_rat }
-					skill = 2
-					attack_skill = 2
-					defense_skill = 1
-					planning_skill = 2
-					logistics_skill = 2	
-				}
 			}
 			add_ideas = COL_yarumos_idea #colombia ideas
 			country_event = { id = colombia.1 }
-	
+
+			custom_effect_tooltip = RAJ_jungle_training_effect
+			hidden_effect = { set_technology = { jungle_warfare = 1 } }
+
 			add_tech_bonus = {
                 name = special_forces_bonus
 				bonus = 1
@@ -433,13 +415,6 @@
 				category = support_tech
 				category = r56_jungle_infantry_tech
 			}
-			hidden_effect = {
-				#set_technology = { junglares = 1 }
-				set_technology = { jungle_warfare = 1 }
-			}
-			custom_effect_tooltip = COL_junglares
-				
-			
 		}
 		search_filters = { FOCUS_FILTER_MILITARY_IMPROVEMENT FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER }
 	}
@@ -502,11 +477,11 @@
 		icon = GFX_goal_excavation
 		x = 10
 		y = 0
-		cost = 5
+		cost = 10
 		completion_reward = {
 			add_tech_bonus = {
 				name = industrial_bonus
-				bonus = 1
+				bonus = 0.5
 				uses = 1
 				category = industry
 			}
@@ -530,13 +505,15 @@
 		prerequisite = { focus = COL_industrial_effort }
 		x = 10
 		y = 1
-		cost = 5
+		cost = 10
 		completion_reward = {
-			493 = {
-				add_extra_state_shared_building_slots = 2				
+			remove_ideas = HON_banana_republic
+			random_owned_controlled_state = {
+				prioritize = { 493 }
+				add_extra_state_shared_building_slots = 1				
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 			}
@@ -681,9 +658,9 @@
 	
 		available = {
 		COL = { controls_state = 306 }
-		306 = {
-			infrastructure > 3}
-			
+			306 = {
+				infrastructure > 3
+			}
 		}
 	
 		completion_reward = {
@@ -762,7 +739,7 @@
 		prerequisite = { focus = COL_infrastructure_caribe }
 		x = 14
 		y = 3
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 1
@@ -882,7 +859,7 @@
 			306 = {
 				add_building_construction = {
 					type = anti_air_building
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 			}
@@ -905,7 +882,7 @@
 		prerequisite = { focus = COL_war_with_peru_experience }
 		x = 8
 		y = 1
-		cost = 5
+		cost = 10
 
 		ai_will_do = {
 			factor = 2
@@ -915,7 +892,7 @@
 			add_tech_bonus = {
 				name = industrial_bonus			
 				bonus = 1
-				uses = 2
+				uses = 1
 				category = industry
 			}
 		}
@@ -966,14 +943,6 @@
 			factor = 2
 		}
 		completion_reward = {
-			306 = {
-				add_extra_state_shared_building_slots = 2				
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}
 
 
 		
@@ -993,7 +962,7 @@
 		prerequisite = { focus = COL_industry_effort_2 }
 		x = 9
 		y = 2
-		cost = 5
+		cost = 10
 		available = {
 			COL = { controls_state = 486 }
 			COL = { controls_state = 493 }
@@ -1065,14 +1034,6 @@
 			factor = 2
 		}
 		completion_reward = {
-			486 = {
-								
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
 		#meta
 			486 = {
 				add_building_construction = {
@@ -1233,7 +1194,7 @@
 		prerequisite = { focus = COL_altillanura_ress }
 		
 		available = {
-			
+			num_of_factories > 50
 		}
 		cancel_if_invalid = no
 		x = 8
@@ -1258,14 +1219,14 @@
 			factor = 8.1
 		}
 		completion_reward = {
-			add_political_power = 150
+			add_political_power = 120
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
 	}
 
 	focus = { 
 		id = COL_collectivist_ethos
-		icon = GFX_goal_generic_generic_political #icon = GFX_goal_tripartite_pact
+		icon = GFX_goal_generic_political #icon = GFX_goal_tripartite_pact
 		prerequisite = { focus = COL_political_effort }
 		mutually_exclusive = { focus = COL_liberty_ethos}
 		available = {
@@ -1371,7 +1332,10 @@
 
 		completion_reward = {
 			add_timed_idea = { idea = nationalism days = 1395 }
-			add_ideas = generic_fascist_demagogue
+			add_popularity = {	#instead of fascist demagogue
+				ideology = fascism
+				popularity = 0.1
+			}
 		}
 	}
 	
@@ -1798,7 +1762,7 @@
 
 	focus = { 
 		id = COL_workers_protection
-		icon = GFX_tblra_union_agreement
+		icon = GFX_BEL_union_agreement
 		prerequisite = { focus = COL_affirm_state_role_in_the_economy }
 		x = 25
 		y = 3
@@ -1817,7 +1781,7 @@
 		y = 3
 		cost = 10
 		completion_reward = {
-			add_ideas = COL_Reforming_the_Education_Sytem
+			add_research_slot = 1
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
@@ -1910,7 +1874,7 @@
 		available = {
 			is_puppet = no
 			has_army_manpower = {
-				size > 40000
+				size > 41000
 			}
 			r56_script_i_am_sane = yes
 			OR = {
@@ -2017,7 +1981,7 @@
 		prerequisite = { focus = COL_gran_colombia }
 		available = {
 			is_puppet = no
-			has_army_manpower = { size > 79999 } #130k
+			has_army_manpower = { size > 129999 } #130k
 			VEN = {
 				controls_state = 307	#venezuela
 				controls_state = 488 	#zulia	
@@ -2070,10 +2034,12 @@
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = infantry_weapons_bonus
-				bonus = 0.75
+				name = tp_bonus
+				bonus = 1				
 				uses = 2
-				category = infantry_weapons
+				technology = transport
+				technology = landing_craft	
+				category = marine_tech
 			}
 			add_tech_bonus = {
                 name = special_forces_bonus
@@ -2088,7 +2054,7 @@
 			add_state_core = 489
 			add_state_core = 305 #ecuador
 			add_state_core = 649				
-			add_political_power = 100					
+			add_political_power = 25					
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
 	}
@@ -2134,32 +2100,32 @@
 			}
 		}
 
-		bypass ={
-			306 = {
+		bypass = {
+			490 = {
 				OR = {
 					is_controlled_by_ROOT_or_subject = yes
 					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
-			305 = {
+			491 = {
 				OR = {
 					is_controlled_by_ROOT_or_subject = yes
 					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
-			306 = {
+			303 = {
 				OR = {
 					is_controlled_by_ROOT_or_subject = yes
 					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
-			307 = {
+			494 = {
 				OR = {
 					is_controlled_by_ROOT_or_subject = yes
 					is_controlled_by_ROOT_or_ally = yes
 				}
 			}
-			937 = {
+			492 = {
 				OR = {
 					is_controlled_by_ROOT_or_subject = yes
 					is_controlled_by_ROOT_or_ally = yes
@@ -2213,7 +2179,7 @@
 		prerequisite = { focus = COL_war_with_andeans }
 		available = { 
 			is_puppet = no
-			num_of_factories > 70
+			num_of_factories > 50
 			controls_state = 306 #bogota
 			controls_state = 305 #ecuador
 			controls_state = 304 #panama
@@ -2226,7 +2192,7 @@
 					controls_state = 494 #arequipa for shared border
 				}
 				AND = {
-					COL = { is_faction_leader = yes }
+					is_faction_leader = yes
 					is_in_faction_with = PRU 
 				}
 			}
@@ -2304,7 +2270,7 @@
 			controls_state = 492
 		}
 		completion_reward = {
-			
+			add_research_slot = 1
 			add_state_core = 302
 			add_state_core = 303
 			add_state_core = 492
@@ -2312,7 +2278,32 @@
 		search_filters = { FOCUS_FILTER_RESEARCH }
 	}
 	
-
+	focus = { 
+		id = COL_technology_sharing
+		icon = GFX_goal_research_silver_cooperation
+		prerequisite = { focus = COL_ideological_fanaticism focus = COL_why_we_fight }
+		available = {
+			has_war = yes
+			is_in_faction = yes
+			OR = {
+				num_of_factories > 100
+				any_country = {
+					is_in_faction_with = ROOT
+					num_of_factories > 100
+				}
+			}
+		}
+		x = 23
+		y = 7
+		cost = 10
+		ai_will_do = {
+			factor = 50
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+	}
 
 
 #air
@@ -2322,7 +2313,7 @@
 		icon = GFX_goal_COL_coa_air_force
 		x = 31
 		y = 0
-		cost = 5
+		cost = 10
 
 		complete_tooltip = {
 			air_experience = 25
@@ -2407,13 +2398,27 @@
 		y = 1
 		cost = 10
 		completion_reward = {
-			add_tech_bonus = {
-				name = nav_bomber_bonus
-				bonus = 1
-				uses = 2				
-				category = light_fighter
-				category = cas_bomber
-				category = naval_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = COL_avion_ligero_focus
+					bonus = 1
+					uses = 2				
+					category = light_air
+					category = medium_air
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = nav_bomber_bonus
+					bonus = 1
+					uses = 2				
+					category = light_fighter
+					category = cas_bomber
+					category = naval_bomber
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2428,15 +2433,31 @@
 		y = 2
 		cost = 10
 		completion_reward = {
-			add_tech_bonus = {
-				name = bomber_bonus
-				bonus = 1
-				uses = 2
-				technology = strategic_bomber1
-				technology = strategic_bomber2
-				technology = strategic_bomber3
-				category = tactical_bomber
-				category = cat_heavy_fighter
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 2
+					technology = basic_large_airframe
+					technology =  improved_large_airframe
+					technology = advanced_large_airframe
+					category = medium_air
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = bomber_bonus
+					bonus = 1
+					uses = 2
+					technology = strategic_bomber1
+					technology = strategic_bomber2
+					technology = strategic_bomber3
+					category = tactical_bomber
+					category = cat_heavy_fighter
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -2448,7 +2469,7 @@
 		prerequisite = { focus = COL_avion_ligero_focus }
 		x = 30
 		y = 3
-		cost = 5
+		cost = 10
 
 		complete_tooltip = {
 			air_experience = 25
@@ -2532,13 +2553,28 @@
 		y = 1
 		cost = 10
 		completion_reward = {
-			air_experience = 40		
-			add_tech_bonus = {
-				name = nav_bomber_bonus
-				bonus = 1				
-				uses = 2
-				technology = CAS1
-				technology = naval_bomber1
+			air_experience = 40	
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = COL_avion_production
+					bonus = 0.75				
+					uses = 2
+					technology = early_bombs
+					technology = aa_cannon_1
+					technology = aa_hmg
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = nav_bomber_bonus
+					bonus = 1				
+					uses = 2
+					technology = CAS1
+					technology = naval_bomber1
+				}
 			}
 			add_tech_bonus = {
 				name = industrial_bonus
@@ -2563,11 +2599,24 @@
 		y = 2
 		cost = 10
 		completion_reward = {
-			add_tech_bonus = {
-				name = CAS_bonus
-				bonus = 1
-				uses = 1
-				category = cas_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = COL_CAS_effort
+					technology = aa_cannon_2
+					bonus = 0.75
+					uses = 1
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = COL_CAS_effort
+					bonus = 1
+					uses = 1
+					category = cas_bomber
+				}
 			}
 			add_ideas = COL_CAS_focus		
 			
@@ -2613,12 +2662,26 @@
 		y = 2
 		cost = 10
 		completion_reward = {
-			add_tech_bonus = {
-				name = nav_bomber_bonus
-				bonus = 1
-				ahead_reduction = 1
-				uses = 1
-				category = naval_bomber
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				add_tech_bonus = {
+					name = COL_NAV_effort
+					bonus = 1
+					ahead_reduction = 1
+					uses = 1
+					category = medium_air
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = nav_bomber_bonus
+					bonus = 1
+					ahead_reduction = 1
+					uses = 1
+					category = naval_bomber
+				}
 			}
 			add_ideas = COL_NAV_focus		
 		}
@@ -3047,10 +3110,10 @@
 				category = cvl_tech
 			}
 			306 = {
-				add_extra_state_shared_building_slots = 3
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
-					level = 3
+					level = 2
 					instant_build = yes
 				}
 			}

@@ -15,7 +15,7 @@ DefaultDir()
 filelistmod = os.listdir()
 
 if UseRoadto56:
-    modstringkeys = ( "aluminum_mill", "steel_mill")
+    modstringkeys = ("aluminum_mill", "steel_mill")
 else:
     modstringkeys = tuple()
 numkeys = ("id", "infrastructure", "industrial_complex", "arms_factory", "synthetic_refinery", "air_base", "anti_air_building", "radar_station", "manpower", "local_supplies", "steel", "tungsten", "oil", "rubber", "aluminium", "chromium") #excluding nuclear because obviously it isnt a typical starting one

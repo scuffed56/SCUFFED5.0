@@ -1,0 +1,368 @@
+add_namespace = rpgermany
+
+country_event = { # 
+	id = rpgermany.1
+	title = rpgermany.1.t
+	desc =  rpgermany.1.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { # Send the Ultimatum!
+		name = rpgermany.1.b
+		DEN = {
+			country_event = {
+				id = rpgermany.2
+			}
+		}
+	}
+}
+
+country_event = { # Denmark Return Event Y/N
+	id = rpgermany.2
+	title = rpgermany.2.t
+	desc =  rpgermany.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { # Oh No, we accept our fate is sealed.
+		ai_chance = { 
+			factor = 50
+		}
+
+		name = rpgermany.2.a
+		GER = {
+			annex_country = {
+				target = DEN
+				transfer_troops = no # Disbandment of the Danish Armed Forces.
+			}
+			country_event = {
+				id = rpgermany.3
+			}
+		}
+	}
+	option = { # Go away! We shall fight till the last man!
+		name = rpgermany.2.b
+		ai_chance = { 
+			factor = 50
+		}
+		GER = {
+			create_wargoal = {
+				type = take_state_focus
+				target = DEN
+				generator = { 99 37 964 }
+			}
+			country_event = {
+				id = rpgermany.3
+			}
+		}
+	}
+}
+
+country_event = { # German Return Event
+	id = rpgermany.3
+	title = rpgermany.3.t
+	desc =  rpgermany.3.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+	option = { # Alright! Your choice is made.
+		name = rpgermany.3.a
+	}
+
+}
+
+# Germany US-War Inviting Mexico into faction before war with the US/during.
+country_event = { #Legacy of the Zimmerman Telegram
+	id = rpgermany.4
+	title = rpgermany.4.t
+	desc = rpgermany.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # 
+		name = rpgermany.4.a
+		ai_chance = {
+			factor = 25
+			modifier = { # If Original Canada has fallen increases chance small
+				CAN = { exists = no }
+				factor = 0.5
+			}
+			modifier = { # If they stand a chance to hold the line they will fight
+				factor = 0.1
+				strength_ratio = {
+					tag = USA
+					ratio > 0.70
+				}
+			}
+			modifier = { #decrease if in faction
+				factor = 0.5
+				is_in_faction = yes
+			}
+			modifier = { # Decreases it again if other bordering nations are in Axis
+				any_neighbor_country = {
+					NOT = { tag = USA }
+					is_in_faction_with = USA
+				}
+				factor = -15
+			}
+		}
+		if = {
+			limit ={
+				is_faction_leader = yes
+			}
+			MEX = {
+				country_event = generic.5
+			}
+		}
+		else_if = {
+			limit = {
+				MEX = {
+					is_faction_leader = yes
+				}
+			}
+			MEX = {
+				country_event = generic.2
+			}
+		}
+		else = {
+			create_faction = "Mexican-German Pact"
+			MEX = {
+				country_event = generic.5
+			}
+		}
+		MEX = {
+			add_state_claim = 375
+			add_state_claim = 376
+			add_state_claim = 377
+			add_state_claim = 378
+		}
+	}
+
+	option = { # No Go away.
+		name = rpgermany.4.b
+		ai_chance = {
+			factor = 65
+		}
+	}
+}
+
+country_event = { # Carte Blanche for France
+	id = rpgermany.5
+	title = rpgermany.5.t
+	desc = rpgermany.5.d
+	picture = GFX_report_event_french_resistance_01
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # Yes
+		name = rpgermany.5.a
+		ai_chance = {
+			factor = 15
+			modifier = { # If they stand a chance to hold the line they will fight
+				factor = 10
+				strength_ratio = {
+					tag = GER
+					ratio > 0.70
+				}
+			}
+			modifier = { #decrease if in faction
+				factor = 0.5
+				is_in_faction = yes
+			}
+			modifier = { # Decreases it again if other bordering nations are in Axis
+				any_neighbor_country = {
+					NOT = { tag = GER }
+					is_in_faction_with = GER
+				}
+				factor = -15
+			}
+			modifier = {
+				any_neighbor_country = {
+					NOT = { tag = FRA }
+					has_war_with = GER
+				}
+				factor = -10
+			}
+		}
+		GER = {
+			transfer_state = 773
+			transfer_state = 777
+			transfer_state = 28
+		}
+	}
+
+	option = { #  Go Away
+		name = rpgermany.5.b
+		ai_chance = {
+			factor = 75
+		}
+		GER = {
+			create_wargoal = {
+				type = annex_everything
+				target = FRA
+				expire = 0
+			}
+		}
+	}
+}
+
+country_event = { # Peace Offer to USA.
+	id = rpgermany.6
+	title = rpgermany.6.t
+	desc = rpgermany.6.d
+	picture = GFX_report_event_french_resistance_01
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # Yes
+		name = rpgermany.6.a
+		ai_chance = {
+			factor = 15
+			modifier = { # If they stand a chance to hold the line they will fight
+				factor = 10
+				strength_ratio = {
+					tag = GER
+					ratio > 0.70
+				}
+			}
+			modifier = { #decrease if in faction
+				factor = 0.5
+				is_in_faction = yes
+			}
+			modifier = { # Decreases it again if other bordering nations are in Axis
+				any_neighbor_country = {
+					NOT = { tag = GER }
+					is_in_faction_with = GER
+				}
+				factor = -15
+			}
+			modifier = {
+				any_neighbor_country = {
+					NOT = { tag = FRA }
+					has_war_with = GER
+				}
+				factor = -10
+			}
+		}
+		GER = {
+			transfer_state = 366
+			transfer_state = 365
+			transfer_state = 364
+			transfer_state = 363
+			transfer_state = 367
+			transfer_state = 370
+			transfer_state = 371
+			transfer_state = 375
+			transfer_state = 368
+			transfer_state = 362
+			transfer_state = 372
+			transfer_state = 374
+			white_peace = USA
+			GER = { country_event = { id = rpgermany.8 } }
+		}
+	}
+
+	option = { # Damn you!
+		name = rpgermany.6.b
+		ai_chance = {
+			factor = 75
+		}
+		GER = { country_event = { id = rpgermany.7 } }
+	}
+}
+
+country_event = { # Response Event #1 - Negative Chief war it will be and we shall fight to the bitter end!
+	id = rpgermany.7
+	title = rpgermany.7.t
+	desc = rpgermany.7.d
+	picture = GFX_report_event_french_resistance_01
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # Damn YOU!
+		name = rpgermany.7.a
+	
+	}
+}
+
+country_event = { # Response Event #2 Peace and conquest achieved.
+	id = rpgermany.8
+	title = rpgermany.8.t
+	desc = rpgermany.8.d
+	picture = GFX_report_event_french_resistance_01
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { # Thank God they saw reason! End this Bloodshed
+		name = rpgermany.8.a
+	
+	}
+}
+
+# Germany asks re-negotiates naval treaty
+country_event = {
+	id = rpgermany.9
+	title = rpgermany.9.t
+	desc =  rpgermany.9.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = { # Let the germans have their ships
+		name = rpgermany.9.a
+		
+		ai_chance = { 
+			factor = 10
+			modifier = { # if germans didnt give reasons for being hostile, give em ships
+				NOT = {
+					GER = {
+						has_completed_focus = GER_rhineland
+					}
+				}
+				factor = 5
+			}
+		}
+		reverse_add_opinion_modifier = {
+			target = GER
+			modifier = r56rp_GER_ENG_allowed_navy
+		}
+		set_country_flag = GER_r56rp_allowed_ships
+	}
+	option = { # Diplomatic protest, opinion reduction
+		name = rpgermany.9.b
+		ai_chance = { 
+			factor = 20
+		}
+		reverse_add_opinion_modifier = {
+			target = GER
+			modifier = r56rp_GER_ENG_refused_navy
+		}
+		set_country_flag = GER_r56rp_not_allowed_ships
+	}
+
+	option = { # Embargo
+		name = rpgermany.9.c
+		ai_chance = { 
+			factor = 5
+		}
+		add_political_power = -75
+
+		send_embargo = GER
+		reverse_add_opinion_modifier = {
+			target = GER
+			modifier = r56rp_GER_ENG_refused_navy
+		}
+		set_country_flag = GER_r56rp_not_allowed_ships
+	}
+}

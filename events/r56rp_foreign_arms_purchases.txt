@@ -1,0 +1,121 @@
+﻿add_namespace = r56rp_foreign_arms_purchases
+
+country_event = { #allow for shipping arms
+	id = r56rp_foreign_arms_purchases.1
+	title = r56rp_foreign_arms_purchases.1.t
+	desc = r56rp_foreign_arms_purchases.1.desc
+	picture = GFX_report_event_generic_lend_lease
+	is_triggered_only = yes
+
+	option = { # Yes - Sure ;D 
+		name = r56rp_foreign_arms_purchases.1.a
+		ai_chance = {
+			factor = 0
+			modifier = {
+				has_opinion = { target = FROM value > 40 }
+				add = 40
+			}
+			modifier = {
+				has_same_ideology = yes
+				add = 40
+			}
+		}
+		custom_effect_tooltip = r56rp_foreign_arms_purchases.1.a.tt
+		add_to_array = {
+			array = ROOT.r56rp_gun_export_permission_array
+			value = FROM.id
+		}
+		FROM = {
+			clr_country_flag = r56rp_gen_foreign_arms_purchases_2
+			set_country_flag = r56rp_gen_foreign_arms_purchases_3
+		}
+		#this is for debugging 
+		#log = "Added to gun export array - ROOT: [ROOT.GetName], FROM: [FROM.GetName]"
+	}
+
+	option = { # No - Go away
+		name = r56rp_foreign_arms_purchases.1.b
+		ai_chance = {
+			factor = 0
+			modifier = {
+				has_opinion = { target = FROM value < 40 }
+				add = 80
+			}
+			modifier = {
+				has_same_ideology = no
+				add = 30
+			}
+		}
+		custom_effect_tooltip = r56rp_foreign_arms_purchases.1.b.tt
+		FROM = {
+			country_event = r56rp_foreign_arms_purchases.2
+			clr_country_flag = r56rp_gen_foreign_arms_purchases_2
+		}
+		#this is for debugging 
+		#log = "Denied gun exports - ROOT: [ROOT.GetName], FROM: [FROM.GetName]"
+	}
+
+	option = { # No and dont ask me again! #
+		name = r56rp_foreign_arms_purchases.1.c
+		ai_chance = {
+			factor = 0
+			modifier = {
+				has_opinion = { target = FROM value < -40 }
+				add = 200
+			}
+			modifier = {
+				has_same_ideology = no
+				add = 30
+			}
+		}
+		custom_effect_tooltip = r56rp_foreign_arms_purchases.1.c.tt
+		add_to_array = {
+			array = ROOT.r56rp_gun_export_ban_array
+			value = FROM.id
+		}
+		FROM = {
+			country_event = r56rp_foreign_arms_purchases.3
+			clr_country_flag = r56rp_gen_foreign_arms_purchases_2
+		}
+		#this is for debugging 
+		#log = "Blacklisted - ROOT: [ROOT.GetName], FROM: [FROM.GetName]"
+	}
+}
+
+country_event = { # Refuses to sale weapons
+	id = r56rp_foreign_arms_purchases.2
+	title = r56rp_foreign_arms_purchases.2.t
+	desc = r56rp_foreign_arms_purchases.2.desc
+	picture = GFX_report_event_generic_lend_lease
+	is_triggered_only = yes
+
+	option = {
+		name = r56rp_foreign_arms_purchases.2.a
+	}
+}
+
+country_event = { # Bans sale of weapons and future inquiries
+	id = r56rp_foreign_arms_purchases.3
+	title = r56rp_foreign_arms_purchases.3.t
+	desc = r56rp_foreign_arms_purchases.3.desc
+	picture = GFX_report_event_generic_lend_lease
+	is_triggered_only = yes
+
+	option = {
+		name = r56rp_foreign_arms_purchases.3.a
+	}
+}
+
+country_event = { # inform importer we are stopping exports to them
+	id = r56rp_foreign_arms_purchases.4
+	title = r56rp_foreign_arms_purchases.4.t
+	desc = r56rp_foreign_arms_purchases.4.desc
+	picture = GFX_report_event_generic_lend_lease
+	is_triggered_only = yes
+
+	option = {
+		name = r56rp_foreign_arms_purchases.4.a
+	}
+}
+
+

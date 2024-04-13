@@ -1,3 +1,7 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 characters={
 	SIK_sheng_shicai={
 		name=SIK_sheng_shicai
@@ -7,7 +11,7 @@ characters={
 			}
 			army={
 				large="GFX_portrait_sheng_shicai"
-				small="gfx/interface/ideas/idea_asia_generic_land_2.dds"
+				small="GFX_portrait_sheng_shicai_small"
 
 			}
 		}
@@ -39,7 +43,55 @@ characters={
 			defense_skill = 2
 			planning_skill = 2
 			logistics_skill = 4
-		}		
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = sik_sheng_shicai_advisor
+			#allowed = {
+			#	original_tag = SIK
+			#}
+			available = {
+				is_country_leader = no
+				not_already_hired_except_as = political_advisor
+			}
+			visible = {
+			}  
+            on_add = {
+				if = {
+					limit = {
+						owner = {
+							tag = CHI
+						}
+					}
+					owner = {
+						add_stability = -0.05
+					}
+					
+				}
+            }
+            on_remove = {
+				if = {
+					limit = {
+						owner = {
+							tag = CHI
+						}
+					}
+					owner = {
+						add_stability = 0.05
+					}
+				}
+            }
+			cost = 50
+			
+			ai_will_do = {
+				factor = 1
+			}
+	
+			traits = { 
+				baron_of_terror
+				corrupt
+			}
+		}	
 	}
 	#Gong Zhenhan to check
 	SIK_chiang_yufen={ #real
@@ -239,7 +291,7 @@ characters={
 			}
 			cost = 100
 			ai_will_do = {
-				factor = 999999
+				factor = 1.000
 			}
 		}
 	}
@@ -390,7 +442,7 @@ characters={
 			}
 			cost = 100
 			ai_will_do = {
-				factor = 1000
+				factor = 1.000
 			}
 		}
 	}

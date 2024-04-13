@@ -15,7 +15,32 @@ generic_tank_organization = {
 	icon = GFX_idea_generic_tank_manufacturer_1
 
 	allowed = {
-		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = JAP tag = USA tag = BEL tag = CZE tag = ROM } }
+		NOT = {
+			OR = { 
+				tag = GER 
+				tag = ENG 
+				tag = SOV 
+				tag = FRA 
+				tag = ITA 
+				tag = JAP 
+				tag = USA 
+				tag = BEL 
+				tag = CZE 
+				tag = ROM
+			} 
+		}
+		#r56rp
+		NOT = {
+			OR = {
+				tag = ARG
+				tag = URG
+				tag = BRA
+				tag = VEN
+				tag = IRE
+				tag = AFG
+				tag = RAJ
+			} 
+		}
 		NOT = {
 			AND = {
 				tag = POL
@@ -63,6 +88,21 @@ generic_tank_organization = {
 				OR = { tag = FIN tag = NOR tag = SWE }
 				has_dlc = "Arms Against Tyranny"
 			}
+		}
+	}
+	available = {
+		IF = {
+			limit = {
+				OWNER = {
+					tag = HOL
+				}
+			}
+			OWNER = {
+				has_completed_focus = HOL_light_tanks_for_the_colonies
+			}
+		}
+		ELSE = {
+			# keep empty.
 		}
 	}
 
@@ -295,7 +335,7 @@ generic_infantry_tank_organization = {
 	}
 
 	equipment_type = { armor }
-	research_categories = { armor mio_cat_tech_all_armor_and_modules }
+	research_categories = { armor }
 
 	tree_header_text = {
 		text = mio_header_light_tank_department
@@ -565,7 +605,7 @@ generic_mobile_tank_organization = {
 	}
 
 	equipment_type = { armor }
-	research_categories = { armor mio_cat_tech_all_armor_and_modules }
+	research_categories = { armor }
 
 	tree_header_text = {
 		text = mio_header_engine_and_suspension
@@ -2085,9 +2125,21 @@ generic_escort_ship_organization = {
 	icon = GFX_idea_generic_naval_manufacturer_1
 
 	allowed = {
-		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = JAP tag = USA tag = BEL tag = CAN tag = SWE tag = HUN tag = CZE tag = ROM tag = YUG tag = POR tag = GRE tag = TUR tag = LAT tag = EST } }
+		NOT = { 
+			OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = JAP tag = USA tag = CAN tag = SWE tag = HUN tag = CZE tag = ROM tag = YUG tag = POR tag = GRE tag = TUR tag = LAT tag = EST } }
 		NOT = { OR = { tag = SPR tag = SPA tag = SPB tag = SPC tag = SPD } }
-		NOT = {
+		#r56rp
+		NOT = { 
+			OR = {
+				tag = ARG
+				tag = URG
+				tag = BRA
+				tag = IRE
+				tag = BEL
+				tag = SAF
+			} 
+		}
+		NOT = { 
 			AND = {
 				tag = POL
 				OR = {
@@ -2191,21 +2243,49 @@ generic_escort_ship_organization = {
 
 		any_parent = { generic_mio_trait_submarine_hunters }
 
+		mutually_exclusive = { generic_mio_trait_multi_task_mining_equipment }
+
 		equipment_bonus = {
 			sub_detection = 0.05
 			mines_sweeping = 0.05
 		}
 	}
+	trait = {
+		token = generic_mio_trait_multi_task_mining_equipment
+		name = generic_mio_trait_multi_task_mining_equipment
+		icon = GFX_generic_mio_trait_icon_mines
+
+		position = { x=-1 y=2 }
+		relative_position_id = generic_mio_trait_submarine_hunters
+
+		#visible = {
+		#	has_dlc = "Man the Guns"
+		#}
+		available = {
+			has_dlc = "Man the Guns"
+		}
+
+		any_parent = { generic_mio_trait_submarine_hunters }
+
+		mutually_exclusive = { generic_mio_trait_high_speed_mine_hunting_equipment }
+
+
+		equipment_bonus = {
+			mines_planting  = 0.05
+			mines_sweeping = 0.05
+		}
+	}
+
 
 	trait = {
 		token = generic_mio_trait_advanced_hydrodynamic_design
 		name = generic_mio_trait_advanced_hydrodynamic_design
 		icon = GFX_generic_mio_trait_icon_maximum_speed
 
-		position = { x=0 y=2 }
+		position = { x=-1 y=2 }
 		relative_position_id = generic_mio_trait_high_speed_mine_hunting_equipment
 
-		any_parent = { generic_mio_trait_high_speed_mine_hunting_equipment }
+		any_parent = { generic_mio_trait_high_speed_mine_hunting_equipment generic_mio_trait_multi_task_mining_equipment }
 
 		equipment_bonus = {
 			naval_speed = 0.05
@@ -2339,7 +2419,6 @@ generic_escort_ship_organization = {
 	}
 }
 
-
 #RAIDING FLEET MANUFACTURER - Based on John Brown (ENG)
 generic_raider_ship_organization = {
 	icon = GFX_idea_generic_naval_manufacturer_3
@@ -2426,7 +2505,7 @@ generic_raider_ship_organization = {
 		any_parent = { generic_mio_trait_long_range_raiding }
 
 		equipment_bonus = {
-			fuel_consumption = -0.10
+			fuel_consumption = -0.05
 		}
 	}
 
@@ -2502,7 +2581,6 @@ generic_raider_ship_organization = {
 		equipment_bonus = {
 			surface_visibility = -0.05
 			hg_attack = 0.05
-			lg_attack = 0.05
 		}
 	}
 
@@ -2538,7 +2616,6 @@ generic_raider_ship_organization = {
 		equipment_bonus = {
 			naval_range = 0.05
 			naval_speed = 0.05
-			lg_attack = 0.05
 		}
 	}
 
@@ -2658,7 +2735,6 @@ generic_submarine_organization = {
 	}
 	research_categories = {
 		naval_equipment 
-		mio_cat_tech_all_submarine_and_modules
 	}
 	
 	tree_header_text = {
@@ -3570,6 +3646,17 @@ generic_general_aircraft_organization = {
 	allowed = {
 		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = JAP tag = USA tag = CAN tag = YUG tag = ROM tag = CZE tag = HUN tag = CHI tag = MAN tag = HOL tag = BUL tag = GRE tag = TUR tag = LAT tag = LIT } }
 		NOT = { tag = SPR tag = SPA tag = SPB tag = SPC tag = SPD }
+		#r56rp
+		NOT = { 
+			OR = {
+				tag = ARG
+				tag = URG
+				tag = BRA
+				tag = IRE
+				tag = RAJ
+				tag = AST
+			} 
+		}
 		NOT = {
 			AND = {
 				tag = POL
@@ -4570,7 +4657,7 @@ generic_heavy_aircraft_organization = {
 		}
 		equipment_bonus = {
 			air_bombing = 0.05
-			air_agility = 0.05
+			air_agility = -0.05
 		}
 	}
 
@@ -4599,8 +4686,8 @@ generic_heavy_aircraft_organization = {
 		any_parent = { generic_mio_trait_reinforced_frames }
 
 		production_bonus = {
-			production_efficiency_gain_factor = 0.10
-			production_resource_penalty_factor = -0.15
+			production_efficiency_gain_factor = 0.05
+			production_resource_penalty_factor = -0.1
 		}
 	}
 
@@ -4654,7 +4741,7 @@ generic_heavy_aircraft_organization = {
 		limit_to_equipment_type = { large_plane_airframe large_plane_maritime_patrol_plane_airframe }
 
 		production_bonus = {
-			production_capacity_factor = 0.10
+			production_capacity_factor = 0.05
 			production_resource_need_factor = -0.15
 		}
 	}
@@ -4675,7 +4762,7 @@ generic_heavy_aircraft_organization = {
 
 		equipment_bonus = {
 			air_agility = 0.05
-			reliability = 0.10
+			reliability = 0.05
 		}
 	}
 
@@ -4692,7 +4779,7 @@ generic_heavy_aircraft_organization = {
 		limit_to_equipment_type = { large_plane_airframe large_plane_maritime_patrol_plane_airframe }
 
 		equipment_bonus = {
-			air_range = 0.10
+			air_range = 0.05
 		}
 	}
 
@@ -4709,7 +4796,7 @@ generic_heavy_aircraft_organization = {
 		limit_to_equipment_type = { large_plane_airframe large_plane_maritime_patrol_plane_airframe }
 
 		equipment_bonus = {
-			air_agility = 0.10
+			air_agility = 0.05
 		}
 	}
 
@@ -4744,7 +4831,7 @@ generic_heavy_aircraft_organization = {
 		limit_to_equipment_type = { large_plane_airframe large_plane_maritime_patrol_plane_airframe }
 
 		equipment_bonus = {
-			air_bombing = 0.10
+			air_bombing = 0.05
 		}
 	}
 
@@ -4763,7 +4850,7 @@ generic_heavy_aircraft_organization = {
 		limit_to_equipment_type = { large_plane_airframe large_plane_maritime_patrol_plane_airframe }
 
 		equipment_bonus = {
-			sub_detection = 0.10
+			sub_detection = 0.05
 			surface_detection = 0.05
 		}
 	}
@@ -4781,7 +4868,7 @@ generic_heavy_aircraft_organization = {
 		limit_to_equipment_type = { large_plane_airframe large_plane_maritime_patrol_plane_airframe }
 
 		equipment_bonus = {
-			air_attack = 0.10
+			air_attack = 0.05
 		}
 	}
 	
@@ -4801,7 +4888,6 @@ generic_heavy_aircraft_organization = {
 
 		equipment_bonus = {
 			air_defence = 0.15
-			air_attack = 0.15
 			air_range = 0.15
 			air_agility = -0.05
 			fuel_consumption = 0.05
@@ -4823,8 +4909,8 @@ generic_heavy_aircraft_organization = {
 		limit_to_equipment_type = { large_plane_airframe large_plane_maritime_patrol_plane_airframe }
 
 		equipment_bonus = {
-			air_bombing = 0.10
-			naval_strike_targetting = 0.10
+			air_bombing = 0.05
+			naval_strike_targetting = 0.05
 		}
 	}
 }
@@ -5182,16 +5268,37 @@ generic_naval_aircraft_organization = {
 	}
 
 	trait = {
-		token = generic_mio_trait_high_speed_torpedo_release
+		token = generic_mio_trait_high_speed_torpedo_release # could be evasion against ships too
 		name = generic_mio_trait_high_speed_torpedo_release
+		icon = GFX_generic_mio_trait_icon_torpedo_attack
+
+		position = { x=0 y=1 }
+		relative_position_id = generic_mio_trait_patrol_fuel_tanks
+
+		any_parent = { generic_mio_trait_patrol_fuel_tanks generic_mio_trait_internal_torpedo_mountings }
+
+		mutually_exclusive = { generic_mio_trait_radio_navigation_patrolling }
+
+		limit_to_equipment_type = { small_plane_naval_bomber_airframe mio_cat_eq_all_cv_aircraft large_plane_maritime_patrol_plane_airframe }
+
+		equipment_bonus = {
+			naval_strike_targetting = 0.05
+		}
+	}	
+
+	trait = {
+		token = generic_mio_trait_radio_navigation_patrolling
+		name = generic_mio_trait_radio_navigation_patrolling
 		icon = GFX_generic_mio_trait_icon_surface_detection
 
-		position = { x=1 y=1 }
+		position = { x=2 y=1 }
 		relative_position_id = generic_mio_trait_patrol_fuel_tanks
 
 		any_parent = { generic_mio_trait_patrol_fuel_tanks generic_mio_trait_internal_torpedo_mountings }
 
 		limit_to_equipment_type = { small_plane_naval_bomber_airframe cv_small_plane_naval_bomber_airframe }
+
+		mutually_exclusive = { generic_mio_trait_high_speed_torpedo_release }
 
 		equipment_bonus = {
 			surface_detection = 0.05
@@ -5766,12 +5873,12 @@ generic_high_agility_fighter_aircraft_organization = {
 		mutually_exclusive = { generic_mio_trait_metal_skin }
 
 		production_bonus = {
-			production_resource_penalty_factor = 0.05
-			production_capacity_factor = 0.05
+			production_resource_penalty_factor = -0.05
 		}
 
 		equipment_bonus = {
 			air_agility = 0.05
+			build_cost_ic = -0.05
 		}
 	}
 
@@ -5785,9 +5892,14 @@ generic_high_agility_fighter_aircraft_organization = {
 
 		mutually_exclusive = { generic_mio_trait_fabric_skin }
 
+		production_bonus = {
+			production_resource_penalty_factor = 0.05
+		}
+
 		equipment_bonus = {
 			air_defence = 0.10
 			maximum_speed = 0.05
+			build_cost_ic = 0.05
 		}
 	}
 
@@ -5838,6 +5950,7 @@ generic_high_agility_fighter_aircraft_organization = {
 		equipment_bonus = {
 			maximum_speed = 0.05
 			air_agility = 0.05
+			build_cost_ic = 0.025
 		}
 	}
 
@@ -5871,10 +5984,8 @@ generic_high_agility_fighter_aircraft_organization = {
 
 		equipment_bonus = {
 			air_defence = 0.05
-		}
-
-		equipment_bonus = {
 			air_agility = 0.05
+			build_cost_ic = 0.025
 		}
 	}
 
@@ -5964,6 +6075,7 @@ generic_high_agility_fighter_aircraft_organization = {
 		equipment_bonus = {
 			maximum_speed = 0.05
 			air_agility = 0.05
+			build_cost_ic = 0.025
 		}
 	}
 
@@ -5984,6 +6096,7 @@ generic_high_agility_fighter_aircraft_organization = {
 		equipment_bonus = {
 			air_range = 0.10
 			air_attack = 0.05
+			build_cost_ic = 0.025
 		}
 	}
 }
@@ -6328,7 +6441,19 @@ generic_artillery_organization = {
 	icon = GFX_idea_generic_artillery_manufacturer_2
 
 	allowed = {
-		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = USA tag = JAP tag = BEL tag = CZE tag = ROM tag = MEX } }
+		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = USA tag = JAP tag = BEL tag = CZE tag = ROM tag = MEX tag = ISR} }
+		#r56rp
+		NOT = { 
+			OR = {
+				tag = ARG
+				tag = URG
+				tag = BRA
+				tag = VEN
+				tag = LUX
+				tag = SAF
+				tag = MAL
+			} 
+		}
 		NOT = {
 			AND = {
 				tag = POL
@@ -6699,7 +6824,20 @@ generic_infantry_equipment_organization = {
 	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
 
 	allowed = {
-		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = JAP tag = USA tag = BEL tag = CZE tag = HUN tag = YUG tag = ROM tag = MEX tag = TUR tag = EST } }
+		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = JAP tag = USA tag = BEL tag = CZE tag = HUN tag = YUG tag = ROM tag = MEX tag = TUR tag = EST tag = ISR} }
+		#r56rp
+		NOT = { 
+			OR = { 
+				tag = URG
+				tag = ARG
+				tag = BRA
+				tag = VEN
+				tag = IRE
+				tag = LUX
+				tag = PER
+				tag = MAL
+			} 
+		}
 		NOT = {
 			AND = {
 				tag = POL
@@ -6757,6 +6895,12 @@ generic_infantry_equipment_organization = {
 		NOT = {
 			AND = {
 				OR = { tag = FIN tag = NOR tag = DEN tag = SWE }
+				has_dlc = "Arms Against Tyranny"
+			}
+		}
+		NOT = {
+			AND = {
+				OR = { tag = AFG }
 				has_dlc = "Arms Against Tyranny"
 			}
 		}
@@ -7314,7 +7458,20 @@ generic_motorized_mechanized_organization = {
 	icon = GFX_idea_generic_motorized_equipment_manufacturer_3
 
 	allowed = {
-		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = JAP tag = USA tag = CZE tag = ROM tag = MEX } }
+		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = JAP tag = USA tag = CZE tag = ROM tag = MEX tag = ISR } }
+		#r56rp
+		NOT = { 
+			OR = {
+				tag = ARG
+				tag = URG
+				tag = BRA
+				tag = VEN
+				tag = IRE
+				tag = BEL
+				tag = MAL
+				tag = NZL
+			} 
+		}
 		NOT = {
 			AND = {
 				tag = POL
@@ -7377,7 +7534,6 @@ generic_motorized_mechanized_organization = {
 	research_categories = {
 		motorized_equipment
 		mot_rockets
-		mio_cat_tech_all_motorized_mechanized
 	}
 
 	
@@ -7886,10 +8042,308 @@ generic_armored_car_organization = {
 	}
 }
 
+######################
+####   TRAINS     ####
+######################
+
+# GENERIC TRAIN MANUFACTURER #
+# Custom Rt56 MIO #
+# Localisation is in the 'r56_companies_traits_l_english.yml file'#
+generic_train_organization_r56_NSB = {
+	icon = GFX_idea_generic_train_manufacturer_r56
+
+	allowed = {
+		NOT = { OR = { tag = GER tag = ENG tag = SOV tag = FRA tag = ITA tag = JAP tag = USA tag = BEL tag = CZE tag = ROM tag = ISR } }
+		NOT = {
+			AND = {
+				tag = POL
+				OR = {
+					has_dlc = "Poland: United and Ready"
+					has_dlc = "No Step Back"
+				}
+			}
+		}
+		NOT = {
+			AND = {
+				OR = { tag = AST tag = SAF tag = NZL tag = CAN }
+				has_dlc = "Together for Victory"
+			}
+		}
+		NOT = {
+			AND = {
+				OR = {
+					is_literally_china = yes
+					tag = MAN
+				}
+				has_dlc = "Waking the Tiger"
+			}
+		}
+		NOT = {
+			AND = {
+				OR = { tag = MEX }
+				has_dlc = "Man the Guns"
+			}
+		}
+		NOT = {
+			AND = {
+				OR = { tag = BUL tag = GRE tag = TUR }
+				has_dlc = "Battle for the Bosporus"
+			}
+		}
+		NOT = {
+			AND = {
+				OR = { tag = ETH tag = SWI }
+				has_dlc = "By Blood Alone"
+			}
+		}
+		NOT = {
+			AND = {
+				OR = { tag = FIN tag = NOR tag = SWE }
+				has_dlc = "Arms Against Tyranny"
+			}
+		}
+	}
 
 
+	equipment_type = { 
+		train_equipment 
+		railway_gun_equipment
+		support_equipment
+	}
+
+	research_categories = {
+		train_tech
+		railway_gun_equipment
+	}
+
+	tree_header_text = {
+		text = mio_header_r56_trains
+		x = 1
+	}
+
+	tree_header_text = {
+		text = mio_header_r56_support
+		x = 7
+	}
+
+	initial_trait = {
+		name = generic_train_organization_r56_NSB_initial_trait
+		limit_to_equipment_type = { train_equipment railway_gun_equipment }
+		production_bonus = {
+			production_cost_factor = -0.05
+		}
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+		}
+	}
+
+	
+	trait = { 
+		token = r56_train_production_efficiency_cap_train
+		icon = GFX_generic_mio_trait_icon_efficiency_cap
+		name = r56_train_production_efficiency_cap_train_t
+		limit_to_equipment_type = { train_equipment railway_gun_equipment }
+
+		organization_modifier = {
+			military_industrial_organization_funds_gain = 0.05
+		}
+		production_bonus = {
+			production_efficiency_cap_factor = 0.05
+		}
+
+		mutually_exclusive = { r56_train_production_efficiency_train }
+
+		position = { x=0 y=0 }
+	}
+
+	trait = {
+		token = r56_train_production_efficiency_train
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		name = r56_train_production_efficiency_train_t
+		limit_to_equipment_type = { train_equipment railway_gun_equipment }
+
+		organization_modifier = {
+			military_industrial_organization_size_up_requirement = -0.05
+		}
+
+		production_bonus = {
+			production_efficiency_gain_factor = 0.05
+		}
+
+		mutually_exclusive = { r56_train_production_efficiency_cap_train }
+
+		position = { x=2 y=0 }
+	}
 
 
+	trait = {
+		token = r56_train_reliability
+		icon = GFX_generic_mio_trait_icon_reliability
+		name = r56_train_reliability_t
+		limit_to_equipment_type = { train_equipment railway_gun_equipment }
+		
+		equipment_bonus = {
+			reliability = 0.05
+		}
+
+		any_parent = { r56_train_production_efficiency_cap_train  r56_train_production_efficiency_train  }
+
+		position = { x=1 y=1 }
+	}
+
+	trait = {
+		token = r56_train_research_bonus_train
+		icon = GFX_generic_mio_department_icon_facilities
+		name = r56_train_research_bonus_train_t
+		limit_to_equipment_type = { train_equipment railway_gun_equipment }
+
+		organization_modifier = {
+			military_industrial_organization_research_bonus = 0.05
+			military_industrial_organization_funds_gain = 0.05
+		}
+
+		any_parent = { r56_train_reliability }
+
+		position = { x=1 y=2 }
+	}
+
+
+	trait = {
+		token = r56_train_production_reliability_support
+		name = r56_train_production_reliability_support_t
+		icon = GFX_generic_mio_trait_icon_reliability
+		limit_to_equipment_type = { support_equipment }
+
+		equipment_bonus = {
+			reliability = 0.05
+		}
+
+		position = { x=7 y=0 }
+	}
+
+	trait = {
+		token = r56_train_production_build_cost_ic_support
+		name = r56_train_production_build_cost_ic_support_t
+		icon = GFX_generic_mio_trait_icon_efficiency_gain
+		limit_to_equipment_type = { support_equipment }
+
+		production_bonus = {
+			production_efficiency_gain_factor = 0.05
+		}
+
+		all_parents = { r56_train_production_reliability_support }
+
+		position = { x=7 y=1 }
+	}
+
+	trait = {
+		token = r56_train_production_efficiency_cap_factor_support
+		name = r56_train_production_efficiency_cap_factor_support_t
+		icon = GFX_generic_mio_trait_icon_efficiency_cap
+		limit_to_equipment_type = { support_equipment  }
+		
+		production_bonus = {
+			production_efficiency_cap_factor = 0.05
+		}
+
+		all_parents = { r56_train_production_build_cost_ic_support }
+
+		position = { x=7 y=2 }
+	}
+
+	trait = {
+		token = r56_train_production_resource_penalty_factor_support 
+		name = r56_train_production_resource_penalty_factor_support_t
+		icon = GFX_generic_mio_department_icon_support_materials
+		limit_to_equipment_type = { support_equipment }
+		
+		production_bonus = {
+			production_resource_need_factor = -0.10
+			production_resource_penalty_factor = -0.10
+		}
+
+		all_parents = { r56_train_production_efficiency_cap_factor_support }
+
+		position = { x=8 y=3 }
+	}
+
+
+	trait = {
+		token = r56_train_production_resource_penalty_factor
+		name = r56_train_production_resource_penalty_factor_t
+		icon = GFX_generic_mio_department_icon_facilities
+		limit_to_equipment_type = { train_equipment railway_gun_equipment  }
+		
+		production_bonus = {
+			production_resource_need_factor = -0.10
+			production_resource_penalty_factor = -0.10
+		}
+
+		all_parents = { r56_train_research_bonus_train }
+
+		position = { x=0 y=3 }
+	}
+
+	
+	trait = {
+		token = r56_train_gen_military_industrial_organization_research_bonus
+		name = r56_train_gen_military_industrial_organization_research_bonus_t
+		icon = GFX_generic_mio_department_icon_facilities
+		organization_modifier = {
+			military_industrial_organization_industrial_manufacturer_assign_cost = -0.50
+		}
+
+		all_parents = { r56_train_reliability r56_train_production_build_cost_ic_support }
+
+		position = { x=4 y=2 }
+	}
+
+
+	trait = {
+		token = r56_train_military_industrial_organization_design_team_change_cost
+		icon = GFX_generic_mio_department_icon_facilities
+		name = r56_train_military_industrial_organization_design_team_change_cost_t
+		organization_modifier = {
+			military_industrial_organization_design_team_change_cost = -1
+		}
+
+		any_parent = { r56_train_research_bonus_train r56_train_production_efficiency_cap_factor_support r56_train_gen_military_industrial_organization_research_bonus }
+
+		position = { x=4 y=3 }
+	}
+
+	trait = {
+		token = r56_train_production_cost_factor
+		name = r56_train_production_cost_factor_t
+		icon = GFX_generic_mio_department_icon_facilities
+		limit_to_equipment_type = { train_equipment railway_gun_equipment  }
+		
+		production_bonus = {
+			production_cost_factor = -0.05
+		}
+
+		all_parents = { r56_train_military_industrial_organization_design_team_change_cost r56_train_production_resource_penalty_factor }
+
+		position = { x=2 y=4 }
+	}
+
+
+	trait = {
+		token = r56_train_production_cost_factor_support
+		name = r56_train_production_cost_factor_support_t
+		icon = GFX_generic_mio_department_icon_support_production
+		limit_to_equipment_type = { support_equipment }
+		
+		production_bonus = {
+			production_cost_factor = -0.05
+		}
+
+		all_parents = { r56_train_military_industrial_organization_design_team_change_cost r56_train_production_resource_penalty_factor_support  }
+
+		position = { x=6 y=4 }
+	}
+
+}
 
 
 ##       ####  ######  ########     #######  ########     ######  ########    ###    ########  ######

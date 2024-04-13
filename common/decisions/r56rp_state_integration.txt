@@ -1,0 +1,304 @@
+GLO_state_integration_category = {
+	
+	#Toggle to hide all coring
+    r56rp_toggle_visibility_integration_decisions = {
+        priority = 100
+        visible = { 
+			is_ai = no
+		}
+		available = {
+			always = yes
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = show_integration_decisions
+				}
+				clr_country_flag = show_integration_decisions
+			}
+			else = {
+				set_country_flag = show_integration_decisions
+			}
+        }
+    }
+
+	#Toggle "Show only coring decisions with enough compliance"
+	r56rp_toggle_visibility_avalible_integration_decisions = {
+        priority = 98
+        visible = { 
+			is_ai = no
+		}
+		available = {
+			always = yes
+		}
+        complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = show_unavialible_integration_decisions
+				}
+				clr_country_flag = show_unavialible_integration_decisions
+			}
+			else = {
+				set_country_flag = show_unavialible_integration_decisions
+			}
+        }
+    }
+
+    integrate_the_state_of_FROM_peacefully = {
+        icon = GFX_decision_generic_nationalism
+
+        on_map_mode = map_only
+        state_target = any_controlled_state
+        target_array = ROOT.controlled_states
+		
+		ai_will_do = {
+			base = 0
+		}
+		# unless you use cost = , ai cannot tell how much a decision actually costs.
+		ai_hint_pp_cost = 50
+
+        target_trigger = {
+            FROM = {
+                is_fully_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+            }
+        }
+
+        available = {
+			IF = {
+				limit = {
+					OR = {
+						is_major = no
+						FROM = {
+							is_claimed_by = ROOT
+						}
+					}
+				}
+				FROM = {
+					compliance > 64
+					resistance < 19
+				}
+				has_manpower > 10000
+			}
+			ELSE = {
+				FROM = {
+					compliance > 79
+					resistance < 11
+				}
+				has_manpower > 10000				
+			}
+        }
+
+        visible = {
+            NOT = { has_country_flag = show_integration_decisions }
+			FROM = {
+				NOT = { is_core_of = ROOT }
+				NOT = { has_state_flag = being_cored } 
+			}
+			IF = {
+				limit = {
+					OR = {
+						is_major = no
+						FROM = {
+							is_claimed_by = ROOT
+						}
+					}
+					has_country_flag = show_unavialible_integration_decisions
+				}
+				FROM = {
+					compliance > 64
+					resistance < 19
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					has_country_flag = show_unavialible_integration_decisions
+				}	
+				FROM = {
+					compliance > 79
+					resistance < 11
+				}
+			}
+        }
+
+        custom_cost_trigger = {
+			has_political_power > 50
+        }
+        custom_cost_text = GLO_50_pol_power
+
+        days_remove = 50
+
+        complete_effect = {
+			add_political_power = -50
+			IF = {
+				limit = {					
+					FROM = {
+						is_claimed_by = ROOT
+					}
+				}
+				custom_effect_tooltip = r56rp_si_we_have_claim
+				add_political_power = 30
+			}
+			ELSE_IF = {
+				limit = {
+					is_major = no
+				}
+				custom_effect_tooltip = r56rp_si_we_are_minor
+				add_political_power = 30
+			}
+			hidden_effect = {
+				FROM = { 
+					set_state_flag = being_cored
+				}
+			}
+        }
+
+        remove_effect = {
+            FROM = {
+                add_core_of = ROOT
+				clr_state_flag = being_cored
+            }
+        }
+    }
+
+    integrate_the_state_of_FROM_by_force = {
+        icon = GFX_decision_oppression
+
+		on_map_mode = map_only
+        state_target = any_controlled_state 
+        target_array = controlled_states
+
+		ai_will_do = {
+			base = 0
+		}
+
+        target_trigger = {
+            FROM = {
+                is_fully_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+            }
+        }
+
+        available = {
+			NOT = {
+				OR = {
+					has_government = neutrality
+					has_government = democratic
+				}
+			}
+			hidden_trigger = {
+				FROM = {
+					NOT = { is_core_of = ROOT }
+					NOT = { has_state_flag = being_cored }
+				}
+			}
+
+			IF = {
+				limit = {
+					OR = { #if not a major, or if a major has a claim, discounted coring.
+						is_major = no
+						FROM = {
+							is_claimed_by = ROOT
+						}
+					}
+				}
+				FROM = {
+					compliance > 49
+					resistance < 31
+				}
+				has_manpower > 12500
+				has_equipment = {
+					infantry_equipment > FROM.r56rp_core_cost
+				}
+				
+			}
+			ELSE = {
+				FROM = {
+					compliance > 59
+					resistance < 21
+				}
+				has_equipment = {
+					infantry_equipment > FROM.r56rp_core_cost_minor
+				}
+			}
+        }
+
+        visible = {
+            NOT = { 
+				has_country_flag = show_integration_decisions 
+			}
+			IF = {
+				limit = {
+					has_country_flag = show_unavialible_integration_decisions
+				}
+				FROM = {
+					compliance > 59
+					resistance < 31
+				}
+			}
+			NOT = {
+				OR = {
+					has_government = neutrality
+					has_government = democratic
+				}
+			}
+			FROM = {
+				NOT = { is_core_of = ROOT }
+				NOT = { has_state_flag = being_cored }
+			}
+        }
+
+		#tried making it display guns but failed miserably. so itll remain on manpower.
+        custom_cost_trigger = { 
+			has_manpower > 12500
+        }
+        custom_cost_text = GLO_1000_inf_eqmnt
+
+        days_remove = 75
+
+        complete_effect = {
+			IF = {
+				limit = {
+					OR = { #if not a major, or if a major has a claim, discounted coring.
+					NOT = { 
+						is_major = yes
+					}
+					FROM = {
+						is_claimed_by = ROOT
+					}
+				}
+				}
+				set_temp_variable = { GLO_f_inf_cost_t = FROM.r56rp_core_cost_minor }
+				multiply_temp_variable = { GLO_f_inf_cost_t = -1 }
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = GLO_f_inf_cost_t
+				}
+			}
+			ELSE = {
+				set_temp_variable = { GLO_f_inf_cost_t = FROM.r56rp_core_cost }
+				multiply_temp_variable = { GLO_f_inf_cost_t = -1 }
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = GLO_f_inf_cost_t
+				}
+			}
+			set_temp_variable = { GLO_f_mp_cost_t = GLO_f_mp_cost }
+			multiply_temp_variable = { GLO_f_mp_cost_t = -1 }
+            add_manpower = GLO_f_mp_cost_t
+            
+			hidden_effect = {
+				FROM = { 
+					set_state_flag = being_cored
+				}
+			}
+        }
+
+        remove_effect = {
+            FROM = {
+                add_core_of = ROOT
+				clr_state_flag = being_cored
+            }
+        }
+    }
+}

@@ -1840,16 +1840,52 @@ focus_tree = {
 			ai_will_do = {
 				}
 			}
+
+			###
+			focus = {
+				id = KOR_monarch_special_forces
+				icon = GFX_focus_CHL_departemento_de_las_tropas_nacistas_de_asalto
+				x = 1
+				y = 1
+				relative_position_id = KOR_remove_monarch_debuff
+		
+				cost = 5
+				prerequisite = { focus = KOR_monarchy_research_slot }
+				prerequisite = { focus = KOR_remove_monarch_debuff }
+		
+		
+				available = {
+				}
+		
+				bypass = {
+		
+				}
+		
+				cancel_if_invalid = yes
+				continue_if_invalid = no
+				available_if_capitulated = yes
+		
+				completion_reward = {
+					every_army_leader = {
+						add_attack = 1
+					}
+					add_ideas = KOR_specialized_units
+				}
+		
+				ai_will_do = {
+					}
+				}
+
+			###
 		focus = {
 		id = KOR_bring_back_turtle_ships
 		icon = GFX_goal_navy_funding
-		x = -1
-		y = 3
-        relative_position_id = KOR_monarchy_buff
+		x = 1
+		y = 1
+        relative_position_id = KOR_increase_naval_production2
 
 		cost = 10
-		prerequisite = { focus = KOR_remove_monarch_debuff }
-		prerequisite = { focus = KOR_monarchy_research_slot }
+		prerequisite = { focus = KOR_increase_naval_production2 focus = KOR_increase_naval_production1 }
 
 
 		available = {
@@ -1956,7 +1992,7 @@ focus_tree = {
 				relative_position_id = KOR_facist_buff
 		
 				cost = 10
-				prerequisite = { focus = KOR_bring_back_turtle_ships focus = KOR_attack_manchuria }
+				prerequisite = { focus = KOR_attack_manchuria focus = KOR_monarch_special_forces }
 				prerequisite = { focus = KOR_service_by_requirement_korea focus = KOR_attack_manchuria }
 		
 		
@@ -3097,7 +3133,7 @@ focus_tree = {
 	focus = {
 		id = KOR_army
 		icon = GFX_goal_military_government
-		x = 34
+		x = 32
 		y = 0
 		cost = 10
 		mutually_exclusive = {
@@ -3386,15 +3422,11 @@ focus_tree = {
 	focus = {
 		id = KOR_air
 		icon = GFX_goal_generic_air_fighter
-		x = 3
-		y = 1
-		cost = 10
-		prerequisite = {
-			focus = KOR_army
-		}
+		x = 37
+		y = 0
+		cost = 5
 		mutually_exclusive = {
 		}
-		relative_position_id = KOR_army
 		available = {
 			
 		}
@@ -3402,18 +3434,147 @@ focus_tree = {
 			factor = 1
 			}
 		completion_reward = {
-			add_doctrine_cost_reduction = {
-				name = air_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = air_doctrine
-			}
+			air_experience = 25
 			add_tech_bonus = {
 				name = air_bonus
 				bonus = 1.0
-				uses = 2
-				category = light_air
+				uses = 1
+				category = air_equipment
 			}
+			}
+	}
+
+	focus = {
+		id = KOR_engine
+		icon = GFX_goal_generic_air_production
+		x = -2
+		y = 1
+		cost = 5
+		mutually_exclusive = {
+		}
+		prerequisite = { focus = KOR_air }
+		relative_position_id = KOR_air
+		available = {
+			
+		}
+		ai_will_do = {
+			factor = 1
+			}
+		completion_reward = {
+			air_experience = 25
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 0.5
+				uses = 2
+				category = air_equipment
+			}
+			}
+	}
+
+	focus = {
+		id = KOR_fighter
+		icon = GFX_goal_generic_air_fighter2
+		x = 2
+		y = 1
+		cost = 10
+		mutually_exclusive = {
+		}
+		prerequisite = { focus = KOR_air }
+		relative_position_id = KOR_air
+		available = {
+			
+		}
+		ai_will_do = {
+			factor = 1
+			}
+		completion_reward = {
+			air_experience = 25
+			add_tech_bonus = {
+				name = air_bonus
+				ahead_reduction = 1
+				bonus = 1
+				uses = 1
+				category = air_equipment
+			}
+			}
+	}
+
+	focus = {
+		id = KOR_air_fight
+		icon = GFX_focus_chi_flying_tigers
+		x = -1
+		y = 1
+		cost = 10
+		mutually_exclusive = {
+			focus = KOR_air_support
+		}
+		prerequisite = { focus = KOR_fighter }
+		relative_position_id = KOR_fighter
+		available = {
+			
+		}
+		ai_will_do = {
+			factor = 1
+			}
+		completion_reward = {
+			air_experience = 25
+			add_ideas = JAP_airframe_supplies_improvements
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+			}
+	}
+	focus = {
+		id = KOR_air_support
+		icon = GFX_focus_generic_cas_aircraft
+		x = 1
+		y = 1
+		cost = 10
+		mutually_exclusive = {
+			focus = KOR_air_fight
+		}
+		prerequisite = { focus = KOR_fighter }
+		relative_position_id = KOR_fighter
+		available = {
+			
+		}
+		ai_will_do = {
+			factor = 1
+			}
+		completion_reward = {
+			air_experience = 25
+			add_ideas = KOR_airsupport
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+
+			}
+	}
+
+	focus = {
+		id = KOR_air_plan
+		icon = GFX_focus_SOV_flying_clubs
+		x = 1
+		y = 1
+		cost = 10
+		mutually_exclusive = {
+		}
+		prerequisite = { focus = KOR_air_support focus = KOR_air_fight }
+		relative_position_id = KOR_air_fight
+		available = {
+			
+		}
+		ai_will_do = {
+			factor = 1
+			}
+		completion_reward = {
+			add_ideas = CAN_the_plan
 			}
 	}
 	
@@ -3421,7 +3582,7 @@ focus_tree = {
 	focus = {
 		id = KOR_hanjin_heavy_industries
 		icon = GFX_goal_generic_expand_the_naval_industry
-		x = 50
+		x = 51
 		y = 0
 		cost = 5
 		ai_will_do = {

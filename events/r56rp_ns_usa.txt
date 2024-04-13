@@ -1,0 +1,416 @@
+###########################
+# r56rp USA Events
+###########################
+
+add_namespace = r56rp_usa
+add_namespace = r56rp_usa_news
+
+# General idea is to add some legitimacy to fascist usa. You CAN flip fascist in elections, but since its a generic event that just makes elections not work.
+# Plan is to add elections, then whoever breaks the 20% popularity step, can be a runner up, so technicaly you can absolutley have a 4-way election.
+
+# will also make a 44 election of pelley v fascist candidate, and of course term limits should be respected fascist or not
+
+country_event = { # Fascist Elections - Elections of 1940 Dudley Pelley / Lindbergh v Roosevelt
+	id = r56rp_usa.1
+	title = r56rp_usa.1.t
+	desc = r56rp_usa.1.desc
+	picture = GFX_report_event_usa_election_generic
+
+	is_triggered_only = yes
+
+	trigger = {
+		tag = USA
+		fascism > 0.45
+		date > 1940.1.1
+		date < 1941.1.1
+	}
+
+	immediate = { #this should be fine as is, might have to tweak the values if they heavily depend on demo shite
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = USA_voter_registration_act
+						has_completed_focus = USA_union_representation_act
+					}
+				}
+				country_event = { id = usa.32 days = 730 } # midterms
+			}
+			else = {
+				country_event = { id = usa.35 days = 730 } # midterms
+			}
+		}
+	}
+
+	option = { 	# dudley pelley
+		name = r56rp_usa.1.a
+		ai_chance = {
+			factor = 75
+
+		}		
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = USA_voter_registration_act
+					has_completed_focus = USA_union_representation_act
+				}
+			}
+			country_event = usa.32
+		}
+		else = {
+			set_variable = { election_factor = random }
+			add_to_variable = { election_factor = -0.5 }
+			USA_election_senate = yes
+			USA_election_house = yes
+			custom_effect_tooltip = usa_congress_elections_tt_bad
+			country_event = usa.30
+		}
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = yes
+		}
+
+		IF = {
+			limit = {
+				NOT = {
+					USA = {
+						has_country_leader = {
+							character = USA_william_dudley_pelley
+							ruling_only = yes
+						}
+					}
+				}
+			}
+			promote_character = {
+				character = USA_william_dudley_pelley
+				ideology = fascism
+			}
+		}
+	}
+
+	option = { 	# charles lindbergh
+		name = r56rp_usa.1.b
+		ai_chance = {
+			factor = 75
+
+		}		
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = USA_voter_registration_act
+					has_completed_focus = USA_union_representation_act
+				}
+			}
+			country_event = usa.32
+		}
+		else = {
+			set_variable = { election_factor = random }
+			add_to_variable = { election_factor = -0.5 }
+			USA_election_senate = yes
+			USA_election_house = yes
+			custom_effect_tooltip = usa_congress_elections_tt_bad
+			country_event = usa.30
+		}
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = yes
+		}
+		IF = {
+			limit = {
+				NOT = {
+					USA = {
+						has_country_leader = {
+							character = USA_charles_lindbergh
+							ruling_only = yes
+						}
+					}
+				}
+			}
+			promote_character = {
+				character = USA_charles_lindbergh
+				ideology = fascism
+			}
+		}
+	}
+
+	option = {
+		name = r56rp_usa.1.c
+
+		trigger = { # you cannot choose a president if he has below 35prc popular support. Low but always options.
+			ROOT = {
+				democratic > 0.35
+			}
+		}
+
+		ai_chance = {
+			factor = 0
+		}		
+
+		set_party_name = { 
+			ideology = democratic 
+			long_name = USA_democratic_party 
+			name = USA_democratic_party 
+		}
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = yes
+		}
+		set_variable = { election_factor = random }
+		add_to_variable = { election_factor = -0.6 }
+		USA_election_senate = yes
+		USA_election_house = yes
+
+		custom_effect_tooltip = usa_congress_elections_tt_good
+
+		IF = {
+			limit = {
+				NOT = {
+					USA = {
+						has_country_leader = {
+							character = USA_franklin_delano_roosevelt
+							ruling_only = yes
+						}
+					}
+				}
+			}
+			promote_character = {
+				character = USA_franklin_delano_roosevelt
+				ideology = liberalism
+			}
+		}
+	}
+}
+
+# fascist usa news event
+news_event = {
+	id = r56rp_usa_news.1
+	title = news.1.t
+	desc = news.1.d
+	picture = GFX_news_event_001
+	
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = r56rp_usa_news.1.a
+		trigger = {
+			has_government = fascism
+		}
+	}
+	option = {
+		name = r56rp_usa_news.1.b
+		trigger = {
+			has_government = democratic
+		}
+	}
+	option = {
+		name = r56rp_usa_news.1.c
+		trigger = {
+			NOT = {
+				OR = {
+					has_government = fascism
+					has_government = democratic
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Fascist Elections - Elections of 1944 Dudley Pelley / Lindbergh v Truman
+	id = r56rp_usa.2
+	title = r56rp_usa.2.t
+	desc = r56rp_usa.2.desc
+	picture = GFX_report_event_usa_election_generic
+
+	is_triggered_only = yes
+
+	trigger = {
+		tag = USA
+		fascism > 0.45
+		date > 1944.1.1
+		date < 1945.1.1
+	}
+
+	immediate = { #this should be fine as is, might have to tweak the values if they heavily depend on demo shite
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = USA_voter_registration_act
+						has_completed_focus = USA_union_representation_act
+					}
+				}
+				country_event = { id = usa.32 days = 730 } # midterms
+			}
+			else = {
+				country_event = { id = usa.35 days = 730 } # midterms
+			}
+		}
+	}
+
+	option = { 	# dudley pelley
+		name = r56rp_usa.2.a
+		ai_chance = {
+			factor = 75
+
+		}		
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = USA_voter_registration_act
+					has_completed_focus = USA_union_representation_act
+				}
+			}
+			country_event = usa.32
+		}
+		else = {
+			set_variable = { election_factor = random }
+			add_to_variable = { election_factor = -0.5 }
+			USA_election_senate = yes
+			USA_election_house = yes
+			custom_effect_tooltip = usa_congress_elections_tt_bad
+			country_event = usa.30
+		}
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = yes
+		}
+		#USA_william_dudley_pelley = { # no term limits until 1952 lmao
+		#	IF = {
+		#		limit = {
+		#			has_charachter_flag = r56rp_has_been_president_once
+		#		}
+		#		set_character_flag = r56rp_has_been_president_twice
+		#	}
+		#	ELSE = {
+		#		set_character_flag = r56rp_has_been_president_once
+		#	}
+		#}
+		
+		IF = {
+			limit = {
+				NOT = {
+					USA = {
+						has_country_leader = {
+							character = USA_william_dudley_pelley
+							ruling_only = yes
+						}
+					}
+				}
+			}
+			promote_character = {
+				character = USA_william_dudley_pelley
+				ideology = fascism
+			}
+		}
+	}
+
+	option = { 	# charles lindbergh
+		name = r56rp_usa.2.b
+		ai_chance = {
+			factor = 75
+
+		}		
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = USA_voter_registration_act
+					has_completed_focus = USA_union_representation_act
+				}
+			}
+			country_event = usa.32
+		}
+		else = {
+			set_variable = { election_factor = random }
+			add_to_variable = { election_factor = -0.5 }
+			USA_election_senate = yes
+			USA_election_house = yes
+			custom_effect_tooltip = usa_congress_elections_tt_bad
+			country_event = usa.30
+		}
+		set_politics = {
+			ruling_party = fascism
+			elections_allowed = yes
+		}
+		#USA_charles_lindbergh = { # term limits were introduced to the usa in 1952, lmao
+		#	IF = {
+		#		limit = {
+		#			has_charachter_flag = r56rp_has_been_president_once
+		#		}
+		#		set_character_flag = r56rp_has_been_president_twice
+		#	}
+		#	ELSE = {
+		#		set_character_flag = r56rp_has_been_president_once
+		#	}
+		#}
+		IF = {
+			limit = {
+				NOT = {
+					USA = {
+						has_country_leader = {
+							character = USA_charles_lindbergh
+							ruling_only = yes
+						}
+					}
+				}
+			}
+			promote_character = {
+				character = USA_charles_lindbergh
+				ideology = fascism
+			}
+		}
+	}
+
+	option = { #truman
+		name = r56rp_usa.2.c
+
+		trigger = { # you cannot choose a president if he has below 35prc popular support. Low but always options.
+			ROOT = {
+				democratic > 0.35
+			}
+		}
+
+		ai_chance = {
+			factor = 0
+		}		
+
+		set_party_name = { 
+			ideology = democratic 
+			long_name = USA_democratic_party 
+			name = USA_democratic_party 
+		}
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = yes
+		}
+		set_variable = { election_factor = random }
+		add_to_variable = { election_factor = -0.6 }
+		USA_election_senate = yes
+		USA_election_house = yes
+
+		custom_effect_tooltip = usa_congress_elections_tt_good
+
+		IF = {
+			limit = {
+				NOT = {
+					USA = {
+						has_country_leader = {
+							name = "Harry S. Truman"
+							ruling_only = yes
+						}
+					}
+				}
+			}
+			create_country_leader = {
+				name = "Harry S. Truman"
+				desc = "POLITICS_HARRY_TRUMAN_DESC"
+				picture = "Portrait_USA_Harry_Truman.dds"
+				expire = "1965.1.1"
+				ideology = liberalism
+				traits = {
+					POL_Foreign_Affairs
+				}
+			}
+		}
+	}
+}

@@ -1,3 +1,7 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 SWI_debug_decisions_category = {
 	SWI_find_biggest_fascist = {
 		complete_effect = {
@@ -34,7 +38,6 @@ SWI_debug_decisions_category = {
 	}
 	start_systems = {
 		complete_effect = {
-			complete_national_focus = SWI_swiss_guiding_principles
 			complete_national_focus = SWI_fortify_border_with_germany
 			complete_national_focus = SWI_armed_neutrality
 		}
@@ -126,8 +129,7 @@ SWI_federal_council_decisions_category = {
 		priority = 60
 		allowed = { original_tag = SWI }
 
-		visible = { 
-			#has_completed_focus = SWI_swiss_guiding_principles
+		visible = {
 			has_variable = SWI_confederation_president 
 			NOT = { has_country_flag = SWI_elected_centralized_president }
 		}
@@ -174,12 +176,10 @@ SWI_federal_council_decisions_category = {
 
 		visible = {
 			has_country_flag = SWI_vacant_confederation_president_position
-			#has_completed_focus = SWI_swiss_guiding_principles 
 		}
 
 		available = {
-			NOT = { has_country_flag = SWI_vacant_confederation_president_position } 
-			has_completed_focus = SWI_swiss_guiding_principles 
+			NOT = { has_country_flag = SWI_vacant_confederation_president_position }
 		}
 
 		days_mission_timeout = 30
@@ -188,8 +188,6 @@ SWI_federal_council_decisions_category = {
 
 		activation = {
 			has_country_flag = SWI_vacant_confederation_president_position
-			#has_completed_focus = SWI_swiss_guiding_principles 
-
 		}
 
 		timeout_effect = {
@@ -242,7 +240,7 @@ SWI_federal_council_decisions_category = {
 
 		visible = {
 			SWI_council_not_filled = yes
-			has_completed_focus = SWI_swiss_guiding_principles
+			has_country_flag = SWI_bop_activated_flag
 			NOT = { has_country_flag = SWI_elected_centralized_president }
 		}
 
@@ -251,7 +249,9 @@ SWI_federal_council_decisions_category = {
 				limit =	{
 					NOT = {	has_country_flag = SWI_elected_centralized_president }
 				}
-				has_completed_focus = SWI_swiss_guiding_principles
+				hidden_trigger = {	#used for visibility anyway, so hide for player because no need to localize it
+					has_country_flag = SWI_bop_activated_flag
+				}
 				NOT = { SWI_council_not_filled = yes }   	
 			}
 			else = {
@@ -266,6 +266,9 @@ SWI_federal_council_decisions_category = {
 		activation = {
 			SWI_council_not_filled = yes
 			NOT = { has_country_flag = SWI_elected_centralized_president }
+			NOT = {	#overrides decision visibility otherwise
+				has_global_flag = SWI_R56_focus_tree
+			}
 		}
 
 		timeout_effect = {
@@ -378,7 +381,7 @@ SWI_federal_council_decisions_category = {
 
 		visible = {
 			has_variable = SWI_councilor_1
-			has_completed_focus = SWI_swiss_guiding_principles
+			has_country_flag = SWI_bop_activated_flag
 		}
 
 		cost = 200
@@ -427,7 +430,7 @@ SWI_federal_council_decisions_category = {
 
 		visible = {
 			has_variable = SWI_councilor_2
-			has_completed_focus = SWI_swiss_guiding_principles
+			has_country_flag = SWI_bop_activated_flag
 		}
 
 		cost = 200
@@ -477,7 +480,7 @@ SWI_federal_council_decisions_category = {
 
 		visible = {
 			has_variable = SWI_councilor_3
-			has_completed_focus = SWI_swiss_guiding_principles
+			has_country_flag = SWI_bop_activated_flag
 		}
 
 		cost = 200
@@ -1125,7 +1128,7 @@ SWI_federal_council_decisions_category = {
 		cost = SWI_president_initiative_cost
 		
 		modifier = {
-			consumer_goods_factor = -0.1
+			consumer_goods_factor = -0.25
 			production_speed_buildings_factor = 0.4
 			production_speed_industrial_complex_factor = 0.1
 		}
@@ -3283,7 +3286,8 @@ SWI_absolute_neutrality_decisions_category = {
 			}
 		}
 
-		cost = 50 
+		cost = 25 
+
 		complete_effect = {
 			FROM = { country_event = { id = BBA_switzerland_trade.8 hours = 4 } }
 			effect_tooltip = {
@@ -3336,7 +3340,7 @@ SWI_absolute_neutrality_decisions_category = {
 
 		}
 
-		cost = 50 
+		cost = 25 
 		complete_effect = {
 			FROM = { country_event = { id = BBA_switzerland_trade.8 hours = 4 } }
 			effect_tooltip = {
@@ -3370,7 +3374,7 @@ SWI_absolute_neutrality_decisions_category = {
 			}
 		}
 
-		cost = 50 
+		cost = 25
 
 		complete_effect = {
 			FROM = { country_event = { id = BBA_switzerland_trade.11 hours = 4 } } 
@@ -3472,27 +3476,29 @@ SWI_absolute_neutrality_decisions_category = {
 		}	
 	}
 
-	SWI_purchase_democratic_planes_fighters = {
+	SWI_purchase_foreign_fighters = {			#rename it for later to be less confusing
 
 		icon = GFX_decision_generic_air		
 
 		allowed = { original_tag = SWI }
 
 		visible = {
-			has_completed_focus = SWI_purchase_american_planes
+			has_completed_focus = GEN_Foreign_Design
 		}
 
 		available = {
 			num_of_civilian_factories_available_for_projects > 4
-			var:SWI.SWI_democratic_planes_seller = {
-				SWI_country_is_happy = yes
+			FROM = {
+				has_opinion = {		#instead of "dynamic" script using various variables
+					target = SWI
+					value > 25
+				}
 			}
 		}
 		target_trigger = {
 			FROM = {
-				tag = SWI.SWI_democratic_planes_seller
-				exists = yes 
-				has_government = democratic 
+				exists = yes
+				has_country_flag = SWI_can_buy_planes_from_them_flag		#added from focus
 				NOT = { has_war_with = ROOT } 	
 			}
 		}
@@ -3547,27 +3553,29 @@ SWI_absolute_neutrality_decisions_category = {
 		}
 	}
 
-	SWI_purchase_democratic_planes_cas = { 
+	SWI_purchase_foreign_cas = { 
 		
 		icon = GFX_decision_generic_air		
 
 		allowed = { original_tag = SWI }
 
 		visible = {
-			has_completed_focus = SWI_purchase_american_planes
+			has_completed_focus = GEN_Foreign_Design
 		}
 
 		available = {
 			num_of_civilian_factories_available_for_projects > 4
-			var:SWI.SWI_democratic_planes_seller = {
-				SWI_country_is_happy = yes
+			FROM = {
+				has_opinion = {		#instead of "dynamic" script using various variables
+					target = SWI
+					value > 25
+				}
 			}
 		}
 		target_trigger = {
 			FROM = {
-				tag = SWI.SWI_democratic_planes_seller
-				exists = yes 
-				has_government = democratic 
+				exists = yes
+				has_country_flag = SWI_can_buy_planes_from_them_flag		#added from focus
 				NOT = { has_war_with = ROOT } 	
 			}
 		}
@@ -3601,157 +3609,6 @@ SWI_absolute_neutrality_decisions_category = {
 				}
 			}
 		}
-		ai_will_do = {
-			base = 75
-			modifier = {
-				factor = 0.1 
-				SWI_someone_is_about_to_be_angry = yes 
-				FROM = { SWI_country_about_to_be_angry = no }
-			}
-			modifier = {
-				factor = 0.1
-				OR = {
-					has_equipment = { 
-						small_plane_cas_airframe_1 > 149
-					} 
-					has_equipment = { 
-						small_plane_cas_airframe_0 > 149
-					}
-				}
-			} 
-		}
-	}
-
-	SWI_purchase_fascist_planes_fighters = {
-		
-		icon = GFX_decision_generic_air	
-
-		allowed = { original_tag = SWI }
-
-		visible = {
-			has_completed_focus = SWI_purchase_german_planes
-		}
-
-		available = {
-			num_of_civilian_factories_available_for_projects > 4
-			var:SWI.SWI_biggest_fascist = {
-				SWI_country_is_happy = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = SWI.SWI_biggest_fascist
-				exists = yes 
-				has_government = fascism 
-				NOT = { has_war_with = ROOT } 	
-			}
-		}
-
-		cost = 35
-
-		days_remove = 45
-
-		targeted_modifier = { 
-			tag = FROM
-			cic_to_target_factor = 0.2
-		}
-
-		remove_effect = {
-			FROM = {
-				SWI_get_fighters_from_this_country = yes
-			}
-			if = {
-				limit = {
-					SWI_is_historical_ai = no 
-				}
-				every_other_country = {
-					limit = { 
-						SWI_is_country_to_balance = yes 
-						NOT = { 
-							tag = FROM 
-							has_government = FROM 
-						}	
-					}
-					SWI_add_small_bad_opinion = yes 
-				}
-			}
-		}
-		ai_will_do = {
-			base = 75
-			modifier = {
-				factor = 0.1 
-				SWI_someone_is_about_to_be_angry = yes 
-				FROM = { SWI_country_about_to_be_angry = no }
-			}
-			modifier = {
-				factor = 0.1
-				OR = {
-					has_equipment = { 
-						small_plane_airframe_1 > 149
-					} 
-					has_equipment = { 
-						small_plane_airframe_0 > 149
-					}
-				}
-			} 
-		}
-	}
-
-	SWI_purchase_fascist_planes_cas = { 
-
-		icon = GFX_decision_generic_air	
-
-		allowed = { original_tag = SWI }
-
-		visible = {
-			has_completed_focus = SWI_purchase_german_planes
-		}
-
-		available = {
-			num_of_civilian_factories_available_for_projects > 4
-			var:SWI.SWI_biggest_fascist = {
-				SWI_country_is_happy = yes
-			}
-		}
-		target_trigger = {
-			FROM = {
-				tag = SWI.SWI_biggest_fascist
-				exists = yes 
-				has_government = fascism 
-				NOT = { has_war_with = ROOT } 	
-			}
-		}
-
-		cost = 35
-
-		days_remove = 45
-
-		targeted_modifier = { 
-			tag = FROM
-			cic_to_target_factor = 0.2
-		}
-
-		remove_effect = {
-			FROM = {
-				SWI_get_cas_from_this_country = yes
-			}
-			if = {
-				limit = {
-					SWI_is_historical_ai = no
-				}
-				every_other_country = {
-					limit = { 
-						SWI_is_country_to_balance = yes 
-						NOT = { 
-							tag = FROM 
-							has_government = FROM 
-						}	
-					}
-					SWI_add_small_bad_opinion = yes 
-				}
-			}
-		}
-		
 		ai_will_do = {
 			base = 75
 			modifier = {
@@ -4690,6 +4547,147 @@ SWI_military_readiness_decisions_category = {
 				factor = 3
 				SWI_MR_full = yes
 				check_variable = { SWI_military_readiness > 150 }
+			}
+		}
+	}
+}
+
+SWI_border_war_liechtenstein_category = {
+
+	SWI_prepare_border_war_liechtenstein = {
+		icon = border_war
+		allowed = {
+			original_tag = SWI
+		}
+
+		visible = {
+			is_subject = no
+			has_full_control_of_state = 151
+		}
+
+		available = {
+			is_puppet = no
+			997 = {
+				NOT = {
+					CONTROLLER = {
+                        has_war_with = ROOT
+                        is_subject_of = ROOT
+                        is_in_faction_with = ROOT
+						has_non_aggression_pact_with = ROOT
+					}
+				}
+			}
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 997
+			} 
+		}
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 20
+			modifier = {
+				has_war = yes
+				factor = 0
+			}
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = VEN_border_war_warning
+			unlock_decision_tooltip = SWI_border_war_liechtenstein
+			hidden_effect = {
+				set_country_flag = SWI_liechtenstein_border_war_flag
+				997 = {
+					OWNER = {
+						country_event = { id = liechtenstein.8 hours = 6 }  
+					}
+				}
+			}
+			151 = {
+				set_state_flag = border_incident_active
+			}
+			997 = {
+				set_state_flag = border_incident_active
+			}
+		}
+	}
+
+	SWI_border_war_liechtenstein = {
+
+		icon = border_war
+
+		allowed = {
+			original_tag = SWI
+		}
+
+		priority = 5
+
+		available = {
+			OR = {
+				is_subject = yes
+				NOT = {
+					has_full_control_of_state = 151
+				}
+				has_full_control_of_state = 997
+				997 = {
+					OR = {
+						CONTROLLER = {
+							has_war_with = ROOT
+						}
+						CONTROLLER = {
+							is_subject_of = ROOT
+						}
+						CONTROLLER = {
+							is_in_faction_with = ROOT
+						}
+					}
+				}
+			}
+		}
+		
+		activation = {
+			has_country_flag = SWI_liechtenstein_border_war_flag
+		}
+
+		visible = {
+			has_country_flag = SWI_liechtenstein_border_war_flag
+		}
+		
+		fire_only_once = yes
+		
+		is_good = yes
+
+		days_mission_timeout = 30
+
+		cancel_if_not_visible = yes
+		
+		highlight_states = {
+			highlight_state_targets = {
+				state = 997
+			} 
+		}
+		
+		timeout_effect = {
+			start_border_war = {
+				change_state_after_war = no
+				attacker = {
+					state = 151
+					num_provinces = 1
+					on_win = liechtenstein.9
+					on_lose = liechtenstein.10
+					on_cancel = liechtenstein.13
+				}
+				
+				defender = {
+					state = 997
+					num_provinces = 1
+					on_win = liechtenstein.11
+					on_lose = liechtenstein.12
+					on_cancel = liechtenstein.13
+				}
 			}
 		}
 	}

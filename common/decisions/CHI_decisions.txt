@@ -55,7 +55,7 @@ CHI_anti_imperialism = {
 
 # NEW CATEGORY TO WORK WITH THE CHINESE NATIONAL FOCUS MOD
 
-CHI_improve_the_army_situation = {
+r56rp_officer_training = {
 	CHI_improve_the_NRA = {
 
 		icon = GFX_decision_icon_kuomintang
@@ -74,7 +74,7 @@ CHI_improve_the_army_situation = {
 		days_remove = 90
 		
 		ai_will_do = {
-			factor = 500000 #do it cause we need it!
+			factor = 500 #do it cause we need it!
 		}
 
 		visible = {
@@ -106,6 +106,7 @@ CHI_improve_the_army_situation = {
 		}
 		complete_effect = {
 			army_experience = -100
+						
 		}		
 	}	
 }
@@ -187,7 +188,6 @@ CHI_war_of_resistance = {
 
 		available = {
 			has_defensive_war_with = JAP
-			has_completed_focus = KMT_external_defense
 			NOT = { has_global_flag = CHI_unite }
 			NOT = { has_global_flag = CHI_no_national_front_flag }
 		}
@@ -393,7 +393,6 @@ CHI_war_of_resistance = {
 				news_event = { id = news.409 } 
 				set_global_flag = chi_yellow_river_blown
 			}
-			set_global_flag = huayuankou_destroyed
 		}
 	}
 
@@ -470,8 +469,17 @@ CHI_war_of_resistance = {
 					type = arms_factory
 					damage = 1
 				}
+				damage_units = {
+					state = THIS
+					limit = { 
+						has_war_with = CHI
+					}
+					damage = 0.2
+					ratio = yes
+					army = yes
+					navy = no
+				}
 				set_state_flag = scorched
-				set_state_flag = scorched_tt
 			}
 		}
 	}
@@ -1003,7 +1011,7 @@ CHI_liberation_of_asia = {
 
 #Category allowed for all potential nationalist china
 #Category visible when CHI_army_reform focus is completed
-CHI_army_reform = {
+r56rp_officer_training = {
 
 	CHI_army_reform = {
 
@@ -1180,27 +1188,30 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_navy
 					}
 				}
-				has_tech = basic_machine_tools
-				OR = {
+				count_triggers = {
+					amount = 4
+					has_tech = basic_machine_tools
 					has_tech = concentrated_industry
 					has_tech = dispersed_industry
+					has_tech = construction1
+					has_tech = excavation1
+					has_tech = electronic_mechanical_engineering
+					OR = {
+						AND = {
+							num_of_factories > 40 #was 50
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 50 #was 65
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 65 #was 75
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction1
-				OR = {
-					AND = {
-						num_of_factories > 40 #was 50
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 50 #was 65
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 65 #was 75
-						has_offensive_war = yes
-					}
-				}
-				amount_research_slots > 2
+				
 			}
 			if = {
 				limit = {
@@ -1209,27 +1220,30 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_2_navy
 					}
 				}
-				has_tech = improved_machine_tools
-				OR = {
+				count_triggers = {
+					amount = 4
+					has_tech = improved_machine_tools
 					has_tech = concentrated_industry2
 					has_tech = dispersed_industry2
+					has_tech = construction2
+					has_tech = excavation2
+					has_tech = mechanical_computing
+					OR = {
+						AND = {
+							num_of_factories > 70
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 80
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 90
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction2
-				OR = {
-					AND = {
-						num_of_factories > 70
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 80
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 90
-						has_offensive_war = yes
-					}
-				}
-				amount_research_slots > 3
+				
 			}
 			if = {
 				limit = {
@@ -1238,28 +1252,30 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_3_navy
 					}
 				}
-				has_tech = advanced_machine_tools
-				OR = {
+				count_triggers = {
+					amount = 4
+					has_tech = advanced_machine_tools
 					has_tech = concentrated_industry3
 					has_tech = dispersed_industry3
+					has_tech = construction3
+					has_tech = excavation3
+					has_tech = computing_machine
+					OR = {
+						AND = {
+							num_of_factories > 90
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 115
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 125
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction3
-				OR = {
-					AND = {
-						num_of_factories > 90
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 115
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 125
-						has_offensive_war = yes
-					}
-				}
-				has_idea = incompetent_industry_real_3
-				amount_research_slots > 3
+				
 			}
 			if = {
 				limit = {
@@ -1268,28 +1284,29 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_4_navy
 					}
 				}
-				has_tech = assembly_line_production
-				OR = {
+				count_triggers = {
+					amount = 4
+					has_tech = assembly_line_production
 					has_tech = concentrated_industry4
 					has_tech = dispersed_industry4
+					has_tech = construction4
+					has_tech = excavation4
+					has_tech = improved_computing_machine
+					OR = {
+						AND = {
+							num_of_factories > 110
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 140
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 150
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction4
-				OR = {
-					AND = {
-						num_of_factories > 110
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 140
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 150
-						has_offensive_war = yes
-					}
-				}
-				has_idea = incompetent_industry_real_4
-				amount_research_slots > 4
 			}
 			if = {
 				limit = {
@@ -1298,31 +1315,30 @@ economy_decisions = {
 						has_idea = incompetent_industry_real_5_navy
 					}
 				}
-				OR = {
+				count_triggers = {
+					amount = 4
 					has_tech = flexible_line
 					has_tech = streamlined_line
-				}
-				OR = {
 					has_tech = concentrated_industry5
 					has_tech = dispersed_industry5
+					has_tech = construction5
+					has_tech = excavation5
+					has_tech = advanced_computing_machine
+					OR = {
+						AND = {
+							num_of_factories > 130
+							has_war = no
+						}
+						AND = {
+							num_of_factories > 170
+							has_defensive_war = yes
+						}
+						AND = {
+							num_of_factories > 190
+							has_offensive_war = yes
+						}
+					}
 				}
-				has_tech = construction5
-				OR = {
-					AND = {
-						num_of_factories > 130
-						has_war = no
-					}
-					AND = {
-						num_of_factories > 170
-						has_defensive_war = yes
-					}
-					AND = {
-						num_of_factories > 190
-						has_offensive_war = yes
-					}
-				}
-				has_idea = incompetent_industry_real_5
-				amount_research_slots > 4
 			}
 		}
 
@@ -1353,16 +1369,28 @@ economy_decisions = {
 		days_remove = 30
 
 		modifier = {
-			consumer_goods_factor = 0.05
-			political_power_gain = 0.15
+			consumer_goods_factor = 0.25
+			political_power_gain = 1
 		}
 
 		complete_effect = {
 			every_controlled_state = {
 				limit = {
 					is_core_of = ROOT
+					NOT = {
+						has_state_flag = CHI_r56rp_added_slots_once
+					}
 				}
-				add_extra_state_shared_building_slots = 1
+				set_state_flag = CHI_r56rp_added_slots_once
+				if = {
+					limit = {
+						num_of_factories > 5
+					}
+					add_extra_state_shared_building_slots = 2
+				}
+				else = {
+					add_extra_state_shared_building_slots = 1
+				}
 			}
 		}
 
@@ -1458,14 +1486,7 @@ war_measures = {
 					type = infrastructure
 					damage = 3
 				}
-			}
-			random_country = {
-				limit = {
-					PRC_has_low_popular_support = yes
-				}
-				#TODO_WTT_CD maybe notification event?
-				PRC_low_popular_support_level_down = yes
-			}			
+			}		
 		}
 	}
 }
@@ -1480,19 +1501,78 @@ war_measures = {
 CHI_industrial_evacuations = {
 
 	#Originally available for 283 591 592 593 594 595 596 597 598 599 600 602 606 607 608 613 614 616 620 743
-	CHI_industrial_evacuations_from_FROM = { 
-		icon = generic_scorched_earth
+	CHI_industrial_evacuations_from_FROM = { #redone by warlider, cause SHIT WASNT WORKING BEFORE.
+		icon = GFX_decision_generic_industry
+
+		on_map_mode = map_and_decisions_view
+		state_target = any_controlled_state
+
+		target_root_trigger = {
+			has_completed_focus = CHI_industrial_evacuations
+		}
+
 		available = {
+			#should kinda ensure there are civs to move with before moving
+			num_of_civilian_factories_available_for_projects > 5
 			FROM = {
-				OR = {
+				OR = { #show the evacuation decision when there is something to
 					arms_factory > 0
 					industrial_complex > 0
 				}
 			}
-		}
-		on_map_mode = map_and_decisions_view
+			
 
-		state_target = yes
+			any_state = {
+				is_controlled_by = ROOT
+				OR = {
+					state = 325 #Yunnan
+					state = 603 #Guizhou
+					state = 605 #Sichuan
+					state = 747 #Dali
+					state = 748 #Zunyi
+					state = 751 #Liangshan
+					state = 752 #Ganzi
+				}
+				OR = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+			}
+		
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 283
+				state = 591
+				state = 592
+				state = 593
+				state = 594
+				state = 595
+				state = 596
+				state = 597
+				state = 598
+				state = 599
+				state = 600
+				state = 602
+				state = 606
+				state = 607
+				state = 608
+				state = 613
+				state = 614
+				state = 616
+				state = 620
+				state = 743			
+			}
+		}
+		
 		target_trigger = {	#originally were 283 591 592 593 594 595 596 597 598 599 600 602 606 607 608 613 614 616 620 743
 			FROM = {
 				OR = {
@@ -1518,220 +1598,136 @@ CHI_industrial_evacuations = {
 					state = 743
 				}
 				is_controlled_by = ROOT
-				OR ={
-					NOT ={
-						is_fully_controlled_by = ROOT
-					}
-					any_neighbor_state = {
-						controller = {
-							has_war_with = ROOT
-						}
-					}
-				}
+				#OR ={
+				#	NOT ={
+				#		is_fully_controlled_by = ROOT
+				#	}
+				#	any_neighbor_state = {
+				#		controller = {
+				#			has_war_with = ROOT
+				#		}
+				#	}
+				#}
 			}
 		}
 		visible = {
-			has_completed_focus = CHI_industrial_evacuations	
+			FROM = {
+				OR = {
+					arms_factory > 0
+					industrial_complex > 0
+				}
+			}
 		}
 
-		fire_only_once = yes
-		cost = 25
+		fire_only_once = no
+		cost = 0
 
-		days_remove = 15
+		days_remove = 14
 
+		modifier = {
+			civilian_factory_use = 5
+		}
+		
 		remove_effect = {
-			if = {
-				limit = {
-					controls_state = FROM
+			FROM = {
+				set_variable = {
+					var = THIS.af_to_move
+					value = arms_factory_level
 				}
-				FROM = {
-					set_variable = {
-						var = af_level
-						value = arms_factory_level
+
+				set_variable = {
+					var = THIS.ic_to_move
+					value = industrial_complex_level
+				}
+				log = "Current scope [THIS.GetName] MIL [?THIS.ic_to_move] CIV [?THIS.af_to_move]"
+
+				custom_effect_tooltip = CHI_industrial_evacuations_remove_AF
+				custom_effect_tooltip = CHI_industrial_evacuations_remove_IC
+				hidden_effect = {				
+					remove_building = {
+						type = arms_factory
+						level = THIS.af_to_move
 					}
-					set_variable = {
-						var = af_to_move
-						value = arms_factory_level
+					remove_building = {
+						type = industrial_complex
+						level = THIS.ic_to_move
 					}
-					multiply_variable = {
-						var = af_to_move
-						value = global.CHI_industrial_evacuations_amount_factor
-					}
-	
-					set_variable = {
-						var = ic_level
-						value = industrial_complex_level
-					}
-					set_variable = {
-						var = ic_to_move
-						value = industrial_complex_level
-					}
-					multiply_variable = {
-						var = ic_to_move
-						value = global.CHI_industrial_evacuations_amount_factor
-					}
-	
-					custom_effect_tooltip = CHI_industrial_evacuations_remove_AF
-					custom_effect_tooltip = CHI_industrial_evacuations_remove_IC
-					hidden_effect = {				
-						remove_building = {
-							type = arms_factory
-							level = af_level
-						}
-						remove_building = {
-							type = industrial_complex
-							level = ic_level
-						}
-					}
-	
+				}
+
+				
+				ROOT = { #unsure why i put this here. fucking works so i dont care.
+					#log = "Current scope [THIS.GetName] MIL [?PREV.PREV.ic_to_move] CIV [?PREV.PREV.af_to_move]"
+
 					#Move AF
-					CONTROLLER = {
-						random_owned_controlled_state = {
-							prioritize = { 605 603 748 }
-							limit = {
-								is_fully_controlled_by = ROOT
-								any_neighbor_state = {
-									is_controlled_by = ROOT
-								}
-								free_building_slots = {
-									building = arms_factory
-									size > 2
-									include_locked = yes
-								}
+					random_owned_controlled_state = {
+						limit = {
+							OR = { #makes it truly random and spreads the industry around a bit instead of dumping it into sechuan
+								state = 325 #Yunnan
+								state = 603 #Guizhou
+								state = 605 #Sichuan
+								state = 747 #Dali
+								state = 748 #Zunyi
+								state = 751 #Liangshan
+								state = 752 #Ganzi
 							}
-	
-							custom_effect_tooltip = CHI_industrial_evacuations_add_AF						
-							hidden_effect = {
-								add_extra_state_shared_building_slots = af_to_move
-								add_building_construction = {
-									type = arms_factory
-									level = af_to_move
-									instant_build = yes
-								}
-								CONTROLLER = { set_country_flag = CHI_industrial_evacuations_moved_AF }
+							is_fully_controlled_by = ROOT
+							any_neighbor_state = {
+								is_controlled_by = ROOT
+							}
+							free_building_slots = {
+								building = arms_factory
+								size > PREV.PREV.af_to_move
+								include_locked = yes
 							}
 						}
-	
-						#If no states are really safe or all safe are filled
-						#Move to random controlled state
-						if = {
-							limit = {
-								NOT = { has_country_flag = CHI_industrial_evacuations_moved_AF }
-								NOT = {
-									any_controlled_state = {
-										is_fully_controlled_by = ROOT
-										any_neighbor_state = {
-											is_controlled_by = ROOT
-										}
-										free_building_slots = {
-											building = arms_factory
-											size > 2
-											include_locked = yes
-										}
-									}
-								}
-							}
-							random_owned_controlled_state = {
-								prioritize = { 605 603 748 }
-								limit = {
-									is_controlled_by = ROOT
-									free_building_slots = {
-										building = arms_factory
-										size > 2
-										include_locked = yes
-									}
-								}
-	
-								custom_effect_tooltip = CHI_industrial_evacuations_add_AF						
-								hidden_effect = {
-									add_extra_state_shared_building_slots = af_to_move
-									add_building_construction = {
-										type = arms_factory
-										level = af_to_move
-										instant_build = yes
-									}
-								}
+
+						custom_effect_tooltip = CHI_r56rp_industrial_evacuations_add_AF					
+						hidden_effect = {
+							add_extra_state_shared_building_slots = PREV.PREV.af_to_move #PREV.PREV looks weird but it works. It has to target the previous nested shite before ROOT.
+							add_building_construction = {
+								type = arms_factory
+								level = PREV.PREV.af_to_move
+								instant_build = yes
 							}
 						}
-						clr_country_flag = CHI_industrial_evacuations_moved_AF
-	
-	
-						#Move IC
-						random_owned_controlled_state = {
-							prioritize = { 605 603 748 }
-							limit = {
-								is_fully_controlled_by = ROOT
-								any_neighbor_state = {
-									is_controlled_by = ROOT
-								}
-								free_building_slots = {
-									building = industrial_complex
-									size > 2
-									include_locked = yes
-								}
+					}
+
+					#Move IC
+					random_owned_controlled_state = {
+						limit = {
+							OR = { #makes it truly random
+								state = 325 #Yunnan
+								state = 603 #Guizhou
+								state = 605 #Sichuan
+								state = 747 #Dali
+								state = 748 #Zunyi
+								state = 751 #Liangshan
+								state = 752 #Ganzi
 							}
-							
-							custom_effect_tooltip = CHI_industrial_evacuations_add_IC
-							hidden_effect = {
-								add_extra_state_shared_building_slots = ic_to_move
-								add_building_construction = {
-									type = industrial_complex
-									level = ic_to_move
-									instant_build = yes
-								}
-								CONTROLLER = { set_country_flag = CHI_industrial_evacuations_moved_IC }
+							is_fully_controlled_by = ROOT
+							free_building_slots = {
+								building = industrial_complex
+								size > PREV.PREV.ic_to_move
+								include_locked = yes
 							}
 						}
-	
-						#If no states are really safe or all safe are filled
-						#Move to random controlled state
-						if = {
-							limit = {
-								NOT = { has_country_flag = CHI_industrial_evacuations_moved_IC }
-								NOT = {
-									any_controlled_state = {
-										is_fully_controlled_by = ROOT
-										any_neighbor_state = {
-											is_controlled_by = ROOT
-										}
-										free_building_slots = {
-											building = industrial_complex
-											size > 2
-											include_locked = yes
-										}
-									}
-								}
-							}
-							random_owned_controlled_state = {
-								prioritize = { 605 603 748 }
-								limit = {
-									is_controlled_by = ROOT
-									free_building_slots = {
-										building = industrial_complex
-										size > 2
-										include_locked = yes
-									}
-								}
-	
-								custom_effect_tooltip = CHI_industrial_evacuations_add_IC
-								hidden_effect = {
-									add_extra_state_shared_building_slots = ic_to_move
-									add_building_construction = {
-										type = industrial_complex
-										level = ic_to_move
-										instant_build = yes
-									}
-								}
+						
+						custom_effect_tooltip = CHI_r56rp_industrial_evacuations_add_IC
+						hidden_effect = {
+							add_extra_state_shared_building_slots = PREV.PREV.ic_to_move
+							add_building_construction = {
+								type = industrial_complex
+								level = PREV.PREV.ic_to_move
+								instant_build = yes
 							}
 						}
-						clr_country_flag = CHI_industrial_evacuations_moved_IC
-					}			
-				}
+					}
+				}			
 			}
 		}
 
 		ai_will_do = {
-			factor = 1
+			factor = 50
 		}
 	}
 }
@@ -2835,12 +2831,22 @@ CHI_weapons_purchases_category = {
 
 		}
 		visible = {
-			has_completed_focus = KMT_arms_purchases_in_the_us
+			USA_can_sell_weapons_trigger = yes
 		}
 		days_remove = 60
 		cost = 25
 		ai_will_do = {
-			factor = 10000
+			factor = 10
+			modifier = {
+				has_equipment = {
+					infantry_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
 		}
 		complete_effect = {
 			USA = {
@@ -2850,7 +2856,47 @@ CHI_weapons_purchases_category = {
 		remove_effect = {
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
+				producer = USA
 				amount = 2500
+			}
+			USA = {
+				add_offsite_building = { type = industrial_complex level = -2 }
+			}
+		}
+	}
+	CHI_order_support_equipment_in_USA = {
+		icon = generic_prepare_civil_war
+		available = {
+
+		}
+		visible = {
+			USA_can_sell_weapons_trigger = yes
+		}
+		days_remove = 60
+		cost = 25
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				has_equipment = {
+					support_equipment < 1
+				}
+				factor = 50
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
+		}
+		complete_effect = {
+			USA = {
+				add_offsite_building = { type = industrial_complex level = 2 }
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				producer = USA
+				amount = 75
 			}
 			USA = {
 				add_offsite_building = { type = industrial_complex level = -2 }
@@ -2863,17 +2909,17 @@ CHI_weapons_purchases_category = {
 
 		}
 		visible = {
-			has_completed_focus = KMT_arms_purchases_in_the_us
+			USA_can_sell_weapons_trigger = yes
 		}
 		days_remove = 60
 		cost = 25
 		ai_will_do = {
-			base = 0
+			factor = 5
 			modifier = {
 				has_equipment = {
 					artillery_equipment < 1
 				}
-				add = 50
+				factor = 50
 			}
 			modifier = {
 				has_manpower < 10000
@@ -2888,22 +2934,33 @@ CHI_weapons_purchases_category = {
 		remove_effect = {
 			add_equipment_to_stockpile = {
 				type = artillery_equipment
-				amount = 75
+				producer = USA
+				amount = 100
 			}
 			USA = {
-				add_offsite_building = { type = industrial_complex level = 2 }
+				add_offsite_building = { type = industrial_complex level = -2 }
 			}
 		}
 	}
 	CHI_order_tanks_in_USA = {
-		icon = generic_air
+		icon = generic_tank
 		visible = {
-			has_completed_focus = KMT_arms_purchases_in_the_us
+			USA_can_sell_weapons_trigger = yes
 		}
 		days_remove = 60
 		cost = 50
 		ai_will_do = {
-			base = 0
+			factor = 1
+			modifier = {
+				has_equipment = {
+					light_tank_chassis < 10
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
 		}
 		modifier = {
 		}
@@ -2930,6 +2987,7 @@ CHI_weapons_purchases_category = {
 				}
 				add_equipment_to_stockpile = {
 					type = light_tank_chassis
+					producer = USA
 					amount = 50
 				}
 			}
@@ -2946,6 +3004,7 @@ CHI_weapons_purchases_category = {
 				}
 				add_equipment_to_stockpile = {
 					type = medium_tank_chassis
+					producer = USA
 					amount = 50
 				}
 			}
@@ -2960,12 +3019,22 @@ CHI_weapons_purchases_category = {
 
 		}
 		visible = {
-			has_completed_focus = KMT_arms_purchases_in_the_us
+			USA_can_sell_weapons_trigger = yes
 		}
 		days_remove = 60
 		cost = 50
 		ai_will_do = {
-			factor = 0
+			factor = 1
+			modifier = {
+				has_equipment = {
+					fighter_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
 		}
 		modifier = {
 		}
@@ -2976,7 +3045,8 @@ CHI_weapons_purchases_category = {
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
-				type = fighter_equipment
+				type = small_plane_airframe
+				producer = USA
 				amount = 50
 			}
 			USA = {
@@ -2990,12 +3060,22 @@ CHI_weapons_purchases_category = {
 
 		}
 		visible = {
-			has_completed_focus = KMT_arms_purchases_in_the_us
+			USA_can_sell_weapons_trigger = yes
 		}
 		days_remove = 60
 		cost = 50
 		ai_will_do = {
-			factor = 0
+			factor = 1
+			modifier = {
+				has_equipment = {
+					tac_bomber_equipment < 1
+				}
+				factor = 5
+			}
+			modifier = {
+				has_manpower < 10000
+				factor = 0 #need to up conscription laws
+			}
 		}
 		modifier = {
 
@@ -3007,7 +3087,8 @@ CHI_weapons_purchases_category = {
 		}
 		remove_effect = {
 			add_equipment_to_stockpile = {
-				type = tac_bomber_equipment
+				type = medium_plane_airframe
+				producer = USA
 				amount = 25
 			}
 			USA = {

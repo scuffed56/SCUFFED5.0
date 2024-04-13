@@ -14,7 +14,6 @@ add_namespace = lar_portugal_royal_iberian_alliance
 add_namespace = lar_portugal_overseas_provinces
 
 
-
 country_event = {
 	id = lar_portugal_industrial.1
 	title = "Portugal Industrial Focus"
@@ -93,7 +92,6 @@ country_event = {
 	}
 
 }
-
 
 ######## IBERIAN SUMMIT ########
 # Iberian summit - country suggests joining axis
@@ -1820,6 +1818,17 @@ country_event = {
 				target = ROOT
 				transfer_troops = yes
 			}
+			IF = {
+				limit = {
+					check_variable = {
+						r56rp_rules_fp_controlled < 4
+					}
+				}
+				custom_effect_tooltip = r56rp_rules_fp_set_4.tt
+				set_variable = { r56rp_rules_fp_controlled = 4 }
+				set_variable = { r56rp_rules_normalwargoaldeclaration =  60789.984 }
+				set_variable = { r56rp_rules_focuswargoaldeclaration = 60785.64 }
+			}
 			hidden_effect = {
 				set_cosmetic_tag = KPB_kingdom_portugal_and_brazil	
 			}
@@ -1900,7 +1909,7 @@ country_event = {
 					ideology = fascism
 					size = POR_bra_monarchist_cw_opposition
 					capital = 501
-					states = { 495 497 498 499 280 502 503 504 505 }
+					states = { 495 497 1001 1000 498 499 280 502 503 504 505 1002 }
 				}
 				random_country = {
 					limit = {
@@ -1959,7 +1968,7 @@ country_event = {
 					ideology = neutrality
 					size = POR_bra_monarchist_cw_opposition
 					capital = 501
-					states = { 495 497 280 502 503 504 505 }
+					states = { 495 497 1001 1000 280 502 503 504 505 1002 }
 				}
 				if = {
 					limit = {
@@ -2109,7 +2118,6 @@ country_event = {
 				set_cosmetic_tag = EOB_empire_brazil_neutrality
 				create_country_leader = {
 					name = "Prince Pedro Henrique"
-					desc = "POLITICS_PRINCE_PEDRO_HENRIQUE_DESC"
 					picture = "gfx/leaders/BRA/portrait_bra_prince_pedro_hernique_de_orleans_e_braganza.dds"
 					expire = "1981.07.05"
 					ideology = despotism
@@ -2149,7 +2157,6 @@ country_event = {
 		set_cosmetic_tag = EOB_empire_brazil_neutrality
 		create_country_leader = {
 			name = "Prince Pedro Henrique"
-			desc = "POLITICS_PRINCE_PEDRO_HENRIQUE_DESC"
 			picture = "gfx/leaders/BRA/portrait_bra_prince_pedro_hernique_de_orleans_e_braganza.dds"
 			expire = "1981.07.05"
 			ideology = despotism
@@ -2166,7 +2173,6 @@ country_event = {
 		}
 		create_country_leader = {
 			name = "Plínio Salgado"
-			desc = "POLITICS_PLINIO_SALGADO_DESC"
 			picture = "Portrait_Brazil_Plinio_Salgado.dds"
 			expire = "1965.1.1"
 			ideology = fascism_ideology
@@ -2470,17 +2476,17 @@ country_event = {
 	immediate = {
 		hidden_effect = {
 			if = {
-				limit = { has_idea = POR_colonial_assimilation_policy }
-				swap_ideas = {
-					remove_idea = POR_colonial_assimilation_policy
-	    			add_idea = POR_colonial_assimilation_policy_2
-				}
-			}
-			else_if = {
 				limit = { has_idea = POR_colonial_assimilation_policy_2 }
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy_2
 	    			add_idea = POR_colonial_assimilation_policy_3
+				}
+			}
+			if = {
+				limit = { has_idea = POR_colonial_assimilation_policy } 
+				swap_ideas = {
+					remove_idea = POR_colonial_assimilation_policy
+	    			add_idea = POR_colonial_assimilation_policy_2
 				}
 			}
 		}
@@ -2489,8 +2495,12 @@ country_event = {
 	option = {
 		name = lar_portugal_overseas_provinces.1.a
 		add_stability = 0.05
-		add_state_core = 540
-		add_state_core = 796
+		every_state = {
+			limit = {
+				is_core_of = ANG
+			}
+			add_core_of = ROOT
+		}
 		effect_tooltip = {
 			if = { #Check for the idea added through immediate effect in order to show appropriate tt
 				limit = { has_idea = POR_colonial_assimilation_policy_2 }
@@ -2522,17 +2532,17 @@ country_event = {
 	immediate = {
 		hidden_effect = {
 			if = {
-				limit = { has_idea = POR_colonial_assimilation_policy } 
-				swap_ideas = {
-					remove_idea = POR_colonial_assimilation_policy
-	    			add_idea = POR_colonial_assimilation_policy_2
-				}
-			}
-			else_if = {
 				limit = { has_idea = POR_colonial_assimilation_policy_2 }
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy_2
 	    			add_idea = POR_colonial_assimilation_policy_3
+				}
+			}
+			if = {
+				limit = { has_idea = POR_colonial_assimilation_policy } 
+				swap_ideas = {
+					remove_idea = POR_colonial_assimilation_policy
+	    			add_idea = POR_colonial_assimilation_policy_2
 				}
 			}
 		}
@@ -2541,7 +2551,12 @@ country_event = {
 	option = {
 		name = lar_portugal_overseas_provinces.2.a
 		add_stability = 0.05
-		add_state_core = 544
+		every_state = {		#easier and less troublesome than generic
+			limit = {
+				is_core_of = MZB
+			}
+			add_core_of = ROOT
+		}
 		effect_tooltip = {
 			if = { #Check for the idea added through immediate effect in order to show appropriate tt
 				limit = { has_idea = POR_colonial_assimilation_policy_2 }

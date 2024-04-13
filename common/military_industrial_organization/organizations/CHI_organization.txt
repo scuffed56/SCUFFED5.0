@@ -14,19 +14,26 @@ CHI_sino_german_technical_mission_organization = {
 	allowed = {	
 		OR = {
 			is_literally_china = yes
-			tag = MAN
-			tag = MEN
-		} 
+			#tag = MAN
+			#tag = MEN
+			
+		}
+		NOT = {
+			tag = PRC
+		}
 		has_dlc = "Waking the Tiger"
 	}
 	available = {
 		owner = {
-			OR = {
-				has_completed_focus = CHI_chinese_panzers
-				has_idea = german_advisors
-			}
+			#OR = {
+			#	has_completed_focus = CHI_chinese_panzers
+			#	has_idea = german_advisors
+			#}
 			NOT = {
 				has_war_with = GER
+				GER = {
+					has_country_flag = r56rp_GER_befriended_japan
+				}
 			}
 		}
 	}
@@ -44,29 +51,40 @@ CHI_sino_german_technical_mission_organization = {
 
 CHI_jiangnan_shipyard_group_organization = {
 	include = generic_task_force_ship_organization
-	icon = GFX_idea_generic_naval_manufacturer_3
+	icon = GFX_idea_CHI_r56rp_jiangnan_shipyard
 	allowed = {	
 		OR = {
 			is_literally_china = yes
 			tag = MAN
 			tag = MEN
-		} 
+		}
+		NOT = {
+			tag = PRC
+		}
 		has_dlc = "Waking the Tiger"
 	}
 	available = {
-		owner = { controls_state = 613 }
+		owner = { 
+			OR = {
+				controls_state = 613
+				has_completed_focus = KMT_revive_jiangnan_shipyard
+			} 
+		}
 	}
 }
 
 CHI_dagu_shipyard_organization = {
 	include = generic_raider_ship_organization
-	icon = GFX_idea_generic_naval_manufacturer_3
+	icon = GFX_idea_CHI_r56rp_dagu_shipyard
 	allowed = {	
 		OR = {
 			is_literally_china = yes
 			tag = MAN
 			tag = MEN
-		} 
+		}
+		NOT = {
+			tag = PRC
+		}
 		has_dlc = "Waking the Tiger"
 	}
 	available = {
@@ -90,6 +108,9 @@ CHI_camco_organization = {
 	allowed = {	
 		tag = CHI
 		NOT = { has_dlc = "Waking the Tiger" }
+		NOT = {
+			tag = PRC
+		}
 	}
 }
 CHI_camco_medium_organization = {
@@ -98,14 +119,18 @@ CHI_camco_medium_organization = {
 	allowed = {	
 		OR = {
 			is_literally_china = yes
-			tag = MAN
-			tag = MEN
-		} 
+			#tag = MAN #fuck no, manchuria already has MAMC
+			#tag = MEN
+			
+		}
+		NOT = {
+			tag = PRC
+		}
 		has_dlc = "Waking the Tiger"
 	}
-	available = {
-		owner = { has_completed_focus = CHI_camco }
-	}
+	#available = {
+	#	owner = { has_completed_focus = CHI_camco }
+	#}
 }
 CHI_camco_fighter_organization = {
 	include = generic_light_aircraft_organization
@@ -113,14 +138,17 @@ CHI_camco_fighter_organization = {
 	allowed = {	
 		OR = {
 			is_literally_china = yes
-			tag = MAN
-			tag = MEN
-		} 
+			#tag = MAN #fuck no, manchuria already has MAMC
+			#tag = MEN
+		}
+		NOT = {
+			tag = PRC
+		}
 		has_dlc = "Waking the Tiger"
 	}
-	available = {
-		owner = { has_completed_focus = CHI_local_fighter_production }
-	}
+	#available = { # not a thing in r56.
+	#	owner = { has_completed_focus = CHI_local_fighter_production }
+	#}
 }
 CHI_camco_bomber_organization = {
 	include = generic_cas_aircraft_organization
@@ -128,14 +156,17 @@ CHI_camco_bomber_organization = {
 	allowed = {	
 		OR = {
 			is_literally_china = yes
-			tag = MAN
-			tag = MEN
+			#tag = MAN #fuck no, manchuria already has MAMC
+			#tag = MEN
 		} 
+		NOT = {
+			tag = PRC
+		}
 		has_dlc = "Waking the Tiger"
 	}
-	available = {
-		owner = { has_completed_focus = CHI_local_bomber_production }
-	}
+	#available = {
+	#	owner = { has_completed_focus = CHI_local_bomber_production }
+	#}
 }
 
 ################################### 
@@ -151,7 +182,7 @@ CHI_camco_bomber_organization = {
 
 CHI_taiyuan_arsenal_organization = {
 	include = generic_artillery_organization
-	icon = GFX_idea_generic_artillery_manufacturer_1
+	icon = GFX_idea_CHI_r56rp_taiyuan_arsenal
 	allowed = {	
 		OR = {
 			is_literally_china = yes
@@ -161,12 +192,18 @@ CHI_taiyuan_arsenal_organization = {
 		has_dlc = "Waking the Tiger"
 	}
 	available = {
-		owner = { controls_state = 615 }
+		owner = {
+			OR = {
+				controls_state = 615
+				has_completed_focus = KMT_the_big_rear_concept
+				has_completed_focus = PRC_expand_taiyuan_arsenal
+			}
+		}
 	}
 }
-CHI_liaoning_arsenal_organization = {
+CHI_liaoning_arsenal_organization = { #im fully convinvced this thing never existed. Renamed to dowa
 	include = generic_motorized_mechanized_organization
-	icon = GFX_idea_generic_motorized_equipment_manufacturer_1
+	icon = GFX_idea_CHI_r56rp_dowa_automotive
 	allowed = {	
 		OR = {
 			is_literally_china = yes
@@ -176,12 +213,12 @@ CHI_liaoning_arsenal_organization = {
 		has_dlc = "Waking the Tiger"
 	}
 	available = {
-		owner = { controls_state = 715 }
+		owner = { controls_state = 716 }
 	}
 }
 CHI_hanyan_arsenal_organization = {
 	include = generic_infantry_equipment_organization
-	icon = GFX_idea_generic_infantry_equipment_manufacturer_1
+	icon = GFX_idea_CHI_r56rp_hanyang_arsenal
 	allowed = {	
 		OR = {
 			is_literally_china = yes
@@ -190,25 +227,37 @@ CHI_hanyan_arsenal_organization = {
 		} 
 		has_dlc = "Waking the Tiger"
 	}
-	ai_will_do = {
-		factor = 100000
+	available = {
+		owner = {
+			OR = {
+				controls_state = 620
+				has_completed_focus = KMT_revive_hanyang_armory
+			}
+		}
 	}
-	add_trait = {
-		token = china_mio_trait_mass_rifle_production
-		name = "Chinese Rifle Technology"
-		icon = GFX_generic_mio_department_icon_facilities
+	add_trait = { 
+		token = CHI_mio_cheaper_guns
+		name = CHI_mio_cheaper_guns
+		icon = GFX_generic_mio_department_icon_infantry_materials
 		special_trait_background = yes
 
 		position = { x=0 y=0 }
+		
+		available = {
+			owner = {
+				has_completed_focus = KMT_revive_hanyang_armory
+			}
+		}
 
-		production_bonus = {
-			production_cost_factor = -0.15
+		equipment_bonus = {
+			build_cost_ic = -0.15
+			reliability = -0.05
 		}
 	}
 }
 CHI_mukden_arsenal_organization = {
 	include = generic_infantry_equipment_organization
-	icon = GFX_idea_generic_infantry_equipment_manufacturer_2
+	icon = GFX_idea_CHI_r56rp_mukden_arsenal
 	allowed = {	
 		OR = {
 			is_literally_china = yes

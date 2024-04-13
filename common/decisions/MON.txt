@@ -475,7 +475,7 @@ MON_strengthen_mongolbank_category  = {
 		}
 
 		modifier = {
-			consumer_goods_factor = 0.05
+			consumer_goods_factor = 0.1
 		}
 
 		remove_effect = {
@@ -792,7 +792,7 @@ MON_1935_state_visit_to_moscow_category = {
 			command_power > 25
 		}
 		available = { 
-			is_in_faction_with = SOV
+
 			has_completed_focus = MON_assists_deviants_struggle
 		}
 
@@ -1053,7 +1053,6 @@ MON_1935_state_visit_to_moscow_category = {
 		
 		available = {
 			has_completed_focus = MON_return_of_prodigal_son
-			has_country_flag = MON_genden_rescue_route_kiev
 		}
 		on_map_mode = map_only
 
@@ -4650,7 +4649,7 @@ MON_on_the_crossroads_of_the_world_category = {
 
 		modifier = {
 			political_power_gain = -0.01
-			consumer_goods_factor = 0.03
+			consumer_goods_factor = 0.06
 			weekly_manpower = 500
 		}
 
@@ -5057,6 +5056,22 @@ MON_raids_operations_category = {
 					has_state_flag = border_incident_active
 				}
 			}
+			modifier = {	#we are losing the war or having some internal issues
+				factor = 0	
+				OR = {
+					surrender_progress > 0.01
+					has_civil_war = yes
+				}
+			}
+			modifier = {	#they are way too strong, better not provoke them
+				factor = 0
+				OR = {
+					FROM = {
+						has_army_manpower = { size > 700000 }		#arbitrary number here
+					}
+					strength_ratio = { tag = FROM ratio < 0.08 }	#with 6 starting divisions, shall be around 75 for FROM, starting CHI is slightly smaller
+				}
+			}
 			modifier = {	#we don't like fascists and imperialists
 				factor = 10
 				has_government = communism
@@ -5384,6 +5399,22 @@ MON_raids_operations_category = {
 					}
 					has_government = neutrality
 					has_government = democratic
+				}
+			}
+			modifier = {	#we are losing the war or having some internal issues
+				factor = 0	
+				OR = {
+					surrender_progress > 0.01
+					has_civil_war = yes
+				}
+			}
+			modifier = {	#they are way too strong, better not provoke them
+				factor = 0
+				OR = {
+					FROM = {
+						has_army_manpower = { size > 700000 }		#arbitrary number here
+					}
+					strength_ratio = { tag = FROM ratio < 0.08 }	#with 6 starting divisions, shall be around 75 for FROM, starting CHI is slightly smaller
 				}
 			}
 		}
@@ -7197,7 +7228,7 @@ MON_greater_mongolia = {
 			hidden_effect = {
 				news_event = { id = mongol_greater_mongolia.50 hours = 6 }
 				set_global_flag = form_greater_mongolia_flag
-			}		
+			}				
 		}
 
 		ai_will_do = {

@@ -1,3 +1,7 @@
+#####################################################################
+### DO NOT CHANGE FILE NAME, THIS IS AN OVERRIDE TO R56 / VANILLA ###
+#####################################################################
+
 characters={
 	#tungans
 	#Ma Hushan 36th division
@@ -23,8 +27,11 @@ characters={
 		advisor={
 			slot = army_chief
 			idea_token = XSM_ma_bufang
-			allowed = {
-				original_tag = XSM
+			#allowed = {
+			#	original_tag = XSM
+			#}
+			available = {
+				not_already_hired_except_as = army_chief
 			}
 			traits = {
 				army_chief_morale_2
@@ -33,9 +40,64 @@ characters={
 			ai_will_do = {
 				factor = 1.000
 			}
-		}		
+		}
+		field_marshal = {
+			traits = { cavalry_officer trait_cautious }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 4
+			planning_skill = 1
+			logistics_skill = 2
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = XSM_ma_bufang_advisor
+			#allowed = {
+			#	original_tag = XSM
+			#}
+			available = {
+				is_country_leader = no
+				not_already_hired_except_as = political_advisor
+			}
+			visible = {
+			}  
+            on_add = {
+				if = {
+					limit = {
+						owner = {
+							tag = CHI
+						}
+					}
+					owner = {
+						add_stability = -0.05
+					}
+					
+				}
+            }
+            on_remove = {
+				if = {
+					limit = {
+						owner = {
+							tag = CHI
+						}
+					}
+					owner = {
+						add_stability = 0.05
+					}
+				}
+            }
+			cost = 125
+			
+			ai_will_do = {
+				factor = 1
+			}
+	
+			traits = { 
+				authoritarian_centralizer
+			}
+		}
 		country_leader={
-			ideology=despotism
+			ideology=oligarchism # Was run by a group of families - seems like a reasonable change
 			expire="1965.1.1"
 			traits = {
 				authoritarian_centralizer
@@ -43,6 +105,8 @@ characters={
 			id=-1
 		}
 	}
+		
+
 	#Ma Buluan general relative of Bufang
 	#Ma Buqing younger brother of ma bufang
 	#Ma Yuanxiang commander under  Ma Biao who himself was under ma bufang
@@ -202,7 +266,7 @@ characters={
 			}
 			cost = 100
 			ai_will_do = {
-				factor = 1000
+				factor = 1.000
 			}
 		}		
 	}
@@ -225,7 +289,7 @@ characters={
 			}
 				cost = 100
 			ai_will_do = {
-				factor = 999999
+				factor = 1.000
 			}
 		}
 
@@ -390,7 +454,7 @@ characters={
 
 	### NAVY CHIEFS ###
 	XSM_navy_chief={
-		name="Admiral in Chief"
+		#name="Admiral in Chief" #randomly generated with this commented out.
 			portraits={
 			army={
 				small="GFX_idea_generic_navy_asia_1"
@@ -411,8 +475,8 @@ characters={
 			}
 		}
 	}	
-	XSM_air_chief={#random?
-		name="Chief of the Air Force"
+	XSM_air_chief={
+		#name="Chief of the Air Force" #randomly generated with this commented out.
 		portraits={
 			army={
 				small="GFX_idea_generic_air_asia_1"

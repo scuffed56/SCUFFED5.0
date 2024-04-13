@@ -13,8 +13,8 @@ focus_tree = {
     shared_focus = ABC_establish_a_general_staff	
     shared_focus = GEN_Aviation_Effort
     shared_focus = GEN_Naval_Effort
-    shared_focus = GEN_Industrial_Start
-    shared_focus = GEN_Industrial_Boom
+    shared_focus = GEN_begin_industrial_buildup
+    shared_focus = GEN_industrial_boom
     shared_focus = AFR_african_unification
     focus = {
         id = MLI_the_sudan_of_west_africa
@@ -486,14 +486,6 @@ focus_tree = {
 			has_government = communism
         }
     
-        bypass = {
-    
-        }
-    
-        cancel_if_invalid = yes
-        continue_if_invalid = no
-        available_if_capitulated = no
-    
         search_filters = { FOCUS_FILTER_MANPOWER }
         completion_reward = {
             division_template = { 
@@ -534,6 +526,10 @@ focus_tree = {
                     division = "name = \"3. Red Riflemen\" division_template = \"Red Riflemen\" start_experience_factor = 0.5" 
                     owner = ROOT
                 }
+				create_unit = { 
+					division = "name = \"4. Red Riflemen\" division_template = \"Red Riflemen\" start_experience_factor = 0.5" 
+					owner = ROOT
+				}				
             #    create_unit = { 
             #        division = "name = \"4. Red Riflemen\" division_template = \"Red Riflemen\" start_experience_factor = 0.5" 
             #        owner = ROOT
@@ -577,8 +573,14 @@ focus_tree = {
 				create_intelligence_agency = yes
 				add_ideas = GER_abwehr_contacts
 			}
-			else = {
+			else_if = {
+				limit = {
+					NOT = {	
+						has_dlc = "La Resistance"
+					}			
+				}
 				add_tech_bonus = {
+					name = MLI_revolutionary_guards
 					bonus = 1
 					uses = 1
 					category = encryption_tech
@@ -591,13 +593,7 @@ focus_tree = {
 				category = military_police_tech
 			}	
 			remove_ideas = MLI_azawad_divide
-			add_political_power = -50
-			capital_scope = {
-				create_unit = { 
-					division = "name = \"4. Red Riflemen\" division_template = \"Red Riflemen\" start_experience_factor = 0.5" 
-					owner = ROOT
-				}
-			}										
+			add_political_power = -50									
 		}
 	}	
 	focus = {
@@ -1012,14 +1008,6 @@ focus_tree = {
 			has_government = communism
         }
     
-        bypass = {
-    
-        }
-    
-        cancel_if_invalid = yes
-        continue_if_invalid = no
-        available_if_capitulated = no
-    
         search_filters = { FOCUS_FILTER_MANPOWER }
         completion_reward = {
 			add_ideas = GEN_red_army
@@ -1030,16 +1018,17 @@ focus_tree = {
 		icon = GFX_goal_generic_peasant_army
 		prerequisite = { focus = MLI_revolutionary_guards }
 		mutually_exclusive = { focus = MLI_join_the_comintern }
-		available = { has_government = communism is_subject = no }
+		available = {  
+			is_subject = no
+			is_in_faction = no
+			has_government = communism
+		}
 		relative_position_id = MLI_revolutionary_guards
 		x = -4
 		y = 1
 		cost = 5
 		ai_will_do = {
 			factor = 15 #if we commie rush this
-		}
-		available = {
-			is_in_faction = no
 		}
 		completion_reward = {
 			if = {
@@ -1337,14 +1326,6 @@ focus_tree = {
             has_government = communism
             num_of_factories > 5
         }
-    
-        bypass = {
-    
-        }
-    
-        cancel_if_invalid = yes
-        continue_if_invalid = no
-        available_if_capitulated = no
     
         search_filters = { FOCUS_FILTER_INDUSTRY }
         completion_reward = {
@@ -1658,6 +1639,7 @@ focus_tree = {
 			}
 			else = {
 				add_tech_bonus = {
+					name = MLI_secret_police
 					bonus = 1
 					uses = 2
 					category = encryption_tech
@@ -1759,7 +1741,10 @@ focus_tree = {
 		cost = 10
 
 		available_if_capitulated = yes
-
+		
+		available = {
+			has_war = no # useless while at war.
+		}
 
 		ai_will_do = {
 			factor = 1
@@ -1949,39 +1934,39 @@ focus_tree = {
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
 			create_faction = "West African Defense Treaty"
-#			every_country = {
-#				limit = {
-#					OR = {
-#						original_tag = NGR
-#						original_tag = NGA
-#						original_tag = VOL
-#						original_tag = DAH
-#						original_tag = SEN
-#						original_tag = GAM
-#						original_tag = GNB
-#						original_tag = GNA
-#						original_tag = SIE
-#						original_tag = LIB
-#						original_tag = IVO
-#						original_tag = GHA
-#						original_tag = TOG
-#					}
-#					NOT = { is_in_faction = yes }
-#					OR = {
-#						has_government = neutrality
-#						has_government = democratic
-#					}
-#					has_opinion = {
-#						target = ROOT
-#						value > 4
-#
-#					}
-#					NOT = {
-#						has_war_with = ROOT
-#					}
-#				}
-#				country_event = { id = generic.5 hours = 24 }
-#			}			
+			every_country = {
+				limit = {
+					OR = {
+						original_tag = NGR
+						original_tag = NGA
+						original_tag = VOL
+						original_tag = DAH
+						original_tag = SEN
+						original_tag = GAM
+						original_tag = GNB
+						original_tag = GNA
+						original_tag = SIE
+						original_tag = LIB
+						original_tag = IVO
+						original_tag = GHA
+						original_tag = TOG
+					}
+					NOT = { is_in_faction = yes }
+					OR = {
+						has_government = neutrality
+						has_government = democratic
+					}
+					has_opinion = {
+						target = ROOT
+						value > 4
+
+					}
+					NOT = {
+						has_war_with = ROOT
+					}
+				}
+				country_event = { id = generic.5 hours = 24 }
+			}			
 		}
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 	}
@@ -2085,11 +2070,17 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		ai_will_do = {
-			base = 0
+			factor = 10
+			
 		}
-		
 
 		available = {
+			NOT = {
+				NGA = {
+					has_completed_focus = NGA_propose_a_west_african_federation
+				}
+			}
+
 			has_capitulated = no
 			any_country = {
 				

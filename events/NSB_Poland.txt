@@ -633,11 +633,9 @@ country_event = {
 				factor = 0.5
 				any_controlled_state = {
 					NOT = {
-						OR = {
-							state = 543
-							state = 708
-							state = 706
-						}
+						state = 543
+						state = 708
+						state = 706
 					}
 				}
 			}
@@ -856,6 +854,22 @@ country_event = {
 				limit = {
 					event_target:POL_colony_purchase = {
 						state = 454
+					}
+				}
+				remove_decision_on_cooldown = POL_purchase_cheap_colony
+			}
+			if = {
+				limit = {
+					event_target:POL_colony_purchase = {
+						state = 1016
+					}
+				}
+				remove_decision_on_cooldown = POL_purchase_cheap_colony
+			}
+			if = {
+				limit = {
+					event_target:POL_colony_purchase = {
+						state = 1017
 					}
 				}
 				remove_decision_on_cooldown = POL_purchase_cheap_colony
@@ -1079,28 +1093,7 @@ country_event = {
 	desc = NSB_poland_events.8.d
 	picture = GFX_report_event_royal_parade
 
-	trigger = {
-		tag = POL
-		has_country_leader  = {
-			character = POL_anna_andersson
-			ruling_only  = yes
-		}
-		has_country_flag = POL_vojtek_commander
-		NOT = { is_in_faction_with = SOV }
-		219 = {
-			controller = {
-				OR = {
-					tag = POL
-					is_in_faction_with = POL
-				}
-			}
-		}
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
+	is_triggered_only = yes
 	fire_only_once = yes
 
 	option = {
@@ -1131,21 +1124,24 @@ country_event = {
 	
 	option = {
 		name = NSB_poland_royal_election.1.a
+		trigger = {
+			SAX = {
+				exists = no
+			}
+		}
 		ai_chance = {
 			base = 10
 			modifier = {
 				factor = 0
 				NOT = {
-					OR = {
-						has_country_flag = POL_AI_RANDOM_COMMONWEALTH
-						has_game_rule = {
-							rule = POL_ai_behavior
-							option = COMMONWEALTH
-						}
-						has_game_rule = {
-							rule = POL_ai_behavior
-							option = DEFAULT
-						}
+					has_country_flag = POL_AI_RANDOM_COMMONWEALTH
+					has_game_rule = {
+						rule = POL_ai_behavior
+						option = COMMONWEALTH
+					}
+					has_game_rule = {
+						rule = POL_ai_behavior
+						option = DEFAULT
 					}
 				}
 			}
@@ -1209,16 +1205,14 @@ country_event = {
 			modifier = {
 				factor = 0
 				NOT = {
-					OR = {
-						has_country_flag = POL_AI_RANDOM_ROMANIA
-						has_game_rule = {
-							rule = POL_ai_behavior
-							option = ROMANIA
-						}
-						has_game_rule = {
-							rule = POL_ai_behavior
-							option = DEFAULT
-						}
+					has_country_flag = POL_AI_RANDOM_ROMANIA
+					has_game_rule = {
+						rule = POL_ai_behavior
+						option = ROMANIA
+					}
+					has_game_rule = {
+						rule = POL_ai_behavior
+						option = DEFAULT
 					}
 				}
 			}
@@ -1300,16 +1294,14 @@ country_event = {
 			modifier = {
 				factor = 0
 				NOT = {
-					OR = {
-						has_country_flag = POL_AI_RANDOM_BERMONDT
-						has_game_rule = {
-							rule = POL_ai_behavior
-							option = BERMONDT
-						}
-						has_game_rule = {
-							rule = POL_ai_behavior
-							option = DEFAULT
-						}
+					has_country_flag = POL_AI_RANDOM_BERMONDT
+					has_game_rule = {
+						rule = POL_ai_behavior
+						option = BERMONDT
+					}
+					has_game_rule = {
+						rule = POL_ai_behavior
+						option = DEFAULT
 					}
 				}
 			}
@@ -1400,7 +1392,7 @@ country_event = {
 			}
 		}
 		load_focus_tree = {
-			 tree = polish_focus
+			tree = polish_focus
 			keep_completed = yes
 		}
 		mark_focus_tree_layout_dirty = yes
@@ -1657,8 +1649,7 @@ country_event = {
 					add_country_leader_role = {
 						
 						country_leader = {
-							ideology=despotism
-							traits = {  } # Patriot king doesn't fit when king of Bohemia. 
+							ideology=despotism # Patriot king doesn't fit when king of Bohemia. 
 							expire="1965.1.1"
 							id=-1
 						}
@@ -1938,6 +1929,7 @@ country_event = {
 			target = RUT
 		}
 		add_political_power = -75
+		set_country_flag = poland_pressured_carpatho_ukraine_flag
 	}	
 	option = { #get them
 		name = NSB_poland_monarchist_events.7.d
@@ -1989,9 +1981,6 @@ country_event = {
 
 	option = { #Ruthenian puppet, huzzah
 		name = NSB_poland_monarchist_events.9.a
-		ai_chance = {
-			base = 30
-		}	
 
 	}
 }
