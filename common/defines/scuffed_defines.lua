@@ -10,6 +10,9 @@ NDefines.NDiplomacy.PEACE_SCORE_PER_PASS = 100.0
 NDefines.NDiplomacy.REVOKE_GUARANTEE_COST = 0
 NDefines.NDiplomacy.OPINION_PER_VOLUNTEER = 15
 NDefines.NDiplomacy.MAX_OPINION_FROM_VOLUNTEERS = 100
+
+
+NDefines.NPolitics.BASE_POLITICAL_POWER_INCREASE = 2.5
 ----------------------------------
 NDefines.NCountry.EVENT_PROCESS_OFFSET = 30						-- Events are checked every X day per country or state (1 is ideal, but CPU heavy)
 NDefines.NCountry.SPECIAL_FORCES_CAP_BASE = 0.2
